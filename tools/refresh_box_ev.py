@@ -473,15 +473,10 @@ def main():
     )
 
     (root / "data.json").write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n")
-    payload = "window.EV_DATA = " + json.dumps(data, ensure_ascii=False, separators=(",", ":")) + ";"
-    (root / "data.js").write_text(payload + "\n")
-
-    index = (root / "index.html").read_text()
-    start = index.find("window.EV_DATA = ")
-    end = index.find("\n<script>", start)
-    if start < 0 or end < 0:
-        raise SystemExit("index.html EV_DATA replace failed (anchors)")
-    (root / "index.html").write_text(index[:start] + payload + index[end:])
+    # External data.js only — never inline into index.html <script>
+    # (a missing </script> or literal </script> in JSON breaks EV_DATA assign).
+    js_json = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+    (root / "data.js").write_text("window.EV_DATA = " + js_json + ";\n")
 
     print("as_of", as_of)
     print("minned", stats["minned"], "pc_only", stats["pc_only"], "snkr_only", stats["snkr_only"])
