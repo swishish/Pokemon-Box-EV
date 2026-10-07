@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>日盒 EV 小算盤 v1.18.2 · JP Mega Sealed</title>
+<title>日盒 EV 小算盤 v1.18.3 · JP Mega Sealed</title>
 <style>
   :root {
     --bg: #f6f7f9;
@@ -588,8 +588,8 @@
 </head>
 <body>
 <header>
-  <h1>日盒開盒值不值？ <span class="pill" style="font-size:.72rem;vertical-align:middle">v1.18.2</span></h1>
-  <p>給朋友看的簡易 EV 小算盤 · 無登入、非即時行情 · <b>v1.18.2</b></p>
+  <h1>日盒開盒值不值？ <span class="pill" style="font-size:.72rem;vertical-align:middle">v1.18.3</span></h1>
+  <p>給朋友看的簡易 EV 小算盤 · 無登入、非即時行情 · <b>v1.18.3</b></p>
 </header>
 
 <div class="layout" id="app">
@@ -668,7 +668,7 @@
       <h2>方法論 · 四個 % 與資料來源</h2>
       <ul class="tiny">
         <li><b>100% Grade A（買入價）</b>＝ 各稀有度池 Grade A 均價 × 抽出率加總 ÷ 落地盒價（<b>無</b>稀有度 haircut）</li>
-        <li><b>Grade A（打折）</b>＝ 同上但先套稀有度<strong>折扣 %</strong>（GradeA×(1−disc)）再平均（TOC／主判斷用這個）。預設：MUR／SAR／sup_SAR <b>10%</b>；SR <b>25%</b>；AR／UR／S／ACE <b>50%</b>；MA <b>25%</b>；BWR <b>0%</b>。Sticky 為<strong>即時計算</strong>，非凍結 snapshot。</li>
+        <li><b>Grade A（打折）</b>＝ 同上但先套稀有度<strong>折扣 %</strong>（GradeA×(1−disc)）再平均（TOC／主判斷用這個）。預設：MUR／SAR／sup_SAR <b>10%</b>；SR <b>25%</b>；<b>SSR／復刻 S 20%</b>（×0.80）；AR／UR／ACE <b>50%</b>；MA <b>25%</b>；BWR <b>0%</b>。Sticky 為<strong>即時計算</strong>，非凍結 snapshot。</li>
         <li><b>A+PSA（打折）</b>＝ 可送評池（SAR／MUR／SR／sup_SAR）用 PSA10／9 掛牌＋gem 率算送評期望；<b>僅當送評期望 ＞ Grade A（打折）先送評，否則賣 raw</b>（回傳 max(raw, submitEV)）。其餘池用打折 Grade A。若該系列 grade 池中 <b>&lt;3</b> 張有 psa10+gem → 顯示「—／缺 PSA 資料」，gem／ask 無作用（不靜默等於 HC）</li>
         <li><b>A+CGC（打折）</b>＝ 結構同 PSA（僅當送評期望 ＞ Grade A（打折）先送評，否則賣 raw），CGC10 價來自 PriceCharting（USD），費用以 USD 計再換算；缺資料時同樣顯示「—」</li>
         <li><b>有膜／無膜</b>只改分母（落地盒價）；分子 EV 不變。TOC 同時顯示「Grade A（打折）÷ 有膜」與「÷ 無膜」（無 NS 落地則 無膜 —）</li>
@@ -679,7 +679,7 @@
         <li><b>Gem 折扣</b>（進階，預設 <b>20%</b>）：PSA 路徑有效 gem = 公佈 gem × (1 − 折扣)，用來模擬送評挑選偏差</li>
         <li><b>抽出率／日版保底（社群，非正式）</b>：按系列採用 floors + <b>互斥超配</b>（額外 SR <i>或</i> SAR，不加兩次）。MEGA 擴充：AR×3、道具／場地 SR×1、再加 1 格 chase（寶可夢／支援 SR 或 SAR／MUR），約 10% 為 3 枚箱。SV 擴充：AR×3 + 1 格 SR／SAR／UR（約 10% 2 枚箱）。<b>M2a</b>：AR×3 + 道具 SR×1 + MA×1，超配 poke_sr≈0.10／SAR≈0.37／MUR≈0.0175（不是 2 張寶可夢 SR 保底）。<b>SV11</b>：AR×4 + 1 格 SR／SAR／BWR（BWR≈1/20）。來源：Pokegto／pokeka-atari／axstex（各系列 <code>pity</code>／<code>rate_notes</code>）。池內仍 equal-within-pool（月亮伊布等會拉高均價）。</li>
         <li><b>SR／AR 單卡價</b>：兩邊都有就用 <b>min(PriceCharting 未評成交 USD×7.80×20.3, SNKRDUNK Grade A ¥)</b>；缺一邊就用另一邊，不虛構。例：SV8 スコヴィランex SR #120，SNKR Grade A ≈¥1000，PC ungraded ≈$2.27（≈¥360），實盤約¥400–500、SNKR 掛唔出。SAR／MUR／MA／FUR 等仍用 SNKR Grade A（大差距只標記，唔自動 min）。</li>
-        <li><b>稀有度折扣（Haircut）</b>：資料欄位 <code>defaults.haircuts</code> 存的是<strong>折扣分數</strong>（0.10＝10% off），不是舊版「保留係數 ×0.90」。套用：<code>GradeA × (1 − disc)</code>。滑桿右側顯示折扣 %（例 10%＝×0.9）。舊 Mega／SV snapshot HC 曾用 SAR 0% haircut；現預設 10% SAR，數字會低於舊 snapshot。</li>
+        <li><b>稀有度折扣（Haircut）</b>：資料欄位 <code>defaults.haircuts</code> 存的是<strong>折扣分數</strong>（0.10＝10% off），不是舊版「保留係數 ×0.90」。套用：<code>GradeA × (1 − disc)</code>。滑桿右側顯示折扣 %（例 10%＝×0.9；SSR／復刻 S 預設 20%＝×0.8）。AR／UR／ACE 仍 50%。舊 Mega／SV snapshot HC 曾用 SAR 0% haircut；現預設 10% SAR，數字會低於舊 snapshot。</li>
         <li><b>SV8a 抽出率</b>：對齊 Pokegto／社群：SAR 1.0、sup_SAR 0.1、poke_sr 0.2、UR 0.06；<b>Master Ball 鏡（約 50%/盒）與 ACE SPEC</b> 本快照省略（無 SNKR Grade A MB 價，不虛構價格）。SAR 池 equal-within-pool 均價受月亮伊布 ¥46k 拉高。</li>
         <li><b>行情來源</b>：JP 裸卡主源 → <a href="https://snkrdunk.com/" target="_blank" rel="noopener">SNKRDUNK Grade A</a>（開產品頁）；USD 成交對照 → <a href="https://www.pricecharting.com/" target="_blank" rel="noopener">PriceCharting</a> ungraded／PSA9／PSA10；CGC10 同盒價對照亦用 PC；gem 率 → PSA pop（本快照）。落地盒價分母不變（SNKR 3–4 盒單價×1.035＋運費）。</li>
       </ul>
@@ -710,13 +710,13 @@
 <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="放大圖">
   <img id="lightboxImg" alt="" />
 </div>
-<footer>日盒 EV 小算盤 <b>v1.18.2</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期</footer>
+<footer>日盒 EV 小算盤 <b>v1.18.3</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期</footer>
 
-<script src="./data.js?v=1.18.2"></script>
+<script src="./data.js?v=1.18.3"></script>
 <script>
 (async function () {
   // Keep in sync with the data.js?v= query above.
-  const VERSION = '1.18.2';
+  const VERSION = '1.18.3';
   async function loadJson(rel) {
     const url = new URL(rel, document.baseURI || window.location.href);
     url.searchParams.set('v', VERSION);

@@ -13,12 +13,12 @@
       "sup_SAR": 0.1,
       "poke_sr": 0.25,
       "goods_sr": 0.25,
-      "SSR": 0.25,
+      "SSR": 0.2,
       "AR": 0.5,
       "UR": 0.5,
       "MA": 0.25,
       "BWR": 0.0,
-      "S": 0.5,
+      "S": 0.2,
       "ACE": 0.5,
       "FUR": 0.1
     },
@@ -39,7 +39,7 @@
   "notes": {
     "denominator": "landed_yen = unit_yen×1.035 + (HK$173/4)×20.3",
     "tax": "未含稅/關稅",
-    "method_hc": "Rarity haircuts are DISCOUNT fractions (not keep factors). Apply GradeA×(1−disc) before pool avg. Defaults: MUR/SAR/sup_SAR/FUR 10%; SR(poke/goods)/SSR 25%; AR/UR/S/ACE 50%; MA 25%; BWR 0%. UI sliders show discount % (同 Gem／Ask 折扣). Sticky metrics are live-calc, not frozen snapshot.",
+    "method_hc": "Rarity haircuts are DISCOUNT fractions (not keep factors). Apply GradeA×(1−disc) before pool avg. Defaults: MUR/SAR/sup_SAR/FUR 10%; SR(poke/goods) 25%; SSR and S (復刻) 20% (×0.80); AR/UR/ACE 50%; MA 25%; BWR 0%. UI sliders show discount % (同 Gem／Ask 折扣). Sticky metrics are live-calc, not frozen snapshot.",
     "method_psa": "Grade SAR/MUR/SR (poke_sr/goods_sr/sup_SAR) when ≥3 grade-pool cards have psa10_ask+gem_rate; else sticky A+PSA/A+CGC show — (缺資料), gem/ask 無作用. When data exists: gem_eff=gem×(1−gemDisc); ask_eff=PSA10×(1−askDisc); gem_eff×(ask_eff−fee)+(1−gem_eff)×fallback; fallback=max(0,PSA9×(1−askDisc)−fee) else HC raw no fee. Fee=US$60×fx. Defaults gemDisc 20% askDisc 10% (= old askMult 0.9). AR/MA/UR/BWR/ACE/S/SSR/FUR stay HC raw (FUR haircut 10%).",
     "sv_hot_ar": "SV11B/W AR Grade A filled 2026-10-07; EV includes AR×4×0.50. Live haircut defaults now SAR 10% / BWR 0% (batch notes previously used SAR×1.0).",
     "sv_batch3": "SV4a/SV3/SV7a/SV1a/SV1S Grade-A EV filled 2026-10-07; live haircut defaults SAR 10% (batch notes previously SAR×1.0).",
