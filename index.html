@@ -3,7 +3,10 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>日盒 EV 小算盤 v1.18.1 · JP Mega Sealed</title>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<title>日盒 EV 小算盤 v1.18.2 · JP Mega Sealed</title>
 <style>
   :root {
     --bg: #f6f7f9;
@@ -522,7 +525,8 @@
     display: inline-block; font-size: .7rem; padding: 2px 7px;
     border-radius: 999px; background: #eef2f6; color: var(--muted); margin-left: 4px;
   }
-  .err { color: var(--bad); padding: 20px; }
+  .err { color: var(--bad); padding: 20px; line-height: 1.55; }
+  .err .err-hint { color: var(--text); font-size: .92rem; margin-top: 8px; }
   .pool-pill {
     display: inline-block; font-size: .7rem; padding: 1px 6px;
     border-radius: 999px; background: #eef2f6; color: var(--muted);
@@ -584,8 +588,8 @@
 </head>
 <body>
 <header>
-  <h1>日盒開盒值不值？ <span class="pill" style="font-size:.72rem;vertical-align:middle">v1.18.1</span></h1>
-  <p>給朋友看的簡易 EV 小算盤 · 無登入、非即時行情 · <b>v1.18.1</b></p>
+  <h1>日盒開盒值不值？ <span class="pill" style="font-size:.72rem;vertical-align:middle">v1.18.2</span></h1>
+  <p>給朋友看的簡易 EV 小算盤 · 無登入、非即時行情 · <b>v1.18.2</b></p>
 </header>
 
 <div class="layout" id="app">
@@ -706,23 +710,43 @@
 <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="放大圖">
   <img id="lightboxImg" alt="" />
 </div>
-<footer>日盒 EV 小算盤 <b>v1.18.1</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期</footer>
+<footer>日盒 EV 小算盤 <b>v1.18.2</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期</footer>
 
-<script src="./data.js"></script>
+<script src="./data.js?v=1.18.2"></script>
 <script>
 (async function () {
+  // Keep in sync with the data.js?v= query above.
+  const VERSION = '1.18.2';
   async function loadJson(rel) {
+    const url = new URL(rel, document.baseURI || window.location.href);
+    url.searchParams.set('v', VERSION);
     try {
-      const url = new URL(rel, document.baseURI || window.location.href);
-      const res = await fetch(url.href, { cache: 'no-cache' });
-      if (!res.ok) return null;
-      return await res.json();
+      const res = await fetch(url.href, { cache: 'no-store' });
+      if (!res.ok) {
+        return { ok: false, status: res.status, url: url.href, data: null, err: 'HTTP ' + res.status };
+      }
+      return { ok: true, status: res.status, url: url.href, data: await res.json(), err: null };
     } catch (e) {
-      return null;
+      return { ok: false, status: 0, url: url.href, data: null, err: (e && e.message) ? e.message : String(e) };
     }
   }
-  const DATA = (await loadJson('./data.json')) || window.EV_DATA;
-  const IMG = (await loadJson('./img_map.json')) || window.IMG_MAP || { boxes: {}, cards: {} };
+  function showLoadError(dataRes) {
+    const app = document.getElementById('app');
+    if (!app) return;
+    const status = dataRes
+      ? (dataRes.status ? ('HTTP ' + dataRes.status) : (dataRes.err || '沒有回應'))
+      : '沒有回應';
+    const where = dataRes && dataRes.url ? dataRes.url : ('./data.json?v=' + VERSION);
+    app.innerHTML =
+      '<p class="err"><b>載入失敗：找不到資料。</b>' +
+      '<span class="err-hint">抓取 ' + where.replace(/&/g, '&amp;').replace(/</g, '&lt;') +
+      ' → ' + String(status).replace(/</g, '&lt;') + '。</span>' +
+      '<span class="err-hint">若畫面仍是舊版，請強制重新整理：電腦 Ctrl+Shift+R（Mac：Cmd+Shift+R）；手機先關掉這個分頁再開一次。</span></p>';
+  }
+  const dataRes = await loadJson('./data.json');
+  const imgRes = await loadJson('./img_map.json');
+  const DATA = (dataRes && dataRes.data) || window.EV_DATA;
+  const IMG = (imgRes && imgRes.data) || window.IMG_MAP || { boxes: {}, cards: {} };
   /** Resolve asset paths for both file:// and http(s) (GitHub Pages). */
   function assetUrl(rel) {
     if (!rel || String(rel).startsWith('data:')) return rel;
@@ -733,7 +757,7 @@
     }
   }
   if (!DATA) {
-    document.getElementById('app').innerHTML = '<p class="err">載入失敗：找不到資料。</p>';
+    showLoadError(dataRes);
     return;
   }
 
