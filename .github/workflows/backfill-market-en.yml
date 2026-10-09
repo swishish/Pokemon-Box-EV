@@ -1,0 +1,63 @@
+name: Backfill EN market history
+
+# One-shot reconstruction of data/market-en/history.json from TCGCSV price
+# archives (2024-02-08 → latest). Rewrites latest.json's divisor so the
+# daily "Update EN market pulse" Action can append without wiping history.
+#
+# Not on a schedule. Archives are large PPMd 7z files; this job pip-installs
+# py7zr. As of 2026-10-09 TCGCSV returns 403 on /archive/ — the script exits
+# 2 without committing.
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: "Type BACKFILL to rewrite history.json + latest.json (rebases the index level)"
+        required: true
+        default: ""
+
+concurrency:
+  group: backfill-market-en
+  cancel-in-progress: false
+
+jobs:
+  backfill:
+    if: github.event.inputs.confirm == 'BACKFILL'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    timeout-minutes: 60
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install 7z extractor (py7zr)
+        run: pip install -r tools/requirements-backfill.txt
+
+      - name: Self-test backfill + daily index math
+        run: |
+          python3 tools/backfill_market_en.py --self-test
+          python3 tools/refresh_market_en.py --self-test
+
+      - name: Probe TCGCSV archive
+        run: python3 tools/backfill_market_en.py --probe
+
+      - name: Reconstruct history from archives
+        run: python3 tools/backfill_market_en.py -v
+
+      - name: Commit backfilled data
+        run: |
+          git config user.name "box-ev-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/market-en/latest.json data/market-en/latest.js \
+                  data/market-en/history.json data/market-en/history.js
+          if git diff --cached --quiet; then
+            echo "No data changes to commit."
+          else
+            git commit -m "chore: backfill EN market history from TCGCSV archives"
+            git push
+          fi

@@ -6,6 +6,8 @@ name: Update EN market pulse
 #
 # TCGCSV refreshes once per day (~20:05 UTC). The job checks last-updated.txt
 # first and exits if the stamp matches the committed snapshot.
+# History is append/upsert only (merge_history_point) — it will not wipe a
+# TCGCSV-archive backfill. Do not run tools/backfill_market_en.py here.
 on:
   schedule:
     - cron: "23 21 * * *"   # 21:23 UTC — after the usual TCGCSV dump
@@ -29,7 +31,9 @@ jobs:
         with:
           python-version: "3.12"
       - name: Self-test index math
-        run: python3 tools/refresh_market_en.py --self-test
+        run: |
+          python3 tools/refresh_market_en.py --self-test
+          python3 tools/backfill_market_en.py --self-test
 
   build:
     if: github.event_name != 'pull_request'
@@ -46,7 +50,9 @@ jobs:
           python-version: "3.12"
 
       - name: Self-test index math
-        run: python3 tools/refresh_market_en.py --self-test
+        run: |
+          python3 tools/refresh_market_en.py --self-test
+          python3 tools/backfill_market_en.py --self-test
 
       - name: Fetch TCGCSV dumps and rebuild pulse
         run: python3 tools/refresh_market_en.py -v
@@ -55,7 +61,8 @@ jobs:
         run: |
           git config user.name "box-ev-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/market-en/latest.json data/market-en/latest.js data/market-en/history.json
+          git add data/market-en/latest.json data/market-en/latest.js \
+                  data/market-en/history.json data/market-en/history.js
           if git diff --cached --quiet; then
             echo "No data changes to commit."
           else

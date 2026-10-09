@@ -1,0 +1,1 @@
+window.MARKET_EN_HISTORY = {"generated":"2026-10-09T07:05:01.872240+00:00","baseDate":"2026-10-08","baseValue":1000,"points":[{"date":"2026-10-08","index":1000.0,"totalValue":278269.14,"count":500}]};

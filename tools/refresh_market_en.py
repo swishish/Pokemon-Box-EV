@@ -10,13 +10,16 @@ Data source: TCGCSV daily Pokemon category dumps
 
 Writes (stdlib only — GitHub Actions needs no pip install):
   data/market-en/latest.json   index + breadth + movers + basket (for next run)
-  data/market-en/history.json  one point per snapshot date
+  data/market-en/history.json  one point per snapshot date (append/upsert; never wipes)
   data/market-en/latest.js     window.MARKET_EN fallback (file:// / cache)
+  data/market-en/history.js    window.MARKET_EN_HISTORY fallback
 
 Index math matches S&Poké-500 in spirit: price-weighted top 500 English raw
 singles with an index divisor so the level stays continuous when the basket
-turns over. First snapshot is rebased to 1,000; daily % / breadth appear once
-a previous snapshot exists.
+turns over. Rebased to 1,000 on the first snapshot — after
+tools/backfill_market_en.py that first day is 2024-02-08 (TCGCSV archive
+start). Daily Action continues from latest.json's divisor and appends one
+history point; it must not rewrite the backfilled series.
 """
 from __future__ import annotations
 
@@ -37,6 +40,7 @@ DATA_DIR = os.path.join(ROOT, "data", "market-en")
 LATEST_PATH = os.path.join(DATA_DIR, "latest.json")
 LATEST_JS_PATH = os.path.join(DATA_DIR, "latest.js")
 HISTORY_PATH = os.path.join(DATA_DIR, "history.json")
+HISTORY_JS_PATH = os.path.join(DATA_DIR, "history.js")
 
 TCGCSV = "https://tcgcsv.com"
 CATEGORY = 3  # English Pokemon
@@ -46,6 +50,7 @@ TARGET_SIZE = 500
 STALE_DAYS = 70
 SLEEP_S = 0.1
 TOP_MOVERS = 10
+ARCHIVE_START = "2024-02-08"  # earliest TCGCSV daily price archive (FAQ)
 
 _SET_PREFIX = re.compile(r"^[A-Z0-9]{2,6}:\s+")
 _JP_PROMO_NUMBER = re.compile(r"-P$", re.IGNORECASE)
@@ -108,6 +113,29 @@ def _parse_price(raw: str | None) -> float | None:
     except ValueError:
         return None
     return val if val > 0 else None
+
+
+def prices_from_rows(rows: list[dict]) -> tuple[dict, dict]:
+    """Group price rows by productId and pick a representative market price.
+
+    Used by the live CSV ingest and by archive JSON (`results` arrays inside
+    tcgcsv.com/archive/tcgplayer/prices-YYYY-MM-DD.ppmd.7z).
+    """
+    grouped: dict[str, list[dict]] = {}
+    for row in rows:
+        pid = str(row.get("productId") or "").strip()
+        if not pid:
+            continue
+        grouped.setdefault(pid, []).append(row)
+    prices: dict = {}
+    subtypes: dict = {}
+    for pid, grouped_rows in grouped.items():
+        picked = pick_representative(grouped_rows)
+        if picked:
+            price, sub = picked
+            prices[pid] = round(price, 2)
+            subtypes[pid] = sub
+    return prices, subtypes
 
 
 def pick_representative(rows: list[dict]) -> tuple[float, str] | None:
@@ -306,10 +334,18 @@ def write_json(path: str, obj) -> None:
         handle.write("\n")
 
 
+def _write_js(path: str, global_name: str, obj) -> None:
+    payload = json.dumps(obj, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+    with open(path, "w", encoding="utf-8") as handle:
+        handle.write(f"window.{global_name} = " + payload + ";\n")
+
+
 def write_latest_js(latest: dict) -> None:
-    payload = json.dumps(latest, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
-    with open(LATEST_JS_PATH, "w", encoding="utf-8") as handle:
-        handle.write("window.MARKET_EN = " + payload + ";\n")
+    _write_js(LATEST_JS_PATH, "MARKET_EN", latest)
+
+
+def write_history_js(history: dict) -> None:
+    _write_js(HISTORY_JS_PATH, "MARKET_EN_HISTORY", history)
 
 
 def build_snapshot(catalog: dict, prices: dict, subtypes: dict, stamp: str | None, now: datetime) -> dict:
@@ -410,6 +446,11 @@ def build_snapshot(catalog: dict, prices: dict, subtypes: dict, stamp: str | Non
     change_abs = round(index_value - baseline_index, 2) if has_prev else None
     change_pct = round((index_value / baseline_index - 1) * 100, 2) if has_prev else None
     breadth_available = bool(movable)
+    base_date = (
+        prev.get("baseDate")
+        or (history_points[0].get("date") if history_points else None)
+        or today_iso
+    )
 
     latest = {
         "generated": now.isoformat(),
@@ -429,6 +470,7 @@ def build_snapshot(catalog: dict, prices: dict, subtypes: dict, stamp: str | Non
         ),
         "divisor": step["divisor"],
         "baseValue": BASE_INDEX_VALUE,
+        "baseDate": base_date,
         "constituentCount": len(constituents),
         "totalValue": round(step["sum_today"], 2),
         "pricedToday": sum(1 for c in constituents if not c["carried"]),
@@ -449,10 +491,10 @@ def build_snapshot(catalog: dict, prices: dict, subtypes: dict, stamp: str | Non
     return latest
 
 
-def append_history(latest: dict, now: datetime) -> dict:
-    history = load_json(HISTORY_PATH, {})
+def merge_history_point(history, latest: dict, now: datetime) -> dict:
+    """Upsert today's point. Keeps backfill metadata and older dates intact."""
     if not isinstance(history, dict):
-        history = {"points": []}
+        history = {}
     as_of = latest["asOfDate"]
     points = [p for p in history.get("points", []) if p.get("date") != as_of]
     points.append(
@@ -464,7 +506,19 @@ def append_history(latest: dict, now: datetime) -> dict:
         }
     )
     points.sort(key=lambda p: p["date"])
-    return {"generated": now.isoformat(), "points": points}
+    out = dict(history)
+    out["generated"] = now.isoformat()
+    out["points"] = points
+    out.setdefault("baseValue", latest.get("baseValue", BASE_INDEX_VALUE))
+    out.setdefault(
+        "baseDate",
+        latest.get("baseDate") or (points[0]["date"] if points else ARCHIVE_START),
+    )
+    return out
+
+
+def append_history(latest: dict, now: datetime) -> dict:
+    return merge_history_point(load_json(HISTORY_PATH, {}), latest, now)
 
 
 def self_test() -> None:
@@ -525,6 +579,40 @@ def self_test() -> None:
     fake_now = datetime(2026, 10, 9, 7, 0, tzinfo=timezone.utc)
     assert as_of_date("2026-10-08T20:05:18+0000", fake_now) == "2026-10-08"
     assert as_of_date(None, fake_now) == "2026-10-09"
+
+    archive_rows = [
+        {"productId": 1, "marketPrice": 5.0, "subTypeName": "Holofoil"},
+        {"productId": 1, "marketPrice": 12.0, "subTypeName": "1st Edition Holofoil"},
+        {"productId": 1, "marketPrice": 4.0, "subTypeName": "Reverse Holofoil"},
+        {"productId": 9, "marketPrice": 0, "subTypeName": "Normal"},
+    ]
+    pr3, st3 = prices_from_rows(archive_rows)
+    assert pr3 == {"1": 5.0} and st3["1"] == "Holofoil"
+
+    preserved = merge_history_point(
+        {
+            "baseDate": ARCHIVE_START,
+            "baseValue": 1000,
+            "sampling": {"stepDays": 7, "denseDays": 183},
+            "points": [
+                {"date": "2024-02-08", "index": 1000.0, "totalValue": 1, "count": 500},
+                {"date": "2026-10-08", "index": 1200.0, "totalValue": 2, "count": 500},
+            ],
+        },
+        {
+            "asOfDate": "2026-10-08",
+            "index": 1201.5,
+            "totalValue": 3,
+            "constituentCount": 500,
+            "baseValue": 1000,
+            "baseDate": ARCHIVE_START,
+        },
+        fake_now,
+    )
+    assert preserved["baseDate"] == ARCHIVE_START
+    assert preserved["sampling"]["denseDays"] == 183
+    assert [p["date"] for p in preserved["points"]] == ["2024-02-08", "2026-10-08"]
+    assert preserved["points"][-1]["index"] == 1201.5
     print("self-test ok")
 
 
@@ -547,6 +635,7 @@ def build(verbose: bool = False, force: bool = False) -> None:
     write_json(LATEST_PATH, latest)
     write_json(HISTORY_PATH, history)
     write_latest_js(latest)
+    write_history_js(history)
 
     ch = latest["changePct"]
     ch_s = "n/a (first snapshot)" if ch is None else f"{ch:+.2f}%"
