@@ -443,8 +443,8 @@
   const b = DATA.breadth || {};
   const tot = (b.advancing || 0) + (b.declining || 0) + (b.unchanged || 0);
   $('breadthMetrics').innerHTML =
-    '<div class="metric"><div class="k">上漲 Advancers</div><div class="v good">' + (b.available ? b.advancing : '—') + '</div></div>' +
-    '<div class="metric"><div class="k">下跌 Decliners</div><div class="v bad">' + (b.available ? b.declining : '—') + '</div></div>';
+    '<div class="metric"><div class="k">上漲 Advancers</div><div class="v' + (b.available ? ' good' : '') + '">' + (b.available ? b.advancing : '—') + '</div></div>' +
+    '<div class="metric"><div class="k">下跌 Decliners</div><div class="v' + (b.available ? ' bad' : '') + '">' + (b.available ? b.declining : '—') + '</div></div>';
   if (b.available && tot > 0) {
     $('breadthBar').innerHTML =
       '<div class="bar">' +
