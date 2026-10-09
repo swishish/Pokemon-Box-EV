@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>日盒開盒值不值？ v1.20.3 · 首頁</title>
+<title>日盒開盒值不值？ v1.20.4 · 首頁</title>
 <style>
   :root {
     --bg: #faf6ef;
@@ -329,7 +329,14 @@
   .tile.soon { background: var(--bg-2); color: var(--muted); box-shadow: none; cursor: default; }
   .tile-kicker { font-size: .68rem; font-weight: 800; letter-spacing: .04em; color: var(--muted); }
   .tile-title { font-size: 1.08rem; font-weight: 800; letter-spacing: -0.02em; }
-  .tile-desc { font-size: .8rem; color: var(--muted); }
+  .tile-desc {
+    font-size: .8rem;
+    color: var(--muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    overflow-wrap: normal;
+  }
   .tile-badge {
     align-self: flex-start;
     margin-top: auto;
@@ -457,7 +464,7 @@
 <body>
 <header>
   <div class="header-inner">
-    <h1><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？ <span class="pill">v1.20.3</span></h1>
+    <h1><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？ <span class="pill">v1.20.4</span></h1>
     <nav class="header-nav" aria-label="站內導覽">
       <a class="nav-btn" href="./calc.html">開盒 EV</a>
       <a class="nav-btn" href="./market-en.html" title="English raw singles market pulse">EN 市況</a>
@@ -494,7 +501,11 @@
       <a class="chip" href="./calc.html">開盒 EV</a>
       <a class="chip" href="./market-en.html">EN 市況</a>
       <span class="chip soon" title="即將推出">日語熱度</span>
-      <a class="chip" href="https://xn--pok500-dva.com/" target="_blank" rel="noopener">Rarebox / ポケカ相場</a>
+      <a class="chip" href="https://gemrate.com/" target="_blank" rel="noopener">GemRate</a>
+      <a class="chip" href="https://xn--pok500-dva.com/" target="_blank" rel="noopener">Rarebox</a>
+      <a class="chip" href="https://index.grade10.com/ptcg100" target="_blank" rel="noopener">Grade10</a>
+      <a class="chip" href="https://pikaqian.com/" target="_blank" rel="noopener">皮卡千</a>
+      <a class="chip" href="https://www.tcgplayer.com/search/pokemon-japan/product?productLineName=pokemon-japan&amp;view=grid" target="_blank" rel="noopener">TCGPlayer JP</a>
       <a class="chip" href="https://snkrdunk.com/en/trading-cards" target="_blank" rel="noopener">SNKRDUNK</a>
       <a class="chip" href="https://www.pricecharting.com/console/pokemon-cards" target="_blank" rel="noopener">PriceCharting</a>
       <a class="chip" href="https://github.com/swishish/Pokemon-Box-EV" target="_blank" rel="noopener">GitHub</a>
@@ -503,39 +514,59 @@
       <a class="tile primary" href="./calc.html">
         <span class="tile-kicker">本站</span>
         <span class="tile-title">開盒 EV 小算盤</span>
-        <span class="tile-desc">選系列 → 睇四個預期回報 % → chase 卡。</span>
+        <span class="tile-desc">選系列 → 睇四個預期回報 % → chase 卡</span>
         <span class="tile-badge"><span>開始</span></span>
       </a>
       <a class="tile" href="./market-en.html">
         <span class="tile-kicker">本站</span>
         <span class="tile-title">EN 市況</span>
-        <span class="tile-desc">英文裸卡溫度（TCGCSV 靜態快照）。</span>
+        <span class="tile-desc">英文裸卡溫度（靜態快照）</span>
       </a>
       <div class="tile soon" aria-disabled="true">
         <span class="tile-kicker">本站</span>
         <span class="tile-title">日語熱度</span>
-        <span class="tile-desc">日版熱度頁尚未上線，唔會放死連結。</span>
+        <span class="tile-desc">日版熱度頁尚未上線</span>
         <span class="tile-badge"><span>即將推出</span></span>
       </div>
+      <a class="tile" href="https://gemrate.com/" target="_blank" rel="noopener">
+        <span class="tile-kicker">外部 · 純文字</span>
+        <span class="tile-title">GemRate · PSA POP／Gem%</span>
+        <span class="tile-desc">PSA POP／Gem%</span>
+      </a>
       <a class="tile" href="https://xn--pok500-dva.com/" target="_blank" rel="noopener">
         <span class="tile-kicker">外部 · 純文字</span>
         <span class="tile-title">Rarebox / ポケカ相場</span>
-        <span class="tile-desc">日文卡價參考。唔抓圖、唔熱鏈接圖片。</span>
+        <span class="tile-desc">日版ポケカ相場參考</span>
+      </a>
+      <a class="tile" href="https://index.grade10.com/ptcg100" target="_blank" rel="noopener">
+        <span class="tile-kicker">外部 · 純文字</span>
+        <span class="tile-title">Grade10 PTCG100</span>
+        <span class="tile-desc">評級指數／市場溫度</span>
+      </a>
+      <a class="tile" href="https://pikaqian.com/" target="_blank" rel="noopener">
+        <span class="tile-kicker">外部 · 純文字</span>
+        <span class="tile-title">皮卡千 PikaQian</span>
+        <span class="tile-desc">簡中卡價／流通</span>
+      </a>
+      <a class="tile" href="https://www.tcgplayer.com/search/pokemon-japan/product?productLineName=pokemon-japan&amp;view=grid" target="_blank" rel="noopener">
+        <span class="tile-kicker">外部 · 純文字</span>
+        <span class="tile-title">TCGPlayer JP</span>
+        <span class="tile-desc">EN 站日版單卡搜尋</span>
       </a>
       <a class="tile" href="https://snkrdunk.com/en/trading-cards" target="_blank" rel="noopener">
-        <span class="tile-kicker">外部</span>
+        <span class="tile-kicker">外部 · 純文字</span>
         <span class="tile-title">SNKRDUNK</span>
-        <span class="tile-desc">Pokemon TCG 買賣／Grade A 參考。</span>
+        <span class="tile-desc">日盒／Grade A 買賣參考</span>
       </a>
       <a class="tile" href="https://www.pricecharting.com/console/pokemon-cards" target="_blank" rel="noopener">
-        <span class="tile-kicker">外部</span>
+        <span class="tile-kicker">外部 · 純文字</span>
         <span class="tile-title">PriceCharting</span>
-        <span class="tile-desc">Pokemon 卡價、未評／PSA 對照。</span>
+        <span class="tile-desc">未評／PSA 卡價對照</span>
       </a>
       <a class="tile" href="https://github.com/swishish/Pokemon-Box-EV" target="_blank" rel="noopener">
-        <span class="tile-kicker">外部</span>
+        <span class="tile-kicker">外部 · 純文字</span>
         <span class="tile-title">GitHub repo</span>
-        <span class="tile-desc">原始碼、changelog、自己開 Pages。</span>
+        <span class="tile-desc">原始碼與 changelog</span>
       </a>
     </div>
   </section>
@@ -685,7 +716,7 @@
 
 <footer>
   <img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" />
-  <span>日盒 EV 小算盤 <b>v1.20.3</b> · Snapshot 靜態資料 · <a href="./calc.html">開盒 EV</a> · <a href="./market-en.html">EN 市況</a> · 日語熱度（即將推出）</span>
+  <span>日盒 EV 小算盤 <b>v1.20.4</b> · Snapshot 靜態資料 · <a href="./calc.html">開盒 EV</a> · <a href="./market-en.html">EN 市況</a> · 日語熱度（即將推出）</span>
 </footer>
 </body>
 </html>
