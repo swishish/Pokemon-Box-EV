@@ -1,6 +1,6 @@
 # Pokemon Box EV
 
-日盒 EV 小算盤（朋友向）· **v1.20.4**
+日盒 EV 小算盤（朋友向）· **v1.21.3**
 
 給「不太懂金融／AI」的買卡朋友看的工具：首頁介紹點樣用 → 開盒算盤選系列 → 看 **四個預期回報 %**（同一分母）→ 有膜／無膜切換 → 看主力 chase 卡與「買單卡 vs 開盒」粗略提示。
 
@@ -13,6 +13,8 @@
 開盒 EV 小算盤：**https://swishish.github.io/Pokemon-Box-EV/calc.html**
 
 英文裸卡市況（S&P-style pulse）：**https://swishish.github.io/Pokemon-Box-EV/market-en.html**
+
+Chase 公允值（PSA10 回歸散點）：**https://swishish.github.io/Pokemon-Box-EV/chase-fit.html**
 
 公開 repo 的 GitHub Pages **免費**，無需付費。首頁**唔會**自動跳去算盤。`calc.html?set=M6` 仍然可以深連結指定系列。
 
@@ -63,10 +65,20 @@ Phase 1 **不做**日版熱度頁、eBay、PriceCharting 付費 API。
 python3 -m http.server 8765
 ```
 
-瀏覽器開：`http://127.0.0.1:8765/`（首頁）或 `http://127.0.0.1:8765/calc.html`（算盤）
+瀏覽器開：`http://127.0.0.1:8765/`（首頁）、`http://127.0.0.1:8765/calc.html`（算盤）或 `http://127.0.0.1:8765/chase-fit.html`（Chase 公允值）
+
+## Chase 公允值（PSA10 回歸）
+
+獨立頁 `chase-fit.html`：Gary 的 **Chase_Fit** 模型散點（預測 PSA10 vs 實際 PSA10）。資料是靜態 JSON（`data/chase-fit/latest.json`），不經瀏覽器打 PriceCharting。
+
+數字為 2026-10-09 快照，**非正式投資建議**。`as_of` 超過 7 日會顯示灰色「數字過期」。
 
 ## Changelog（摘要）
 
+- **v1.21.3**：算盤「回到默認」——一鍵還原 haircut／Gem／Ask／費用／盒價（有膜落地）；進階假設內同頂欄都有。EV 算法不變
+- **v1.21.2**：手機算盤取消四個 %／盒價／進階假設整疊 sticky，跟頁面一齊滾，Chase／方法論可佔過半畫面；桌面仍 sticky。EV 算法不變
+- **v1.21.1**：Chase 公允值詳情加 PriceCharting「睇卡相／價」產品頁連結（117 張皆有）；JP 另有 SNKRDUNK 搜尋、EN 另有 TCGPlayer 搜尋。唔熱鏈第三方卡圖。EV 算法不變
+- **v1.21.0**：新增 Chase 公允值頁（`chase-fit.html`）——117 張 PSA10 回歸散點、點擊睇殘差與公式組成；首頁導覽／有用連結。EV 算法不變
 - **v1.20.4**：首頁有用連結加 GemRate、Grade10 PTCG100、皮卡千、TCGPlayer JP（純文字、一行說明）；Rarebox 說明改「日版ポケカ相場參考」；保留 SNKRDUNK／PriceCharting／GitHub／EN 市況。EV 算法不變
 - **v1.20.3**：手機算盤「設定」sheet 常開（盒價／四個 %／恢復預設可見）；只有「進階假設」預設收起。唔再把成塊設定藏喺「設定」掣後面。EV 算法不變
 - **v1.20.2**：首頁改圖文 one-pager——有用連結放 hero 正下方（大 tile＋chips，含 Rarebox 純文字）；點樣用五步示意（揀系列→sticky %／燈→haircut／盒價→Chase→買單卡 vs 開盒）；首頁唔再 auto-redirect。方法論改為預設收起。EV 算法不變

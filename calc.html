@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>日盒 EV 小算盤 v1.20.4 · JP Mega Sealed</title>
+<title>日盒 EV 小算盤 v1.21.3 · JP Mega Sealed</title>
 <style>
   :root {
     --bg: #faf6ef;
@@ -406,6 +406,22 @@
     box-shadow: var(--shadow-pressed);
     transform: translate(1px, 1px);
   }
+  .reset-btn.adv-reset {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 14px;
+    background: var(--accent-fill);
+    color: var(--ink);
+    font-size: .92rem;
+    font-weight: 850;
+  }
+  .reset-btn.adv-reset:hover { background: var(--accent-hover); }
+  .reset-btn.done { background: var(--good-bg); }
+  .adv-reset-wrap { margin: 0 0 12px; }
+  .adv-reset-wrap .tiny { margin: 6px 0 0; }
   .copy-friend-btn {
     border: var(--bw) solid var(--ink);
     background: var(--accent-fill);
@@ -1096,9 +1112,11 @@
     }
 
     .sticky-ev {
+      position: static;
+      z-index: auto;
       margin: 0 -12px 10px;
       padding: 0 12px;
-      padding-top: env(safe-area-inset-top, 0px);
+      padding-top: 0;
       background: var(--bg);
       max-width: none;
     }
@@ -1153,10 +1171,8 @@
     .sticky-drawer { display: none; max-width: 100%; }
     .sticky-ev.is-open .sticky-drawer {
       display: block;
-      max-height: min(65dvh, calc(100dvh - 4.25rem - env(safe-area-inset-top, 0px)));
-      overflow-x: hidden;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
+      max-height: none;
+      overflow: visible;
       padding: 8px 0 10px;
       margin-top: 2px;
       border-top: 1px solid var(--line);
@@ -1183,6 +1199,13 @@
       flex-wrap: wrap;
       max-width: 100%;
       margin-bottom: 8px;
+      gap: 8px;
+    }
+    .sticky-ev.is-open .sticky-drawer .sticky-actions .reset-btn,
+    .sticky-ev.is-open .sticky-drawer .sticky-actions .copy-friend-btn {
+      min-height: 40px;
+      padding: 8px 12px;
+      font-size: .78rem;
     }
     .sticky-ev.is-open .sticky-card {
       padding-bottom: 8px;
@@ -1204,9 +1227,9 @@
     .chase-tile:hover { transform: none; box-shadow: var(--shadow-xs); }
     .sticky-metric { box-shadow: none; }
     .sticky-box { box-shadow: none; }
-    /* Always-open 設定 sheet is sticky; keep #method below it on hash/scroll. */
+    /* Mobile EV stack scrolls with the page; only the set picker stays in flow above. */
     #method.method-card {
-      scroll-margin-top: min(72dvh, calc(100dvh - 6.5rem));
+      scroll-margin-top: 4.5rem;
     }
   }
 
@@ -1238,8 +1261,9 @@
 <body>
 <header>
   <div class="header-inner">
-    <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.20.4</span></h1>
+    <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.21.3</span></h1>
     <nav class="header-nav" aria-label="市況頁">
+      <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
       <a class="nav-btn" href="./market-en.html" title="English raw singles market pulse">EN 市況</a>
       <span class="nav-btn soon" title="即將推出">日語熱度</span>
     </nav>
@@ -1283,7 +1307,7 @@
             </div>
             <div class="sticky-actions" id="stickyActions">
               <button type="button" class="copy-friend-btn" id="copyFriend" title="複製短訊給朋友（WhatsApp 可貼上）">複製給朋友</button>
-              <button type="button" class="reset-btn" id="resetDefaults" title="恢復所有進階假設與盒價覆寫為預設">恢復預設</button>
+              <button type="button" class="reset-btn js-reset-defaults" id="resetDefaults" title="回到默認：haircut、Gem／Ask 折扣、費用、盒價（有膜落地）">回到默認</button>
             </div>
             <button type="button" class="sticky-more" id="stickyMore" aria-expanded="false" aria-controls="stickyDrawer">設定</button>
           </div>
@@ -1309,6 +1333,10 @@
         <span class="open-hint opened">點擊收起</span>
       </summary>
       <div class="adv-body">
+        <div class="adv-reset-wrap">
+          <button type="button" class="reset-btn adv-reset js-reset-defaults" title="回到默認：haircut、Gem／Ask 折扣、費用、盒價（有膜落地）">回到默認</button>
+          <p class="tiny">一鍵還原 Gem 折扣、PSA Ask 折扣、稀有度 haircut（含 FUR／SSR／S 等）、PSA／CGC 費用，以及盒價覆寫＝該分母 SNKR 落地（並切回有膜）。</p>
+        </div>
         <div class="slider-row">
           <label for="gemDisc">Gem 折扣（有效 gem = 公佈 gem × (1−折扣)；預設 20%）</label>
           <input type="range" id="gemDisc" min="0" max="50" step="5" value="20" />
@@ -1357,7 +1385,7 @@
         <li><b>紅綠燈</b>：值得考慮 ≥ 55% · 普通 40%–55% · 偏貴 &lt; 40%（看打折分數）</li>
         <li><b>匯率（顯示用）</b>：盒／單卡 SNKR 日圓價 → <b>HK$ = ¥ ÷ 20.3</b>；若來源是 USD → <b>HK$ = USD × 7.80</b>。頁面金額以 <b>HK$</b> 為主顯示。送評費用（PSA／CGC）仍用 <b>USD</b> 編輯</li>
         <li><b>落地分母</b>：SNKR 多盒單價 × 1.035 + 運費分攤（HK$173／4 × ¥20.3／HK$）；未含稅／關稅。預設用 SNKR 有膜／無膜落地；可用頂部盒價覆寫。</li>
-        <li><b>來源連結／盒價覆寫</b>：系列名旁兩個超連結——<b>PriceCharting</b>（booster-box 頁）同 <b>SNKRDUNK（有膜）</b>產品頁（乾淨 URL；站內可自行切單包／無膜）。「盒價」滑桿／輸入預設＝目前選中分母（有膜／無膜）嘅 SNKR 落地 HK$；覆寫取代<strong>該分母</strong>做 EV÷L（¥＝HK$×20.3）。「恢復預設」還原所有滑桿／費用／盒價。</li>
+        <li><b>來源連結／盒價覆寫</b>：系列名旁兩個超連結——<b>PriceCharting</b>（booster-box 頁）同 <b>SNKRDUNK（有膜）</b>產品頁（乾淨 URL；站內可自行切單包／無膜）。「盒價」滑桿／輸入預設＝目前選中分母（有膜／無膜）嘅 SNKR 落地 HK$；覆寫取代<strong>該分母</strong>做 EV÷L（¥＝HK$×20.3）。「<b>回到默認</b>」（頂欄同進階假設內）還原所有折扣滑桿／費用／盒價，並切回有膜落地。</li>
         <li><b>Gem 折扣</b>（進階，預設 <b>20%</b>）：PSA 路徑有效 gem = 公佈 gem × (1 − 折扣)，用來模擬送評挑選偏差</li>
         <li><b>抽出率／日版保底（社群，非正式）</b>：按系列採用 floors + <b>互斥超配</b>（額外 SR <i>或</i> SAR，不加兩次）。MEGA 擴充：AR×3、道具／場地 SR×1、再加 1 格 chase（寶可夢／支援 SR 或 SAR／MUR），約 10% 為 3 枚箱。SV 擴充：AR×3 + 1 格 SR／SAR／UR（約 10% 2 枚箱）。<b>M2a</b>：AR×3 + 道具 SR×1 + MA×1，超配 poke_sr≈0.10／SAR≈0.37／MUR≈0.0175（不是 2 張寶可夢 SR 保底）。<b>SV11</b>：AR×4 + 1 格 SR／SAR／BWR（BWR≈1/20）。來源：Pokegto／pokeka-atari／axstex（各系列 <code>pity</code>／<code>rate_notes</code>）。池內仍 equal-within-pool（月亮伊布等會拉高均價）。</li>
         <li><b>SR／AR 單卡價</b>：兩邊都有就用 <b>min(PriceCharting 未評成交 USD×7.80×20.3, SNKRDUNK Grade A ¥)</b>；缺一邊就用另一邊，不虛構。例：SV8 スコヴィランex SR #120，SNKR Grade A ≈¥1000，PC ungraded ≈$2.27（≈¥360），實盤約¥400–500、SNKR 掛唔出。SAR／MUR／MA／FUR 等仍用 SNKR Grade A（大差距只標記，唔自動 min）。</li>
@@ -1379,13 +1407,13 @@
 <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="放大圖">
   <img id="lightboxImg" alt="" />
 </div>
-<footer><img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" /><span>日盒 EV 小算盤 <b>v1.20.4</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期 · <a href="./index.html">首頁</a> · <a href="./market-en.html">EN 市況</a> · 日語熱度（即將推出）</span></footer>
+<footer><img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" /><span>日盒 EV 小算盤 <b>v1.21.3</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期 · <a href="./index.html">首頁</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · 日語熱度（即將推出）</span></footer>
 
-<script src="./data.js?v=1.20.4"></script>
+<script src="./data.js?v=1.21.3"></script>
 <script>
 (async function () {
   // Keep in sync with the data.js?v= query above.
-  const VERSION = '1.20.4';
+  const VERSION = '1.21.3';
   async function loadJson(rel) {
     const url = new URL(rel, document.baseURI || window.location.href);
     url.searchParams.set('v', VERSION);
@@ -2114,6 +2142,7 @@
   });
 
   function resetDefaults() {
+    landDenom = 'shrink';
     Object.keys(DATA.defaults.haircuts).forEach((k) => { hcState[k] = DATA.defaults.haircuts[k]; });
     // keep linked pools in sync
     if (hcState.SAR != null) hcState.sup_SAR = hcState.SAR;
@@ -2135,9 +2164,18 @@
     $('askDiscVal').textContent = askDefaultPct + '%';
     syncPcOverrideInput();
     render();
+    document.querySelectorAll('.js-reset-defaults').forEach((btn) => {
+      btn.textContent = '已還原';
+      btn.classList.add('done');
+      window.setTimeout(() => {
+        btn.textContent = '回到默認';
+        btn.classList.remove('done');
+      }, 1400);
+    });
   }
-  const resetBtn = $('resetDefaults');
-  if (resetBtn) resetBtn.addEventListener('click', resetDefaults);
+  document.querySelectorAll('.js-reset-defaults').forEach((btn) => {
+    btn.addEventListener('click', resetDefaults);
+  });
 
   function asOfYmd() {
     const dt = parseAsOfDate(DATA.as_of);
