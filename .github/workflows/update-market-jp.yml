@@ -1,0 +1,74 @@
+name: Update JP market heat
+
+# Rebuilds the Japanese SNKRDUNK-primary heat snapshot and commits
+# data/market-jp/*. GitHub Pages stays static — this Action never scrapes
+# snkrdunk.com and never calls TCGCSV JP / TCGPlayer / PriceCharting APIs.
+#
+# Default source = Box-EV data.json (SNKRDUNK Grade A already in the repo).
+# If data/market-jp/inbox.json is present, those 成交＋流動性 rows overlay
+# the Grade A basket. No daily cron: there is no public SNKRDUNK dump.
+on:
+  workflow_dispatch:
+    inputs:
+      source:
+        description: "auto = Box-EV Grade A, overlay inbox.json when present"
+        default: auto
+        type: choice
+        options: [auto, force]
+  pull_request:
+
+concurrency:
+  group: update-market-jp-${{ github.event_name }}
+  cancel-in-progress: false
+
+jobs:
+  selftest:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Self-test index + ingest math
+        run: python3 tools/refresh_market_jp.py --self-test
+
+  build:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Self-test index + ingest math
+        run: python3 tools/refresh_market_jp.py --self-test
+
+      - name: Rebuild JP heat from Box-EV / inbox
+        run: |
+          EXTRA=""
+          if [ "${{ github.event.inputs.source }}" = "force" ]; then
+            EXTRA="--force"
+          fi
+          python3 tools/refresh_market_jp.py -v $EXTRA
+
+      - name: Commit updated data
+        run: |
+          git config user.name "box-ev-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/market-jp/latest.json data/market-jp/latest.js data/market-jp/history.json
+          if git diff --cached --quiet; then
+            echo "No data changes to commit."
+          else
+            git commit -m "chore: update JP market heat ($(date -u +%Y-%m-%d))"
+            git push
+          fi
