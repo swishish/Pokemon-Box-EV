@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>Chase 公允值 v1.21.0 · PSA10 回歸</title>
+<title>Chase 公允值 v1.21.1 · PSA10 回歸</title>
 <style>
   :root {
     --bg: #faf6ef;
@@ -402,6 +402,105 @@
     gap: 6px;
     margin-bottom: 10px;
   }
+  .photo-row {
+    display: grid;
+    grid-template-columns: 88px minmax(0, 1fr);
+    gap: 10px;
+    align-items: stretch;
+    margin: 0 0 10px;
+    min-width: 0;
+  }
+  .photo-frame {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 88px;
+    min-height: 122px;
+    border: var(--bw) solid var(--ink);
+    border-radius: 10px;
+    background:
+      linear-gradient(180deg, #fff8d6 0 46%, #f3ede1 46%);
+    box-shadow: var(--shadow-xs);
+    text-decoration: none;
+    color: var(--ink);
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .photo-frame:hover { filter: brightness(1.03); }
+  .photo-ph {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 6px 4px;
+  }
+  .photo-ph .mon { width: 36px; height: 36px; }
+  .photo-cap {
+    font-size: .62rem;
+    font-weight: 800;
+    text-align: center;
+    padding: 0 4px 8px;
+    color: var(--muted);
+    line-height: 1.3;
+  }
+  .photo-cta {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    min-width: 0;
+  }
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 10px 12px;
+    border: var(--bw) solid var(--ink);
+    border-radius: 999px;
+    background: var(--accent-fill);
+    color: var(--ink);
+    font: inherit;
+    font-size: .88rem;
+    font-weight: 850;
+    text-decoration: none;
+    box-shadow: var(--shadow-xs);
+    text-align: center;
+    touch-action: manipulation;
+  }
+  .cta-btn:hover { background: var(--accent-hover); }
+  .cta-btn:active {
+    box-shadow: var(--shadow-pressed);
+    transform: translate(1px, 1px);
+  }
+  .link-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0 0 10px;
+    min-width: 0;
+  }
+  .link-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 36px;
+    padding: 6px 11px;
+    border: 1.5px solid var(--ink);
+    border-radius: 999px;
+    background: var(--card);
+    color: var(--ink);
+    font-size: .72rem;
+    font-weight: 800;
+    text-decoration: none;
+    box-shadow: var(--shadow-xs);
+    max-width: 100%;
+    touch-action: manipulation;
+  }
+  .link-pill.pc { background: var(--accent-fill); }
+  .link-pill.search { background: var(--bg-2); }
+  .snap-note { margin: 0 0 10px; }
   .tag {
     display: inline-flex;
     align-items: center;
@@ -502,7 +601,7 @@
       <a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁">
         <span class="poke-mark" aria-hidden="true"></span> Chase 公允值
       </a>
-      <span class="pill">v1.21.0</span>
+      <span class="pill">v1.21.1</span>
     </h1>
     <nav class="header-nav" aria-label="站內導覽">
       <a class="nav-btn" href="./calc.html">開盒 EV</a>
@@ -555,7 +654,7 @@
     <aside class="card detail-card" id="detailCard" aria-live="polite">
       <h2><img class="mon mon-sm" src="./img/accents/eevee.svg" alt="" width="20" height="20" aria-hidden="true" />卡片詳情</h2>
       <div id="detailBody">
-        <p class="detail-empty">點／撳圖上的綠點或灰點，睇卡名、公允值、殘差同公式組成。卡名保持英文（資料原文）。</p>
+        <p class="detail-empty">點／撳圖上的點，睇卡名、卡相入口、公允值、殘差同公式組成。卡名保持英文（資料原文）。</p>
       </div>
     </aside>
   </div>
@@ -568,20 +667,21 @@
       <li><b>殘差%</b>＝（實際 − 預測）÷ 預測。負數＝便宜過模型；正數＝貴過模型。</li>
       <li><b>Strong Buy</b> 是資料裡的即時標籤，不是自動按殘差重算。</li>
       <li>公式：<code>log_psa10 ~ gem_rate + log_pop + log_raw + C(language) + promo_flag</code>；<code>log_pop</code> 用 <code>ln(pop+1)</code>。匯率 US$1＝HK$7.8。</li>
-      <li>數字來自 2026-10-09 PriceCharting 快照（GemRate pop 覆寫沿用 10-08）。<b>非正式投資建議</b>；下單前請核對現價。無外部卡圖。</li>
+      <li>數字來自 2026-10-09 PriceCharting 快照（GemRate pop 覆寫沿用 10-08）。點卡片用「睇卡相／價」開 <b>PriceCharting 產品頁</b>（raw／PSA9／PSA10 現場價）。唔熱鏈 Rarebox 或第三方卡圖；PC 圖 CDN 雜湊無法由網址推導，故用佔位＋連結。JP 另有 SNKRDUNK <b>搜尋</b>（非已核實產品頁）；EN 另有 TCGPlayer 搜尋。</li>
+      <li><b>非正式投資建議</b>；下單前請核對現場價。</li>
     </ul>
   </section>
 </main>
 
 <footer>
   <img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" />
-  <span>日盒 EV 小算盤 <b>v1.21.0</b> · Chase_Fit 靜態快照 · 非正式投資建議 · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./market-en.html">EN 市況</a></span>
+  <span>日盒 EV 小算盤 <b>v1.21.1</b> · Chase_Fit 靜態快照 · 非正式投資建議 · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./market-en.html">EN 市況</a></span>
 </footer>
 
-<script src="./data/chase-fit/latest.js?v=1.21.0"></script>
+<script src="./data/chase-fit/latest.js?v=1.21.1"></script>
 <script>
 (async function () {
-  const VERSION = '1.21.0';
+  const VERSION = '1.21.1';
   const $ = (id) => document.getElementById(id);
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, (ch) => ({
@@ -922,11 +1022,47 @@
     if (pct >= 10) return 'bad';
     return '';
   }
+  function pcUrl(card) {
+    return (card && card.pricecharting_url) ? String(card.pricecharting_url) : '';
+  }
+  function snkrSearchUrl(card) {
+    return 'https://snkrdunk.com/en/search?keyword=' + encodeURIComponent(card.name || '');
+  }
+  function tcgSearchUrl(card) {
+    return 'https://www.tcgplayer.com/search/pokemon/product?productLineName=pokemon&q=' +
+      encodeURIComponent(card.name || '') + '&view=grid';
+  }
+  function photoAndLinks(card) {
+    const pc = pcUrl(card);
+    if (!pc) return '';
+    const href = escapeHtml(pc);
+    let html = '<div class="photo-row">';
+    html += '<a class="photo-frame" href="' + href + '" target="_blank" rel="noopener noreferrer" title="開 PriceCharting 睇卡相同現場價">';
+    html += '<span class="photo-ph"><span class="poke-mark" aria-hidden="true"></span>';
+    html += '<img class="mon" src="./img/accents/eevee.svg" alt="" width="36" height="36" />';
+    html += '</span><span class="photo-cap">卡相在 PC 頁</span></a>';
+    html += '<div class="photo-cta">';
+    html += '<a class="cta-btn" href="' + href + '" target="_blank" rel="noopener noreferrer">睇卡相／價</a>';
+    html += '<p class="tiny" style="margin:0">PriceCharting 產品頁 · raw／PSA9／PSA10</p>';
+    html += '</div></div>';
+    html += '<div class="link-row">';
+    html += '<a class="link-pill pc" href="' + href + '" target="_blank" rel="noopener noreferrer">PriceCharting · 現場價</a>';
+    if (card.language === 'JP') {
+      html += '<a class="link-pill search" href="' + escapeHtml(snkrSearchUrl(card)) +
+        '" target="_blank" rel="noopener noreferrer">SNKRDUNK 搜尋（非產品頁）</a>';
+    } else if (card.language === 'EN') {
+      html += '<a class="link-pill search" href="' + escapeHtml(tcgSearchUrl(card)) +
+        '" target="_blank" rel="noopener noreferrer">TCGPlayer 搜尋</a>';
+    }
+    html += '</div>';
+    html += '<p class="tiny snap-note">以下數字係 2026-10-09 模型快照，唔會跟連結現場價自動更新。</p>';
+    return html;
+  }
 
   function renderDetail(card) {
     const body = $('detailBody');
     if (!card) {
-      body.innerHTML = '<p class="detail-empty">點／撳圖上的點，睇卡名、公允值、殘差同公式組成。卡名保持英文（資料原文）。</p>';
+      body.innerHTML = '<p class="detail-empty">點／撳圖上的點，睇卡名、卡相入口、公允值、殘差同公式組成。卡名保持英文（資料原文）。</p>';
       return;
     }
     const info = labelInfo(card.label);
@@ -953,6 +1089,7 @@
     body.innerHTML =
       '<p class="detail-name">' + escapeHtml(card.name) + '</p>' +
       '<div class="detail-tags">' + tags + '</div>' +
+      photoAndLinks(card) +
       '<dl class="kv">' +
       '<dt>Raw USD</dt><dd>' + fmtUsd(card.raw_usd, 2) + '</dd>' +
       '<dt>PSA10 USD</dt><dd>' + fmtUsd(card.psa10_usd, 2) + '</dd>' +

@@ -1,6 +1,6 @@
 # Pokemon Box EV
 
-日盒 EV 小算盤（朋友向）· **v1.21.0**
+日盒 EV 小算盤（朋友向）· **v1.21.1**
 
 給「不太懂金融／AI」的買卡朋友看的工具：首頁介紹點樣用 → 開盒算盤選系列 → 看 **四個預期回報 %**（同一分母）→ 有膜／無膜切換 → 看主力 chase 卡與「買單卡 vs 開盒」粗略提示。
 
@@ -75,6 +75,7 @@ python3 -m http.server 8765
 
 ## Changelog（摘要）
 
+- **v1.21.1**：Chase 公允值詳情加 PriceCharting「睇卡相／價」產品頁連結（117 張皆有）；JP 另有 SNKRDUNK 搜尋、EN 另有 TCGPlayer 搜尋。唔熱鏈第三方卡圖。EV 算法不變
 - **v1.21.0**：新增 Chase 公允值頁（`chase-fit.html`）——117 張 PSA10 回歸散點、點擊睇殘差與公式組成；首頁導覽／有用連結。EV 算法不變
 - **v1.20.4**：首頁有用連結加 GemRate、Grade10 PTCG100、皮卡千、TCGPlayer JP（純文字、一行說明）；Rarebox 說明改「日版ポケカ相場參考」；保留 SNKRDUNK／PriceCharting／GitHub／EN 市況。EV 算法不變
 - **v1.20.3**：手機算盤「設定」sheet 常開（盒價／四個 %／恢復預設可見）；只有「進階假設」預設收起。唔再把成塊設定藏喺「設定」掣後面。EV 算法不變
