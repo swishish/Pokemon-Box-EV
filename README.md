@@ -1,18 +1,20 @@
 # Pokemon Box EV
 
-日盒 EV 小算盤（朋友向）· **v1.19.1**
+日盒 EV 小算盤（朋友向）· **v1.20.0**
 
-給「不太懂金融／AI」的買卡朋友看的單頁工具：選系列 → 看 **四個預期回報 %**（同一分母）→ 有膜／無膜切換 → 看主力 chase 卡與「買單卡 vs 開盒」粗略提示。
+給「不太懂金融／AI」的買卡朋友看的工具：首頁介紹點樣用 → 開盒算盤選系列 → 看 **四個預期回報 %**（同一分母）→ 有膜／無膜切換 → 看主力 chase 卡與「買單卡 vs 開盒」粗略提示。
 
 資料來自靜態 snapshot（`ev_live`），**無登入、無即時爬價**。
 
 ## 線上使用（GitHub Pages）
 
-開啟：**https://swishish.github.io/Pokemon-Box-EV/**
+開啟：**https://swishish.github.io/Pokemon-Box-EV/**（首頁）
+
+開盒 EV 小算盤：**https://swishish.github.io/Pokemon-Box-EV/calc.html**
 
 英文裸卡市況（S&P-style pulse）：**https://swishish.github.io/Pokemon-Box-EV/market-en.html**
 
-公開 repo 的 GitHub Pages **免費**，無需付費。
+公開 repo 的 GitHub Pages **免費**，無需付費。舊的 `?set=M6` 深連結若打在首頁，會自動轉去 `calc.html`。
 
 ## EN market pulse（Phase 1）
 
@@ -52,8 +54,8 @@ Phase 1 **不做**日版熱度頁、eBay、PriceCharting 付費 API。
 ## 本機打開
 
 1. 下載本 repo
-2. 雙擊 **`index.html`**（或用瀏覽器 File → Open）
-3. 用本機 HTTP 開（見下）：頁面 **`fetch('./data.json')`**，失敗則讀同資料夾 **`data.js`**。不要再把整份 JSON 內嵌進 `index.html` 的 `<script>`（`</script>`／相鄰 `<script>` 會令 `EV_DATA` 派唔到）
+2. 雙擊 **`index.html`**（首頁）或 **`calc.html`**（算盤）；或用瀏覽器 File → Open
+3. 用本機 HTTP 開（見下）：算盤 **`fetch('./data.json')`**，失敗則讀同資料夾 **`data.js`**。不要再把整份 JSON 內嵌進 `calc.html` 的 `<script>`（`</script>`／相鄰 `<script>` 會令 `EV_DATA` 派唔到）
 
 或：
 
@@ -61,10 +63,11 @@ Phase 1 **不做**日版熱度頁、eBay、PriceCharting 付費 API。
 python3 -m http.server 8765
 ```
 
-瀏覽器開：`http://127.0.0.1:8765/`
+瀏覽器開：`http://127.0.0.1:8765/`（首頁）或 `http://127.0.0.1:8765/calc.html`（算盤）
 
 ## Changelog（摘要）
 
+- **v1.20.0**：首頁／算盤拆開——`index.html` 為介紹＋有用連結；算盤改去 `calc.html`；點擊頂欄 Pokéball＋標題返回首頁。EV 算法不變
 - **v1.19.1**：視覺 polish——奶油紙面／墨線／硬陰影、chase 卡格、寶可夢剪影點綴（御三家／伊布／百變怪／Sobble）；EV 算法不變
 - **v1.19.0**：新增英文裸卡市況頁（`market-en.html`）＋首頁「EN 市況」連結；TCGCSV 靜態 JSON 由 GitHub Action 每日更新
 - **v1.18.5**：修手機橫向溢出；系列改為可收起下拉（官方發行序）；桌面側欄 TOC 不變

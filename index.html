@@ -6,7 +6,17 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>日盒 EV 小算盤 v1.19.1 · JP Mega Sealed</title>
+<title>日盒開盒值不值？ v1.20.0 · 首頁</title>
+<script>
+(function () {
+  try {
+    var q = new URLSearchParams(window.location.search);
+    if (q.has('set')) {
+      window.location.replace('./calc.html' + window.location.search + window.location.hash);
+    }
+  } catch (e) {}
+})();
+</script>
 <style>
   :root {
     --bg: #faf6ef;
@@ -35,7 +45,6 @@
     --shadow-xs: 2px 2px 0 var(--ink);
     --shadow-pressed: 1px 1px 0 var(--ink);
     --shadow-lg: 6px 6px 0 var(--ink);
-    --toc-w: 268px;
   }
   * { box-sizing: border-box; }
   html { overflow-x: clip; }
@@ -108,15 +117,18 @@
     border: 2px solid var(--ink);
   }
   .header-inner {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 12px;
-    max-width: 1100px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    column-gap: 12px;
+    row-gap: 2px;
+    max-width: 960px;
     margin: 0 auto;
     min-width: 0;
   }
-  .header-inner > div { min-width: 0; }
+  .header-inner h1 { grid-column: 1; min-width: 0; }
+  .header-inner .nav-btn { grid-column: 2; grid-row: 1; }
+  .header-inner p { grid-column: 1 / -1; }
   .nav-btn {
     display: inline-flex;
     align-items: center;
@@ -132,676 +144,259 @@
     white-space: nowrap;
     flex-shrink: 0;
     box-shadow: var(--shadow-xs);
-    transition: box-shadow .1s ease, transform .1s ease;
+    transition: box-shadow .1s ease, transform .1s ease, background .1s ease;
   }
   .nav-btn:hover { background: var(--accent-hover); }
   .nav-btn:active {
     box-shadow: var(--shadow-pressed);
     transform: translate(1px, 1px);
   }
-
-  .layout {
-    display: grid;
-    grid-template-columns: var(--toc-w) minmax(0, 1fr);
-    gap: 0;
-    max-width: 1100px;
-    margin: 0 auto;
-    align-items: start;
+  .pill {
+    display: inline-block; font-size: .7rem; padding: 2px 8px;
+    border-radius: 999px; background: var(--accent-fill); color: var(--ink);
+    border: 1.5px solid var(--ink); font-weight: 800; margin-left: 4px;
   }
-  .toc-col { min-width: 0; }
-  .set-picker-toggle { display: none; }
-  .mon.set-picker-idle, .set-picker-idle { display: none; }
-  .toc {
-    position: sticky;
-    top: 0;
-    align-self: start;
-    max-height: 100vh;
-    overflow-y: auto;
-    padding: 12px 10px 24px;
-    border-right: var(--bw) solid var(--ink);
-    background: var(--bg-2);
-  }
-  .toc h2 {
-    margin: 0 0 6px;
-    font-size: .72rem;
-    color: var(--muted);
-    font-weight: 650;
-    letter-spacing: .02em;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .toc h2 .mon { width: 54px; height: 18px; }
-  .toc-item {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 8px;
-    width: 100%;
-    text-align: left;
-    border: var(--bw) solid transparent;
-    background: transparent;
-    border-radius: 10px;
-    padding: 6px 8px;
-    cursor: pointer;
-    font: inherit;
-    color: var(--text);
-    margin-bottom: 4px;
-    transition: box-shadow .1s ease, transform .1s ease, background .15s;
-    touch-action: manipulation;
-  }
-  .toc-art {
-    display: none;
-    width: 40px;
-    height: 40px;
-    object-fit: contain;
-    border: var(--bw) solid var(--ink);
-    border-radius: 8px;
-    background: #fff;
+  .mon {
+    display: inline-block;
+    vertical-align: middle;
+    width: 28px;
+    height: 28px;
     flex-shrink: 0;
     pointer-events: none;
+    user-select: none;
   }
-  .toc-meta { min-width: 0; flex: 1; display: flex; flex-direction: column; gap: 1px; }
-  @media (min-width: 900px) {
-    .toc-art { display: block; }
-    .toc-item:hover {
-      background: var(--card);
-      border-color: var(--ink);
-      box-shadow: var(--shadow-xs);
-      transform: translate(-1px, -1px);
-    }
-    .toc-item:active {
-      transform: translate(1px, 1px);
-      box-shadow: var(--shadow-pressed);
-    }
-  }
-  .toc-item.active {
-    background: var(--accent-fill);
-    border-color: var(--ink);
-  }
-  .toc-item .toc-title {
-    font-size: .82rem;
-    line-height: 1.25;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100%;
-  }
-  .toc-item .code { font-weight: 700; font-size: .82rem; }
-  .toc-item .ja { display: inline; font-size: .72rem; color: var(--muted); font-weight: 500; margin-left: 4px; }
-  .toc-item .ev-line {
-    font-variant-numeric: tabular-nums;
-    font-size: .68rem;
-    font-weight: 600;
-    color: var(--muted);
-    line-height: 1.3;
-    white-space: normal;
-  }
-  .toc-item .ev {
-    font-weight: 700;
-    font-size: .72rem;
-  }
-  .toc-item .ev.good { color: var(--good); }
-  .toc-item .ev.ok { color: var(--ok); }
-  .toc-item .ev.bad { color: var(--bad); }
-  .toc-item .ev.na { color: var(--muted); font-weight: 600; }
+  .mon-sm { width: 20px; height: 20px; }
 
   main {
-    padding: 10px 14px 48px;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 18px 16px 48px;
     min-width: 0;
   }
 
-  /* Sticky strip: box art + 4 % metrics */
-  .sticky-ev {
-    position: sticky;
-    top: 0;
-    z-index: 20;
-    margin: 0 -14px 12px;
-    padding: 8px 14px 8px;
-    padding-top: calc(8px + env(safe-area-inset-top, 0px));
-    background: linear-gradient(180deg, var(--bg) 0%, var(--bg) 78%, rgba(250,246,239,0));
-  }
-  .sticky-ev .card {
-    margin-bottom: 0;
-    box-shadow: var(--shadow-sm);
-    border-color: var(--ink);
-    padding: 10px 12px;
-  }
-  .sticky-head {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 6px;
-    flex-wrap: nowrap;
-    margin-bottom: 6px;
-    min-width: 0;
-  }
-  .sticky-head-right {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    flex-wrap: nowrap;
-    margin-left: auto;
-    flex-shrink: 0;
-  }
-  .sticky-kicker { margin-right: 2px; }
-  .sticky-actions {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    flex-shrink: 0;
-  }
-  .sticky-hc {
-    display: none;
-    align-items: baseline;
-    flex-shrink: 0;
-    margin-left: 4px;
-  }
-  .sticky-hc-v {
-    font-size: 1.35rem;
-    font-weight: 800;
-    font-variant-numeric: tabular-nums;
-    line-height: 1;
-    letter-spacing: -0.02em;
-  }
-  .sticky-hc-v.good, .sticky-hc-v.ok, .sticky-hc-v.bad {
-    padding: 3px 8px;
-    border-radius: 999px;
-    border: 1.5px solid var(--ink);
-    font-size: 1.15rem;
-  }
-  .sticky-hc-v.good { color: #fff; background: #2fbf71; }
-  .sticky-hc-v.ok { color: var(--on-accent); background: var(--accent-fill); }
-  .sticky-hc-v.bad { color: #fff; background: #e4434f; }
-  .sticky-hc-v.na { color: var(--muted); }
-  .sticky-more {
-    display: none;
-    border: var(--bw) solid var(--ink);
-    background: var(--accent-fill);
-    color: var(--on-accent);
-    font: inherit;
-    font-size: .7rem;
-    font-weight: 800;
-    padding: 4px 9px;
-    border-radius: 999px;
-    cursor: pointer;
-    white-space: nowrap;
-    flex-shrink: 0;
-    box-shadow: var(--shadow-xs);
-    transition: box-shadow .1s ease, transform .1s ease;
-    touch-action: manipulation;
-  }
-  .sticky-more:active {
-    box-shadow: var(--shadow-pressed);
-    transform: translate(1px, 1px);
-  }
-  .sticky-more[aria-expanded="true"] {
-    background: var(--card);
-  }
-  .sticky-hc-v, .denom-toggle, .sticky-more, .copy-friend-btn, .reset-btn,
-  .toc-item, .set-picker-current {
-    overflow-wrap: normal;
-  }
-  @media (min-width: 900px) and (max-width: 1100px) {
-    .sticky-head, .sticky-head-right { flex-wrap: wrap; }
-  }
-  .reset-btn {
-    border: var(--bw) solid var(--ink);
-    background: var(--card);
-    color: var(--text);
-    font: inherit;
-    font-size: .7rem;
-    font-weight: 700;
-    padding: 5px 10px;
-    border-radius: 999px;
-    cursor: pointer;
-    white-space: nowrap;
-    box-shadow: var(--shadow-xs);
-    transition: box-shadow .1s ease, transform .1s ease;
-    touch-action: manipulation;
-  }
-  .reset-btn:hover { background: var(--bg-2); }
-  .reset-btn:active {
-    box-shadow: var(--shadow-pressed);
-    transform: translate(1px, 1px);
-  }
-  .copy-friend-btn {
-    border: var(--bw) solid var(--ink);
-    background: var(--accent-fill);
-    color: var(--on-accent);
-    font: inherit;
-    font-size: .7rem;
-    font-weight: 800;
-    padding: 5px 10px;
-    border-radius: 999px;
-    cursor: pointer;
-    white-space: nowrap;
-    box-shadow: var(--shadow-xs);
-    transition: box-shadow .1s ease, transform .1s ease, background .15s;
-    touch-action: manipulation;
-  }
-  .copy-friend-btn:hover { background: var(--accent-hover); }
-  .copy-friend-btn:active {
-    box-shadow: var(--shadow-pressed);
-    transform: translate(1px, 1px);
-  }
-  .copy-friend-btn.copied {
-    color: var(--on-accent);
-    background: #2fbf71;
-  }
-  .sticky-ev h2 {
-    margin: 0;
-    font-size: .82rem;
-    display: flex;
-    align-items: center;
-    flex-wrap: nowrap;
-    gap: 4px;
-    min-width: 0;
-    overflow: hidden;
-  }
-  .sticky-ev .set-name { font-weight: 700; font-size: .88rem; color: var(--text); }
-  .denom-toggle {
-    display: inline-flex;
-    border: var(--bw) solid var(--ink);
-    border-radius: 999px;
+  .hero {
+    position: relative;
     overflow: hidden;
     background: var(--card);
-    box-shadow: var(--shadow-xs);
+    border: var(--bw) solid var(--ink);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    padding: 22px 20px 20px;
+    margin-bottom: 18px;
   }
-  .denom-toggle .tog {
-    border: 0;
-    background: transparent;
-    font: inherit;
-    font-size: .75rem;
+  .hero-deco {
+    position: absolute;
+    right: -8px;
+    bottom: -10px;
+    width: 120px;
+    height: 120px;
+    opacity: .92;
+    pointer-events: none;
+    user-select: none;
+  }
+  .hero-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: .72rem;
     font-weight: 800;
-    padding: 5px 12px;
-    cursor: pointer;
+    letter-spacing: .04em;
     color: var(--muted);
-    touch-action: manipulation;
+    margin: 0 0 8px;
   }
-  .denom-toggle .tog.active {
-    background: var(--accent-fill);
-    color: var(--on-accent);
+  .hero h2 {
+    margin: 0 0 8px;
+    font-size: clamp(1.35rem, 4.6vw, 2rem);
+    font-weight: 850;
+    letter-spacing: -0.03em;
+    line-height: 1.25;
+    max-width: 16em;
   }
-  .denom-toggle .tog:disabled {
-    opacity: .45;
-    cursor: not-allowed;
+  .hero-pitch {
+    margin: 0 0 16px;
+    color: var(--muted);
+    font-size: .92rem;
+    max-width: 28em;
   }
-  .sticky-row {
+  .cta-row {
     display: flex;
-    align-items: stretch;
+    flex-wrap: wrap;
+    align-items: center;
     gap: 10px;
   }
-  .sticky-box {
-    cursor: zoom-in;
-    width: 64px;
-    height: 64px;
-    object-fit: contain;
-    border-radius: 8px;
-    background: #fff;
-    border: var(--bw) solid var(--ink);
-    flex-shrink: 0;
-    align-self: center;
-    box-shadow: var(--shadow-xs);
-  }
-  .sticky-metrics {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     gap: 8px;
-    flex: 1;
-    min-width: 0;
+    border: var(--bw) solid var(--ink);
+    background: var(--accent-fill);
+    color: var(--ink);
+    font: inherit;
+    font-size: 1rem;
+    font-weight: 850;
+    padding: 12px 18px;
+    border-radius: 999px;
+    text-decoration: none;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow .1s ease, transform .1s ease, background .1s ease;
   }
-  .sticky-metric {
+  .cta:hover { background: var(--accent-hover); }
+  .cta:active {
+    box-shadow: var(--shadow-pressed);
+    transform: translate(2px, 2px);
+  }
+  .cta:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+  .lights {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .light {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: .72rem;
+    font-weight: 800;
+    padding: 5px 9px;
+    border-radius: 999px;
+    border: 1.5px solid var(--ink);
+    background: var(--card);
+  }
+  .dot {
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    border: 1.5px solid var(--ink);
+    flex-shrink: 0;
+  }
+  .dot.good { background: #2fbf71; }
+  .dot.ok { background: var(--accent-fill); }
+  .dot.bad { background: #e4434f; }
+
+  .sec {
+    margin: 0 0 18px;
+  }
+  .sec-h {
+    margin: 0 0 10px;
+    font-size: 1.02rem;
+    font-weight: 850;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .steps {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .step {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 12px;
+    align-items: start;
     background: var(--card);
     border: var(--bw) solid var(--ink);
-    border-radius: 12px;
-    padding: 8px 8px;
-    min-width: 0;
+    border-radius: var(--radius);
     box-shadow: var(--shadow-xs);
+    padding: 12px 14px;
   }
-  .sticky-metric.good { background: var(--good-bg); }
-  .sticky-metric.ok { background: var(--ok-bg); }
-  .sticky-metric.bad { background: var(--bad-bg); }
-  .sticky-metric .k {
-    font-size: .68rem;
-    color: var(--muted);
-    font-weight: 600;
-    line-height: 1.25;
-    min-height: 2.2em;
-  }
-  .sticky-metric .v {
-    font-size: 1.2rem;
-    font-weight: 750;
-    font-variant-numeric: tabular-nums;
-    line-height: 1.2;
-  }
-  .sticky-metric .v.good { color: var(--good); }
-  .sticky-metric .v.ok { color: var(--ok); }
-  .sticky-metric .v.bad { color: var(--bad); }
-  .sticky-metric .v.na { color: var(--muted); font-weight: 650; }
-  .sticky-metric .yen { font-size: .68rem; color: var(--muted); margin-top: 2px; }
-
-  /* Lightbox for chase / box thumbs (above sticky z-index:20) */
-  .lightbox {
-    position: fixed;
-    inset: 0;
-    z-index: 10000;
-    background: rgba(16,24,40,.78);
+  .step-n {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: var(--bw) solid var(--ink);
+    background: var(--accent-fill);
+    font-weight: 850;
+    font-size: .85rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 24px;
-    cursor: zoom-out;
+    box-shadow: 1px 1px 0 var(--ink);
   }
-  .lightbox[hidden] { display: none !important; }
-  .lightbox img {
-    display: block;
-    width: auto;
-    height: auto;
-    max-width: min(92vw, 520px);
-    max-height: 88vh;
-    object-fit: contain;
-    border-radius: 8px;
-    border: 3px solid var(--ink);
-    box-shadow: var(--shadow-lg, 6px 6px 0 var(--ink));
-    background: #fff;
-    cursor: default;
+  .step h3 { margin: 0 0 2px; font-size: .95rem; font-weight: 800; }
+  .step p { margin: 0; font-size: .82rem; color: var(--muted); }
+  .method-link {
+    margin: 10px 0 0;
+    font-size: .82rem;
+    color: var(--muted);
   }
-  .card {
-    background: var(--card);
-    border: var(--bw) solid var(--ink);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-sm);
-    padding: 14px 16px;
-    margin-bottom: 14px;
+  .method-link a {
+    color: var(--ink);
+    font-weight: 800;
+    text-underline-offset: 2px;
   }
-  label.field { display: block; font-size: .8rem; color: var(--muted); margin-bottom: 4px; }
-  input[type="number"] {
-    width: 100%;
-    padding: 10px 12px;
-    border: var(--bw) solid var(--ink);
-    border-radius: 8px;
-    font-size: 1rem;
-    background: #fff;
-    color: var(--text);
-  }
-  input[type="number"]:focus { outline: 3px solid var(--info); outline-offset: 2px; }
-  .lights {
+
+  .link-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-  }
-  .light {
-    border-radius: 10px;
-    padding: 12px 14px;
-    border: 1px solid var(--line);
-  }
-  .light.good { background: var(--good-bg); border-color: #b7e4c7; }
-  .light.ok { background: var(--ok-bg); border-color: #f0d58a; }
-  .light.bad { background: var(--bad-bg); border-color: #f5c2c0; }
-  .light-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    margin-bottom: 4px;
-  }
-  .light .tag {
-    font-size: .75rem; font-weight: 600; letter-spacing: .02em;
-  }
-  .light.good .tag { color: var(--good); }
-  .light.ok .tag { color: var(--ok); }
-  .light.bad .tag { color: var(--bad); }
-  .light .score {
-    font-size: 1.55rem; font-weight: 750; font-variant-numeric: tabular-nums;
-  }
-  .light .thumb {
-    width: 44px; height: 44px;
-    object-fit: contain;
-    border-radius: 6px;
-    background: #fff;
-    border: 1px solid var(--line);
-    flex-shrink: 0;
-  }
-  .verdict {
-    font-size: 1rem;
-    padding: 12px 14px;
-    background: var(--ok-bg);
-    border: var(--bw) solid var(--ink);
-    border-radius: 12px;
-    margin-top: 10px;
-    box-shadow: var(--shadow-xs);
-  }
-  .verdict p { margin: 0; }
-  .verdict p + p { margin-top: 0.55em; }
-  .metrics {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
-    margin-top: 10px;
-  }
-  @media (min-width: 560px) {
-    .metrics { grid-template-columns: repeat(2, 1fr); }
-  }
-  .metric {
-    background: #fafbfc;
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    padding: 8px 10px;
-  }
-  .metric .k { font-size: .72rem; color: var(--muted); }
-  .metric .v { font-size: 1.05rem; font-weight: 650; font-variant-numeric: tabular-nums; }
-  .metric .r { font-size: .75rem; color: var(--muted); }
-  h2 { margin: 0 0 8px; font-size: .95rem; }
-  .sec-h {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-  table { width: 100%; border-collapse: collapse; font-size: .86rem; }
-  th, td { text-align: left; padding: 7px 6px; border-bottom: 1px solid var(--line); vertical-align: middle; }
-  th { color: var(--muted); font-weight: 800; font-size: .72rem; text-transform: uppercase; letter-spacing: .04em; }
-  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
-  .card-thumb {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    display: block;
-    cursor: zoom-in;
-  }
-  .chase-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 148px), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
     gap: 12px;
   }
-  .chase-tile {
-    border: var(--bw) solid var(--ink);
-    border-radius: 12px;
-    background: var(--card);
-    box-shadow: var(--shadow-xs);
-    padding: 8px;
+  a.tile, .tile {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
     min-width: 0;
-    cursor: zoom-in;
-    transition: box-shadow .1s ease, transform .1s ease;
-    touch-action: manipulation;
-  }
-  .chase-tile:hover {
-    transform: translate(-1px, -1px);
-    box-shadow: var(--shadow-sm);
-  }
-  .chase-tile:active {
-    transform: translate(1px, 1px);
-    box-shadow: var(--shadow-pressed);
-  }
-  .chase-art {
-    position: relative;
-    aspect-ratio: 2.5 / 3.5;
-    background: var(--bg-2);
+    background: var(--card);
     border: var(--bw) solid var(--ink);
-    border-radius: 8px;
-    overflow: hidden;
-    margin-bottom: 8px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    padding: 14px 14px 12px;
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow .1s ease, transform .1s ease, background .1s ease;
   }
-  .chase-rank {
-    position: absolute;
-    top: 6px; left: 6px;
-    background: var(--accent-fill);
-    border: 1.5px solid var(--ink);
-    border-radius: 999px;
+  a.tile:hover { background: #fffdf6; }
+  a.tile:active {
+    box-shadow: var(--shadow-pressed);
+    transform: translate(2px, 2px);
+  }
+  a.tile:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+  .tile.soon {
+    background: var(--bg-2);
+    color: var(--muted);
+    box-shadow: none;
+    cursor: default;
+  }
+  .tile-kicker {
     font-size: .68rem;
     font-weight: 800;
-    padding: 1px 6px;
-    z-index: 1;
+    letter-spacing: .04em;
+    color: var(--muted);
   }
-  .chase-name {
-    font-size: .82rem;
-    font-weight: 750;
-    line-height: 1.25;
-    margin-bottom: 4px;
+  .tile-title {
+    font-size: 1.02rem;
+    font-weight: 850;
+    letter-spacing: -0.02em;
   }
-  .chase-meta {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 6px;
-    font-variant-numeric: tabular-nums;
-  }
-  .chase-price { font-weight: 800; font-size: .88rem; }
-  .chase-share { font-size: .7rem; color: var(--muted); margin-top: 2px; font-variant-numeric: tabular-nums; }
-  .set-name a {
-    color: var(--accent);
-    text-decoration: none;
-    border-bottom: 1px dotted var(--accent);
-  }
-  .set-name a:hover { border-bottom-style: solid; }
-
-  /* Price override: sticky bar, immediately left of 有膜/無膜 toggle */
-  .price-override {
-    display: inline-flex;
-    align-items: center;
-    flex-wrap: nowrap;
-    gap: 5px;
-    font-size: .72rem;
-    font-weight: 650;
-    vertical-align: middle;
-    padding: 4px 8px;
-    border: var(--bw) solid var(--ink);
-    border-radius: 999px;
-    background: var(--ok-bg);
-    box-shadow: var(--shadow-xs);
-  }
-  .price-override .po-label {
-    color: var(--text);
+  .tile-desc { font-size: .78rem; color: var(--muted); }
+  .tile-badge {
+    align-self: flex-start;
+    margin-top: 6px;
+    font-size: .68rem;
     font-weight: 800;
-    font-size: .7rem;
-    white-space: nowrap;
+    padding: 2px 8px;
+    border-radius: 999px;
+    border: 1.5px solid var(--ink);
+    background: var(--accent-fill);
+    color: var(--ink);
   }
-  .price-override input#pcBoxSlider {
-    width: 96px;
-    max-width: 26vw;
-    height: 1.25rem;
-    margin: 0;
-    vertical-align: middle;
-    accent-color: #e4434f;
-    cursor: pointer;
-  }
-  .price-override input#pcBoxOverride {
-    width: 4.4rem;
-    font: inherit;
-    font-size: .8rem;
-    font-weight: 700;
-    padding: 3px 6px;
-    border: var(--bw) solid var(--ink);
-    border-radius: 6px;
-    background: #fff;
-    color: var(--text);
-  }
-  .price-override .hk-unit {
-    color: var(--muted);
-    font-weight: 600;
-    font-size: .7rem;
-  }
-  .src-links {
-    display: inline-flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-left: 4px;
-    font-size: .7rem;
-    font-weight: 500;
-  }
-  .src-links a.src-link {
-    color: var(--text);
-    text-decoration: none;
-    border-bottom: 2px solid var(--accent-fill);
-    font-weight: 700;
-    white-space: nowrap;
-  }
-  .src-links a.src-link:hover { border-bottom-style: solid; }
-  .src-links .src-missing { color: var(--muted); font-weight: 500; }
-  .pc-avg-note {
-    margin: 4px 0 0;
-    font-size: .7rem;
-    color: var(--muted);
-  }
-  .method-card a { color: var(--accent); }
-  .method-card ul { margin: 0; padding-left: 1.1rem; color: var(--muted); }
-  .method-card li { margin: 0.35em 0; }
-  .hint {
-    font-size: .86rem; color: var(--muted);
-    background: var(--bg-2); border: var(--bw) solid var(--ink); border-radius: 10px; padding: 10px 12px; margin-top: 10px;
-  }
-  details.advanced {
-    border: var(--bw) solid var(--ink);
-    border-radius: var(--radius-lg);
-    padding: 0;
+  .tile.soon .tile-badge {
     background: var(--card);
-    margin-bottom: 14px;
-    box-shadow: var(--shadow-xs);
+    color: var(--muted);
   }
-  details.advanced > summary {
-    cursor: pointer;
-    padding: 12px 16px;
-    font-weight: 600;
-    list-style: none;
-    user-select: none;
-  }
-  details.advanced > summary::-webkit-details-marker { display: none; }
-  details.advanced > summary::before { content: "▸ "; color: var(--accent); }
-  details.advanced[open] > summary::before { content: "▾ "; }
-  .adv-body { padding: 0 16px 16px; }
-  .slider-row {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 6px 10px;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  .slider-row label { font-size: .82rem; color: var(--muted); grid-column: 1 / -1; }
-  .slider-row input[type="range"] { width: 100%; accent-color: #e4434f; }
-  .slider-row .val {
-    min-width: 3.2rem; text-align: right;
-    font-variant-numeric: tabular-nums; font-size: .9rem; font-weight: 600;
-  }
-  /* Haircut: label + slider + % on one row (desktop density) */
-  .slider-row.hc {
-    grid-template-columns: minmax(5.5rem, auto) minmax(0, 1fr) auto;
-    gap: 4px 8px;
-    margin-bottom: 6px;
-    min-width: 0;
-  }
-  .slider-row.hc label {
-    grid-column: auto;
+  .tile.primary { background: #fff8d6; }
+  .note {
+    margin: 0;
     font-size: .78rem;
-    font-weight: 650;
-    color: var(--text);
-    white-space: nowrap;
+    color: var(--muted);
   }
-  .slider-row.hc input[type="range"] { min-width: 0; width: 100%; }
-  .slider-row.hc .val { min-width: 2.8rem; font-size: .85rem; }
-  .adv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .tiny { font-size: .75rem; color: var(--muted); }
+  .card-note {
+    background: var(--bg-2);
+    border: var(--bw) solid var(--ink);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-xs);
+    padding: 12px 14px;
+  }
   footer {
     display: flex;
     align-items: center;
@@ -814,1464 +409,133 @@
     padding: 8px 16px 24px;
   }
   footer a { color: var(--ink); font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
-  footer a:hover { color: var(--text); }
   footer .mon { width: 36px; height: 36px; }
-  /* Original local silhouettes (img/accents/) — not official Nintendo art.
-     pointer-events:none so they never steal taps from sticky EV / pickers. */
-  .mon {
-    display: inline-block;
-    vertical-align: middle;
-    width: 28px;
-    height: 28px;
-    flex-shrink: 0;
-    pointer-events: none;
-    user-select: none;
-  }
-  .mon-sm { width: 20px; height: 20px; }
-  .mon-starters { width: 72px; height: 24px; }
-  .pill {
-    display: inline-block; font-size: .7rem; padding: 2px 8px;
-    border-radius: 999px; background: var(--accent-fill); color: var(--ink);
-    border: 1.5px solid var(--ink); font-weight: 800; margin-left: 4px;
-  }
-  .err { color: var(--bad); padding: 20px; line-height: 1.55; }
-  .err .err-hint { color: var(--text); font-size: .92rem; margin-top: 8px; }
-  .pool-pill {
-    display: inline-flex; align-items: center;
-    font-size: .62rem; padding: 2px 7px;
-    border-radius: 999px; background: var(--bg-2); color: var(--ink);
-    border: 1.5px solid var(--ink); font-weight: 800;
-    letter-spacing: .04em; text-transform: uppercase;
-    flex-shrink: 0;
-  }
-  .pool-SAR, .pool-sup_SAR { background: var(--accent-fill); }
-  .pool-MUR { background: linear-gradient(135deg, #ff6ba9, #4f86f7); color: #fff; }
-  .pool-poke_sr, .pool-goods_sr { background: #dde8fd; }
-  .pool-AR, .pool-UR { background: var(--good-bg); }
-  .pool-MA { background: #ffe1ee; }
-  .pool-ACE { background: var(--ink); color: var(--accent-fill); }
-  .pool-SSR, .pool-S { background: #fff3c4; }
-  .pool-BWR, .pool-FUR { background: #fff; }
-  .empty-state {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 36px 16px;
-    text-align: center;
-    gap: 8px;
-  }
-  .empty-state .icon {
-    width: 36px; height: 36px;
-    border-radius: 50%;
-    border: 2px solid var(--ink);
-    background: linear-gradient(180deg, #e4434f 49%, #fff 51%);
-    box-shadow: 2px 2px 0 var(--ink);
-  }
-  .empty-state .mon { width: 56px; height: 56px; }
-  .empty-state h3 { margin: 0; font-size: 1.05rem; font-weight: 800; }
-  .empty-state p { margin: 0; font-size: .86rem; color: var(--muted); max-width: 28rem; }
 
-  .table-wrap {
-    max-width: 100%;
-    overflow-x: auto;
-    overscroll-behavior-x: contain;
-    -webkit-overflow-scrolling: touch;
+  @media (min-width: 720px) {
+    .steps { grid-template-columns: 1fr 1fr; }
+    .link-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .hero { padding: 28px 28px 24px; padding-right: 168px; }
+    .hero-deco { width: 150px; height: 150px; right: 8px; bottom: -8px; }
   }
-
-  /* Mobile / narrow: no page overflow; hideable set dropdown; compact sticky */
   @media (max-width: 899px) {
-    .layout { grid-template-columns: minmax(0, 1fr); }
     header { padding: 8px 12px 6px; }
     header h1, header p { overflow-wrap: anywhere; }
-    .header-inner { align-items: center; gap: 8px; min-width: 0; }
+    .header-inner { column-gap: 8px; min-width: 0; }
     .nav-btn { font-size: .7rem; padding: 6px 10px; }
-    main {
-      padding: 10px 12px 48px;
-      min-width: 0;
-      max-width: 100%;
-    }
-    .card, .verdict, .sticky-ev, .sticky-card, .sticky-drawer, .sticky-row, .sticky-metrics {
-      max-width: 100%;
-      min-width: 0;
-    }
-
-    .toc-col {
-      position: relative;
-      z-index: 25;
-      padding: 8px 12px;
-      background: var(--bg-2);
-      border-bottom: var(--bw) solid var(--ink);
-      max-width: 100%;
-    }
-    .set-picker-toggle {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      width: 100%;
-      min-width: 0;
-      max-width: 100%;
-      text-align: left;
-      border: var(--bw) solid var(--ink);
-      background: var(--card);
-      color: var(--text);
-      font: inherit;
-      border-radius: 10px;
-      padding: 8px 10px;
-      cursor: pointer;
-      box-shadow: var(--shadow-xs);
-      transition: box-shadow .1s ease, transform .1s ease;
-      touch-action: manipulation;
-    }
-    .set-picker-toggle:active {
-      box-shadow: var(--shadow-pressed);
-      transform: translate(1px, 1px);
-    }
-    .mon.set-picker-idle, .set-picker-idle {
-      display: inline-block;
-      width: 22px;
-      height: 22px;
-      flex-shrink: 0;
-      pointer-events: none;
-    }
-    .set-picker-kicker {
-      flex: 0 0 auto;
-      font-size: .68rem;
-      font-weight: 650;
-      color: var(--muted);
-      letter-spacing: .02em;
-    }
-    .set-picker-current {
-      flex: 1 1 auto;
-      min-width: 0;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      font-size: .88rem;
-      font-weight: 700;
-    }
-    .set-picker-toggle::after {
-      content: "▾";
-      flex: 0 0 auto;
-      color: var(--ink);
-      font-size: .8rem;
-    }
-    .toc-col.is-open .set-picker-toggle {
-      background: var(--accent-fill);
-    }
-    .toc-col.is-open .set-picker-toggle::after { content: "▴"; }
-    .toc {
-      display: none;
-      position: absolute;
-      left: 12px;
-      right: 12px;
-      top: calc(100% - 2px);
-      max-height: min(60vh, 420px);
-      overflow-x: hidden;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      flex-direction: column;
-      flex-wrap: nowrap;
-      gap: 2px;
-      align-items: stretch;
-      padding: 6px;
-      margin: 0;
-      border: var(--bw) solid var(--ink);
-      border-radius: 12px;
-      background: var(--card);
-      box-shadow: var(--shadow);
-      z-index: 30;
-    }
-    .toc-col.is-open .toc { display: flex; }
-    .toc h2 { display: none; }
-    .toc-item {
-      flex: 0 0 auto;
-      width: 100%;
-      min-width: 0;
-      max-width: 100%;
-      margin-bottom: 0;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      padding: 8px 10px;
-    }
-    .toc-meta {
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-    }
-    .toc-item .toc-title {
-      flex: 1 1 auto;
-      min-width: 0;
-    }
-    .toc-item .ev-line {
-      flex: 0 1 auto;
-      min-width: 0;
-      text-align: right;
-      white-space: nowrap;
-      font-size: .66rem;
-    }
-
-    .adv-grid { grid-template-columns: 1fr; }
-    #hcSliders.hc-grid,
-    .hc-grid {
-      grid-template-columns: 1fr;
-      gap: 0;
-      overflow-x: hidden;
-      max-width: 100%;
-    }
-    .slider-row.hc {
-      grid-template-columns: minmax(4.6rem, 7rem) minmax(0, 1fr) 2.6rem;
-      gap: 6px 8px;
-      margin-bottom: 4px;
-      min-height: 36px;
-      align-items: center;
-      max-width: 100%;
-    }
-    .slider-row.hc label {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .sticky-ev {
-      margin: 0 -12px 10px;
-      padding: 0 12px;
-      padding-top: env(safe-area-inset-top, 0px);
-      background: var(--bg);
-      max-width: none;
-    }
-    .sticky-ev:not(.is-open) .data-freshness { display: none; }
-    .sticky-ev .card.sticky-card {
-      padding: 0 8px;
-      box-shadow: none;
-    }
-    .sticky-hc-v.good, .sticky-hc-v.ok, .sticky-hc-v.bad {
-      padding: 2px 6px;
-      font-size: 1.05rem;
-    }
-    .sticky-head {
-      flex-wrap: nowrap;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 0;
-      min-height: 48px;
-      height: 52px;
-      max-height: 52px;
-      max-width: 100%;
-    }
-    .sticky-head h2 {
-      flex: 1 1 auto;
-      min-width: 0;
-      overflow: hidden;
-      font-size: .78rem;
-    }
-    #advancedHost > .advanced { display: none; }
-    .sticky-kicker,
-    .sticky-head .src-links { display: none; }
-    .sticky-ev .set-name {
-      display: block;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow-wrap: normal;
-      font-size: .82rem;
-    }
-    .sticky-hc { display: flex; }
-    .sticky-more { display: inline-flex; align-items: center; }
-    .sticky-head-right {
-      flex-wrap: nowrap;
-      flex-shrink: 1;
-      min-width: 0;
-      gap: 6px;
-      max-width: 100%;
-    }
-    .sticky-head .price-override,
-    .sticky-head .sticky-actions { display: none; }
-    .denom-toggle .tog { padding: 4px 8px; font-size: .68rem; }
-    .sticky-drawer { display: none; max-width: 100%; }
-    .sticky-ev.is-open .sticky-drawer {
-      display: block;
-      max-height: min(65dvh, calc(100dvh - 4.25rem - env(safe-area-inset-top, 0px)));
-      overflow-x: hidden;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      padding: 8px 0 10px;
-      margin-top: 2px;
-      border-top: 1px solid var(--line);
-    }
-    .sticky-ev.is-open .sticky-drawer .price-override {
-      display: flex;
-      flex-wrap: wrap;
-      width: 100%;
-      max-width: 100%;
-      border-radius: 10px;
-      margin-bottom: 8px;
-    }
-    .sticky-ev.is-open .sticky-drawer .price-override input#pcBoxSlider {
-      flex: 1 1 100%;
-      max-width: 100%;
-      width: 100%;
-    }
-    .sticky-ev.is-open .sticky-drawer .price-override input#pcBoxOverride {
-      width: 5rem;
-      max-width: 46%;
-    }
-    .sticky-ev.is-open .sticky-drawer .sticky-actions {
-      display: flex;
-      flex-wrap: wrap;
-      max-width: 100%;
-      margin-bottom: 8px;
-    }
-    .sticky-ev.is-open .sticky-card {
-      padding-bottom: 8px;
-    }
-    .sticky-drawer .advanced {
-      border: var(--bw) solid var(--ink);
-      margin: 10px 0 0;
-      max-width: 100%;
-      box-shadow: none;
-    }
-    .sticky-drawer .advanced > summary { padding: 10px 12px; }
-    .sticky-drawer .advanced .adv-body { padding: 0 12px 12px; }
-    .sticky-row { flex-wrap: wrap; }
-    .sticky-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .sticky-box { width: 52px; height: 52px; }
-    .sticky-metric .v { font-size: 1.05rem; }
-    .sticky-metric .k { font-size: .62rem; min-height: 2.4em; overflow-wrap: anywhere; }
-    .chase-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-    .chase-tile:hover { transform: none; box-shadow: var(--shadow-xs); }
-    .sticky-metric { box-shadow: none; }
-    .sticky-box { box-shadow: none; }
-  }
-
-  /* Stale / freshness banner (near sticky top) */
-  .data-freshness {
-    margin: 0 0 8px;
-    padding: 0;
-    font-size: .72rem;
-    line-height: 1.4;
-    color: var(--muted);
-  }
-  .data-freshness.fresh {
-    padding: 2px 2px 0;
-    color: var(--muted);
-  }
-  .data-freshness.stale {
-    margin: 0 0 8px;
-    padding: 8px 12px;
-    border-radius: 8px;
-    background: var(--ok-bg);
-    color: var(--ink);
-    border: var(--bw) solid var(--ink);
-    font-size: .78rem;
-    font-weight: 600;
-    box-shadow: var(--shadow-xs);
+    main { padding: 12px 12px 48px; }
+    .hero { padding: 16px 14px 14px; }
+    .hero-deco { display: none; }
+    .cta { width: 100%; }
+    .lights { width: 100%; }
   }
 </style>
 </head>
 <body>
 <header>
   <div class="header-inner">
-    <div>
-      <h1><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？ <span class="pill">v1.19.1</span></h1>
-      <p><img class="mon mon-sm" src="./img/accents/eevee.svg" alt="" width="20" height="20" aria-hidden="true" />給朋友看的簡易 EV 小算盤 · 無登入、非即時行情 · <b>v1.19.1</b></p>
-    </div>
-    <a class="nav-btn" href="./market-en.html" title="English raw singles market pulse">EN 市況</a>
+    <h1><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？ <span class="pill">v1.20.0</span></h1>
+    <a class="nav-btn" href="./calc.html">開盒 EV</a>
+    <p><img class="mon mon-sm" src="./img/accents/eevee.svg" alt="" width="20" height="20" aria-hidden="true" />給朋友看的簡易日盒 EV 小算盤 · 無登入 · 非即時行情</p>
   </div>
 </header>
 
-<div class="layout" id="app">
-  <aside class="toc-col" id="tocCol">
-    <button type="button" class="set-picker-toggle" id="setPickerToggle" aria-expanded="false" aria-controls="toc" aria-haspopup="listbox">
-      <img class="mon set-picker-idle" src="./img/accents/ditto.svg" alt="" width="22" height="22" aria-hidden="true" />
-      <span class="set-picker-kicker">系列</span>
-      <span class="set-picker-current" id="setPickerCurrent"></span>
-    </button>
-    <nav class="toc" id="toc" aria-label="系列目錄"></nav>
-  </aside>
-
-  <main>
-    <div class="sticky-ev" id="stickyEv">
-      <div id="dataFreshness" class="data-freshness" role="status" aria-live="polite"></div>
-      <div class="card sticky-card">
-        <div class="sticky-head" id="stickyBar">
-          <h2>
-            <span class="sticky-kicker">預期回報 %</span>
-            <span class="set-name" id="stickySetName"></span>
-            <span class="src-links" id="stickySrcLinks" aria-label="系列來源連結"></span>
-          </h2>
-          <div class="sticky-head-right">
-            <span class="price-override" id="stickyPriceOverride" title="盒價覆寫（HK$）· 預設＝目前分母（有膜／無膜）SNKR 落地 · 改動更新該分母 EV÷L">
-              <span class="po-label">盒價</span>
-              <input type="range" id="pcBoxSlider" min="0" max="2000" step="1" aria-label="盒價覆寫滑桿 HK$ 0–2000" />
-              <input type="number" id="pcBoxOverride" min="0" step="1" inputmode="decimal" aria-label="盒價覆寫 HK$" />
-              <span class="hk-unit">HK$</span>
-            </span>
-            <div class="denom-toggle" role="group" aria-label="落地分母">
-              <button type="button" class="tog active" id="togShrink" data-denom="shrink">有膜</button>
-              <button type="button" class="tog" id="togNS" data-denom="ns">無膜</button>
-            </div>
-            <div class="sticky-hc" id="stickyHcLive" title="Grade A（打折）">
-              <span class="sticky-hc-v" id="stickyHcVal">—</span>
-            </div>
-            <div class="sticky-actions" id="stickyActions">
-              <button type="button" class="copy-friend-btn" id="copyFriend" title="複製短訊給朋友（WhatsApp 可貼上）">複製給朋友</button>
-              <button type="button" class="reset-btn" id="resetDefaults" title="恢復所有進階假設與盒價覆寫為預設">恢復預設</button>
-            </div>
-            <button type="button" class="sticky-more" id="stickyMore" aria-expanded="false" aria-controls="stickyDrawer">設定</button>
-          </div>
-        </div>
-        <div class="sticky-drawer" id="stickyDrawer">
-          <div class="sticky-row">
-            <img class="sticky-box" id="stickyBox" alt="" width="64" height="64" />
-            <div class="sticky-metrics" id="stickyMetrics"></div>
-          </div>
-        </div>
+<main>
+  <section class="hero" aria-labelledby="hero-title">
+    <p class="hero-kicker"><span class="poke-mark" aria-hidden="true"></span> 日盒 EV 小算盤</p>
+    <h2 id="hero-title">開盒值不值，一眼睇到。</h2>
+    <p class="hero-pitch">給朋友看的簡易日盒 EV 小算盤 · 無登入 · 非即時行情。揀系列、睇紅綠燈，再決定要唔要開。</p>
+    <div class="cta-row">
+      <a class="cta" href="./calc.html">開始計算 →</a>
+      <div class="lights" aria-label="紅綠燈說明">
+        <span class="light"><span class="dot good" aria-hidden="true"></span>≥55% 值得考慮</span>
+        <span class="light"><span class="dot ok" aria-hidden="true"></span>40–55% 普通</span>
+        <span class="light"><span class="dot bad" aria-hidden="true"></span>&lt;40% 偏貴</span>
       </div>
     </div>
+    <img class="hero-deco" src="./img/accents/eevee.svg" alt="" width="150" height="150" aria-hidden="true" />
+  </section>
 
-    <div class="card">
-      <div class="verdict" id="verdict" style="margin-top:0"></div>
+  <section class="sec" aria-labelledby="how-title">
+    <h2 class="sec-h" id="how-title"><img class="mon" src="./img/accents/ditto.svg" alt="" width="28" height="28" aria-hidden="true" />點樣用</h2>
+    <div class="steps">
+      <article class="step">
+        <span class="step-n" aria-hidden="true">1</span>
+        <div>
+          <h3>揀系列</h3>
+          <p>左邊目錄／手機下拉，揀想開嘅日盒（M6、SV8a 等）。</p>
+        </div>
+      </article>
+      <article class="step">
+        <span class="step-n" aria-hidden="true">2</span>
+        <div>
+          <h3>睇 Grade A 打折 %</h3>
+          <p>主判斷用紅綠燈：綠值得考慮、黃普通、紅偏貴。有膜／無膜只改盒價分母。</p>
+        </div>
+      </article>
+      <article class="step">
+        <span class="step-n" aria-hidden="true">3</span>
+        <div>
+          <h3>可選進階</h3>
+          <p>稀有度 haircuts、盒價覆寫（HK$），對齊你實際入手價。唔熟可以跳過。</p>
+        </div>
+      </article>
+      <article class="step">
+        <span class="step-n" aria-hidden="true">4</span>
+        <div>
+          <h3>Chase 主力卡</h3>
+          <p>睇 Top chase，粗略比較「買單卡 vs 開盒」。</p>
+        </div>
+      </article>
     </div>
+    <p class="method-link">詳細計法、haircut 預設同資料來源 → <a href="./calc.html#method">算盤頁「方法論」</a></p>
+  </section>
 
-    <div id="advancedHost">
-    <details class="advanced" id="advancedPanel" open>
-      <summary>進階假設</summary>
-      <div class="adv-body">
-        <div class="slider-row">
-          <label for="gemDisc">Gem 折扣（有效 gem = 公佈 gem × (1−折扣)；預設 20%）</label>
-          <input type="range" id="gemDisc" min="0" max="50" step="5" value="20" />
-          <span class="val" id="gemDiscVal">20%</span>
-        </div>
-
-        <div class="slider-row">
-          <label for="askDisc">PSA Ask 折扣（掛牌 × (1−折扣) 當可成交價；預設 10%＝舊乘數 0.9）</label>
-          <input type="range" id="askDisc" min="0" max="50" step="5" value="10" />
-          <span class="val" id="askDiscVal">10%</span>
-        </div>
-
-        <h2 style="margin-top:14px">稀有度折扣（Haircut，% off）</h2>
-        <p class="tiny">10%＝×0.9（折扣 off，非保留係數）</p>
-        <div class="adv-grid hc-grid" id="hcSliders"></div>
-
-        <h2 style="margin-top:14px">費用</h2>
-        <div class="adv-grid">
-          <div>
-            <label class="field" for="psaUsd">PSA 費用 (USD)</label>
-            <input type="number" id="psaUsd" min="0" step="1" />
-          </div>
-          <div>
-            <label class="field" for="cgcUsd">CGC 費用 (USD)</label>
-            <input type="number" id="cgcUsd" min="0" step="1" />
-          </div>
-        </div>
+  <section class="sec" aria-labelledby="links-title">
+    <h2 class="sec-h" id="links-title"><img class="mon" src="./img/accents/starters.svg" alt="" width="72" height="24" aria-hidden="true" style="width:72px;height:24px" />有用連結</h2>
+    <div class="link-grid">
+      <a class="tile primary" href="./calc.html">
+        <span class="tile-kicker">本站</span>
+        <span class="tile-title">開盒 EV 小算盤</span>
+        <span class="tile-desc">選系列 → 睇四個預期回報 % → chase 卡。</span>
+        <span class="tile-badge">開始</span>
+      </a>
+      <a class="tile" href="./market-en.html">
+        <span class="tile-kicker">本站</span>
+        <span class="tile-title">EN 市況</span>
+        <span class="tile-desc">英文裸卡溫度（TCGCSV 靜態快照，非即時）。</span>
+      </a>
+      <div class="tile soon" aria-disabled="true">
+        <span class="tile-kicker">本站</span>
+        <span class="tile-title">JP 市況</span>
+        <span class="tile-desc">日版熱度頁尚未上線，唔會放死連結。</span>
+        <span class="tile-badge">即將推出</span>
       </div>
-    </details>
+      <a class="tile" href="https://snkrdunk.com/en/trading-cards" target="_blank" rel="noopener">
+        <span class="tile-kicker">外部</span>
+        <span class="tile-title">SNKRDUNK</span>
+        <span class="tile-desc">Pokemon TCG 買賣／Grade A 參考。</span>
+      </a>
+      <a class="tile" href="https://www.pricecharting.com/console/pokemon-cards" target="_blank" rel="noopener">
+        <span class="tile-kicker">外部</span>
+        <span class="tile-title">PriceCharting</span>
+        <span class="tile-desc">Pokemon 卡價、未評／PSA 對照。</span>
+      </a>
+      <a class="tile" href="https://github.com/swishish/Pokemon-Box-EV" target="_blank" rel="noopener">
+        <span class="tile-kicker">外部</span>
+        <span class="tile-title">GitHub repo</span>
+        <span class="tile-desc">原始碼、changelog、自己開 Pages。</span>
+      </a>
     </div>
+  </section>
 
-    <div class="card method-card">
-      <h2 class="sec-h"><img class="mon" src="./img/accents/eevee.svg" alt="" width="28" height="28" aria-hidden="true" />方法論 · 四個 % 與資料來源</h2>
-      <ul class="tiny">
-        <li><b>100% Grade A（買入價）</b>＝ 各稀有度池 Grade A 均價 × 抽出率加總 ÷ 落地盒價（<b>無</b>稀有度 haircut）</li>
-        <li><b>Grade A（打折）</b>＝ 同上但先套稀有度<strong>折扣 %</strong>（GradeA×(1−disc)）再平均（TOC／主判斷用這個）。預設：MUR／SAR／sup_SAR <b>10%</b>；SR <b>25%</b>；<b>SSR／復刻 S 20%</b>（×0.80）；AR／UR／ACE <b>50%</b>；MA <b>25%</b>；BWR <b>0%</b>。Sticky 為<strong>即時計算</strong>，非凍結 snapshot。</li>
-        <li><b>A+PSA（打折）</b>＝ 可送評池（SAR／MUR／SR／sup_SAR）用 PSA10／9 掛牌＋gem 率算送評期望；<b>僅當送評期望 ＞ Grade A（打折）先送評，否則賣 raw</b>（回傳 max(raw, submitEV)）。其餘池用打折 Grade A。若該系列 grade 池中 <b>&lt;3</b> 張有 psa10+gem → 顯示「—／缺 PSA 資料」，gem／ask 無作用（不靜默等於 HC）</li>
-        <li><b>A+CGC（打折）</b>＝ 結構同 PSA（僅當送評期望 ＞ Grade A（打折）先送評，否則賣 raw），CGC10 價來自 PriceCharting（USD），費用以 USD 計再換算；缺資料時同樣顯示「—」</li>
-        <li><b>有膜／無膜</b>只改分母（落地盒價）；分子 EV 不變。TOC 同時顯示「Grade A（打折）÷ 有膜」與「÷ 無膜」（無 NS 落地則 無膜 —）</li>
-        <li><b>紅綠燈</b>：值得考慮 ≥ 55% · 普通 40%–55% · 偏貴 &lt; 40%（看打折分數）</li>
-        <li><b>匯率（顯示用）</b>：盒／單卡 SNKR 日圓價 → <b>HK$ = ¥ ÷ 20.3</b>；若來源是 USD → <b>HK$ = USD × 7.80</b>。頁面金額以 <b>HK$</b> 為主顯示。送評費用（PSA／CGC）仍用 <b>USD</b> 編輯</li>
-        <li><b>落地分母</b>：SNKR 多盒單價 × 1.035 + 運費分攤（HK$173／4 × ¥20.3／HK$）；未含稅／關稅。預設用 SNKR 有膜／無膜落地；可用頂部盒價覆寫。</li>
-        <li><b>來源連結／盒價覆寫</b>：系列名旁兩個超連結——<b>PriceCharting</b>（booster-box 頁）同 <b>SNKRDUNK（有膜）</b>產品頁（乾淨 URL；站內可自行切單包／無膜）。「盒價」滑桿／輸入預設＝目前選中分母（有膜／無膜）嘅 SNKR 落地 HK$；覆寫取代<strong>該分母</strong>做 EV÷L（¥＝HK$×20.3）。「恢復預設」還原所有滑桿／費用／盒價。</li>
-        <li><b>Gem 折扣</b>（進階，預設 <b>20%</b>）：PSA 路徑有效 gem = 公佈 gem × (1 − 折扣)，用來模擬送評挑選偏差</li>
-        <li><b>抽出率／日版保底（社群，非正式）</b>：按系列採用 floors + <b>互斥超配</b>（額外 SR <i>或</i> SAR，不加兩次）。MEGA 擴充：AR×3、道具／場地 SR×1、再加 1 格 chase（寶可夢／支援 SR 或 SAR／MUR），約 10% 為 3 枚箱。SV 擴充：AR×3 + 1 格 SR／SAR／UR（約 10% 2 枚箱）。<b>M2a</b>：AR×3 + 道具 SR×1 + MA×1，超配 poke_sr≈0.10／SAR≈0.37／MUR≈0.0175（不是 2 張寶可夢 SR 保底）。<b>SV11</b>：AR×4 + 1 格 SR／SAR／BWR（BWR≈1/20）。來源：Pokegto／pokeka-atari／axstex（各系列 <code>pity</code>／<code>rate_notes</code>）。池內仍 equal-within-pool（月亮伊布等會拉高均價）。</li>
-        <li><b>SR／AR 單卡價</b>：兩邊都有就用 <b>min(PriceCharting 未評成交 USD×7.80×20.3, SNKRDUNK Grade A ¥)</b>；缺一邊就用另一邊，不虛構。例：SV8 スコヴィランex SR #120，SNKR Grade A ≈¥1000，PC ungraded ≈$2.27（≈¥360），實盤約¥400–500、SNKR 掛唔出。SAR／MUR／MA／FUR 等仍用 SNKR Grade A（大差距只標記，唔自動 min）。</li>
-        <li><b>稀有度折扣（Haircut）</b>：資料欄位 <code>defaults.haircuts</code> 存的是<strong>折扣分數</strong>（0.10＝10% off），不是舊版「保留係數 ×0.90」。套用：<code>GradeA × (1 − disc)</code>。滑桿右側顯示折扣 %（例 10%＝×0.9；SSR／復刻 S 預設 20%＝×0.8）。AR／UR／ACE 仍 50%。舊 Mega／SV snapshot HC 曾用 SAR 0% haircut；現預設 10% SAR，數字會低於舊 snapshot。</li>
-        <li><b>SV8a 抽出率</b>：對齊 Pokegto／社群：SAR 1.0、sup_SAR 0.1、poke_sr 0.2、UR 0.06；<b>Master Ball 鏡（約 50%/盒）與 ACE SPEC</b> 本快照省略（無 SNKR Grade A MB 價，不虛構價格）。SAR 池 equal-within-pool 均價受月亮伊布 ¥46k 拉高。</li>
-        <li><b>行情來源</b>：JP 裸卡主源 → <a href="https://snkrdunk.com/" target="_blank" rel="noopener">SNKRDUNK Grade A</a>（開產品頁）；USD 成交對照 → <a href="https://www.pricecharting.com/" target="_blank" rel="noopener">PriceCharting</a> ungraded／PSA9／PSA10；CGC10 同盒價對照亦用 PC；gem 率 → PSA pop（本快照）。落地盒價分母不變（SNKR 3–4 盒單價×1.035＋運費）。</li>
-      </ul>
-    </div>
+  <section class="card-note" aria-label="注意">
+    <p class="note">數字為模型估計，<b>非正式投資建議</b>；市價會變。資料係靜態 snapshot，分享時請連同資料日期。</p>
+  </section>
+</main>
 
-    <div class="card" id="chaseCard">
-      <h2 class="sec-h"><img class="mon mon-starters" src="./img/accents/starters.svg" alt="" width="72" height="24" aria-hidden="true" />Chase card 一覽</h2>
-      <div class="tiny" style="margin-bottom:8px">選定系列 Top 20（依 Grade A ¥）· 池：SR / SAR / MUR / MA / UR / sup_SAR · 相對 <b>Shrink 有膜</b> 落地盒</div>
-      <div class="chase-grid" id="chaseBody"></div>
-      <div class="hint" id="ripHint"></div>
-    </div>
-  </main>
-</div>
-<div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="放大圖">
-  <img id="lightboxImg" alt="" />
-</div>
-<footer><img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" /><span>日盒 EV 小算盤 <b>v1.19.1</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期 · <a href="./market-en.html">EN 市況</a></span></footer>
-
-<script src="./data.js?v=1.19.1"></script>
-<script>
-(async function () {
-  // Keep in sync with the data.js?v= query above.
-  const VERSION = '1.19.1';
-  async function loadJson(rel) {
-    const url = new URL(rel, document.baseURI || window.location.href);
-    url.searchParams.set('v', VERSION);
-    try {
-      const res = await fetch(url.href, { cache: 'no-store' });
-      if (!res.ok) {
-        return { ok: false, status: res.status, url: url.href, data: null, err: 'HTTP ' + res.status };
-      }
-      return { ok: true, status: res.status, url: url.href, data: await res.json(), err: null };
-    } catch (e) {
-      return { ok: false, status: 0, url: url.href, data: null, err: (e && e.message) ? e.message : String(e) };
-    }
-  }
-  function showLoadError(dataRes) {
-    const app = document.getElementById('app');
-    if (!app) return;
-    const status = dataRes
-      ? (dataRes.status ? ('HTTP ' + dataRes.status) : (dataRes.err || '沒有回應'))
-      : '沒有回應';
-    const where = dataRes && dataRes.url ? dataRes.url : ('./data.json?v=' + VERSION);
-    app.innerHTML =
-      '<div class="empty-state">' +
-      '<img class="mon" src="./img/accents/ditto.svg" alt="" width="56" height="56" aria-hidden="true" />' +
-      '<h3>載入失敗：找不到資料</h3>' +
-      '<p>抓取 ' + where.replace(/&/g, '&amp;').replace(/</g, '&lt;') +
-      ' → ' + String(status).replace(/</g, '&lt;') + '。</p>' +
-      '<p>若畫面仍是舊版，請強制重新整理：電腦 Ctrl+Shift+R（Mac：Cmd+Shift+R）；手機先關掉這個分頁再開一次。</p>' +
-      '</div>';
-  }
-  const dataRes = await loadJson('./data.json');
-  const imgRes = await loadJson('./img_map.json');
-  const DATA = (dataRes && dataRes.data) || window.EV_DATA;
-  const IMG = (imgRes && imgRes.data) || window.IMG_MAP || { boxes: {}, cards: {} };
-  /** Resolve asset paths for both file:// and http(s) (GitHub Pages). */
-  function assetUrl(rel) {
-    if (!rel || String(rel).startsWith('data:')) return rel;
-    try {
-      return new URL(rel, document.baseURI || window.location.href).href;
-    } catch (e) {
-      return rel;
-    }
-  }
-  if (!DATA) {
-    showLoadError(dataRes);
-    return;
-  }
-
-  const GRADE_POOLS = new Set(DATA.grade_pools);
-  const CHASE_POOLS = new Set(['SAR', 'MUR', 'MA', 'UR', 'sup_SAR', 'poke_sr', 'goods_sr', 'BWR', 'ACE', 'SSR', 'S']);
-  const traffic = DATA.defaults.traffic;
-  const haircutKeys = [
-    ['MUR', 'MUR'],
-    ['SAR', 'SAR'],
-    ['FUR', 'FUR'],
-    ['poke_sr', 'SR（寶可夢）'],
-    ['goods_sr', 'SR（道具/支援）'],
-    ['AR', 'AR / UR'],
-    ['MA', 'MA'],
-    ['BWR', 'BWR'],
-    ['ACE', 'ACE'],
-    ['SSR', 'SSR'],
-    ['S', 'S（色違／復刻）'],
-  ];
-
-  const $ = (id) => document.getElementById(id);
-
-  function parseAsOfDate(raw) {
-    if (raw == null || raw === '') return null;
-    const s = String(raw).trim();
-    const m = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
-    if (!m) return null;
-    const y = Number(m[1]);
-    const mo = Number(m[2]) - 1;
-    const d = Number(m[3]);
-    const dt = new Date(y, mo, d);
-    if (dt.getFullYear() !== y || dt.getMonth() !== mo || dt.getDate() !== d) return null;
-    return dt;
-  }
-  function ymdLocal(dt) {
-    const y = dt.getFullYear();
-    const m = String(dt.getMonth() + 1).padStart(2, '0');
-    const d = String(dt.getDate()).padStart(2, '0');
-    return y + '-' + m + '-' + d;
-  }
-  function ageDays(asOfDate, today) {
-    const a = Date.UTC(asOfDate.getFullYear(), asOfDate.getMonth(), asOfDate.getDate());
-    const b = Date.UTC(today.getFullYear(), today.getMonth(), today.getDate());
-    return Math.floor((b - a) / 86400000);
-  }
-  function renderDataFreshness() {
-    const el = $('dataFreshness');
-    if (!el) return;
-    const raw = DATA.as_of;
-    const asOfDate = parseAsOfDate(raw);
-    if (!asOfDate) {
-      el.className = 'data-freshness stale';
-      el.textContent = '數字可能過期（資料日期無法確認）— 下單前請核對現價';
-      return;
-    }
-    const today = new Date();
-    const age = ageDays(asOfDate, today);
-    const ymd = ymdLocal(asOfDate);
-    if (age > 7) {
-      el.className = 'data-freshness stale';
-      el.textContent = '數字可能過期（資料日期：' + ymd + ' · 已過 ' + age + ' 日）— 下單前請核對現價';
-    } else {
-      el.className = 'data-freshness fresh';
-      el.textContent = '資料日期 ' + ymd;
-    }
-  }
-  renderDataFreshness();
-
-  function resolveSetCode(raw) {
-    if (raw == null) return null;
-    const s = String(raw).trim();
-    if (!s) return null;
-    if (DATA.sets[s]) return s;
-    const lower = s.toLowerCase();
-    const keys = Object.keys(DATA.sets);
-    for (let i = 0; i < keys.length; i++) {
-      if (keys[i].toLowerCase() === lower) return keys[i];
-    }
-    return null;
-  }
-  function readSetFromLocation() {
-    try {
-      return resolveSetCode(new URLSearchParams(window.location.search).get('set'));
-    } catch (e) {
-      return null;
-    }
-  }
-  function updateSetUrl(code) {
-    if (!window.history || typeof history.replaceState !== 'function') return;
-    try {
-      const url = new URL(window.location.href);
-      url.searchParams.set('set', code);
-      const next = url.pathname + url.search + url.hash;
-      const cur = window.location.pathname + window.location.search + window.location.hash;
-      if (next !== cur) history.replaceState(null, '', next);
-    } catch (e) {}
-  }
-
-  let currentSet = readSetFromLocation() || 'M6';
-  let landDenom = 'shrink'; // 'shrink' | 'ns' — sticky % denominator
-  const setList = Object.values(DATA.sets).sort((a, b) => {
-    const da = a.release_date || '';
-    const db = b.release_date || '';
-    if (da !== db) return da < db ? -1 : 1;
-    if ((a.order || 0) !== (b.order || 0)) return (a.order || 0) - (b.order || 0);
-    return String(a.code).localeCompare(String(b.code));
-  });
-
-  // Haircut sliders — DISCOUNT % (0–100); store as fraction 0.10 = 10% off
-  // defaults.haircuts are discount fractions (haircut_unit: discount_fraction)
-  const hcSliders = $('hcSliders');
-  const hcState = Object.assign({}, DATA.defaults.haircuts);
-  haircutKeys.forEach(([key, label]) => {
-    const wrap = document.createElement('div');
-    wrap.className = 'slider-row hc';
-    const lab = document.createElement('label');
-    lab.htmlFor = 'hc_' + key;
-    lab.textContent = label;
-    const range = document.createElement('input');
-    range.type = 'range';
-    range.id = 'hc_' + key;
-    range.min = '0';
-    range.max = '100';
-    range.step = '5';
-    const discPct = Math.round((hcState[key] ?? 0) * 100);
-    range.value = String(discPct);
-    const val = document.createElement('span');
-    val.className = 'val';
-    val.id = 'hcval_' + key;
-    function syncLabel(pct) {
-      val.textContent = pct + '%';
-    }
-    syncLabel(discPct);
-    range.addEventListener('input', () => {
-      const pct = Number(range.value);
-      const v = pct / 100; // discount fraction
-      hcState[key] = v;
-      if (key === 'SAR') hcState.sup_SAR = v;
-      if (key === 'AR') hcState.UR = v;
-      syncLabel(pct);
-      render();
-    });
-    wrap.appendChild(lab);
-    wrap.appendChild(range);
-    wrap.appendChild(val);
-    hcSliders.appendChild(wrap);
-  });
-
-  $('psaUsd').value = DATA.fees.psa_usd;
-  $('cgcUsd').value = DATA.fees.cgc_usd;
-  const askDefaultPct = Math.round((DATA.defaults.ask_discount ?? 0.1) * 100);
-  const gemDefaultPct = Math.round((DATA.defaults.gem_discount ?? 0.2) * 100);
-  $('gemDisc').value = gemDefaultPct;
-  $('gemDiscVal').textContent = gemDefaultPct + '%';
-  $('askDisc').value = askDefaultPct;
-  $('askDiscVal').textContent = askDefaultPct + '%';
-
-  // Display FX: SNKR JPY → HKD ÷20.3; USD → HKD ×7.80
-  const FX_JPY_PER_HKD = (DATA.fx && DATA.fx.jpy_per_hkd) || 20.3;
-  const FX_USD_HKD = (DATA.fx && DATA.fx.usd_hkd) || 7.80;
-
-  /** PC ungraded avg → HKD (null if missing). */
-  function pcAvgHkd(set) {
-    if (!set) return null;
-    if (set.pc_avg_hkd != null && set.pc_avg_hkd !== '') return Number(set.pc_avg_hkd);
-    if (set.pc_avg_usd != null && set.pc_avg_usd !== '') return Number(set.pc_avg_usd) * FX_USD_HKD;
-    return null;
-  }
-  /** Default box-cost HKD for override field: SNKR landed for active denom (shrink/ns). */
-  function defaultBoxCostHkd(set, denom) {
-    const d = denom || landDenom;
-    let yen = null;
-    if (d === 'ns' && set && set.landed && set.landed.ns) {
-      yen = set.landed.ns.landed_yen;
-    } else if (set && set.landed && set.landed.shrink) {
-      yen = set.landed.shrink.landed_yen;
-    }
-    if (yen != null && yen > 0) return Math.round(yen / FX_JPY_PER_HKD);
-    // fallback only if SNKR missing
-    const pc = pcAvgHkd(set);
-    if (pc != null && pc > 0) return Math.round(pc);
-    return null;
-  }
-  function clampOverrideSlider(hkd) {
-    const n = Math.round(Number(hkd));
-    if (Number.isNaN(n)) return 0;
-    return Math.max(0, Math.min(2000, n));
-  }
-  /** Yen shrink denom from PC avg (null if no PC). */
-  function pcLandSYen(set) {
-    const hkd = pcAvgHkd(set);
-    if (hkd == null || hkd <= 0) return null;
-    return hkd * FX_JPY_PER_HKD;
-  }
-
-  function fmtYen(n) {
-    if (n == null || Number.isNaN(n)) return '—';
-    const sign = n < 0 ? '-' : '';
-    return sign + '¥' + Math.abs(Math.round(n)).toLocaleString('en-US');
-  }
-  function fmtHkdFromYen(n) {
-    if (n == null || Number.isNaN(n)) return '—';
-    const hkd = n / FX_JPY_PER_HKD;
-    const sign = hkd < 0 ? '-' : '';
-    return sign + 'HK$' + Math.abs(Math.round(hkd)).toLocaleString('en-US');
-  }
-  function fmtHkdFromUsd(n) {
-    if (n == null || Number.isNaN(n)) return '—';
-    const hkd = n * FX_USD_HKD;
-    const sign = hkd < 0 ? '-' : '';
-    return sign + 'HK$' + Math.abs(Math.round(hkd)).toLocaleString('en-US');
-  }
-  function displayCardName(c) {
-    return (c && (c.name_zh || c.name)) || '';
-  }
-  function displaySetName(set) {
-    if (!set) return '';
-    const zh = set.zh || set.ja;
-    return set.code + ' ' + zh;
-  }
-  function fmtPct(r) {
-    if (r == null || Number.isNaN(r)) return '—';
-    return (r * 100).toFixed(1) + '%';
-  }
-  function band(r) {
-    if (r == null || Number.isNaN(r)) return { cls: 'ok', label: '無資料' };
-    if (r >= traffic.good) return { cls: 'good', label: '值得考慮' };
-    if (r >= traffic.ok) return { cls: 'ok', label: '普通' };
-    return { cls: 'bad', label: '偏貴' };
-  }
-  function escapeHtml(s) {
-    return String(s).replace(/[&<>"']/g, (ch) => ({
-      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
-    })[ch]);
-  }
-  function poolLabel(pool) {
-    if (pool === 'poke_sr' || pool === 'goods_sr') return 'SR';
-    return pool;
-  }
-  function boxThumb(code) {
-    const src = IMG.boxes && IMG.boxes[code];
-    if (src) return assetUrl(src);
-    // inline SVG placeholder
-    const svg = encodeURIComponent(
-      `<svg xmlns="http://www.w3.org/2000/svg" width="88" height="88"><rect width="88" height="88" rx="8" fill="#e8eef6"/><text x="44" y="48" text-anchor="middle" font-size="14" font-family="sans-serif" fill="#5c6570">${code}</text></svg>`
-    );
-    return 'data:image/svg+xml,' + svg;
-  }
-  function cardThumb(setc, num) {
-    const key = setc + '|' + num;
-    const src = IMG.cards && IMG.cards[key];
-    if (src) return assetUrl(src);
-    const label = String(num).padStart(3, '0');
-    const svg = encodeURIComponent(
-      `<svg xmlns="http://www.w3.org/2000/svg" width="80" height="112"><rect width="80" height="112" rx="6" fill="#eef2f6" stroke="#d0d5dd"/><text x="40" y="58" text-anchor="middle" font-size="13" font-family="sans-serif" fill="#5c6570">#${label}</text></svg>`
-    );
-    return 'data:image/svg+xml,' + svg;
-  }
-
-  /** discount fraction for pool (0.10 = 10% off). Missing → 0. */
-  function haircutDiscOf(pool) {
-    if (pool === 'sup_SAR') return hcState.sup_SAR ?? hcState.SAR ?? 0;
-    if (pool === 'UR') return hcState.UR ?? hcState.AR ?? 0.5;
-    return hcState[pool] ?? 0;
-  }
-  /** keep factor = 1 − discount */
-  function haircutOf(pool) {
-    return 1 - haircutDiscOf(pool);
-  }
-  // SR/AR: min(PriceCharting ungraded ¥, SNKRDUNK Grade A) when both exist.
-  // Higher rarities stay SNKR Grade A. Never invent a missing source.
-  const MIN_PC_SNKR_POOLS = new Set(['AR', 'poke_sr', 'goods_sr']);
-  function evRawYen(c) {
-    if (!c) return null;
-    const snkrRaw = c.gradeA_snkr != null ? Number(c.gradeA_snkr) : (c.gradeA != null ? Number(c.gradeA) : null);
-    const snkr = (snkrRaw != null && !Number.isNaN(snkrRaw) && snkrRaw > 0 && snkrRaw < 100000) ? snkrRaw : null;
-    const pc = (c.pc_yen != null && Number(c.pc_yen) > 0) ? Number(c.pc_yen) : null;
-    if (MIN_PC_SNKR_POOLS.has(c.pool)) {
-      if (snkr != null && pc != null) return Math.min(snkr, pc);
-      if (pc != null) return pc;
-      if (snkr != null) return snkr;
-      return null;
-    }
-    if (snkr != null) return snkr;
-    return null;
-  }
-  function cardHC(c) {
-    const raw = evRawYen(c);
-    if (raw == null) return null;
-    return raw * haircutOf(c.pool);
-  }
-  function cardPSA(c, gemDisc, askDisc, psaFeeYen) {
-    if (evRawYen(c) == null) return null;
-    const raw = cardHC(c);
-    if (!GRADE_POOLS.has(c.pool)) return raw;
-    if (c.psa10_ask == null || c.gem_rate == null || !(c.psa10_ask > 0)) return raw;
-    const gem = Math.max(0, Math.min(1, c.gem_rate * (1 - gemDisc)));
-    const askKeep = 1 - askDisc;
-    const win = c.psa10_ask * askKeep - psaFeeYen;
-    let lose;
-    if (c.psa9_ask != null) lose = Math.max(0, c.psa9_ask * askKeep - psaFeeYen);
-    else lose = raw;
-    const submitEV = gem * win + (1 - gem) * lose;
-    return Math.max(raw, submitEV);
-  }
-  function cardCGC(c, askDisc, cgcFeeYen, fx) {
-    if (evRawYen(c) == null) return null;
-    const raw = cardHC(c);
-    if (!GRADE_POOLS.has(c.pool)) return raw;
-    if (c.cgc10_usd == null || c.gem_rate == null) return raw;
-    const win = c.cgc10_usd * fx * (1 - askDisc) - cgcFeeYen;
-    const submitEV = c.gem_rate * win + (1 - c.gem_rate) * raw;
-    return Math.max(raw, submitEV);
-  }
-  function avg(arr) {
-    const xs = arr.filter((x) => x != null && !Number.isNaN(x));
-    if (!xs.length) return null;
-    return xs.reduce((a, b) => a + b, 0) / xs.length;
-  }
-
-  function countGradePoolPsa(cards) {
-    return cards.filter((c) => GRADE_POOLS.has(c.pool) && c.psa10_ask != null && c.psa10_ask > 0 && c.gem_rate != null && c.gem_rate > 0).length;
-  }
-  function countGradePoolCgc(cards) {
-    return cards.filter((c) => GRADE_POOLS.has(c.pool) && c.cgc10_usd != null && c.gem_rate != null).length;
-  }
-  /** Need ≥3 graded-pool cards with data; else sticky shows — (not silent HC). */
-  function setHasPsaData(cards) {
-    return countGradePoolPsa(cards) >= 3;
-  }
-  function setHasCgcData(cards) {
-    return countGradePoolCgc(cards) >= 3;
-  }
-
-  function calcSet(setc, landOverride) {
-    const set = DATA.sets[setc];
-    const cards = DATA.cards.filter((c) => c.set === setc && evRawYen(c) != null);
-    const gemDisc = Number($('gemDisc').value) / 100;
-    const askDisc = Number($('askDisc').value) / 100;
-    const fx = Number(DATA.fees.fx_usdjpy) || 158;
-    const psaFee = Number($('psaUsd').value) * fx;
-    const cgcFee = Number($('cgcUsd').value) * fx;
-    const hasPsa = setHasPsaData(cards);
-    const hasCgc = setHasCgcData(cards);
-
-    const parts = { GA: {}, HC: {}, PSA: {}, CGC: {} };
-    Object.keys(set.rates).forEach((pool) => {
-      const rate = set.rates[pool];
-      const poolCards = cards.filter((c) => c.pool === pool);
-      if (!poolCards.length) return;
-      parts.GA[pool] = avg(poolCards.map(evRawYen)) * rate;
-      parts.HC[pool] = avg(poolCards.map(cardHC)) * rate;
-      if (hasPsa) parts.PSA[pool] = avg(poolCards.map((c) => cardPSA(c, gemDisc, askDisc, psaFee))) * rate;
-      if (hasCgc) parts.CGC[pool] = avg(poolCards.map((c) => cardCGC(c, askDisc, cgcFee, fx))) * rate;
-    });
-
-    const sum = (o) => Object.values(o).reduce((a, b) => a + (b || 0), 0);
-    const EV = {
-      GA: sum(parts.GA),
-      HC: sum(parts.HC),
-      PSA: hasPsa ? sum(parts.PSA) : null,
-      CGC: hasCgc ? sum(parts.CGC) : null,
-      Otachu: set.otachu_ev,
-    };
-
-    // Denom: SNKR landed by default; sticky HKD override (selected set) replaces active denom.
-    // PC avg is display/link only — never auto-applied as denom.
-    let landS = set.landed.shrink.landed_yen;
-    let landNS = set.landed.ns ? set.landed.ns.landed_yen : null;
-    if (landOverride && setc === currentSet) {
-      const pcBox = $('pcBoxOverride');
-      if (pcBox && pcBox.value !== '') {
-        const hkd = Number(pcBox.value);
-        if (!Number.isNaN(hkd) && hkd > 0) {
-          const yen = hkd * FX_JPY_PER_HKD;
-          if (landDenom === 'ns') landNS = yen;
-          else landS = yen;
-        }
-      }
-    }
-
-    function ratios(landed) {
-      if (landed == null || landed <= 0) return null;
-      return {
-        GA: EV.GA / landed,
-        HC: EV.HC / landed,
-        PSA: EV.PSA != null ? EV.PSA / landed : null,
-        CGC: EV.CGC != null ? EV.CGC / landed : null,
-        Otachu: EV.Otachu != null ? EV.Otachu / landed : null,
-      };
-    }
-
-    const chase = cards
-      .filter((c) => CHASE_POOLS.has(c.pool))
-      .slice()
-      .sort((a, b) => (evRawYen(b) || 0) - (evRawYen(a) || 0))
-      .slice(0, 20);
-
-    return { set, EV, landS, landNS, ratiosS: ratios(landS), ratiosNS: ratios(landNS), chase, askDisc, gemDisc, psaFee, cgcFee, fx, hasPsa, hasCgc, psaCount: countGradePoolPsa(cards), cgcCount: countGradePoolCgc(cards) };
-  }
-
-  function conclusion(r) {
-    const set = r.set;
-    const hs = r.ratiosS ? r.ratiosS.HC : null;
-    const hn = r.ratiosNS ? r.ratiosNS.HC : null;
-    const best = hn != null && (hs == null || hn >= hs) ? { name: '無膜 (no-shrink)', r: hn } : { name: '有膜 (shrink)', r: hs };
-    const b = band(best.r);
-    const chase = r.chase[0];
-    let line2 = '';
-    if (chase && r.landS) {
-      const chaseYen = evRawYen(chase);
-      const share = chaseYen != null ? chaseYen / r.landS : 0;
-      if (share >= 0.45) {
-        const cname = escapeHtml(displayCardName(chase));
-        line2 = `<p>若你主要想要「${cname}」，單卡約 ${fmtHkdFromYen(chaseYen)}（約落地盒的 ${(share * 100).toFixed(0)}%），可優先比較買單卡。</p>`;
-      }
-    }
-    const code = escapeHtml(set.code);
-    const bestName = escapeHtml(best.name);
-    let body;
-    if (b.cls === 'good') {
-      body = `${code} ${bestName} 的 Grade A（打折）分數 ${fmtPct(best.r)}（${b.label}）——相對落地成本看起來比較划算，開盒娛樂＋回收都說得過去。`;
-    } else if (b.cls === 'ok') {
-      body = `${code} ${bestName} 的 Grade A（打折）分數 ${fmtPct(best.r)}（${b.label}）——可以當興趣開，但別期待穩賺；chase 熱門卡也值得對照單卡價。`;
-    } else {
-      body = `${code} ${bestName} 的 Grade A（打折）分數 ${fmtPct(best.r)}（${b.label}）——盒價相對回收偏高；若只追一兩張大卡，買單卡通常更單純。`;
-    }
-    return `<p>根據預設假設，${body}</p>${line2}`;
-  }
-
-
-  function syncPcOverrideInput() {
-    const set = DATA.sets[currentSet];
-    const def = defaultBoxCostHkd(set);
-    const el = $('pcBoxOverride');
-    const sl = $('pcBoxSlider');
-    if (el) el.value = def != null ? String(def) : '';
-    if (sl) sl.value = String(clampOverrideSlider(def != null ? def : 0));
-  }
-  /** Keep slider ↔ text in sync; EV uses text value (may exceed slider max 2000). */
-  function syncOverrideFromSlider() {
-    const sl = $('pcBoxSlider');
-    const el = $('pcBoxOverride');
-    if (!sl || !el) return;
-    el.value = String(sl.value);
-  }
-  function syncOverrideFromText() {
-    const sl = $('pcBoxSlider');
-    const el = $('pcBoxOverride');
-    if (!sl || !el) return;
-    const hkd = Number(el.value);
-    if (!Number.isNaN(hkd) && hkd >= 0) sl.value = String(clampOverrideSlider(hkd));
-  }
-
-  function renderToc() {
-    const toc = $('toc');
-    const parts = ['<h2 class="sec-h"><img class="mon mon-starters" src="./img/accents/starters.svg" alt="" width="72" height="24" aria-hidden="true" />系列</h2>'];
-    setList.forEach((s) => {
-      const r = calcSet(s.code, true);
-      const hcS = r.ratiosS ? r.ratiosS.HC : null;
-      const hcNS = r.ratiosNS ? r.ratiosNS.HC : null;
-      const bS = band(hcS);
-      const bNS = hcNS == null ? { cls: 'na' } : band(hcNS);
-      const nsTxt = hcNS == null ? '—' : fmtPct(hcNS);
-      const active = s.code === currentSet ? ' active' : '';
-      const art = boxThumb(s.code);
-      parts.push(
-        `<button type="button" class="toc-item${active}" data-set="${s.code}">` +
-        `<img class="toc-art" src="${art}" alt="" width="40" height="40" loading="lazy" />` +
-        `<span class="toc-meta">` +
-        `<span class="toc-title"><span class="code">${escapeHtml(s.code)}</span><span class="ja">${escapeHtml(s.zh || s.ja)}</span></span>` +
-        `<span class="ev-line">有膜 <span class="ev ${bS.cls}">${fmtPct(hcS)}</span> · 無膜 <span class="ev ${bNS.cls}">${nsTxt}</span></span>` +
-        `</span></button>`
-      );
-    });
-    toc.innerHTML = parts.join('');
-    toc.querySelectorAll('.toc-item').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        currentSet = btn.getAttribute('data-set');
-        landDenom = 'shrink'; // TOC / default denom
-        syncPcOverrideInput();
-        updateSetUrl(currentSet);
-        setPickerOpen(false);
-        render();
-      });
-    });
-  }
-
-  function activeRatios(r) {
-    if (landDenom === 'ns' && r.ratiosNS) return { ratios: r.ratiosNS, land: r.landNS, label: '無膜' };
-    return { ratios: r.ratiosS, land: r.landS, label: '有膜' };
-  }
-
-  function renderMain() {
-    const r = calcSet(currentSet, true);
-    const active = activeRatios(r);
-    const ratioSticky = active.ratios || {};
-
-    const setLabel = displaySetName(r.set);
-    const pcUrl = r.set.pricecharting_box_url || r.set.pc_url || '';
-    const snkrUrl = r.set.snkrdunk_shrink_url || '';
-    // Plain set name; source sites are separate hyperlinks (no PC HKD平均價 display)
-    $('stickySetName').textContent = setLabel;
-    const pickerCur = $('setPickerCurrent');
-    if (pickerCur) pickerCur.textContent = setLabel;
-    const linksEl = $('stickySrcLinks');
-    if (linksEl) {
-      const parts = [];
-      if (pcUrl) {
-        parts.push('<a class="src-link" href="' + escapeHtml(pcUrl) + '" target="_blank" rel="noopener">PriceCharting</a>');
-      } else {
-        parts.push('<span class="src-missing">PriceCharting —</span>');
-      }
-      if (snkrUrl) {
-        parts.push('<a class="src-link" href="' + escapeHtml(snkrUrl) + '" target="_blank" rel="noopener">SNKRDUNK（有膜）</a>');
-      } else {
-        parts.push('<span class="src-missing">SNKRDUNK —</span>');
-      }
-      linksEl.innerHTML = parts.join('<span style="color:var(--muted)">·</span>');
-    }
-    const boxSrc = boxThumb(r.set.code);
-    const boxEl = $('stickyBox');
-    boxEl.src = boxSrc;
-    boxEl.alt = setLabel + ' 盒圖';
-    boxEl.setAttribute('data-full', boxSrc);
-    boxEl.title = '點擊放大';
-
-    // Toggle buttons
-    const togS = $('togShrink');
-    const togN = $('togNS');
-    togS.classList.toggle('active', landDenom === 'shrink');
-    togN.classList.toggle('active', landDenom === 'ns');
-    const hasNS = r.landNS != null;
-    togN.disabled = !hasNS;
-    if (!hasNS && landDenom === 'ns') {
-      landDenom = 'shrink';
-      togS.classList.add('active');
-      togN.classList.remove('active');
-    }
-
-    function metricHTML(label, ratio, yen, missingNote) {
-      if (missingNote) {
-        return `<div class="sticky-metric">
-          <div class="k">${label}</div>
-          <div class="v na">—</div>
-          <div class="yen">${missingNote}</div>
-        </div>`;
-      }
-      const b = band(ratio);
-      return `<div class="sticky-metric ${b.cls}">
-        <div class="k">${label}</div>
-        <div class="v ${b.cls}">${fmtPct(ratio)}</div>
-        <div class="yen">${fmtHkdFromYen(yen)} EV</div>
-      </div>`;
-    }
-
-    const hcLive = $('stickyHcVal');
-    if (hcLive) {
-      const hcRatio = ratioSticky.HC;
-      const hb = band(hcRatio);
-      hcLive.textContent = fmtPct(hcRatio);
-      hcLive.className = 'sticky-hc-v ' + hb.cls;
-    }
-
-    const psaMissing = !r.hasPsa;
-    const cgcMissing = !r.hasCgc;
-    // Four % only — selected denom (live-calc)
-    $('stickyMetrics').innerHTML =
-      metricHTML('100% Grade A（買入價）', ratioSticky.GA, r.EV.GA) +
-      metricHTML('Grade A（打折）', ratioSticky.HC, r.EV.HC) +
-      metricHTML('A+PSA（打折）', ratioSticky.PSA, r.EV.PSA, psaMissing ? '缺 PSA 資料' : null) +
-      metricHTML('A+CGC（打折）', ratioSticky.CGC, r.EV.CGC, cgcMissing ? '缺 CGC 資料' : null);
-
-    // Gem/ask N/A note when grading paths missing
-    const gemAskNote = (psaMissing && cgcMissing)
-      ? '此系列尚無足夠 PSA／CGC 掛牌＋gem 資料（grade 池 &lt;3 張），A+PSA／A+CGC 顯示 —；Gem 折扣／Ask 乘數目前無作用。'
-      : (psaMissing
-        ? '此系列缺 PSA 資料，A+PSA 顯示 —；Gem 折扣對 PSA 路徑無作用。'
-        : (cgcMissing ? '此系列缺 CGC 資料，A+CGC 顯示 —。' : ''));
-    let stickyNote = $('stickyGradeNote');
-    if (!stickyNote) {
-      stickyNote = document.createElement('p');
-      stickyNote.id = 'stickyGradeNote';
-      stickyNote.className = 'tiny';
-      stickyNote.style.margin = '6px 0 0';
-      const row = document.querySelector('.sticky-row');
-      if (row && row.parentNode) row.parentNode.insertBefore(stickyNote, row.nextSibling);
-    }
-    stickyNote.innerHTML = gemAskNote;
-    stickyNote.hidden = !gemAskNote;
-
-    $('verdict').innerHTML = conclusion(r);
-
-    // Chase top 20
-    const landRef = r.landS || r.landNS || 1;
-    if (!r.chase.length) {
-      $('chaseBody').innerHTML =
-        '<div class="empty-state" style="grid-column:1/-1">' +
-        '<img class="mon" src="./img/accents/eevee.svg" alt="" width="56" height="56" aria-hidden="true" />' +
-        '<h3>無 chase 資料</h3>' +
-        '<p>這個系列暫時沒有足夠的 chase 單卡價可對照。</p></div>';
-    } else {
-      $('chaseBody').innerHTML = r.chase.map((c, i) => {
-        const yen = evRawYen(c);
-        const pct = yen != null ? ((yen / landRef) * 100).toFixed(0) : '—';
-        const thumb = cardThumb(c.set, c.num);
-        const dname = displayCardName(c);
-        return `<article class="chase-tile">
-          <div class="chase-art">
-            <span class="chase-rank">${i + 1}</span>
-            <img class="card-thumb" src="${thumb}" alt="${escapeHtml(dname)}" loading="lazy" data-full="${thumb}" />
-          </div>
-          <div class="chase-name">${escapeHtml(dname)} <span class="tiny">#${c.num}</span></div>
-          <div class="chase-meta">
-            <span class="pool-pill pool-${escapeHtml(c.pool)}">${poolLabel(c.pool)}</span>
-            <span class="chase-price">${fmtHkdFromYen(yen)}</span>
-          </div>
-          <div class="chase-share">${pct}% 有膜落地</div>
-        </article>`;
-      }).join('');
-    }
-
-    const top = r.chase[0];
-    let hint;
-    if (!top) {
-      hint = '沒有足夠的 chase 單卡價可對照。';
-    } else {
-      const topName = displayCardName(top);
-      const topYen = evRawYen(top);
-      const ripBetter = (r.ratiosS && r.ratiosS.HC >= traffic.good) || (r.ratiosNS && r.ratiosNS.HC >= traffic.good);
-      if (ripBetter) {
-        hint = `粗略建議：開盒回收分數不錯；若你喜歡開包體驗，開盒合理。若只鎖定「${topName}」一張，仍可先比單卡 ${fmtHkdFromYen(topYen)} vs 落地盒 ${fmtHkdFromYen(landRef)}。`;
-      } else if (topYen != null && topYen / landRef >= 0.4) {
-        hint = `粗略建議：大頭卡「${topName}」單卡已約落地盒的 ${((topYen / landRef) * 100).toFixed(0)}%。只追該卡 → 優先考慮買單卡；想開一盒碰運氣再開盒。`;
-      } else {
-        hint = `粗略建議：沒有單一超大頭卡扛半盒價；開盒偏「歐氣／娛樂」取向。預算緊就先看好想要的 SAR/MUR 單卡價再決定。`;
-      }
-    }
-    $('ripHint').textContent = hint;
-  }
-
-  function render() {
-    renderToc();
-    renderMain();
-  }
-
-  ['gemDisc', 'askDisc'].forEach((id) => {
-    $(id).addEventListener('input', () => {
-      if (id === 'gemDisc') $('gemDiscVal').textContent = $(id).value + '%';
-      if (id === 'askDisc') $('askDiscVal').textContent = $(id).value + '%';
-      render();
-    });
-  });
-  ['psaUsd', 'cgcUsd'].forEach((id) => {
-    $(id).addEventListener('input', render);
-  });
-  const pcBoxEl = $('pcBoxOverride');
-  const pcSliderEl = $('pcBoxSlider');
-  if (pcBoxEl) {
-    pcBoxEl.addEventListener('input', () => {
-      syncOverrideFromText();
-      render();
-    });
-  }
-  if (pcSliderEl) {
-    pcSliderEl.addEventListener('input', () => {
-      syncOverrideFromSlider();
-      render();
-    });
-  }
-
-  $('togShrink').addEventListener('click', () => {
-    landDenom = 'shrink';
-    syncPcOverrideInput();
-    render();
-  });
-  $('togNS').addEventListener('click', () => {
-    if ($('togNS').disabled) return;
-    landDenom = 'ns';
-    syncPcOverrideInput();
-    render();
-  });
-
-  function resetDefaults() {
-    Object.keys(DATA.defaults.haircuts).forEach((k) => { hcState[k] = DATA.defaults.haircuts[k]; });
-    // keep linked pools in sync
-    if (hcState.SAR != null) hcState.sup_SAR = hcState.SAR;
-    if (hcState.AR != null) hcState.UR = hcState.AR;
-    haircutKeys.forEach(([key, label]) => {
-      const pct = Math.round((hcState[key] ?? 0) * 100);
-      const range = $('hc_' + key);
-      const val = $('hcval_' + key);
-      const lab = document.querySelector('label[for="hc_' + key + '"]');
-      if (range) range.value = String(pct);
-      if (val) val.textContent = pct + '%';
-      if (lab) lab.textContent = label;
-    });
-    $('psaUsd').value = DATA.fees.psa_usd;
-    $('cgcUsd').value = DATA.fees.cgc_usd;
-    $('gemDisc').value = gemDefaultPct;
-    $('gemDiscVal').textContent = gemDefaultPct + '%';
-    $('askDisc').value = askDefaultPct;
-    $('askDiscVal').textContent = askDefaultPct + '%';
-    syncPcOverrideInput();
-    render();
-  }
-  const resetBtn = $('resetDefaults');
-  if (resetBtn) resetBtn.addEventListener('click', resetDefaults);
-
-  function asOfYmd() {
-    const dt = parseAsOfDate(DATA.as_of);
-    return dt ? ymdLocal(dt) : '';
-  }
-  function sharePageUrl(code) {
-    try {
-      const url = new URL(window.location.href);
-      url.searchParams.set('set', code);
-      if (url.protocol !== 'http:' && url.protocol !== 'https:') return '';
-      return url.origin + url.pathname + url.search;
-    } catch (e) {
-      return '';
-    }
-  }
-  function buildShareText() {
-    const r = calcSet(currentSet, true);
-    const active = activeRatios(r);
-    const hcS = r.ratiosS ? fmtPct(r.ratiosS.HC) : '—';
-    const hcNS = r.ratiosNS ? fmtPct(r.ratiosNS.HC) : '—';
-    const ga = active.ratios ? fmtPct(active.ratios.GA) : '—';
-    const psa = (r.hasPsa && active.ratios && active.ratios.PSA != null) ? fmtPct(active.ratios.PSA) : '—';
-    const cgc = (r.hasCgc && active.ratios && active.ratios.CGC != null) ? fmtPct(active.ratios.CGC) : '—';
-    const lines = [
-      displaySetName(r.set),
-      '有膜 HC ' + hcS + ' · 無膜 HC ' + hcNS,
-      '落地（' + active.label + '）' + fmtHkdFromYen(active.land),
-      '100% Grade A ' + ga + ' · A+PSA ' + psa + ' · A+CGC ' + cgc,
-    ];
-    const ymd = asOfYmd();
-    if (ymd) lines.push('資料 ' + ymd);
-    const link = sharePageUrl(currentSet);
-    if (link) lines.push(link);
-    return lines.join('\n');
-  }
-  function fallbackCopy(text) {
-    const ta = document.createElement('textarea');
-    ta.value = text;
-    ta.setAttribute('readonly', '');
-    ta.setAttribute('aria-hidden', 'true');
-    ta.style.position = 'fixed';
-    ta.style.top = '0';
-    ta.style.left = '0';
-    ta.style.width = '1px';
-    ta.style.height = '1px';
-    ta.style.padding = '0';
-    ta.style.border = 'none';
-    ta.style.outline = 'none';
-    ta.style.boxShadow = 'none';
-    ta.style.background = 'transparent';
-    ta.style.opacity = '0';
-    document.body.appendChild(ta);
-    ta.focus();
-    ta.select();
-    ta.setSelectionRange(0, text.length);
-    let ok = false;
-    try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
-    document.body.removeChild(ta);
-    return ok;
-  }
-  function copyText(text) {
-    if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function' && window.isSecureContext) {
-      return navigator.clipboard.writeText(text).then(function () { return true; }).catch(function () {
-        return fallbackCopy(text);
-      });
-    }
-    return Promise.resolve(fallbackCopy(text));
-  }
-  function flashCopyBtn(ok) {
-    const btn = $('copyFriend');
-    if (!btn) return;
-    const orig = btn.getAttribute('data-label') || btn.textContent;
-    btn.setAttribute('data-label', orig);
-    btn.textContent = ok ? '已複製' : '複製失敗';
-    btn.classList.toggle('copied', !!ok);
-    clearTimeout(flashCopyBtn._t);
-    flashCopyBtn._t = setTimeout(function () {
-      btn.textContent = orig;
-      btn.classList.remove('copied');
-    }, 1600);
-  }
-  const copyBtn = $('copyFriend');
-  if (copyBtn) {
-    copyBtn.addEventListener('click', function () {
-      copyText(buildShareText()).then(flashCopyBtn);
-    });
-  }
-
-  // Chase thumbnail lightbox
-  const lb = $('lightbox');
-  const lbImg = $('lightboxImg');
-  function openLightbox(src, alt) {
-    const url = assetUrl(src);
-    lbImg.removeAttribute('src');
-    lbImg.alt = alt || '';
-    lbImg.src = url || '';
-    lb.hidden = false;
-    // ensure visible even if a UA stylesheet fights [hidden]
-    lb.style.display = 'flex';
-  }
-  function closeLightbox() {
-    lb.hidden = true;
-    lb.style.display = 'none';
-    lbImg.removeAttribute('src');
-    lbImg.alt = '';
-  }
-  $('chaseBody').addEventListener('click', (e) => {
-    const img = e.target.closest('img.card-thumb');
-    if (!img) return;
-    openLightbox(img.getAttribute('data-full') || img.src, img.alt);
-  });
-  $('stickyBox').addEventListener('click', () => {
-    const img = $('stickyBox');
-    openLightbox(img.getAttribute('data-full') || img.src, img.alt);
-  });
-  lbImg.addEventListener('click', (e) => { e.stopPropagation(); });
-  lb.addEventListener('click', (e) => {
-    if (e.target === lb) closeLightbox();
-  });
-  document.addEventListener('keydown', (e) => {
-    if (e.key !== 'Escape') return;
-    if (!lb.hidden) closeLightbox();
-    if ($('tocCol') && $('tocCol').classList.contains('is-open')) setPickerOpen(false);
-  });
-
-  const mqMobile = window.matchMedia('(max-width: 899px)');
-  function setPickerOpen(open) {
-    const col = $('tocCol');
-    const btn = $('setPickerToggle');
-    const toc = $('toc');
-    if (!col || !btn) return;
-    const want = mqMobile.matches && !!open;
-    col.classList.toggle('is-open', want);
-    btn.setAttribute('aria-expanded', want ? 'true' : 'false');
-    if (toc) toc.hidden = mqMobile.matches ? !want : false;
-    if (want) setStickyOpen(false);
-  }
-  function setStickyOpen(open) {
-    const ev = $('stickyEv');
-    const more = $('stickyMore');
-    if (!ev) return;
-    ev.classList.toggle('is-open', !!open);
-    if (more) {
-      more.setAttribute('aria-expanded', open ? 'true' : 'false');
-      more.textContent = open ? '收起' : '設定';
-    }
-    if (open) setPickerOpen(false);
-    const adv = $('advancedPanel');
-    if (adv && mqMobile.matches) adv.open = true;
-  }
-  function placeChrome() {
-    const barRight = document.querySelector('#stickyBar .sticky-head-right');
-    const drawer = $('stickyDrawer');
-    const price = $('stickyPriceOverride');
-    const actions = $('stickyActions');
-    const adv = $('advancedPanel');
-    const host = $('advancedHost');
-    const toggle = barRight ? barRight.querySelector('.denom-toggle') : null;
-    if (!drawer || !price || !actions) return;
-    if (mqMobile.matches) {
-      if (price.parentNode !== drawer) drawer.insertBefore(price, drawer.firstChild);
-      if (actions.parentNode !== drawer) {
-        const row = drawer.querySelector('.sticky-row');
-        drawer.insertBefore(actions, row || null);
-      }
-      if (adv && adv.parentNode !== drawer) drawer.appendChild(adv);
-      if (adv) adv.open = true;
-      if (!$('stickyEv').classList.contains('is-open')) setStickyOpen(false);
-      setPickerOpen($('tocCol') && $('tocCol').classList.contains('is-open'));
-    } else {
-      if (barRight && toggle && price.parentNode !== barRight) barRight.insertBefore(price, toggle);
-      if (barRight && actions.parentNode !== barRight) {
-        const more = $('stickyMore');
-        if (more) barRight.insertBefore(actions, more);
-        else barRight.appendChild(actions);
-      }
-      if (adv && host && adv.parentNode !== host) host.appendChild(adv);
-      if (adv) adv.open = true;
-      setStickyOpen(false);
-      setPickerOpen(false);
-    }
-  }
-  const pickerBtn = $('setPickerToggle');
-  if (pickerBtn) {
-    pickerBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const col = $('tocCol');
-      setPickerOpen(!(col && col.classList.contains('is-open')));
-    });
-  }
-  document.addEventListener('pointerdown', (e) => {
-    const col = $('tocCol');
-    if (!mqMobile.matches || !col || !col.classList.contains('is-open')) return;
-    if (!col.contains(e.target)) setPickerOpen(false);
-  });
-  const moreBtn = $('stickyMore');
-  if (moreBtn) {
-    moreBtn.addEventListener('click', () => {
-      setStickyOpen(!$('stickyEv').classList.contains('is-open'));
-    });
-  }
-  if (mqMobile.addEventListener) mqMobile.addEventListener('change', placeChrome);
-  else if (mqMobile.addListener) mqMobile.addListener(placeChrome);
-
-  syncPcOverrideInput();
-  updateSetUrl(currentSet);
-  placeChrome();
-  render();
-})();
-</script>
+<footer>
+  <img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" />
+  <span>日盒 EV 小算盤 <b>v1.20.0</b> · Snapshot 靜態資料 · <a href="./calc.html">開盒 EV</a> · <a href="./market-en.html">EN 市況</a></span>
+</footer>
 </body>
 </html>
