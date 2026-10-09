@@ -128,15 +128,18 @@
     border: 2px solid var(--ink);
   }
   .header-inner {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 12px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    column-gap: 12px;
+    row-gap: 2px;
     max-width: 1100px;
     margin: 0 auto;
     min-width: 0;
   }
-  .header-inner > div { min-width: 0; }
+  .header-inner h1 { grid-column: 1; min-width: 0; }
+  .header-inner .nav-btn { grid-column: 2; grid-row: 1; }
+  .header-inner p { grid-column: 1 / -1; }
   .nav-btn {
     display: inline-flex;
     align-items: center;
@@ -765,6 +768,7 @@
     font-size: .7rem;
     color: var(--muted);
   }
+  .method-card { scroll-margin-top: 12px; }
   .method-card a { color: var(--accent); }
   .method-card ul { margin: 0; padding-left: 1.1rem; color: var(--muted); }
   .method-card li { margin: 0.35em 0; }
@@ -903,8 +907,8 @@
   @media (max-width: 899px) {
     .layout { grid-template-columns: minmax(0, 1fr); }
     header { padding: 8px 12px 6px; }
-    header h1, header p { overflow-wrap: anywhere; }
-    .header-inner { align-items: center; gap: 8px; min-width: 0; }
+    header h1, header p { overflow-wrap: break-word; }
+    .header-inner { column-gap: 8px; min-width: 0; }
     .nav-btn { font-size: .7rem; padding: 6px 10px; }
     main {
       padding: 10px 12px 48px;
@@ -1195,11 +1199,9 @@
 <body>
 <header>
   <div class="header-inner">
-    <div>
-      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.20.0</span></h1>
-      <p><img class="mon mon-sm" src="./img/accents/eevee.svg" alt="" width="20" height="20" aria-hidden="true" />給朋友看的簡易 EV 小算盤 · 無登入、非即時行情 · <b>v1.20.0</b></p>
-    </div>
+    <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.20.0</span></h1>
     <a class="nav-btn" href="./market-en.html" title="English raw singles market pulse">EN 市況</a>
+    <p><img class="mon mon-sm" src="./img/accents/eevee.svg" alt="" width="20" height="20" aria-hidden="true" />給朋友看的簡易 EV 小算盤 · 無登入、非即時行情</p>
   </div>
 </header>
 

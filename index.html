@@ -117,15 +117,18 @@
     border: 2px solid var(--ink);
   }
   .header-inner {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 12px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    column-gap: 12px;
+    row-gap: 2px;
     max-width: 960px;
     margin: 0 auto;
     min-width: 0;
   }
-  .header-inner > div { min-width: 0; }
+  .header-inner h1 { grid-column: 1; min-width: 0; }
+  .header-inner .nav-btn { grid-column: 2; grid-row: 1; }
+  .header-inner p { grid-column: 1 / -1; }
   .nav-btn {
     display: inline-flex;
     align-items: center;
@@ -206,14 +209,14 @@
     font-size: clamp(1.35rem, 4.6vw, 2rem);
     font-weight: 850;
     letter-spacing: -0.03em;
-    line-height: 1.2;
-    max-width: 18ch;
+    line-height: 1.25;
+    max-width: 16em;
   }
   .hero-pitch {
     margin: 0 0 16px;
     color: var(--muted);
     font-size: .92rem;
-    max-width: 42ch;
+    max-width: 28em;
   }
   .cta-row {
     display: flex;
@@ -410,17 +413,18 @@
 
   @media (min-width: 720px) {
     .steps { grid-template-columns: 1fr 1fr; }
-    .hero { padding: 28px 28px 24px; }
+    .link-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .hero { padding: 28px 28px 24px; padding-right: 168px; }
     .hero-deco { width: 150px; height: 150px; right: 8px; bottom: -8px; }
   }
   @media (max-width: 899px) {
     header { padding: 8px 12px 6px; }
     header h1, header p { overflow-wrap: anywhere; }
-    .header-inner { align-items: center; gap: 8px; min-width: 0; }
+    .header-inner { column-gap: 8px; min-width: 0; }
     .nav-btn { font-size: .7rem; padding: 6px 10px; }
     main { padding: 12px 12px 48px; }
     .hero { padding: 16px 14px 14px; }
-    .hero-deco { width: 88px; height: 88px; right: -12px; bottom: -16px; opacity: .55; }
+    .hero-deco { display: none; }
     .cta { width: 100%; }
     .lights { width: 100%; }
   }
@@ -429,11 +433,9 @@
 <body>
 <header>
   <div class="header-inner">
-    <div>
-      <h1><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？ <span class="pill">v1.20.0</span></h1>
-      <p><img class="mon mon-sm" src="./img/accents/eevee.svg" alt="" width="20" height="20" aria-hidden="true" />給朋友看的簡易日盒 EV 小算盤 · 無登入 · 非即時行情</p>
-    </div>
+    <h1><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？ <span class="pill">v1.20.0</span></h1>
     <a class="nav-btn" href="./calc.html">開盒 EV</a>
+    <p><img class="mon mon-sm" src="./img/accents/eevee.svg" alt="" width="20" height="20" aria-hidden="true" />給朋友看的簡易日盒 EV 小算盤 · 無登入 · 非即時行情</p>
   </div>
 </header>
 
