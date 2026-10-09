@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>日盒 EV 小算盤 v1.19.0 · JP Mega Sealed</title>
+<title>日盒 EV 小算盤 v1.20.0 · JP Mega Sealed</title>
 <style>
   :root {
     --bg: #f6f7f9;
@@ -70,6 +70,13 @@
     flex-shrink: 0;
   }
   .nav-btn:hover { border-color: var(--accent); }
+  .header-nav {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
 
   .layout {
     display: grid;
@@ -896,10 +903,13 @@
 <header>
   <div class="header-inner">
     <div>
-      <h1>日盒開盒值不值？ <span class="pill" style="font-size:.72rem;vertical-align:middle">v1.19.0</span></h1>
-      <p>給朋友看的簡易 EV 小算盤 · 無登入、非即時行情 · <b>v1.19.0</b></p>
+      <h1>日盒開盒值不值？ <span class="pill" style="font-size:.72rem;vertical-align:middle">v1.20.0</span></h1>
+      <p>給朋友看的簡易 EV 小算盤 · 無登入、非即時行情 · <b>v1.20.0</b></p>
     </div>
-    <a class="nav-btn" href="./market-en.html" title="English raw singles market pulse">EN 市況</a>
+    <nav class="header-nav" aria-label="市況頁">
+      <a class="nav-btn" href="./market-jp.html" title="日語 SNKRDUNK 熱度">日語熱度</a>
+      <a class="nav-btn" href="./market-en.html" title="English raw singles market pulse">EN 市況</a>
+    </nav>
   </div>
 </header>
 
@@ -1037,13 +1047,13 @@
 <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="放大圖">
   <img id="lightboxImg" alt="" />
 </div>
-<footer>日盒 EV 小算盤 <b>v1.19.0</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期 · <a href="./market-en.html">EN 市況</a></footer>
+<footer>日盒 EV 小算盤 <b>v1.20.0</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期 · <a href="./market-jp.html">日語熱度</a> · <a href="./market-en.html">EN 市況</a></footer>
 
-<script src="./data.js?v=1.19.0"></script>
+<script src="./data.js?v=1.20.0"></script>
 <script>
 (async function () {
   // Keep in sync with the data.js?v= query above.
-  const VERSION = '1.19.0';
+  const VERSION = '1.20.0';
   async function loadJson(rel) {
     const url = new URL(rel, document.baseURI || window.location.href);
     url.searchParams.set('v', VERSION);

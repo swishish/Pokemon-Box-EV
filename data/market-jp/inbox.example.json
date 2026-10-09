@@ -1,0 +1,38 @@
+{
+  "_comment": "Copy to data/market-jp/inbox.json and run: python3 tools/refresh_market_jp.py -v --force. Numbers below are SCHEMA EXAMPLES only — not live SNKRDUNK prints. Delete _comment before treating as real. Flexible keys: soldPriceYen / 成交, askYen / 掛價, listings / 掛單, sales7d / 近週成交, liquidity: high|medium|low.",
+  "asOfDate": "2026-10-09",
+  "source": "manual_export",
+  "sourceNote": "example schema — replace with a real SNKRDUNK 成交＋流動性 export",
+  "items": [
+    {
+      "set": "SV8a",
+      "num": 217,
+      "name": "ブラッキーex SAR",
+      "name_zh": "月亮伊布ex SAR",
+      "soldPriceYen": 42000,
+      "askYen": 46000,
+      "listings": 8,
+      "sales7d": 2,
+      "url": "https://snkrdunk.com/"
+    },
+    {
+      "set": "M6",
+      "num": 113,
+      "name": "メガレックウザex MUR",
+      "name_zh": "超級烈空坐ex MUR",
+      "成交": 58000,
+      "掛單": 3,
+      "近週成交": 1
+    },
+    {
+      "set": "SV2a",
+      "num": 201,
+      "name": "リザードンex SAR",
+      "name_zh": "噴火龍ex SAR",
+      "soldPriceYen": 50000,
+      "listings": 1,
+      "sales7d": 0,
+      "liquidity": "low"
+    }
+  ]
+}

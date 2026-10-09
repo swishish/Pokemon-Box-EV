@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>EN 裸卡市況 · Box EV v1.20.0</title>
+<title>日語熱度 · Box EV v1.20.0</title>
 <style>
   :root {
     --bg: #f6f7f9;
@@ -53,6 +53,13 @@
   }
   header h1 { margin: 0; font-size: 1.05rem; font-weight: 700; }
   header p { margin: 2px 0 0; color: var(--muted); font-size: .78rem; }
+  .header-nav {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
   .nav-btn {
     display: inline-flex;
     align-items: center;
@@ -69,13 +76,6 @@
     flex-shrink: 0;
   }
   .nav-btn:hover { border-color: var(--accent); }
-  .header-nav {
-    display: flex;
-    gap: 6px;
-    flex-shrink: 0;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-  }
   .wrap {
     max-width: 1100px;
     margin: 0 auto;
@@ -131,6 +131,7 @@
   .metric .v { font-size: 1.05rem; font-weight: 650; font-variant-numeric: tabular-nums; }
   .metric .v.good { color: var(--good); }
   .metric .v.bad { color: var(--bad); }
+  .metric .v.ok { color: var(--ok); }
   .breadth {
     display: grid;
     grid-template-columns: 1fr;
@@ -212,6 +213,25 @@
     font-size: .78rem;
     font-weight: 600;
   }
+  .liq {
+    display: inline-block;
+    font-size: .68rem;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 999px;
+  }
+  .liq.high { background: var(--good-bg); color: var(--good); }
+  .liq.medium { background: var(--ok-bg); color: var(--ok); }
+  .liq.low { background: var(--bad-bg); color: var(--bad); }
+  .liq.unknown { background: #eef2f6; color: var(--muted); }
+  .empty-note {
+    font-size: .86rem;
+    color: var(--muted);
+    background: #fafbfc;
+    border: 1px dashed #c9d0da;
+    border-radius: 8px;
+    padding: 12px;
+  }
   @media (max-width: 720px) {
     .hero, .movers { grid-template-columns: 1fr; }
     header { padding: 8px 12px 6px; }
@@ -226,12 +246,12 @@
 <header>
   <div class="header-inner">
     <div>
-      <h1>EN 裸卡市況 <span class="pill">S&amp;P-style · v1.20.0</span></h1>
-      <p>英文 raw singles 市場溫度 · TCGPlayer Market via TCGCSV · 靜態快照</p>
+      <h1>日語熱度 <span class="pill">SNKRDUNK · v1.20.0</span></h1>
+      <p>日版二次市場溫度 · 成交價＋流動性 · 靜態快照（非 TCGCSV／EN）</p>
     </div>
     <nav class="header-nav" aria-label="頁面切換">
       <a class="nav-btn" href="./index.html">← 日盒 EV</a>
-      <a class="nav-btn" href="./market-jp.html">日語熱度</a>
+      <a class="nav-btn" href="./market-en.html">EN 市況</a>
     </nav>
   </div>
 </header>
@@ -241,18 +261,28 @@
 
   <div class="hero">
     <div class="card">
-      <div class="kicker">Box-EV EN Pulse · 價格加權 Top 500</div>
+      <div class="kicker" id="indexKicker">Box-EV JP Heat · SNKRDUNK Top 100</div>
       <div class="index-level" id="indexLevel">—</div>
       <div class="index-chg muted" id="indexChg">載入中…</div>
       <svg class="spark" id="spark" viewBox="0 0 300 56" hidden aria-hidden="true"></svg>
       <p class="tiny" id="indexNote" style="margin:8px 0 0"></p>
     </div>
     <div class="card">
-      <h2>市場廣度 Breadth</h2>
-      <div class="metrics" id="breadthMetrics"></div>
-      <div class="breadth" id="breadthBar"></div>
-      <p class="tiny" id="breadthNote" style="margin:8px 0 0"></p>
+      <h2>綜合熱度 Heat</h2>
+      <div class="index-level" id="heatScore">—</div>
+      <div class="index-chg muted" id="heatLabel">載入中…</div>
+      <div class="metrics" id="heatMetrics" style="margin-top:10px"></div>
+      <p class="tiny" id="heatNote" style="margin:8px 0 0"></p>
     </div>
+  </div>
+
+  <div class="card">
+    <h2>市場廣度 Breadth · 流動性 Liquidity</h2>
+    <div class="metrics" id="breadthMetrics"></div>
+    <div class="breadth" id="breadthBar"></div>
+    <p class="tiny" id="breadthNote" style="margin:8px 0 0"></p>
+    <div class="metrics" id="liqMetrics" style="margin-top:10px"></div>
+    <p class="tiny" id="liqNote" style="margin:8px 0 0"></p>
   </div>
 
   <div class="movers">
@@ -264,7 +294,7 @@
             <tr>
               <th></th>
               <th>卡</th>
-              <th class="num">USD</th>
+              <th class="num">JPY</th>
               <th class="num">%</th>
             </tr>
           </thead>
@@ -280,7 +310,7 @@
             <tr>
               <th></th>
               <th>卡</th>
-              <th class="num">USD</th>
+              <th class="num">JPY</th>
               <th class="num">%</th>
             </tr>
           </thead>
@@ -291,8 +321,8 @@
   </div>
 
   <div class="card">
-    <h2>最重成分 Top 10 by market price</h2>
-    <p class="tiny" style="margin:0 0 6px">價格加權籃子裡市值最大的英文裸卡（非漲跌榜）。</p>
+    <h2>最重成分 Top 10 by SNKRDUNK price</h2>
+    <p class="tiny" style="margin:0 0 6px">價格加權籃子裡日圓價最高的 chase 卡（非漲跌榜）。成交價優先，否則 Grade A 掛價。</p>
     <div class="table-wrap">
       <table>
         <thead>
@@ -301,7 +331,8 @@
             <th></th>
             <th>卡</th>
             <th>系列</th>
-            <th class="num">USD</th>
+            <th>流動性</th>
+            <th class="num">JPY</th>
           </tr>
         </thead>
         <tbody id="topBody"></tbody>
@@ -309,24 +340,46 @@
     </div>
   </div>
 
+  <div class="card">
+    <h2>流動性備註</h2>
+    <p class="tiny" id="thinIntro" style="margin:0 0 6px"></p>
+    <div class="table-wrap" id="thinWrap">
+      <table>
+        <thead>
+          <tr>
+            <th>卡</th>
+            <th>系列</th>
+            <th class="num">掛單</th>
+            <th class="num">近週成交</th>
+            <th>流動性</th>
+            <th class="num">JPY</th>
+          </tr>
+        </thead>
+        <tbody id="thinBody"></tbody>
+      </table>
+    </div>
+    <div class="empty-note" id="thinEmpty" hidden></div>
+  </div>
+
   <div class="card method-card">
-    <h2>這是什麼</h2>
-    <ul class="tiny">
-      <li><b>指數</b>：英文 TCGPlayer 裸卡（raw / ungraded）市價最高的 500 張，價格加權；成分輪替時用 divisor 保持連續（S&amp;P 500 同款手法）。首次快照基準＝<b>1,000</b>。</li>
-      <li><b>每日漲跌</b>：相對上一份已提交的快照。若這是第一份快照，指數仍顯示 1,000，% 與廣度會在下一次 GitHub Action 更新後出現。</li>
-      <li><b>代表價</b>：同一張卡取一般印刷（Holofoil / Reverse 等）裡最高的 TCGPlayer <b>Market Price</b>；1st Edition 預設不計入（TCGPlayer 上成交太薄）。</li>
-      <li><b>不含</b>：密封盒、Jumbo／oversized、JP promo（卡號 <code>-P</code>）、日版 SNKRDUNK、PriceCharting。日版熱度見 <a href="./market-jp.html">日語熱度</a>。</li>
+    <h2>這是什麼 · 資料限制</h2>
+    <ul class="tiny" id="methodList">
+      <li><b>熱度</b>：綜合 <b>價格動能</b>（指數相對上一快照）、<b>廣度</b>（上漲 vs 下跌張數）、<b>流動性</b>（掛單／近週成交）。缺一項就只用有的訊號；首次快照通常還沒有綜合分數。</li>
+      <li><b>指數</b>：本站追蹤的日版 chase 卡裡，SNKRDUNK 價最高的 100 張，價格加權；成分輪替用 divisor 保持連續（與 EN 市況同一手法）。首次快照基準＝<b>1,000</b>。</li>
+      <li><b>代表價</b>：有 <b>成交價</b>用成交；否則用 Box-EV 已整理的 SNKRDUNK <b>Grade A 掛價</b>。兩者不是同一件事，頁面會標明。</li>
+      <li><b>SNKRDUNK 沒有穩定公開 API</b>。本頁<b>不爬站</b>、不打 TCGCSV／TCGPlayer JP、也不用 PriceCharting 付費 API。更新方式見 README：手動／半結構化 <code>inbox.json</code>，或從 Box-EV <code>data.json</code> 重建掛價籃子。</li>
+      <li><b>不含</b>：英文 TCGCSV 市況（見 <a href="./market-en.html">EN 市況</a>）、eBay、SC 來源、密封盒指數。</li>
     </ul>
   </div>
 
   <div class="disclaimer" id="disclaimer">
-    <p><b>資料來源：</b>TCGPlayer Market Price，經免費 <a href="https://tcgcsv.com" target="_blank" rel="noopener">TCGCSV</a> 每日 Pokemon category dump。僅 <b>英文裸卡</b>（EN raw singles）。<b>不是</b>日版／SNKRDUNK，也<b>不是</b>投資建議。</p>
-    <p>數字為第三方市場估計，可能延遲或不準；僅供參考與娛樂。Pokémon 與相關名稱為其權利人商標。本頁為獨立粉絲工具，與 Nintendo／The Pokémon Company／TCGPlayer／S&amp;P Global 無關。</p>
+    <p><b>資料來源：</b>日版二次市場，以 <a href="https://snkrdunk.com/" target="_blank" rel="noopener">SNKRDUNK</a> 為主（成交價＋流動性；沒有成交時退回 Grade A 掛價）。<b>不是</b>英文 TCGCSV／TCGPlayer，也<b>不是</b>投資建議。</p>
+    <p>數字為靜態快照與第三方市場估計，可能延遲、不完整或不準；僅供參考與娛樂。Pokémon 與相關名稱為其權利人商標。本頁為獨立粉絲工具，與 Nintendo／The Pokémon Company／SNKRDUNK 無關。</p>
   </div>
 </main>
-<footer>日盒 EV 小算盤 <b>v1.20.0</b> · EN market pulse · Snapshot 靜態資料 · 非正式投資建議 · <a href="./index.html">日盒 EV</a> · <a href="./market-jp.html">日語熱度</a></footer>
+<footer>日盒 EV 小算盤 <b>v1.20.0</b> · 日語熱度 · Snapshot 靜態資料 · 非正式投資建議 · <a href="./index.html">日盒 EV</a> · <a href="./market-en.html">EN 市況</a></footer>
 
-<script src="./data/market-en/latest.js?v=1.20.0"></script>
+<script src="./data/market-jp/latest.js?v=1.20.0"></script>
 <script>
 (async function () {
   const VERSION = '1.20.0';
@@ -355,18 +408,18 @@
     const status = dataRes
       ? (dataRes.status ? ('HTTP ' + dataRes.status) : (dataRes.err || '沒有回應'))
       : '沒有回應';
-    const where = dataRes && dataRes.url ? dataRes.url : ('./data/market-en/latest.json?v=' + VERSION);
+    const where = dataRes && dataRes.url ? dataRes.url : ('./data/market-jp/latest.json?v=' + VERSION);
     app.innerHTML =
-      '<p class="err"><b>載入失敗：找不到市況資料。</b>' +
+      '<p class="err"><b>載入失敗：找不到日語熱度資料。</b>' +
       '<span class="err-hint">抓取 ' + where.replace(/&/g, '&amp;').replace(/</g, '&lt;') +
       ' → ' + String(status).replace(/</g, '&lt;') + '。</span>' +
-      '<span class="err-hint">請強制重新整理，或確認 GitHub Action「Update EN market pulse」已跑過。</span></p>';
+      '<span class="err-hint">請強制重新整理，或本機跑 python3 tools/refresh_market_jp.py --self-test 後再 --force。</span></p>';
   }
-  const dataRes = await loadJson('./data/market-en/latest.json');
-  const histRes = await loadJson('./data/market-en/history.json');
-  const DATA = (dataRes && dataRes.data) || window.MARKET_EN;
+  const dataRes = await loadJson('./data/market-jp/latest.json');
+  const histRes = await loadJson('./data/market-jp/history.json');
+  const DATA = (dataRes && dataRes.data) || window.MARKET_JP;
   const HIST = (histRes && histRes.data) || { points: [] };
-  if (!DATA || DATA.index == null) {
+  if (!DATA || typeof DATA !== 'object' || (!('index' in DATA) && !('ingestion' in DATA))) {
     showLoadError(dataRes);
     return;
   }
@@ -391,52 +444,92 @@
   function renderFreshness() {
     const el = $('dataFreshness');
     const asOfDate = parseAsOfDate(DATA.asOfDate);
+    const ingest = DATA.ingestion || '';
+    const src = DATA.priceSource ? (' · ' + DATA.priceSource) : '';
     if (!asOfDate) {
       el.className = 'data-freshness stale';
-      el.textContent = '數字可能過期（資料日期無法確認）— 下單前請核對現價';
+      el.textContent = '數字可能過期（資料日期無法確認）— 下單前請核對 SNKRDUNK 現價';
       return;
     }
     const age = ageDays(asOfDate, new Date());
     const ymd = ymdLocal(asOfDate);
+    const tag = ingest ? (' · ' + ingest) : '';
     if (age > 7) {
       el.className = 'data-freshness stale';
-      el.textContent = '數字可能過期（TCGCSV 快照：' + ymd + ' · 已過 ' + age + ' 日）— 下單前請核對現價';
+      el.textContent = '數字可能過期（快照：' + ymd + tag + ' · 已過 ' + age + ' 日）— 下單前請核對 SNKRDUNK 現價';
     } else {
       el.className = 'data-freshness';
-      el.textContent = 'TCGCSV 快照 ' + ymd + (DATA.sourceStamp ? ' · ' + DATA.sourceStamp : '');
+      el.textContent = '快照 ' + ymd + tag + src;
     }
   }
   renderFreshness();
 
-  function fmtUsd(n) {
+  function fmtYen(n) {
     if (n == null || Number.isNaN(n)) return '—';
-    return '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    return '¥' + Number(n).toLocaleString('en-US', { maximumFractionDigits: 0 });
   }
   function fmtPct(n, signed) {
     if (n == null || Number.isNaN(n)) return '—';
-    const s = (signed && n > 0 ? '+' : '') + n.toFixed(2) + '%';
-    return s;
+    return (signed && n > 0 ? '+' : '') + n.toFixed(2) + '%';
   }
   function chgClass(n) {
     if (n == null || Number.isNaN(n) || n === 0) return 'muted';
     return n > 0 ? 'good' : 'bad';
   }
-
-  $('indexLevel').textContent = Number(DATA.index).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  const chgEl = $('indexChg');
-  if (DATA.changePct == null) {
-    chgEl.className = 'index-chg muted';
-    chgEl.textContent = DATA.changeLabel || '尚無前一日快照';
-  } else {
-    chgEl.className = 'index-chg ' + chgClass(DATA.changePct);
-    const abs = DATA.change == null ? '' : (' · ' + (DATA.change > 0 ? '+' : '') + DATA.change.toFixed(2));
-    chgEl.textContent = fmtPct(DATA.changePct, true) + abs + '（vs 上一快照）';
+  function liqLabel(tag) {
+    if (tag === 'high') return '高';
+    if (tag === 'medium') return '中';
+    if (tag === 'low') return '薄';
+    return '未知';
   }
-  $('indexNote').textContent =
-    '籃子 ' + (DATA.constituentCount || 500) + ' 張 · 合計市值 ' + fmtUsd(DATA.totalValue) +
-    ' · 基準 ' + (DATA.baseValue || 1000);
+  function liqPill(tag) {
+    const t = tag || 'unknown';
+    return '<span class="liq ' + escapeHtml(t) + '">' + liqLabel(t) + '</span>';
+  }
+  function cardLabel(c) {
+    const zh = c.nameZh ? escapeHtml(c.nameZh) : '';
+    const ja = escapeHtml(c.name || '');
+    const sub = escapeHtml(c.setName || c.setCode || '');
+    const main = zh && zh !== ja ? (zh + ' <span class="tiny">' + ja + '</span>') : ja;
+    return main + ' <span class="tiny">' + sub + '</span>';
+  }
+  function thumb(c) {
+    if (!c.image) return '';
+    return '<img class="card-thumb" src="' + escapeHtml(c.image) + '" alt="" width="32" height="44" loading="lazy" />';
+  }
 
-  const points = (HIST && HIST.points) || [];
+  const emptyUniverse = !DATA.constituentCount;
+  if (emptyUniverse) {
+    $('indexKicker').textContent = 'Box-EV JP Heat · 尚無籃子';
+    $('indexLevel').textContent = '—';
+    $('indexChg').className = 'index-chg muted';
+    $('indexChg').textContent = '空快照';
+    $('indexNote').textContent = DATA.sourceNote || '請從 Box-EV 重建，或匯入 data/market-jp/inbox.json。';
+    $('heatScore').textContent = '—';
+    $('heatLabel').className = 'index-chg muted';
+    $('heatLabel').textContent = '尚無綜合熱度';
+    $('heatNote').textContent = '沒有成分卡。跑 python3 tools/refresh_market_jp.py --force 會用 data.json 的 SNKRDUNK Grade A 掛價填入 Top 100。';
+  } else {
+    $('indexLevel').textContent = DATA.index == null
+      ? '—'
+      : Number(DATA.index).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const chgEl = $('indexChg');
+    if (DATA.changePct == null) {
+      chgEl.className = 'index-chg muted';
+      chgEl.textContent = DATA.changeLabel || '尚無前一日快照';
+    } else {
+      chgEl.className = 'index-chg ' + chgClass(DATA.changePct);
+      const abs = DATA.change == null ? '' : (' · ' + (DATA.change > 0 ? '+' : '') + DATA.change.toFixed(2));
+      chgEl.textContent = fmtPct(DATA.changePct, true) + abs + '（vs 上一快照）';
+    }
+    const kinds = DATA.priceKindCounts || {};
+    $('indexNote').textContent =
+      '籃子 ' + (DATA.constituentCount || 0) + ' 張 · 合計 ' + fmtYen(DATA.totalValue) +
+      ' · 基準 ' + (DATA.baseValue || 1000) +
+      ' · 成交 ' + (kinds.sold || 0) + ' · 掛價 ' + (kinds.ask || 0);
+  }
+
+  const points = ((HIST && HIST.points) || []).filter((p) => p && p.index != null);
   if (points.length >= 2) {
     const spark = $('spark');
     const vals = points.map((p) => Number(p.index)).filter((n) => !Number.isNaN(n));
@@ -452,6 +545,32 @@
     spark.innerHTML = '<polyline fill="none" stroke="#2563eb" stroke-width="2" points="' + coords.join(' ') + '" />';
     spark.removeAttribute('hidden');
   }
+
+  const heat = DATA.heat || {};
+  const heatEl = $('heatScore');
+  const heatLbl = $('heatLabel');
+  if (heat.available && heat.score != null) {
+    heatEl.textContent = Number(heat.score).toFixed(1);
+    const cls = heat.score >= 55 ? 'good' : (heat.score < 45 ? 'bad' : 'muted');
+    heatLbl.className = 'index-chg ' + cls;
+    heatLbl.textContent = heat.label || '';
+  } else {
+    heatEl.textContent = '—';
+    heatLbl.className = 'index-chg muted';
+    heatLbl.textContent = heat.label || '尚無綜合熱度';
+  }
+  const comp = heat.components || {};
+  function metricVal(v, digits) {
+    return v == null || Number.isNaN(v) ? '—' : Number(v).toFixed(digits);
+  }
+  $('heatMetrics').innerHTML =
+    '<div class="metric"><div class="k">動能 Momentum</div><div class="v">' + metricVal(comp.momentum, 1) + '</div></div>' +
+    '<div class="metric"><div class="k">廣度 Breadth</div><div class="v">' + metricVal(comp.breadth, 1) + '</div></div>' +
+    '<div class="metric"><div class="k">流動性 Liq.</div><div class="v">' + metricVal(comp.liquidity, 1) + '</div></div>' +
+    '<div class="metric"><div class="k">熱度 0–100</div><div class="v">' + (heat.available ? Number(heat.score).toFixed(1) : '—') + '</div></div>';
+  $('heatNote').textContent = emptyUniverse
+    ? ($('heatNote').textContent || '')
+    : (DATA.sourceNote || '綜合熱度需要上一份快照（動能／廣度）或 inbox 流動性。');
 
   const b = DATA.breadth || {};
   const tot = (b.advancing || 0) + (b.declining || 0) + (b.unchanged || 0);
@@ -470,6 +589,12 @@
     $('breadthNote').textContent = '首次快照沒有廣度數字；下一份快照才會出現 advancers / decliners。';
   }
 
+  const liq = DATA.liquidity || {};
+  $('liqMetrics').innerHTML =
+    '<div class="metric"><div class="k">已知流動性</div><div class="v">' + (liq.available ? ((liq.known || 0) + ' / ' + (liq.total || 0)) : '—') + '</div></div>' +
+    '<div class="metric"><div class="k">高 / 中 / 薄</div><div class="v">' + (liq.available ? ((liq.high || 0) + ' / ' + (liq.medium || 0) + ' / ' + (liq.low || 0)) : '—') + '</div></div>';
+  $('liqNote').textContent = liq.notes || '本快照沒有掛單數／近週成交。匯入 inbox.json 後才會計算流動性。';
+
   function emptyRow(msg, cols) {
     return '<tr><td colspan="' + cols + '" class="tiny">' + escapeHtml(msg) + '</td></tr>';
   }
@@ -477,13 +602,10 @@
     if (!list || !list.length) return emptyRow(emptyMsg, 4);
     return list.map((c) => {
       const cls = chgClass(c.changePct);
-      const img = c.image
-        ? '<img class="card-thumb" src="' + escapeHtml(c.image) + '" alt="" width="32" height="44" loading="lazy" />'
-        : '';
       return '<tr>' +
-        '<td>' + img + '</td>' +
-        '<td>' + escapeHtml(c.name) + ' <span class="tiny">' + escapeHtml(c.setName || '') + '</span></td>' +
-        '<td class="num">' + fmtUsd(c.price) + '</td>' +
+        '<td>' + thumb(c) + '</td>' +
+        '<td>' + cardLabel(c) + '</td>' +
+        '<td class="num">' + fmtYen(c.price) + '</td>' +
         '<td class="num chg ' + cls + '">' + fmtPct(c.changePct, true) + '</td>' +
         '</tr>';
     }).join('');
@@ -493,17 +615,40 @@
 
   const top = DATA.top || [];
   $('topBody').innerHTML = top.length ? top.map((c) => {
-    const img = c.image
-      ? '<img class="card-thumb" src="' + escapeHtml(c.image) + '" alt="" width="32" height="44" loading="lazy" />'
-      : '';
     return '<tr>' +
       '<td>' + (c.rank || '') + '</td>' +
-      '<td>' + img + '</td>' +
-      '<td>' + escapeHtml(c.name) + ' <span class="tiny">#' + escapeHtml(c.number || '') + '</span></td>' +
-      '<td>' + escapeHtml(c.setName || '') + '</td>' +
-      '<td class="num">' + fmtUsd(c.price) + '</td>' +
+      '<td>' + thumb(c) + '</td>' +
+      '<td>' + cardLabel(c) + ' <span class="tiny">#' + escapeHtml(c.number || '') + '</span></td>' +
+      '<td>' + escapeHtml(c.setCode || c.setName || '') + '</td>' +
+      '<td>' + liqPill(c.liquidity) + '</td>' +
+      '<td class="num">' + fmtYen(c.price) + '</td>' +
       '</tr>';
-  }).join('') : emptyRow('沒有成分資料', 5);
+  }).join('') : emptyRow('沒有成分資料 — 空快照。跑 refresh_market_jp.py 或匯入 inbox.json。', 6);
+
+  const thin = DATA.thin || [];
+  const thinIntro = $('thinIntro');
+  const thinWrap = $('thinWrap');
+  const thinEmpty = $('thinEmpty');
+  if (thin.length) {
+    thinIntro.textContent = '籃子裡流動性偏薄的卡（有掛單／成交欄才會出現）。薄流動性的成交價波動會比較大。';
+    thinWrap.hidden = false;
+    thinEmpty.hidden = true;
+    $('thinBody').innerHTML = thin.map((c) => {
+      return '<tr>' +
+        '<td>' + cardLabel(c) + '</td>' +
+        '<td>' + escapeHtml(c.setName || '') + '</td>' +
+        '<td class="num">' + (c.listings == null ? '—' : c.listings) + '</td>' +
+        '<td class="num">' + (c.sales7d == null ? '—' : c.sales7d) + '</td>' +
+        '<td>' + liqPill(c.liquidity) + '</td>' +
+        '<td class="num">' + fmtYen(c.price) + '</td>' +
+        '</tr>';
+    }).join('');
+  } else {
+    thinWrap.hidden = true;
+    thinEmpty.hidden = false;
+    thinEmpty.textContent = liq.notes ||
+      '這個快照沒有流動性欄。SNKRDUNK 沒有公開 API，請把成交＋掛單匯出存成 data/market-jp/inbox.json（格式見 inbox.example.json），再跑 python3 tools/refresh_market_jp.py --force。';
+  }
 })();
 </script>
 </body>
