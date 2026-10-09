@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>日盒 EV 小算盤 v1.20.0 · JP Mega Sealed</title>
+<title>日盒 EV 小算盤 v1.20.1 · JP Mega Sealed</title>
 <style>
   :root {
     --bg: #faf6ef;
@@ -138,8 +138,15 @@
     min-width: 0;
   }
   .header-inner h1 { grid-column: 1; min-width: 0; }
-  .header-inner .nav-btn { grid-column: 2; grid-row: 1; }
+  .header-inner .header-nav { grid-column: 2; grid-row: 1; }
   .header-inner p { grid-column: 1 / -1; }
+  .header-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 6px;
+    min-width: 0;
+  }
   .nav-btn {
     display: inline-flex;
     align-items: center;
@@ -161,6 +168,17 @@
   .nav-btn:active {
     box-shadow: var(--shadow-pressed);
     transform: translate(1px, 1px);
+  }
+  .nav-btn.soon {
+    background: var(--bg-2);
+    color: var(--muted);
+    box-shadow: none;
+    cursor: default;
+  }
+  .nav-btn.soon:hover { background: var(--bg-2); }
+  .nav-btn.soon:active {
+    transform: none;
+    box-shadow: none;
   }
 
   .layout {
@@ -909,7 +927,7 @@
     header { padding: 8px 12px 6px; }
     header h1, header p { overflow-wrap: break-word; }
     .header-inner { column-gap: 8px; min-width: 0; }
-    .nav-btn { font-size: .7rem; padding: 6px 10px; }
+    .nav-btn { font-size: .68rem; padding: 5px 9px; }
     main {
       padding: 10px 12px 48px;
       min-width: 0;
@@ -1199,8 +1217,11 @@
 <body>
 <header>
   <div class="header-inner">
-    <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.20.0</span></h1>
-    <a class="nav-btn" href="./market-en.html" title="English raw singles market pulse">EN 市況</a>
+    <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.20.1</span></h1>
+    <nav class="header-nav" aria-label="市況頁">
+      <a class="nav-btn" href="./market-en.html" title="English raw singles market pulse">EN 市況</a>
+      <span class="nav-btn soon" title="即將推出">日語熱度</span>
+    </nav>
     <p><img class="mon mon-sm" src="./img/accents/eevee.svg" alt="" width="20" height="20" aria-hidden="true" />給朋友看的簡易 EV 小算盤 · 無登入、非即時行情</p>
   </div>
 </header>
@@ -1326,13 +1347,13 @@
 <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="放大圖">
   <img id="lightboxImg" alt="" />
 </div>
-<footer><img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" /><span>日盒 EV 小算盤 <b>v1.20.0</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期 · <a href="./index.html">首頁</a> · <a href="./market-en.html">EN 市況</a></span></footer>
+<footer><img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" /><span>日盒 EV 小算盤 <b>v1.20.1</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期 · <a href="./index.html">首頁</a> · <a href="./market-en.html">EN 市況</a> · 日語熱度（即將推出）</span></footer>
 
-<script src="./data.js?v=1.20.0"></script>
+<script src="./data.js?v=1.20.1"></script>
 <script>
 (async function () {
   // Keep in sync with the data.js?v= query above.
-  const VERSION = '1.20.0';
+  const VERSION = '1.20.1';
   async function loadJson(rel) {
     const url = new URL(rel, document.baseURI || window.location.href);
     url.searchParams.set('v', VERSION);

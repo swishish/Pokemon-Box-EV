@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>日盒開盒值不值？ v1.20.0 · 首頁</title>
+<title>日盒開盒值不值？ v1.20.1 · 首頁</title>
 <script>
 (function () {
   try {
@@ -127,8 +127,15 @@
     min-width: 0;
   }
   .header-inner h1 { grid-column: 1; min-width: 0; }
-  .header-inner .nav-btn { grid-column: 2; grid-row: 1; }
+  .header-inner .header-nav { grid-column: 2; grid-row: 1; }
   .header-inner p { grid-column: 1 / -1; }
+  .header-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 6px;
+    min-width: 0;
+  }
   .nav-btn {
     display: inline-flex;
     align-items: center;
@@ -150,6 +157,17 @@
   .nav-btn:active {
     box-shadow: var(--shadow-pressed);
     transform: translate(1px, 1px);
+  }
+  .nav-btn.soon {
+    background: var(--bg-2);
+    color: var(--muted);
+    box-shadow: none;
+    cursor: default;
+  }
+  .nav-btn.soon:hover { background: var(--bg-2); }
+  .nav-btn.soon:active {
+    transform: none;
+    box-shadow: none;
   }
   .pill {
     display: inline-block; font-size: .7rem; padding: 2px 8px;
@@ -421,7 +439,7 @@
     header { padding: 8px 12px 6px; }
     header h1, header p { overflow-wrap: anywhere; }
     .header-inner { column-gap: 8px; min-width: 0; }
-    .nav-btn { font-size: .7rem; padding: 6px 10px; }
+    .nav-btn { font-size: .68rem; padding: 5px 9px; }
     main { padding: 12px 12px 48px; }
     .hero { padding: 16px 14px 14px; }
     .hero-deco { display: none; }
@@ -433,8 +451,12 @@
 <body>
 <header>
   <div class="header-inner">
-    <h1><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？ <span class="pill">v1.20.0</span></h1>
-    <a class="nav-btn" href="./calc.html">開盒 EV</a>
+    <h1><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？ <span class="pill">v1.20.1</span></h1>
+    <nav class="header-nav" aria-label="站內導覽">
+      <a class="nav-btn" href="./calc.html">開盒 EV</a>
+      <a class="nav-btn" href="./market-en.html" title="English raw singles market pulse">EN 市況</a>
+      <span class="nav-btn soon" title="即將推出">日語熱度</span>
+    </nav>
     <p><img class="mon mon-sm" src="./img/accents/eevee.svg" alt="" width="20" height="20" aria-hidden="true" />給朋友看的簡易日盒 EV 小算盤 · 無登入 · 非即時行情</p>
   </div>
 </header>
@@ -506,10 +528,15 @@
       </a>
       <div class="tile soon" aria-disabled="true">
         <span class="tile-kicker">本站</span>
-        <span class="tile-title">JP 市況</span>
-        <span class="tile-desc">日版熱度頁尚未上線，唔會放死連結。</span>
+        <span class="tile-title">日語熱度</span>
+        <span class="tile-desc">日版 SNKRDUNK 熱度頁尚未上線，唔會放死連結。</span>
         <span class="tile-badge">即將推出</span>
       </div>
+      <a class="tile" href="https://xn--pok500-dva.com/" target="_blank" rel="noopener">
+        <span class="tile-kicker">外部</span>
+        <span class="tile-title">Rarebox / ポケカ相場</span>
+        <span class="tile-desc">日文卡價參考。純文字連結，不抓圖。</span>
+      </a>
       <a class="tile" href="https://snkrdunk.com/en/trading-cards" target="_blank" rel="noopener">
         <span class="tile-kicker">外部</span>
         <span class="tile-title">SNKRDUNK</span>
@@ -535,7 +562,7 @@
 
 <footer>
   <img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" />
-  <span>日盒 EV 小算盤 <b>v1.20.0</b> · Snapshot 靜態資料 · <a href="./calc.html">開盒 EV</a> · <a href="./market-en.html">EN 市況</a></span>
+  <span>日盒 EV 小算盤 <b>v1.20.1</b> · Snapshot 靜態資料 · <a href="./calc.html">開盒 EV</a> · <a href="./market-en.html">EN 市況</a> · 日語熱度（即將推出）</span>
 </footer>
 </body>
 </html>
