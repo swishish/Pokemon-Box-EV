@@ -1,0 +1,10 @@
+# Dependabot v2 — weekly GitHub Actions updates.
+# tools/ scripts are stdlib-only (no requirements*.txt), so no pip ecosystem.
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "deps"
