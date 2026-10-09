@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>日盒 EV 小算盤 v1.18.4 · JP Mega Sealed</title>
+<title>日盒 EV 小算盤 v1.18.5 · JP Mega Sealed</title>
 <style>
   :root {
     --bg: #f6f7f9;
@@ -26,6 +26,7 @@
     --toc-w: 268px;
   }
   * { box-sizing: border-box; }
+  html { overflow-x: clip; }
   body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
@@ -33,6 +34,10 @@
     color: var(--text);
     line-height: 1.5;
     font-size: 15px;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
   }
   header {
     background: var(--card);
@@ -50,6 +55,8 @@
     margin: 0 auto;
     align-items: start;
   }
+  .toc-col { min-width: 0; }
+  .set-picker-toggle { display: none; }
   .toc {
     position: sticky;
     top: 0;
@@ -195,6 +202,13 @@
     border-color: var(--accent);
     color: var(--accent);
     background: #eef3ff;
+  }
+  .sticky-hc-v, .denom-toggle, .sticky-more, .copy-friend-btn, .reset-btn,
+  .toc-item, .set-picker-current {
+    overflow-wrap: normal;
+  }
+  @media (min-width: 900px) and (max-width: 1100px) {
+    .sticky-head, .sticky-head-right { flex-wrap: wrap; }
   }
   .reset-btn {
     border: 1px solid var(--line);
@@ -578,69 +592,156 @@
     border-radius: 999px; background: #eef2f6; color: var(--muted);
   }
 
-  /* Mobile: compact sticky + horizontal TOC + stacked haircuts */
-  @media (max-width: 760px) {
-    .layout { grid-template-columns: 1fr; }
+  .table-wrap {
+    max-width: 100%;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Mobile / narrow: no page overflow; hideable set dropdown; compact sticky */
+  @media (max-width: 899px) {
+    .layout { grid-template-columns: minmax(0, 1fr); }
     header { padding: 8px 12px 6px; }
-    .toc {
+    header h1, header p { overflow-wrap: anywhere; }
+    main {
+      padding: 10px 12px 48px;
+      min-width: 0;
+      max-width: 100%;
+    }
+    .card, .verdict, .sticky-ev, .sticky-card, .sticky-drawer, .sticky-row, .sticky-metrics {
+      max-width: 100%;
+      min-width: 0;
+    }
+
+    .toc-col {
       position: relative;
-      max-height: none;
-      border-right: none;
+      z-index: 25;
+      padding: 8px 12px;
+      background: #fafbfc;
       border-bottom: 1px solid var(--line);
-      padding: 8px 12px 10px;
+      max-width: 100%;
+    }
+    .set-picker-toggle {
       display: flex;
-      flex-wrap: nowrap;
-      gap: 6px;
-      align-items: stretch;
-      overflow-x: auto;
-      overflow-y: hidden;
-      -webkit-overflow-scrolling: touch;
-      scroll-snap-type: x proximity;
-      scrollbar-width: thin;
-      overscroll-behavior-x: contain;
-      mask-image: linear-gradient(to right, transparent 0, #000 14px, #000 calc(100% - 28px), transparent 100%);
-      -webkit-mask-image: linear-gradient(to right, transparent 0, #000 14px, #000 calc(100% - 28px), transparent 100%);
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      min-width: 0;
+      max-width: 100%;
+      text-align: left;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--text);
+      font: inherit;
+      border-radius: 10px;
+      padding: 8px 10px;
+      cursor: pointer;
     }
-    .toc h2 {
+    .set-picker-toggle:hover { border-color: var(--accent); }
+    .set-picker-kicker {
       flex: 0 0 auto;
-      width: auto;
-      margin: 0;
-      align-self: center;
       font-size: .68rem;
-      white-space: nowrap;
+      font-weight: 650;
+      color: var(--muted);
+      letter-spacing: .02em;
     }
+    .set-picker-current {
+      flex: 1 1 auto;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: .88rem;
+      font-weight: 700;
+    }
+    .set-picker-toggle::after {
+      content: "▾";
+      flex: 0 0 auto;
+      color: var(--accent);
+      font-size: .8rem;
+    }
+    .toc-col.is-open .set-picker-toggle {
+      border-color: var(--accent);
+      background: #eef3ff;
+    }
+    .toc-col.is-open .set-picker-toggle::after { content: "▴"; }
+    .toc {
+      display: none;
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      top: calc(100% - 2px);
+      max-height: min(60vh, 420px);
+      overflow-x: hidden;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      gap: 2px;
+      align-items: stretch;
+      padding: 6px;
+      margin: 0;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 8px 24px rgba(16,24,40,.14);
+      z-index: 30;
+    }
+    .toc-col.is-open .toc { display: flex; }
+    .toc h2 { display: none; }
     .toc-item {
       flex: 0 0 auto;
-      width: 152px;
-      min-width: 152px;
+      width: 100%;
+      min-width: 0;
+      max-width: 100%;
       margin-bottom: 0;
-      scroll-snap-align: start;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 8px 10px;
     }
+    .toc-item .toc-title {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+    .toc-item .ev-line {
+      flex: 0 1 auto;
+      min-width: 0;
+      text-align: right;
+      white-space: nowrap;
+      font-size: .66rem;
+    }
+
     .adv-grid { grid-template-columns: 1fr; }
     #hcSliders.hc-grid,
     .hc-grid {
       grid-template-columns: 1fr;
       gap: 0;
+      overflow-x: hidden;
+      max-width: 100%;
     }
     .slider-row.hc {
-      grid-template-columns: minmax(5rem, 7.4rem) minmax(0, 1fr) 2.6rem;
-      gap: 6px 10px;
+      grid-template-columns: minmax(4.6rem, 7rem) minmax(0, 1fr) 2.6rem;
+      gap: 6px 8px;
       margin-bottom: 4px;
       min-height: 36px;
       align-items: center;
+      max-width: 100%;
     }
     .slider-row.hc label {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    .hc-grid { overflow-x: hidden; }
 
     .sticky-ev {
-      margin: 0 -10px 10px;
-      padding: 0 10px;
+      margin: 0 -12px 10px;
+      padding: 0 12px;
       padding-top: env(safe-area-inset-top, 0px);
       background: var(--bg);
+      max-width: none;
     }
     .sticky-ev:not(.is-open) .data-freshness { display: none; }
     .sticky-ev .card.sticky-card {
@@ -654,6 +755,7 @@
       min-height: 48px;
       height: 52px;
       max-height: 52px;
+      max-width: 100%;
     }
     .sticky-head h2 {
       flex: 1 1 auto;
@@ -669,21 +771,26 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      overflow-wrap: normal;
       font-size: .82rem;
     }
     .sticky-hc { display: flex; }
     .sticky-more { display: inline-flex; align-items: center; }
     .sticky-head-right {
       flex-wrap: nowrap;
+      flex-shrink: 1;
+      min-width: 0;
       gap: 6px;
+      max-width: 100%;
     }
     .sticky-head .price-override,
     .sticky-head .sticky-actions { display: none; }
     .denom-toggle .tog { padding: 4px 8px; font-size: .68rem; }
-    .sticky-drawer { display: none; }
+    .sticky-drawer { display: none; max-width: 100%; }
     .sticky-ev.is-open .sticky-drawer {
       display: block;
       max-height: min(65dvh, calc(100dvh - 4.25rem - env(safe-area-inset-top, 0px)));
+      overflow-x: hidden;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       padding: 8px 0 10px;
@@ -691,20 +798,26 @@
       border-top: 1px solid var(--line);
     }
     .sticky-ev.is-open .sticky-drawer .price-override {
-      display: inline-flex;
+      display: flex;
       flex-wrap: wrap;
       width: 100%;
+      max-width: 100%;
       border-radius: 10px;
       margin-bottom: 8px;
     }
     .sticky-ev.is-open .sticky-drawer .price-override input#pcBoxSlider {
-      flex: 1 1 120px;
-      max-width: none;
-      width: auto;
+      flex: 1 1 100%;
+      max-width: 100%;
+      width: 100%;
+    }
+    .sticky-ev.is-open .sticky-drawer .price-override input#pcBoxOverride {
+      width: 5rem;
+      max-width: 46%;
     }
     .sticky-ev.is-open .sticky-drawer .sticky-actions {
       display: flex;
       flex-wrap: wrap;
+      max-width: 100%;
       margin-bottom: 8px;
     }
     .sticky-ev.is-open .sticky-card {
@@ -713,13 +826,18 @@
     .sticky-drawer .advanced {
       border: 1px dashed #c9d0da;
       margin: 10px 0 0;
+      max-width: 100%;
     }
     .sticky-drawer .advanced > summary { padding: 10px 12px; }
     .sticky-drawer .advanced .adv-body { padding: 0 12px 12px; }
+    .sticky-row { flex-wrap: wrap; }
     .sticky-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .sticky-box { width: 52px; height: 52px; }
     .sticky-metric .v { font-size: 1.05rem; }
-    .sticky-metric .k { font-size: .62rem; min-height: 2.4em; }
+    .sticky-metric .k { font-size: .62rem; min-height: 2.4em; overflow-wrap: anywhere; }
+    table { font-size: .78rem; }
+    th, td { padding: 6px 4px; }
+    .card-thumb { width: 32px; height: 44px; }
   }
 
   /* Stale / freshness banner (near sticky top) */
@@ -748,12 +866,18 @@
 </head>
 <body>
 <header>
-  <h1>日盒開盒值不值？ <span class="pill" style="font-size:.72rem;vertical-align:middle">v1.18.4</span></h1>
-  <p>給朋友看的簡易 EV 小算盤 · 無登入、非即時行情 · <b>v1.18.4</b></p>
+  <h1>日盒開盒值不值？ <span class="pill" style="font-size:.72rem;vertical-align:middle">v1.18.5</span></h1>
+  <p>給朋友看的簡易 EV 小算盤 · 無登入、非即時行情 · <b>v1.18.5</b></p>
 </header>
 
 <div class="layout" id="app">
-  <nav class="toc" id="toc" aria-label="系列目錄"></nav>
+  <aside class="toc-col" id="tocCol">
+    <button type="button" class="set-picker-toggle" id="setPickerToggle" aria-expanded="false" aria-controls="toc" aria-haspopup="listbox">
+      <span class="set-picker-kicker">系列</span>
+      <span class="set-picker-current" id="setPickerCurrent"></span>
+    </button>
+    <nav class="toc" id="toc" aria-label="系列目錄"></nav>
+  </aside>
 
   <main>
     <div class="sticky-ev" id="stickyEv">
@@ -858,7 +982,7 @@
     <div class="card" id="chaseCard">
       <h2>Chase card 一覽</h2>
       <div class="tiny" style="margin-bottom:6px">選定系列 Top 20（依 Grade A ¥）· 池：SR / SAR / MUR / MA / UR / sup_SAR · 相對 <b>Shrink 有膜</b> 落地盒</div>
-      <div style="overflow-x:auto">
+      <div class="table-wrap">
         <table>
           <thead>
             <tr>
@@ -880,13 +1004,13 @@
 <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="放大圖">
   <img id="lightboxImg" alt="" />
 </div>
-<footer>日盒 EV 小算盤 <b>v1.18.4</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期</footer>
+<footer>日盒 EV 小算盤 <b>v1.18.5</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期</footer>
 
-<script src="./data.js?v=1.18.4"></script>
+<script src="./data.js?v=1.18.5"></script>
 <script>
 (async function () {
   // Keep in sync with the data.js?v= query above.
-  const VERSION = '1.18.4';
+  const VERSION = '1.18.5';
   async function loadJson(rel) {
     const url = new URL(rel, document.baseURI || window.location.href);
     url.searchParams.set('v', VERSION);
@@ -1407,6 +1531,7 @@
         landDenom = 'shrink'; // TOC / default denom
         syncPcOverrideInput();
         updateSetUrl(currentSet);
+        setPickerOpen(false);
         render();
       });
     });
@@ -1427,6 +1552,8 @@
     const snkrUrl = r.set.snkrdunk_shrink_url || '';
     // Plain set name; source sites are separate hyperlinks (no PC HKD平均價 display)
     $('stickySetName').textContent = setLabel;
+    const pickerCur = $('setPickerCurrent');
+    if (pickerCur) pickerCur.textContent = setLabel;
     const linksEl = $('stickySrcLinks');
     if (linksEl) {
       const parts = [];
@@ -1738,10 +1865,22 @@
     if (e.target === lb) closeLightbox();
   });
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !lb.hidden) closeLightbox();
+    if (e.key !== 'Escape') return;
+    if (!lb.hidden) closeLightbox();
+    if ($('tocCol') && $('tocCol').classList.contains('is-open')) setPickerOpen(false);
   });
 
-  const mqMobile = window.matchMedia('(max-width: 760px)');
+  const mqMobile = window.matchMedia('(max-width: 899px)');
+  function setPickerOpen(open) {
+    const col = $('tocCol');
+    const btn = $('setPickerToggle');
+    const toc = $('toc');
+    if (!col || !btn) return;
+    const want = mqMobile.matches && !!open;
+    col.classList.toggle('is-open', want);
+    btn.setAttribute('aria-expanded', want ? 'true' : 'false');
+    if (toc) toc.hidden = mqMobile.matches ? !want : false;
+  }
   function setStickyOpen(open) {
     const ev = $('stickyEv');
     const more = $('stickyMore');
@@ -1772,6 +1911,7 @@
       if (adv && adv.parentNode !== drawer) drawer.appendChild(adv);
       if (adv) adv.open = true;
       if (!$('stickyEv').classList.contains('is-open')) setStickyOpen(false);
+      setPickerOpen($('tocCol') && $('tocCol').classList.contains('is-open'));
     } else {
       if (barRight && toggle && price.parentNode !== barRight) barRight.insertBefore(price, toggle);
       if (barRight && actions.parentNode !== barRight) {
@@ -1782,8 +1922,22 @@
       if (adv && host && adv.parentNode !== host) host.appendChild(adv);
       if (adv) adv.open = true;
       setStickyOpen(false);
+      setPickerOpen(false);
     }
   }
+  const pickerBtn = $('setPickerToggle');
+  if (pickerBtn) {
+    pickerBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const col = $('tocCol');
+      setPickerOpen(!(col && col.classList.contains('is-open')));
+    });
+  }
+  document.addEventListener('pointerdown', (e) => {
+    const col = $('tocCol');
+    if (!mqMobile.matches || !col || !col.classList.contains('is-open')) return;
+    if (!col.contains(e.target)) setPickerOpen(false);
+  });
   const moreBtn = $('stickyMore');
   if (moreBtn) {
     moreBtn.addEventListener('click', () => {
