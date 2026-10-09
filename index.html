@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>日盒 EV 小算盤 v1.19.0 · JP Mega Sealed</title>
+<title>日盒 EV 小算盤 v1.19.1 · JP Mega Sealed</title>
 <style>
   :root {
     --bg: #faf6ef;
@@ -77,7 +77,16 @@
     gap: 8px;
     flex-wrap: wrap;
   }
-  header p { margin: 3px 0 0; color: var(--muted); font-size: .78rem; }
+  header p {
+    margin: 3px 0 0;
+    color: var(--muted);
+    font-size: .78rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+  }
+  header p .mon { flex-shrink: 0; }
   .poke-mark {
     display: inline-block;
     width: 18px;
@@ -141,6 +150,7 @@
   }
   .toc-col { min-width: 0; }
   .set-picker-toggle { display: none; }
+  .set-picker-idle { display: none; }
   .toc {
     position: sticky;
     top: 0;
@@ -157,7 +167,11 @@
     color: var(--muted);
     font-weight: 650;
     letter-spacing: .02em;
+    display: flex;
+    align-items: center;
+    gap: 6px;
   }
+  .toc h2 .mon { width: 54px; height: 18px; }
   .toc-item {
     display: flex;
     flex-direction: row;
@@ -579,6 +593,12 @@
   .metric .v { font-size: 1.05rem; font-weight: 650; font-variant-numeric: tabular-nums; }
   .metric .r { font-size: .75rem; color: var(--muted); }
   h2 { margin: 0 0 8px; font-size: .95rem; }
+  .sec-h {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
   table { width: 100%; border-collapse: collapse; font-size: .86rem; }
   th, td { text-align: left; padding: 7px 6px; border-bottom: 1px solid var(--line); vertical-align: middle; }
   th { color: var(--muted); font-weight: 800; font-size: .72rem; text-transform: uppercase; letter-spacing: .04em; }
@@ -782,9 +802,33 @@
   .slider-row.hc .val { min-width: 2.8rem; font-size: .85rem; }
   .adv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .tiny { font-size: .75rem; color: var(--muted); }
-  footer { text-align: center; color: var(--muted); font-size: .75rem; padding: 8px 16px 24px; }
+  footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    text-align: center;
+    color: var(--muted);
+    font-size: .75rem;
+    padding: 8px 16px 24px;
+  }
   footer a { color: var(--ink); font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
   footer a:hover { color: var(--text); }
+  footer .mon { width: 36px; height: 36px; }
+  /* Original local silhouettes (img/accents/) — not official Nintendo art.
+     pointer-events:none so they never steal taps from sticky EV / pickers. */
+  .mon {
+    display: inline-block;
+    vertical-align: middle;
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    pointer-events: none;
+    user-select: none;
+  }
+  .mon-sm { width: 20px; height: 20px; }
+  .mon-starters { width: 72px; height: 24px; }
   .pill {
     display: inline-block; font-size: .7rem; padding: 2px 8px;
     border-radius: 999px; background: var(--accent-fill); color: var(--ink);
@@ -824,6 +868,7 @@
     background: linear-gradient(180deg, #e4434f 49%, #fff 51%);
     box-shadow: 2px 2px 0 var(--ink);
   }
+  .empty-state .mon { width: 56px; height: 56px; }
   .empty-state h3 { margin: 0; font-size: 1.05rem; font-weight: 800; }
   .empty-state p { margin: 0; font-size: .86rem; color: var(--muted); max-width: 28rem; }
 
@@ -881,6 +926,13 @@
     .set-picker-toggle:active {
       box-shadow: var(--shadow-pressed);
       transform: translate(1px, 1px);
+    }
+    .set-picker-idle {
+      display: inline-block;
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+      pointer-events: none;
     }
     .set-picker-kicker {
       flex: 0 0 auto;
@@ -1124,8 +1176,8 @@
 <header>
   <div class="header-inner">
     <div>
-      <h1><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？ <span class="pill">v1.19.0</span></h1>
-      <p>給朋友看的簡易 EV 小算盤 · 無登入、非即時行情 · <b>v1.19.0</b></p>
+      <h1><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？ <span class="pill">v1.19.1</span></h1>
+      <p><img class="mon mon-sm" src="./img/accents/eevee.svg" alt="" width="20" height="20" aria-hidden="true" />給朋友看的簡易 EV 小算盤 · 無登入、非即時行情 · <b>v1.19.1</b></p>
     </div>
     <a class="nav-btn" href="./market-en.html" title="English raw singles market pulse">EN 市況</a>
   </div>
@@ -1134,6 +1186,7 @@
 <div class="layout" id="app">
   <aside class="toc-col" id="tocCol">
     <button type="button" class="set-picker-toggle" id="setPickerToggle" aria-expanded="false" aria-controls="toc" aria-haspopup="listbox">
+      <img class="mon set-picker-idle" src="./img/accents/ditto.svg" alt="" width="22" height="22" aria-hidden="true" />
       <span class="set-picker-kicker">系列</span>
       <span class="set-picker-current" id="setPickerCurrent"></span>
     </button>
@@ -1220,7 +1273,7 @@
     </div>
 
     <div class="card method-card">
-      <h2>方法論 · 四個 % 與資料來源</h2>
+      <h2 class="sec-h"><img class="mon" src="./img/accents/eevee.svg" alt="" width="28" height="28" aria-hidden="true" />方法論 · 四個 % 與資料來源</h2>
       <ul class="tiny">
         <li><b>100% Grade A（買入價）</b>＝ 各稀有度池 Grade A 均價 × 抽出率加總 ÷ 落地盒價（<b>無</b>稀有度 haircut）</li>
         <li><b>Grade A（打折）</b>＝ 同上但先套稀有度<strong>折扣 %</strong>（GradeA×(1−disc)）再平均（TOC／主判斷用這個）。預設：MUR／SAR／sup_SAR <b>10%</b>；SR <b>25%</b>；<b>SSR／復刻 S 20%</b>（×0.80）；AR／UR／ACE <b>50%</b>；MA <b>25%</b>；BWR <b>0%</b>。Sticky 為<strong>即時計算</strong>，非凍結 snapshot。</li>
@@ -1241,7 +1294,7 @@
     </div>
 
     <div class="card" id="chaseCard">
-      <h2>Chase card 一覽</h2>
+      <h2 class="sec-h"><img class="mon mon-starters" src="./img/accents/starters.svg" alt="" width="72" height="24" aria-hidden="true" />Chase card 一覽</h2>
       <div class="tiny" style="margin-bottom:8px">選定系列 Top 20（依 Grade A ¥）· 池：SR / SAR / MUR / MA / UR / sup_SAR · 相對 <b>Shrink 有膜</b> 落地盒</div>
       <div class="chase-grid" id="chaseBody"></div>
       <div class="hint" id="ripHint"></div>
@@ -1251,13 +1304,13 @@
 <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="放大圖">
   <img id="lightboxImg" alt="" />
 </div>
-<footer>日盒 EV 小算盤 <b>v1.19.0</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期 · <a href="./market-en.html">EN 市況</a></footer>
+<footer><img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" /><span>日盒 EV 小算盤 <b>v1.19.1</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期 · <a href="./market-en.html">EN 市況</a></span></footer>
 
-<script src="./data.js?v=1.19.0"></script>
+<script src="./data.js?v=1.19.1"></script>
 <script>
 (async function () {
   // Keep in sync with the data.js?v= query above.
-  const VERSION = '1.19.0';
+  const VERSION = '1.19.1';
   async function loadJson(rel) {
     const url = new URL(rel, document.baseURI || window.location.href);
     url.searchParams.set('v', VERSION);
@@ -1280,7 +1333,7 @@
     const where = dataRes && dataRes.url ? dataRes.url : ('./data.json?v=' + VERSION);
     app.innerHTML =
       '<div class="empty-state">' +
-      '<div class="icon" aria-hidden="true"></div>' +
+      '<img class="mon" src="./img/accents/ditto.svg" alt="" width="56" height="56" aria-hidden="true" />' +
       '<h3>載入失敗：找不到資料</h3>' +
       '<p>抓取 ' + where.replace(/&/g, '&amp;').replace(/</g, '&lt;') +
       ' → ' + String(status).replace(/</g, '&lt;') + '。</p>' +
@@ -1758,7 +1811,7 @@
 
   function renderToc() {
     const toc = $('toc');
-    const parts = ['<h2>系列</h2>'];
+    const parts = ['<h2 class="sec-h"><img class="mon mon-starters" src="./img/accents/starters.svg" alt="" width="72" height="24" aria-hidden="true" />系列</h2>'];
     setList.forEach((s) => {
       const r = calcSet(s.code, true);
       const hcS = r.ratiosS ? r.ratiosS.HC : null;
@@ -1900,7 +1953,7 @@
     if (!r.chase.length) {
       $('chaseBody').innerHTML =
         '<div class="empty-state" style="grid-column:1/-1">' +
-        '<div class="icon" aria-hidden="true"></div>' +
+        '<img class="mon" src="./img/accents/eevee.svg" alt="" width="56" height="56" aria-hidden="true" />' +
         '<h3>無 chase 資料</h3>' +
         '<p>這個系列暫時沒有足夠的 chase 單卡價可對照。</p></div>';
     } else {
