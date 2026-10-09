@@ -1880,6 +1880,7 @@
     col.classList.toggle('is-open', want);
     btn.setAttribute('aria-expanded', want ? 'true' : 'false');
     if (toc) toc.hidden = mqMobile.matches ? !want : false;
+    if (want) setStickyOpen(false);
   }
   function setStickyOpen(open) {
     const ev = $('stickyEv');
@@ -1890,6 +1891,7 @@
       more.setAttribute('aria-expanded', open ? 'true' : 'false');
       more.textContent = open ? '收起' : '設定';
     }
+    if (open) setPickerOpen(false);
     const adv = $('advancedPanel');
     if (adv && mqMobile.matches) adv.open = true;
   }
