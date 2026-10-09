@@ -106,6 +106,12 @@
     letter-spacing: -0.03em;
     line-height: 1.1;
   }
+  .index-level.placeholder {
+    font-size: 1.35rem;
+    font-weight: 650;
+    letter-spacing: 0;
+    color: var(--muted);
+  }
   .index-chg {
     font-size: 1.15rem;
     font-weight: 750;
@@ -502,6 +508,7 @@
   if (emptyUniverse) {
     $('indexKicker').textContent = 'Box-EV JP Heat · 尚無籃子';
     $('indexLevel').textContent = '—';
+    $('indexLevel').className = 'index-level placeholder';
     $('indexChg').className = 'index-chg muted';
     $('indexChg').textContent = '空快照';
     $('indexNote').textContent = DATA.sourceNote || '請從 Box-EV 重建，或匯入 data/market-jp/inbox.json。';
@@ -510,9 +517,13 @@
     $('heatLabel').textContent = '尚無綜合熱度';
     $('heatNote').textContent = '沒有成分卡。跑 python3 tools/refresh_market_jp.py --force 會用 data.json 的 SNKRDUNK Grade A 掛價填入 Top 100。';
   } else {
-    $('indexLevel').textContent = DATA.index == null
-      ? '—'
-      : Number(DATA.index).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    if (DATA.index == null) {
+      $('indexLevel').className = 'index-level placeholder';
+      $('indexLevel').textContent = '—';
+    } else {
+      $('indexLevel').className = 'index-level';
+      $('indexLevel').textContent = Number(DATA.index).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
     const chgEl = $('indexChg');
     if (DATA.changePct == null) {
       chgEl.className = 'index-chg muted';
@@ -550,11 +561,13 @@
   const heatEl = $('heatScore');
   const heatLbl = $('heatLabel');
   if (heat.available && heat.score != null) {
+    heatEl.className = 'index-level';
     heatEl.textContent = Number(heat.score).toFixed(1);
     const cls = heat.score >= 55 ? 'good' : (heat.score < 45 ? 'bad' : 'muted');
     heatLbl.className = 'index-chg ' + cls;
     heatLbl.textContent = heat.label || '';
   } else {
+    heatEl.className = 'index-level placeholder';
     heatEl.textContent = '—';
     heatLbl.className = 'index-chg muted';
     heatLbl.textContent = heat.label || '尚無綜合熱度';
