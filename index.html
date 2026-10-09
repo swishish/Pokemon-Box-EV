@@ -625,7 +625,8 @@
     .slider-row.hc {
       grid-template-columns: minmax(5rem, 7.4rem) minmax(0, 1fr) 2.6rem;
       gap: 6px 10px;
-      margin-bottom: 10px;
+      margin-bottom: 4px;
+      min-height: 36px;
       align-items: center;
     }
     .slider-row.hc label {
@@ -633,16 +634,17 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+    .hc-grid { overflow-x: hidden; }
 
     .sticky-ev {
       margin: 0 -10px 10px;
-      padding: 0 10px 6px;
+      padding: 0 10px;
       padding-top: env(safe-area-inset-top, 0px);
       background: var(--bg);
     }
     .sticky-ev:not(.is-open) .data-freshness { display: none; }
-    .sticky-card {
-      padding: 0 10px;
+    .sticky-ev .card.sticky-card {
+      padding: 0 8px;
     }
     .sticky-head {
       flex-wrap: nowrap;
@@ -650,7 +652,8 @@
       gap: 8px;
       margin-bottom: 0;
       min-height: 48px;
-      max-height: 56px;
+      height: 52px;
+      max-height: 52px;
     }
     .sticky-head h2 {
       flex: 1 1 auto;
