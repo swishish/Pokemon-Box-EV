@@ -1204,6 +1204,10 @@
     .chase-tile:hover { transform: none; box-shadow: var(--shadow-xs); }
     .sticky-metric { box-shadow: none; }
     .sticky-box { box-shadow: none; }
+    /* Always-open 設定 sheet is sticky; keep #method below it on hash/scroll. */
+    #method.method-card {
+      scroll-margin-top: min(72dvh, calc(100dvh - 6.5rem));
+    }
   }
 
   /* Stale / freshness banner (near sticky top) */
@@ -2338,7 +2342,11 @@
   render();
   const methodPanel = document.getElementById('method');
   function openMethodIfHash() {
-    if (methodPanel && location.hash === '#method') methodPanel.open = true;
+    if (!methodPanel || location.hash !== '#method') return;
+    methodPanel.open = true;
+    requestAnimationFrame(() => {
+      methodPanel.scrollIntoView({ block: 'start', behavior: 'auto' });
+    });
   }
   openMethodIfHash();
   window.addEventListener('hashchange', openMethodIfHash);
