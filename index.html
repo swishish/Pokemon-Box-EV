@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>日盒 EV 小算盤 v1.18.3 · JP Mega Sealed</title>
+<title>日盒 EV 小算盤 v1.18.4 · JP Mega Sealed</title>
 <style>
   :root {
     --bg: #f6f7f9;
@@ -127,7 +127,8 @@
     z-index: 20;
     margin: 0 -14px 12px;
     padding: 8px 14px 8px;
-    background: linear-gradient(180deg, var(--bg) 72%, rgba(246,247,249,0));
+    padding-top: calc(8px + env(safe-area-inset-top, 0px));
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg) 72%, rgba(246,247,249,0));
   }
   .sticky-ev .card {
     margin-bottom: 0;
@@ -151,6 +152,49 @@
     flex-wrap: nowrap;
     margin-left: auto;
     flex-shrink: 0;
+  }
+  .sticky-kicker { margin-right: 2px; }
+  .sticky-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  .sticky-hc {
+    display: none;
+    align-items: baseline;
+    flex-shrink: 0;
+    margin-left: 4px;
+  }
+  .sticky-hc-v {
+    font-size: 1.35rem;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .sticky-hc-v.good { color: var(--good); }
+  .sticky-hc-v.ok { color: var(--ok); }
+  .sticky-hc-v.bad { color: var(--bad); }
+  .sticky-hc-v.na { color: var(--muted); }
+  .sticky-more {
+    display: none;
+    border: 1px solid var(--line);
+    background: #fff;
+    color: var(--text);
+    font: inherit;
+    font-size: .7rem;
+    font-weight: 700;
+    padding: 5px 9px;
+    border-radius: 999px;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .sticky-more[aria-expanded="true"] {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: #eef3ff;
   }
   .reset-btn {
     border: 1px solid var(--line);
@@ -504,11 +548,12 @@
     min-width: 3.2rem; text-align: right;
     font-variant-numeric: tabular-nums; font-size: .9rem; font-weight: 600;
   }
-  /* Haircut: label + slider + % on one row */
+  /* Haircut: label + slider + % on one row (desktop density) */
   .slider-row.hc {
-    grid-template-columns: minmax(5.5rem, auto) 1fr auto;
+    grid-template-columns: minmax(5.5rem, auto) minmax(0, 1fr) auto;
     gap: 4px 8px;
     margin-bottom: 6px;
+    min-width: 0;
   }
   .slider-row.hc label {
     grid-column: auto;
@@ -517,6 +562,7 @@
     color: var(--text);
     white-space: nowrap;
   }
+  .slider-row.hc input[type="range"] { min-width: 0; width: 100%; }
   .slider-row.hc .val { min-width: 2.8rem; font-size: .85rem; }
   .adv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .tiny { font-size: .75rem; color: var(--muted); }
@@ -532,30 +578,141 @@
     border-radius: 999px; background: #eef2f6; color: var(--muted);
   }
 
-  /* Mobile: TOC on top */
+  /* Mobile: compact sticky + horizontal TOC + stacked haircuts */
   @media (max-width: 760px) {
     .layout { grid-template-columns: 1fr; }
+    header { padding: 8px 12px 6px; }
     .toc {
       position: relative;
       max-height: none;
       border-right: none;
       border-bottom: 1px solid var(--line);
-      padding: 10px 12px 8px;
+      padding: 8px 12px 10px;
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       gap: 6px;
       align-items: stretch;
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x proximity;
+      scrollbar-width: thin;
+      overscroll-behavior-x: contain;
+      mask-image: linear-gradient(to right, transparent 0, #000 14px, #000 calc(100% - 28px), transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0, #000 14px, #000 calc(100% - 28px), transparent 100%);
     }
-    .toc h2 { width: 100%; margin-bottom: 4px; }
+    .toc h2 {
+      flex: 0 0 auto;
+      width: auto;
+      margin: 0;
+      align-self: center;
+      font-size: .68rem;
+      white-space: nowrap;
+    }
     .toc-item {
-      flex: 1 1 calc(50% - 6px);
+      flex: 0 0 auto;
+      width: 152px;
+      min-width: 152px;
       margin-bottom: 0;
-      min-width: 140px;
+      scroll-snap-align: start;
     }
     .adv-grid { grid-template-columns: 1fr; }
-    .sticky-head { flex-wrap: wrap; }
-    .sticky-head-right { flex-wrap: wrap; }
-    .sticky-ev { margin: 0 -10px 10px; padding: 6px 10px; }
+    #hcSliders.hc-grid,
+    .hc-grid {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+    .slider-row.hc {
+      grid-template-columns: minmax(5rem, 7.4rem) minmax(0, 1fr) 2.6rem;
+      gap: 6px 10px;
+      margin-bottom: 10px;
+      align-items: center;
+    }
+    .slider-row.hc label {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sticky-ev {
+      margin: 0 -10px 10px;
+      padding: 0 10px 6px;
+      padding-top: env(safe-area-inset-top, 0px);
+      background: var(--bg);
+    }
+    .sticky-ev:not(.is-open) .data-freshness { display: none; }
+    .sticky-card {
+      padding: 0 10px;
+    }
+    .sticky-head {
+      flex-wrap: nowrap;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 0;
+      min-height: 48px;
+      max-height: 56px;
+    }
+    .sticky-head h2 {
+      flex: 1 1 auto;
+      min-width: 0;
+      overflow: hidden;
+      font-size: .78rem;
+    }
+    #advancedHost > .advanced { display: none; }
+    .sticky-kicker,
+    .sticky-head .src-links { display: none; }
+    .sticky-ev .set-name {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: .82rem;
+    }
+    .sticky-hc { display: flex; }
+    .sticky-more { display: inline-flex; align-items: center; }
+    .sticky-head-right {
+      flex-wrap: nowrap;
+      gap: 6px;
+    }
+    .sticky-head .price-override,
+    .sticky-head .sticky-actions { display: none; }
+    .denom-toggle .tog { padding: 4px 8px; font-size: .68rem; }
+    .sticky-drawer { display: none; }
+    .sticky-ev.is-open .sticky-drawer {
+      display: block;
+      max-height: min(65dvh, calc(100dvh - 4.25rem - env(safe-area-inset-top, 0px)));
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 8px 0 10px;
+      margin-top: 2px;
+      border-top: 1px solid var(--line);
+    }
+    .sticky-ev.is-open .sticky-drawer .price-override {
+      display: inline-flex;
+      flex-wrap: wrap;
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 8px;
+    }
+    .sticky-ev.is-open .sticky-drawer .price-override input#pcBoxSlider {
+      flex: 1 1 120px;
+      max-width: none;
+      width: auto;
+    }
+    .sticky-ev.is-open .sticky-drawer .sticky-actions {
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    .sticky-ev.is-open .sticky-card {
+      padding-bottom: 8px;
+    }
+    .sticky-drawer .advanced {
+      border: 1px dashed #c9d0da;
+      margin: 10px 0 0;
+    }
+    .sticky-drawer .advanced > summary { padding: 10px 12px; }
+    .sticky-drawer .advanced .adv-body { padding: 0 12px 12px; }
     .sticky-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .sticky-box { width: 52px; height: 52px; }
     .sticky-metric .v { font-size: 1.05rem; }
@@ -588,8 +745,8 @@
 </head>
 <body>
 <header>
-  <h1>日盒開盒值不值？ <span class="pill" style="font-size:.72rem;vertical-align:middle">v1.18.3</span></h1>
-  <p>給朋友看的簡易 EV 小算盤 · 無登入、非即時行情 · <b>v1.18.3</b></p>
+  <h1>日盒開盒值不值？ <span class="pill" style="font-size:.72rem;vertical-align:middle">v1.18.4</span></h1>
+  <p>給朋友看的簡易 EV 小算盤 · 無登入、非即時行情 · <b>v1.18.4</b></p>
 </header>
 
 <div class="layout" id="app">
@@ -598,10 +755,10 @@
   <main>
     <div class="sticky-ev" id="stickyEv">
       <div id="dataFreshness" class="data-freshness" role="status" aria-live="polite"></div>
-      <div class="card">
-        <div class="sticky-head">
+      <div class="card sticky-card">
+        <div class="sticky-head" id="stickyBar">
           <h2>
-            預期回報 %
+            <span class="sticky-kicker">預期回報 %</span>
             <span class="set-name" id="stickySetName"></span>
             <span class="src-links" id="stickySrcLinks" aria-label="系列來源連結"></span>
           </h2>
@@ -616,13 +773,21 @@
               <button type="button" class="tog active" id="togShrink" data-denom="shrink">有膜</button>
               <button type="button" class="tog" id="togNS" data-denom="ns">無膜</button>
             </div>
-            <button type="button" class="copy-friend-btn" id="copyFriend" title="複製短訊給朋友（WhatsApp 可貼上）">複製給朋友</button>
-            <button type="button" class="reset-btn" id="resetDefaults" title="恢復所有進階假設與盒價覆寫為預設">恢復預設</button>
+            <div class="sticky-hc" id="stickyHcLive" title="Grade A（打折）">
+              <span class="sticky-hc-v" id="stickyHcVal">—</span>
+            </div>
+            <div class="sticky-actions" id="stickyActions">
+              <button type="button" class="copy-friend-btn" id="copyFriend" title="複製短訊給朋友（WhatsApp 可貼上）">複製給朋友</button>
+              <button type="button" class="reset-btn" id="resetDefaults" title="恢復所有進階假設與盒價覆寫為預設">恢復預設</button>
+            </div>
+            <button type="button" class="sticky-more" id="stickyMore" aria-expanded="false" aria-controls="stickyDrawer">設定</button>
           </div>
         </div>
-        <div class="sticky-row">
-          <img class="sticky-box" id="stickyBox" alt="" width="64" height="64" />
-          <div class="sticky-metrics" id="stickyMetrics"></div>
+        <div class="sticky-drawer" id="stickyDrawer">
+          <div class="sticky-row">
+            <img class="sticky-box" id="stickyBox" alt="" width="64" height="64" />
+            <div class="sticky-metrics" id="stickyMetrics"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -631,7 +796,8 @@
       <div class="verdict" id="verdict" style="margin-top:0"></div>
     </div>
 
-    <details class="advanced" open>
+    <div id="advancedHost">
+    <details class="advanced" id="advancedPanel" open>
       <summary>進階假設</summary>
       <div class="adv-body">
         <div class="slider-row">
@@ -648,7 +814,7 @@
 
         <h2 style="margin-top:14px">稀有度折扣（Haircut，% off）</h2>
         <p class="tiny">10%＝×0.9（折扣 off，非保留係數）</p>
-        <div class="adv-grid" id="hcSliders"></div>
+        <div class="adv-grid hc-grid" id="hcSliders"></div>
 
         <h2 style="margin-top:14px">費用</h2>
         <div class="adv-grid">
@@ -663,6 +829,7 @@
         </div>
       </div>
     </details>
+    </div>
 
     <div class="card method-card">
       <h2>方法論 · 四個 % 與資料來源</h2>
@@ -710,13 +877,13 @@
 <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="放大圖">
   <img id="lightboxImg" alt="" />
 </div>
-<footer>日盒 EV 小算盤 <b>v1.18.3</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期</footer>
+<footer>日盒 EV 小算盤 <b>v1.18.4</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期</footer>
 
-<script src="./data.js?v=1.18.3"></script>
+<script src="./data.js?v=1.18.4"></script>
 <script>
 (async function () {
   // Keep in sync with the data.js?v= query above.
-  const VERSION = '1.18.3';
+  const VERSION = '1.18.4';
   async function loadJson(rel) {
     const url = new URL(rel, document.baseURI || window.location.href);
     url.searchParams.set('v', VERSION);
@@ -1256,7 +1423,7 @@
     const pcUrl = r.set.pricecharting_box_url || r.set.pc_url || '';
     const snkrUrl = r.set.snkrdunk_shrink_url || '';
     // Plain set name; source sites are separate hyperlinks (no PC HKD平均價 display)
-    $('stickySetName').textContent = '· ' + setLabel;
+    $('stickySetName').textContent = setLabel;
     const linksEl = $('stickySrcLinks');
     if (linksEl) {
       const parts = [];
@@ -1306,6 +1473,14 @@
         <div class="v ${b.cls}">${fmtPct(ratio)}</div>
         <div class="yen">${fmtHkdFromYen(yen)} EV</div>
       </div>`;
+    }
+
+    const hcLive = $('stickyHcVal');
+    if (hcLive) {
+      const hcRatio = ratioSticky.HC;
+      const hb = band(hcRatio);
+      hcLive.textContent = fmtPct(hcRatio);
+      hcLive.className = 'sticky-hc-v ' + hb.cls;
     }
 
     const psaMissing = !r.hasPsa;
@@ -1563,8 +1738,61 @@
     if (e.key === 'Escape' && !lb.hidden) closeLightbox();
   });
 
+  const mqMobile = window.matchMedia('(max-width: 760px)');
+  function setStickyOpen(open) {
+    const ev = $('stickyEv');
+    const more = $('stickyMore');
+    if (!ev) return;
+    ev.classList.toggle('is-open', !!open);
+    if (more) {
+      more.setAttribute('aria-expanded', open ? 'true' : 'false');
+      more.textContent = open ? '收起' : '設定';
+    }
+    const adv = $('advancedPanel');
+    if (adv && mqMobile.matches) adv.open = true;
+  }
+  function placeChrome() {
+    const barRight = document.querySelector('#stickyBar .sticky-head-right');
+    const drawer = $('stickyDrawer');
+    const price = $('stickyPriceOverride');
+    const actions = $('stickyActions');
+    const adv = $('advancedPanel');
+    const host = $('advancedHost');
+    const toggle = barRight ? barRight.querySelector('.denom-toggle') : null;
+    if (!drawer || !price || !actions) return;
+    if (mqMobile.matches) {
+      if (price.parentNode !== drawer) drawer.insertBefore(price, drawer.firstChild);
+      if (actions.parentNode !== drawer) {
+        const row = drawer.querySelector('.sticky-row');
+        drawer.insertBefore(actions, row || null);
+      }
+      if (adv && adv.parentNode !== drawer) drawer.appendChild(adv);
+      if (adv) adv.open = true;
+      if (!$('stickyEv').classList.contains('is-open')) setStickyOpen(false);
+    } else {
+      if (barRight && toggle && price.parentNode !== barRight) barRight.insertBefore(price, toggle);
+      if (barRight && actions.parentNode !== barRight) {
+        const more = $('stickyMore');
+        if (more) barRight.insertBefore(actions, more);
+        else barRight.appendChild(actions);
+      }
+      if (adv && host && adv.parentNode !== host) host.appendChild(adv);
+      if (adv) adv.open = true;
+      setStickyOpen(false);
+    }
+  }
+  const moreBtn = $('stickyMore');
+  if (moreBtn) {
+    moreBtn.addEventListener('click', () => {
+      setStickyOpen(!$('stickyEv').classList.contains('is-open'));
+    });
+  }
+  if (mqMobile.addEventListener) mqMobile.addEventListener('change', placeChrome);
+  else if (mqMobile.addListener) mqMobile.addListener(placeChrome);
+
   syncPcOverrideInput();
   updateSetUrl(currentSet);
+  placeChrome();
   render();
 })();
 </script>
