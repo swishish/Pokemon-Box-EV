@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>Chase 公允值 v1.21.3 · PSA10 回歸</title>
+<title>Chase 公允值 v1.21.4 · PSA10 回歸</title>
 <style>
   :root {
     --bg: #faf6ef;
@@ -321,6 +321,7 @@
     flex-wrap: wrap;
     gap: 6px;
     margin-top: 8px;
+    pointer-events: auto;
   }
   .legend-item {
     display: inline-flex;
@@ -333,11 +334,80 @@
     border: 1.5px solid var(--ink);
     background: var(--card);
   }
+  span.legend-item {
+    cursor: default;
+    pointer-events: none;
+  }
+  button.legend-filter {
+    font: inherit;
+    font-size: .7rem;
+    font-weight: 800;
+    color: inherit;
+    line-height: 1.2;
+    margin: 0;
+    min-height: 36px;
+    padding: 8px 12px;
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    user-select: none;
+    pointer-events: auto;
+    -webkit-tap-highlight-color: rgba(20, 20, 20, 0.12);
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  button.legend-filter.on {
+    opacity: 1;
+    outline: 2px solid var(--ink);
+    outline-offset: 0;
+    box-shadow: var(--shadow-xs);
+  }
+  button.legend-filter.off {
+    opacity: 0.38;
+    background: var(--bg-2);
+    border-style: dashed;
+    outline: none;
+    box-shadow: none;
+  }
+  button.legend-filter:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+  button.legend-filter:active {
+    transform: translate(1px, 1px);
+  }
+  button.legend-reset {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font: inherit;
+    font-size: .7rem;
+    font-weight: 850;
+    color: var(--ink);
+    min-height: 36px;
+    padding: 8px 12px;
+    margin: 0;
+    border-radius: 999px;
+    border: var(--bw) solid var(--ink);
+    background: var(--accent-fill);
+    box-shadow: var(--shadow-xs);
+    cursor: pointer;
+    touch-action: manipulation;
+    pointer-events: auto;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  button.legend-reset:hover { background: var(--accent-hover); }
+  button.legend-reset:active {
+    box-shadow: var(--shadow-pressed);
+    transform: translate(1px, 1px);
+  }
   .dot {
     width: 9px; height: 9px;
     border-radius: 50%;
     border: 1.5px solid var(--ink);
     flex-shrink: 0;
+    pointer-events: none;
   }
   .legend-line {
     width: 16px; height: 0;
@@ -601,7 +671,7 @@
       <a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁">
         <span class="poke-mark" aria-hidden="true"></span> Chase 公允值
       </a>
-      <span class="pill">v1.21.3</span>
+      <span class="pill">v1.21.4</span>
     </h1>
     <nav class="header-nav" aria-label="站內導覽">
       <a class="nav-btn" href="./calc.html">開盒 EV</a>
@@ -634,7 +704,7 @@
       <label class="chip-check" id="clipWrap" hidden><input type="checkbox" id="clipExtreme" checked />隱藏極端殘差</label>
     </div>
     <p class="count-line" id="countLine">載入中…</p>
-    <div class="legend" id="legend" aria-label="圖例"></div>
+    <div class="legend" id="legend" role="group" aria-label="標籤篩選"></div>
   </section>
 
   <div class="plot-grid">
@@ -645,7 +715,8 @@
         <div class="empty-plot" id="emptyPlot" hidden>
           <img class="mon" src="./img/accents/ditto.svg" alt="" width="36" height="36" />
           <h3>沒有符合的卡</h3>
-          <p>改搜尋或清篩選再試。</p>
+          <p id="emptyPlotHint">改搜尋或清篩選再試。</p>
+          <button type="button" class="legend-reset" id="showAllLabels" hidden>顯示全部</button>
         </div>
       </div>
       <p class="hint" id="axisHint"></p>
@@ -666,6 +737,7 @@
       <li><b>公允值圖</b>：X＝模型預測 PSA10，Y＝實際 PSA10（對數軸）。紅線是 y＝x（市價＝公允值）。<b>線下方</b>＝市價低於 FV（可能低估）。</li>
       <li><b>殘差%</b>＝（實際 − 預測）÷ 預測。負數＝便宜過模型；正數＝貴過模型。</li>
       <li><b>Strong Buy</b> 是資料裡的即時標籤，不是自動按殘差重算。</li>
+      <li><b>圖例標籤</b>可點選篩選散點（可多選）。關掉的標籤會淡化；全部關掉＝沒有點，按「顯示全部」還原。與搜尋／JP·EN／只看 Strong Buy 一齊 AND。</li>
       <li>公式：<code>log_psa10 ~ gem_rate + log_pop + log_raw + C(language) + promo_flag</code>；<code>log_pop</code> 用 <code>ln(pop+1)</code>。匯率 US$1＝HK$7.8。</li>
       <li>數字來自 2026-10-09 PriceCharting 快照（GemRate pop 覆寫沿用 10-08）。點卡片用「睇卡相／價」開 <b>PriceCharting 產品頁</b>（raw／PSA9／PSA10 現場價）。唔熱鏈 Rarebox 或第三方卡圖；PC 圖 CDN 雜湊無法由網址推導，故用佔位＋連結。JP 另有 SNKRDUNK <b>搜尋</b>（非已核實產品頁）；EN 另有 TCGPlayer 搜尋。</li>
       <li><b>非正式投資建議</b>；下單前請核對現場價。</li>
@@ -675,13 +747,13 @@
 
 <footer>
   <img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" />
-  <span>日盒 EV 小算盤 <b>v1.21.3</b> · Chase_Fit 靜態快照 · 非正式投資建議 · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./market-en.html">EN 市況</a></span>
+  <span>日盒 EV 小算盤 <b>v1.21.4</b> · Chase_Fit 靜態快照 · 非正式投資建議 · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./market-en.html">EN 市況</a></span>
 </footer>
 
-<script src="./data/chase-fit/latest.js?v=1.21.3"></script>
+<script src="./data/chase-fit/latest.js?v=1.21.4"></script>
 <script>
 (async function () {
-  const VERSION = '1.21.3';
+  const VERSION = '1.21.4';
   const $ = (id) => document.getElementById(id);
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, (ch) => ({
@@ -732,6 +804,24 @@
     'Watch (high pop / thin multiple)': { color: '#7b61ff', zh: 'Watch（高 pop）' }
   };
   const UNLABELED = { color: '#8a8478', zh: '未標記' };
+  const UNLABELED_KEY = '';
+  const LABEL_KEYS = Object.keys(LABEL_META).concat([UNLABELED_KEY]);
+  function allLabelsOnMap() {
+    const o = Object.create(null);
+    LABEL_KEYS.forEach((k) => { o[k] = true; });
+    return o;
+  }
+  function labelKey(card) {
+    const lab = card && card.label;
+    if (lab && LABEL_META[lab]) return lab;
+    return UNLABELED_KEY;
+  }
+  function allLabelsOn() {
+    return LABEL_KEYS.every((k) => state.labels[k]);
+  }
+  function anyLabelOn() {
+    return LABEL_KEYS.some((k) => state.labels[k]);
+  }
   const RESID_BANDS = [
     { id: 'deep', max: -40, color: '#1e9e5a', zh: '殘差 ≤ −40%（低估）' },
     { id: 'mild', max: -10, color: '#4f86f7', zh: '−40%～−10%' },
@@ -822,18 +912,35 @@
     view: 'fair',
     color: 'label',
     clipExtreme: true,
-    selectedId: null
+    selectedId: null,
+    labels: allLabelsOnMap()
   };
 
-  function matches(card) {
+  function matchesBase(card) {
     if (state.onlySb && card.label !== 'Strong Buy') return false;
     if (state.lang !== 'all' && card.language !== state.lang) return false;
     const q = state.q.trim().toLowerCase();
     if (q && String(card.name || '').toLowerCase().indexOf(q) === -1) return false;
+    if (!state.labels[labelKey(card)]) return false;
+    return true;
+  }
+  function matches(card) {
+    if (!matchesBase(card)) return false;
     if (state.view === 'resid' && state.clipExtreme && Math.abs(card.residual_pct) > 200) return false;
     return true;
   }
   function visibleCards() { return CARDS.filter(matches); }
+  function clearSelectionIfHidden() {
+    if (state.selectedId && !visibleCards().some((c) => c.card_id === state.selectedId)) {
+      state.selectedId = null;
+      renderDetail(null);
+    }
+  }
+  function resetLabelFilter() {
+    state.labels = allLabelsOnMap();
+    clearSelectionIfHidden();
+    renderChart();
+  }
 
   function termRows(card) {
     const logPop = Math.log(Number(card.pop_psa10) + 1);
@@ -862,13 +969,19 @@
         html += '<span class="legend-item"><span class="dot" style="background:' + b.color + '"></span>' +
           escapeHtml(b.zh) + '</span>';
       });
-    } else {
-      const keys = Object.keys(LABEL_META).concat(['']);
-      keys.forEach((k) => {
-        const info = k ? LABEL_META[k] : UNLABELED;
-        html += '<span class="legend-item"><span class="dot" style="background:' + info.color + '"></span>' +
-          escapeHtml(info.zh) + '</span>';
-      });
+    }
+    LABEL_KEYS.forEach((k) => {
+      const info = k ? LABEL_META[k] : UNLABELED;
+      const on = !!state.labels[k];
+      const attr = k === UNLABELED_KEY ? '__unlabeled__' : k;
+      html += '<button type="button" class="legend-item legend-filter ' + (on ? 'on' : 'off') +
+        '" data-label="' + escapeHtml(attr) + '" aria-pressed="' + (on ? 'true' : 'false') +
+        '" title="' + (on ? '點一下隱藏此標籤' : '點一下顯示此標籤') + '">' +
+        '<span class="dot" style="background:' + info.color + '"></span>' +
+        escapeHtml(info.zh) + '</button>';
+    });
+    if (!allLabelsOn()) {
+      html += '<button type="button" class="legend-reset" data-legend-reset="1">顯示全部</button>';
     }
     el.innerHTML = html;
   }
@@ -898,13 +1011,7 @@
     const cards = visibleCards();
     let hiddenExtreme = 0;
     if (state.view === 'resid' && state.clipExtreme) {
-      hiddenExtreme = CARDS.filter((c) => {
-        if (state.onlySb && c.label !== 'Strong Buy') return false;
-        if (state.lang !== 'all' && c.language !== state.lang) return false;
-        const q = state.q.trim().toLowerCase();
-        if (q && String(c.name || '').toLowerCase().indexOf(q) === -1) return false;
-        return Math.abs(c.residual_pct) > 200;
-      }).length;
+      hiddenExtreme = CARDS.filter((c) => matchesBase(c) && Math.abs(c.residual_pct) > 200).length;
     }
     $('countLine').textContent = '顯示 ' + cards.length + ' / ' + CARDS.length +
       (hiddenExtreme ? (' · 另隱藏 ' + hiddenExtreme + ' 張極端殘差') : '') +
@@ -912,13 +1019,22 @@
     $('clipWrap').hidden = state.view !== 'resid';
     renderLegend();
 
+    const showAllBtn = $('showAllLabels');
+    const emptyHint = $('emptyPlotHint');
     if (!cards.length) {
       svg.innerHTML = '';
       empty.hidden = false;
+      if (emptyHint) {
+        emptyHint.textContent = anyLabelOn()
+          ? '改搜尋或清篩選再試。'
+          : '已隱藏全部標籤。按「顯示全部」還原。';
+      }
+      if (showAllBtn) showAllBtn.hidden = allLabelsOn();
       $('axisHint').textContent = '';
       return;
     }
     empty.hidden = true;
+    if (showAllBtn) showAllBtn.hidden = true;
 
     const resid = state.view === 'resid';
     const W = 640, H = 480;
@@ -1123,10 +1239,7 @@
 
   $('q').addEventListener('input', () => {
     state.q = $('q').value;
-    if (state.selectedId && !visibleCards().some((c) => c.card_id === state.selectedId)) {
-      state.selectedId = null;
-      renderDetail(null);
-    }
+    clearSelectionIfHidden();
     renderChart();
   });
   function bindSeg(btns, key) {
@@ -1135,10 +1248,7 @@
         const val = btn.getAttribute('data-' + (key === 'lang' ? 'lang' : key === 'view' ? 'view' : 'color'));
         state[key] = val;
         btns.forEach((b) => b.classList.toggle('active', b === btn));
-        if (state.selectedId && !visibleCards().some((c) => c.card_id === state.selectedId)) {
-          state.selectedId = null;
-          renderDetail(null);
-        }
+        clearSelectionIfHidden();
         renderChart();
       });
     });
@@ -1148,19 +1258,31 @@
   bindSeg([$('colorLabel'), $('colorResid')], 'color');
   $('onlySb').addEventListener('change', () => {
     state.onlySb = $('onlySb').checked;
-    if (state.selectedId && !visibleCards().some((c) => c.card_id === state.selectedId)) {
-      state.selectedId = null;
-      renderDetail(null);
-    }
+    clearSelectionIfHidden();
     renderChart();
   });
   $('clipExtreme').addEventListener('change', () => {
     state.clipExtreme = $('clipExtreme').checked;
-    if (state.selectedId && !visibleCards().some((c) => c.card_id === state.selectedId)) {
-      state.selectedId = null;
-      renderDetail(null);
-    }
+    clearSelectionIfHidden();
     renderChart();
+  });
+  $('legend').addEventListener('click', (ev) => {
+    const reset = ev.target.closest ? ev.target.closest('[data-legend-reset]') : null;
+    if (reset && $('legend').contains(reset)) {
+      resetLabelFilter();
+      return;
+    }
+    const btn = ev.target.closest ? ev.target.closest('button.legend-filter[data-label]') : null;
+    if (!btn || !$('legend').contains(btn)) return;
+    const raw = btn.getAttribute('data-label');
+    const key = raw === '__unlabeled__' ? UNLABELED_KEY : raw;
+    if (LABEL_KEYS.indexOf(key) === -1) return;
+    state.labels[key] = !state.labels[key];
+    clearSelectionIfHidden();
+    renderChart();
+  });
+  $('showAllLabels').addEventListener('click', () => {
+    resetLabelFilter();
   });
 
   renderChart();
