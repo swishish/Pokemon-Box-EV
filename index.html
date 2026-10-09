@@ -6,23 +6,35 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>日盒 EV 小算盤 v1.19.0 · JP Mega Sealed</title>
+<title>日盒 EV 小算盤 v1.19.1 · JP Mega Sealed</title>
 <style>
   :root {
-    --bg: #f6f7f9;
+    --bg: #faf6ef;
+    --bg-2: #f3ede1;
     --card: #fff;
-    --text: #1a1d21;
-    --muted: #5c6570;
-    --line: #e4e7ec;
-    --good: #1b7f4a;
-    --good-bg: #e8f7ef;
-    --ok: #9a6b00;
-    --ok-bg: #fff6e0;
-    --bad: #b42318;
-    --bad-bg: #fdecea;
-    --accent: #2563eb;
+    --text: #141414;
+    --muted: #5f5a51;
+    --line: #e7dfd0;
+    --ink: #141414;
+    --bw: 2px;
+    --good: #1e9e5a;
+    --good-bg: #d9f3e5;
+    --ok: #b8860b;
+    --ok-bg: #fff3c4;
+    --bad: #c93540;
+    --bad-bg: #fbdfe1;
+    --accent: #3d6fd9;
+    --accent-fill: #ffd23f;
+    --accent-hover: #ffc907;
+    --info: #4f86f7;
+    --on-accent: #141414;
     --radius: 12px;
-    --shadow: 0 1px 2px rgba(16,24,40,.06), 0 1px 3px rgba(16,24,40,.08);
+    --radius-lg: 16px;
+    --shadow: 4px 4px 0 var(--ink);
+    --shadow-sm: 3px 3px 0 var(--ink);
+    --shadow-xs: 2px 2px 0 var(--ink);
+    --shadow-pressed: 1px 1px 0 var(--ink);
+    --shadow-lg: 6px 6px 0 var(--ink);
     --toc-w: 268px;
   }
   * { box-sizing: border-box; }
@@ -30,7 +42,11 @@
   body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
-    background: var(--bg);
+    background-color: var(--bg);
+    background-image:
+      radial-gradient(1200px 420px at 12% -8%, rgba(255, 210, 63, .22), transparent 55%),
+      radial-gradient(900px 380px at 110% 0%, rgba(79, 134, 247, .12), transparent 50%),
+      repeating-linear-gradient(0deg, transparent, transparent 11px, rgba(20,20,20,.015) 12px);
     color: var(--text);
     line-height: 1.5;
     font-size: 15px;
@@ -38,11 +54,58 @@
     overflow-wrap: anywhere;
     padding-left: env(safe-area-inset-left, 0px);
     padding-right: env(safe-area-inset-right, 0px);
+    -webkit-tap-highlight-color: transparent;
+  }
+  body::before {
+    content: "";
+    display: block;
+    height: 4px;
+    background: linear-gradient(90deg, #e4434f 0 34%, #ffd23f 34% 66%, #4f86f7 66%);
   }
   header {
     background: var(--card);
-    border-bottom: 1px solid var(--line);
-    padding: 10px 16px 8px;
+    border-bottom: var(--bw) solid var(--ink);
+    padding: 10px 16px 10px;
+  }
+  header h1 {
+    margin: 0;
+    font-size: 1.08rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  header p {
+    margin: 3px 0 0;
+    color: var(--muted);
+    font-size: .78rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+  }
+  header p .mon { flex-shrink: 0; }
+  .poke-mark {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid var(--ink);
+    background: linear-gradient(180deg, #e4434f 49%, #fff 51%);
+    position: relative;
+    flex-shrink: 0;
+    box-shadow: 1px 1px 0 var(--ink);
+  }
+  .poke-mark::after {
+    content: "";
+    position: absolute;
+    left: 4px; top: 4px;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid var(--ink);
   }
   .header-inner {
     display: flex;
@@ -51,25 +114,31 @@
     gap: 12px;
     max-width: 1100px;
     margin: 0 auto;
+    min-width: 0;
   }
-  header h1 { margin: 0; font-size: 1.05rem; font-weight: 700; }
-  header p { margin: 2px 0 0; color: var(--muted); font-size: .78rem; }
+  .header-inner > div { min-width: 0; }
   .nav-btn {
     display: inline-flex;
     align-items: center;
-    border: 1px solid #bfd0f5;
-    background: #eef3ff;
-    color: var(--accent);
+    border: var(--bw) solid var(--ink);
+    background: var(--accent-fill);
+    color: var(--ink);
     font: inherit;
     font-size: .75rem;
-    font-weight: 700;
+    font-weight: 800;
     padding: 7px 12px;
     border-radius: 999px;
     text-decoration: none;
     white-space: nowrap;
     flex-shrink: 0;
+    box-shadow: var(--shadow-xs);
+    transition: box-shadow .1s ease, transform .1s ease;
   }
-  .nav-btn:hover { border-color: var(--accent); }
+  .nav-btn:hover { background: var(--accent-hover); }
+  .nav-btn:active {
+    box-shadow: var(--shadow-pressed);
+    transform: translate(1px, 1px);
+  }
 
   .layout {
     display: grid;
@@ -81,6 +150,7 @@
   }
   .toc-col { min-width: 0; }
   .set-picker-toggle { display: none; }
+  .mon.set-picker-idle, .set-picker-idle { display: none; }
   .toc {
     position: sticky;
     top: 0;
@@ -88,8 +158,8 @@
     max-height: 100vh;
     overflow-y: auto;
     padding: 12px 10px 24px;
-    border-right: 1px solid var(--line);
-    background: #fafbfc;
+    border-right: var(--bw) solid var(--ink);
+    background: var(--bg-2);
   }
   .toc h2 {
     margin: 0 0 6px;
@@ -97,27 +167,57 @@
     color: var(--muted);
     font-weight: 650;
     letter-spacing: .02em;
+    display: flex;
+    align-items: center;
+    gap: 6px;
   }
+  .toc h2 .mon { width: 54px; height: 18px; }
   .toc-item {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1px;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
     width: 100%;
     text-align: left;
-    border: 1px solid transparent;
+    border: var(--bw) solid transparent;
     background: transparent;
-    border-radius: 6px;
-    padding: 5px 8px;
+    border-radius: 10px;
+    padding: 6px 8px;
     cursor: pointer;
     font: inherit;
     color: var(--text);
-    margin-bottom: 2px;
+    margin-bottom: 4px;
+    transition: box-shadow .1s ease, transform .1s ease, background .15s;
+    touch-action: manipulation;
   }
-  .toc-item:hover { background: #eef2f6; }
+  .toc-art {
+    display: none;
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    border: var(--bw) solid var(--ink);
+    border-radius: 8px;
+    background: #fff;
+    flex-shrink: 0;
+    pointer-events: none;
+  }
+  .toc-meta { min-width: 0; flex: 1; display: flex; flex-direction: column; gap: 1px; }
+  @media (min-width: 900px) {
+    .toc-art { display: block; }
+    .toc-item:hover {
+      background: var(--card);
+      border-color: var(--ink);
+      box-shadow: var(--shadow-xs);
+      transform: translate(-1px, -1px);
+    }
+    .toc-item:active {
+      transform: translate(1px, 1px);
+      box-shadow: var(--shadow-pressed);
+    }
+  }
   .toc-item.active {
-    background: #e8effe;
-    border-color: #c7d7fe;
+    background: var(--accent-fill);
+    border-color: var(--ink);
   }
   .toc-item .toc-title {
     font-size: .82rem;
@@ -159,12 +259,12 @@
     margin: 0 -14px 12px;
     padding: 8px 14px 8px;
     padding-top: calc(8px + env(safe-area-inset-top, 0px));
-    background: linear-gradient(180deg, var(--bg) 0%, var(--bg) 72%, rgba(246,247,249,0));
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg) 78%, rgba(250,246,239,0));
   }
   .sticky-ev .card {
     margin-bottom: 0;
-    box-shadow: 0 2px 8px rgba(16,24,40,.10);
-    border-color: #d0d5dd;
+    box-shadow: var(--shadow-sm);
+    border-color: var(--ink);
     padding: 10px 12px;
   }
   .sticky-head {
@@ -204,28 +304,39 @@
     line-height: 1;
     letter-spacing: -0.02em;
   }
-  .sticky-hc-v.good { color: var(--good); }
-  .sticky-hc-v.ok { color: var(--ok); }
-  .sticky-hc-v.bad { color: var(--bad); }
+  .sticky-hc-v.good, .sticky-hc-v.ok, .sticky-hc-v.bad {
+    padding: 3px 8px;
+    border-radius: 999px;
+    border: 1.5px solid var(--ink);
+    font-size: 1.15rem;
+  }
+  .sticky-hc-v.good { color: #fff; background: #2fbf71; }
+  .sticky-hc-v.ok { color: var(--on-accent); background: var(--accent-fill); }
+  .sticky-hc-v.bad { color: #fff; background: #e4434f; }
   .sticky-hc-v.na { color: var(--muted); }
   .sticky-more {
     display: none;
-    border: 1px solid var(--line);
-    background: #fff;
-    color: var(--text);
+    border: var(--bw) solid var(--ink);
+    background: var(--accent-fill);
+    color: var(--on-accent);
     font: inherit;
     font-size: .7rem;
-    font-weight: 700;
-    padding: 5px 9px;
+    font-weight: 800;
+    padding: 4px 9px;
     border-radius: 999px;
     cursor: pointer;
     white-space: nowrap;
     flex-shrink: 0;
+    box-shadow: var(--shadow-xs);
+    transition: box-shadow .1s ease, transform .1s ease;
+    touch-action: manipulation;
+  }
+  .sticky-more:active {
+    box-shadow: var(--shadow-pressed);
+    transform: translate(1px, 1px);
   }
   .sticky-more[aria-expanded="true"] {
-    border-color: var(--accent);
-    color: var(--accent);
-    background: #eef3ff;
+    background: var(--card);
   }
   .sticky-hc-v, .denom-toggle, .sticky-more, .copy-friend-btn, .reset-btn,
   .toc-item, .set-picker-current {
@@ -235,22 +346,9 @@
     .sticky-head, .sticky-head-right { flex-wrap: wrap; }
   }
   .reset-btn {
-    border: 1px solid var(--line);
-    background: #fff;
-    color: var(--muted);
-    font: inherit;
-    font-size: .7rem;
-    font-weight: 650;
-    padding: 5px 10px;
-    border-radius: 999px;
-    cursor: pointer;
-    white-space: nowrap;
-  }
-  .reset-btn:hover { border-color: var(--accent); color: var(--accent); }
-  .copy-friend-btn {
-    border: 1px solid #bfd0f5;
-    background: #eef3ff;
-    color: var(--accent);
+    border: var(--bw) solid var(--ink);
+    background: var(--card);
+    color: var(--text);
     font: inherit;
     font-size: .7rem;
     font-weight: 700;
@@ -258,12 +356,38 @@
     border-radius: 999px;
     cursor: pointer;
     white-space: nowrap;
+    box-shadow: var(--shadow-xs);
+    transition: box-shadow .1s ease, transform .1s ease;
+    touch-action: manipulation;
   }
-  .copy-friend-btn:hover { border-color: var(--accent); }
+  .reset-btn:hover { background: var(--bg-2); }
+  .reset-btn:active {
+    box-shadow: var(--shadow-pressed);
+    transform: translate(1px, 1px);
+  }
+  .copy-friend-btn {
+    border: var(--bw) solid var(--ink);
+    background: var(--accent-fill);
+    color: var(--on-accent);
+    font: inherit;
+    font-size: .7rem;
+    font-weight: 800;
+    padding: 5px 10px;
+    border-radius: 999px;
+    cursor: pointer;
+    white-space: nowrap;
+    box-shadow: var(--shadow-xs);
+    transition: box-shadow .1s ease, transform .1s ease, background .15s;
+    touch-action: manipulation;
+  }
+  .copy-friend-btn:hover { background: var(--accent-hover); }
+  .copy-friend-btn:active {
+    box-shadow: var(--shadow-pressed);
+    transform: translate(1px, 1px);
+  }
   .copy-friend-btn.copied {
-    color: var(--good);
-    border-color: #9ad4b3;
-    background: var(--good-bg);
+    color: var(--on-accent);
+    background: #2fbf71;
   }
   .sticky-ev h2 {
     margin: 0;
@@ -278,24 +402,26 @@
   .sticky-ev .set-name { font-weight: 700; font-size: .88rem; color: var(--text); }
   .denom-toggle {
     display: inline-flex;
-    border: 1px solid var(--line);
+    border: var(--bw) solid var(--ink);
     border-radius: 999px;
     overflow: hidden;
-    background: #f0f2f5;
+    background: var(--card);
+    box-shadow: var(--shadow-xs);
   }
   .denom-toggle .tog {
     border: 0;
     background: transparent;
     font: inherit;
     font-size: .75rem;
-    font-weight: 650;
+    font-weight: 800;
     padding: 5px 12px;
     cursor: pointer;
     color: var(--muted);
+    touch-action: manipulation;
   }
   .denom-toggle .tog.active {
-    background: var(--accent);
-    color: #fff;
+    background: var(--accent-fill);
+    color: var(--on-accent);
   }
   .denom-toggle .tog:disabled {
     opacity: .45;
@@ -313,9 +439,10 @@
     object-fit: contain;
     border-radius: 8px;
     background: #fff;
-    border: 1px solid var(--line);
+    border: var(--bw) solid var(--ink);
     flex-shrink: 0;
     align-self: center;
+    box-shadow: var(--shadow-xs);
   }
   .sticky-metrics {
     display: grid;
@@ -325,12 +452,16 @@
     min-width: 0;
   }
   .sticky-metric {
-    background: #fafbfc;
-    border: 1px solid var(--line);
-    border-radius: 8px;
+    background: var(--card);
+    border: var(--bw) solid var(--ink);
+    border-radius: 12px;
     padding: 8px 8px;
     min-width: 0;
+    box-shadow: var(--shadow-xs);
   }
+  .sticky-metric.good { background: var(--good-bg); }
+  .sticky-metric.ok { background: var(--ok-bg); }
+  .sticky-metric.bad { background: var(--bad-bg); }
   .sticky-metric .k {
     font-size: .68rem;
     color: var(--muted);
@@ -371,28 +502,30 @@
     max-height: 88vh;
     object-fit: contain;
     border-radius: 8px;
-    box-shadow: 0 8px 32px rgba(0,0,0,.35);
+    border: 3px solid var(--ink);
+    box-shadow: var(--shadow-lg, 6px 6px 0 var(--ink));
     background: #fff;
     cursor: default;
   }
   .card {
     background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
+    border: var(--bw) solid var(--ink);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
     padding: 14px 16px;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
   }
   label.field { display: block; font-size: .8rem; color: var(--muted); margin-bottom: 4px; }
   input[type="number"] {
     width: 100%;
     padding: 10px 12px;
-    border: 1px solid var(--line);
+    border: var(--bw) solid var(--ink);
     border-radius: 8px;
     font-size: 1rem;
     background: #fff;
     color: var(--text);
   }
+  input[type="number"]:focus { outline: 3px solid var(--info); outline-offset: 2px; }
   .lights {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -433,10 +566,11 @@
   .verdict {
     font-size: 1rem;
     padding: 12px 14px;
-    background: #eef3ff;
-    border: 1px solid #d6e2ff;
-    border-radius: 10px;
+    background: var(--ok-bg);
+    border: var(--bw) solid var(--ink);
+    border-radius: 12px;
     margin-top: 10px;
+    box-shadow: var(--shadow-xs);
   }
   .verdict p { margin: 0; }
   .verdict p + p { margin-top: 0.55em; }
@@ -459,19 +593,82 @@
   .metric .v { font-size: 1.05rem; font-weight: 650; font-variant-numeric: tabular-nums; }
   .metric .r { font-size: .75rem; color: var(--muted); }
   h2 { margin: 0 0 8px; font-size: .95rem; }
+  .sec-h {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
   table { width: 100%; border-collapse: collapse; font-size: .86rem; }
   th, td { text-align: left; padding: 7px 6px; border-bottom: 1px solid var(--line); vertical-align: middle; }
-  th { color: var(--muted); font-weight: 600; font-size: .75rem; }
+  th { color: var(--muted); font-weight: 800; font-size: .72rem; text-transform: uppercase; letter-spacing: .04em; }
   td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
   .card-thumb {
-    width: 40px; height: 56px;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
-    border-radius: 4px;
-    background: #f0f2f5;
-    border: 1px solid var(--line);
     display: block;
     cursor: zoom-in;
   }
+  .chase-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 148px), 1fr));
+    gap: 12px;
+  }
+  .chase-tile {
+    border: var(--bw) solid var(--ink);
+    border-radius: 12px;
+    background: var(--card);
+    box-shadow: var(--shadow-xs);
+    padding: 8px;
+    min-width: 0;
+    cursor: zoom-in;
+    transition: box-shadow .1s ease, transform .1s ease;
+    touch-action: manipulation;
+  }
+  .chase-tile:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: var(--shadow-sm);
+  }
+  .chase-tile:active {
+    transform: translate(1px, 1px);
+    box-shadow: var(--shadow-pressed);
+  }
+  .chase-art {
+    position: relative;
+    aspect-ratio: 2.5 / 3.5;
+    background: var(--bg-2);
+    border: var(--bw) solid var(--ink);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+  .chase-rank {
+    position: absolute;
+    top: 6px; left: 6px;
+    background: var(--accent-fill);
+    border: 1.5px solid var(--ink);
+    border-radius: 999px;
+    font-size: .68rem;
+    font-weight: 800;
+    padding: 1px 6px;
+    z-index: 1;
+  }
+  .chase-name {
+    font-size: .82rem;
+    font-weight: 750;
+    line-height: 1.25;
+    margin-bottom: 4px;
+  }
+  .chase-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    font-variant-numeric: tabular-nums;
+  }
+  .chase-price { font-weight: 800; font-size: .88rem; }
+  .chase-share { font-size: .7rem; color: var(--muted); margin-top: 2px; font-variant-numeric: tabular-nums; }
   .set-name a {
     color: var(--accent);
     text-decoration: none;
@@ -489,14 +686,14 @@
     font-weight: 650;
     vertical-align: middle;
     padding: 4px 8px;
-    border: 1px solid #bfd0f5;
+    border: var(--bw) solid var(--ink);
     border-radius: 999px;
-    background: #eef3ff;
-    box-shadow: 0 1px 2px rgba(37,99,235,.08);
+    background: var(--ok-bg);
+    box-shadow: var(--shadow-xs);
   }
   .price-override .po-label {
-    color: var(--accent);
-    font-weight: 700;
+    color: var(--text);
+    font-weight: 800;
     font-size: .7rem;
     white-space: nowrap;
   }
@@ -506,7 +703,7 @@
     height: 1.25rem;
     margin: 0;
     vertical-align: middle;
-    accent-color: var(--accent);
+    accent-color: #e4434f;
     cursor: pointer;
   }
   .price-override input#pcBoxOverride {
@@ -515,7 +712,7 @@
     font-size: .8rem;
     font-weight: 700;
     padding: 3px 6px;
-    border: 1px solid #9db4e8;
+    border: var(--bw) solid var(--ink);
     border-radius: 6px;
     background: #fff;
     color: var(--text);
@@ -535,10 +732,10 @@
     font-weight: 500;
   }
   .src-links a.src-link {
-    color: var(--accent);
+    color: var(--text);
     text-decoration: none;
-    border-bottom: 1px dashed var(--accent);
-    font-weight: 600;
+    border-bottom: 2px solid var(--accent-fill);
+    font-weight: 700;
     white-space: nowrap;
   }
   .src-links a.src-link:hover { border-bottom-style: solid; }
@@ -553,14 +750,15 @@
   .method-card li { margin: 0.35em 0; }
   .hint {
     font-size: .86rem; color: var(--muted);
-    background: #fafbfc; border-radius: 8px; padding: 10px 12px; margin-top: 10px;
+    background: var(--bg-2); border: var(--bw) solid var(--ink); border-radius: 10px; padding: 10px 12px; margin-top: 10px;
   }
   details.advanced {
-    border: 1px dashed #c9d0da;
-    border-radius: var(--radius);
+    border: var(--bw) solid var(--ink);
+    border-radius: var(--radius-lg);
     padding: 0;
     background: var(--card);
-    margin-bottom: 12px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow-xs);
   }
   details.advanced > summary {
     cursor: pointer;
@@ -581,7 +779,7 @@
     margin-bottom: 10px;
   }
   .slider-row label { font-size: .82rem; color: var(--muted); grid-column: 1 / -1; }
-  .slider-row input[type="range"] { width: 100%; }
+  .slider-row input[type="range"] { width: 100%; accent-color: #e4434f; }
   .slider-row .val {
     min-width: 3.2rem; text-align: right;
     font-variant-numeric: tabular-nums; font-size: .9rem; font-weight: 600;
@@ -604,19 +802,75 @@
   .slider-row.hc .val { min-width: 2.8rem; font-size: .85rem; }
   .adv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .tiny { font-size: .75rem; color: var(--muted); }
-  footer { text-align: center; color: var(--muted); font-size: .75rem; padding: 8px 16px 24px; }
-  footer a { color: var(--accent); text-decoration: none; }
-  footer a:hover { text-decoration: underline; }
+  footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    text-align: center;
+    color: var(--muted);
+    font-size: .75rem;
+    padding: 8px 16px 24px;
+  }
+  footer a { color: var(--ink); font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
+  footer a:hover { color: var(--text); }
+  footer .mon { width: 36px; height: 36px; }
+  /* Original local silhouettes (img/accents/) — not official Nintendo art.
+     pointer-events:none so they never steal taps from sticky EV / pickers. */
+  .mon {
+    display: inline-block;
+    vertical-align: middle;
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    pointer-events: none;
+    user-select: none;
+  }
+  .mon-sm { width: 20px; height: 20px; }
+  .mon-starters { width: 72px; height: 24px; }
   .pill {
-    display: inline-block; font-size: .7rem; padding: 2px 7px;
-    border-radius: 999px; background: #eef2f6; color: var(--muted); margin-left: 4px;
+    display: inline-block; font-size: .7rem; padding: 2px 8px;
+    border-radius: 999px; background: var(--accent-fill); color: var(--ink);
+    border: 1.5px solid var(--ink); font-weight: 800; margin-left: 4px;
   }
   .err { color: var(--bad); padding: 20px; line-height: 1.55; }
   .err .err-hint { color: var(--text); font-size: .92rem; margin-top: 8px; }
   .pool-pill {
-    display: inline-block; font-size: .7rem; padding: 1px 6px;
-    border-radius: 999px; background: #eef2f6; color: var(--muted);
+    display: inline-flex; align-items: center;
+    font-size: .62rem; padding: 2px 7px;
+    border-radius: 999px; background: var(--bg-2); color: var(--ink);
+    border: 1.5px solid var(--ink); font-weight: 800;
+    letter-spacing: .04em; text-transform: uppercase;
+    flex-shrink: 0;
   }
+  .pool-SAR, .pool-sup_SAR { background: var(--accent-fill); }
+  .pool-MUR { background: linear-gradient(135deg, #ff6ba9, #4f86f7); color: #fff; }
+  .pool-poke_sr, .pool-goods_sr { background: #dde8fd; }
+  .pool-AR, .pool-UR { background: var(--good-bg); }
+  .pool-MA { background: #ffe1ee; }
+  .pool-ACE { background: var(--ink); color: var(--accent-fill); }
+  .pool-SSR, .pool-S { background: #fff3c4; }
+  .pool-BWR, .pool-FUR { background: #fff; }
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 36px 16px;
+    text-align: center;
+    gap: 8px;
+  }
+  .empty-state .icon {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    border: 2px solid var(--ink);
+    background: linear-gradient(180deg, #e4434f 49%, #fff 51%);
+    box-shadow: 2px 2px 0 var(--ink);
+  }
+  .empty-state .mon { width: 56px; height: 56px; }
+  .empty-state h3 { margin: 0; font-size: 1.05rem; font-weight: 800; }
+  .empty-state p { margin: 0; font-size: .86rem; color: var(--muted); max-width: 28rem; }
 
   .table-wrap {
     max-width: 100%;
@@ -630,7 +884,7 @@
     .layout { grid-template-columns: minmax(0, 1fr); }
     header { padding: 8px 12px 6px; }
     header h1, header p { overflow-wrap: anywhere; }
-    .header-inner { align-items: center; gap: 8px; }
+    .header-inner { align-items: center; gap: 8px; min-width: 0; }
     .nav-btn { font-size: .7rem; padding: 6px 10px; }
     main {
       padding: 10px 12px 48px;
@@ -646,8 +900,8 @@
       position: relative;
       z-index: 25;
       padding: 8px 12px;
-      background: #fafbfc;
-      border-bottom: 1px solid var(--line);
+      background: var(--bg-2);
+      border-bottom: var(--bw) solid var(--ink);
       max-width: 100%;
     }
     .set-picker-toggle {
@@ -658,15 +912,28 @@
       min-width: 0;
       max-width: 100%;
       text-align: left;
-      border: 1px solid var(--line);
-      background: #fff;
+      border: var(--bw) solid var(--ink);
+      background: var(--card);
       color: var(--text);
       font: inherit;
       border-radius: 10px;
       padding: 8px 10px;
       cursor: pointer;
+      box-shadow: var(--shadow-xs);
+      transition: box-shadow .1s ease, transform .1s ease;
+      touch-action: manipulation;
     }
-    .set-picker-toggle:hover { border-color: var(--accent); }
+    .set-picker-toggle:active {
+      box-shadow: var(--shadow-pressed);
+      transform: translate(1px, 1px);
+    }
+    .mon.set-picker-idle, .set-picker-idle {
+      display: inline-block;
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+      pointer-events: none;
+    }
     .set-picker-kicker {
       flex: 0 0 auto;
       font-size: .68rem;
@@ -686,12 +953,11 @@
     .set-picker-toggle::after {
       content: "▾";
       flex: 0 0 auto;
-      color: var(--accent);
+      color: var(--ink);
       font-size: .8rem;
     }
     .toc-col.is-open .set-picker-toggle {
-      border-color: var(--accent);
-      background: #eef3ff;
+      background: var(--accent-fill);
     }
     .toc-col.is-open .set-picker-toggle::after { content: "▴"; }
     .toc {
@@ -710,10 +976,10 @@
       align-items: stretch;
       padding: 6px;
       margin: 0;
-      border: 1px solid var(--line);
+      border: var(--bw) solid var(--ink);
       border-radius: 12px;
-      background: #fff;
-      box-shadow: 0 8px 24px rgba(16,24,40,.14);
+      background: var(--card);
+      box-shadow: var(--shadow);
       z-index: 30;
     }
     .toc-col.is-open .toc { display: flex; }
@@ -729,6 +995,12 @@
       justify-content: space-between;
       gap: 8px;
       padding: 8px 10px;
+    }
+    .toc-meta {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
     }
     .toc-item .toc-title {
       flex: 1 1 auto;
@@ -774,6 +1046,11 @@
     .sticky-ev:not(.is-open) .data-freshness { display: none; }
     .sticky-ev .card.sticky-card {
       padding: 0 8px;
+      box-shadow: none;
+    }
+    .sticky-hc-v.good, .sticky-hc-v.ok, .sticky-hc-v.bad {
+      padding: 2px 6px;
+      font-size: 1.05rem;
     }
     .sticky-head {
       flex-wrap: nowrap;
@@ -852,9 +1129,10 @@
       padding-bottom: 8px;
     }
     .sticky-drawer .advanced {
-      border: 1px dashed #c9d0da;
+      border: var(--bw) solid var(--ink);
       margin: 10px 0 0;
       max-width: 100%;
+      box-shadow: none;
     }
     .sticky-drawer .advanced > summary { padding: 10px 12px; }
     .sticky-drawer .advanced .adv-body { padding: 0 12px 12px; }
@@ -863,9 +1141,10 @@
     .sticky-box { width: 52px; height: 52px; }
     .sticky-metric .v { font-size: 1.05rem; }
     .sticky-metric .k { font-size: .62rem; min-height: 2.4em; overflow-wrap: anywhere; }
-    table { font-size: .78rem; }
-    th, td { padding: 6px 4px; }
-    .card-thumb { width: 32px; height: 44px; }
+    .chase-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .chase-tile:hover { transform: none; box-shadow: var(--shadow-xs); }
+    .sticky-metric { box-shadow: none; }
+    .sticky-box { box-shadow: none; }
   }
 
   /* Stale / freshness banner (near sticky top) */
@@ -884,11 +1163,12 @@
     margin: 0 0 8px;
     padding: 8px 12px;
     border-radius: 8px;
-    background: #e8eaed;
-    color: #3c4043;
-    border: 1px solid #dadce0;
+    background: var(--ok-bg);
+    color: var(--ink);
+    border: var(--bw) solid var(--ink);
     font-size: .78rem;
     font-weight: 600;
+    box-shadow: var(--shadow-xs);
   }
 </style>
 </head>
@@ -896,8 +1176,8 @@
 <header>
   <div class="header-inner">
     <div>
-      <h1>日盒開盒值不值？ <span class="pill" style="font-size:.72rem;vertical-align:middle">v1.19.0</span></h1>
-      <p>給朋友看的簡易 EV 小算盤 · 無登入、非即時行情 · <b>v1.19.0</b></p>
+      <h1><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？ <span class="pill">v1.19.1</span></h1>
+      <p><img class="mon mon-sm" src="./img/accents/eevee.svg" alt="" width="20" height="20" aria-hidden="true" />給朋友看的簡易 EV 小算盤 · 無登入、非即時行情 · <b>v1.19.1</b></p>
     </div>
     <a class="nav-btn" href="./market-en.html" title="English raw singles market pulse">EN 市況</a>
   </div>
@@ -906,6 +1186,7 @@
 <div class="layout" id="app">
   <aside class="toc-col" id="tocCol">
     <button type="button" class="set-picker-toggle" id="setPickerToggle" aria-expanded="false" aria-controls="toc" aria-haspopup="listbox">
+      <img class="mon set-picker-idle" src="./img/accents/ditto.svg" alt="" width="22" height="22" aria-hidden="true" />
       <span class="set-picker-kicker">系列</span>
       <span class="set-picker-current" id="setPickerCurrent"></span>
     </button>
@@ -992,7 +1273,7 @@
     </div>
 
     <div class="card method-card">
-      <h2>方法論 · 四個 % 與資料來源</h2>
+      <h2 class="sec-h"><img class="mon" src="./img/accents/eevee.svg" alt="" width="28" height="28" aria-hidden="true" />方法論 · 四個 % 與資料來源</h2>
       <ul class="tiny">
         <li><b>100% Grade A（買入價）</b>＝ 各稀有度池 Grade A 均價 × 抽出率加總 ÷ 落地盒價（<b>無</b>稀有度 haircut）</li>
         <li><b>Grade A（打折）</b>＝ 同上但先套稀有度<strong>折扣 %</strong>（GradeA×(1−disc)）再平均（TOC／主判斷用這個）。預設：MUR／SAR／sup_SAR <b>10%</b>；SR <b>25%</b>；<b>SSR／復刻 S 20%</b>（×0.80）；AR／UR／ACE <b>50%</b>；MA <b>25%</b>；BWR <b>0%</b>。Sticky 為<strong>即時計算</strong>，非凍結 snapshot。</li>
@@ -1013,23 +1294,9 @@
     </div>
 
     <div class="card" id="chaseCard">
-      <h2>Chase card 一覽</h2>
-      <div class="tiny" style="margin-bottom:6px">選定系列 Top 20（依 Grade A ¥）· 池：SR / SAR / MUR / MA / UR / sup_SAR · 相對 <b>Shrink 有膜</b> 落地盒</div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>圖</th>
-              <th>卡</th>
-              <th>稀有</th>
-              <th class="num">Grade A HK$</th>
-              <th class="num">占有膜落地</th>
-            </tr>
-          </thead>
-          <tbody id="chaseBody"></tbody>
-        </table>
-      </div>
+      <h2 class="sec-h"><img class="mon mon-starters" src="./img/accents/starters.svg" alt="" width="72" height="24" aria-hidden="true" />Chase card 一覽</h2>
+      <div class="tiny" style="margin-bottom:8px">選定系列 Top 20（依 Grade A ¥）· 池：SR / SAR / MUR / MA / UR / sup_SAR · 相對 <b>Shrink 有膜</b> 落地盒</div>
+      <div class="chase-grid" id="chaseBody"></div>
       <div class="hint" id="ripHint"></div>
     </div>
   </main>
@@ -1037,13 +1304,13 @@
 <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="放大圖">
   <img id="lightboxImg" alt="" />
 </div>
-<footer>日盒 EV 小算盤 <b>v1.19.0</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期 · <a href="./market-en.html">EN 市況</a></footer>
+<footer><img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" /><span>日盒 EV 小算盤 <b>v1.19.1</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期 · <a href="./market-en.html">EN 市況</a></span></footer>
 
-<script src="./data.js?v=1.19.0"></script>
+<script src="./data.js?v=1.19.1"></script>
 <script>
 (async function () {
   // Keep in sync with the data.js?v= query above.
-  const VERSION = '1.19.0';
+  const VERSION = '1.19.1';
   async function loadJson(rel) {
     const url = new URL(rel, document.baseURI || window.location.href);
     url.searchParams.set('v', VERSION);
@@ -1065,10 +1332,13 @@
       : '沒有回應';
     const where = dataRes && dataRes.url ? dataRes.url : ('./data.json?v=' + VERSION);
     app.innerHTML =
-      '<p class="err"><b>載入失敗：找不到資料。</b>' +
-      '<span class="err-hint">抓取 ' + where.replace(/&/g, '&amp;').replace(/</g, '&lt;') +
-      ' → ' + String(status).replace(/</g, '&lt;') + '。</span>' +
-      '<span class="err-hint">若畫面仍是舊版，請強制重新整理：電腦 Ctrl+Shift+R（Mac：Cmd+Shift+R）；手機先關掉這個分頁再開一次。</span></p>';
+      '<div class="empty-state">' +
+      '<img class="mon" src="./img/accents/ditto.svg" alt="" width="56" height="56" aria-hidden="true" />' +
+      '<h3>載入失敗：找不到資料</h3>' +
+      '<p>抓取 ' + where.replace(/&/g, '&amp;').replace(/</g, '&lt;') +
+      ' → ' + String(status).replace(/</g, '&lt;') + '。</p>' +
+      '<p>若畫面仍是舊版，請強制重新整理：電腦 Ctrl+Shift+R（Mac：Cmd+Shift+R）；手機先關掉這個分頁再開一次。</p>' +
+      '</div>';
   }
   const dataRes = await loadJson('./data.json');
   const imgRes = await loadJson('./img_map.json');
@@ -1541,7 +1811,7 @@
 
   function renderToc() {
     const toc = $('toc');
-    const parts = ['<h2>系列</h2>'];
+    const parts = ['<h2 class="sec-h"><img class="mon mon-starters" src="./img/accents/starters.svg" alt="" width="72" height="24" aria-hidden="true" />系列</h2>'];
     setList.forEach((s) => {
       const r = calcSet(s.code, true);
       const hcS = r.ratiosS ? r.ratiosS.HC : null;
@@ -1550,11 +1820,14 @@
       const bNS = hcNS == null ? { cls: 'na' } : band(hcNS);
       const nsTxt = hcNS == null ? '—' : fmtPct(hcNS);
       const active = s.code === currentSet ? ' active' : '';
+      const art = boxThumb(s.code);
       parts.push(
         `<button type="button" class="toc-item${active}" data-set="${s.code}">` +
+        `<img class="toc-art" src="${art}" alt="" width="40" height="40" loading="lazy" />` +
+        `<span class="toc-meta">` +
         `<span class="toc-title"><span class="code">${escapeHtml(s.code)}</span><span class="ja">${escapeHtml(s.zh || s.ja)}</span></span>` +
         `<span class="ev-line">有膜 <span class="ev ${bS.cls}">${fmtPct(hcS)}</span> · 無膜 <span class="ev ${bNS.cls}">${nsTxt}</span></span>` +
-        `</button>`
+        `</span></button>`
       );
     });
     toc.innerHTML = parts.join('');
@@ -1631,7 +1904,7 @@
         </div>`;
       }
       const b = band(ratio);
-      return `<div class="sticky-metric">
+      return `<div class="sticky-metric ${b.cls}">
         <div class="k">${label}</div>
         <div class="v ${b.cls}">${fmtPct(ratio)}</div>
         <div class="yen">${fmtHkdFromYen(yen)} EV</div>
@@ -1677,20 +1950,32 @@
 
     // Chase top 20
     const landRef = r.landS || r.landNS || 1;
-    $('chaseBody').innerHTML = r.chase.map((c, i) => {
-      const yen = evRawYen(c);
-      const pct = yen != null ? ((yen / landRef) * 100).toFixed(0) : '—';
-      const thumb = cardThumb(c.set, c.num);
-      const dname = displayCardName(c);
-      return `<tr>
-        <td>${i + 1}</td>
-        <td><img class="card-thumb" src="${thumb}" alt="${escapeHtml(dname)}" loading="lazy" width="40" height="56" data-full="${thumb}" /></td>
-        <td>${escapeHtml(dname)} <span class="tiny">#${c.num}</span></td>
-        <td><span class="pool-pill">${poolLabel(c.pool)}</span></td>
-        <td class="num">${fmtHkdFromYen(yen)}</td>
-        <td class="num">${pct}%</td>
-      </tr>`;
-    }).join('') || '<tr><td colspan="6">無 chase 資料</td></tr>';
+    if (!r.chase.length) {
+      $('chaseBody').innerHTML =
+        '<div class="empty-state" style="grid-column:1/-1">' +
+        '<img class="mon" src="./img/accents/eevee.svg" alt="" width="56" height="56" aria-hidden="true" />' +
+        '<h3>無 chase 資料</h3>' +
+        '<p>這個系列暫時沒有足夠的 chase 單卡價可對照。</p></div>';
+    } else {
+      $('chaseBody').innerHTML = r.chase.map((c, i) => {
+        const yen = evRawYen(c);
+        const pct = yen != null ? ((yen / landRef) * 100).toFixed(0) : '—';
+        const thumb = cardThumb(c.set, c.num);
+        const dname = displayCardName(c);
+        return `<article class="chase-tile">
+          <div class="chase-art">
+            <span class="chase-rank">${i + 1}</span>
+            <img class="card-thumb" src="${thumb}" alt="${escapeHtml(dname)}" loading="lazy" data-full="${thumb}" />
+          </div>
+          <div class="chase-name">${escapeHtml(dname)} <span class="tiny">#${c.num}</span></div>
+          <div class="chase-meta">
+            <span class="pool-pill pool-${escapeHtml(c.pool)}">${poolLabel(c.pool)}</span>
+            <span class="chase-price">${fmtHkdFromYen(yen)}</span>
+          </div>
+          <div class="chase-share">${pct}% 有膜落地</div>
+        </article>`;
+      }).join('');
+    }
 
     const top = r.chase[0];
     let hint;
