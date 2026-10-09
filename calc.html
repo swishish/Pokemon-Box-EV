@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>日盒 EV 小算盤 v1.20.2 · JP Mega Sealed</title>
+<title>日盒 EV 小算盤 v1.20.3 · JP Mega Sealed</title>
 <style>
   :root {
     --bg: #faf6ef;
@@ -1139,7 +1139,7 @@
       font-size: .82rem;
     }
     .sticky-hc { display: flex; }
-    .sticky-more { display: inline-flex; align-items: center; }
+    .sticky-more { display: none; }
     .sticky-head-right {
       flex-wrap: nowrap;
       flex-shrink: 1;
@@ -1234,7 +1234,7 @@
 <body>
 <header>
   <div class="header-inner">
-    <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.20.2</span></h1>
+    <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.20.3</span></h1>
     <nav class="header-nav" aria-label="市況頁">
       <a class="nav-btn" href="./market-en.html" title="English raw singles market pulse">EN 市況</a>
       <span class="nav-btn soon" title="即將推出">日語熱度</span>
@@ -1298,8 +1298,12 @@
     </div>
 
     <div id="advancedHost">
-    <details class="advanced" id="advancedPanel" open>
-      <summary>進階假設</summary>
+    <details class="advanced" id="advancedPanel">
+      <summary>
+        進階假設
+        <span class="open-hint closed">點擊展開</span>
+        <span class="open-hint opened">點擊收起</span>
+      </summary>
       <div class="adv-body">
         <div class="slider-row">
           <label for="gemDisc">Gem 折扣（有效 gem = 公佈 gem × (1−折扣)；預設 20%）</label>
@@ -1371,13 +1375,13 @@
 <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="放大圖">
   <img id="lightboxImg" alt="" />
 </div>
-<footer><img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" /><span>日盒 EV 小算盤 <b>v1.20.2</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期 · <a href="./index.html">首頁</a> · <a href="./market-en.html">EN 市況</a> · 日語熱度（即將推出）</span></footer>
+<footer><img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" /><span>日盒 EV 小算盤 <b>v1.20.3</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期 · <a href="./index.html">首頁</a> · <a href="./market-en.html">EN 市況</a> · 日語熱度（即將推出）</span></footer>
 
-<script src="./data.js?v=1.20.2"></script>
+<script src="./data.js?v=1.20.3"></script>
 <script>
 (async function () {
   // Keep in sync with the data.js?v= query above.
-  const VERSION = '1.20.2';
+  const VERSION = '1.20.3';
   async function loadJson(rel) {
     const url = new URL(rel, document.baseURI || window.location.href);
     url.searchParams.set('v', VERSION);
@@ -2265,7 +2269,6 @@
     col.classList.toggle('is-open', want);
     btn.setAttribute('aria-expanded', want ? 'true' : 'false');
     if (toc) toc.hidden = mqMobile.matches ? !want : false;
-    if (want) setStickyOpen(false);
   }
   function setStickyOpen(open) {
     const ev = $('stickyEv');
@@ -2276,9 +2279,6 @@
       more.setAttribute('aria-expanded', open ? 'true' : 'false');
       more.textContent = open ? '收起' : '設定';
     }
-    if (open) setPickerOpen(false);
-    const adv = $('advancedPanel');
-    if (adv && mqMobile.matches) adv.open = true;
   }
   function placeChrome() {
     const barRight = document.querySelector('#stickyBar .sticky-head-right');
@@ -2296,8 +2296,7 @@
         drawer.insertBefore(actions, row || null);
       }
       if (adv && adv.parentNode !== drawer) drawer.appendChild(adv);
-      if (adv) adv.open = true;
-      if (!$('stickyEv').classList.contains('is-open')) setStickyOpen(false);
+      setStickyOpen(true);
       setPickerOpen($('tocCol') && $('tocCol').classList.contains('is-open'));
     } else {
       if (barRight && toggle && price.parentNode !== barRight) barRight.insertBefore(price, toggle);
@@ -2307,7 +2306,6 @@
         else barRight.appendChild(actions);
       }
       if (adv && host && adv.parentNode !== host) host.appendChild(adv);
-      if (adv) adv.open = true;
       setStickyOpen(false);
       setPickerOpen(false);
     }
