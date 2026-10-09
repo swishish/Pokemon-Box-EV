@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<title>Chase 公允值 v1.21.0 · PSA10 回歸</title>
+<style>
+  :root {
+    --bg: #faf6ef;
+    --bg-2: #f3ede1;
+    --card: #fff;
+    --text: #141414;
+    --muted: #5f5a51;
+    --line: #e7dfd0;
+    --ink: #141414;
+    --bw: 2px;
+    --good: #1e9e5a;
+    --good-bg: #d9f3e5;
+    --ok: #b8860b;
+    --ok-bg: #fff3c4;
+    --bad: #c93540;
+    --bad-bg: #fbdfe1;
+    --accent: #3d6fd9;
+    --accent-fill: #ffd23f;
+    --accent-hover: #ffc907;
+    --info: #4f86f7;
+    --on-accent: #141414;
+    --radius: 12px;
+    --radius-lg: 16px;
+    --shadow: 4px 4px 0 var(--ink);
+    --shadow-sm: 3px 3px 0 var(--ink);
+    --shadow-xs: 2px 2px 0 var(--ink);
+    --shadow-pressed: 1px 1px 0 var(--ink);
+  }
+  * { box-sizing: border-box; }
+  html { overflow-x: clip; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    background-color: var(--bg);
+    background-image:
+      radial-gradient(1200px 420px at 12% -8%, rgba(255, 210, 63, .22), transparent 55%),
+      radial-gradient(900px 380px at 110% 0%, rgba(79, 134, 247, .12), transparent 50%),
+      repeating-linear-gradient(0deg, transparent, transparent 11px, rgba(20,20,20,.015) 12px);
+    color: var(--text);
+    line-height: 1.5;
+    font-size: 15px;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
+    -webkit-tap-highlight-color: transparent;
+  }
+  body::before {
+    content: "";
+    display: block;
+    height: 4px;
+    background: linear-gradient(90deg, #e4434f 0 34%, #ffd23f 34% 66%, #4f86f7 66%);
+  }
+  header {
+    background: var(--card);
+    border-bottom: var(--bw) solid var(--ink);
+    padding: 10px 16px 10px;
+  }
+  header h1 {
+    margin: 0;
+    font-size: 1.08rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .home-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    max-width: 100%;
+    flex-wrap: wrap;
+    color: inherit;
+    text-decoration: none;
+    border-radius: 8px;
+    outline-offset: 3px;
+  }
+  .home-title:hover .poke-mark { transform: rotate(-14deg); }
+  .home-title:focus-visible {
+    outline: 2px solid var(--ink);
+    background: var(--accent-fill);
+    box-shadow: var(--shadow-xs);
+  }
+  header p {
+    margin: 3px 0 0;
+    color: var(--muted);
+    font-size: .78rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+  }
+  header p .mon { flex-shrink: 0; }
+  .poke-mark {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid var(--ink);
+    background: linear-gradient(180deg, #e4434f 49%, #fff 51%);
+    position: relative;
+    flex-shrink: 0;
+    box-shadow: 1px 1px 0 var(--ink);
+    transition: transform .12s ease;
+  }
+  .poke-mark::after {
+    content: "";
+    position: absolute;
+    left: 4px; top: 4px;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid var(--ink);
+  }
+  .header-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    column-gap: 12px;
+    row-gap: 2px;
+    max-width: 1100px;
+    margin: 0 auto;
+    min-width: 0;
+  }
+  .header-inner h1 { grid-column: 1; min-width: 0; }
+  .header-inner .header-nav { grid-column: 2; grid-row: 1; }
+  .header-inner p { grid-column: 1 / -1; }
+  .header-nav {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    border: var(--bw) solid var(--ink);
+    background: var(--accent-fill);
+    color: var(--ink);
+    font: inherit;
+    font-size: .75rem;
+    font-weight: 800;
+    padding: 7px 12px;
+    border-radius: 999px;
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+    box-shadow: var(--shadow-xs);
+    transition: box-shadow .1s ease, transform .1s ease, background .1s ease;
+  }
+  .nav-btn:hover { background: var(--accent-hover); }
+  .nav-btn:active {
+    box-shadow: var(--shadow-pressed);
+    transform: translate(1px, 1px);
+  }
+  .pill {
+    display: inline-block; font-size: .7rem; padding: 2px 8px;
+    border-radius: 999px; background: var(--accent-fill); color: var(--ink);
+    border: 1.5px solid var(--ink); font-weight: 800; margin-left: 4px;
+  }
+  .mon {
+    display: inline-block;
+    vertical-align: middle;
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    pointer-events: none;
+    user-select: none;
+  }
+  .mon-sm { width: 20px; height: 20px; }
+
+  main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 14px 16px 48px;
+    min-width: 0;
+  }
+
+  .data-freshness {
+    margin: 0 0 10px;
+    font-size: .78rem;
+    color: var(--muted);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    align-items: center;
+  }
+  .data-freshness.fresh { padding: 2px 2px 0; }
+  .data-freshness.stale {
+    margin: 0 0 10px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: #e8eaed;
+    color: #3c4043;
+    border: 1.5px solid #c5c9ce;
+    font-size: .82rem;
+    font-weight: 800;
+  }
+  .meta-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    padding: 2px 8px;
+    border-radius: 999px;
+    border: 1.5px solid var(--ink);
+    background: var(--card);
+    color: var(--ink);
+    font-size: .72rem;
+  }
+
+  .card {
+    background: var(--card);
+    border: var(--bw) solid var(--ink);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-xs);
+    padding: 12px 14px;
+    margin-bottom: 12px;
+    min-width: 0;
+    max-width: 100%;
+  }
+  .card h2 {
+    margin: 0 0 8px;
+    font-size: .95rem;
+    font-weight: 850;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    min-width: 0;
+  }
+  .search {
+    flex: 1 1 180px;
+    min-width: 0;
+    max-width: 100%;
+    font: inherit;
+    font-size: .9rem;
+    padding: 8px 12px;
+    border: var(--bw) solid var(--ink);
+    border-radius: 999px;
+    background: var(--card);
+    color: var(--ink);
+    box-shadow: var(--shadow-xs);
+  }
+  .search:focus {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+    background: #fffdf6;
+  }
+  .seg {
+    display: inline-flex;
+    border: var(--bw) solid var(--ink);
+    border-radius: 999px;
+    overflow: hidden;
+    background: var(--card);
+    box-shadow: var(--shadow-xs);
+    flex-shrink: 0;
+  }
+  .seg .tog {
+    border: 0;
+    background: transparent;
+    font: inherit;
+    font-size: .75rem;
+    font-weight: 800;
+    padding: 6px 11px;
+    cursor: pointer;
+    color: var(--muted);
+    touch-action: manipulation;
+  }
+  .seg .tog.active {
+    background: var(--accent-fill);
+    color: var(--on-accent);
+  }
+  .chip-check {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: .78rem;
+    font-weight: 800;
+    padding: 6px 11px;
+    border-radius: 999px;
+    border: var(--bw) solid var(--ink);
+    background: var(--card);
+    box-shadow: var(--shadow-xs);
+    cursor: pointer;
+    user-select: none;
+    flex-shrink: 0;
+  }
+  .chip-check input { accent-color: var(--ink); }
+  .chip-check:has(input:checked) { background: var(--good-bg); }
+  .count-line {
+    margin: 8px 0 0;
+    font-size: .75rem;
+    color: var(--muted);
+    font-weight: 700;
+  }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+  }
+  .legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: .7rem;
+    font-weight: 800;
+    padding: 4px 8px;
+    border-radius: 999px;
+    border: 1.5px solid var(--ink);
+    background: var(--card);
+  }
+  .dot {
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    border: 1.5px solid var(--ink);
+    flex-shrink: 0;
+  }
+  .legend-line {
+    width: 16px; height: 0;
+    border-top: 2px solid #e4434f;
+    flex-shrink: 0;
+  }
+
+  .plot-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    align-items: start;
+    min-width: 0;
+  }
+  .chart-card { padding: 10px 10px 12px; }
+  .chart-box {
+    position: relative;
+    width: 100%;
+    height: 320px;
+    min-width: 0;
+    overflow: hidden;
+  }
+  .chart-box svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    touch-action: manipulation;
+  }
+  .chart-box text { fill: var(--muted); font-size: 11px; font-weight: 700; }
+  .hit { cursor: pointer; }
+  .empty-plot {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    text-align: center;
+    padding: 16px;
+    color: var(--muted);
+  }
+  .empty-plot[hidden] { display: none; }
+  .empty-plot h3 { margin: 0; color: var(--ink); font-size: .95rem; }
+
+  .detail-card { min-width: 0; }
+  .detail-empty {
+    color: var(--muted);
+    font-size: .86rem;
+    margin: 0;
+  }
+  .detail-name {
+    margin: 0 0 6px;
+    font-size: 1.02rem;
+    font-weight: 850;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+  }
+  .detail-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    font-size: .68rem;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 999px;
+    border: 1.5px solid var(--ink);
+    background: var(--bg-2);
+  }
+  .tag.sb { background: var(--good-bg); }
+  .tag.watch { background: var(--ok-bg); }
+  .tag.promo { background: #e8f0ff; }
+  .kv {
+    display: grid;
+    grid-template-columns: minmax(7.5em, 38%) minmax(0, 1fr);
+    gap: 4px 10px;
+    font-size: .82rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .kv dt { color: var(--muted); font-weight: 700; margin: 0; }
+  .kv dd { margin: 0; font-weight: 750; }
+  .kv dd.good { color: var(--good); }
+  .kv dd.bad { color: var(--bad); }
+  .contrib-wrap {
+    max-width: 100%;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+  .contrib {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .75rem;
+    font-variant-numeric: tabular-nums;
+    margin-top: 4px;
+  }
+  .contrib th, .contrib td {
+    text-align: left;
+    padding: 4px 4px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  .contrib th { color: var(--muted); font-weight: 700; font-size: .68rem; }
+  .contrib td.num, .contrib th.num { text-align: right; white-space: nowrap; }
+  .contrib tfoot td { font-weight: 850; border-bottom: 0; padding-top: 6px; }
+  .tiny { font-size: .75rem; color: var(--muted); }
+  .hint {
+    font-size: .78rem;
+    color: var(--muted);
+    margin: 8px 0 0;
+  }
+  .method-card ul { margin: 0; padding-left: 1.1rem; color: var(--muted); }
+  .method-card li { margin: 0.35em 0; }
+  .err { color: var(--bad); padding: 8px 0; line-height: 1.55; }
+
+  footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    text-align: center;
+    color: var(--muted);
+    font-size: .75rem;
+    padding: 8px 16px 24px;
+  }
+  footer a { color: var(--ink); font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
+  footer .mon { width: 36px; height: 36px; }
+
+  @media (min-width: 900px) {
+    .plot-grid {
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 340px);
+    }
+    .chart-box { height: 480px; }
+    .detail-card { position: sticky; top: 12px; }
+  }
+  @media (max-width: 899px) {
+    header { padding: 8px 12px 6px; }
+    header h1, header p { overflow-wrap: anywhere; }
+    .header-inner { column-gap: 8px; min-width: 0; }
+    .nav-btn { font-size: .7rem; padding: 6px 10px; }
+    main { padding: 10px 12px 48px; }
+    .chart-box { height: 300px; }
+    .kv { grid-template-columns: minmax(6.5em, 36%) minmax(0, 1fr); }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <h1>
+      <a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁">
+        <span class="poke-mark" aria-hidden="true"></span> Chase 公允值
+      </a>
+      <span class="pill">v1.21.0</span>
+    </h1>
+    <nav class="header-nav" aria-label="站內導覽">
+      <a class="nav-btn" href="./calc.html">開盒 EV</a>
+      <a class="nav-btn" href="./market-en.html">EN 市況</a>
+    </nav>
+    <p><img class="mon mon-sm" src="./img/accents/eevee.svg" alt="" width="20" height="20" aria-hidden="true" />PSA10 回歸散點 · 預測 vs 實際 · 點擊睇卡片</p>
+  </div>
+</header>
+
+<main id="app">
+  <div id="dataFreshness" class="data-freshness" role="status" aria-live="polite"></div>
+
+  <section class="card" aria-label="篩選">
+    <div class="filters">
+      <input class="search" id="q" type="search" placeholder="搜尋卡名…" autocomplete="off" enterkeyhint="search" />
+      <div class="seg" role="group" aria-label="語言">
+        <button type="button" class="tog active" data-lang="all" id="langAll">全部</button>
+        <button type="button" class="tog" data-lang="JP" id="langJp">JP</button>
+        <button type="button" class="tog" data-lang="EN" id="langEn">EN</button>
+      </div>
+      <label class="chip-check"><input type="checkbox" id="onlySb" />只看 Strong Buy</label>
+      <div class="seg" role="group" aria-label="圖表">
+        <button type="button" class="tog active" data-view="fair" id="viewFair">公允值</button>
+        <button type="button" class="tog" data-view="resid" id="viewResid">殘差%</button>
+      </div>
+      <div class="seg" role="group" aria-label="顏色">
+        <button type="button" class="tog active" data-color="label" id="colorLabel">標籤色</button>
+        <button type="button" class="tog" data-color="resid" id="colorResid">殘差色</button>
+      </div>
+      <label class="chip-check" id="clipWrap" hidden><input type="checkbox" id="clipExtreme" checked />隱藏極端殘差</label>
+    </div>
+    <p class="count-line" id="countLine">載入中…</p>
+    <div class="legend" id="legend" aria-label="圖例"></div>
+  </section>
+
+  <div class="plot-grid">
+    <section class="card chart-card">
+      <h2><img class="mon mon-sm" src="./img/accents/ditto.svg" alt="" width="20" height="20" aria-hidden="true" />散點</h2>
+      <div class="chart-box" id="chartBox">
+        <svg id="chart" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="PSA10 預測對實際散點"></svg>
+        <div class="empty-plot" id="emptyPlot" hidden>
+          <img class="mon" src="./img/accents/ditto.svg" alt="" width="36" height="36" />
+          <h3>沒有符合的卡</h3>
+          <p>改搜尋或清篩選再試。</p>
+        </div>
+      </div>
+      <p class="hint" id="axisHint"></p>
+    </section>
+
+    <aside class="card detail-card" id="detailCard" aria-live="polite">
+      <h2><img class="mon mon-sm" src="./img/accents/eevee.svg" alt="" width="20" height="20" aria-hidden="true" />卡片詳情</h2>
+      <div id="detailBody">
+        <p class="detail-empty">點／撳圖上的綠點或灰點，睇卡名、公允值、殘差同公式組成。卡名保持英文（資料原文）。</p>
+      </div>
+    </aside>
+  </div>
+
+  <section class="card method-card">
+    <h2><img class="mon" src="./img/accents/starters.svg" alt="" width="72" height="24" aria-hidden="true" style="width:72px;height:24px" />這是什麼</h2>
+    <ul class="tiny">
+      <li><b>Chase_Fit</b>：用 PSA10 成交、裸卡價、gem 率、pop、語言、是否 promo，估一張 chase 卡的 PSA10 <b>公允值（FV）</b>。</li>
+      <li><b>公允值圖</b>：X＝模型預測 PSA10，Y＝實際 PSA10（對數軸）。紅線是 y＝x（市價＝公允值）。<b>線下方</b>＝市價低於 FV（可能低估）。</li>
+      <li><b>殘差%</b>＝（實際 − 預測）÷ 預測。負數＝便宜過模型；正數＝貴過模型。</li>
+      <li><b>Strong Buy</b> 是資料裡的即時標籤，不是自動按殘差重算。</li>
+      <li>公式：<code>log_psa10 ~ gem_rate + log_pop + log_raw + C(language) + promo_flag</code>；<code>log_pop</code> 用 <code>ln(pop+1)</code>。匯率 US$1＝HK$7.8。</li>
+      <li>數字來自 2026-10-09 PriceCharting 快照（GemRate pop 覆寫沿用 10-08）。<b>非正式投資建議</b>；下單前請核對現價。無外部卡圖。</li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" />
+  <span>日盒 EV 小算盤 <b>v1.21.0</b> · Chase_Fit 靜態快照 · 非正式投資建議 · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./market-en.html">EN 市況</a></span>
+</footer>
+
+<script src="./data/chase-fit/latest.js?v=1.21.0"></script>
+<script>
+(async function () {
+  const VERSION = '1.21.0';
+  const $ = (id) => document.getElementById(id);
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, (ch) => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    })[ch]);
+  }
+  async function loadJson(rel) {
+    const url = new URL(rel, document.baseURI || window.location.href);
+    url.searchParams.set('v', VERSION);
+    try {
+      const res = await fetch(url.href, { cache: 'no-store' });
+      if (!res.ok) return { ok: false, status: res.status, url: url.href, data: null, err: 'HTTP ' + res.status };
+      return { ok: true, status: res.status, url: url.href, data: await res.json(), err: null };
+    } catch (e) {
+      return { ok: false, status: 0, url: url.href, data: null, err: (e && e.message) ? e.message : String(e) };
+    }
+  }
+  function showLoadError(dataRes) {
+    const app = $('app');
+    const status = dataRes
+      ? (dataRes.status ? ('HTTP ' + dataRes.status) : (dataRes.err || '沒有回應'))
+      : '沒有回應';
+    const where = dataRes && dataRes.url ? dataRes.url : ('./data/chase-fit/latest.json?v=' + VERSION);
+    app.innerHTML =
+      '<p class="err"><b>載入失敗：找不到 Chase_Fit 資料。</b> ' +
+      escapeHtml(where) + ' → ' + escapeHtml(String(status)) +
+      '。請強制重新整理。</p>';
+  }
+
+  const dataRes = await loadJson('./data/chase-fit/latest.json');
+  const DATA = (dataRes && dataRes.data) || window.CHASE_FIT;
+  if (!DATA || !DATA.cards || !DATA.cards.length || !DATA.meta) {
+    showLoadError(dataRes);
+    return;
+  }
+
+  const META = DATA.meta;
+  const COEF = {};
+  (DATA.coefficients || []).forEach((row) => { COEF[row.term] = row.coef; });
+  const FX = META.fx_hkd_per_usd || 7.8;
+  const CARDS = DATA.cards;
+
+  const LABEL_META = {
+    'Strong Buy': { color: '#1e9e5a', zh: 'Strong Buy' },
+    'Mild undervalued': { color: '#4f86f7', zh: 'Mild undervalued' },
+    'Watch / Second Opinion': { color: '#b8860b', zh: 'Watch / Second Opinion' },
+    'Watch (thin liquidity)': { color: '#c45c26', zh: 'Watch（成交薄）' },
+    'Watch (high pop / thin multiple)': { color: '#7b61ff', zh: 'Watch（高 pop）' }
+  };
+  const UNLABELED = { color: '#8a8478', zh: '未標記' };
+  const RESID_BANDS = [
+    { id: 'deep', max: -40, color: '#1e9e5a', zh: '殘差 ≤ −40%（低估）' },
+    { id: 'mild', max: -10, color: '#4f86f7', zh: '−40%～−10%' },
+    { id: 'fair', max: 10, color: '#8a8478', zh: '近公允（±10%）' },
+    { id: 'high', max: 50, color: '#b8860b', zh: '+10%～+50%' },
+    { id: 'hot', max: Infinity, color: '#c93540', zh: '> +50%（高估）' }
+  ];
+
+  function labelInfo(label) {
+    return (label && LABEL_META[label]) ? LABEL_META[label] : UNLABELED;
+  }
+  function residBand(pct) {
+    for (let i = 0; i < RESID_BANDS.length; i++) {
+      if (pct <= RESID_BANDS[i].max) return RESID_BANDS[i];
+    }
+    return RESID_BANDS[RESID_BANDS.length - 1];
+  }
+  function pointColor(card, colorMode) {
+    if (colorMode === 'resid') return residBand(card.residual_pct).color;
+    return labelInfo(card.label).color;
+  }
+  function parseAsOfDate(raw) {
+    if (raw == null || raw === '') return null;
+    const m = String(raw).trim().match(/^(\d{4})-(\d{2})-(\d{2})/);
+    if (!m) return null;
+    const y = Number(m[1]), mo = Number(m[2]) - 1, d = Number(m[3]);
+    const dt = new Date(y, mo, d);
+    if (dt.getFullYear() !== y || dt.getMonth() !== mo || dt.getDate() !== d) return null;
+    return dt;
+  }
+  function ymdLocal(dt) {
+    return dt.getFullYear() + '-' + String(dt.getMonth() + 1).padStart(2, '0') + '-' + String(dt.getDate()).padStart(2, '0');
+  }
+  function ageDays(asOfDate, today) {
+    const a = Date.UTC(asOfDate.getFullYear(), asOfDate.getMonth(), asOfDate.getDate());
+    const b = Date.UTC(today.getFullYear(), today.getMonth(), today.getDate());
+    return Math.floor((b - a) / 86400000);
+  }
+  function fmtUsd(n, digits) {
+    if (n == null || Number.isNaN(Number(n))) return '—';
+    const d = digits == null ? (Math.abs(n) >= 1000 ? 0 : 2) : digits;
+    return 'US$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
+  }
+  function fmtHkd(n) {
+    if (n == null || Number.isNaN(Number(n))) return '—';
+    return 'HK$' + Number(n).toLocaleString('en-US', { maximumFractionDigits: 0 });
+  }
+  function fmtPct(n) {
+    if (n == null || Number.isNaN(Number(n))) return '—';
+    return (n > 0 ? '+' : '') + Number(n).toFixed(1) + '%';
+  }
+  function fmtNum(n, d) {
+    if (n == null || Number.isNaN(Number(n))) return '—';
+    return Number(n).toLocaleString('en-US', { maximumFractionDigits: d == null ? 2 : d });
+  }
+  function fmtCoef(n) {
+    const v = Number(n);
+    return (v >= 0 ? '+' : '') + v.toFixed(3);
+  }
+
+  function renderFreshness() {
+    const el = $('dataFreshness');
+    const asOfDate = parseAsOfDate(META.data_date);
+    const r2 = META.r2 == null ? '—' : Number(META.r2).toFixed(3);
+    const n = META.n != null ? META.n : CARDS.length;
+    const chips = '<span class="meta-chip">n=' + n + '</span><span class="meta-chip">R²=' + r2 + '</span>';
+    if (!asOfDate) {
+      el.className = 'data-freshness stale';
+      el.innerHTML = '數字過期（資料日期無法確認）— 下單前請核對現價 ' + chips;
+      return;
+    }
+    const age = ageDays(asOfDate, new Date());
+    const ymd = ymdLocal(asOfDate);
+    if (age > 7) {
+      el.className = 'data-freshness stale';
+      el.innerHTML = '數字過期 · 資料日期 ' + ymd + ' · 已過 ' + age + ' 日 — 下單前請核對現價 ' + chips;
+    } else {
+      el.className = 'data-freshness fresh';
+      el.innerHTML = '資料日期 <b>' + ymd + '</b> · Chase_Fit 即時 Strong Buy 模型 ' + chips;
+    }
+  }
+  renderFreshness();
+
+  const state = {
+    q: '',
+    lang: 'all',
+    onlySb: false,
+    view: 'fair',
+    color: 'label',
+    clipExtreme: true,
+    selectedId: null
+  };
+
+  function matches(card) {
+    if (state.onlySb && card.label !== 'Strong Buy') return false;
+    if (state.lang !== 'all' && card.language !== state.lang) return false;
+    const q = state.q.trim().toLowerCase();
+    if (q && String(card.name || '').toLowerCase().indexOf(q) === -1) return false;
+    if (state.view === 'resid' && state.clipExtreme && Math.abs(card.residual_pct) > 200) return false;
+    return true;
+  }
+  function visibleCards() { return CARDS.filter(matches); }
+
+  function termRows(card) {
+    const logPop = Math.log(Number(card.pop_psa10) + 1);
+    const logRaw = card.log_raw != null ? Number(card.log_raw) : Math.log(Number(card.raw_usd));
+    const jp = card.language === 'JP' ? 1 : 0;
+    const promo = Number(card.promo_flag) ? 1 : 0;
+    const gem = Number(card.gem_rate);
+    const rows = [
+      { term: 'Intercept', x: 1, beta: COEF['Intercept'] },
+      { term: 'C(language)[T.JP]', x: jp, beta: COEF['C(language)[T.JP]'] },
+      { term: 'gem_rate', x: gem, beta: COEF['gem_rate'] },
+      { term: 'log_pop = ln(pop+1)', x: logPop, beta: COEF['log_pop'] },
+      { term: 'log_raw', x: logRaw, beta: COEF['log_raw'] },
+      { term: 'promo_flag', x: promo, beta: COEF['promo_flag'] }
+    ];
+    rows.forEach((r) => { r.contrib = (r.beta || 0) * r.x; });
+    return rows;
+  }
+
+  function renderLegend() {
+    const el = $('legend');
+    let html = '<span class="legend-item"><span class="legend-line" aria-hidden="true"></span>' +
+      (state.view === 'resid' ? '零殘差' : '公允值 y＝x') + '</span>';
+    if (state.color === 'resid') {
+      RESID_BANDS.forEach((b) => {
+        html += '<span class="legend-item"><span class="dot" style="background:' + b.color + '"></span>' +
+          escapeHtml(b.zh) + '</span>';
+      });
+    } else {
+      const keys = Object.keys(LABEL_META).concat(['']);
+      keys.forEach((k) => {
+        const info = k ? LABEL_META[k] : UNLABELED;
+        html += '<span class="legend-item"><span class="dot" style="background:' + info.color + '"></span>' +
+          escapeHtml(info.zh) + '</span>';
+      });
+    }
+    el.innerHTML = html;
+  }
+
+  function logTicks(min, max) {
+    const cands = [50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000, 200000];
+    return cands.filter((v) => v >= min * 0.98 && v <= max * 1.05);
+  }
+  function linTicks(min, max) {
+    const span = max - min;
+    const step = span > 400 ? 100 : span > 150 ? 50 : span > 60 ? 20 : 10;
+    const ticks = [];
+    const start = Math.ceil(min / step) * step;
+    for (let v = start; v <= max + 1e-9; v += step) ticks.push(v);
+    if (min < 0 && max > 0 && ticks.indexOf(0) === -1) ticks.push(0);
+    ticks.sort((a, b) => a - b);
+    return ticks;
+  }
+  function fmtAxisUsd(v) {
+    if (v >= 1000) return '$' + (v / 1000).toFixed(v >= 10000 ? 0 : 0) + 'k';
+    return '$' + v;
+  }
+
+  function renderChart() {
+    const svg = $('chart');
+    const empty = $('emptyPlot');
+    const cards = visibleCards();
+    let hiddenExtreme = 0;
+    if (state.view === 'resid' && state.clipExtreme) {
+      hiddenExtreme = CARDS.filter((c) => {
+        if (state.onlySb && c.label !== 'Strong Buy') return false;
+        if (state.lang !== 'all' && c.language !== state.lang) return false;
+        const q = state.q.trim().toLowerCase();
+        if (q && String(c.name || '').toLowerCase().indexOf(q) === -1) return false;
+        return Math.abs(c.residual_pct) > 200;
+      }).length;
+    }
+    $('countLine').textContent = '顯示 ' + cards.length + ' / ' + CARDS.length +
+      (hiddenExtreme ? (' · 另隱藏 ' + hiddenExtreme + ' 張極端殘差') : '') +
+      ' · 點圖上的點睇詳情';
+    $('clipWrap').hidden = state.view !== 'resid';
+    renderLegend();
+
+    if (!cards.length) {
+      svg.innerHTML = '';
+      empty.hidden = false;
+      $('axisHint').textContent = '';
+      return;
+    }
+    empty.hidden = true;
+
+    const W = 640, H = 480;
+    const m = { l: 58, r: 14, t: 14, b: 44 };
+    const iw = W - m.l - m.r, ih = H - m.t - m.b;
+    const resid = state.view === 'resid';
+
+    let xs = cards.map((c) => c.pred_usd);
+    let ys = resid ? cards.map((c) => c.residual_pct) : cards.map((c) => c.psa10_usd);
+    let xMin, xMax, yMin, yMax, xTo, yTo, xTicks, yTicks, yFmt;
+
+    const minP = Math.min.apply(null, xs.concat(resid ? [] : ys));
+    const maxP = Math.max.apply(null, xs.concat(resid ? [] : ys));
+    xMin = Math.max(40, minP * 0.75);
+    xMax = maxP * 1.35;
+    const lx0 = Math.log(xMin), lx1 = Math.log(xMax);
+    xTo = (v) => m.l + ((Math.log(v) - lx0) / (lx1 - lx0)) * iw;
+    xTicks = logTicks(xMin, xMax);
+
+    if (resid) {
+      yMin = Math.min.apply(null, ys.concat([0]));
+      yMax = Math.max.apply(null, ys.concat([0]));
+      const pad = Math.max(8, (yMax - yMin) * 0.08);
+      yMin -= pad; yMax += pad;
+      yTo = (v) => m.t + (1 - (v - yMin) / (yMax - yMin)) * ih;
+      yTicks = linTicks(yMin, yMax);
+      yFmt = (v) => (v > 0 ? '+' : '') + Math.round(v) + '%';
+      $('axisHint').textContent = 'X＝預測 PSA10（對數）· Y＝殘差% · 紅線＝零殘差';
+    } else {
+      yMin = xMin; yMax = xMax;
+      const ly0 = Math.log(yMin), ly1 = Math.log(yMax);
+      yTo = (v) => m.t + (1 - (Math.log(v) - ly0) / (ly1 - ly0)) * ih;
+      yTicks = xTicks;
+      yFmt = fmtAxisUsd;
+      $('axisHint').textContent = 'X＝預測 PSA10 · Y＝實際 PSA10（對數軸）· 紅線＝公允值（y＝x）。線下＝市價低於 FV。';
+    }
+
+    let html = '';
+    html += '<rect x="0" y="0" width="' + W + '" height="' + H + '" fill="transparent"/>';
+    xTicks.forEach((t) => {
+      const x = xTo(t);
+      html += '<line x1="' + x + '" y1="' + m.t + '" x2="' + x + '" y2="' + (m.t + ih) + '" stroke="#efe8da" stroke-width="1"/>';
+      html += '<text x="' + x + '" y="' + (H - 14) + '" text-anchor="middle">' + fmtAxisUsd(t) + '</text>';
+    });
+    yTicks.forEach((t) => {
+      if (!resid && t < yMin) return;
+      const y = yTo(t);
+      if (y < m.t - 1 || y > m.t + ih + 1) return;
+      const zero = resid && t === 0;
+      html += '<line x1="' + m.l + '" y1="' + y + '" x2="' + (m.l + iw) + '" y2="' + y + '" stroke="' +
+        (zero ? '#e7dfd0' : '#efe8da') + '" stroke-width="1"/>';
+      html += '<text x="' + (m.l - 6) + '" y="' + (y + 4) + '" text-anchor="end">' + yFmt(t) + '</text>';
+    });
+    html += '<text x="' + (m.l + iw / 2) + '" y="' + (H - 2) + '" text-anchor="middle">預測 PSA10 (USD)</text>';
+    html += '<text x="12" y="' + (m.t + ih / 2) + '" text-anchor="middle" transform="rotate(-90 12 ' + (m.t + ih / 2) + ')">' +
+      (resid ? '殘差 %' : '實際 PSA10 (USD)') + '</text>';
+
+    if (resid) {
+      const y0 = yTo(0);
+      html += '<line x1="' + m.l + '" y1="' + y0 + '" x2="' + (m.l + iw) + '" y2="' + y0 +
+        '" stroke="#e4434f" stroke-width="2"/>';
+    } else {
+      html += '<line x1="' + xTo(xMin) + '" y1="' + yTo(xMin) + '" x2="' + xTo(xMax) + '" y2="' + yTo(xMax) +
+        '" stroke="#e4434f" stroke-width="2"/>';
+    }
+
+    cards.forEach((c, i) => {
+      const x = xTo(c.pred_usd);
+      const y = yTo(resid ? c.residual_pct : c.psa10_usd);
+      const color = pointColor(c, state.color);
+      const sel = c.card_id === state.selectedId;
+      const r = sel ? 8 : (c.label === 'Strong Buy' ? 5.5 : 4.2);
+      html += '<circle class="hit" data-i="' + i + '" cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) +
+        '" r="12" fill="transparent"/>';
+      html += '<circle class="hit" data-i="' + i + '" cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) +
+        '" r="' + r + '" fill="' + color + '" stroke="' + (sel ? '#141414' : '#141414') +
+        '" stroke-width="' + (sel ? 2.6 : 1.2) + '"/>';
+    });
+
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+    try {
+      const doc = new DOMParser().parseFromString(
+        '<svg xmlns="http://www.w3.org/2000/svg">' + html + '</svg>',
+        'image/svg+xml'
+      );
+      const root = doc.documentElement;
+      if (root.querySelector('parsererror')) throw new Error('svg parse');
+      svg.innerHTML = '';
+      while (root.firstChild) svg.appendChild(document.importNode(root.firstChild, true));
+    } catch (e) {
+      svg.innerHTML = html;
+    }
+    svg._cards = cards;
+  }
+
+  function residClass(pct) {
+    if (pct == null || Number.isNaN(Number(pct))) return '';
+    if (pct <= -10) return 'good';
+    if (pct >= 10) return 'bad';
+    return '';
+  }
+
+  function renderDetail(card) {
+    const body = $('detailBody');
+    if (!card) {
+      body.innerHTML = '<p class="detail-empty">點／撳圖上的點，睇卡名、公允值、殘差同公式組成。卡名保持英文（資料原文）。</p>';
+      return;
+    }
+    const info = labelInfo(card.label);
+    const promo = Number(card.promo_flag) === 1;
+    const rows = termRows(card);
+    const sum = rows.reduce((a, r) => a + r.contrib, 0);
+    const recon = Math.exp(sum);
+    let tags = '<span class="tag' + (card.label === 'Strong Buy' ? ' sb' : (card.label ? ' watch' : '')) + '">' +
+      escapeHtml(info.zh) + '</span>';
+    tags += '<span class="tag">' + escapeHtml(card.language) + '</span>';
+    tags += '<span class="tag' + (promo ? ' promo' : '') + '">' + (promo ? 'Promo' : '非 Promo') + '</span>';
+    if (card.low_liquidity === 'Y') tags += '<span class="tag watch">成交薄</span>';
+
+    let contrib = '<div class="contrib-wrap"><table class="contrib"><thead><tr><th>項</th><th class="num">x</th><th class="num">β</th><th class="num">貢獻</th></tr></thead><tbody>';
+    rows.forEach((r) => {
+      contrib += '<tr><td>' + escapeHtml(r.term) + '</td><td class="num">' + fmtNum(r.x, 3) +
+        '</td><td class="num">' + fmtCoef(r.beta) + '</td><td class="num">' + fmtCoef(r.contrib) + '</td></tr>';
+    });
+    contrib += '</tbody><tfoot><tr><td>合計 log_pred</td><td></td><td></td><td class="num">' +
+      fmtNum(sum, 3) + '</td></tr></tfoot></table></div>';
+    contrib += '<p class="tiny" style="margin:6px 0 0">e<sup>合計</sup> ≈ ' + fmtUsd(recon, 0) +
+      '（頁面公允值用資料檔 pred，非重算）</p>';
+
+    body.innerHTML =
+      '<p class="detail-name">' + escapeHtml(card.name) + '</p>' +
+      '<div class="detail-tags">' + tags + '</div>' +
+      '<dl class="kv">' +
+      '<dt>Raw USD</dt><dd>' + fmtUsd(card.raw_usd, 2) + '</dd>' +
+      '<dt>PSA10 USD</dt><dd>' + fmtUsd(card.psa10_usd, 2) + '</dd>' +
+      '<dt>FV（預測）</dt><dd>' + fmtUsd(card.pred_usd, 2) + ' · ' + fmtHkd(card.fv_hkd) + '</dd>' +
+      '<dt>殘差 %</dt><dd class="' + residClass(card.residual_pct) + '">' + fmtPct(card.residual_pct) + '</dd>' +
+      '<dt>殘差 HKD</dt><dd class="' + residClass(card.residual_pct) + '">' + fmtHkd(card.residual_hkd) + '</dd>' +
+      '<dt>PSA10 / raw</dt><dd>' + fmtNum(card.psa10_raw_multiple, 2) + '×</dd>' +
+      '<dt>gem_rate</dt><dd>' + (card.gem_rate == null ? '—' : (Number(card.gem_rate) * 100).toFixed(2) + '%') + '</dd>' +
+      '<dt>pop PSA10</dt><dd>' + fmtNum(card.pop_psa10, 0) + '</dd>' +
+      '<dt>成交註記</dt><dd>' + escapeHtml(card.n_sold_note || '—') + '</dd>' +
+      '<dt>標籤</dt><dd>' + escapeHtml(card.label || '未標記') + '</dd>' +
+      '</dl>' +
+      '<h2 style="margin:14px 0 4px;font-size:.85rem">公式組成</h2>' +
+      contrib;
+  }
+
+  function selectById(id) {
+    state.selectedId = id;
+    const card = CARDS.find((c) => c.card_id === id) || null;
+    renderDetail(card);
+    renderChart();
+  }
+
+  $('chart').addEventListener('click', (ev) => {
+    const t = ev.target.closest ? ev.target.closest('[data-i]') : null;
+    if (!t) return;
+    const cards = $('chart')._cards || [];
+    const card = cards[Number(t.getAttribute('data-i'))];
+    if (card) selectById(card.card_id);
+  });
+
+  $('q').addEventListener('input', () => {
+    state.q = $('q').value;
+    if (state.selectedId && !visibleCards().some((c) => c.card_id === state.selectedId)) {
+      state.selectedId = null;
+      renderDetail(null);
+    }
+    renderChart();
+  });
+  function bindSeg(btns, key) {
+    btns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const val = btn.getAttribute('data-' + (key === 'lang' ? 'lang' : key === 'view' ? 'view' : 'color'));
+        state[key] = val;
+        btns.forEach((b) => b.classList.toggle('active', b === btn));
+        if (state.selectedId && !visibleCards().some((c) => c.card_id === state.selectedId)) {
+          state.selectedId = null;
+          renderDetail(null);
+        }
+        renderChart();
+      });
+    });
+  }
+  bindSeg([$('langAll'), $('langJp'), $('langEn')], 'lang');
+  bindSeg([$('viewFair'), $('viewResid')], 'view');
+  bindSeg([$('colorLabel'), $('colorResid')], 'color');
+  $('onlySb').addEventListener('change', () => {
+    state.onlySb = $('onlySb').checked;
+    if (state.selectedId && !visibleCards().some((c) => c.card_id === state.selectedId)) {
+      state.selectedId = null;
+      renderDetail(null);
+    }
+    renderChart();
+  });
+  $('clipExtreme').addEventListener('change', () => {
+    state.clipExtreme = $('clipExtreme').checked;
+    if (state.selectedId && !visibleCards().some((c) => c.card_id === state.selectedId)) {
+      state.selectedId = null;
+      renderDetail(null);
+    }
+    renderChart();
+  });
+
+  renderChart();
+})();
+</script>
+</body>
+</html>
