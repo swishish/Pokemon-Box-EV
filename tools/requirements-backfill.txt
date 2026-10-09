@@ -1,0 +1,6 @@
+# Optional deps for tools/backfill_market_en.py only.
+# The daily Action (tools/refresh_market_en.py) stays stdlib-only.
+#
+# Alternative: install a 7-Zip CLI that can extract PPMd 7z archives
+# (p7zip-full / 7z / 7zz / 7za) and skip this file.
+py7zr>=0.21.0

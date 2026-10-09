@@ -1,6 +1,6 @@
 # Pokemon Box EV
 
-日盒 EV 小算盤（朋友向）· **v1.19.0**
+日盒 EV 小算盤（朋友向）· **v1.19.1**
 
 給「不太懂金融／AI」的買卡朋友看的單頁工具：選系列 → 看 **四個預期回報 %**（同一分母）→ 有膜／無膜切換 → 看主力 chase 卡與「買單卡 vs 開盒」粗略提示。
 
@@ -20,7 +20,8 @@
 
 | 顯示 | 說明 |
 | --- | --- |
-| Index + % | 相對**上一份已提交快照**。第一次建檔只有指數 1,000，沒有每日 % |
+| Index + % | 相對**上一份已提交快照** |
+| History | `history.json` 折線圖，範圍 1W／1M／6M／1Y／MAX（按日期間距） |
 | Breadth | 籃子裡上漲 vs 下跌張數（有歷史才有） |
 | Top gainers / losers | 同一份快照對比 |
 | Disclaimer | TCGPlayer Market via TCGCSV；僅 EN raw；非 JP／SNKRDUNK；非正式投資建議 |
@@ -36,16 +37,44 @@
 2. 腳本 `python3 tools/refresh_market_en.py` 先讀 `https://tcgcsv.com/last-updated.txt`；stamp 沒變就結束（零流量）。
 3. 有新 dump 才抓 `Groups.csv` + 各系列 `ProductsAndPrices.csv`，寫入：
    - `data/market-en/latest.json`（指數、廣度、漲跌榜、500 張成分——給下一次對比用）
-   - `data/market-en/history.json`
-   - `data/market-en/latest.js`（`file://` / 快取備援，同 `data.js` 慣例）
+   - `data/market-en/history.json`（**append／upsert 當天**，保留 backfill 的舊點與 `baseDate`）
+   - `data/market-en/latest.js`、`history.js`（`file://` / 快取備援）
 4. Action 把變更 commit 回預設分支；GitHub Pages 仍是純靜態。
 
-本機重跑：
+本機重跑每日管線（**只要 Python 標準庫**）：
 
 ```bash
 python3 tools/refresh_market_en.py --self-test
 python3 tools/refresh_market_en.py -v --force
 ```
+
+### Backfill history（TCGCSV archive）
+
+把指數從 **2024-02-08** 起重建（[TCGCSV FAQ](https://tcgcsv.com/faq) 最早的每日 archive），基準仍是 **1,000**。成分每日重排，divisor 與現有 `tools/refresh_market_en.py` 同一套數學。寫入完整 `history.json` **以及** `latest.json` 的 divisor／成分，之後每日 Action 才能接續而不是從 1,000 再起一條線。
+
+採樣同 S&Poké-500：2024-02-08 起每週一點，最近 183 日每日一點（讓 1W／1M／6M 有日線）。
+
+```bash
+pip install -r tools/requirements-backfill.txt   # py7zr；或裝 p7zip-full / 7z / 7zz
+python3 tools/backfill_market_en.py --self-test
+python3 tools/backfill_market_en.py --probe
+python3 tools/backfill_market_en.py -v
+```
+
+CI：Actions → **Backfill EN market history** → Run workflow，confirm 欄打 `BACKFILL`（`.github/workflows/backfill-market-en.yml`）。**不要**排程、也不要接到每日 job——會重寫指數水平。
+
+時間／磁碟（archive 恢復之後）：
+
+| | 估計 |
+| --- | --- |
+| 下載 | ~250–350 個 `prices-YYYY-MM-DD.ppmd.7z`（每週 + 近半年每日） |
+| 磁碟 | 一次只解一個 7z 到 temp，跑完即刪；尖峰 ≈ 單檔大小 + catalog |
+| 時間 | catalog 與每日 job 相同（~220 個 CSV）；archive 迴圈 S&Poké 報過 ~8 min，視網路約 10–20 min |
+| 每日 Action | 仍 **stdlib only**，不裝 `py7zr` |
+
+7z：archive 是 **PPMd** 壓縮。優先 `py7zr`；沒裝 pip 時腳本會找 `7z`／`7zz`／`7za`。
+
+**現況（2026-10-09）：** `https://tcgcsv.com/archive/tcgplayer/prices-2024-02-08.ppmd.7z`（與近期日期）回 **HTTP 403**，內文是 Toaster 的暫時下架說明（成本／TCGplayer 澄清）。腳本會先 probe，**不改 JSON**（exit 2）。FAQ 仍寫 archive 從 2024-02-08 起。Archive 恢復後再跑上面的指令即可；在那之前圖表靠每日 Action 一點一點長。
 
 Phase 1 **不做**日版熱度頁、eBay、PriceCharting 付費 API。
 
@@ -65,6 +94,7 @@ python3 -m http.server 8765
 
 ## Changelog（摘要）
 
+- **v1.19.1**：EN 市況歷史圖（1W／1M／6M／1Y／MAX）＋ TCGCSV archive backfill 腳本（2024-02-08 起 rebase 1,000）；每日 Action 只 append
 - **v1.19.0**：新增英文裸卡市況頁（`market-en.html`）＋首頁「EN 市況」連結；TCGCSV 靜態 JSON 由 GitHub Action 每日更新
 - **v1.18.5**：修手機橫向溢出；系列改為可收起下拉（官方發行序）；桌面側欄 TOC 不變
 - **v1.18.4**：手機頂欄收成一列（系列名＋有膜／無膜＋HC%）；盒價與進階假設收入「設定」；稀有度折扣直向排列；系列 TOC 維持橫向滑動
