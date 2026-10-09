@@ -32,6 +32,7 @@
 1. GitHub Action **Update EN market pulse**（`.github/workflows/update-market-en.yml`）
    - **排程**：每天 21:23 UTC（TCGCSV 約 20:05 UTC 刷新之後）
    - **手動**：Actions 頁按 **Run workflow**
+   - **PR**：只跑 `python3 tools/refresh_market_en.py --self-test`（不抓 dump、不 commit）
 2. 腳本 `python3 tools/refresh_market_en.py` 先讀 `https://tcgcsv.com/last-updated.txt`；stamp 沒變就結束（零流量）。
 3. 有新 dump 才抓 `Groups.csv` + 各系列 `ProductsAndPrices.csv`，寫入：
    - `data/market-en/latest.json`（指數、廣度、漲跌榜、500 張成分——給下一次對比用）
