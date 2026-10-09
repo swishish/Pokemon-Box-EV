@@ -1,0 +1,100 @@
+name: Probe TCGCSV archive
+
+# Manual check only. Grok Bot already weekday-probes the same FAQ archive URL.
+# Informational: never fail red on 403 / temporary-removal notice.
+"on":
+  workflow_dispatch: {}
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: HEAD/GET archive URLs
+        shell: bash
+        run: |
+          set +e
+          set -u
+
+          probe_one() {
+            local url="$1"
+            local out headers code body magic curl_rc
+            out="$(mktemp)"
+            headers="$(mktemp)"
+            code="$(
+              curl -sS -L --max-time 30 -r 0-2047 \
+                -A "Pokemon-Box-EV archive-probe (+https://github.com/swishish/Pokemon-Box-EV)" \
+                -D "$headers" -o "$out" -w "%{http_code}" \
+                "$url"
+            )"
+            curl_rc=$?
+            if [[ "$curl_rc" -ne 0 && -z "$code" ]]; then
+              code="000"
+            fi
+            body="$(head -c 800 "$out" 2>/dev/null || true)"
+            magic="$(head -c 2 "$out" 2>/dev/null || true)"
+
+            echo "URL: $url"
+            echo "HTTP: $code"
+            echo "Preview: $(printf '%s' "$body" | tr '\n' ' ' | head -c 240)"
+
+            if [[ "$code" == "403" ]] || printf '%s' "$body" | grep -qiE 'temporarily removed|rising server costs'; then
+              echo "RESULT: STILL_BLOCKED"
+              echo "STILL_BLOCKED"
+              return 0
+            fi
+
+            # Real PPMd 7z (FAQ sample starts with the 7z signature), not a text page.
+            if [[ "$code" == "200" || "$code" == "206" ]] && [[ "$magic" == "7z" ]]; then
+              echo "RESULT: ARCHIVE_AVAILABLE"
+              echo "ARCHIVE_AVAILABLE"
+              return 0
+            fi
+
+            if [[ "$code" == "200" || "$code" == "206" ]] && \
+               ! printf '%s' "$body" | grep -qiE 'temporarily removed|^[[:space:]]*<(!DOCTYPE|html)'; then
+              echo "RESULT: ARCHIVE_AVAILABLE"
+              echo "ARCHIVE_AVAILABLE"
+              return 0
+            fi
+
+            echo "RESULT: STILL_BLOCKED (HTTP ${code:-?} / not a 7z archive)"
+            echo "STILL_BLOCKED"
+            return 0
+          }
+
+          START_URL="https://tcgcsv.com/archive/tcgplayer/prices-2024-02-08.ppmd.7z"
+          RECENT="$(date -u -d '2 days ago' +%Y-%m-%d)"
+          RECENT_URL="https://tcgcsv.com/archive/tcgplayer/prices-${RECENT}.ppmd.7z"
+          START_LOG="$(mktemp)"
+          RECENT_LOG="$(mktemp)"
+
+          echo "=== FAQ start date (2024-02-08) ==="
+          probe_one "$START_URL" | tee "$START_LOG"
+          echo
+          echo "=== Recent date (${RECENT}) ==="
+          probe_one "$RECENT_URL" | tee "$RECENT_LOG"
+
+          START_STATUS="$(tail -n 1 "$START_LOG")"
+          RECENT_STATUS="$(tail -n 1 "$RECENT_LOG")"
+
+          if [[ "$START_STATUS" == "ARCHIVE_AVAILABLE" || "$RECENT_STATUS" == "ARCHIVE_AVAILABLE" ]]; then
+            SUMMARY="ARCHIVE_AVAILABLE"
+          else
+            SUMMARY="STILL_BLOCKED"
+          fi
+
+          {
+            echo "## Probe TCGCSV archive"
+            echo
+            echo "**${SUMMARY}**"
+            echo
+            echo "- \`prices-2024-02-08.ppmd.7z\` → \`${START_STATUS}\`"
+            echo "- \`prices-${RECENT}.ppmd.7z\` → \`${RECENT_STATUS}\`"
+          } | tee -a "${GITHUB_STEP_SUMMARY:-/dev/null}"
+
+          echo
+          echo "SUMMARY: ${SUMMARY}"
+          echo "${SUMMARY}"
+          exit 0
