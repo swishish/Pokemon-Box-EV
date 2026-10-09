@@ -1,6 +1,6 @@
 # Pokemon Box EV
 
-日盒 EV 小算盤（朋友向）· **v1.20.0**
+日盒 EV 小算盤（朋友向）· **v1.20.4**
 
 給「不太懂金融／AI」的買卡朋友看的工具：首頁介紹點樣用 → 開盒算盤選系列 → 看 **四個預期回報 %**（同一分母）→ 有膜／無膜切換 → 看主力 chase 卡與「買單卡 vs 開盒」粗略提示。
 
@@ -14,7 +14,7 @@
 
 英文裸卡市況（S&P-style pulse）：**https://swishish.github.io/Pokemon-Box-EV/market-en.html**
 
-公開 repo 的 GitHub Pages **免費**，無需付費。舊的 `?set=M6` 深連結若打在首頁，會自動轉去 `calc.html`。
+公開 repo 的 GitHub Pages **免費**，無需付費。首頁**唔會**自動跳去算盤。`calc.html?set=M6` 仍然可以深連結指定系列。
 
 ## EN market pulse（Phase 1）
 
@@ -67,6 +67,10 @@ python3 -m http.server 8765
 
 ## Changelog（摘要）
 
+- **v1.20.4**：首頁有用連結加 GemRate、Grade10 PTCG100、皮卡千、TCGPlayer JP（純文字、一行說明）；Rarebox 說明改「日版ポケカ相場參考」；保留 SNKRDUNK／PriceCharting／GitHub／EN 市況。EV 算法不變
+- **v1.20.3**：手機算盤「設定」sheet 常開（盒價／四個 %／恢復預設可見）；只有「進階假設」預設收起。唔再把成塊設定藏喺「設定」掣後面。EV 算法不變
+- **v1.20.2**：首頁改圖文 one-pager——有用連結放 hero 正下方（大 tile＋chips，含 Rarebox 純文字）；點樣用五步示意（揀系列→sticky %／燈→haircut／盒價→Chase→買單卡 vs 開盒）；首頁唔再 auto-redirect。方法論改為預設收起。EV 算法不變
+- **v1.20.1**：首頁 Useful Links 加 Rarebox（純文字）；首頁／算盤頂欄加 EN 市況＋日語熱度導覽（日語熱度頁未上線則顯示即將推出，無死連結）
 - **v1.20.0**：首頁／算盤拆開——`index.html` 為介紹＋有用連結；算盤改去 `calc.html`；點擊頂欄 Pokéball＋標題返回首頁。EV 算法不變
 - **v1.19.1**：視覺 polish——奶油紙面／墨線／硬陰影、chase 卡格、寶可夢剪影點綴（御三家／伊布／百變怪／Sobble）；EV 算法不變
 - **v1.19.0**：新增英文裸卡市況頁（`market-en.html`）＋首頁「EN 市況」連結；TCGCSV 靜態 JSON 由 GitHub Action 每日更新

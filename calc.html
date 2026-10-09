@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>日盒 EV 小算盤 v1.20.0 · JP Mega Sealed</title>
+<title>日盒 EV 小算盤 v1.20.4 · JP Mega Sealed</title>
 <style>
   :root {
     --bg: #faf6ef;
@@ -38,7 +38,7 @@
     --toc-w: 268px;
   }
   * { box-sizing: border-box; }
-  html { overflow-x: clip; }
+  html { overflow-x: clip; overflow-y: auto; }
   body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
@@ -138,8 +138,15 @@
     min-width: 0;
   }
   .header-inner h1 { grid-column: 1; min-width: 0; }
-  .header-inner .nav-btn { grid-column: 2; grid-row: 1; }
+  .header-inner .header-nav { grid-column: 2; grid-row: 1; }
   .header-inner p { grid-column: 1 / -1; }
+  .header-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 6px;
+    min-width: 0;
+  }
   .nav-btn {
     display: inline-flex;
     align-items: center;
@@ -161,6 +168,17 @@
   .nav-btn:active {
     box-shadow: var(--shadow-pressed);
     transform: translate(1px, 1px);
+  }
+  .nav-btn.soon {
+    background: var(--bg-2);
+    color: var(--muted);
+    box-shadow: none;
+    cursor: default;
+  }
+  .nav-btn.soon:hover { background: var(--bg-2); }
+  .nav-btn.soon:active {
+    transform: none;
+    box-shadow: none;
   }
 
   .layout {
@@ -790,10 +808,27 @@
     font-weight: 600;
     list-style: none;
     user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
   }
   details.advanced > summary::-webkit-details-marker { display: none; }
-  details.advanced > summary::before { content: "▸ "; color: var(--accent); }
+  details.advanced > summary::before { content: "▸ "; color: var(--ink); font-weight: 800; }
   details.advanced[open] > summary::before { content: "▾ "; }
+  .open-hint {
+    margin-left: auto;
+    font-size: .72rem;
+    font-weight: 800;
+    border: 1.5px solid var(--ink);
+    border-radius: 999px;
+    padding: 3px 9px;
+    background: var(--accent-fill);
+    color: var(--ink);
+  }
+  details.advanced > summary .open-hint.opened { display: none; }
+  details.advanced[open] > summary .open-hint.closed { display: none; }
+  details.advanced[open] > summary .open-hint.opened { display: inline-block; }
   .adv-body { padding: 0 16px 16px; }
   .slider-row {
     display: grid;
@@ -909,7 +944,7 @@
     header { padding: 8px 12px 6px; }
     header h1, header p { overflow-wrap: break-word; }
     .header-inner { column-gap: 8px; min-width: 0; }
-    .nav-btn { font-size: .7rem; padding: 6px 10px; }
+    .nav-btn { font-size: .68rem; padding: 5px 9px; }
     main {
       padding: 10px 12px 48px;
       min-width: 0;
@@ -1104,7 +1139,7 @@
       font-size: .82rem;
     }
     .sticky-hc { display: flex; }
-    .sticky-more { display: inline-flex; align-items: center; }
+    .sticky-more { display: none; }
     .sticky-head-right {
       flex-wrap: nowrap;
       flex-shrink: 1;
@@ -1169,6 +1204,10 @@
     .chase-tile:hover { transform: none; box-shadow: var(--shadow-xs); }
     .sticky-metric { box-shadow: none; }
     .sticky-box { box-shadow: none; }
+    /* Always-open 設定 sheet is sticky; keep #method below it on hash/scroll. */
+    #method.method-card {
+      scroll-margin-top: min(72dvh, calc(100dvh - 6.5rem));
+    }
   }
 
   /* Stale / freshness banner (near sticky top) */
@@ -1199,8 +1238,11 @@
 <body>
 <header>
   <div class="header-inner">
-    <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.20.0</span></h1>
-    <a class="nav-btn" href="./market-en.html" title="English raw singles market pulse">EN 市況</a>
+    <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.20.4</span></h1>
+    <nav class="header-nav" aria-label="市況頁">
+      <a class="nav-btn" href="./market-en.html" title="English raw singles market pulse">EN 市況</a>
+      <span class="nav-btn soon" title="即將推出">日語熱度</span>
+    </nav>
     <p><img class="mon mon-sm" src="./img/accents/eevee.svg" alt="" width="20" height="20" aria-hidden="true" />給朋友看的簡易 EV 小算盤 · 無登入、非即時行情</p>
   </div>
 </header>
@@ -1260,8 +1302,12 @@
     </div>
 
     <div id="advancedHost">
-    <details class="advanced" id="advancedPanel" open>
-      <summary>進階假設</summary>
+    <details class="advanced" id="advancedPanel">
+      <summary>
+        進階假設
+        <span class="open-hint closed">點擊展開</span>
+        <span class="open-hint opened">點擊收起</span>
+      </summary>
       <div class="adv-body">
         <div class="slider-row">
           <label for="gemDisc">Gem 折扣（有效 gem = 公佈 gem × (1−折扣)；預設 20%）</label>
@@ -1294,8 +1340,14 @@
     </details>
     </div>
 
-    <div class="card method-card" id="method">
-      <h2 class="sec-h"><img class="mon" src="./img/accents/eevee.svg" alt="" width="28" height="28" aria-hidden="true" />方法論 · 四個 % 與資料來源</h2>
+    <details class="advanced method-card" id="method">
+      <summary>
+        <img class="mon" src="./img/accents/eevee.svg" alt="" width="28" height="28" aria-hidden="true" />
+        方法論 · 四個 % 與資料來源
+        <span class="open-hint closed">點擊展開</span>
+        <span class="open-hint opened">點擊收起</span>
+      </summary>
+      <div class="adv-body">
       <ul class="tiny">
         <li><b>100% Grade A（買入價）</b>＝ 各稀有度池 Grade A 均價 × 抽出率加總 ÷ 落地盒價（<b>無</b>稀有度 haircut）</li>
         <li><b>Grade A（打折）</b>＝ 同上但先套稀有度<strong>折扣 %</strong>（GradeA×(1−disc)）再平均（TOC／主判斷用這個）。預設：MUR／SAR／sup_SAR <b>10%</b>；SR <b>25%</b>；<b>SSR／復刻 S 20%</b>（×0.80）；AR／UR／ACE <b>50%</b>；MA <b>25%</b>；BWR <b>0%</b>。Sticky 為<strong>即時計算</strong>，非凍結 snapshot。</li>
@@ -1313,7 +1365,8 @@
         <li><b>SV8a 抽出率</b>：對齊 Pokegto／社群：SAR 1.0、sup_SAR 0.1、poke_sr 0.2、UR 0.06；<b>Master Ball 鏡（約 50%/盒）與 ACE SPEC</b> 本快照省略（無 SNKR Grade A MB 價，不虛構價格）。SAR 池 equal-within-pool 均價受月亮伊布 ¥46k 拉高。</li>
         <li><b>行情來源</b>：JP 裸卡主源 → <a href="https://snkrdunk.com/" target="_blank" rel="noopener">SNKRDUNK Grade A</a>（開產品頁）；USD 成交對照 → <a href="https://www.pricecharting.com/" target="_blank" rel="noopener">PriceCharting</a> ungraded／PSA9／PSA10；CGC10 同盒價對照亦用 PC；gem 率 → PSA pop（本快照）。落地盒價分母不變（SNKR 3–4 盒單價×1.035＋運費）。</li>
       </ul>
-    </div>
+      </div>
+    </details>
 
     <div class="card" id="chaseCard">
       <h2 class="sec-h"><img class="mon mon-starters" src="./img/accents/starters.svg" alt="" width="72" height="24" aria-hidden="true" />Chase card 一覽</h2>
@@ -1326,13 +1379,13 @@
 <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="放大圖">
   <img id="lightboxImg" alt="" />
 </div>
-<footer><img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" /><span>日盒 EV 小算盤 <b>v1.20.0</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期 · <a href="./index.html">首頁</a> · <a href="./market-en.html">EN 市況</a></span></footer>
+<footer><img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" /><span>日盒 EV 小算盤 <b>v1.20.4</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期 · <a href="./index.html">首頁</a> · <a href="./market-en.html">EN 市況</a> · 日語熱度（即將推出）</span></footer>
 
-<script src="./data.js?v=1.20.0"></script>
+<script src="./data.js?v=1.20.4"></script>
 <script>
 (async function () {
   // Keep in sync with the data.js?v= query above.
-  const VERSION = '1.20.0';
+  const VERSION = '1.20.4';
   async function loadJson(rel) {
     const url = new URL(rel, document.baseURI || window.location.href);
     url.searchParams.set('v', VERSION);
@@ -2220,7 +2273,6 @@
     col.classList.toggle('is-open', want);
     btn.setAttribute('aria-expanded', want ? 'true' : 'false');
     if (toc) toc.hidden = mqMobile.matches ? !want : false;
-    if (want) setStickyOpen(false);
   }
   function setStickyOpen(open) {
     const ev = $('stickyEv');
@@ -2231,9 +2283,6 @@
       more.setAttribute('aria-expanded', open ? 'true' : 'false');
       more.textContent = open ? '收起' : '設定';
     }
-    if (open) setPickerOpen(false);
-    const adv = $('advancedPanel');
-    if (adv && mqMobile.matches) adv.open = true;
   }
   function placeChrome() {
     const barRight = document.querySelector('#stickyBar .sticky-head-right');
@@ -2251,8 +2300,7 @@
         drawer.insertBefore(actions, row || null);
       }
       if (adv && adv.parentNode !== drawer) drawer.appendChild(adv);
-      if (adv) adv.open = true;
-      if (!$('stickyEv').classList.contains('is-open')) setStickyOpen(false);
+      setStickyOpen(true);
       setPickerOpen($('tocCol') && $('tocCol').classList.contains('is-open'));
     } else {
       if (barRight && toggle && price.parentNode !== barRight) barRight.insertBefore(price, toggle);
@@ -2262,7 +2310,6 @@
         else barRight.appendChild(actions);
       }
       if (adv && host && adv.parentNode !== host) host.appendChild(adv);
-      if (adv) adv.open = true;
       setStickyOpen(false);
       setPickerOpen(false);
     }
@@ -2293,6 +2340,16 @@
   updateSetUrl(currentSet);
   placeChrome();
   render();
+  const methodPanel = document.getElementById('method');
+  function openMethodIfHash() {
+    if (!methodPanel || location.hash !== '#method') return;
+    methodPanel.open = true;
+    requestAnimationFrame(() => {
+      methodPanel.scrollIntoView({ block: 'start', behavior: 'auto' });
+    });
+  }
+  openMethodIfHash();
+  window.addEventListener('hashchange', openMethodIfHash);
 })();
 </script>
 </body>
