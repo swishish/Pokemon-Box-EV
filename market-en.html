@@ -69,6 +69,13 @@
     flex-shrink: 0;
   }
   .nav-btn:hover { border-color: var(--accent); }
+  .header-nav {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
   .wrap {
     max-width: 1100px;
     margin: 0 auto;
@@ -174,6 +181,7 @@
   .method-card ul { margin: 0; padding-left: 1.1rem; color: var(--muted); }
   .method-card li { margin: 0.35em 0; }
   footer { text-align: center; color: var(--muted); font-size: .75rem; padding: 8px 16px 24px; }
+  footer a { color: var(--accent); font-weight: 700; }
   .err { color: var(--bad); padding: 20px; line-height: 1.55; }
   .err .err-hint { color: var(--text); font-size: .92rem; margin-top: 8px; }
   .table-wrap {
@@ -219,7 +227,10 @@
       <h1>EN 裸卡市況 <span class="pill">S&amp;P-style · v1.19.0</span></h1>
       <p>英文 raw singles 市場溫度 · TCGPlayer Market via TCGCSV · 靜態快照</p>
     </div>
-    <a class="nav-btn" href="./index.html">← 日盒 EV</a>
+    <nav class="header-nav" aria-label="站內導覽">
+      <a class="nav-btn" href="./index.html">首頁</a>
+      <a class="nav-btn" href="./calc.html">開盒 EV</a>
+    </nav>
   </div>
 </header>
 
@@ -311,7 +322,7 @@
     <p>數字為第三方市場估計，可能延遲或不準；僅供參考與娛樂。Pokémon 與相關名稱為其權利人商標。本頁為獨立粉絲工具，與 Nintendo／The Pokémon Company／TCGPlayer／S&amp;P Global 無關。</p>
   </div>
 </main>
-<footer>日盒 EV 小算盤 <b>v1.19.0</b> · EN market pulse · Snapshot 靜態資料 · 非正式投資建議</footer>
+<footer>日盒 EV 小算盤 · EN market pulse · Snapshot 靜態資料 · 非正式投資建議 · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a></footer>
 
 <script src="./data/market-en/latest.js?v=1.19.0"></script>
 <script>

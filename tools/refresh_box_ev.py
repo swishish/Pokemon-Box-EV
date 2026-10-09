@@ -2,7 +2,7 @@
 """Refresh JP box EV snapshot: set-specific pity rates + SR/AR min(PC, SNKR).
 
 Reads data.json + PriceCharting console HTML in /tmp/pc-sets (or --pc-dir).
-Writes data.json, data.js, and replaces window.EV_DATA in index.html.
+Writes data.json and data.js (loaded by calc.html).
 Does not invent prices or rates; missing PC keeps SNKR (and vice versa).
 """
 from __future__ import annotations
@@ -473,7 +473,7 @@ def main():
     )
 
     (root / "data.json").write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n")
-    # External data.js only — never inline into index.html <script>
+    # External data.js only — never inline into calc.html <script>
     # (a missing </script> or literal </script> in JSON breaks EV_DATA assign).
     js_json = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
     (root / "data.js").write_text("window.EV_DATA = " + js_json + ";\n")
