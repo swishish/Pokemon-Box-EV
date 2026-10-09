@@ -1,0 +1,49 @@
+name: Update EN market pulse
+
+# Rebuilds the English raw-singles index from TCGCSV daily Pokemon dumps
+# and commits data/market-en/*. GitHub Pages stays static — the Action is
+# the only network fetch. No TCGPlayer API key.
+#
+# TCGCSV refreshes once per day (~20:05 UTC). The job checks last-updated.txt
+# first and exits if the stamp matches the committed snapshot.
+on:
+  schedule:
+    - cron: "23 21 * * *"   # 21:23 UTC — after the usual TCGCSV dump
+  workflow_dispatch: {}
+
+concurrency:
+  group: update-market-en
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Self-test index math
+        run: python3 tools/refresh_market_en.py --self-test
+
+      - name: Fetch TCGCSV dumps and rebuild pulse
+        run: python3 tools/refresh_market_en.py -v
+
+      - name: Commit updated data
+        run: |
+          git config user.name "box-ev-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/market-en/latest.json data/market-en/latest.js data/market-en/history.json
+          if git diff --cached --quiet; then
+            echo "No data changes to commit."
+          else
+            git commit -m "chore: update EN market pulse ($(date -u +%Y-%m-%d))"
+            git push
+          fi

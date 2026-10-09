@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>日盒 EV 小算盤 v1.18.5 · JP Mega Sealed</title>
+<title>日盒 EV 小算盤 v1.19.0 · JP Mega Sealed</title>
 <style>
   :root {
     --bg: #f6f7f9;
@@ -44,8 +44,32 @@
     border-bottom: 1px solid var(--line);
     padding: 10px 16px 8px;
   }
+  .header-inner {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
   header h1 { margin: 0; font-size: 1.05rem; font-weight: 700; }
   header p { margin: 2px 0 0; color: var(--muted); font-size: .78rem; }
+  .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid #bfd0f5;
+    background: #eef3ff;
+    color: var(--accent);
+    font: inherit;
+    font-size: .75rem;
+    font-weight: 700;
+    padding: 7px 12px;
+    border-radius: 999px;
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .nav-btn:hover { border-color: var(--accent); }
 
   .layout {
     display: grid;
@@ -581,6 +605,8 @@
   .adv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .tiny { font-size: .75rem; color: var(--muted); }
   footer { text-align: center; color: var(--muted); font-size: .75rem; padding: 8px 16px 24px; }
+  footer a { color: var(--accent); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
   .pill {
     display: inline-block; font-size: .7rem; padding: 2px 7px;
     border-radius: 999px; background: #eef2f6; color: var(--muted); margin-left: 4px;
@@ -604,6 +630,8 @@
     .layout { grid-template-columns: minmax(0, 1fr); }
     header { padding: 8px 12px 6px; }
     header h1, header p { overflow-wrap: anywhere; }
+    .header-inner { align-items: center; gap: 8px; }
+    .nav-btn { font-size: .7rem; padding: 6px 10px; }
     main {
       padding: 10px 12px 48px;
       min-width: 0;
@@ -866,8 +894,13 @@
 </head>
 <body>
 <header>
-  <h1>日盒開盒值不值？ <span class="pill" style="font-size:.72rem;vertical-align:middle">v1.18.5</span></h1>
-  <p>給朋友看的簡易 EV 小算盤 · 無登入、非即時行情 · <b>v1.18.5</b></p>
+  <div class="header-inner">
+    <div>
+      <h1>日盒開盒值不值？ <span class="pill" style="font-size:.72rem;vertical-align:middle">v1.19.0</span></h1>
+      <p>給朋友看的簡易 EV 小算盤 · 無登入、非即時行情 · <b>v1.19.0</b></p>
+    </div>
+    <a class="nav-btn" href="./market-en.html" title="English raw singles market pulse">EN 市況</a>
+  </div>
 </header>
 
 <div class="layout" id="app">
@@ -1004,13 +1037,13 @@
 <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="放大圖">
   <img id="lightboxImg" alt="" />
 </div>
-<footer>日盒 EV 小算盤 <b>v1.18.5</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期</footer>
+<footer>日盒 EV 小算盤 <b>v1.19.0</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期 · <a href="./market-en.html">EN 市況</a></footer>
 
-<script src="./data.js?v=1.18.5"></script>
+<script src="./data.js?v=1.19.0"></script>
 <script>
 (async function () {
   // Keep in sync with the data.js?v= query above.
-  const VERSION = '1.18.5';
+  const VERSION = '1.19.0';
   async function loadJson(rel) {
     const url = new URL(rel, document.baseURI || window.location.href);
     url.searchParams.set('v', VERSION);

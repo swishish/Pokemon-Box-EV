@@ -1,6 +1,6 @@
 # Pokemon Box EV
 
-日盒 EV 小算盤（朋友向）· **v1.18.5**
+日盒 EV 小算盤（朋友向）· **v1.19.0**
 
 給「不太懂金融／AI」的買卡朋友看的單頁工具：選系列 → 看 **四個預期回報 %**（同一分母）→ 有膜／無膜切換 → 看主力 chase 卡與「買單卡 vs 開盒」粗略提示。
 
@@ -10,7 +10,43 @@
 
 開啟：**https://swishish.github.io/Pokemon-Box-EV/**
 
+英文裸卡市況（S&P-style pulse）：**https://swishish.github.io/Pokemon-Box-EV/market-en.html**
+
 公開 repo 的 GitHub Pages **免費**，無需付費。
+
+## EN market pulse（Phase 1）
+
+獨立頁 `market-en.html`：英文 **raw singles** 市場溫度（價格加權 Top 500，基準 1,000），資料是靜態 JSON，不經瀏覽器打 TCGPlayer。
+
+| 顯示 | 說明 |
+| --- | --- |
+| Index + % | 相對**上一份已提交快照**。第一次建檔只有指數 1,000，沒有每日 % |
+| Breadth | 籃子裡上漲 vs 下跌張數（有歷史才有） |
+| Top gainers / losers | 同一份快照對比 |
+| Disclaimer | TCGPlayer Market via TCGCSV；僅 EN raw；非 JP／SNKRDUNK；非正式投資建議 |
+
+### 資料怎麼更新
+
+來源是免費 [TCGCSV](https://tcgcsv.com) 每日 Pokemon category dump（category 3＝英文），**不需要 TCGPlayer API key**，也不爬 SNKRDUNK／PriceCharting HTML。
+
+1. GitHub Action **Update EN market pulse**（`.github/workflows/update-market-en.yml`）
+   - **排程**：每天 21:23 UTC（TCGCSV 約 20:05 UTC 刷新之後）
+   - **手動**：Actions 頁按 **Run workflow**
+2. 腳本 `python3 tools/refresh_market_en.py` 先讀 `https://tcgcsv.com/last-updated.txt`；stamp 沒變就結束（零流量）。
+3. 有新 dump 才抓 `Groups.csv` + 各系列 `ProductsAndPrices.csv`，寫入：
+   - `data/market-en/latest.json`（指數、廣度、漲跌榜、500 張成分——給下一次對比用）
+   - `data/market-en/history.json`
+   - `data/market-en/latest.js`（`file://` / 快取備援，同 `data.js` 慣例）
+4. Action 把變更 commit 回預設分支；GitHub Pages 仍是純靜態。
+
+本機重跑：
+
+```bash
+python3 tools/refresh_market_en.py --self-test
+python3 tools/refresh_market_en.py -v --force
+```
+
+Phase 1 **不做**日版熱度頁、eBay、PriceCharting 付費 API。
 
 ## 本機打開
 
@@ -28,6 +64,7 @@ python3 -m http.server 8765
 
 ## Changelog（摘要）
 
+- **v1.19.0**：新增英文裸卡市況頁（`market-en.html`）＋首頁「EN 市況」連結；TCGCSV 靜態 JSON 由 GitHub Action 每日更新
 - **v1.18.5**：修手機橫向溢出；系列改為可收起下拉（官方發行序）；桌面側欄 TOC 不變
 - **v1.18.4**：手機頂欄收成一列（系列名＋有膜／無膜＋HC%）；盒價與進階假設收入「設定」；稀有度折扣直向排列；系列 TOC 維持橫向滑動
 - **v1.18.3**：SSR 與復刻 S 預設折扣 20%（×0.80）；AR／UR／ACE 仍 50%

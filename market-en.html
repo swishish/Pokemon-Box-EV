@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<title>EN 裸卡市況 · Box EV v1.19.0</title>
+<style>
+  :root {
+    --bg: #f6f7f9;
+    --card: #fff;
+    --text: #1a1d21;
+    --muted: #5c6570;
+    --line: #e4e7ec;
+    --good: #1b7f4a;
+    --good-bg: #e8f7ef;
+    --ok: #9a6b00;
+    --ok-bg: #fff6e0;
+    --bad: #b42318;
+    --bad-bg: #fdecea;
+    --accent: #2563eb;
+    --radius: 12px;
+    --shadow: 0 1px 2px rgba(16,24,40,.06), 0 1px 3px rgba(16,24,40,.08);
+  }
+  * { box-sizing: border-box; }
+  html { overflow-x: clip; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    font-size: 15px;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
+  }
+  header {
+    background: var(--card);
+    border-bottom: 1px solid var(--line);
+    padding: 10px 16px 8px;
+  }
+  .header-inner {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  header h1 { margin: 0; font-size: 1.05rem; font-weight: 700; }
+  header p { margin: 2px 0 0; color: var(--muted); font-size: .78rem; }
+  .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid #bfd0f5;
+    background: #eef3ff;
+    color: var(--accent);
+    font: inherit;
+    font-size: .75rem;
+    font-weight: 700;
+    padding: 7px 12px;
+    border-radius: 999px;
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .nav-btn:hover { border-color: var(--accent); }
+  .wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 12px 14px 48px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 14px 16px;
+    margin-bottom: 12px;
+  }
+  h2 { margin: 0 0 8px; font-size: .95rem; }
+  .pill {
+    display: inline-block; font-size: .7rem; padding: 2px 7px;
+    border-radius: 999px; background: #eef2f6; color: var(--muted); margin-left: 4px;
+  }
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: 10px;
+  }
+  .index-level {
+    font-size: 2.4rem;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+  .index-chg {
+    font-size: 1.15rem;
+    font-weight: 750;
+    font-variant-numeric: tabular-nums;
+    margin-top: 4px;
+  }
+  .index-chg.good { color: var(--good); }
+  .index-chg.bad { color: var(--bad); }
+  .index-chg.muted { color: var(--muted); }
+  .kicker { font-size: .72rem; color: var(--muted); font-weight: 650; }
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .metric {
+    background: #fafbfc;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 8px 10px;
+  }
+  .metric .k { font-size: .72rem; color: var(--muted); }
+  .metric .v { font-size: 1.05rem; font-weight: 650; font-variant-numeric: tabular-nums; }
+  .metric .v.good { color: var(--good); }
+  .metric .v.bad { color: var(--bad); }
+  .breadth {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .bar {
+    display: flex;
+    height: 10px;
+    border-radius: 999px;
+    overflow: hidden;
+    background: #eef2f6;
+  }
+  .bar .adv { background: var(--good); }
+  .bar .unch { background: #c5cbd3; }
+  .bar .dec { background: var(--bad); }
+  .movers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  table { width: 100%; border-collapse: collapse; font-size: .86rem; }
+  th, td { text-align: left; padding: 7px 6px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+  th { color: var(--muted); font-weight: 600; font-size: .75rem; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .card-thumb {
+    width: 32px; height: 44px;
+    object-fit: contain;
+    border-radius: 4px;
+    background: #f0f2f5;
+    border: 1px solid var(--line);
+    display: block;
+  }
+  .chg.good { color: var(--good); font-weight: 700; }
+  .chg.bad { color: var(--bad); font-weight: 700; }
+  .tiny { font-size: .75rem; color: var(--muted); }
+  .hint {
+    font-size: .86rem; color: var(--muted);
+    background: #fafbfc; border-radius: 8px; padding: 10px 12px; margin-top: 10px;
+  }
+  .disclaimer {
+    font-size: .8rem; color: var(--muted);
+    background: #fafbfc; border: 1px dashed #c9d0da; border-radius: 8px; padding: 10px 12px;
+  }
+  .disclaimer p { margin: 0; }
+  .disclaimer p + p { margin-top: 0.55em; }
+  .method-card a { color: var(--accent); }
+  .method-card ul { margin: 0; padding-left: 1.1rem; color: var(--muted); }
+  .method-card li { margin: 0.35em 0; }
+  footer { text-align: center; color: var(--muted); font-size: .75rem; padding: 8px 16px 24px; }
+  .err { color: var(--bad); padding: 20px; line-height: 1.55; }
+  .err .err-hint { color: var(--text); font-size: .92rem; margin-top: 8px; }
+  .table-wrap {
+    max-width: 100%;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+  .spark {
+    width: 100%;
+    height: 56px;
+    display: block;
+  }
+  .data-freshness {
+    margin: 0 0 8px;
+    padding: 0;
+    font-size: .72rem;
+    line-height: 1.4;
+    color: var(--muted);
+  }
+  .data-freshness.stale {
+    margin: 0 0 8px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: #e8eaed;
+    color: #3c4043;
+    border: 1px solid #dadce0;
+    font-size: .78rem;
+    font-weight: 600;
+  }
+  @media (max-width: 720px) {
+    .hero, .movers { grid-template-columns: 1fr; }
+    header { padding: 8px 12px 6px; }
+    .wrap { padding: 10px 12px 48px; }
+    .index-level { font-size: 2rem; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <div>
+      <h1>EN 裸卡市況 <span class="pill">S&amp;P-style · v1.19.0</span></h1>
+      <p>英文 raw singles 市場溫度 · TCGPlayer Market via TCGCSV · 靜態快照</p>
+    </div>
+    <a class="nav-btn" href="./index.html">← 日盒 EV</a>
+  </div>
+</header>
+
+<main class="wrap" id="app">
+  <div id="dataFreshness" class="data-freshness" role="status" aria-live="polite"></div>
+
+  <div class="hero">
+    <div class="card">
+      <div class="kicker">Box-EV EN Pulse · 價格加權 Top 500</div>
+      <div class="index-level" id="indexLevel">—</div>
+      <div class="index-chg muted" id="indexChg">載入中…</div>
+      <svg class="spark" id="spark" viewBox="0 0 300 56" hidden aria-hidden="true"></svg>
+      <p class="tiny" id="indexNote" style="margin:8px 0 0"></p>
+    </div>
+    <div class="card">
+      <h2>市場廣度 Breadth</h2>
+      <div class="metrics" id="breadthMetrics"></div>
+      <div class="breadth" id="breadthBar"></div>
+      <p class="tiny" id="breadthNote" style="margin:8px 0 0"></p>
+    </div>
+  </div>
+
+  <div class="movers">
+    <div class="card">
+      <h2>漲幅榜 Top gainers</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th>卡</th>
+              <th class="num">USD</th>
+              <th class="num">%</th>
+            </tr>
+          </thead>
+          <tbody id="gainerBody"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <h2>跌幅榜 Top losers</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th>卡</th>
+              <th class="num">USD</th>
+              <th class="num">%</th>
+            </tr>
+          </thead>
+          <tbody id="loserBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>最重成分 Top 10 by market price</h2>
+    <p class="tiny" style="margin:0 0 6px">價格加權籃子裡市值最大的英文裸卡（非漲跌榜）。</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th></th>
+            <th>卡</th>
+            <th>系列</th>
+            <th class="num">USD</th>
+          </tr>
+        </thead>
+        <tbody id="topBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card method-card">
+    <h2>這是什麼</h2>
+    <ul class="tiny">
+      <li><b>指數</b>：英文 TCGPlayer 裸卡（raw / ungraded）市價最高的 500 張，價格加權；成分輪替時用 divisor 保持連續（S&amp;P 500 同款手法）。首次快照基準＝<b>1,000</b>。</li>
+      <li><b>每日漲跌</b>：相對上一份已提交的快照。若這是第一份快照，指數仍顯示 1,000，% 與廣度會在下一次 GitHub Action 更新後出現。</li>
+      <li><b>代表價</b>：同一張卡取一般印刷（Holofoil / Reverse 等）裡最高的 TCGPlayer <b>Market Price</b>；1st Edition 預設不計入（TCGPlayer 上成交太薄）。</li>
+      <li><b>不含</b>：密封盒、Jumbo／oversized、JP promo（卡號 <code>-P</code>）、日版 SNKRDUNK、PriceCharting。</li>
+    </ul>
+  </div>
+
+  <div class="disclaimer" id="disclaimer">
+    <p><b>資料來源：</b>TCGPlayer Market Price，經免費 <a href="https://tcgcsv.com" target="_blank" rel="noopener">TCGCSV</a> 每日 Pokemon category dump。僅 <b>英文裸卡</b>（EN raw singles）。<b>不是</b>日版／SNKRDUNK，也<b>不是</b>投資建議。</p>
+    <p>數字為第三方市場估計，可能延遲或不準；僅供參考與娛樂。Pokémon 與相關名稱為其權利人商標。本頁為獨立粉絲工具，與 Nintendo／The Pokémon Company／TCGPlayer／S&amp;P Global 無關。</p>
+  </div>
+</main>
+<footer>日盒 EV 小算盤 <b>v1.19.0</b> · EN market pulse · Snapshot 靜態資料 · 非正式投資建議</footer>
+
+<script src="./data/market-en/latest.js?v=1.19.0"></script>
+<script>
+(async function () {
+  const VERSION = '1.19.0';
+  const $ = (id) => document.getElementById(id);
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, (ch) => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    })[ch]);
+  }
+  async function loadJson(rel) {
+    const url = new URL(rel, document.baseURI || window.location.href);
+    url.searchParams.set('v', VERSION);
+    try {
+      const res = await fetch(url.href, { cache: 'no-store' });
+      if (!res.ok) {
+        return { ok: false, status: res.status, url: url.href, data: null, err: 'HTTP ' + res.status };
+      }
+      return { ok: true, status: res.status, url: url.href, data: await res.json(), err: null };
+    } catch (e) {
+      return { ok: false, status: 0, url: url.href, data: null, err: (e && e.message) ? e.message : String(e) };
+    }
+  }
+  function showLoadError(dataRes) {
+    const app = $('app');
+    if (!app) return;
+    const status = dataRes
+      ? (dataRes.status ? ('HTTP ' + dataRes.status) : (dataRes.err || '沒有回應'))
+      : '沒有回應';
+    const where = dataRes && dataRes.url ? dataRes.url : ('./data/market-en/latest.json?v=' + VERSION);
+    app.innerHTML =
+      '<p class="err"><b>載入失敗：找不到市況資料。</b>' +
+      '<span class="err-hint">抓取 ' + where.replace(/&/g, '&amp;').replace(/</g, '&lt;') +
+      ' → ' + String(status).replace(/</g, '&lt;') + '。</span>' +
+      '<span class="err-hint">請強制重新整理，或確認 GitHub Action「Update EN market pulse」已跑過。</span></p>';
+  }
+  const dataRes = await loadJson('./data/market-en/latest.json');
+  const histRes = await loadJson('./data/market-en/history.json');
+  const DATA = (dataRes && dataRes.data) || window.MARKET_EN;
+  const HIST = (histRes && histRes.data) || { points: [] };
+  if (!DATA || DATA.index == null) {
+    showLoadError(dataRes);
+    return;
+  }
+
+  function parseAsOfDate(raw) {
+    if (raw == null || raw === '') return null;
+    const m = String(raw).trim().match(/^(\d{4})-(\d{2})-(\d{2})/);
+    if (!m) return null;
+    const y = Number(m[1]), mo = Number(m[2]) - 1, d = Number(m[3]);
+    const dt = new Date(y, mo, d);
+    if (dt.getFullYear() !== y || dt.getMonth() !== mo || dt.getDate() !== d) return null;
+    return dt;
+  }
+  function ymdLocal(dt) {
+    return dt.getFullYear() + '-' + String(dt.getMonth() + 1).padStart(2, '0') + '-' + String(dt.getDate()).padStart(2, '0');
+  }
+  function ageDays(asOfDate, today) {
+    const a = Date.UTC(asOfDate.getFullYear(), asOfDate.getMonth(), asOfDate.getDate());
+    const b = Date.UTC(today.getFullYear(), today.getMonth(), today.getDate());
+    return Math.floor((b - a) / 86400000);
+  }
+  function renderFreshness() {
+    const el = $('dataFreshness');
+    const asOfDate = parseAsOfDate(DATA.asOfDate);
+    if (!asOfDate) {
+      el.className = 'data-freshness stale';
+      el.textContent = '數字可能過期（資料日期無法確認）— 下單前請核對現價';
+      return;
+    }
+    const age = ageDays(asOfDate, new Date());
+    const ymd = ymdLocal(asOfDate);
+    if (age > 7) {
+      el.className = 'data-freshness stale';
+      el.textContent = '數字可能過期（TCGCSV 快照：' + ymd + ' · 已過 ' + age + ' 日）— 下單前請核對現價';
+    } else {
+      el.className = 'data-freshness';
+      el.textContent = 'TCGCSV 快照 ' + ymd + (DATA.sourceStamp ? ' · ' + DATA.sourceStamp : '');
+    }
+  }
+  renderFreshness();
+
+  function fmtUsd(n) {
+    if (n == null || Number.isNaN(n)) return '—';
+    return '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+  function fmtPct(n, signed) {
+    if (n == null || Number.isNaN(n)) return '—';
+    const s = (signed && n > 0 ? '+' : '') + n.toFixed(2) + '%';
+    return s;
+  }
+  function chgClass(n) {
+    if (n == null || Number.isNaN(n) || n === 0) return 'muted';
+    return n > 0 ? 'good' : 'bad';
+  }
+
+  $('indexLevel').textContent = Number(DATA.index).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const chgEl = $('indexChg');
+  if (DATA.changePct == null) {
+    chgEl.className = 'index-chg muted';
+    chgEl.textContent = DATA.changeLabel || '尚無前一日快照';
+  } else {
+    chgEl.className = 'index-chg ' + chgClass(DATA.changePct);
+    const abs = DATA.change == null ? '' : (' · ' + (DATA.change > 0 ? '+' : '') + DATA.change.toFixed(2));
+    chgEl.textContent = fmtPct(DATA.changePct, true) + abs + '（vs 上一快照）';
+  }
+  $('indexNote').textContent =
+    '籃子 ' + (DATA.constituentCount || 500) + ' 張 · 合計市值 ' + fmtUsd(DATA.totalValue) +
+    ' · 基準 ' + (DATA.baseValue || 1000);
+
+  const points = (HIST && HIST.points) || [];
+  if (points.length >= 2) {
+    const spark = $('spark');
+    const vals = points.map((p) => Number(p.index)).filter((n) => !Number.isNaN(n));
+    const min = Math.min.apply(null, vals);
+    const max = Math.max.apply(null, vals);
+    const span = (max - min) || 1;
+    const w = 300, h = 56, pad = 4;
+    const coords = vals.map((v, i) => {
+      const x = pad + (i / (vals.length - 1)) * (w - pad * 2);
+      const y = pad + (1 - (v - min) / span) * (h - pad * 2);
+      return x.toFixed(1) + ',' + y.toFixed(1);
+    });
+    spark.innerHTML = '<polyline fill="none" stroke="#2563eb" stroke-width="2" points="' + coords.join(' ') + '" />';
+    spark.removeAttribute('hidden');
+  }
+
+  const b = DATA.breadth || {};
+  const tot = (b.advancing || 0) + (b.declining || 0) + (b.unchanged || 0);
+  $('breadthMetrics').innerHTML =
+    '<div class="metric"><div class="k">上漲 Advancers</div><div class="v good">' + (b.available ? b.advancing : '—') + '</div></div>' +
+    '<div class="metric"><div class="k">下跌 Decliners</div><div class="v bad">' + (b.available ? b.declining : '—') + '</div></div>';
+  if (b.available && tot > 0) {
+    $('breadthBar').innerHTML =
+      '<div class="bar">' +
+      '<div class="adv" style="width:' + ((b.advancing / tot) * 100).toFixed(1) + '%"></div>' +
+      '<div class="unch" style="width:' + ((b.unchanged / tot) * 100).toFixed(1) + '%"></div>' +
+      '<div class="dec" style="width:' + ((b.declining / tot) * 100).toFixed(1) + '%"></div>' +
+      '</div>';
+    $('breadthNote').textContent = '有確認漲跌的成分：上漲 ' + b.advancing + ' · 持平 ' + b.unchanged + ' · 下跌 ' + b.declining;
+  } else {
+    $('breadthNote').textContent = '首次快照沒有廣度數字；下一份快照才會出現 advancers / decliners。';
+  }
+
+  function emptyRow(msg, cols) {
+    return '<tr><td colspan="' + cols + '" class="tiny">' + escapeHtml(msg) + '</td></tr>';
+  }
+  function moverRows(list, emptyMsg) {
+    if (!list || !list.length) return emptyRow(emptyMsg, 4);
+    return list.map((c) => {
+      const cls = chgClass(c.changePct);
+      const img = c.image
+        ? '<img class="card-thumb" src="' + escapeHtml(c.image) + '" alt="" width="32" height="44" loading="lazy" />'
+        : '';
+      return '<tr>' +
+        '<td>' + img + '</td>' +
+        '<td>' + escapeHtml(c.name) + ' <span class="tiny">' + escapeHtml(c.setName || '') + '</span></td>' +
+        '<td class="num">' + fmtUsd(c.price) + '</td>' +
+        '<td class="num chg ' + cls + '">' + fmtPct(c.changePct, true) + '</td>' +
+        '</tr>';
+    }).join('');
+  }
+  $('gainerBody').innerHTML = moverRows(DATA.gainers, '尚無漲幅（需要兩份快照）');
+  $('loserBody').innerHTML = moverRows(DATA.losers, '尚無跌幅（需要兩份快照）');
+
+  const top = DATA.top || [];
+  $('topBody').innerHTML = top.length ? top.map((c) => {
+    const img = c.image
+      ? '<img class="card-thumb" src="' + escapeHtml(c.image) + '" alt="" width="32" height="44" loading="lazy" />'
+      : '';
+    return '<tr>' +
+      '<td>' + (c.rank || '') + '</td>' +
+      '<td>' + img + '</td>' +
+      '<td>' + escapeHtml(c.name) + ' <span class="tiny">#' + escapeHtml(c.number || '') + '</span></td>' +
+      '<td>' + escapeHtml(c.setName || '') + '</td>' +
+      '<td class="num">' + fmtUsd(c.price) + '</td>' +
+      '</tr>';
+  }).join('') : emptyRow('沒有成分資料', 5);
+})();
+</script>
+</body>
+</html>
