@@ -1,6 +1,6 @@
 # Pokemon Box EV
 
-日盒 EV 小算盤（朋友向）· **v1.21.3**
+日盒 EV 小算盤（朋友向）· **v1.21.4**
 
 給「不太懂金融／AI」的買卡朋友看的工具：首頁介紹點樣用 → 開盒算盤選系列 → 看 **四個預期回報 %**（同一分母）→ 有膜／無膜切換 → 看主力 chase 卡與「買單卡 vs 開盒」粗略提示。
 
@@ -69,12 +69,13 @@ python3 -m http.server 8765
 
 ## Chase 公允值（PSA10 回歸）
 
-獨立頁 `chase-fit.html`：Gary 的 **Chase_Fit** 模型散點（預測 PSA10 vs 實際 PSA10）。資料是靜態 JSON（`data/chase-fit/latest.json`），不經瀏覽器打 PriceCharting。
+獨立頁 `chase-fit.html`：Gary 的 **Chase_Fit** 模型散點（預測 PSA10 vs 實際 PSA10）。資料是靜態 JSON（`data/chase-fit/latest.json`），不經瀏覽器打 PriceCharting。圖例標籤可點選篩選散點（可多選；全關＝沒有點，按「顯示全部」還原）。
 
 數字為 2026-10-09 快照，**非正式投資建議**。`as_of` 超過 7 日會顯示灰色「數字過期」。
 
 ## Changelog（摘要）
 
+- **v1.21.4**：Chase 公允值圖例標籤改為可點選篩選（可多選；全關＝沒有點，按「顯示全部」還原）。EV／Chase_Fit 算法不變
 - **v1.21.3**：算盤「回到默認」——一鍵還原 haircut／Gem／Ask／費用／盒價（有膜落地）；進階假設內同頂欄都有。EV 算法不變
 - **v1.21.2**：手機算盤取消四個 %／盒價／進階假設整疊 sticky，跟頁面一齊滾，Chase／方法論可佔過半畫面；桌面仍 sticky。EV 算法不變
 - **v1.21.1**：Chase 公允值詳情加 PriceCharting「睇卡相／價」產品頁連結（117 張皆有）；JP 另有 SNKRDUNK 搜尋、EN 另有 TCGPlayer 搜尋。唔熱鏈第三方卡圖。EV 算法不變
