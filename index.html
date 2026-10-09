@@ -150,7 +150,7 @@
   }
   .toc-col { min-width: 0; }
   .set-picker-toggle { display: none; }
-  .set-picker-idle { display: none; }
+  .mon.set-picker-idle, .set-picker-idle { display: none; }
   .toc {
     position: sticky;
     top: 0;
@@ -927,7 +927,7 @@
       box-shadow: var(--shadow-pressed);
       transform: translate(1px, 1px);
     }
-    .set-picker-idle {
+    .mon.set-picker-idle, .set-picker-idle {
       display: inline-block;
       width: 22px;
       height: 22px;
