@@ -308,6 +308,7 @@
   }
   .chip-check input { accent-color: var(--ink); }
   .chip-check:has(input:checked) { background: var(--good-bg); }
+  .chip-check[hidden] { display: none !important; }
   .count-line {
     margin: 8px 0 0;
     font-size: .75rem;
@@ -476,7 +477,12 @@
       grid-template-columns: minmax(0, 1fr) minmax(280px, 340px);
     }
     .chart-box { height: 480px; }
-    .detail-card { position: sticky; top: 12px; }
+    .detail-card {
+      position: sticky;
+      top: 12px;
+      max-height: calc(100vh - 24px);
+      overflow: auto;
+    }
   }
   @media (max-width: 899px) {
     header { padding: 8px 12px 6px; }
@@ -814,10 +820,10 @@
     }
     empty.hidden = true;
 
-    const W = 640, H = 480;
-    const m = { l: 58, r: 14, t: 14, b: 44 };
-    const iw = W - m.l - m.r, ih = H - m.t - m.b;
     const resid = state.view === 'resid';
+    const W = 640, H = 480;
+    const m = { l: resid ? 72 : 58, r: 14, t: 14, b: 44 };
+    const iw = W - m.l - m.r, ih = H - m.t - m.b;
 
     let xs = cards.map((c) => c.pred_usd);
     let ys = resid ? cards.map((c) => c.residual_pct) : cards.map((c) => c.psa10_usd);
@@ -900,8 +906,10 @@
       );
       const root = doc.documentElement;
       if (root.querySelector('parsererror')) throw new Error('svg parse');
-      svg.innerHTML = '';
-      while (root.firstChild) svg.appendChild(document.importNode(root.firstChild, true));
+      svg.replaceChildren();
+      Array.from(root.childNodes).forEach((n) => {
+        svg.appendChild(document.importNode(n, true));
+      });
     } catch (e) {
       svg.innerHTML = html;
     }
