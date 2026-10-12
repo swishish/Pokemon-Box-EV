@@ -1,0 +1,756 @@
+{
+  "version": 1,
+  "generated": "2026-10-12T10:38:03.879683+00:00",
+  "source": "TCGCSV category 3 ProductsAndPrices (groups 604 + 1663)",
+  "rule": "Fixed chase baskets: Base Set EN raw singles, Holo Rare + Rare only (cheatsheet #1–102 where IDs exist). Split by printing. Sealed / jumbo / JP / error variants excluded. Not mid-era (Jungle/Fossil/Rocket).",
+  "sizeNote": "Practical holo+rare-heavy start (~31 IDs). Commons / uncommons / Energy omitted so breadth is not dominated by $1 cards. Full 102 can be added later without changing index math (divisor).",
+  "backfill": "Deferred. Daily job appends one snapshot per index. Do not wire TickerMint or TCGCSV archive for these indexes in v1.",
+  "gaps": [
+    {
+      "number": "008/102",
+      "name": "Machamp",
+      "reason": "No numbered TCGCSV product in Base Set (group 604) or Base Set (Shadowless) (group 1663). Classic 1st Edition-only holo; omitted until a product ID exists."
+    },
+    {
+      "id": "657516",
+      "number": "004/102",
+      "name": "Charizard (Black Dot Error)",
+      "reason": "variant / error / jumbo — excluded from baskets"
+    },
+    {
+      "id": "147229",
+      "number": "058/102",
+      "name": "Pikachu (Red Cheeks)",
+      "reason": "variant / error / jumbo — excluded from baskets"
+    }
+  ],
+  "indexes": {
+    "base-1st": {
+      "id": "base-1st",
+      "name": "Base 1st Edition",
+      "nameZh": "Base 第一版",
+      "printing": "1st Edition",
+      "groupId": "1663",
+      "groupName": "Base Set (Shadowless)",
+      "abbreviation": "BSS",
+      "subtypeNeedles": [
+        "1st edition"
+      ],
+      "subtypeMode": "include",
+      "subtypeNote": "TCGPlayer stores 1st Edition as subtypes on Base Set (Shadowless) products (1st Edition / 1st Edition Holofoil). There is no separate 1st Edition group in TCGCSV.",
+      "universe": "English Base Set 1st Edition raw / ungraded (TCGPlayer Market, NM)",
+      "constituentCount": 31,
+      "unpricedAtBasketBuild": [
+        {
+          "id": "106997",
+          "number": "002/102",
+          "name": "Blastoise",
+          "rarity": "Holo Rare"
+        },
+        {
+          "id": "106999",
+          "number": "004/102",
+          "name": "Charizard",
+          "rarity": "Holo Rare"
+        },
+        {
+          "id": "107005",
+          "number": "010/102",
+          "name": "Mewtwo",
+          "rarity": "Holo Rare"
+        }
+      ],
+      "constituents": [
+        {
+          "id": "106996",
+          "number": "001/102",
+          "name": "Alakazam",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/106996_200w.jpg"
+        },
+        {
+          "id": "106997",
+          "number": "002/102",
+          "name": "Blastoise",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/106997_200w.jpg"
+        },
+        {
+          "id": "106998",
+          "number": "003/102",
+          "name": "Chansey",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/106998_200w.jpg"
+        },
+        {
+          "id": "106999",
+          "number": "004/102",
+          "name": "Charizard",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/106999_200w.jpg"
+        },
+        {
+          "id": "107001",
+          "number": "005/102",
+          "name": "Clefairy",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107001_200w.jpg"
+        },
+        {
+          "id": "107000",
+          "number": "006/102",
+          "name": "Gyarados",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107000_200w.jpg"
+        },
+        {
+          "id": "107002",
+          "number": "007/102",
+          "name": "Hitmonchan",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107002_200w.jpg"
+        },
+        {
+          "id": "107003",
+          "number": "009/102",
+          "name": "Magneton",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107003_200w.jpg"
+        },
+        {
+          "id": "107005",
+          "number": "010/102",
+          "name": "Mewtwo",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107005_200w.jpg"
+        },
+        {
+          "id": "107006",
+          "number": "011/102",
+          "name": "Nidoking",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107006_200w.jpg"
+        },
+        {
+          "id": "107008",
+          "number": "012/102",
+          "name": "Ninetales",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107008_200w.jpg"
+        },
+        {
+          "id": "107007",
+          "number": "013/102",
+          "name": "Poliwrath",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107007_200w.jpg"
+        },
+        {
+          "id": "107009",
+          "number": "014/102",
+          "name": "Raichu",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107009_200w.jpg"
+        },
+        {
+          "id": "107010",
+          "number": "015/102",
+          "name": "Venusaur",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107010_200w.jpg"
+        },
+        {
+          "id": "107011",
+          "number": "016/102",
+          "name": "Zapdos",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107011_200w.jpg"
+        },
+        {
+          "id": "107012",
+          "number": "017/102",
+          "name": "Beedrill",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107012_200w.jpg"
+        },
+        {
+          "id": "107013",
+          "number": "018/102",
+          "name": "Dragonair",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107013_200w.jpg"
+        },
+        {
+          "id": "107014",
+          "number": "019/102",
+          "name": "Dugtrio",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107014_200w.jpg"
+        },
+        {
+          "id": "107015",
+          "number": "020/102",
+          "name": "Electabuzz",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107015_200w.jpg"
+        },
+        {
+          "id": "107016",
+          "number": "021/102",
+          "name": "Electrode",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107016_200w.jpg"
+        },
+        {
+          "id": "107017",
+          "number": "022/102",
+          "name": "Pidgeotto",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107017_200w.jpg"
+        },
+        {
+          "id": "107067",
+          "number": "070/102",
+          "name": "Clefairy Doll",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107067_200w.jpg"
+        },
+        {
+          "id": "107068",
+          "number": "071/102",
+          "name": "Computer Search",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107068_200w.jpg"
+        },
+        {
+          "id": "107069",
+          "number": "072/102",
+          "name": "Devolution Spray",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107069_200w.jpg"
+        },
+        {
+          "id": "107070",
+          "number": "073/102",
+          "name": "Impostor Professor Oak",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107070_200w.jpg"
+        },
+        {
+          "id": "107072",
+          "number": "074/102",
+          "name": "Item Finder",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107072_200w.jpg"
+        },
+        {
+          "id": "107071",
+          "number": "075/102",
+          "name": "Lass",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107071_200w.jpg"
+        },
+        {
+          "id": "107074",
+          "number": "076/102",
+          "name": "Pokemon Breeder",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107074_200w.jpg"
+        },
+        {
+          "id": "107073",
+          "number": "077/102",
+          "name": "Pokemon Trader",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107073_200w.jpg"
+        },
+        {
+          "id": "107075",
+          "number": "078/102",
+          "name": "Scoop Up",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107075_200w.jpg"
+        },
+        {
+          "id": "107076",
+          "number": "079/102",
+          "name": "Super Energy Removal",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107076_200w.jpg"
+        }
+      ]
+    },
+    "base-shadowless": {
+      "id": "base-shadowless",
+      "name": "Base Shadowless",
+      "nameZh": "Base 無陰影",
+      "printing": "Unlimited Shadowless",
+      "groupId": "1663",
+      "groupName": "Base Set (Shadowless)",
+      "abbreviation": "BSS",
+      "subtypeNeedles": [
+        "unlimited"
+      ],
+      "subtypeMode": "include",
+      "subtypeNote": "Unlimited / Unlimited Holofoil subtypes on Base Set (Shadowless) products = no 1st stamp, no right-edge shadow.",
+      "universe": "English Base Set Shadowless (Unlimited) raw / ungraded (TCGPlayer Market, NM)",
+      "constituentCount": 31,
+      "unpricedAtBasketBuild": [],
+      "constituents": [
+        {
+          "id": "106996",
+          "number": "001/102",
+          "name": "Alakazam",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/106996_200w.jpg"
+        },
+        {
+          "id": "106997",
+          "number": "002/102",
+          "name": "Blastoise",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/106997_200w.jpg"
+        },
+        {
+          "id": "106998",
+          "number": "003/102",
+          "name": "Chansey",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/106998_200w.jpg"
+        },
+        {
+          "id": "106999",
+          "number": "004/102",
+          "name": "Charizard",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/106999_200w.jpg"
+        },
+        {
+          "id": "107001",
+          "number": "005/102",
+          "name": "Clefairy",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107001_200w.jpg"
+        },
+        {
+          "id": "107000",
+          "number": "006/102",
+          "name": "Gyarados",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107000_200w.jpg"
+        },
+        {
+          "id": "107002",
+          "number": "007/102",
+          "name": "Hitmonchan",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107002_200w.jpg"
+        },
+        {
+          "id": "107003",
+          "number": "009/102",
+          "name": "Magneton",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107003_200w.jpg"
+        },
+        {
+          "id": "107005",
+          "number": "010/102",
+          "name": "Mewtwo",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107005_200w.jpg"
+        },
+        {
+          "id": "107006",
+          "number": "011/102",
+          "name": "Nidoking",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107006_200w.jpg"
+        },
+        {
+          "id": "107008",
+          "number": "012/102",
+          "name": "Ninetales",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107008_200w.jpg"
+        },
+        {
+          "id": "107007",
+          "number": "013/102",
+          "name": "Poliwrath",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107007_200w.jpg"
+        },
+        {
+          "id": "107009",
+          "number": "014/102",
+          "name": "Raichu",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107009_200w.jpg"
+        },
+        {
+          "id": "107010",
+          "number": "015/102",
+          "name": "Venusaur",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107010_200w.jpg"
+        },
+        {
+          "id": "107011",
+          "number": "016/102",
+          "name": "Zapdos",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107011_200w.jpg"
+        },
+        {
+          "id": "107012",
+          "number": "017/102",
+          "name": "Beedrill",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107012_200w.jpg"
+        },
+        {
+          "id": "107013",
+          "number": "018/102",
+          "name": "Dragonair",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107013_200w.jpg"
+        },
+        {
+          "id": "107014",
+          "number": "019/102",
+          "name": "Dugtrio",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107014_200w.jpg"
+        },
+        {
+          "id": "107015",
+          "number": "020/102",
+          "name": "Electabuzz",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107015_200w.jpg"
+        },
+        {
+          "id": "107016",
+          "number": "021/102",
+          "name": "Electrode",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107016_200w.jpg"
+        },
+        {
+          "id": "107017",
+          "number": "022/102",
+          "name": "Pidgeotto",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107017_200w.jpg"
+        },
+        {
+          "id": "107067",
+          "number": "070/102",
+          "name": "Clefairy Doll",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107067_200w.jpg"
+        },
+        {
+          "id": "107068",
+          "number": "071/102",
+          "name": "Computer Search",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107068_200w.jpg"
+        },
+        {
+          "id": "107069",
+          "number": "072/102",
+          "name": "Devolution Spray",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107069_200w.jpg"
+        },
+        {
+          "id": "107070",
+          "number": "073/102",
+          "name": "Impostor Professor Oak",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107070_200w.jpg"
+        },
+        {
+          "id": "107072",
+          "number": "074/102",
+          "name": "Item Finder",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107072_200w.jpg"
+        },
+        {
+          "id": "107071",
+          "number": "075/102",
+          "name": "Lass",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107071_200w.jpg"
+        },
+        {
+          "id": "107074",
+          "number": "076/102",
+          "name": "Pokemon Breeder",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107074_200w.jpg"
+        },
+        {
+          "id": "107073",
+          "number": "077/102",
+          "name": "Pokemon Trader",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107073_200w.jpg"
+        },
+        {
+          "id": "107075",
+          "number": "078/102",
+          "name": "Scoop Up",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107075_200w.jpg"
+        },
+        {
+          "id": "107076",
+          "number": "079/102",
+          "name": "Super Energy Removal",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107076_200w.jpg"
+        }
+      ]
+    },
+    "base-unlimited": {
+      "id": "base-unlimited",
+      "name": "Base Unlimited",
+      "nameZh": "Base 無限版",
+      "printing": "Unlimited (with shadow)",
+      "groupId": "604",
+      "groupName": "Base Set",
+      "abbreviation": "BS",
+      "subtypeNeedles": [
+        "1st edition"
+      ],
+      "subtypeMode": "exclude",
+      "subtypeNote": "Later Unlimited with right-edge shadow. TCGCSV group 604 uses Holofoil / Normal (not 1st Edition).",
+      "universe": "English Base Set Unlimited (shadowed) raw / ungraded (TCGPlayer Market, NM)",
+      "constituentCount": 31,
+      "unpricedAtBasketBuild": [],
+      "constituents": [
+        {
+          "id": "42346",
+          "number": "001/102",
+          "name": "Alakazam",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42346_200w.jpg"
+        },
+        {
+          "id": "42360",
+          "number": "002/102",
+          "name": "Blastoise",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42360_200w.jpg"
+        },
+        {
+          "id": "42371",
+          "number": "003/102",
+          "name": "Chansey",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42371_200w.jpg"
+        },
+        {
+          "id": "42382",
+          "number": "004/102",
+          "name": "Charizard",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42382_200w.jpg"
+        },
+        {
+          "id": "42393",
+          "number": "005/102",
+          "name": "Clefairy",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42393_200w.jpg"
+        },
+        {
+          "id": "42404",
+          "number": "006/102",
+          "name": "Gyarados",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42404_200w.jpg"
+        },
+        {
+          "id": "42415",
+          "number": "007/102",
+          "name": "Hitmonchan",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42415_200w.jpg"
+        },
+        {
+          "id": "42433",
+          "number": "009/102",
+          "name": "Magneton",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42433_200w.jpg"
+        },
+        {
+          "id": "42347",
+          "number": "010/102",
+          "name": "Mewtwo",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42347_200w.jpg"
+        },
+        {
+          "id": "42351",
+          "number": "011/102",
+          "name": "Nidoking",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42351_200w.jpg"
+        },
+        {
+          "id": "42352",
+          "number": "012/102",
+          "name": "Ninetales",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42352_200w.jpg"
+        },
+        {
+          "id": "42353",
+          "number": "013/102",
+          "name": "Poliwrath",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42353_200w.jpg"
+        },
+        {
+          "id": "42354",
+          "number": "014/102",
+          "name": "Raichu",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42354_200w.jpg"
+        },
+        {
+          "id": "42355",
+          "number": "015/102",
+          "name": "Venusaur",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42355_200w.jpg"
+        },
+        {
+          "id": "42356",
+          "number": "016/102",
+          "name": "Zapdos",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42356_200w.jpg"
+        },
+        {
+          "id": "42357",
+          "number": "017/102",
+          "name": "Beedrill",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42357_200w.jpg"
+        },
+        {
+          "id": "42358",
+          "number": "018/102",
+          "name": "Dragonair",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42358_200w.jpg"
+        },
+        {
+          "id": "42359",
+          "number": "019/102",
+          "name": "Dugtrio",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42359_200w.jpg"
+        },
+        {
+          "id": "42361",
+          "number": "020/102",
+          "name": "Electabuzz",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42361_200w.jpg"
+        },
+        {
+          "id": "42362",
+          "number": "021/102",
+          "name": "Electrode",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42362_200w.jpg"
+        },
+        {
+          "id": "42363",
+          "number": "022/102",
+          "name": "Pidgeotto",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42363_200w.jpg"
+        },
+        {
+          "id": "42416",
+          "number": "070/102",
+          "name": "Clefairy Doll",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42416_200w.jpg"
+        },
+        {
+          "id": "42417",
+          "number": "071/102",
+          "name": "Computer Search",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42417_200w.jpg"
+        },
+        {
+          "id": "42418",
+          "number": "072/102",
+          "name": "Devolution Spray",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42418_200w.jpg"
+        },
+        {
+          "id": "86271",
+          "number": "073/102",
+          "name": "Imposter Professor Oak",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/86271_200w.jpg"
+        },
+        {
+          "id": "42420",
+          "number": "074/102",
+          "name": "Item Finder",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42420_200w.jpg"
+        },
+        {
+          "id": "42421",
+          "number": "075/102",
+          "name": "Lass",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42421_200w.jpg"
+        },
+        {
+          "id": "42422",
+          "number": "076/102",
+          "name": "Pokemon Breeder",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42422_200w.jpg"
+        },
+        {
+          "id": "108648",
+          "number": "077/102",
+          "name": "Pokemon Trader",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/108648_200w.jpg"
+        },
+        {
+          "id": "42423",
+          "number": "078/102",
+          "name": "Scoop Up",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42423_200w.jpg"
+        },
+        {
+          "id": "42424",
+          "number": "079/102",
+          "name": "Super Energy Removal",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42424_200w.jpg"
+        }
+      ]
+    }
+  }
+}

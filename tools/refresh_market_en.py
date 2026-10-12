@@ -50,7 +50,7 @@ PRICE_HISTORY_PATH = os.path.join(DATA_DIR, "price-history.json")
 
 TCGCSV = "https://tcgcsv.com"
 CATEGORY = 3  # English Pokemon
-USER_AGENT = "Pokemon-Box-EV/1.23 (+https://github.com/swishish/Pokemon-Box-EV)"
+USER_AGENT = "Pokemon-Box-EV/1.24 (+https://github.com/swishish/Pokemon-Box-EV)"
 BASE_INDEX_VALUE = 1000.0
 TARGET_SIZE = 500
 STALE_DAYS = 70

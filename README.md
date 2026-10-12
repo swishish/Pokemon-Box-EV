@@ -1,6 +1,6 @@
 # Pokemon Box EV
 
-日盒 EV 小算盤（朋友向）· **v1.23.0**
+日盒 EV 小算盤（朋友向）· **v1.24.0**
 
 給「不太懂金融／AI」的買卡朋友看的工具：首頁介紹點樣用 → 開盒算盤選系列 → 看 **四個預期回報 %**（同一分母）→ 有膜／無膜切換 → 看主力 chase 卡與「買單卡 vs 開盒」粗略提示。
 
@@ -13,6 +13,8 @@
 開盒 EV 小算盤：**https://swishish.github.io/Pokemon-Box-EV/calc.html**
 
 英文裸卡市況（S&P-style pulse）：**https://swishish.github.io/Pokemon-Box-EV/market-en.html**
+
+Base Set 復古指數（1st / Shadowless / Unlimited）：**https://swishish.github.io/Pokemon-Box-EV/market-vintage.html**
 
 Chase 公允值（PSA10 回歸散點）：**https://swishish.github.io/Pokemon-Box-EV/chase-fit.html**
 
@@ -107,6 +109,39 @@ python3 tools/fetch_tcgcsv_archive.py --probe
 
 Phase 1 **不做**日版熱度頁、eBay、PriceCharting 付費 API、TickerMint $99 dump。
 
+## Base Set vintage indexes（EN raw）
+
+獨立頁 `market-vintage.html`：三條 **固定** chase 籃子（Holo Rare + Rare），各自基準 1,000。
+
+| 指數 | 印刷 | TCGCSV |
+| --- | --- | --- |
+| Base 1st Edition | 第一版 stamp | group 1663，subtype `1st Edition` / `1st Edition Holofoil` |
+| Base Shadowless | 無限版、無右緣陰影 | group 1663，subtype `Unlimited` / `Unlimited Holofoil` |
+| Base Unlimited | 後來有陰影的無限版 | group 604，Holofoil / Normal |
+
+TCGPlayer 沒有獨立的「1st Edition set」：1st 與 Shadowless 共用 Shadowless group 的同一個 product ID，用 subtype 分開。詳細 ID／缺口見 `data/market-vintage/baskets.json`（Machamp 008/102 暫無單卡 ID；1st Edition Charizard／Blastoise／Mewtwo 常常沒有 Market Price，當天不進指數）。
+
+### 每日 log（v1 不做回填）
+
+**只往後加一天。** 不要對這三條指數跑 TickerMint 或 TCGCSV archive。5D／30D／YTD 在每日點不夠時顯示 N/A，不虛構報酬。
+
+1. 同一個 GitHub Action **Update EN market pulse** 在 EN Top 500 之後跑 `python3 tools/refresh_market_vintage.py`
+2. 腳本先讀 `last-updated.txt`；stamp 沒變就結束
+3. 只抓兩個 group dump（604、1663），append／upsert 當天：
+   - `data/market-vintage/latest.json`（三條指數＋成分）
+   - `data/market-vintage/history.json`（每指數每天一點）
+   - `data/market-vintage/price-history.json`
+   - `latest.js`／`history.js`
+
+本機：
+
+```bash
+python3 tools/refresh_market_vintage.py --self-test
+python3 tools/refresh_market_vintage.py -v --force
+```
+
+重建凍結名單（不寫歷史）：`python3 tools/refresh_market_vintage.py --rebuild-baskets -v`
+
 ## 本機打開
 
 1. 下載本 repo
@@ -119,7 +154,7 @@ Phase 1 **不做**日版熱度頁、eBay、PriceCharting 付費 API、TickerMint
 python3 -m http.server 8765
 ```
 
-瀏覽器開：`http://127.0.0.1:8765/`（首頁）、`http://127.0.0.1:8765/calc.html`（算盤）或 `http://127.0.0.1:8765/chase-fit.html`（Chase 公允值）
+瀏覽器開：`http://127.0.0.1:8765/`（首頁）、`http://127.0.0.1:8765/calc.html`（算盤）、`http://127.0.0.1:8765/market-en.html`（EN 市況）、`http://127.0.0.1:8765/market-vintage.html`（Base 復古）或 `http://127.0.0.1:8765/chase-fit.html`（Chase 公允值）
 
 ## Chase 公允值（PSA10 回歸）
 
@@ -129,6 +164,7 @@ python3 -m http.server 8765
 
 ## Changelog（摘要）
 
+- **v1.24.0**：新增 Base Set EN 復古指數頁（`market-vintage.html`）——1st Edition／Shadowless／Unlimited 三條固定 chase 籃子，每日 TCGCSV 只 append 一點，**不回填**歷史。EV／Chase_Fit／EN Top 500 算法不變
 - **v1.23.0**：EN 市況歷史改走免費 TickerMint API 回填（TCGCSV archive 仍 403）；頁尾／卡名 TickerMint linkback；指數 5D／30D／YTD 有真實快照才亮。每日現況仍是 TCGCSV dump。EV／Chase_Fit 算法不變
 - **v1.22.0**：EN 市況指數 5D／30D／YTD period picker（真實 `history.json` 快照，缺日不補價）＋ `tools/fetch_tcgcsv_archive.py`（7z 解 TCGCSV archive，預設起點 2024-02-08；2024-02-28 為可選較晚切點）。Archive 仍 403 時不發明價格。EV／Chase_Fit 算法不變
 - **v1.21.8**：EN 市況漲跌榜加 **1D／5D／30D／YTD** 期間選擇。多日報酬只用 repo 裡已提交的每日快照；缺歷史（含 TCGCSV archive 目前 403）就顯示 N/A，不虛構數字。EV／Chase_Fit 算法不變
