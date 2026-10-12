@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>日盒開盒值不值？ v1.21.4 · 首頁</title>
+<title>日盒開盒值不值？ v1.21.5 · 首頁</title>
 <style>
   :root {
     --bg: #faf6ef;
@@ -452,6 +452,11 @@
   @media (max-width: 899px) {
     header { padding: 8px 12px 6px; }
     header h1, header p { overflow-wrap: break-word; }
+    .header-inner .header-nav {
+      grid-column: 1 / -1;
+      grid-row: auto;
+      justify-content: flex-start;
+    }
     .nav-btn { font-size: .68rem; padding: 5px 9px; }
     main { padding: 12px 12px 48px; }
     .hero { padding: 16px 14px 14px; }
@@ -464,11 +469,12 @@
 <body>
 <header>
   <div class="header-inner">
-    <h1><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？ <span class="pill">v1.21.4</span></h1>
+    <h1><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？ <span class="pill">v1.21.5</span></h1>
     <nav class="header-nav" aria-label="站內導覽">
       <a class="nav-btn" href="./calc.html">開盒 EV</a>
       <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
       <a class="nav-btn" href="./market-en.html" title="English raw singles market pulse">EN 市況</a>
+      <a class="nav-btn" href="https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/" target="_blank" rel="noopener" title="Base Set Unlimited cheat sheet">Base Unlimited</a>
       <span class="nav-btn soon" title="即將推出">日語熱度</span>
     </nav>
     <p><img class="mon mon-sm" src="./img/accents/eevee.svg" alt="" width="20" height="20" aria-hidden="true" />給朋友看的簡易日盒 EV 小算盤 · 無登入 · 非即時行情</p>
@@ -723,7 +729,7 @@
 
 <footer>
   <img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" />
-  <span>日盒 EV 小算盤 <b>v1.21.4</b> · Snapshot 靜態資料 · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · 日語熱度（即將推出）</span>
+  <span>日盒 EV 小算盤 <b>v1.21.5</b> · Snapshot 靜態資料 · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · 日語熱度（即將推出）</span>
 </footer>
 </body>
 </html>

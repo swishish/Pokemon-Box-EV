@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>Chase 公允值 v1.21.4 · PSA10 回歸</title>
+<title>Chase 公允值 v1.21.5 · PSA10 回歸</title>
 <style>
   :root {
     --bg: #faf6ef;
@@ -657,6 +657,11 @@
     header { padding: 8px 12px 6px; }
     header h1, header p { overflow-wrap: anywhere; }
     .header-inner { column-gap: 8px; min-width: 0; }
+    .header-inner .header-nav {
+      grid-column: 1 / -1;
+      grid-row: auto;
+      justify-content: flex-start;
+    }
     .nav-btn { font-size: .7rem; padding: 6px 10px; }
     main { padding: 10px 12px 48px; }
     .chart-box { height: 300px; }
@@ -671,11 +676,12 @@
       <a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁">
         <span class="poke-mark" aria-hidden="true"></span> Chase 公允值
       </a>
-      <span class="pill">v1.21.4</span>
+      <span class="pill">v1.21.5</span>
     </h1>
     <nav class="header-nav" aria-label="站內導覽">
       <a class="nav-btn" href="./calc.html">開盒 EV</a>
       <a class="nav-btn" href="./market-en.html">EN 市況</a>
+      <a class="nav-btn" href="https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/" target="_blank" rel="noopener" title="Base Set Unlimited cheat sheet">Base Unlimited</a>
     </nav>
     <p><img class="mon mon-sm" src="./img/accents/eevee.svg" alt="" width="20" height="20" aria-hidden="true" />PSA10 回歸散點 · 預測 vs 實際 · 點擊睇卡片</p>
   </div>
@@ -747,13 +753,13 @@
 
 <footer>
   <img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" />
-  <span>日盒 EV 小算盤 <b>v1.21.4</b> · Chase_Fit 靜態快照 · 非正式投資建議 · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./market-en.html">EN 市況</a></span>
+  <span>日盒 EV 小算盤 <b>v1.21.5</b> · Chase_Fit 靜態快照 · 非正式投資建議 · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./market-en.html">EN 市況</a></span>
 </footer>
 
-<script src="./data/chase-fit/latest.js?v=1.21.4"></script>
+<script src="./data/chase-fit/latest.js?v=1.21.5"></script>
 <script>
 (async function () {
-  const VERSION = '1.21.4';
+  const VERSION = '1.21.5';
   const $ = (id) => document.getElementById(id);
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, (ch) => ({
