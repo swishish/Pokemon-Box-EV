@@ -2,11 +2,14 @@
 """Daily EN Base Set vintage indexes (1st Edition / Shadowless / Unlimited).
 
 Three *fixed* chase baskets of English Base Set raw singles (TCGCSV category 3).
-Pipeline = log one snapshot per day. **No TickerMint / TCGCSV archive backfill**
-in v1 — 5D / 30D / YTD stay N/A until enough daily points accumulate.
+Pipeline = log one snapshot per day. Longer history is backfilled from the
+TickerMint free API via tools/backfill_tickermint_vintage.py (printing-aware;
+do **not** reuse tools/backfill_tickermint.py, which skips 1st Edition).
 
   python3 tools/refresh_market_vintage.py --self-test
   python3 tools/refresh_market_vintage.py -v --force
+  python3 tools/backfill_tickermint_vintage.py --self-test
+  python3 tools/backfill_tickermint_vintage.py --backfill --confirm BACKFILL
 
 Writes (stdlib only):
   data/market-vintage/baskets.json       frozen ID lists + gaps (source of truth)
@@ -44,7 +47,7 @@ HISTORY_PATH = os.path.join(DATA_DIR, "history.json")
 HISTORY_JS_PATH = os.path.join(DATA_DIR, "history.js")
 PRICE_HISTORY_PATH = os.path.join(DATA_DIR, "price-history.json")
 
-USER_AGENT = "Pokemon-Box-EV/1.24 (+https://github.com/swishish/Pokemon-Box-EV)"
+USER_AGENT = "Pokemon-Box-EV/1.25 (+https://github.com/swishish/Pokemon-Box-EV)"
 INDEX_ORDER = ("base-1st", "base-shadowless", "base-unlimited")
 CHASE_RARITY = {"Holo Rare", "Rare Holo", "Rare"}
 _BAD_NAME = (
@@ -410,27 +413,34 @@ def merge_all_history(history: dict, indexes: dict, now: datetime) -> dict:
     for iid, latest in indexes.items():
         block = out_indexes.get(iid) or {}
         merged = en.merge_history_point(block, latest, now)
-        # Vintage v1 has no archive/backfill — drop those keys if present
-        # and do not tell the UI to run TickerMint.
-        merged.pop("archiveStart", None)
-        merged.pop("optionalStart", None)
-        rets = merged.get("returns") or {}
-        for period in ("1D", "5D", "30D", "YTD"):
-            info = rets.get(period) or {}
-            reason = info.get("reason") or ""
-            if "TickerMint" in reason or "archive backfill" in reason:
-                info = dict(info)
-                info["reason"] = "need more daily snapshots (backfill deferred)"
-                rets[period] = info
-        merged["returns"] = rets
+        # Keep TickerMint rebase metadata (archiveStart / source / sampling).
+        # period_returns already computed from kept points — do not rewrite
+        # reasons or drop the historical chain.
         out_indexes[iid] = merged
-    return {
+    backfill = history.get("backfill")
+    if not backfill:
+        backfill = "deferred"
+    tickermint = (
+        history.get("source") == "tickermint"
+        or (isinstance(backfill, dict) and backfill.get("source") == "tickermint")
+    )
+    if not tickermint:
+        for block in out_indexes.values():
+            if isinstance(block, dict) and block.get("source") != "tickermint":
+                block.pop("archiveStart", None)
+                block.pop("optionalStart", None)
+    out = {
         "generated": now.isoformat(),
         "baseValue": en.BASE_INDEX_VALUE,
-        "backfill": "deferred",
+        "backfill": backfill,
         "indexOrder": list(indexes.keys()),
         "indexes": out_indexes,
     }
+    if tickermint:
+        for key in ("archiveStart", "optionalStart", "source", "sourceDocs", "sampling"):
+            if history.get(key) is not None:
+                out[key] = history[key]
+    return out
 
 
 def merge_all_price_history(price_history: dict, indexes: dict, now: datetime) -> dict:
@@ -457,23 +467,34 @@ def write_history_js(history: dict) -> None:
     en._write_js(HISTORY_JS_PATH, "MARKET_VINTAGE_HISTORY", history)
 
 
-def build_payload(indexes: dict, baskets: dict, stamp: str | None, now: datetime) -> dict:
+def build_payload(indexes: dict, baskets: dict, stamp: str | None, now: datetime, history: dict | None = None) -> dict:
     order = [i for i in index_ids(baskets) if i in indexes]
     first = indexes[order[0]] if order else {}
-    return {
+    history = history or {}
+    backfill = history.get("backfill") or "deferred"
+    tickermint = isinstance(backfill, dict) and backfill.get("source") == "tickermint"
+    price_source = (
+        "TCGplayer Market Price (TickerMint history + TCGCSV daily snap)"
+        if tickermint
+        else "TCGplayer Market Price (via tcgcsv.com daily snapshot)"
+    )
+    payload = {
         "generated": now.isoformat(),
         "sourceStamp": stamp,
         "asOfDate": first.get("asOfDate"),
-        "priceSource": "TCGplayer Market Price (via tcgcsv.com daily snapshot)",
+        "priceSource": price_source,
         "universe": "English Base Set raw / ungraded singles — 1st Edition / Shadowless / Unlimited",
         "staleDays": en.STALE_DAYS,
         "baseValue": en.BASE_INDEX_VALUE,
-        "backfill": "deferred",
+        "backfill": backfill,
         "basketRule": baskets.get("rule"),
         "gaps": baskets.get("gaps") or [],
         "indexOrder": order,
         "indexes": indexes,
     }
+    if history.get("archiveStart"):
+        payload["archiveStart"] = history["archiveStart"]
+    return payload
 
 
 def build(verbose: bool = False, force: bool = False) -> None:
@@ -524,7 +545,7 @@ def build(verbose: bool = False, force: bool = False) -> None:
     price_history = merge_all_price_history(en.load_json(PRICE_HISTORY_PATH, {}), built, now)
     attach_all_movers(built, price_history)
     history = merge_all_history(prev_history, built, now)
-    latest = build_payload(built, baskets, stamp, now)
+    latest = build_payload(built, baskets, stamp, now, history)
 
     en.write_json(LATEST_PATH, latest)
     en.write_json(HISTORY_PATH, history)
@@ -634,8 +655,10 @@ def rebuild_baskets(verbose: bool = False) -> dict:
             "later without changing index math (divisor)."
         ),
         "backfill": (
-            "Deferred. Daily job appends one snapshot per index. Do not wire "
-            "TickerMint or TCGCSV archive for these indexes in v1."
+            "TickerMint free API via tools/backfill_tickermint_vintage.py "
+            "(printing-aware; 1st vs Shadowless vs Unlimited). Do not reuse "
+            "tools/backfill_tickermint.py — that skips 1st Edition. Daily job "
+            "appends on the rebased divisor after --backfill --confirm BACKFILL."
         ),
         "gaps": gaps,
         "indexes": {
@@ -839,9 +862,26 @@ def self_test() -> None:
     assert not rets["5D"]["available"]
     assert not rets["30D"]["available"]
     assert not rets["YTD"]["available"]
-    blob = json.dumps(rets)
-    assert "TickerMint" not in blob
-    assert "archive backfill" not in blob
+
+    # Daily append must keep a TickerMint rebase (baseDate / archiveStart / source).
+    seeded = {
+        "backfill": {"source": "tickermint", "script": "tools/backfill_tickermint_vintage.py"},
+        "archiveStart": "2024-02-08",
+        "source": "tickermint",
+        "indexes": {
+            "base-1st": {
+                "points": [{"date": "2024-02-08", "index": 1000.0, "totalValue": 40.0, "count": 1}],
+                "baseDate": "2024-02-08",
+                "archiveStart": "2024-02-08",
+                "source": "tickermint",
+            }
+        },
+    }
+    hist_tm = merge_all_history(seeded, {"base-1st": snap1}, fake_now)
+    assert hist_tm["backfill"]["source"] == "tickermint"
+    assert hist_tm["archiveStart"] == "2024-02-08"
+    assert hist_tm["indexes"]["base-1st"]["baseDate"] == "2024-02-08"
+    assert [p["date"] for p in hist_tm["indexes"]["base-1st"]["points"]] == ["2024-02-08", "2026-10-12"]
 
     hist2 = merge_all_history(hist, {"base-1st": snap2}, datetime(2026, 10, 13, tzinfo=timezone.utc))
     rets2 = hist2["indexes"]["base-1st"]["returns"]
@@ -873,7 +913,11 @@ def self_test() -> None:
         assert len(ids) == len(set(ids))
     gap_names = {g.get("name") for g in live_baskets.get("gaps") or []}
     assert "Machamp" in gap_names
-    assert live_baskets.get("backfill", "").lower().startswith("deferred")
+    assert "tickermint" in (live_baskets.get("backfill") or "").lower()
+    assert "backfill_tickermint.py" in (live_baskets.get("backfill") or "")
+    assert live_baskets["indexes"]["base-1st"]["subtypeMode"] == "include"
+    assert live_baskets["indexes"]["base-shadowless"]["subtypeNeedles"] == ["unlimited"]
+    assert live_baskets["indexes"]["base-unlimited"]["subtypeMode"] == "exclude"
 
     print("self-test ok")
 

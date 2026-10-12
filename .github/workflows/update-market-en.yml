@@ -5,7 +5,8 @@ name: Update EN market pulse
 # data/market-en/* and data/market-vintage/*. GitHub Pages stays static —
 # the Action is the only network fetch. No TCGPlayer API key.
 #
-# Vintage v1 appends *today only* (no TickerMint / archive backfill).
+# Vintage daily job appends *today only*. TickerMint rebase is a separate
+# manual script: tools/backfill_tickermint_vintage.py (not the EN backfill).
 #
 # TCGCSV refreshes once per day (~20:05 UTC). Each script checks
 # last-updated.txt first and exits if the stamp matches the committed snapshot.
@@ -38,6 +39,7 @@ jobs:
           python3 tools/refresh_market_en.py --self-test
           python3 tools/fetch_tcgcsv_archive.py --self-test
           python3 tools/backfill_tickermint.py --self-test
+          python3 tools/backfill_tickermint_vintage.py --self-test
           python3 tools/refresh_market_vintage.py --self-test
 
   build:
@@ -61,6 +63,7 @@ jobs:
           python3 tools/refresh_market_en.py --self-test
           python3 tools/fetch_tcgcsv_archive.py --self-test
           python3 tools/backfill_tickermint.py --self-test
+          python3 tools/backfill_tickermint_vintage.py --self-test
           python3 tools/refresh_market_vintage.py --self-test
 
       - name: Fetch TCGCSV dumps and rebuild EN pulse

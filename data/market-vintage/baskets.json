@@ -4,7 +4,7 @@
   "source": "TCGCSV category 3 ProductsAndPrices (groups 604 + 1663)",
   "rule": "Fixed chase baskets: Base Set EN raw singles, Holo Rare + Rare only (cheatsheet #1–102 where IDs exist). Split by printing. Sealed / jumbo / JP / error variants excluded. Not mid-era (Jungle/Fossil/Rocket).",
   "sizeNote": "Practical holo+rare-heavy start (~31 IDs). Commons / uncommons / Energy omitted so breadth is not dominated by $1 cards. Full 102 can be added later without changing index math (divisor).",
-  "backfill": "Deferred. Daily job appends one snapshot per index. Do not wire TickerMint or TCGCSV archive for these indexes in v1.",
+  "backfill": "TickerMint free API via tools/backfill_tickermint_vintage.py (printing-aware; 1st vs Shadowless vs Unlimited). Do not reuse tools/backfill_tickermint.py — that skips 1st Edition. Daily job appends on the rebased divisor after --backfill --confirm BACKFILL.",
   "gaps": [
     {
       "number": "008/102",
