@@ -10,6 +10,17 @@ Three **fixed** chase baskets of English Base Set raw / ungraded singles:
 
 Exact product IDs live in `baskets.json` (Holo Rare + Rare, cheatsheet #1–102 where IDs exist). Sealed, jumbo, JP, error variants (Black Dot Charizard, Red Cheeks Pikachu) are excluded. **Machamp 008/102** has no numbered TCGCSV product in either group — documented gap.
 
+## Page: pulse + binder
+
+`market-vintage.html` has two views on the same daily snapshot (no extra fetch):
+
+| View | What |
+| --- | --- |
+| **指數 Pulse** (`#1st`) | Index level, 1D, sparkline, breadth, movers, top 10, full-basket table |
+| **卡冊 Binder** (`#1st/binder`) | Binder-page grid of the same basket: thumb / placeholder, `#`, name, USD, 1D % when a previous snapshot exists |
+
+The three index tabs (1st / Shadowless / Unlimited) filter both views. Binder also has name search and Holo Rare / Rare chips. Unpriced cards show **無市價**; Machamp 008 is a dashed gap pocket. Deep links: `#shadowless/binder`, `#unlimited/binder`.
+
 ## Daily log (v1)
 
 Pipeline = **append one snapshot per index per day**. That is the whole history story for v1.

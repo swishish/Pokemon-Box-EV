@@ -111,7 +111,7 @@ Phase 1 **不做**日版熱度頁、eBay、PriceCharting 付費 API、TickerMint
 
 ## Base Set vintage indexes（EN raw）
 
-獨立頁 `market-vintage.html`：三條 **固定** chase 籃子（Holo Rare + Rare），各自基準 1,000。
+獨立頁 `market-vintage.html`：三條 **固定** chase 籃子（Holo Rare + Rare），各自基準 1,000。同一頁可切 **指數 Pulse**／**卡冊 Binder**（格狀縮圖＋USD；`#1st/binder` 深連結）。
 
 | 指數 | 印刷 | TCGCSV |
 | --- | --- | --- |
@@ -164,7 +164,7 @@ python3 -m http.server 8765
 
 ## Changelog（摘要）
 
-- **v1.24.0**：新增 Base Set EN 復古指數頁（`market-vintage.html`）——1st Edition／Shadowless／Unlimited 三條固定 chase 籃子，每日 TCGCSV 只 append 一點，**不回填**歷史。EV／Chase_Fit／EN Top 500 算法不變
+- **v1.24.0**：新增 Base Set EN 復古指數頁（`market-vintage.html`）——1st Edition／Shadowless／Unlimited 三條固定 chase 籃子，每日 TCGCSV 只 append 一點，**不回填**歷史；同一頁有卡冊 Binder 格狀速覽。EV／Chase_Fit／EN Top 500 算法不變
 - **v1.23.0**：EN 市況歷史改走免費 TickerMint API 回填（TCGCSV archive 仍 403）；頁尾／卡名 TickerMint linkback；指數 5D／30D／YTD 有真實快照才亮。每日現況仍是 TCGCSV dump。EV／Chase_Fit 算法不變
 - **v1.22.0**：EN 市況指數 5D／30D／YTD period picker（真實 `history.json` 快照，缺日不補價）＋ `tools/fetch_tcgcsv_archive.py`（7z 解 TCGCSV archive，預設起點 2024-02-08；2024-02-28 為可選較晚切點）。Archive 仍 403 時不發明價格。EV／Chase_Fit 算法不變
 - **v1.21.8**：EN 市況漲跌榜加 **1D／5D／30D／YTD** 期間選擇。多日報酬只用 repo 裡已提交的每日快照；缺歷史（含 TCGCSV archive 目前 403）就顯示 N/A，不虛構數字。EV／Chase_Fit 算法不變

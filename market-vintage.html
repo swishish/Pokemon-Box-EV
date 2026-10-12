@@ -27,6 +27,7 @@
   }
   * { box-sizing: border-box; }
   html { overflow-x: clip; }
+  [hidden] { display: none !important; }
   body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
@@ -334,6 +335,134 @@
     font-size: .78rem;
     font-weight: 600;
   }
+  .view-switch {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0 0 10px;
+  }
+  .view-btn {
+    font: inherit;
+    font-size: .78rem;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: #fafbfc;
+    color: var(--muted);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .view-btn.is-active {
+    background: #eef3ff;
+    border-color: #bfd0f5;
+    color: var(--accent);
+  }
+  .binder-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 10px;
+    margin: 0 0 10px;
+    min-width: 0;
+  }
+  .binder-search {
+    flex: 1 1 160px;
+    min-width: 0;
+    max-width: 100%;
+    font: inherit;
+    font-size: .86rem;
+    padding: 7px 10px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fff;
+  }
+  .binder-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .binder-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 148px), 1fr));
+    gap: 10px;
+  }
+  .binder-tile {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    padding: 8px;
+    text-decoration: none;
+    color: inherit;
+  }
+  .binder-tile.is-gap {
+    border-style: dashed;
+    background: #fafbfc;
+  }
+  .binder-art {
+    position: relative;
+    aspect-ratio: 2.5 / 3.5;
+    background: #eef2f6;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+  .binder-art img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+  .binder-art.is-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    font-size: .72rem;
+    font-weight: 650;
+    text-align: center;
+    padding: 8px;
+  }
+  .binder-num {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    background: rgba(255,255,255,.92);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: .68rem;
+    font-weight: 800;
+    padding: 1px 6px;
+    font-variant-numeric: tabular-nums;
+  }
+  .binder-name {
+    font-size: .82rem;
+    font-weight: 750;
+    line-height: 1.25;
+    margin-bottom: 2px;
+  }
+  .binder-rarity { font-size: .7rem; color: var(--muted); margin-bottom: 4px; }
+  .binder-meta {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 6px;
+    font-variant-numeric: tabular-nums;
+    margin-top: auto;
+  }
+  .binder-price { font-weight: 800; font-size: .88rem; }
+  .binder-pct { font-size: .75rem; font-weight: 700; }
+  .binder-empty {
+    grid-column: 1 / -1;
+    font-size: .86rem;
+    color: var(--muted);
+    padding: 16px 4px;
+  }
   @media (max-width: 720px) {
     .hero, .movers, .index-tabs { grid-template-columns: 1fr; }
     header { padding: 8px 12px 6px; }
@@ -346,6 +475,7 @@
     .wrap { padding: 10px 12px 48px; }
     .index-level { font-size: 2rem; }
     .period-btn { padding: 6px 9px; }
+    .binder-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
   }
 </style>
 </head>
@@ -370,8 +500,14 @@
 <main class="wrap" id="app">
   <div id="dataFreshness" class="data-freshness" role="status" aria-live="polite"></div>
 
+  <div class="view-switch" id="viewSwitch" role="tablist" aria-label="Pulse or binder">
+    <button type="button" class="view-btn is-active" data-view="pulse" aria-selected="true">指數 Pulse</button>
+    <button type="button" class="view-btn" data-view="binder" aria-selected="false">卡冊 Binder</button>
+  </div>
+
   <div class="index-tabs" id="indexTabs" role="tablist" aria-label="Vintage index"></div>
 
+  <div id="pulseView">
   <div class="hero">
     <div class="card">
       <div class="kicker" id="heroKicker">Base Set EN raw</div>
@@ -481,6 +617,23 @@
     </div>
     <p class="tiny" id="unpricedNote" style="margin:8px 0 0"></p>
   </div>
+  </div>
+
+  <div id="binderView" hidden>
+    <div class="card">
+      <h2>卡冊 Binder <span class="pill" id="binderCountPill"></span></h2>
+      <p class="tiny" id="binderNote" style="margin:0 0 8px">Holo Rare + Rare 口袋（卡號序）。缺市價顯示「無市價」，不虛構價錢。Machamp 008 為 TCGCSV 缺口。</p>
+      <div class="binder-toolbar">
+        <input class="binder-search" id="binderQ" type="search" placeholder="搜尋卡名／編號…" autocomplete="off" enterkeyhint="search" />
+        <div class="binder-chips" id="binderChips" role="group" aria-label="Rarity filter">
+          <button type="button" class="period-btn is-active" data-rarity="all" aria-pressed="true">全部 All</button>
+          <button type="button" class="period-btn" data-rarity="Holo Rare" aria-pressed="false">Holo Rare</button>
+          <button type="button" class="period-btn" data-rarity="Rare" aria-pressed="false">Rare</button>
+        </div>
+      </div>
+      <div class="binder-grid" id="binderGrid"></div>
+    </div>
+  </div>
 
   <div class="card method-card">
     <h2>這是什麼 Method</h2>
@@ -489,7 +642,8 @@
       <li><b>固定籃子</b>：Holo Rare + Rare（對照 Base Unlimited 速查 #1–102，有 TCGPlayer ID 才收）。價格加權；成分有人加入／退出時用 divisor 保持連續（S&amp;P 500 同款）。首次保留的每日快照基準＝<b>1,000</b>。</li>
       <li><b>每日一點</b>：GitHub Action 只 append 當天。v1 <b>不回填</b>歷史（TickerMint / TCGCSV archive 都未接）。5D／30D／YTD 要夠多每日點才會亮，在此之前是 N/A，<b>不虛構報酬</b>。</li>
       <li><b>代表價</b>：TCGPlayer <b>Market Price</b>（NM raw），按印刷 subtype 分開：1st Edition 只用 1st Edition 列；Shadowless 用該 group 的 Unlimited 列；Unlimited 用 Base Set group 的 Holofoil／Normal。</li>
-      <li><b>不含</b>：密封盒、Jumbo、JP promo、error 異圖（Black Dot Charizard、Red Cheeks Pikachu）。<b>Machamp 008/102</b> 在 TCGCSV 兩個 Base group 都沒有單卡 ID，暫缺。</li>
+      <li><b>卡冊 Binder</b>：同一籃子的格狀速覽（縮圖、編號、USD、有的話才顯示 1D %）。用上方「指數／卡冊」切換；三條指數 tab 共用。搜尋與 Holo／Rare 晶片只篩這一頁，不改指數。</li>
+      <li><b>不含</b>：密封盒、Jumbo、JP promo、error 異圖（Black Dot Charizard、Red Cheeks Pikachu）。<b>Machamp 008/102</b> 在 TCGCSV 兩個 Base group 都沒有單卡 ID，暫缺（卡冊裡以虛線口袋標「缺口」）。</li>
     </ul>
   </div>
 
@@ -674,11 +828,43 @@
   }
 
   const PERIOD_LABEL = { '1D': 'vs 上一快照', '5D': '5D', '30D': '30D', 'YTD': 'YTD' };
-  const state = { id: ORDER[0], period: '1D', moverPeriod: '1D' };
+  const state = { id: ORDER[0], period: '1D', moverPeriod: '1D', view: 'pulse', rarity: 'all', q: '' };
 
-  function idFromHash() {
+  function parseHash() {
     const raw = (location.hash || '').replace(/^#/, '').toLowerCase();
-    return HASH_TO_ID[raw] || ORDER[0];
+    const parts = raw.split(/[/:_-]+/).filter(Boolean);
+    let view = 'pulse';
+    let id = ORDER[0];
+    for (let i = 0; i < parts.length; i++) {
+      const p = parts[i];
+      if (p === 'binder' || p === 'card' || p === 'cards') view = 'binder';
+      else if (p === 'pulse' || p === 'index') view = 'pulse';
+      else if (HASH_TO_ID[p]) id = HASH_TO_ID[p];
+    }
+    return { id, view };
+  }
+  function idFromHash() {
+    return parseHash().id;
+  }
+  function writeHash() {
+    const h = ID_TO_HASH[state.id] || state.id;
+    const extra = state.view === 'binder' ? '/binder' : '';
+    const next = '#' + h + extra;
+    if ((location.hash || '') === next) return;
+    if (history.replaceState) history.replaceState(null, '', next);
+    else location.hash = h + extra;
+  }
+  function applyView() {
+    const pulse = $('pulseView');
+    const binder = $('binderView');
+    if (pulse) pulse.hidden = state.view !== 'pulse';
+    if (binder) binder.hidden = state.view !== 'binder';
+    document.querySelectorAll('#viewSwitch .view-btn').forEach((btn) => {
+      const v = btn.getAttribute('data-view');
+      const on = v === state.view;
+      btn.classList.toggle('is-active', on);
+      btn.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
   }
 
   function historyBlock(id) {
@@ -814,10 +1000,101 @@
     });
   }
 
+  function binderPockets(DATA_ONE) {
+    const byId = {};
+    (DATA_ONE.constituents || []).forEach((c) => { if (c && c.id) byId[c.id] = c; });
+    const pockets = (DATA_ONE.basket || []).map((c) => {
+      const live = byId[c.id] || {};
+      return {
+        id: c.id,
+        name: c.name,
+        number: c.number,
+        rarity: c.rarity || live.rarity || '',
+        image: c.image || live.image || '',
+        price: c.price,
+        printing: c.printing || live.printing || '',
+        carried: !!c.carried,
+        changePct: live.changePct,
+        gap: false
+      };
+    });
+    const q = (state.q || '').trim().toLowerCase();
+    const rarity = state.rarity || 'all';
+    const machamp = (DATA.gaps || []).find((g) => (g.name || '') === 'Machamp' || (g.number || '').indexOf('008') === 0);
+    if (machamp && (rarity === 'all' || rarity === 'Holo Rare')) {
+      const label = ((machamp.name || 'Machamp') + ' ' + (machamp.number || '008/102')).toLowerCase();
+      if (!q || label.indexOf(q) !== -1) {
+        pockets.push({
+          id: '',
+          name: machamp.name || 'Machamp',
+          number: machamp.number || '008/102',
+          rarity: 'Holo Rare',
+          image: '',
+          price: null,
+          printing: '',
+          carried: false,
+          changePct: null,
+          gap: true
+        });
+      }
+    }
+    pockets.sort((a, b) => String(a.number || '').localeCompare(String(b.number || ''), 'en', { numeric: true }));
+    return pockets.filter((c) => {
+      if (rarity !== 'all' && (c.rarity || '') !== rarity) return false;
+      if (!q) return true;
+      const blob = ((c.name || '') + ' ' + (c.number || '') + ' ' + (c.printing || '')).toLowerCase();
+      return blob.indexOf(q) !== -1;
+    });
+  }
+
+  function renderBinder(DATA_ONE) {
+    const grid = $('binderGrid');
+    if (!grid) return;
+    const pockets = binderPockets(DATA_ONE);
+    if ($('binderCountPill')) $('binderCountPill').textContent = String(pockets.length);
+    const listed = DATA_ONE.listedCount || (DATA_ONE.basket || []).length;
+    const priced = DATA_ONE.pricedToday || 0;
+    if ($('binderNote')) {
+      $('binderNote').textContent =
+        (DATA_ONE.nameZh || DATA_ONE.name || '') + ' · 列出 ' + listed +
+        ' · 有市價 ' + priced + ' · 卡號序。缺市價不虛構。搜尋／稀有只篩這一頁。';
+    }
+    if (!pockets.length) {
+      grid.innerHTML = '<p class="binder-empty">沒有符合的口袋</p>';
+      return;
+    }
+    grid.innerHTML = pockets.map((c) => {
+      const cls = chgClass(c.changePct);
+      const pct = c.gap || c.price == null || c.changePct == null
+        ? '<span class="tiny">—</span>'
+        : '<span class="binder-pct chg ' + cls + '">' + fmtPct(c.changePct, true) + '</span>';
+      const price = c.gap
+        ? '<span class="tiny">缺口</span>'
+        : (c.price == null ? '<span class="tiny">無市價</span>' : '<span class="binder-price">' + fmtUsd(c.price) + '</span>');
+      const artInner = c.image
+        ? '<img src="' + escapeHtml(c.image) + '" alt="" loading="lazy" />'
+        : (c.gap ? '無 TCGCSV ID' : '無圖');
+      const inner =
+        '<div class="binder-art' + (c.image ? '' : ' is-empty') + '">' +
+        artInner +
+        '<span class="binder-num">' + escapeHtml(c.number || '') + '</span></div>' +
+        '<div class="binder-name">' + escapeHtml(c.name || '') + '</div>' +
+        '<div class="binder-rarity">' + escapeHtml((c.printing || c.rarity || '')) + '</div>' +
+        '<div class="binder-meta">' + price + pct + '</div>';
+      if (c.gap || !c.id) {
+        return '<div class="binder-tile is-gap">' + inner + '</div>';
+      }
+      return '<a class="binder-tile" href="https://www.tcgplayer.com/product/' + encodeURIComponent(c.id) +
+        '" target="_blank" rel="noopener">' + inner + '</a>';
+    }).join('');
+  }
+
   function renderIndex() {
     const DATA_ONE = DATA.indexes[state.id];
     if (!DATA_ONE) return;
+    applyView();
     renderTabs();
+    renderBinder(DATA_ONE);
     const points = pointsOf(state.id);
     const RETURNS = returnsOf(state.id, DATA_ONE.asOfDate || DATA.asOfDate || '');
     $('heroKicker').textContent =
@@ -947,11 +1224,46 @@
     state.id = id;
     state.period = '1D';
     state.moverPeriod = '1D';
-    const hash = ID_TO_HASH[id] || id;
-    if (history.replaceState) history.replaceState(null, '', '#' + hash);
-    else location.hash = hash;
+    writeHash();
     renderIndex();
   });
+  const viewSwitch = $('viewSwitch');
+  if (viewSwitch) {
+    viewSwitch.addEventListener('click', (e) => {
+      const btn = e.target.closest('.view-btn');
+      if (!btn || !viewSwitch.contains(btn)) return;
+      const view = btn.getAttribute('data-view');
+      if (view !== 'pulse' && view !== 'binder') return;
+      if (view === state.view) return;
+      state.view = view;
+      writeHash();
+      renderIndex();
+    });
+  }
+  const binderQ = $('binderQ');
+  if (binderQ) {
+    binderQ.addEventListener('input', () => {
+      state.q = binderQ.value || '';
+      const one = DATA.indexes[state.id];
+      if (one) renderBinder(one);
+    });
+  }
+  const binderChips = $('binderChips');
+  if (binderChips) {
+    binderChips.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-rarity]');
+      if (!btn || !binderChips.contains(btn)) return;
+      const rarity = btn.getAttribute('data-rarity') || 'all';
+      state.rarity = rarity;
+      binderChips.querySelectorAll('[data-rarity]').forEach((b) => {
+        const on = b.getAttribute('data-rarity') === rarity;
+        b.classList.toggle('is-active', on);
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      const one = DATA.indexes[state.id];
+      if (one) renderBinder(one);
+    });
+  }
   document.querySelectorAll('.period-btns .period-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
       const p = btn.getAttribute('data-period') || '1D';
@@ -972,13 +1284,18 @@
     });
   }
   window.addEventListener('hashchange', () => {
-    const id = idFromHash();
-    if (id !== state.id && DATA.indexes[id]) {
-      state.id = id;
+    const parsed = parseHash();
+    const nextId = DATA.indexes[parsed.id] ? parsed.id : state.id;
+    if (nextId !== state.id || parsed.view !== state.view) {
+      state.id = nextId;
+      state.view = parsed.view;
       renderIndex();
     }
   });
-  state.id = DATA.indexes[idFromHash()] ? idFromHash() : ORDER[0];
+  const boot = parseHash();
+  state.id = DATA.indexes[boot.id] ? boot.id : ORDER[0];
+  state.view = boot.view === 'binder' ? 'binder' : 'pulse';
+  applyView();
   renderIndex();
 })();
 </script>
