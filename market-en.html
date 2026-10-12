@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>EN 裸卡市況 · Box EV v1.22.0</title>
+<title>EN 裸卡市況 · Box EV v1.23.0</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <style>
   :root {
@@ -202,6 +202,8 @@
   .chg.good { color: var(--good); font-weight: 700; }
   .chg.bad { color: var(--bad); font-weight: 700; }
   .tiny { font-size: .75rem; color: var(--muted); }
+  .tiny a { color: var(--accent); font-weight: 650; text-decoration: none; }
+  .tiny a:hover { text-decoration: underline; }
   .hint {
     font-size: .86rem; color: var(--muted);
     background: #fafbfc; border-radius: 8px; padding: 10px 12px; margin-top: 10px;
@@ -265,7 +267,7 @@
 <header>
   <div class="header-inner">
     <div>
-      <h1>EN 裸卡市況 <span class="pill">S&amp;P-style · v1.22.0</span></h1>
+      <h1>EN 裸卡市況 <span class="pill">S&amp;P-style · v1.23.0</span></h1>
       <p>英文 raw singles 市場溫度 · TCGPlayer Market via TCGCSV · 靜態快照</p>
     </div>
     <nav class="header-nav" aria-label="站內導覽">
@@ -363,24 +365,24 @@
     <ul class="tiny">
       <li><b>指數</b>：英文 TCGPlayer 裸卡（raw / ungraded）市價最高的 500 張，價格加權；成分輪替時用 divisor 保持連續（S&amp;P 500 同款手法）。首次快照基準＝<b>1,000</b>。</li>
       <li><b>每日漲跌</b>：相對上一份已提交的快照。若這是第一份快照，指數仍顯示 1,000，% 與廣度會在下一次 GitHub Action 更新後出現。</li>
-      <li><b>5D／30D／YTD</b>：用 <code>history.json</code> 裡<strong>真實快照</strong>算區間報酬，缺日就跳過、不補價。5D／30D 要有 cutoff 當天或更早的點；YTD 要有當年 1 月 1 日或更早的點。現況每日 Action 只累積最近幾天，更長歷史靠 <code>tools/fetch_tcgcsv_archive.py</code> 回放 TCGCSV archive（預設 2024-02-08；<code>--start 2024-02-28</code> 是可選較晚切點）。</li>
+      <li><b>5D／30D／YTD</b>：用 <code>history.json</code> 裡<strong>真實快照</strong>算區間報酬，缺日就跳過、不補價。5D／30D 要有 cutoff 當天或更早的點；YTD 要有當年 1 月 1 日或更早的點。每日「今天」仍是 TCGCSV 現況 dump；往回的歷史用免費 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a>（<code>tools/backfill_tickermint.py</code>，預設 2024-02-08；<code>--start 2024-02-28</code> 可選較晚切點）。TCGCSV dated archive 仍 403，只留 probe 路徑。</li>
       <li><b>代表價</b>：同一張卡取一般印刷（Holofoil / Reverse 等）裡最高的 TCGPlayer <b>Market Price</b>；1st Edition 預設不計入（TCGPlayer 上成交太薄）。</li>
       <li><b>不含</b>：密封盒、Jumbo／oversized、JP promo（卡號 <code>-P</code>）、日版 SNKRDUNK、PriceCharting。</li>
     </ul>
   </div>
 
   <div class="disclaimer" id="disclaimer">
-    <p><b>資料來源：</b>TCGPlayer Market Price，經免費 <a href="https://tcgcsv.com" target="_blank" rel="noopener">TCGCSV</a> 每日 Pokemon category dump。僅 <b>英文裸卡</b>（EN raw singles）。<b>不是</b>日版／SNKRDUNK，也<b>不是</b>投資建議。</p>
+    <p><b>資料來源：</b>TCGPlayer Market Price。每日現況經免費 <a href="https://tcgcsv.com" target="_blank" rel="noopener">TCGCSV</a> Pokemon dump；多日歷史經免費 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a>（卡頁例如 <a href="https://tickermint.cards/card/87427" target="_blank" rel="noopener">tickermint.cards/card/87427</a>）。僅 <b>英文裸卡</b>（EN raw singles）。<b>不是</b>日版／SNKRDUNK，也<b>不是</b>投資建議。</p>
     <p>數字為第三方市場估計，可能延遲或不準；僅供參考與娛樂。Pokémon 與相關名稱為其權利人商標。本頁為獨立粉絲工具，與 Nintendo／The Pokémon Company／TCGPlayer／S&amp;P Global 無關。</p>
   </div>
 </main>
-<footer>日盒 EV 小算盤 · EN market pulse · Snapshot 靜態資料 · 非正式投資建議 · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · 日語熱度（即將推出）</footer>
+<footer>日盒 EV 小算盤 · EN market pulse · Snapshot 靜態資料 · 非正式投資建議 · 歷史價 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a> · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · 日語熱度（即將推出）</footer>
 
-<script src="./data/market-en/latest.js?v=1.22.0"></script>
-<script src="./data/market-en/history.js?v=1.22.0"></script>
+<script src="./data/market-en/latest.js?v=1.23.0"></script>
+<script src="./data/market-en/history.js?v=1.23.0"></script>
 <script>
 (async function () {
-  const VERSION = '1.22.0';
+  const VERSION = '1.23.0';
   const $ = (id) => document.getElementById(id);
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, (ch) => ({
@@ -531,7 +533,7 @@
       for (let i = 0; i < points.length; i++) {
         if (points[i].date <= cutoff && points[i].date < last.date) baseline = points[i];
       }
-      return packReturn(baseline, last, 'no snapshot on or before ' + cutoff + ' (need archive backfill)');
+      return packReturn(baseline, last, 'no snapshot on or before ' + cutoff + ' (need TickerMint backfill)');
     }
     return {
       asOf: last.date,
@@ -645,6 +647,11 @@
   function emptyRow(msg, cols) {
     return '<tr><td colspan="' + cols + '" class="tiny">' + escapeHtml(msg) + '</td></tr>';
   }
+  function tmLink(id) {
+    if (!id) return '';
+    return ' <a class="tiny" href="https://tickermint.cards/card/' + encodeURIComponent(id) +
+      '" target="_blank" rel="noopener">TickerMint</a>';
+  }
   function moverRows(list, emptyMsg) {
     if (!list || !list.length) return emptyRow(emptyMsg, 4);
     return list.map((c) => {
@@ -654,7 +661,7 @@
         : '';
       return '<tr>' +
         '<td>' + img + '</td>' +
-        '<td>' + escapeHtml(c.name) + ' <span class="tiny">' + escapeHtml(c.setName || '') + '</span></td>' +
+        '<td>' + escapeHtml(c.name) + ' <span class="tiny">' + escapeHtml(c.setName || '') + '</span>' + tmLink(c.id) + '</td>' +
         '<td class="num">' + fmtUsd(c.price) + '</td>' +
         '<td class="num chg ' + cls + '">' + fmtPct(c.changePct, true) + '</td>' +
         '</tr>';
@@ -671,7 +678,7 @@
     return '<tr>' +
       '<td>' + (c.rank || '') + '</td>' +
       '<td>' + img + '</td>' +
-      '<td>' + escapeHtml(c.name) + ' <span class="tiny">#' + escapeHtml(c.number || '') + '</span></td>' +
+      '<td>' + escapeHtml(c.name) + ' <span class="tiny">#' + escapeHtml(c.number || '') + '</span>' + tmLink(c.id) + '</td>' +
       '<td>' + escapeHtml(c.setName || '') + '</td>' +
       '<td class="num">' + fmtUsd(c.price) + '</td>' +
       '</tr>';

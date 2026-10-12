@@ -30,10 +30,11 @@ jobs:
           python-version: "3.12"
       - name: Install 7z (PPMd archives)
         run: sudo apt-get update && sudo apt-get install -y p7zip-full
-      - name: Self-test index math + archive replay
+      - name: Self-test index math + archive replay + TickerMint
         run: |
           python3 tools/refresh_market_en.py --self-test
           python3 tools/fetch_tcgcsv_archive.py --self-test
+          python3 tools/backfill_tickermint.py --self-test
 
   build:
     if: github.event_name != 'pull_request'
@@ -51,10 +52,11 @@ jobs:
 
       - name: Install 7z (PPMd archives)
         run: sudo apt-get update && sudo apt-get install -y p7zip-full
-      - name: Self-test index math + archive replay
+      - name: Self-test index math + archive replay + TickerMint
         run: |
           python3 tools/refresh_market_en.py --self-test
           python3 tools/fetch_tcgcsv_archive.py --self-test
+          python3 tools/backfill_tickermint.py --self-test
 
       - name: Fetch TCGCSV dumps and rebuild pulse
         run: python3 tools/refresh_market_en.py -v

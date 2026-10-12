@@ -23,6 +23,7 @@ Extractor: 7z / 7zz / 7za (PPMd). py7zr is an optional fallback.
 Does not invent prices: HTTP 404 / empty / unreadable days are skipped.
 As of 2026-10-12 TCGCSV still returns HTTP 403 ("temporarily removed") on
 /archive/ — --probe / --sample / --backfill then exit 2 without writing JSON.
+Prefer tools/backfill_tickermint.py for EN history (Gary, 2026-10-12).
 """
 from __future__ import annotations
 
@@ -412,59 +413,15 @@ def replay_days(
     is rebased to 1,000 — this is a *new* series, not mixed with the live
     Oct-2026 = 1,000 chain unless the caller replaces history.json on purpose.
     """
-    points: list[dict] = []
-    prev_ids = None
-    prev_divisor = None
-    last = None
-    last_date = None
-    last_prices: dict = {}
-    last_subtypes: dict = {}
-    carry: dict = {}
-    carry_dt: dict = {}
-    skipped = 0
+    def prices_for_day(d):
+        return load_day_prices(d, from_dir, cfg)
 
-    for d in dates:
-        prices, subtypes = load_day_prices(d, from_dir, cfg)
-        priced = {pid: pr for pid, pr in prices.items() if pid in catalog}
-        if len(priced) < min(basket_size, max(1, len(catalog))):
-            skipped += 1
-            if verbose:
-                print(f"  {d.isoformat()}: skip ({len(priced)} catalog-priced < basket {basket_size})", flush=True)
-            continue
-        step = en.step_index(priced, catalog, prev_ids, prev_divisor, carry=carry, size=basket_size)
-        points.append(
-            {
-                "date": d.isoformat(),
-                "index": round(step["index"], 2),
-                "totalValue": round(step["sum_today"], 2),
-                "count": len(step["ids"]),
-            }
-        )
-        for pid, pr in priced.items():
-            carry[pid] = pr
-            carry_dt[pid] = d
-        carry = {
-            pid: p for pid, p in carry.items()
-            if (d - carry_dt[pid]).days <= en.STALE_DAYS
-        }
-        prev_ids = step["ids"]
-        prev_divisor = step["divisor"]
-        last = step
-        last_date = d.isoformat()
-        last_prices = priced
-        last_subtypes = subtypes
-        if verbose:
-            print(
-                f"  {d.isoformat()}: index {step['index']:.2f} "
-                f"(basket {len(step['ids'])}, ${step['sum_today']:,.0f})",
-                flush=True,
-            )
-
-    if not last or not last_date:
-        raise RuntimeError("No points reconstructed — every day was missing or too thin")
-
+    replayed = en.replay_price_series(
+        dates, catalog, prices_for_day, basket_size=basket_size, verbose=verbose
+    )
     now = datetime.now(timezone.utc)
     cfg = cfg or load_config()
+    points = replayed["points"]
     history = {
         "generated": now.isoformat(),
         "baseDate": points[0]["date"],
@@ -475,17 +432,17 @@ def replay_days(
             "start": dates[0].isoformat(),
             "end": dates[-1].isoformat(),
             "kept": len(points),
-            "skipped": skipped,
+            "skipped": replayed["skipped"],
         },
         "points": points,
-        "returns": en.period_returns(points, last_date),
+        "returns": en.period_returns(points, replayed["last_date"]),
     }
     return {
         "history": history,
-        "last": last,
-        "last_date": last_date,
-        "last_prices": last_prices,
-        "last_subtypes": last_subtypes,
+        "last": replayed["last"],
+        "last_date": replayed["last_date"],
+        "last_prices": replayed["last_prices"],
+        "last_subtypes": replayed["last_subtypes"],
         "catalog": catalog,
     }
 

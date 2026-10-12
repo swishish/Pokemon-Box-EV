@@ -1,6 +1,6 @@
 # Pokemon Box EV
 
-日盒 EV 小算盤（朋友向）· **v1.22.0**
+日盒 EV 小算盤（朋友向）· **v1.23.0**
 
 給「不太懂金融／AI」的買卡朋友看的工具：首頁介紹點樣用 → 開盒算盤選系列 → 看 **四個預期回報 %**（同一分母）→ 有膜／無膜切換 → 看主力 chase 卡與「買單卡 vs 開盒」粗略提示。
 
@@ -30,7 +30,7 @@ Chase 公允值（PSA10 回歸散點）：**https://swishish.github.io/Pokemon-B
 | 5D / 30D / YTD | 用 `history.json` 真實快照算區間報酬；缺日跳過、**不補價**。沒有 cutoff 當天或更早的點就 disable |
 | Breadth | 籃子裡上漲 vs 下跌張數（有歷史才有） |
 | Top gainers / losers | 同一份快照對比 |
-| Disclaimer | TCGPlayer Market via TCGCSV；僅 EN raw；非 JP／SNKRDUNK；非正式投資建議 |
+| Disclaimer | 每日 TCGCSV；歷史 TickerMint（免費、需 linkback）；僅 EN raw；非正式投資建議 |
 
 ### 資料怎麼更新
 
@@ -54,57 +54,57 @@ python3 tools/refresh_market_en.py --self-test
 python3 tools/refresh_market_en.py -v --force
 ```
 
-### TCGCSV archive → 價格歷史（5D／30D／YTD）
+### 三條資料路（請照這個用）
 
-每日 live dump **沒有**過去的市價。多日報酬要回放 [TCGCSV FAQ archive](https://tcgcsv.com/faq)：
-
-```
-https://tcgcsv.com/archive/tcgplayer/prices-YYYY-MM-DD.ppmd.7z
-```
-
-解壓後 Pokémon 是 **categoryId 3**：`{date}/3/{groupId}/prices`。腳本用 **7z**（PPMd）只抽這層，寫進 gitignored 快取 `data/tcgcsv-archive/pokemon-en/YYYY-MM-DD.csv`（`productId,marketPrice,subTypeName`），再經與 `refresh_market_en.py` 同一套 representative price／divisor 數學產出 `history.json`。
-
-**起始日設定**（`tools/tcgcsv_archive.json`）：
-
-| | 日期 | 說明 |
+| 用途 | 來源 | 現況 |
 | --- | --- | --- |
-| 預設 `archiveStart` | **2024-02-08** | TCGCSV 公開 archive 開始日（FAQ） |
-| 可選 `optionalStart` | **2024-02-28** | Gary 提過的較晚切點；**不是** archive 起點。`--start 2024-02-28` |
+| **每天的「今天」市況** | TCGCSV **現況** dump（`Groups.csv` + 各套 `ProductsAndPrices.csv`） | 正常。GitHub Action 每晚跑 `python3 tools/refresh_market_en.py` |
+| **往回的價格歷史（5D／30D／YTD）** | 免費 [TickerMint API](https://tickermint.cards/developers/pokemon) | **請用這條。** 無需 API key。product id = TCGPlayer / TCGCSV 同一個號碼 |
+| TCGCSV **dated archive** `.ppmd.7z` | `https://tcgcsv.com/archive/tcgplayer/prices-YYYY-MM-DD.ppmd.7z` | 仍 **HTTP 403**。腳本 `tools/fetch_tcgcsv_archive.py --probe` 留著，但**不要靠它回填** |
 
-缺檔／HTTP 404／不是 7z：**跳過那天，不發明價格**。下載間隔預設 0.5s；UA 可識別。
+起始日預設 **2024-02-08**（TickerMint 與 TCGCSV FAQ 都是這天開始有歷史）。Gary 的 **2024-02-28** 是可選較晚切點：指令加 `--start 2024-02-28`。
+
+#### 用 TickerMint 補歷史（複製貼上）
+
+免費、非商業、每分鐘最多 120 次。本站頁尾與卡名旁有 TickerMint 連結（ToS 要求 linkback）。**沒有**實作 $99 的 CSV dump。
+
+```bash
+python3 tools/backfill_tickermint.py --self-test
+python3 tools/backfill_tickermint.py --sample
+python3 tools/backfill_tickermint.py --backfill --confirm BACKFILL
+```
+
+1. `--self-test`：不連網，用小樣本確認「缺價不補 0、1st Edition 不當代表價、5D／30D／YTD 在有足夠快照時會亮」。
+2. `--sample`：只抓籃子裡前幾張卡，**不改**網站上的 `history.json`。約幾秒。用來確認 API 通。
+3. `--backfill --confirm BACKFILL`：抓現況 Top 500 全部（約 500 次、約 4–5 分鐘），重寫 `history.json`。指數會 **rebase**（第一個有資料的日子＝1,000）。預設 **每週一點**（`--step-days 7`，約 140 點，GitHub Pages 很輕）。若要每日一點（約 980 點）：
+
+```bash
+python3 tools/backfill_tickermint.py --backfill --confirm BACKFILL --step-days 1
+```
+
+之後每日 Action 仍用 TCGCSV **現況**往後加一天，接在這條歷史後面。
+
+空的 market／沒有那天的資料：**跳過，不當 $0**。新卡（例如 2026 才上市的 Mew）從 TickerMint 第一個有市價的日子才進籃子。
+
+#### TCGCSV archive（備用，現在 403）
 
 ```bash
 python3 tools/fetch_tcgcsv_archive.py --self-test
 python3 tools/fetch_tcgcsv_archive.py --probe
-# 增量：最近 5 日進快取（不改 live history.json）
-python3 tools/fetch_tcgcsv_archive.py --sample
-# 指定窗（每週一點，較省）
-python3 tools/fetch_tcgcsv_archive.py --download --start 2024-02-08 --end 2024-06-01 --step-days 7
-# 從快取回放指數（寫 history-sample.json，除非 --backfill）
-python3 tools/fetch_tcgcsv_archive.py --replay --from-dir data/tcgcsv-archive --dry-run
-# 全量回填（會 rebase 指數水平＝第一個 archive 日 1,000）
-python3 tools/fetch_tcgcsv_archive.py --backfill --confirm BACKFILL
-python3 tools/fetch_tcgcsv_archive.py --backfill --start 2024-02-28 --confirm BACKFILL
 ```
 
-要裝 **p7zip-full**（`7z`／`7zz`／`7za`，支援 PPMd）。可選 `pip install py7zr`。CI：Actions → **Fetch TCGCSV archive**；`SAMPLE` 只寫快取，`BACKFILL` 才 commit。
+`--probe` 若仍是 403 會結束、不改 JSON。Archive 若有一天恢復，用法見 `data/tcgcsv-archive/README.md`。
 
-#### 容量（archive 恢復之後）
+#### 容量
 
 | | 估計 |
 | --- | --- |
-| 單日 `prices-YYYY-MM-DD.ppmd.7z` | ~10–40 MB（整個 TCGplayer；我們只解 `{date}/3/`） |
-| Compact `pokemon-en/*.csv` | ~0.2–1 MB／日 |
-| `--sample`（5 日） | ~50–200 MB 下載，之後只留 CSV |
-| 每週 2024-02-08 → 今 | ~140 個 archive（建議的省流回填） |
-| **每日** 2024-02-08 → 今（~980 日） | **不要 commit。** 7z 約 10–40 GB；compact CSV 約 0.2–1 GB |
-| `history.json` | ~0.1 KB／點 — GitHub Pages 只需要這個 |
+| TickerMint `--sample`（5 張） | ~5 次 API，幾秒 |
+| TickerMint `--backfill` 每週 | ~500 次 API（約 4–5 分鐘）＋ `history.json` 約 140 點（幾十 KB） |
+| TickerMint `--step-days 1` | 同樣 500 次 API；`history.json` 約 980 點（仍很小，約 100 KB） |
+| TCGCSV dated 7z 全日回填 | 不要 git（數 GB）；而且現在下載不到 |
 
-`--start 2024-02-28` 只少 20 日（~3%），省不了多少；要瘦身用 `--step-days 7`。
-
-**現況（2026-10-12）：** archive URL 仍 **HTTP 403**（Toaster：成本／TCGplayer 澄清，暫時下架）。`--probe`／`--sample`／`--backfill` 會 exit 2、**不改 JSON**。5D／30D／YTD 按鈕在沒有足夠快照時 disable；每日 Action 會一天加一點。Archive 恢復後先 `--sample` 驗證，再考慮 `--backfill`。
-
-Phase 1 **不做**日版熱度頁、eBay、PriceCharting 付費 API。
+Phase 1 **不做**日版熱度頁、eBay、PriceCharting 付費 API、TickerMint $99 dump。
 
 ## 本機打開
 
@@ -128,6 +128,7 @@ python3 -m http.server 8765
 
 ## Changelog（摘要）
 
+- **v1.23.0**：EN 市況歷史改走免費 TickerMint API 回填（TCGCSV archive 仍 403）；頁尾／卡名 TickerMint linkback；5D／30D／YTD 有真實快照才亮。每日現況仍是 TCGCSV dump。EV／Chase_Fit 算法不變
 - **v1.22.0**：EN 市況 5D／30D／YTD period picker（真實 `history.json` 快照，缺日不補價）＋ `tools/fetch_tcgcsv_archive.py`（7z 解 TCGCSV archive，預設起點 2024-02-08；2024-02-28 為可選較晚切點）。Archive 仍 403 時不發明價格。EV／Chase_Fit 算法不變
 - **v1.21.7**：加書籤／分頁 favicon（`favicon.svg`，原創簡幾何 Pokéball）。各公開頁加 `<link rel="icon">`。EV／Chase_Fit 算法不變
 - **v1.21.6**：算盤切系列／TOC／pack dropdown 時保留上次選的有膜／無膜；新系列無無膜落地則沿用有膜、不虛構價格。EV／Chase_Fit 算法不變

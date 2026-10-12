@@ -1,0 +1,13 @@
+{
+  "archiveStart": "2024-02-08",
+  "optionalStart": "2024-02-28",
+  "optionalStartNote": "Gary's later cut. TickerMint history also begins 2024-02-08. Pass --start 2024-02-28 to skip the first 20 days.",
+  "baseUrl": "https://api.tickermint.cards",
+  "cardUrlTemplate": "https://tickermint.cards/card/{id}",
+  "docsUrl": "https://tickermint.cards/developers/pokemon",
+  "sleepSeconds": 0.55,
+  "maxPerMinute": 120,
+  "sampleIds": 5,
+  "defaultStepDays": 7,
+  "cacheDir": "data/tickermint-cache"
+}

@@ -15,8 +15,9 @@ Writes (stdlib only — GitHub Actions needs no pip install):
   data/market-en/history.js    window.MARKET_EN_HISTORY fallback
 
 Multi-day 5D / 30D / YTD returns are derived from history.json points (no
-interpolation). Longer history comes from tools/fetch_tcgcsv_archive.py
-replaying TCGCSV daily price archives (FAQ start 2024-02-08).
+interpolation). Longer history is backfilled from the TickerMint free API
+(tools/backfill_tickermint.py). TCGCSV current dumps remain the daily snap;
+the TCGCSV *archive* path is kept but still 403 as of 2026-10-12.
 
 Index math matches S&Poké-500 in spirit: price-weighted top 500 English raw
 singles with an index divisor so the level stays continuous when the basket
@@ -46,7 +47,7 @@ HISTORY_JS_PATH = os.path.join(DATA_DIR, "history.js")
 
 TCGCSV = "https://tcgcsv.com"
 CATEGORY = 3  # English Pokemon
-USER_AGENT = "Pokemon-Box-EV/1.22 (+https://github.com/swishish/Pokemon-Box-EV)"
+USER_AGENT = "Pokemon-Box-EV/1.23 (+https://github.com/swishish/Pokemon-Box-EV)"
 BASE_INDEX_VALUE = 1000.0
 TARGET_SIZE = 500
 STALE_DAYS = 70
@@ -302,6 +303,89 @@ def step_index(
     }
 
 
+def replay_price_series(
+    dates: list[date],
+    catalog: dict,
+    prices_for_day,
+    *,
+    basket_size: int = TARGET_SIZE,
+    stale_days: int = STALE_DAYS,
+    min_priced: int | None = None,
+    verbose: bool = False,
+) -> dict:
+    """Walk dated price maps through step_index.
+
+    prices_for_day(day) -> (prices, subtypes). Missing / thin days are skipped
+    (no interpolated or zero-filled prices). A card joins the basket only after
+    its first positive market print. Last known price may carry up to stale_days
+    (same as the daily TCGCSV pulse).
+    """
+    points: list[dict] = []
+    prev_ids = None
+    prev_divisor = None
+    last = None
+    last_date = None
+    last_prices: dict = {}
+    last_subtypes: dict = {}
+    carry: dict = {}
+    carry_dt: dict = {}
+    skipped = 0
+    need = min_priced if min_priced is not None else min(basket_size, max(1, len(catalog)))
+
+    for d in dates:
+        prices, subtypes = prices_for_day(d)
+        priced = {pid: pr for pid, pr in (prices or {}).items() if pid in catalog and pr and pr > 0}
+        if len(priced) < need:
+            skipped += 1
+            if verbose:
+                print(
+                    f"  {d.isoformat()}: skip ({len(priced)} catalog-priced < {need})",
+                    flush=True,
+                )
+            continue
+        step = step_index(priced, catalog, prev_ids, prev_divisor, carry=carry, size=basket_size)
+        points.append(
+            {
+                "date": d.isoformat(),
+                "index": round(step["index"], 2),
+                "totalValue": round(step["sum_today"], 2),
+                "count": len(step["ids"]),
+            }
+        )
+        for pid, pr in priced.items():
+            carry[pid] = pr
+            carry_dt[pid] = d
+        carry = {
+            pid: p for pid, p in carry.items()
+            if (d - carry_dt[pid]).days <= stale_days
+        }
+        prev_ids = step["ids"]
+        prev_divisor = step["divisor"]
+        last = step
+        last_date = d.isoformat()
+        last_prices = priced
+        last_subtypes = subtypes or {}
+        if verbose:
+            print(
+                f"  {d.isoformat()}: index {step['index']:.2f} "
+                f"(basket {len(step['ids'])}, ${step['sum_today']:,.0f})",
+                flush=True,
+            )
+
+    if not last or not last_date:
+        raise RuntimeError("No points reconstructed — every day was missing or too thin")
+
+    return {
+        "points": points,
+        "last": last,
+        "last_date": last_date,
+        "last_prices": last_prices,
+        "last_subtypes": last_subtypes,
+        "skipped": skipped,
+        "sampled": len(dates),
+    }
+
+
 def _parse_day(iso: str | None) -> date | None:
     try:
         return datetime.strptime(iso or "", "%Y-%m-%d").date()
@@ -388,7 +472,7 @@ def period_returns(points: list[dict], as_of: str) -> dict:
                 baseline = p
         return pack(
             baseline,
-            f"no snapshot on or before {cutoff.isoformat()} (need archive backfill)",
+            f"no snapshot on or before {cutoff.isoformat()} (need TickerMint / archive backfill)",
         )
 
     prev_snap = None
