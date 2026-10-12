@@ -833,7 +833,7 @@
       <li><b>Strong Buy</b> 是資料裡的即時標籤，不是自動按殘差重算。</li>
       <li><b>圖例標籤</b>可點選篩選散點（可多選）。關掉的標籤會淡化；全部關掉＝沒有點，按「顯示全部」還原。與搜尋／JP·EN／只看 Strong Buy 一齊 AND。</li>
       <li><b>POP × 倍數</b>：X＝PSA10 pop，Y＝PSA10／raw 倍數（皆對數軸，避免極端倍數壓扁圖）。點色同大細＝gem%。紅線係 log(multiple)～log(pop) 簡單趨勢。點擊行為同上面散點。</li>
-      <li><b>隱藏全部點</b>：收起散點；有標籤的卡改顯示縮圖佔位（未標記卡唔填縮圖）。</li>
+      <li><b>隱藏全部點</b>：隱藏未標記散點。有標籤的卡仍用原本彩色圓點。卡相只喺右側詳情，唔畫上圖。</li>
       <li>篩選會寫入網址（<code>replaceState</code>）；重新整理可還原。公式同 R²／n 仍在第一張圖上方。</li>
       <li>公式：<code>log_psa10 ~ gem_rate + log_pop + log_raw + C(language) + promo_flag</code>；<code>log_pop</code> 用 <code>ln(pop+1)</code>。匯率 US$1＝HK$7.8。</li>
       <li>數字來自 2026-10-09 PriceCharting 快照（GemRate pop 覆寫沿用 10-08）。點卡片用「睇卡相／價」開 <b>PriceCharting 產品頁</b>（raw／PSA9／PSA10 現場價）。唔熱鏈 Rarebox 或第三方卡圖；PC 圖 CDN 雜湊無法由網址推導，故用佔位＋連結。JP 另有 SNKRDUNK <b>搜尋</b>（非已核實產品頁）；EN 另有 TCGPlayer 搜尋。</li>
@@ -1185,18 +1185,6 @@
     const a = (sy - b * sx) / n;
     return { a, b };
   }
-  function thumbnailMark(c, x, y, i, sel) {
-    const w = sel ? 20 : 16, h = sel ? 26 : 22;
-    const left = x - w / 2, top = y - h / 2;
-    const fill = labelInfo(c.label).color;
-    return '<g class="hit thumb" data-i="' + i + '">' +
-      '<rect x="' + left.toFixed(1) + '" y="' + top.toFixed(1) + '" width="' + w + '" height="' + h +
-      '" rx="3" fill="#fff8d6" stroke="#141414" stroke-width="' + (sel ? 2.2 : 1.2) + '"/>' +
-      '<rect x="' + left.toFixed(1) + '" y="' + top.toFixed(1) + '" width="' + w + '" height="' + (h * 0.42).toFixed(1) +
-      '" fill="' + fill + '"/>' +
-      '<circle cx="' + x.toFixed(1) + '" cy="' + (y + 2).toFixed(1) + '" r="3.1" fill="#fff" stroke="#141414" stroke-width="1"/>' +
-      '</g>';
-  }
   function paintSvg(svg, html, W, H, cards) {
     svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
     svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
@@ -1222,13 +1210,7 @@
       const x = xOf(c);
       const y = yOf(c);
       const sel = c.card_id === state.selectedId;
-      if (state.hideDots) {
-        if (!hasMark(c)) return;
-        html += '<circle class="hit" data-i="' + i + '" cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) +
-          '" r="14" fill="transparent"/>';
-        html += thumbnailMark(c, x, y, i, sel);
-        return;
-      }
+      if (state.hideDots && !hasMark(c)) return;
       const color = colorOf(c);
       const r = radiusOf(c, sel);
       html += '<circle class="hit" data-i="' + i + '" cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) +
@@ -1312,7 +1294,7 @@
     }
     $('countLine').textContent = '顯示 ' + cards.length + ' / ' + CARDS.length +
       (hiddenExtreme ? (' · 另隱藏 ' + hiddenExtreme + ' 張極端殘差') : '') +
-      (state.hideDots ? ' · 已隱藏散點（有標籤卡顯示縮圖）' : '') +
+      (state.hideDots ? ' · 已隱藏未標記點' : '') +
       ' · 點圖上的點睇詳情';
     $('clipWrap').hidden = state.view !== 'resid';
     renderLegend();
