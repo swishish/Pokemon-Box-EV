@@ -10,8 +10,13 @@ Data source: TCGCSV daily Pokemon category dumps
 
 Writes (stdlib only — GitHub Actions needs no pip install):
   data/market-en/latest.json   index + breadth + movers + basket (for next run)
-  data/market-en/history.json  one point per snapshot date
+  data/market-en/history.json  one point per snapshot date (append/upsert; never wipes)
   data/market-en/latest.js     window.MARKET_EN fallback (file:// / cache)
+  data/market-en/history.js    window.MARKET_EN_HISTORY fallback
+
+Multi-day 5D / 30D / YTD returns are derived from history.json points (no
+interpolation). Longer history comes from tools/fetch_tcgcsv_archive.py
+replaying TCGCSV daily price archives (FAQ start 2024-02-08).
 
 Index math matches S&Poké-500 in spirit: price-weighted top 500 English raw
 singles with an index divisor so the level stays continuous when the basket
@@ -30,22 +35,27 @@ import sys
 import time
 import urllib.error
 import urllib.request
-from datetime import datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(ROOT, "data", "market-en")
 LATEST_PATH = os.path.join(DATA_DIR, "latest.json")
 LATEST_JS_PATH = os.path.join(DATA_DIR, "latest.js")
 HISTORY_PATH = os.path.join(DATA_DIR, "history.json")
+HISTORY_JS_PATH = os.path.join(DATA_DIR, "history.js")
 
 TCGCSV = "https://tcgcsv.com"
 CATEGORY = 3  # English Pokemon
-USER_AGENT = "Pokemon-Box-EV/1.19 (+https://github.com/swishish/Pokemon-Box-EV)"
+USER_AGENT = "Pokemon-Box-EV/1.22 (+https://github.com/swishish/Pokemon-Box-EV)"
 BASE_INDEX_VALUE = 1000.0
 TARGET_SIZE = 500
 STALE_DAYS = 70
 SLEEP_S = 0.1
 TOP_MOVERS = 10
+# TCGCSV FAQ: public price archive begins 2024-02-08. Gary's 2024-02-28 is an
+# optional later cut (--start 2024-02-28), not the archive's real start.
+ARCHIVE_START = "2024-02-08"
+OPTIONAL_START = "2024-02-28"
 
 _SET_PREFIX = re.compile(r"^[A-Z0-9]{2,6}:\s+")
 _JP_PROMO_NUMBER = re.compile(r"-P$", re.IGNORECASE)
@@ -108,6 +118,29 @@ def _parse_price(raw: str | None) -> float | None:
     except ValueError:
         return None
     return val if val > 0 else None
+
+
+def prices_from_rows(rows: list[dict]) -> tuple[dict, dict]:
+    """Group price rows by productId and pick a representative market price.
+
+    Used by the live CSV ingest and by archive JSON (`results` arrays inside
+    tcgcsv.com/archive/tcgplayer/prices-YYYY-MM-DD.ppmd.7z).
+    """
+    grouped: dict[str, list[dict]] = {}
+    for row in rows:
+        pid = str(row.get("productId") or "").strip()
+        if not pid:
+            continue
+        grouped.setdefault(pid, []).append(row)
+    prices: dict = {}
+    subtypes: dict = {}
+    for pid, grouped_rows in grouped.items():
+        picked = pick_representative(grouped_rows)
+        if picked:
+            price, sub = picked
+            prices[pid] = round(price, 2)
+            subtypes[pid] = sub
+    return prices, subtypes
 
 
 def pick_representative(rows: list[dict]) -> tuple[float, str] | None:
@@ -185,11 +218,11 @@ def ingest_group_csv(text: str, group: dict, catalog: dict, prices: dict, subtyp
             "setId": set_id,
             "image": first.get("imageUrl") or "",
         }
-        picked = pick_representative(rows)
-        if picked:
-            price, sub = picked
-            prices[pid] = round(price, 2)
-            subtypes[pid] = sub
+    extra_prices, extra_sub = prices_from_rows(
+        [row for grouped_rows in grouped.values() for row in grouped_rows]
+    )
+    prices.update(extra_prices)
+    subtypes.update(extra_sub)
 
 
 def fetch_universe(verbose: bool = False, sleep_s: float = SLEEP_S) -> tuple[dict, dict, dict]:
@@ -269,13 +302,108 @@ def step_index(
     }
 
 
-def _age_days(iso: str | None, today_iso: str) -> int:
+def _parse_day(iso: str | None) -> date | None:
     try:
-        a = datetime.strptime(iso or "", "%Y-%m-%d").date()
-        b = datetime.strptime(today_iso, "%Y-%m-%d").date()
-        return (b - a).days
+        return datetime.strptime(iso or "", "%Y-%m-%d").date()
     except ValueError:
+        return None
+
+
+def _age_days(iso: str | None, today_iso: str) -> int:
+    a = _parse_day(iso)
+    b = _parse_day(today_iso)
+    if a is None or b is None:
         return 0
+    return (b - a).days
+
+
+def period_returns(points: list[dict], as_of: str) -> dict:
+    """Calendar-window index returns from snapshot points.
+
+    Never interpolates a missing day. 5D / 30D / YTD need a real point on or
+    before the cutoff (and strictly before *as_of*). 1D is vs the previous
+    snapshot, even if that snapshot is more than one calendar day back.
+    """
+    pts = sorted(
+        (p for p in points if p.get("date") and p.get("index") is not None),
+        key=lambda p: p["date"],
+    )
+    last = next((p for p in reversed(pts) if p["date"] <= as_of), None) if pts else None
+    empty = {
+        "available": False,
+        "pct": None,
+        "from": None,
+        "to": as_of,
+        "fromIndex": None,
+        "toIndex": None,
+        "reason": "no snapshots",
+    }
+    if last is None:
+        return {"asOf": as_of, "1D": dict(empty), "5D": dict(empty), "30D": dict(empty), "YTD": dict(empty)}
+
+    last_d = _parse_day(last["date"])
+    last_idx = float(last["index"])
+
+    def pack(baseline: dict | None, reason: str) -> dict:
+        if baseline is None or last_idx is None:
+            return {
+                "available": False,
+                "pct": None,
+                "from": None,
+                "to": last["date"],
+                "fromIndex": None,
+                "toIndex": round(last_idx, 2) if last_idx is not None else None,
+                "reason": reason,
+            }
+        prev = float(baseline["index"])
+        if prev <= 0:
+            return {
+                "available": False,
+                "pct": None,
+                "from": baseline["date"],
+                "to": last["date"],
+                "fromIndex": round(prev, 2),
+                "toIndex": round(last_idx, 2),
+                "reason": "non-positive baseline index",
+            }
+        return {
+            "available": True,
+            "pct": round((last_idx / prev - 1) * 100, 2),
+            "from": baseline["date"],
+            "to": last["date"],
+            "fromIndex": round(prev, 2),
+            "toIndex": round(last_idx, 2),
+            "reason": None,
+        }
+
+    def vs_cutoff(cutoff: date | None, label: str) -> dict:
+        if cutoff is None or last_d is None:
+            return pack(None, f"{label}: invalid dates")
+        baseline = None
+        for p in pts:
+            pd = _parse_day(p["date"])
+            if pd is None:
+                continue
+            if pd <= cutoff and pd < last_d:
+                baseline = p
+        return pack(
+            baseline,
+            f"no snapshot on or before {cutoff.isoformat()} (need archive backfill)",
+        )
+
+    prev_snap = None
+    for p in pts:
+        if p["date"] < last["date"]:
+            prev_snap = p
+
+    ytd_cutoff = date(last_d.year, 1, 1) if last_d else None
+    return {
+        "asOf": last["date"],
+        "1D": pack(prev_snap, "no previous snapshot"),
+        "5D": vs_cutoff(last_d - timedelta(days=5) if last_d else None, "5D"),
+        "30D": vs_cutoff(last_d - timedelta(days=30) if last_d else None, "30D"),
+        "YTD": vs_cutoff(ytd_cutoff, "YTD"),
+    }
 
 
 def as_of_date(stamp: str | None, now: datetime) -> str:
@@ -306,10 +434,18 @@ def write_json(path: str, obj) -> None:
         handle.write("\n")
 
 
+def _write_js(path: str, global_name: str, obj) -> None:
+    payload = json.dumps(obj, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+    with open(path, "w", encoding="utf-8") as handle:
+        handle.write(f"window.{global_name} = " + payload + ";\n")
+
+
 def write_latest_js(latest: dict) -> None:
-    payload = json.dumps(latest, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
-    with open(LATEST_JS_PATH, "w", encoding="utf-8") as handle:
-        handle.write("window.MARKET_EN = " + payload + ";\n")
+    _write_js(LATEST_JS_PATH, "MARKET_EN", latest)
+
+
+def write_history_js(history: dict) -> None:
+    _write_js(HISTORY_JS_PATH, "MARKET_EN_HISTORY", history)
 
 
 def build_snapshot(catalog: dict, prices: dict, subtypes: dict, stamp: str | None, now: datetime) -> dict:
@@ -410,6 +546,11 @@ def build_snapshot(catalog: dict, prices: dict, subtypes: dict, stamp: str | Non
     change_abs = round(index_value - baseline_index, 2) if has_prev else None
     change_pct = round((index_value / baseline_index - 1) * 100, 2) if has_prev else None
     breadth_available = bool(movable)
+    base_date = (
+        prev.get("baseDate")
+        or (history_points[0].get("date") if history_points else None)
+        or today_iso
+    )
 
     latest = {
         "generated": now.isoformat(),
@@ -429,6 +570,8 @@ def build_snapshot(catalog: dict, prices: dict, subtypes: dict, stamp: str | Non
         ),
         "divisor": step["divisor"],
         "baseValue": BASE_INDEX_VALUE,
+        "baseDate": base_date,
+        "archiveStart": ARCHIVE_START,
         "constituentCount": len(constituents),
         "totalValue": round(step["sum_today"], 2),
         "pricedToday": sum(1 for c in constituents if not c["carried"]),
@@ -449,10 +592,10 @@ def build_snapshot(catalog: dict, prices: dict, subtypes: dict, stamp: str | Non
     return latest
 
 
-def append_history(latest: dict, now: datetime) -> dict:
-    history = load_json(HISTORY_PATH, {})
+def merge_history_point(history, latest: dict, now: datetime) -> dict:
+    """Upsert today's point. Keeps backfill metadata and older dates intact."""
     if not isinstance(history, dict):
-        history = {"points": []}
+        history = {}
     as_of = latest["asOfDate"]
     points = [p for p in history.get("points", []) if p.get("date") != as_of]
     points.append(
@@ -464,7 +607,22 @@ def append_history(latest: dict, now: datetime) -> dict:
         }
     )
     points.sort(key=lambda p: p["date"])
-    return {"generated": now.isoformat(), "points": points}
+    out = dict(history)
+    out["generated"] = now.isoformat()
+    out["points"] = points
+    out.setdefault("baseValue", latest.get("baseValue", BASE_INDEX_VALUE))
+    out.setdefault(
+        "baseDate",
+        latest.get("baseDate") or (points[0]["date"] if points else ARCHIVE_START),
+    )
+    out.setdefault("archiveStart", latest.get("archiveStart") or ARCHIVE_START)
+    out.setdefault("optionalStart", OPTIONAL_START)
+    out["returns"] = period_returns(points, as_of)
+    return out
+
+
+def append_history(latest: dict, now: datetime) -> dict:
+    return merge_history_point(load_json(HISTORY_PATH, {}), latest, now)
 
 
 def self_test() -> None:
@@ -525,6 +683,52 @@ def self_test() -> None:
     fake_now = datetime(2026, 10, 9, 7, 0, tzinfo=timezone.utc)
     assert as_of_date("2026-10-08T20:05:18+0000", fake_now) == "2026-10-08"
     assert as_of_date(None, fake_now) == "2026-10-09"
+
+    hist_pts = [
+        {"date": "2026-01-02", "index": 900.0, "totalValue": 1, "count": 2},
+        {"date": "2026-09-10", "index": 950.0, "totalValue": 1, "count": 2},
+        {"date": "2026-10-06", "index": 980.0, "totalValue": 1, "count": 2},
+        {"date": "2026-10-10", "index": 990.0, "totalValue": 1, "count": 2},
+        {"date": "2026-10-11", "index": 1000.0, "totalValue": 1, "count": 2},
+    ]
+    rets = period_returns(hist_pts, "2026-10-11")
+    assert rets["1D"]["available"] and rets["1D"]["from"] == "2026-10-10"
+    assert abs(rets["1D"]["pct"] - round((1000 / 990 - 1) * 100, 2)) < 1e-9
+    # 5D cutoff 2026-10-06 — use that snapshot, not the in-window 10-10 point.
+    assert rets["5D"]["available"] and rets["5D"]["from"] == "2026-10-06"
+    # 30D cutoff 2026-09-11 — last point on or before is 09-10.
+    assert rets["30D"]["available"] and rets["30D"]["from"] == "2026-09-10"
+    # YTD cutoff 2026-01-01 — no point on or before; do not fake from 01-02.
+    assert not rets["YTD"]["available"]
+    short = period_returns(hist_pts[-2:], "2026-10-11")
+    assert short["1D"]["available"]
+    assert not short["5D"]["available"] and not short["30D"]["available"]
+
+    preserved = merge_history_point(
+        {
+            "baseDate": ARCHIVE_START,
+            "archiveStart": ARCHIVE_START,
+            "sampling": {"stepDays": 7},
+            "points": [
+                {"date": "2024-02-08", "index": 1000.0, "totalValue": 1, "count": 500},
+                {"date": "2026-10-08", "index": 1200.0, "totalValue": 2, "count": 500},
+            ],
+        },
+        {
+            "asOfDate": "2026-10-08",
+            "index": 1201.5,
+            "totalValue": 3,
+            "constituentCount": 500,
+            "baseValue": 1000,
+            "baseDate": ARCHIVE_START,
+        },
+        fake_now,
+    )
+    assert preserved["baseDate"] == ARCHIVE_START
+    assert preserved["sampling"]["stepDays"] == 7
+    assert [p["date"] for p in preserved["points"]] == ["2024-02-08", "2026-10-08"]
+    assert preserved["points"][-1]["index"] == 1201.5
+    assert preserved["returns"]["1D"]["available"]
     print("self-test ok")
 
 
@@ -547,6 +751,7 @@ def build(verbose: bool = False, force: bool = False) -> None:
     write_json(LATEST_PATH, latest)
     write_json(HISTORY_PATH, history)
     write_latest_js(latest)
+    write_history_js(history)
 
     ch = latest["changePct"]
     ch_s = "n/a (first snapshot)" if ch is None else f"{ch:+.2f}%"

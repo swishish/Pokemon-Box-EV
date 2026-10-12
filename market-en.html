@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>EN 裸卡市況 · Box EV v1.19.0</title>
+<title>EN 裸卡市況 · Box EV v1.22.0</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <style>
   :root {
@@ -123,6 +123,32 @@
   .index-chg.good { color: var(--good); }
   .index-chg.bad { color: var(--bad); }
   .index-chg.muted { color: var(--muted); }
+  .period-btns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 8px;
+  }
+  .period-btn {
+    font: inherit;
+    font-size: .72rem;
+    font-weight: 700;
+    padding: 5px 9px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: #fafbfc;
+    color: var(--muted);
+    cursor: pointer;
+  }
+  .period-btn.is-active {
+    background: #eef3ff;
+    border-color: #bfd0f5;
+    color: var(--accent);
+  }
+  .period-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
   .kicker { font-size: .72rem; color: var(--muted); font-weight: 650; }
   .metrics {
     display: grid;
@@ -238,7 +264,7 @@
 <header>
   <div class="header-inner">
     <div>
-      <h1>EN 裸卡市況 <span class="pill">S&amp;P-style · v1.19.0</span></h1>
+      <h1>EN 裸卡市況 <span class="pill">S&amp;P-style · v1.22.0</span></h1>
       <p>英文 raw singles 市場溫度 · TCGPlayer Market via TCGCSV · 靜態快照</p>
     </div>
     <nav class="header-nav" aria-label="站內導覽">
@@ -259,8 +285,15 @@
       <div class="kicker">Box-EV EN Pulse · 價格加權 Top 500</div>
       <div class="index-level" id="indexLevel">—</div>
       <div class="index-chg muted" id="indexChg">載入中…</div>
+      <div class="period-btns" role="tablist" aria-label="Return period">
+        <button type="button" class="period-btn is-active" data-period="1D">1D</button>
+        <button type="button" class="period-btn" data-period="5D">5D</button>
+        <button type="button" class="period-btn" data-period="30D">30D</button>
+        <button type="button" class="period-btn" data-period="YTD">YTD</button>
+      </div>
       <svg class="spark" id="spark" viewBox="0 0 300 56" hidden aria-hidden="true"></svg>
       <p class="tiny" id="indexNote" style="margin:8px 0 0"></p>
+      <p class="tiny" id="periodNote" style="margin:4px 0 0"></p>
     </div>
     <div class="card">
       <h2>市場廣度 Breadth</h2>
@@ -329,6 +362,7 @@
     <ul class="tiny">
       <li><b>指數</b>：英文 TCGPlayer 裸卡（raw / ungraded）市價最高的 500 張，價格加權；成分輪替時用 divisor 保持連續（S&amp;P 500 同款手法）。首次快照基準＝<b>1,000</b>。</li>
       <li><b>每日漲跌</b>：相對上一份已提交的快照。若這是第一份快照，指數仍顯示 1,000，% 與廣度會在下一次 GitHub Action 更新後出現。</li>
+      <li><b>5D／30D／YTD</b>：用 <code>history.json</code> 裡<strong>真實快照</strong>算區間報酬，缺日就跳過、不補價。5D／30D 要有 cutoff 當天或更早的點；YTD 要有當年 1 月 1 日或更早的點。現況每日 Action 只累積最近幾天，更長歷史靠 <code>tools/fetch_tcgcsv_archive.py</code> 回放 TCGCSV archive（預設 2024-02-08；<code>--start 2024-02-28</code> 是可選較晚切點）。</li>
       <li><b>代表價</b>：同一張卡取一般印刷（Holofoil / Reverse 等）裡最高的 TCGPlayer <b>Market Price</b>；1st Edition 預設不計入（TCGPlayer 上成交太薄）。</li>
       <li><b>不含</b>：密封盒、Jumbo／oversized、JP promo（卡號 <code>-P</code>）、日版 SNKRDUNK、PriceCharting。</li>
     </ul>
@@ -341,10 +375,11 @@
 </main>
 <footer>日盒 EV 小算盤 · EN market pulse · Snapshot 靜態資料 · 非正式投資建議 · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · 日語熱度（即將推出）</footer>
 
-<script src="./data/market-en/latest.js?v=1.19.0"></script>
+<script src="./data/market-en/latest.js?v=1.22.0"></script>
+<script src="./data/market-en/history.js?v=1.22.0"></script>
 <script>
 (async function () {
-  const VERSION = '1.19.0';
+  const VERSION = '1.22.0';
   const $ = (id) => document.getElementById(id);
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, (ch) => ({
@@ -380,7 +415,7 @@
   const dataRes = await loadJson('./data/market-en/latest.json');
   const histRes = await loadJson('./data/market-en/history.json');
   const DATA = (dataRes && dataRes.data) || window.MARKET_EN;
-  const HIST = (histRes && histRes.data) || { points: [] };
+  const HIST = (histRes && histRes.data) || window.MARKET_EN_HISTORY || { points: [] };
   if (!DATA || DATA.index == null) {
     showLoadError(dataRes);
     return;
@@ -438,23 +473,99 @@
   }
 
   $('indexLevel').textContent = Number(DATA.index).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  const chgEl = $('indexChg');
-  if (DATA.changePct == null) {
-    chgEl.className = 'index-chg muted';
-    chgEl.textContent = DATA.changeLabel || '尚無前一日快照';
-  } else {
-    chgEl.className = 'index-chg ' + chgClass(DATA.changePct);
-    const abs = DATA.change == null ? '' : (' · ' + (DATA.change > 0 ? '+' : '') + DATA.change.toFixed(2));
-    chgEl.textContent = fmtPct(DATA.changePct, true) + abs + '（vs 上一快照）';
-  }
+  const points = ((HIST && HIST.points) || []).filter((p) => p && p.date && p.index != null)
+    .sort((a, b) => String(a.date).localeCompare(String(b.date)));
+  const baseDate = DATA.baseDate || (HIST && HIST.baseDate) || (points[0] && points[0].date) || '';
   $('indexNote').textContent =
     '籃子 ' + (DATA.constituentCount || 500) + ' 張 · 合計市值 ' + fmtUsd(DATA.totalValue) +
-    ' · 基準 ' + (DATA.baseValue || 1000);
+    ' · 基準 ' + (DATA.baseValue || 1000) + (baseDate ? ' @ ' + baseDate : '');
 
-  const points = (HIST && HIST.points) || [];
-  if (points.length >= 2) {
+  function addDaysYmd(iso, days) {
+    const dt = parseAsOfDate(iso);
+    if (!dt) return null;
+    dt.setDate(dt.getDate() + days);
+    return ymdLocal(dt);
+  }
+  function lastPointOnOrBefore(iso) {
+    let found = null;
+    for (let i = 0; i < points.length; i++) {
+      if (points[i].date <= iso) found = points[i];
+    }
+    return found;
+  }
+  function packReturn(baseline, last, reason) {
+    if (!baseline || last == null || last.index == null) {
+      return { available: false, pct: null, from: null, to: last ? last.date : null, reason: reason };
+    }
+    const prev = Number(baseline.index);
+    const cur = Number(last.index);
+    if (!(prev > 0)) {
+      return { available: false, pct: null, from: baseline.date, to: last.date, reason: 'non-positive baseline index' };
+    }
+    return {
+      available: true,
+      pct: Math.round((cur / prev - 1) * 10000) / 100,
+      from: baseline.date,
+      to: last.date,
+      fromIndex: prev,
+      toIndex: cur,
+      reason: null
+    };
+  }
+  function computePeriodReturns(asOf) {
+    const last = lastPointOnOrBefore(asOf) || (points.length ? points[points.length - 1] : null);
+    const empty = { available: false, pct: null, from: null, to: asOf, reason: 'no snapshots' };
+    if (!last) return { asOf: asOf, '1D': empty, '5D': empty, '30D': empty, 'YTD': empty };
+    let prevSnap = null;
+    for (let i = 0; i < points.length; i++) {
+      if (points[i].date < last.date) prevSnap = points[i];
+    }
+    const cutoff5 = addDaysYmd(last.date, -5);
+    const cutoff30 = addDaysYmd(last.date, -30);
+    const dt = parseAsOfDate(last.date);
+    const cutoffYtd = dt ? (dt.getFullYear() + '-01-01') : null;
+    function vsCutoff(cutoff, label) {
+      if (!cutoff) return packReturn(null, last, label + ': invalid dates');
+      let baseline = null;
+      for (let i = 0; i < points.length; i++) {
+        if (points[i].date <= cutoff && points[i].date < last.date) baseline = points[i];
+      }
+      return packReturn(baseline, last, 'no snapshot on or before ' + cutoff + ' (need archive backfill)');
+    }
+    return {
+      asOf: last.date,
+      '1D': packReturn(prevSnap, last, 'no previous snapshot'),
+      '5D': vsCutoff(cutoff5, '5D'),
+      '30D': vsCutoff(cutoff30, '30D'),
+      'YTD': vsCutoff(cutoffYtd, 'YTD')
+    };
+  }
+  const serverReturns = (HIST && HIST.returns) || {};
+  const computedReturns = computePeriodReturns(DATA.asOfDate || (points[0] && points[0].date) || '');
+  const RETURNS = {
+    asOf: serverReturns.asOf || computedReturns.asOf,
+    '1D': serverReturns['1D'] || computedReturns['1D'],
+    '5D': serverReturns['5D'] || computedReturns['5D'],
+    '30D': serverReturns['30D'] || computedReturns['30D'],
+    'YTD': serverReturns['YTD'] || computedReturns['YTD']
+  };
+  const periodState = { period: '1D' };
+  const PERIOD_LABEL = { '1D': 'vs 上一快照', '5D': '5D', '30D': '30D', 'YTD': 'YTD' };
+
+  function pointsForPeriod(period) {
+    const ret = RETURNS[period];
+    if (!ret || !ret.available || !ret.from) return points;
+    return points.filter((p) => p.date >= ret.from && p.date <= (ret.to || p.date));
+  }
+  function drawSpark(period) {
     const spark = $('spark');
-    const vals = points.map((p) => Number(p.index)).filter((n) => !Number.isNaN(n));
+    const pts = pointsForPeriod(period);
+    const vals = pts.map((p) => Number(p.index)).filter((n) => !Number.isNaN(n));
+    if (vals.length < 2) {
+      spark.setAttribute('hidden', 'hidden');
+      spark.innerHTML = '';
+      return;
+    }
     const min = Math.min.apply(null, vals);
     const max = Math.max.apply(null, vals);
     const span = (max - min) || 1;
@@ -467,6 +578,43 @@
     spark.innerHTML = '<polyline fill="none" stroke="#2563eb" stroke-width="2" points="' + coords.join(' ') + '" />';
     spark.removeAttribute('hidden');
   }
+  function renderPeriod(period) {
+    const chgEl = $('indexChg');
+    const note = $('periodNote');
+    const ret = RETURNS[period] || { available: false, reason: 'no snapshots' };
+    document.querySelectorAll('.period-btn').forEach((btn) => {
+      const p = btn.getAttribute('data-period');
+      const avail = !!(RETURNS[p] && RETURNS[p].available);
+      btn.disabled = !avail;
+      btn.classList.toggle('is-active', p === period && avail);
+      btn.title = avail
+        ? (RETURNS[p].from + ' → ' + RETURNS[p].to)
+        : (RETURNS[p] && RETURNS[p].reason) || '需要更多快照';
+    });
+    if (!ret.available) {
+      chgEl.className = 'index-chg muted';
+      chgEl.textContent = '尚無 ' + (PERIOD_LABEL[period] || period);
+      note.textContent = ret.reason || '需要 TCGCSV archive 回填後才有多日報酬';
+      drawSpark('1D');
+      return;
+    }
+    chgEl.className = 'index-chg ' + chgClass(ret.pct);
+    let extra = '';
+    if (period === '1D' && DATA.change != null && RETURNS['1D'] && RETURNS['1D'].to === DATA.asOfDate) {
+      extra = ' · ' + (DATA.change > 0 ? '+' : '') + DATA.change.toFixed(2);
+    }
+    chgEl.textContent = fmtPct(ret.pct, true) + extra + '（' + (PERIOD_LABEL[period] || period) + '）';
+    note.textContent = ret.from + ' → ' + ret.to + ' · ' + pointsForPeriod(period).length + ' 個快照（缺日不補價）';
+    drawSpark(period);
+  }
+  document.querySelectorAll('.period-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      if (btn.disabled) return;
+      periodState.period = btn.getAttribute('data-period') || '1D';
+      renderPeriod(periodState.period);
+    });
+  });
+  renderPeriod(RETURNS['1D'] && RETURNS['1D'].available ? '1D' : '1D');
 
   const b = DATA.breadth || {};
   const tot = (b.advancing || 0) + (b.declining || 0) + (b.unchanged || 0);

@@ -28,8 +28,12 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Self-test index math
-        run: python3 tools/refresh_market_en.py --self-test
+      - name: Install 7z (PPMd archives)
+        run: sudo apt-get update && sudo apt-get install -y p7zip-full
+      - name: Self-test index math + archive replay
+        run: |
+          python3 tools/refresh_market_en.py --self-test
+          python3 tools/fetch_tcgcsv_archive.py --self-test
 
   build:
     if: github.event_name != 'pull_request'
@@ -45,8 +49,12 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Self-test index math
-        run: python3 tools/refresh_market_en.py --self-test
+      - name: Install 7z (PPMd archives)
+        run: sudo apt-get update && sudo apt-get install -y p7zip-full
+      - name: Self-test index math + archive replay
+        run: |
+          python3 tools/refresh_market_en.py --self-test
+          python3 tools/fetch_tcgcsv_archive.py --self-test
 
       - name: Fetch TCGCSV dumps and rebuild pulse
         run: python3 tools/refresh_market_en.py -v
@@ -55,7 +63,8 @@ jobs:
         run: |
           git config user.name "box-ev-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/market-en/latest.json data/market-en/latest.js data/market-en/history.json
+          git add data/market-en/latest.json data/market-en/latest.js \
+                  data/market-en/history.json data/market-en/history.js
           if git diff --cached --quiet; then
             echo "No data changes to commit."
           else
