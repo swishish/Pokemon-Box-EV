@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>EN 裸卡市況 · Box EV v1.21.8</title>
+<title>EN 裸卡市況 · Box EV v1.23.0</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <style>
   :root {
@@ -123,6 +123,33 @@
   .index-chg.good { color: var(--good); }
   .index-chg.bad { color: var(--bad); }
   .index-chg.muted { color: var(--muted); }
+  .period-btns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 8px;
+  }
+  .period-btn {
+    font: inherit;
+    font-size: .72rem;
+    font-weight: 700;
+    padding: 5px 9px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: #fafbfc;
+    color: var(--muted);
+    cursor: pointer;
+  }
+  .period-btn.is-active {
+    background: #eef3ff;
+    border-color: #bfd0f5;
+    color: var(--accent);
+  }
+  .period-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
   .kicker { font-size: .72rem; color: var(--muted); font-weight: 650; }
   .metrics {
     display: grid;
@@ -179,7 +206,7 @@
     max-width: 100%;
     min-width: 0;
   }
-  .period-btn {
+  #periodPicker .period-btn {
     font: inherit;
     font-size: .72rem;
     font-weight: 700;
@@ -197,19 +224,19 @@
     flex: 0 0 auto;
     user-select: none;
   }
-  .period-btn[aria-pressed="true"] {
+  #periodPicker .period-btn[aria-pressed="true"] {
     background: #eef3ff;
     border-color: #bfd0f5;
     color: var(--accent);
   }
-  .period-btn.is-na {
+  #periodPicker .period-btn.is-na {
     opacity: .55;
   }
-  .period-btn:focus-visible {
+  #periodPicker .period-btn:focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 2px;
   }
-  #periodNote, td.tiny {
+  #indexPeriodNote, #moversPeriodNote, td.tiny {
     overflow-wrap: break-word;
   }
   table { width: 100%; border-collapse: collapse; font-size: .86rem; }
@@ -227,6 +254,8 @@
   .chg.good { color: var(--good); font-weight: 700; }
   .chg.bad { color: var(--bad); font-weight: 700; }
   .tiny { font-size: .75rem; color: var(--muted); }
+  .tiny a { color: var(--accent); font-weight: 650; text-decoration: none; }
+  .tiny a:hover { text-decoration: underline; }
   .hint {
     font-size: .86rem; color: var(--muted);
     background: #fafbfc; border-radius: 8px; padding: 10px 12px; margin-top: 10px;
@@ -291,7 +320,7 @@
 <header>
   <div class="header-inner">
     <div>
-      <h1>EN 裸卡市況 <span class="pill">S&amp;P-style · v1.21.8</span></h1>
+      <h1>EN 裸卡市況 <span class="pill">S&amp;P-style · v1.23.0</span></h1>
       <p>英文 raw singles 市場溫度 · TCGPlayer Market via TCGCSV · 靜態快照</p>
     </div>
     <nav class="header-nav" aria-label="站內導覽">
@@ -312,8 +341,15 @@
       <div class="kicker">Box-EV EN Pulse · 價格加權 Top 500</div>
       <div class="index-level" id="indexLevel">—</div>
       <div class="index-chg muted" id="indexChg">載入中…</div>
+      <div class="period-btns" role="tablist" aria-label="Return period">
+        <button type="button" class="period-btn is-active" data-period="1D" aria-selected="true">1D</button>
+        <button type="button" class="period-btn" data-period="5D" disabled aria-selected="false">5D</button>
+        <button type="button" class="period-btn" data-period="30D" disabled aria-selected="false">30D</button>
+        <button type="button" class="period-btn" data-period="YTD" disabled aria-selected="false">YTD</button>
+      </div>
       <svg class="spark" id="spark" viewBox="0 0 300 56" hidden aria-hidden="true"></svg>
       <p class="tiny" id="indexNote" style="margin:8px 0 0"></p>
+      <p class="tiny" id="indexPeriodNote" style="margin:4px 0 0"></p>
     </div>
     <div class="card">
       <h2>市場廣度 Breadth</h2>
@@ -333,7 +369,7 @@
         <button type="button" class="period-btn" data-period="YTD" aria-pressed="false">YTD</button>
       </div>
     </div>
-    <p class="tiny" id="periodNote" style="margin:6px 0 0" role="status" aria-live="polite"></p>
+    <p class="tiny" id="moversPeriodNote" style="margin:6px 0 0" role="status" aria-live="polite"></p>
   </div>
 
   <div class="movers">
@@ -395,6 +431,7 @@
     <ul class="tiny">
       <li><b>指數</b>：英文 TCGPlayer 裸卡（raw / ungraded）市價最高的 500 張，價格加權；成分輪替時用 divisor 保持連續（S&amp;P 500 同款手法）。首次快照基準＝<b>1,000</b>。</li>
       <li><b>每日漲跌</b>：相對上一份已提交的快照。若這是第一份快照，指數仍顯示 1,000，% 與廣度會在下一次 GitHub Action 更新後出現。</li>
+      <li><b>5D／30D／YTD</b>：用 <code>history.json</code> 裡<strong>真實快照</strong>算區間報酬，缺日就跳過、不補價。5D／30D 要有 cutoff 當天或更早的點；YTD 要有當年 1 月 1 日或更早的點。每日「今天」仍是 TCGCSV 現況 dump；往回的歷史用免費 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a>（<code>tools/backfill_tickermint.py</code>，預設 2024-02-08；<code>--start 2024-02-28</code> 可選較晚切點）。TCGCSV dated archive 仍 403，只留 probe 路徑。</li>
       <li><b>漲跌榜期間</b>：1D＝上一份快照；5D／30D／YTD＝當日籃子相對該期間基準日的市價（YTD 需要當年 1 月 1 日或更早的快照）。沒有對應快照的期間顯示 N/A，不虛構報酬。</li>
       <li><b>代表價</b>：同一張卡取一般印刷（Holofoil / Reverse 等）裡最高的 TCGPlayer <b>Market Price</b>；1st Edition 預設不計入（TCGPlayer 上成交太薄）。</li>
       <li><b>不含</b>：密封盒、Jumbo／oversized、JP promo（卡號 <code>-P</code>）、日版 SNKRDUNK、PriceCharting。</li>
@@ -402,16 +439,17 @@
   </div>
 
   <div class="disclaimer" id="disclaimer">
-    <p><b>資料來源：</b>TCGPlayer Market Price，經免費 <a href="https://tcgcsv.com" target="_blank" rel="noopener">TCGCSV</a> 每日 Pokemon category dump。僅 <b>英文裸卡</b>（EN raw singles）。<b>不是</b>日版／SNKRDUNK，也<b>不是</b>投資建議。</p>
+    <p><b>資料來源：</b>TCGPlayer Market Price。每日現況經免費 <a href="https://tcgcsv.com" target="_blank" rel="noopener">TCGCSV</a> Pokemon dump；多日歷史經免費 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a>（卡頁例如 <a href="https://tickermint.cards/card/87427" target="_blank" rel="noopener">tickermint.cards/card/87427</a>）。僅 <b>英文裸卡</b>（EN raw singles）。<b>不是</b>日版／SNKRDUNK，也<b>不是</b>投資建議。</p>
     <p>數字為第三方市場估計，可能延遲或不準；僅供參考與娛樂。Pokémon 與相關名稱為其權利人商標。本頁為獨立粉絲工具，與 Nintendo／The Pokémon Company／TCGPlayer／S&amp;P Global 無關。</p>
   </div>
 </main>
-<footer>日盒 EV 小算盤 · EN market pulse · Snapshot 靜態資料 · 非正式投資建議 · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · 日語熱度（即將推出）</footer>
+<footer>日盒 EV 小算盤 · EN market pulse · Snapshot 靜態資料 · 非正式投資建議 · 歷史價 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a> · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · 日語熱度（即將推出）</footer>
 
-<script src="./data/market-en/latest.js?v=1.21.8"></script>
+<script src="./data/market-en/latest.js?v=1.23.0"></script>
+<script src="./data/market-en/history.js?v=1.23.0"></script>
 <script>
 (async function () {
-  const VERSION = '1.21.8';
+  const VERSION = '1.23.0';
   const PERIODS = ['1D', '5D', '30D', 'YTD'];
   const $ = (id) => document.getElementById(id);
   function escapeHtml(s) {
@@ -448,7 +486,7 @@
   const dataRes = await loadJson('./data/market-en/latest.json');
   const histRes = await loadJson('./data/market-en/history.json');
   const DATA = (dataRes && dataRes.data) || window.MARKET_EN;
-  const HIST = (histRes && histRes.data) || { points: [] };
+  const HIST = (histRes && histRes.data) || window.MARKET_EN_HISTORY || { points: [] };
   if (!DATA || DATA.index == null) {
     showLoadError(dataRes);
     return;
@@ -506,23 +544,99 @@
   }
 
   $('indexLevel').textContent = Number(DATA.index).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  const chgEl = $('indexChg');
-  if (DATA.changePct == null) {
-    chgEl.className = 'index-chg muted';
-    chgEl.textContent = DATA.changeLabel || '尚無前一日快照';
-  } else {
-    chgEl.className = 'index-chg ' + chgClass(DATA.changePct);
-    const abs = DATA.change == null ? '' : (' · ' + (DATA.change > 0 ? '+' : '') + DATA.change.toFixed(2));
-    chgEl.textContent = fmtPct(DATA.changePct, true) + abs + '（vs 上一快照）';
-  }
+  const points = ((HIST && HIST.points) || []).filter((p) => p && p.date && p.index != null)
+    .sort((a, b) => String(a.date).localeCompare(String(b.date)));
+  const baseDate = DATA.baseDate || (HIST && HIST.baseDate) || (points[0] && points[0].date) || '';
   $('indexNote').textContent =
     '籃子 ' + (DATA.constituentCount || 500) + ' 張 · 合計市值 ' + fmtUsd(DATA.totalValue) +
-    ' · 基準 ' + (DATA.baseValue || 1000);
+    ' · 基準 ' + (DATA.baseValue || 1000) + (baseDate ? ' @ ' + baseDate : '');
 
-  const points = (HIST && HIST.points) || [];
-  if (points.length >= 2) {
+  function addDaysYmd(iso, days) {
+    const dt = parseAsOfDate(iso);
+    if (!dt) return null;
+    dt.setDate(dt.getDate() + days);
+    return ymdLocal(dt);
+  }
+  function lastPointOnOrBefore(iso) {
+    let found = null;
+    for (let i = 0; i < points.length; i++) {
+      if (points[i].date <= iso) found = points[i];
+    }
+    return found;
+  }
+  function packReturn(baseline, last, reason) {
+    if (!baseline || last == null || last.index == null) {
+      return { available: false, pct: null, from: null, to: last ? last.date : null, reason: reason };
+    }
+    const prev = Number(baseline.index);
+    const cur = Number(last.index);
+    if (!(prev > 0)) {
+      return { available: false, pct: null, from: baseline.date, to: last.date, reason: 'non-positive baseline index' };
+    }
+    return {
+      available: true,
+      pct: Math.round((cur / prev - 1) * 10000) / 100,
+      from: baseline.date,
+      to: last.date,
+      fromIndex: prev,
+      toIndex: cur,
+      reason: null
+    };
+  }
+  function computePeriodReturns(asOf) {
+    const last = lastPointOnOrBefore(asOf) || (points.length ? points[points.length - 1] : null);
+    const empty = { available: false, pct: null, from: null, to: asOf, reason: 'no snapshots' };
+    if (!last) return { asOf: asOf, '1D': empty, '5D': empty, '30D': empty, 'YTD': empty };
+    let prevSnap = null;
+    for (let i = 0; i < points.length; i++) {
+      if (points[i].date < last.date) prevSnap = points[i];
+    }
+    const cutoff5 = addDaysYmd(last.date, -5);
+    const cutoff30 = addDaysYmd(last.date, -30);
+    const dt = parseAsOfDate(last.date);
+    const cutoffYtd = dt ? (dt.getFullYear() + '-01-01') : null;
+    function vsCutoff(cutoff, label) {
+      if (!cutoff) return packReturn(null, last, label + ': invalid dates');
+      let baseline = null;
+      for (let i = 0; i < points.length; i++) {
+        if (points[i].date <= cutoff && points[i].date < last.date) baseline = points[i];
+      }
+      return packReturn(baseline, last, 'no snapshot on or before ' + cutoff + ' (need TickerMint backfill)');
+    }
+    return {
+      asOf: last.date,
+      '1D': packReturn(prevSnap, last, 'no previous snapshot'),
+      '5D': vsCutoff(cutoff5, '5D'),
+      '30D': vsCutoff(cutoff30, '30D'),
+      'YTD': vsCutoff(cutoffYtd, 'YTD')
+    };
+  }
+  const serverReturns = (HIST && HIST.returns) || {};
+  const computedReturns = computePeriodReturns(DATA.asOfDate || (points[0] && points[0].date) || '');
+  const RETURNS = {
+    asOf: serverReturns.asOf || computedReturns.asOf,
+    '1D': serverReturns['1D'] || computedReturns['1D'],
+    '5D': serverReturns['5D'] || computedReturns['5D'],
+    '30D': serverReturns['30D'] || computedReturns['30D'],
+    'YTD': serverReturns['YTD'] || computedReturns['YTD']
+  };
+  const periodState = { period: '1D' };
+  const PERIOD_LABEL = { '1D': 'vs 上一快照', '5D': '5D', '30D': '30D', 'YTD': 'YTD' };
+
+  function pointsForPeriod(period) {
+    const ret = RETURNS[period];
+    if (!ret || !ret.available || !ret.from) return points;
+    return points.filter((p) => p.date >= ret.from && p.date <= (ret.to || p.date));
+  }
+  function drawSpark(period) {
     const spark = $('spark');
-    const vals = points.map((p) => Number(p.index)).filter((n) => !Number.isNaN(n));
+    const pts = pointsForPeriod(period);
+    const vals = pts.map((p) => Number(p.index)).filter((n) => !Number.isNaN(n));
+    if (vals.length < 2) {
+      spark.setAttribute('hidden', 'hidden');
+      spark.innerHTML = '';
+      return;
+    }
     const min = Math.min.apply(null, vals);
     const max = Math.max.apply(null, vals);
     const span = (max - min) || 1;
@@ -535,6 +649,51 @@
     spark.innerHTML = '<polyline fill="none" stroke="#2563eb" stroke-width="2" points="' + coords.join(' ') + '" />';
     spark.removeAttribute('hidden');
   }
+  function renderPeriod(period) {
+    const chgEl = $('indexChg');
+    const note = $('indexPeriodNote');
+    const ret = RETURNS[period] || { available: false, reason: 'no snapshots' };
+    document.querySelectorAll('.period-btns .period-btn').forEach((btn) => {
+      const p = btn.getAttribute('data-period');
+      const avail = !!(RETURNS[p] && RETURNS[p].available);
+      btn.disabled = !avail;
+      btn.setAttribute('aria-selected', p === period && avail ? 'true' : 'false');
+      btn.classList.toggle('is-active', p === period && avail);
+      btn.title = avail
+        ? (RETURNS[p].from + ' → ' + RETURNS[p].to)
+        : (RETURNS[p] && RETURNS[p].reason) || '需要更多快照';
+    });
+    if (!ret.available) {
+      // Stay on the last usable period — never blank the % or invent a return.
+      if (period !== '1D' && RETURNS['1D'] && RETURNS['1D'].available) {
+        periodState.period = '1D';
+        renderPeriod('1D');
+        return;
+      }
+      chgEl.className = 'index-chg muted';
+      chgEl.textContent = '尚無 ' + (PERIOD_LABEL[period] || period);
+      note.textContent = ret.reason || '需要 TickerMint 回填後才有多日報酬';
+      drawSpark('1D');
+      return;
+    }
+    chgEl.className = 'index-chg ' + chgClass(ret.pct);
+    let extra = '';
+    if (period === '1D' && DATA.change != null && RETURNS['1D'] && RETURNS['1D'].to === DATA.asOfDate) {
+      extra = ' · ' + (DATA.change > 0 ? '+' : '') + DATA.change.toFixed(2);
+    }
+    chgEl.textContent = fmtPct(ret.pct, true) + extra + '（' + (PERIOD_LABEL[period] || period) + '）';
+    note.textContent = ret.from + ' → ' + ret.to + ' · ' + pointsForPeriod(period).length + ' 個快照（缺日不補價）';
+    drawSpark(period);
+  }
+  document.querySelectorAll('.period-btns .period-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const p = btn.getAttribute('data-period') || '1D';
+      if (btn.disabled || !(RETURNS[p] && RETURNS[p].available)) return;
+      periodState.period = p;
+      renderPeriod(p);
+    });
+  });
+  renderPeriod(RETURNS['1D'] && RETURNS['1D'].available ? '1D' : '1D');
 
   const b = DATA.breadth || {};
   const tot = (b.advancing || 0) + (b.declining || 0) + (b.unchanged || 0);
@@ -556,6 +715,11 @@
   function emptyRow(msg, cols) {
     return '<tr><td colspan="' + cols + '" class="tiny">' + escapeHtml(msg) + '</td></tr>';
   }
+  function tmLink(id) {
+    if (!id) return '';
+    return ' <a class="tiny" href="https://tickermint.cards/card/' + encodeURIComponent(id) +
+      '" target="_blank" rel="noopener">TickerMint</a>';
+  }
   function moverRows(list, emptyMsg) {
     if (!list || !list.length) return emptyRow(emptyMsg, 4);
     return list.map((c) => {
@@ -565,7 +729,7 @@
         : '';
       return '<tr>' +
         '<td>' + img + '</td>' +
-        '<td>' + escapeHtml(c.name) + ' <span class="tiny">' + escapeHtml(c.setName || '') + '</span></td>' +
+        '<td>' + escapeHtml(c.name) + ' <span class="tiny">' + escapeHtml(c.setName || '') + '</span>' + tmLink(c.id) + '</td>' +
         '<td class="num">' + fmtUsd(c.price) + '</td>' +
         '<td class="num chg ' + cls + '">' + fmtPct(c.changePct, true) + '</td>' +
         '</tr>';
@@ -626,7 +790,7 @@
     const pill = period;
     if ($('gainerPeriodPill')) $('gainerPeriodPill').textContent = pill;
     if ($('loserPeriodPill')) $('loserPeriodPill').textContent = pill;
-    if ($('periodNote')) $('periodNote').textContent = periodNoteText(period, info);
+    if ($('moversPeriodNote')) $('moversPeriodNote').textContent = periodNoteText(period, info);
     const picker = $('periodPicker');
     if (!picker) return;
     picker.querySelectorAll('.period-btn').forEach((btn) => {
@@ -659,7 +823,7 @@
     return '<tr>' +
       '<td>' + (c.rank || '') + '</td>' +
       '<td>' + img + '</td>' +
-      '<td>' + escapeHtml(c.name) + ' <span class="tiny">#' + escapeHtml(c.number || '') + '</span></td>' +
+      '<td>' + escapeHtml(c.name) + ' <span class="tiny">#' + escapeHtml(c.number || '') + '</span>' + tmLink(c.id) + '</td>' +
       '<td>' + escapeHtml(c.setName || '') + '</td>' +
       '<td class="num">' + fmtUsd(c.price) + '</td>' +
       '</tr>';

@@ -1,0 +1,81 @@
+name: Backfill EN history (TickerMint)
+
+# Manual only. Free TickerMint API, no key. Rewrites history.json + latest.json
+# divisor when mode=BACKFILL and confirm=BACKFILL. SAMPLE fetches a few IDs
+# and writes nothing to live JSON.
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "SAMPLE = a few cards, no rewrite. BACKFILL = rebase history.json."
+        required: true
+        default: "SAMPLE"
+        type: choice
+        options:
+          - SAMPLE
+          - BACKFILL
+      confirm:
+        description: "Type BACKFILL to rewrite history.json + latest.json"
+        required: false
+        default: ""
+      start:
+        description: "First date (default 2024-02-08). Optional later cut: 2024-02-28."
+        required: false
+        default: "2024-02-08"
+      step_days:
+        description: "7 = weekly (default). 1 = daily ~980 points."
+        required: false
+        default: "7"
+
+concurrency:
+  group: backfill-tickermint
+  cancel-in-progress: false
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Self-test
+        run: |
+          python3 tools/refresh_market_en.py --self-test
+          python3 tools/backfill_tickermint.py --self-test
+
+      - name: SAMPLE or BACKFILL
+        env:
+          MODE: ${{ github.event.inputs.mode }}
+          CONFIRM: ${{ github.event.inputs.confirm }}
+          START: ${{ github.event.inputs.start }}
+          STEP: ${{ github.event.inputs.step_days }}
+        run: |
+          if [ "$MODE" = "BACKFILL" ]; then
+            python3 tools/backfill_tickermint.py --backfill --confirm "$CONFIRM" \
+              --start "$START" --step-days "$STEP" -v
+            exit $?
+          fi
+          python3 tools/backfill_tickermint.py --sample -v
+          exit $?
+
+      - name: Commit backfill (BACKFILL only)
+        if: github.event.inputs.mode == 'BACKFILL'
+        run: |
+          git config user.name "box-ev-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/market-en/latest.json data/market-en/latest.js \
+                  data/market-en/history.json data/market-en/history.js
+          if git diff --cached --quiet; then
+            echo "No data changes to commit."
+          else
+            git commit -m "chore: backfill EN market history from TickerMint"
+            git push
+          fi
