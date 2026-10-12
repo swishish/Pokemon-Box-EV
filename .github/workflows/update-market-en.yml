@@ -1,11 +1,14 @@
 name: Update EN market pulse
 
-# Rebuilds the English raw-singles index from TCGCSV daily Pokemon dumps
-# and commits data/market-en/*. GitHub Pages stays static — the Action is
-# the only network fetch. No TCGPlayer API key.
+# Rebuilds the English raw-singles Top 500 index and the three Base Set
+# vintage indexes from TCGCSV daily Pokemon dumps, then commits
+# data/market-en/* and data/market-vintage/*. GitHub Pages stays static —
+# the Action is the only network fetch. No TCGPlayer API key.
 #
-# TCGCSV refreshes once per day (~20:05 UTC). The job checks last-updated.txt
-# first and exits if the stamp matches the committed snapshot.
+# Vintage v1 appends *today only* (no TickerMint / archive backfill).
+#
+# TCGCSV refreshes once per day (~20:05 UTC). Each script checks
+# last-updated.txt first and exits if the stamp matches the committed snapshot.
 on:
   schedule:
     - cron: "23 21 * * *"   # 21:23 UTC — after the usual TCGCSV dump
@@ -30,11 +33,12 @@ jobs:
           python-version: "3.12"
       - name: Install 7z (PPMd archives)
         run: sudo apt-get update && sudo apt-get install -y p7zip-full
-      - name: Self-test index math + archive replay + TickerMint
+      - name: Self-test index math + archive replay + TickerMint + vintage
         run: |
           python3 tools/refresh_market_en.py --self-test
           python3 tools/fetch_tcgcsv_archive.py --self-test
           python3 tools/backfill_tickermint.py --self-test
+          python3 tools/refresh_market_vintage.py --self-test
 
   build:
     if: github.event_name != 'pull_request'
@@ -52,14 +56,18 @@ jobs:
 
       - name: Install 7z (PPMd archives)
         run: sudo apt-get update && sudo apt-get install -y p7zip-full
-      - name: Self-test index math + archive replay + TickerMint
+      - name: Self-test index math + archive replay + TickerMint + vintage
         run: |
           python3 tools/refresh_market_en.py --self-test
           python3 tools/fetch_tcgcsv_archive.py --self-test
           python3 tools/backfill_tickermint.py --self-test
+          python3 tools/refresh_market_vintage.py --self-test
 
-      - name: Fetch TCGCSV dumps and rebuild pulse
+      - name: Fetch TCGCSV dumps and rebuild EN pulse
         run: python3 tools/refresh_market_en.py -v
+
+      - name: Fetch Base Set dumps and append vintage snapshots
+        run: python3 tools/refresh_market_vintage.py -v
 
       - name: Commit updated data
         run: |
@@ -67,10 +75,14 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/market-en/latest.json data/market-en/latest.js \
                   data/market-en/history.json data/market-en/history.js \
-                  data/market-en/price-history.json
+                  data/market-en/price-history.json \
+                  data/market-vintage/latest.json data/market-vintage/latest.js \
+                  data/market-vintage/history.json data/market-vintage/history.js \
+                  data/market-vintage/price-history.json \
+                  data/market-vintage/baskets.json
           if git diff --cached --quiet; then
             echo "No data changes to commit."
           else
-            git commit -m "chore: update EN market pulse ($(date -u +%Y-%m-%d))"
+            git commit -m "chore: update EN market pulse + vintage ($(date -u +%Y-%m-%d))"
             git push
           fi
