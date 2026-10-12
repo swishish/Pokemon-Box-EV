@@ -1,6 +1,6 @@
 # Pokemon Box EV
 
-日盒 EV 小算盤（朋友向）· **v1.21.4**
+日盒 EV 小算盤（朋友向）· **v1.21.5**
 
 給「不太懂金融／AI」的買卡朋友看的工具：首頁介紹點樣用 → 開盒算盤選系列 → 看 **四個預期回報 %**（同一分母）→ 有膜／無膜切換 → 看主力 chase 卡與「買單卡 vs 開盒」粗略提示。
 
@@ -15,6 +15,8 @@
 英文裸卡市況（S&P-style pulse）：**https://swishish.github.io/Pokemon-Box-EV/market-en.html**
 
 Chase 公允值（PSA10 回歸散點）：**https://swishish.github.io/Pokemon-Box-EV/chase-fit.html**
+
+姊妹站 Base Unlimited（Base Set Unlimited 速查）：**https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/**（頂欄外連，唔喺本 repo）
 
 公開 repo 的 GitHub Pages **免費**，無需付費。首頁**唔會**自動跳去算盤。`calc.html?set=M6` 仍然可以深連結指定系列。
 
@@ -75,6 +77,7 @@ python3 -m http.server 8765
 
 ## Changelog（摘要）
 
+- **v1.21.5**：頂欄加姊妹站 **Base Unlimited** 外連（首頁／算盤／Chase／EN 市況）；手機頂欄 nav 改全寬換行，避免溢出。EV／Chase_Fit 算法不變
 - **v1.21.4**：Chase 公允值圖例標籤改為可點選篩選（可多選；全關＝沒有點，按「顯示全部」還原）。EV／Chase_Fit 算法不變
 - **v1.21.3**：算盤「回到默認」——一鍵還原 haircut／Gem／Ask／費用／盒價（有膜落地）；進階假設內同頂欄都有。EV 算法不變
 - **v1.21.2**：手機算盤取消四個 %／盒價／進階假設整疊 sticky，跟頁面一齊滾，Chase／方法論可佔過半畫面；桌面仍 sticky。EV 算法不變
