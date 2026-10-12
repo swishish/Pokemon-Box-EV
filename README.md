@@ -71,7 +71,7 @@ python3 -m http.server 8765
 
 ## Chase 公允值（PSA10 回歸）
 
-獨立頁 `chase-fit.html`：Gary 的 **Chase_Fit** 模型散點（預測 PSA10 vs 實際 PSA10）。資料是靜態 JSON（`data/chase-fit/latest.json`），不經瀏覽器打 PriceCharting。圖例標籤可點選篩選散點（可多選；全關＝沒有點，按「顯示全部」還原）。圖卡上方置中顯示回歸公式、係數、R² 與 n。
+獨立頁 `chase-fit.html`：Gary 的 **Chase_Fit** 模型散點（預測 PSA10 vs 實際 PSA10），下方另有 POP × PSA10/raw 倍數圖（點色／大細＝gem%）。資料是靜態 JSON（`data/chase-fit/latest.json`），不經瀏覽器打 PriceCharting。圖例標籤可點選篩選散點（可多選；全關＝沒有點，按「顯示全部」還原）。第一張圖上方置中顯示回歸公式、係數、R² 與 n。篩選寫入網址；可隱藏全部散點，有標籤卡改顯示縮圖佔位。
 
 數字為 2026-10-09 快照，**非正式投資建議**。`as_of` 超過 7 日會顯示灰色「數字過期」。
 
