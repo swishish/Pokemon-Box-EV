@@ -187,6 +187,58 @@
     grid-template-columns: 1fr 1fr;
     gap: 12px;
   }
+  .movers-period {
+    margin: 0 0 10px;
+    min-width: 0;
+    max-width: 100%;
+  }
+  .movers-period-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 10px;
+    min-width: 0;
+  }
+  .period-picker {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    max-width: 100%;
+    min-width: 0;
+  }
+  #periodPicker .period-btn {
+    font: inherit;
+    font-size: .72rem;
+    font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: #eef2f6;
+    color: var(--muted);
+    cursor: pointer;
+    line-height: 1.2;
+    min-width: 2.55rem;
+    text-align: center;
+    touch-action: manipulation;
+    white-space: nowrap;
+    flex: 0 0 auto;
+    user-select: none;
+  }
+  #periodPicker .period-btn[aria-pressed="true"] {
+    background: #eef3ff;
+    border-color: #bfd0f5;
+    color: var(--accent);
+  }
+  #periodPicker .period-btn.is-na {
+    opacity: .55;
+  }
+  #periodPicker .period-btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  #indexPeriodNote, #moversPeriodNote, td.tiny {
+    overflow-wrap: break-word;
+  }
   table { width: 100%; border-collapse: collapse; font-size: .86rem; }
   th, td { text-align: left; padding: 7px 6px; border-bottom: 1px solid var(--line); vertical-align: middle; }
   th { color: var(--muted); font-weight: 600; font-size: .75rem; }
@@ -260,6 +312,7 @@
     }
     .wrap { padding: 10px 12px 48px; }
     .index-level { font-size: 2rem; }
+    .period-btn { padding: 6px 9px; }
   }
 </style>
 </head>
@@ -296,7 +349,7 @@
       </div>
       <svg class="spark" id="spark" viewBox="0 0 300 56" hidden aria-hidden="true"></svg>
       <p class="tiny" id="indexNote" style="margin:8px 0 0"></p>
-      <p class="tiny" id="periodNote" style="margin:4px 0 0"></p>
+      <p class="tiny" id="indexPeriodNote" style="margin:4px 0 0"></p>
     </div>
     <div class="card">
       <h2>市場廣度 Breadth</h2>
@@ -306,9 +359,22 @@
     </div>
   </div>
 
+  <div class="movers-period">
+    <div class="movers-period-row">
+      <span class="kicker">期間 Period</span>
+      <div class="period-picker" id="periodPicker" role="group" aria-label="Top gainers / losers period">
+        <button type="button" class="period-btn" data-period="1D" aria-pressed="true">1D</button>
+        <button type="button" class="period-btn" data-period="5D" aria-pressed="false">5D</button>
+        <button type="button" class="period-btn" data-period="30D" aria-pressed="false">30D</button>
+        <button type="button" class="period-btn" data-period="YTD" aria-pressed="false">YTD</button>
+      </div>
+    </div>
+    <p class="tiny" id="moversPeriodNote" style="margin:6px 0 0" role="status" aria-live="polite"></p>
+  </div>
+
   <div class="movers">
     <div class="card">
-      <h2>漲幅榜 Top gainers</h2>
+      <h2>漲幅榜 Top gainers <span class="pill" id="gainerPeriodPill">1D</span></h2>
       <div class="table-wrap">
         <table>
           <thead>
@@ -324,7 +390,7 @@
       </div>
     </div>
     <div class="card">
-      <h2>跌幅榜 Top losers</h2>
+      <h2>跌幅榜 Top losers <span class="pill" id="loserPeriodPill">1D</span></h2>
       <div class="table-wrap">
         <table>
           <thead>
@@ -366,6 +432,7 @@
       <li><b>指數</b>：英文 TCGPlayer 裸卡（raw / ungraded）市價最高的 500 張，價格加權；成分輪替時用 divisor 保持連續（S&amp;P 500 同款手法）。首次快照基準＝<b>1,000</b>。</li>
       <li><b>每日漲跌</b>：相對上一份已提交的快照。若這是第一份快照，指數仍顯示 1,000，% 與廣度會在下一次 GitHub Action 更新後出現。</li>
       <li><b>5D／30D／YTD</b>：用 <code>history.json</code> 裡<strong>真實快照</strong>算區間報酬，缺日就跳過、不補價。5D／30D 要有 cutoff 當天或更早的點；YTD 要有當年 1 月 1 日或更早的點。每日「今天」仍是 TCGCSV 現況 dump；往回的歷史用免費 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a>（<code>tools/backfill_tickermint.py</code>，預設 2024-02-08；<code>--start 2024-02-28</code> 可選較晚切點）。TCGCSV dated archive 仍 403，只留 probe 路徑。</li>
+      <li><b>漲跌榜期間</b>：1D＝上一份快照；5D／30D／YTD＝當日籃子相對該期間基準日的市價（YTD 需要當年 1 月 1 日或更早的快照）。沒有對應快照的期間顯示 N/A，不虛構報酬。</li>
       <li><b>代表價</b>：同一張卡取一般印刷（Holofoil / Reverse 等）裡最高的 TCGPlayer <b>Market Price</b>；1st Edition 預設不計入（TCGPlayer 上成交太薄）。</li>
       <li><b>不含</b>：密封盒、Jumbo／oversized、JP promo（卡號 <code>-P</code>）、日版 SNKRDUNK、PriceCharting。</li>
     </ul>
@@ -383,6 +450,7 @@
 <script>
 (async function () {
   const VERSION = '1.23.0';
+  const PERIODS = ['1D', '5D', '30D', 'YTD'];
   const $ = (id) => document.getElementById(id);
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, (ch) => ({
@@ -583,9 +651,9 @@
   }
   function renderPeriod(period) {
     const chgEl = $('indexChg');
-    const note = $('periodNote');
+    const note = $('indexPeriodNote');
     const ret = RETURNS[period] || { available: false, reason: 'no snapshots' };
-    document.querySelectorAll('.period-btn').forEach((btn) => {
+    document.querySelectorAll('.period-btns .period-btn').forEach((btn) => {
       const p = btn.getAttribute('data-period');
       const avail = !!(RETURNS[p] && RETURNS[p].available);
       btn.disabled = !avail;
@@ -617,7 +685,7 @@
     note.textContent = ret.from + ' → ' + ret.to + ' · ' + pointsForPeriod(period).length + ' 個快照（缺日不補價）';
     drawSpark(period);
   }
-  document.querySelectorAll('.period-btn').forEach((btn) => {
+  document.querySelectorAll('.period-btns .period-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
       const p = btn.getAttribute('data-period') || '1D';
       if (btn.disabled || !(RETURNS[p] && RETURNS[p].available)) return;
@@ -667,8 +735,85 @@
         '</tr>';
     }).join('');
   }
-  $('gainerBody').innerHTML = moverRows(DATA.gainers, '尚無漲幅（需要兩份快照）');
-  $('loserBody').innerHTML = moverRows(DATA.losers, '尚無跌幅（需要兩份快照）');
+
+  const snapshotRange = DATA.snapshotRange || {};
+  const earliestSnap = snapshotRange.earliest || null;
+  const moversByPeriod = DATA.movers || {};
+  function periodInfo(period) {
+    const info = moversByPeriod[period];
+    if (info) return info;
+    if (period === '1D') {
+      const has = (DATA.gainers && DATA.gainers.length) || (DATA.losers && DATA.losers.length) || DATA.prevIndex != null;
+      return {
+        available: !!has,
+        baselineDate: null,
+        neededBy: null,
+        label: has ? 'vs previous snapshot' : 'need a previous snapshot',
+        gainers: DATA.gainers || [],
+        losers: DATA.losers || []
+      };
+    }
+    return { available: false, baselineDate: null, neededBy: null, label: '', gainers: [], losers: [] };
+  }
+  function unavailableMsg(period, info) {
+    const need = info && info.neededBy ? info.neededBy : null;
+    const earliest = earliestSnap ? ('目前最早 ' + earliestSnap) : '目前沒有歷史快照';
+    if (period === 'YTD') {
+      return 'N/A — 尚無今年年初快照' + (need ? '（需要 ' + need + ' 或更早）' : '') + ' · ' + earliest;
+    }
+    if (period === '1D') {
+      return '尚無漲跌（需要兩份快照）';
+    }
+    return 'N/A — 尚無 ' + period + ' 快照' + (need ? '（需要 ' + need + ' 或更早）' : '') + ' · ' + earliest;
+  }
+  function periodNoteText(period, info) {
+    if (info.available) {
+      if (period === '1D') {
+        return '相對上一份已提交快照' + (info.baselineDate ? '（' + info.baselineDate + '）' : '');
+      }
+      return '相對 ' + (info.baselineDate || period) + ' 快照';
+    }
+    return unavailableMsg(period, info);
+  }
+  let selectedPeriod = '1D';
+  function renderMovers(period) {
+    selectedPeriod = period;
+    const info = periodInfo(period);
+    const gainerEmpty = info.available
+      ? '此期間沒有上漲成分'
+      : unavailableMsg(period, info);
+    const loserEmpty = info.available
+      ? '此期間沒有下跌成分'
+      : unavailableMsg(period, info);
+    $('gainerBody').innerHTML = moverRows(info.available ? info.gainers : [], gainerEmpty);
+    $('loserBody').innerHTML = moverRows(info.available ? info.losers : [], loserEmpty);
+    const pill = period;
+    if ($('gainerPeriodPill')) $('gainerPeriodPill').textContent = pill;
+    if ($('loserPeriodPill')) $('loserPeriodPill').textContent = pill;
+    if ($('moversPeriodNote')) $('moversPeriodNote').textContent = periodNoteText(period, info);
+    const picker = $('periodPicker');
+    if (!picker) return;
+    picker.querySelectorAll('.period-btn').forEach((btn) => {
+      const p = btn.getAttribute('data-period');
+      const pInfo = periodInfo(p);
+      btn.setAttribute('aria-pressed', p === period ? 'true' : 'false');
+      btn.classList.toggle('is-na', !pInfo.available);
+      btn.title = pInfo.available
+        ? (pInfo.label || p)
+        : unavailableMsg(p, pInfo);
+    });
+  }
+  const picker = $('periodPicker');
+  if (picker) {
+    picker.addEventListener('click', (e) => {
+      const btn = e.target.closest('.period-btn');
+      if (!btn || !picker.contains(btn)) return;
+      const period = btn.getAttribute('data-period');
+      if (!PERIODS.includes(period) || period === selectedPeriod) return;
+      renderMovers(period);
+    });
+  }
+  renderMovers('1D');
 
   const top = DATA.top || [];
   $('topBody').innerHTML = top.length ? top.map((c) => {

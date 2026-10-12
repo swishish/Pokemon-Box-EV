@@ -423,7 +423,72 @@
     align-items: start;
     min-width: 0;
   }
+  .charts-stack {
+    display: grid;
+    gap: 12px;
+    min-width: 0;
+  }
   .chart-card { padding: 10px 10px 12px; }
+  .gem-legend { margin-top: 8px; }
+  .gem-ramp {
+    width: 36px;
+    height: 9px;
+    border-radius: 999px;
+    border: 1.5px solid var(--ink);
+    background: linear-gradient(90deg, #4f86f7, #ffd23f, #c93540);
+    flex-shrink: 0;
+  }
+  .fit-formula {
+    margin: 0 0 8px;
+    padding: 8px 10px;
+    text-align: center;
+    max-width: 100%;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    border: 1.5px solid var(--ink);
+    border-radius: 10px;
+    background: var(--bg-2);
+  }
+  .fit-formula .eq {
+    margin: 0;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: clamp(0.62rem, 2.15vw, 0.78rem);
+    font-weight: 750;
+    line-height: 1.45;
+    color: var(--ink);
+  }
+  .fit-formula .eq .fit-name {
+    font-family: inherit;
+    font-weight: 850;
+    margin-right: 0.35em;
+  }
+  .fit-formula .coefs,
+  .fit-formula .stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px 6px;
+    margin: 6px 0 0;
+    max-width: 100%;
+  }
+  .fit-formula .coef-chip {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 4px;
+    max-width: 100%;
+    font-size: clamp(0.6rem, 1.9vw, 0.7rem);
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    padding: 2px 8px;
+    border-radius: 999px;
+    border: 1.5px solid var(--ink);
+    background: var(--card);
+    color: var(--ink);
+    overflow-wrap: anywhere;
+  }
+  .fit-formula .coef-chip .t { color: var(--muted); font-weight: 750; }
+  .fit-formula .coef-chip .v { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
   .chart-box {
     position: relative;
     width: 100%;
@@ -666,6 +731,7 @@
     .nav-btn { font-size: .7rem; padding: 6px 10px; }
     main { padding: 10px 12px 48px; }
     .chart-box { height: 300px; }
+    .fit-formula { padding: 6px 8px; margin-bottom: 6px; }
     .kv { grid-template-columns: minmax(6.5em, 36%) minmax(0, 1fr); }
   }
 </style>
@@ -709,14 +775,17 @@
         <button type="button" class="tog" data-color="resid" id="colorResid">殘差色</button>
       </div>
       <label class="chip-check" id="clipWrap" hidden><input type="checkbox" id="clipExtreme" checked />隱藏極端殘差</label>
+      <label class="chip-check"><input type="checkbox" id="hideDots" />隱藏全部點</label>
     </div>
     <p class="count-line" id="countLine">載入中…</p>
     <div class="legend" id="legend" role="group" aria-label="標籤篩選"></div>
   </section>
 
   <div class="plot-grid">
+    <div class="charts-stack">
     <section class="card chart-card">
       <h2><img class="mon mon-sm" src="./img/accents/ditto.svg" alt="" width="20" height="20" aria-hidden="true" />散點</h2>
+      <div class="fit-formula" id="fitFormula" aria-label="Chase_Fit 回歸公式"></div>
       <div class="chart-box" id="chartBox">
         <svg id="chart" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="PSA10 預測對實際散點"></svg>
         <div class="empty-plot" id="emptyPlot" hidden>
@@ -728,6 +797,24 @@
       </div>
       <p class="hint" id="axisHint"></p>
     </section>
+
+    <section class="card chart-card" aria-label="POP 對 PSA10/raw 倍數">
+      <h2><img class="mon mon-sm" src="./img/accents/eevee.svg" alt="" width="20" height="20" aria-hidden="true" />POP × 倍數</h2>
+      <div class="chart-box" id="popChartBox">
+        <svg id="popChart" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="PSA10 pop 對 PSA10/raw 倍數"></svg>
+        <div class="empty-plot" id="emptyPopPlot" hidden>
+          <img class="mon" src="./img/accents/eevee.svg" alt="" width="36" height="36" />
+          <h3>沒有符合的卡</h3>
+          <p>改搜尋或清篩選再試。</p>
+        </div>
+      </div>
+      <div class="legend gem-legend" aria-label="Gem% 色階">
+        <span class="legend-item"><span class="gem-ramp" aria-hidden="true"></span>Gem% 低→高（色＋點大細）</span>
+        <span class="legend-item"><span class="legend-line" aria-hidden="true"></span>趨勢（log-log）</span>
+      </div>
+      <p class="hint" id="popAxisHint">X＝PSA10 pop（對數）· Y＝PSA10／raw 倍數（對數）· 點色／大細＝gem%</p>
+    </section>
+    </div>
 
     <aside class="card detail-card" id="detailCard" aria-live="polite">
       <h2><img class="mon mon-sm" src="./img/accents/eevee.svg" alt="" width="20" height="20" aria-hidden="true" />卡片詳情</h2>
@@ -745,6 +832,9 @@
       <li><b>殘差%</b>＝（實際 − 預測）÷ 預測。負數＝便宜過模型；正數＝貴過模型。</li>
       <li><b>Strong Buy</b> 是資料裡的即時標籤，不是自動按殘差重算。</li>
       <li><b>圖例標籤</b>可點選篩選散點（可多選）。關掉的標籤會淡化；全部關掉＝沒有點，按「顯示全部」還原。與搜尋／JP·EN／只看 Strong Buy 一齊 AND。</li>
+      <li><b>POP × 倍數</b>：X＝PSA10 pop，Y＝PSA10／raw 倍數（皆對數軸，避免極端倍數壓扁圖）。點色同大細＝gem%。紅線係 log(multiple)～log(pop) 簡單趨勢。點擊行為同上面散點。</li>
+      <li><b>隱藏全部點</b>：隱藏未標記散點。有標籤的卡仍用原本彩色圓點。卡相只喺右側詳情，唔畫上圖。</li>
+      <li>篩選會寫入網址（<code>replaceState</code>）；重新整理可還原。公式同 R²／n 仍在第一張圖上方。</li>
       <li>公式：<code>log_psa10 ~ gem_rate + log_pop + log_raw + C(language) + promo_flag</code>；<code>log_pop</code> 用 <code>ln(pop+1)</code>。匯率 US$1＝HK$7.8。</li>
       <li>數字來自 2026-10-09 PriceCharting 快照（GemRate pop 覆寫沿用 10-08）。點卡片用「睇卡相／價」開 <b>PriceCharting 產品頁</b>（raw／PSA9／PSA10 現場價）。唔熱鏈 Rarebox 或第三方卡圖；PC 圖 CDN 雜湊無法由網址推導，故用佔位＋連結。JP 另有 SNKRDUNK <b>搜尋</b>（非已核實產品頁）；EN 另有 TCGPlayer 搜尋。</li>
       <li><b>非正式投資建議</b>；下單前請核對現場價。</li>
@@ -912,6 +1002,34 @@
   }
   renderFreshness();
 
+  function coefTermLabel(term) {
+    if (term === 'C(language)[T.JP]') return 'JP';
+    return term;
+  }
+  function renderFormula() {
+    const el = $('fitFormula');
+    if (!el) return;
+    const formula = META.formula || 'log_psa10 ~ gem_rate + log_pop + log_raw + C(language) + promo_flag';
+    const r2 = META.r2 == null ? '—' : Number(META.r2).toFixed(3);
+    const n = META.n != null ? META.n : CARDS.length;
+    const coefs = DATA.coefficients || [];
+    let html = '<p class="eq"><span class="fit-name">Chase_Fit</span> ' + escapeHtml(formula) + '</p>';
+    if (coefs.length) {
+      html += '<div class="coefs">';
+      coefs.forEach((row) => {
+        html += '<span class="coef-chip"><span class="t">' + escapeHtml(coefTermLabel(row.term)) +
+          '</span> <span class="v">' + fmtCoef(row.coef) + '</span></span>';
+      });
+      html += '</div>';
+    }
+    html += '<div class="stats">' +
+      '<span class="meta-chip">R²=' + r2 + '</span>' +
+      '<span class="meta-chip">n=' + n + '</span>' +
+      '</div>';
+    el.innerHTML = html;
+  }
+  renderFormula();
+
   const state = {
     q: '',
     lang: 'all',
@@ -919,9 +1037,76 @@
     view: 'fair',
     color: 'label',
     clipExtreme: true,
+    hideDots: false,
     selectedId: null,
     labels: allLabelsOnMap()
   };
+  const LABEL_ALIAS = {
+    'Strong Buy': 'sb',
+    'Mild undervalued': 'mild',
+    'Watch / Second Opinion': 'watch',
+    'Watch (thin liquidity)': 'thin',
+    'Watch (high pop / thin multiple)': 'highpop',
+    '': 'none'
+  };
+  const ALIAS_LABEL = {};
+  Object.keys(LABEL_ALIAS).forEach((k) => { ALIAS_LABEL[LABEL_ALIAS[k]] = k; });
+
+  function readUrlState() {
+    const p = new URLSearchParams(location.search);
+    if (p.has('q')) state.q = p.get('q') || '';
+    const lang = p.get('lang');
+    if (lang === 'JP' || lang === 'EN' || lang === 'all') state.lang = lang;
+    if (p.has('sb')) state.onlySb = p.get('sb') === '1';
+    const view = p.get('view');
+    if (view === 'resid' || view === 'fair') state.view = view;
+    const color = p.get('color');
+    if (color === 'resid' || color === 'label') state.color = color;
+    if (p.has('clip')) state.clipExtreme = p.get('clip') !== '0';
+    if (p.has('hide')) state.hideDots = p.get('hide') === '1';
+    if (p.has('off')) {
+      String(p.get('off') || '').split(',').forEach((raw) => {
+        const tok = String(raw || '').trim();
+        if (!tok) return;
+        const key = Object.prototype.hasOwnProperty.call(ALIAS_LABEL, tok) ? ALIAS_LABEL[tok] : tok;
+        if (LABEL_KEYS.indexOf(key) !== -1) state.labels[key] = false;
+      });
+    }
+  }
+  function writeUrlState() {
+    const p = new URLSearchParams();
+    if (state.q.trim()) p.set('q', state.q.trim());
+    if (state.lang !== 'all') p.set('lang', state.lang);
+    if (state.onlySb) p.set('sb', '1');
+    if (state.view !== 'fair') p.set('view', state.view);
+    if (state.color !== 'label') p.set('color', state.color);
+    if (state.view === 'resid' && !state.clipExtreme) p.set('clip', '0');
+    if (state.hideDots) p.set('hide', '1');
+    const offs = LABEL_KEYS.filter((k) => !state.labels[k]).map((k) => LABEL_ALIAS[k] != null ? LABEL_ALIAS[k] : k);
+    if (offs.length) p.set('off', offs.join(','));
+    const qs = p.toString();
+    const next = location.pathname + (qs ? '?' + qs : '') + location.hash;
+    const cur = location.pathname + location.search + location.hash;
+    if (next !== cur) history.replaceState(null, '', next);
+  }
+  function syncControlsFromState() {
+    if ($('q')) $('q').value = state.q;
+    [['langAll', 'all'], ['langJp', 'JP'], ['langEn', 'EN']].forEach(([id, v]) => {
+      const el = $(id); if (el) el.classList.toggle('active', state.lang === v);
+    });
+    [['viewFair', 'fair'], ['viewResid', 'resid']].forEach(([id, v]) => {
+      const el = $(id); if (el) el.classList.toggle('active', state.view === v);
+    });
+    [['colorLabel', 'label'], ['colorResid', 'resid']].forEach(([id, v]) => {
+      const el = $(id); if (el) el.classList.toggle('active', state.color === v);
+    });
+    if ($('onlySb')) $('onlySb').checked = state.onlySb;
+    if ($('clipExtreme')) $('clipExtreme').checked = state.clipExtreme;
+    if ($('hideDots')) $('hideDots').checked = state.hideDots;
+    if ($('clipWrap')) $('clipWrap').hidden = state.view !== 'resid';
+  }
+  readUrlState();
+  syncControlsFromState();
 
   function matchesBase(card) {
     if (state.onlySb && card.label !== 'Strong Buy') return false;
@@ -946,7 +1131,94 @@
   function resetLabelFilter() {
     state.labels = allLabelsOnMap();
     clearSelectionIfHidden();
-    renderChart();
+    renderPlots();
+  }
+  function hasMark(card) {
+    return !!(card && card.label && LABEL_META[card.label]);
+  }
+  function clamp01(t) { return Math.max(0, Math.min(1, t)); }
+  function gemNorm(g) {
+    const v = Number(g);
+    if (!Number.isFinite(v)) return 0.5;
+    return clamp01(v / 0.45);
+  }
+  function lerpHex(a, b, t) {
+    const pa = parseInt(a.slice(1), 16), pb = parseInt(b.slice(1), 16);
+    const ar = (pa >> 16) & 255, ag = (pa >> 8) & 255, ab = pa & 255;
+    const br = (pb >> 16) & 255, bg = (pb >> 8) & 255, bb = pb & 255;
+    const r = Math.round(ar + (br - ar) * t);
+    const g = Math.round(ag + (bg - ag) * t);
+    const bl = Math.round(ab + (bb - ab) * t);
+    return '#' + [r, g, bl].map((x) => x.toString(16).padStart(2, '0')).join('');
+  }
+  function gemColor(g) {
+    const t = gemNorm(g);
+    if (t < 0.5) return lerpHex('#4f86f7', '#ffd23f', t * 2);
+    return lerpHex('#ffd23f', '#c93540', (t - 0.5) * 2);
+  }
+  function gemRadius(g, sel) {
+    return sel ? 8 : (3.6 + gemNorm(g) * 4.2);
+  }
+  function popX(card) {
+    const p = Number(card.pop_psa10);
+    return (Number.isFinite(p) && p > 0) ? p : 0.5;
+  }
+  function multipleY(card) {
+    const m = Number(card.psa10_raw_multiple);
+    if (Number.isFinite(m) && m > 0) return m;
+    const psa = Number(card.psa10_usd), raw = Number(card.raw_usd);
+    if (Number.isFinite(psa) && Number.isFinite(raw) && raw > 0) return psa / raw;
+    return null;
+  }
+  function fitLogLinear(xs, ys) {
+    const n = xs.length;
+    if (n < 2) return null;
+    let sx = 0, sy = 0, sxx = 0, sxy = 0;
+    for (let i = 0; i < n; i++) {
+      const x = Math.log(xs[i]);
+      const y = ys[i];
+      sx += x; sy += y; sxx += x * x; sxy += x * y;
+    }
+    const den = n * sxx - sx * sx;
+    if (!den) return null;
+    const b = (n * sxy - sx * sy) / den;
+    const a = (sy - b * sx) / n;
+    return { a, b };
+  }
+  function paintSvg(svg, html, W, H, cards) {
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+    try {
+      const doc = new DOMParser().parseFromString(
+        '<svg xmlns="http://www.w3.org/2000/svg">' + html + '</svg>',
+        'image/svg+xml'
+      );
+      const root = doc.documentElement;
+      if (root.querySelector('parsererror')) throw new Error('svg parse');
+      svg.replaceChildren();
+      Array.from(root.childNodes).forEach((n) => {
+        svg.appendChild(document.importNode(n, true));
+      });
+    } catch (e) {
+      svg.innerHTML = html;
+    }
+    svg._cards = cards;
+  }
+  function appendMarks(cards, xOf, yOf, colorOf, radiusOf) {
+    let html = '';
+    cards.forEach((c, i) => {
+      const x = xOf(c);
+      const y = yOf(c);
+      const sel = c.card_id === state.selectedId;
+      if (state.hideDots && !hasMark(c)) return;
+      const color = colorOf(c);
+      const r = radiusOf(c, sel);
+      html += '<circle class="hit" data-i="' + i + '" cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) +
+        '" r="12" fill="transparent"/>';
+      html += '<circle class="hit" data-i="' + i + '" cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) +
+        '" r="' + r + '" fill="' + color + '" stroke="#141414" stroke-width="' + (sel ? 2.6 : 1.2) + '"/>';
+    });
+    return html;
   }
 
   function termRows(card) {
@@ -1022,6 +1294,7 @@
     }
     $('countLine').textContent = '顯示 ' + cards.length + ' / ' + CARDS.length +
       (hiddenExtreme ? (' · 另隱藏 ' + hiddenExtreme + ' 張極端殘差') : '') +
+      (state.hideDots ? ' · 已隱藏未標記點' : '') +
       ' · 點圖上的點睇詳情';
     $('clipWrap').hidden = state.view !== 'resid';
     renderLegend();
@@ -1107,36 +1380,85 @@
         '" stroke="#e4434f" stroke-width="2"/>';
     }
 
-    cards.forEach((c, i) => {
-      const x = xTo(c.pred_usd);
-      const y = yTo(resid ? c.residual_pct : c.psa10_usd);
-      const color = pointColor(c, state.color);
-      const sel = c.card_id === state.selectedId;
-      const r = sel ? 8 : (c.label === 'Strong Buy' ? 5.5 : 4.2);
-      html += '<circle class="hit" data-i="' + i + '" cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) +
-        '" r="12" fill="transparent"/>';
-      html += '<circle class="hit" data-i="' + i + '" cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) +
-        '" r="' + r + '" fill="' + color + '" stroke="' + (sel ? '#141414' : '#141414') +
-        '" stroke-width="' + (sel ? 2.6 : 1.2) + '"/>';
-    });
+    html += appendMarks(
+      cards,
+      (c) => xTo(c.pred_usd),
+      (c) => yTo(resid ? c.residual_pct : c.psa10_usd),
+      (c) => pointColor(c, state.color),
+      (c, sel) => sel ? 8 : (c.label === 'Strong Buy' ? 5.5 : 4.2)
+    );
+    paintSvg(svg, html, W, H, cards);
+  }
 
-    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
-    svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
-    try {
-      const doc = new DOMParser().parseFromString(
-        '<svg xmlns="http://www.w3.org/2000/svg">' + html + '</svg>',
-        'image/svg+xml'
-      );
-      const root = doc.documentElement;
-      if (root.querySelector('parsererror')) throw new Error('svg parse');
-      svg.replaceChildren();
-      Array.from(root.childNodes).forEach((n) => {
-        svg.appendChild(document.importNode(n, true));
-      });
-    } catch (e) {
-      svg.innerHTML = html;
+  function logPopTicks(min, max) {
+    const cands = [1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000];
+    return cands.filter((v) => v >= min * 0.98 && v <= max * 1.05);
+  }
+  function renderPopChart() {
+    const svg = $('popChart');
+    const empty = $('emptyPopPlot');
+    if (!svg) return;
+    const cards = visibleCards().filter((c) => multipleY(c) != null);
+    if (!cards.length) {
+      svg.innerHTML = '';
+      if (empty) empty.hidden = false;
+      return;
     }
-    svg._cards = cards;
+    if (empty) empty.hidden = true;
+
+    const W = 640, H = 480;
+    const m = { l: 64, r: 14, t: 14, b: 44 };
+    const iw = W - m.l - m.r, ih = H - m.t - m.b;
+    const xs = cards.map(popX);
+    const ys = cards.map(multipleY);
+    let xMin = Math.max(0.8, Math.min.apply(null, xs) * 0.75);
+    let xMax = Math.max.apply(null, xs) * 1.35;
+    let yMin = Math.max(0.8, Math.min.apply(null, ys) * 0.75);
+    let yMax = Math.max.apply(null, ys) * 1.35;
+    const lx0 = Math.log(xMin), lx1 = Math.log(xMax);
+    const ly0 = Math.log(yMin), ly1 = Math.log(yMax);
+    const xTo = (v) => m.l + ((Math.log(v) - lx0) / (lx1 - lx0)) * iw;
+    const yTo = (v) => m.t + (1 - (Math.log(v) - ly0) / (ly1 - ly0)) * ih;
+    const xTicks = logPopTicks(xMin, xMax);
+    const yTicks = logPopTicks(yMin, yMax);
+
+    let html = '<rect x="0" y="0" width="' + W + '" height="' + H + '" fill="transparent"/>';
+    xTicks.forEach((t) => {
+      const x = xTo(t);
+      html += '<line x1="' + x + '" y1="' + m.t + '" x2="' + x + '" y2="' + (m.t + ih) + '" stroke="#efe8da" stroke-width="1"/>';
+      html += '<text x="' + x + '" y="' + (H - 14) + '" text-anchor="middle">' + t + '</text>';
+    });
+    yTicks.forEach((t) => {
+      const y = yTo(t);
+      if (y < m.t - 1 || y > m.t + ih + 1) return;
+      html += '<line x1="' + m.l + '" y1="' + y + '" x2="' + (m.l + iw) + '" y2="' + y + '" stroke="#efe8da" stroke-width="1"/>';
+      html += '<text x="' + (m.l - 6) + '" y="' + (y + 4) + '" text-anchor="end">' + t + '×</text>';
+    });
+    html += '<text x="' + (m.l + iw / 2) + '" y="' + (H - 2) + '" text-anchor="middle">PSA10 pop</text>';
+    html += '<text x="12" y="' + (m.t + ih / 2) + '" text-anchor="middle" transform="rotate(-90 12 ' + (m.t + ih / 2) + ')">PSA10 / raw</text>';
+
+    const fit = fitLogLinear(xs, ys.map(Math.log));
+    if (fit) {
+      const x0 = xMin, x1 = xMax;
+      const y0 = Math.exp(fit.a + fit.b * Math.log(x0));
+      const y1 = Math.exp(fit.a + fit.b * Math.log(x1));
+      html += '<line x1="' + xTo(x0) + '" y1="' + yTo(y0) + '" x2="' + xTo(x1) + '" y2="' + yTo(y1) +
+        '" stroke="#e4434f" stroke-width="2"/>';
+    }
+
+    html += appendMarks(
+      cards,
+      (c) => xTo(popX(c)),
+      (c) => yTo(multipleY(c)),
+      (c) => gemColor(c.gem_rate),
+      (c, sel) => gemRadius(c.gem_rate, sel)
+    );
+    paintSvg(svg, html, W, H, cards);
+  }
+  function renderPlots() {
+    renderChart();
+    renderPopChart();
+    writeUrlState();
   }
 
   function residClass(pct) {
@@ -1233,21 +1555,27 @@
     state.selectedId = id;
     const card = CARDS.find((c) => c.card_id === id) || null;
     renderDetail(card);
-    renderChart();
+    renderPlots();
   }
 
-  $('chart').addEventListener('click', (ev) => {
-    const t = ev.target.closest ? ev.target.closest('[data-i]') : null;
-    if (!t) return;
-    const cards = $('chart')._cards || [];
-    const card = cards[Number(t.getAttribute('data-i'))];
-    if (card) selectById(card.card_id);
-  });
+  function bindChartClicks(id) {
+    const el = $(id);
+    if (!el) return;
+    el.addEventListener('click', (ev) => {
+      const t = ev.target.closest ? ev.target.closest('[data-i]') : null;
+      if (!t || !el.contains(t)) return;
+      const cards = el._cards || [];
+      const card = cards[Number(t.getAttribute('data-i'))];
+      if (card) selectById(card.card_id);
+    });
+  }
+  bindChartClicks('chart');
+  bindChartClicks('popChart');
 
   $('q').addEventListener('input', () => {
     state.q = $('q').value;
     clearSelectionIfHidden();
-    renderChart();
+    renderPlots();
   });
   function bindSeg(btns, key) {
     btns.forEach((btn) => {
@@ -1256,7 +1584,7 @@
         state[key] = val;
         btns.forEach((b) => b.classList.toggle('active', b === btn));
         clearSelectionIfHidden();
-        renderChart();
+        renderPlots();
       });
     });
   }
@@ -1266,12 +1594,16 @@
   $('onlySb').addEventListener('change', () => {
     state.onlySb = $('onlySb').checked;
     clearSelectionIfHidden();
-    renderChart();
+    renderPlots();
   });
   $('clipExtreme').addEventListener('change', () => {
     state.clipExtreme = $('clipExtreme').checked;
     clearSelectionIfHidden();
-    renderChart();
+    renderPlots();
+  });
+  $('hideDots').addEventListener('change', () => {
+    state.hideDots = $('hideDots').checked;
+    renderPlots();
   });
   $('legend').addEventListener('click', (ev) => {
     const reset = ev.target.closest ? ev.target.closest('[data-legend-reset]') : null;
@@ -1286,13 +1618,13 @@
     if (LABEL_KEYS.indexOf(key) === -1) return;
     state.labels[key] = !state.labels[key];
     clearSelectionIfHidden();
-    renderChart();
+    renderPlots();
   });
   $('showAllLabels').addEventListener('click', () => {
     resetLabelFilter();
   });
 
-  renderChart();
+  renderPlots();
 })();
 </script>
 </body>

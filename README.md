@@ -29,7 +29,7 @@ Chase 公允值（PSA10 回歸散點）：**https://swishish.github.io/Pokemon-B
 | Index + % | 預設 **1D**＝相對上一份已提交快照。第一次建檔只有指數 1,000，沒有每日 % |
 | 5D / 30D / YTD | 用 `history.json` 真實快照算區間報酬；缺日跳過、**不補價**。沒有 cutoff 當天或更早的點就 disable |
 | Breadth | 籃子裡上漲 vs 下跌張數（有歷史才有） |
-| Top gainers / losers | 同一份快照對比 |
+| Top gainers / losers | 期間可選 1D／5D／30D／YTD（`price-history.json`）；歷史快照不足則 N/A，不虛構報酬 |
 | Disclaimer | 每日 TCGCSV；歷史 TickerMint（免費、需 linkback）；僅 EN raw；非正式投資建議 |
 
 ### 資料怎麼更新
@@ -44,6 +44,7 @@ Chase 公允值（PSA10 回歸散點）：**https://swishish.github.io/Pokemon-B
 3. 有新 dump 才抓 `Groups.csv` + 各系列 `ProductsAndPrices.csv`，寫入：
    - `data/market-en/latest.json`（指數、廣度、漲跌榜、500 張成分——給下一次對比用）
    - `data/market-en/history.json`（**append／upsert 當天**，保留 backfill 舊點與 `baseDate`／`returns`）
+   - `data/market-en/price-history.json`（成分市價，用來算漲跌榜 5D／30D／YTD）
    - `data/market-en/latest.js`、`history.js`（`file://` / 快取備援）
 4. Action 把變更 commit 回預設分支；GitHub Pages 仍是純靜態。
 
@@ -122,14 +123,15 @@ python3 -m http.server 8765
 
 ## Chase 公允值（PSA10 回歸）
 
-獨立頁 `chase-fit.html`：Gary 的 **Chase_Fit** 模型散點（預測 PSA10 vs 實際 PSA10）。資料是靜態 JSON（`data/chase-fit/latest.json`），不經瀏覽器打 PriceCharting。圖例標籤可點選篩選散點（可多選；全關＝沒有點，按「顯示全部」還原）。
+獨立頁 `chase-fit.html`：Gary 的 **Chase_Fit** 模型散點（預測 PSA10 vs 實際 PSA10），下方另有 POP × PSA10/raw 倍數圖（點色／大細＝gem%）。資料是靜態 JSON（`data/chase-fit/latest.json`），不經瀏覽器打 PriceCharting。圖例標籤可點選篩選散點（可多選；全關＝沒有點，按「顯示全部」還原）。第一張圖上方置中顯示回歸公式、係數、R² 與 n。篩選寫入網址；「隱藏全部點」只收起未標記散點，有標籤卡仍用原本彩色圓點。卡相只喺右側詳情。
 
 數字為 2026-10-09 快照，**非正式投資建議**。`as_of` 超過 7 日會顯示灰色「數字過期」。
 
 ## Changelog（摘要）
 
-- **v1.23.0**：EN 市況歷史改走免費 TickerMint API 回填（TCGCSV archive 仍 403）；頁尾／卡名 TickerMint linkback；5D／30D／YTD 有真實快照才亮。每日現況仍是 TCGCSV dump。EV／Chase_Fit 算法不變
-- **v1.22.0**：EN 市況 5D／30D／YTD period picker（真實 `history.json` 快照，缺日不補價）＋ `tools/fetch_tcgcsv_archive.py`（7z 解 TCGCSV archive，預設起點 2024-02-08；2024-02-28 為可選較晚切點）。Archive 仍 403 時不發明價格。EV／Chase_Fit 算法不變
+- **v1.23.0**：EN 市況歷史改走免費 TickerMint API 回填（TCGCSV archive 仍 403）；頁尾／卡名 TickerMint linkback；指數 5D／30D／YTD 有真實快照才亮。每日現況仍是 TCGCSV dump。EV／Chase_Fit 算法不變
+- **v1.22.0**：EN 市況指數 5D／30D／YTD period picker（真實 `history.json` 快照，缺日不補價）＋ `tools/fetch_tcgcsv_archive.py`（7z 解 TCGCSV archive，預設起點 2024-02-08；2024-02-28 為可選較晚切點）。Archive 仍 403 時不發明價格。EV／Chase_Fit 算法不變
+- **v1.21.8**：EN 市況漲跌榜加 **1D／5D／30D／YTD** 期間選擇。多日報酬只用 repo 裡已提交的每日快照；缺歷史（含 TCGCSV archive 目前 403）就顯示 N/A，不虛構數字。EV／Chase_Fit 算法不變
 - **v1.21.7**：加書籤／分頁 favicon（`favicon.svg`，原創簡幾何 Pokéball）。各公開頁加 `<link rel="icon">`。EV／Chase_Fit 算法不變
 - **v1.21.6**：算盤切系列／TOC／pack dropdown 時保留上次選的有膜／無膜；新系列無無膜落地則沿用有膜、不虛構價格。EV／Chase_Fit 算法不變
 - **v1.21.5**：頂欄加姊妹站 **Base Unlimited** 外連（首頁／算盤／Chase／EN 市況）；手機頂欄 nav 改全寬換行，避免溢出。EV／Chase_Fit 算法不變

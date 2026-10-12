@@ -9,15 +9,17 @@ Data source: TCGCSV daily Pokemon category dumps
   https://tcgcsv.com/tcgplayer/3/{groupId}/ProductsAndPrices.csv
 
 Writes (stdlib only — GitHub Actions needs no pip install):
-  data/market-en/latest.json   index + breadth + movers + basket (for next run)
-  data/market-en/history.json  one point per snapshot date (append/upsert; never wipes)
-  data/market-en/latest.js     window.MARKET_EN fallback (file:// / cache)
-  data/market-en/history.js    window.MARKET_EN_HISTORY fallback
+  data/market-en/latest.json         index + breadth + movers + basket (for next run)
+  data/market-en/history.json        one point per snapshot date (append/upsert; never wipes)
+  data/market-en/price-history.json  per-card basket prices by date (mover 1D/5D/30D/YTD)
+  data/market-en/latest.js           window.MARKET_EN fallback (file:// / cache)
+  data/market-en/history.js          window.MARKET_EN_HISTORY fallback
 
-Multi-day 5D / 30D / YTD returns are derived from history.json points (no
-interpolation). Longer history is backfilled from the TickerMint free API
-(tools/backfill_tickermint.py). TCGCSV current dumps remain the daily snap;
-the TCGCSV *archive* path is kept but still 403 as of 2026-10-12.
+Index 5D / 30D / YTD returns come from history.json points (no interpolation).
+Longer index history is backfilled from the TickerMint free API
+(tools/backfill_tickermint.py). Mover periods use price-history.json.
+TCGCSV current dumps remain the daily snap; the TCGCSV *archive* path is
+kept but still 403 as of 2026-10-12.
 
 Index math matches S&Poké-500 in spirit: price-weighted top 500 English raw
 singles with an index divisor so the level stays continuous when the basket
@@ -44,6 +46,7 @@ LATEST_PATH = os.path.join(DATA_DIR, "latest.json")
 LATEST_JS_PATH = os.path.join(DATA_DIR, "latest.js")
 HISTORY_PATH = os.path.join(DATA_DIR, "history.json")
 HISTORY_JS_PATH = os.path.join(DATA_DIR, "history.js")
+PRICE_HISTORY_PATH = os.path.join(DATA_DIR, "price-history.json")
 
 TCGCSV = "https://tcgcsv.com"
 CATEGORY = 3  # English Pokemon
@@ -57,6 +60,11 @@ TOP_MOVERS = 10
 # optional later cut (--start 2024-02-28), not the archive's real start.
 ARCHIVE_START = "2024-02-08"
 OPTIONAL_START = "2024-02-28"
+MOVER_PERIODS = ("1D", "5D", "30D", "YTD")
+# Accept a baseline a few days older than the exact lookback if a dump was missed.
+PERIOD_SLACK_DAYS = {"5D": 3, "30D": 7, "YTD": 21}
+PRICE_HISTORY_KEEP_DAYS = 400
+MOVER_FIELDS = ("id", "name", "number", "image", "setName", "price", "prevPrice", "changePct")
 
 _SET_PREFIX = re.compile(r"^[A-Z0-9]{2,6}:\s+")
 _JP_PROMO_NUMBER = re.compile(r"-P$", re.IGNORECASE)
@@ -532,6 +540,197 @@ def write_history_js(history: dict) -> None:
     _write_js(HISTORY_JS_PATH, "MARKET_EN_HISTORY", history)
 
 
+def parse_iso_date(raw: str) -> date:
+    return datetime.strptime(raw, "%Y-%m-%d").date()
+
+
+def collect_basket_prices(constituents: list) -> dict[str, float]:
+    prices: dict[str, float] = {}
+    for row in constituents or []:
+        pid = str(row.get("id") or "").strip()
+        price = row.get("price")
+        if not pid or price is None:
+            continue
+        try:
+            val = float(price)
+        except (TypeError, ValueError):
+            continue
+        if val > 0:
+            prices[pid] = round(val, 2)
+    return {pid: prices[pid] for pid in sorted(prices)}
+
+
+def period_needed_by(as_of: str, period: str) -> str | None:
+    """Earliest snapshot date required for a honest lookback (inclusive)."""
+    as_of_d = parse_iso_date(as_of)
+    if period == "1D":
+        return None
+    if period == "5D":
+        return (as_of_d - timedelta(days=5)).isoformat()
+    if period == "30D":
+        return (as_of_d - timedelta(days=30)).isoformat()
+    if period == "YTD":
+        return date(as_of_d.year, 1, 1).isoformat()
+    raise ValueError(f"unknown period {period}")
+
+
+def pick_baseline_date(dates: list[str], as_of: str, period: str) -> str | None:
+    """Latest stored snapshot that can serve as the period baseline.
+
+    1D = previous snapshot (any gap). Other periods need a date on or before
+    the lookback target, not older than PERIOD_SLACK_DAYS past that target.
+    Dates after `as_of` are ignored. Missing history returns None — never
+    substitute a nearer snapshot (that would invent a 5D/30D/YTD return).
+    """
+    known = sorted({d for d in dates if d and d < as_of})
+    if period == "1D":
+        return known[-1] if known else None
+    target = period_needed_by(as_of, period)
+    if not target:
+        return None
+    slack = PERIOD_SLACK_DAYS[period]
+    earliest_ok = (parse_iso_date(target) - timedelta(days=slack)).isoformat()
+    candidates = [d for d in known if earliest_ok <= d <= target]
+    return candidates[-1] if candidates else None
+
+
+def movers_from_constituents(
+    constituents: list,
+    baseline_prices: dict,
+    top_n: int = TOP_MOVERS,
+) -> tuple[list, list]:
+    """Top gainers / losers vs a historical price map. Skips carried rows."""
+    movable = []
+    for row in constituents or []:
+        if row.get("carried"):
+            continue
+        pid = str(row.get("id") or "")
+        price = row.get("price")
+        prior = baseline_prices.get(pid)
+        if not pid or not price or not prior or prior <= 0:
+            continue
+        change_pct = round((float(price) / float(prior) - 1) * 100, 2)
+        item = {k: row.get(k) for k in ("id", "name", "number", "image", "setName")}
+        item["price"] = round(float(price), 2)
+        item["prevPrice"] = round(float(prior), 2)
+        item["changePct"] = change_pct
+        movable.append(item)
+    movable.sort(key=lambda c: c["changePct"], reverse=True)
+    gainers = [{k: c[k] for k in MOVER_FIELDS} for c in movable[:top_n] if c["changePct"] > 0]
+    losers = [
+        {k: c[k] for k in MOVER_FIELDS}
+        for c in reversed(movable[-top_n:])
+        if c["changePct"] < 0
+    ]
+    return gainers, losers
+
+
+def prune_price_points(points: list, as_of: str) -> list:
+    """Keep ~400 recent days plus the last snapshot of each older year (YTD)."""
+    as_of_d = parse_iso_date(as_of)
+    cutoff = (as_of_d - timedelta(days=PRICE_HISTORY_KEEP_DAYS)).isoformat()
+    by_date = {}
+    for point in points or []:
+        d = point.get("date")
+        if d:
+            by_date[d] = point
+    year_end: dict[int, dict] = {}
+    recent = []
+    for d in sorted(by_date):
+        point = by_date[d]
+        if d >= cutoff:
+            recent.append(point)
+            continue
+        year = int(d[:4])
+        if year < as_of_d.year:
+            year_end[year] = point
+    recent_years = {int(p["date"][:4]) for p in recent}
+    anchors = [year_end[y] for y in sorted(year_end) if y not in recent_years]
+    return anchors + recent
+
+
+def upsert_price_history(history: dict, latest: dict, now: datetime | None = None) -> dict:
+    as_of = latest.get("asOfDate")
+    if not as_of:
+        return history if isinstance(history, dict) else {"points": []}
+    if not isinstance(history, dict):
+        history = {"points": []}
+    prices = collect_basket_prices(latest.get("constituents") or [])
+    points = [p for p in history.get("points", []) if p.get("date") != as_of]
+    if prices:
+        points.append({"date": as_of, "prices": prices})
+    points = prune_price_points(points, as_of)
+    stamp = (now or datetime.now(timezone.utc)).isoformat()
+    return {"generated": stamp, "points": points}
+
+
+def snapshot_range(price_history: dict) -> dict:
+    dates = sorted(p["date"] for p in (price_history.get("points") or []) if p.get("date"))
+    return {
+        "earliest": dates[0] if dates else None,
+        "latest": dates[-1] if dates else None,
+        "count": len(dates),
+    }
+
+
+def build_period_movers(latest: dict, price_history: dict) -> dict:
+    """1D copies the existing snapshot movers; 5D/30D/YTD use stored prices."""
+    as_of = latest["asOfDate"]
+    dates = [p["date"] for p in price_history.get("points") or [] if p.get("date")]
+    prices_by_date = {
+        p["date"]: p.get("prices") or {}
+        for p in price_history.get("points") or []
+        if p.get("date")
+    }
+    constituents = latest.get("constituents") or []
+    out = {}
+    for period in MOVER_PERIODS:
+        needed = period_needed_by(as_of, period)
+        baseline = pick_baseline_date(dates, as_of, period)
+        if period == "1D":
+            has_prev = latest.get("prevIndex") is not None or bool(latest.get("gainers") or latest.get("losers"))
+            # Same lists as the legacy gainers/losers fields (vs previous snapshot).
+            out[period] = {
+                "available": bool(has_prev),
+                "baselineDate": baseline,
+                "neededBy": needed,
+                "label": "vs previous snapshot" if has_prev else "need a previous snapshot",
+                "gainers": latest.get("gainers") or [],
+                "losers": latest.get("losers") or [],
+            }
+            continue
+        if not baseline:
+            out[period] = {
+                "available": False,
+                "baselineDate": None,
+                "neededBy": needed,
+                "label": (
+                    f"need a snapshot on or before {needed}"
+                    if needed
+                    else "need a previous snapshot"
+                ),
+                "gainers": [],
+                "losers": [],
+            }
+            continue
+        gainers, losers = movers_from_constituents(constituents, prices_by_date.get(baseline) or {})
+        out[period] = {
+            "available": True,
+            "baselineDate": baseline,
+            "neededBy": needed,
+            "label": f"vs {baseline}",
+            "gainers": gainers,
+            "losers": losers,
+        }
+    return out
+
+
+def attach_period_movers(latest: dict, price_history: dict) -> dict:
+    latest["snapshotRange"] = snapshot_range(price_history)
+    latest["movers"] = build_period_movers(latest, price_history)
+    return latest
+
+
 def build_snapshot(catalog: dict, prices: dict, subtypes: dict, stamp: str | None, now: datetime) -> dict:
     prev = load_json(LATEST_PATH, {})
     history_points = (load_json(HISTORY_PATH, {}) or {}).get("points") or []
@@ -813,7 +1012,104 @@ def self_test() -> None:
     assert [p["date"] for p in preserved["points"]] == ["2024-02-08", "2026-10-08"]
     assert preserved["points"][-1]["index"] == 1201.5
     assert preserved["returns"]["1D"]["available"]
+
+    dates = [
+        "2026-01-02",
+        "2026-09-10",
+        "2026-10-06",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+    ]
+    assert pick_baseline_date(dates, "2026-10-11", "1D") == "2026-10-10"
+    assert pick_baseline_date(dates, "2026-10-11", "5D") == "2026-10-06"
+    assert pick_baseline_date(dates, "2026-10-11", "30D") == "2026-09-10"
+    # Jan 2 is after New Year's Day — must not stand in for YTD.
+    assert pick_baseline_date(dates, "2026-10-11", "YTD") is None
+    # Four-day repo history cannot fill 5D / 30D / YTD.
+    short = ["2026-10-08", "2026-10-09", "2026-10-10", "2026-10-11"]
+    assert pick_baseline_date(short, "2026-10-11", "1D") == "2026-10-10"
+    assert pick_baseline_date(short, "2026-10-11", "5D") is None
+    assert pick_baseline_date(short, "2026-10-11", "30D") is None
+    assert pick_baseline_date(short, "2026-10-11", "YTD") is None
+    # Do not use a nearer snapshot when the lookback date is missing.
+    assert pick_baseline_date(["2026-10-08", "2026-10-11"], "2026-10-11", "5D") is None
+    # Dec 31 previous year is a valid YTD baseline.
+    assert pick_baseline_date(["2025-12-31", "2026-10-11"], "2026-10-11", "YTD") == "2025-12-31"
+    assert period_needed_by("2026-10-11", "5D") == "2026-10-06"
+    assert period_needed_by("2026-10-11", "30D") == "2026-09-11"
+    assert period_needed_by("2026-10-11", "YTD") == "2026-01-01"
+
+    constituents = [
+        {"id": "a", "name": "A", "number": "1", "image": "", "setName": "S", "price": 110.0, "carried": False},
+        {"id": "b", "name": "B", "number": "2", "image": "", "setName": "S", "price": 40.0, "carried": False},
+        {"id": "c", "name": "C", "number": "3", "image": "", "setName": "S", "price": 80.0, "carried": True},
+    ]
+    gainers, losers = movers_from_constituents(constituents, {"a": 100.0, "b": 50.0, "c": 40.0})
+    assert len(gainers) == 1 and gainers[0]["id"] == "a" and gainers[0]["changePct"] == 10.0
+    assert len(losers) == 1 and losers[0]["id"] == "b" and losers[0]["changePct"] == -20.0
+
+    fake_latest = {
+        "asOfDate": "2026-10-11",
+        "prevIndex": 993.39,
+        "gainers": gainers,
+        "losers": losers,
+        "constituents": constituents,
+    }
+    hist = {
+        "points": [
+            {"date": "2026-10-06", "prices": {"a": 100.0, "b": 50.0}},
+            {"date": "2026-10-08", "prices": {"a": 102.0, "b": 48.0}},
+            {"date": "2026-10-11", "prices": {"a": 110.0, "b": 40.0}},
+        ]
+    }
+    periods = build_period_movers(fake_latest, hist)
+    assert periods["1D"]["available"] is True
+    assert periods["5D"]["available"] is True
+    assert periods["5D"]["baselineDate"] == "2026-10-06"
+    assert periods["5D"]["gainers"][0]["id"] == "a"
+    assert periods["5D"]["gainers"][0]["changePct"] == 10.0
+    assert periods["30D"]["available"] is False
+    assert periods["YTD"]["available"] is False
+
+    pruned = prune_price_points(
+        [
+            {"date": "2024-12-30", "prices": {"a": 1}},
+            {"date": "2025-06-01", "prices": {"a": 1.5}},
+            {"date": "2025-12-31", "prices": {"a": 2}},
+            {"date": "2026-10-11", "prices": {"a": 3}},
+        ],
+        "2026-10-11",
+    )
+    pruned_dates = [p["date"] for p in pruned]
+    assert "2024-12-30" in pruned_dates  # last 2024 snapshot, kept for later YTD
+    assert "2025-06-01" not in pruned_dates  # 2025-12-31 is inside the 400-day window
+    assert "2025-12-31" in pruned_dates
+    assert "2026-10-11" in pruned_dates
+
     print("self-test ok")
+
+
+def rebuild_movers(now: datetime | None = None) -> None:
+    """Recompute period movers from stored snapshots without fetching TCGCSV."""
+    latest = load_json(LATEST_PATH, {})
+    if not latest.get("asOfDate"):
+        raise RuntimeError("latest.json is missing asOfDate")
+    stamp = now or datetime.now(timezone.utc)
+    price_history = upsert_price_history(load_json(PRICE_HISTORY_PATH, {}), latest, stamp)
+    attach_period_movers(latest, price_history)
+    write_json(LATEST_PATH, latest)
+    write_json(PRICE_HISTORY_PATH, price_history)
+    write_latest_js(latest)
+    rng = latest.get("snapshotRange") or {}
+    avail = [p for p, info in (latest.get("movers") or {}).items() if info.get("available")]
+    print(
+        f"movers rebuilt asOf {latest['asOfDate']} "
+        f"| snapshots {rng.get('earliest')}→{rng.get('latest')} ({rng.get('count')}) "
+        f"| available {', '.join(avail) or 'none'}",
+        flush=True,
+    )
 
 
 def build(verbose: bool = False, force: bool = False) -> None:
@@ -831,9 +1127,12 @@ def build(verbose: bool = False, force: bool = False) -> None:
 
     now = datetime.now(timezone.utc)
     latest = build_snapshot(catalog, prices, subtypes, stamp, now)
+    price_history = upsert_price_history(load_json(PRICE_HISTORY_PATH, {}), latest, now)
+    attach_period_movers(latest, price_history)
     history = append_history(latest, now)
     write_json(LATEST_PATH, latest)
     write_json(HISTORY_PATH, history)
+    write_json(PRICE_HISTORY_PATH, price_history)
     write_latest_js(latest)
     write_history_js(history)
 
@@ -852,10 +1151,22 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--self-test", action="store_true", help="Run index-math checks and exit")
     parser.add_argument("--force", action="store_true", help="Rebuild even if TCGCSV stamp is unchanged")
+    parser.add_argument(
+        "--rebuild-movers",
+        action="store_true",
+        help="Recompute 1D/5D/30D/YTD movers from stored price history (no TCGCSV fetch)",
+    )
     parser.add_argument("-v", "--verbose", action="store_true")
     args = parser.parse_args(argv)
     if args.self_test:
         self_test()
+        return 0
+    if args.rebuild_movers:
+        try:
+            rebuild_movers()
+        except Exception as err:  # noqa: BLE001
+            print(f"ERROR: {err}", file=sys.stderr)
+            return 1
         return 0
     try:
         build(verbose=args.verbose, force=args.force)

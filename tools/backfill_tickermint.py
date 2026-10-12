@@ -332,6 +332,8 @@ def compose_latest(result: dict, prev_latest: dict, now: datetime) -> dict:
             for c in constituents[:10]
         ],
         "constituents": constituents,
+        "movers": prev_latest.get("movers") or {},
+        "snapshotRange": prev_latest.get("snapshotRange"),
         "backfill": {
             "source": "tickermint",
             "start": history["baseDate"],
