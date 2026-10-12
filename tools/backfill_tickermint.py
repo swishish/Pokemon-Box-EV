@@ -25,6 +25,9 @@ pass --step-days 1 for a daily series (~980 points).
 --sample fetches a few current-basket IDs (live) and writes nothing to
 history.json. --backfill --confirm BACKFILL rebases live history.json
 (and latest.json divisor) so 5D/30D/YTD can light up.
+
+Do **not** use this script for Base Set vintage indexes (1st / Shadowless /
+Unlimited). It skips 1st Edition. Use tools/backfill_tickermint_vintage.py.
 """
 from __future__ import annotations
 
@@ -545,6 +548,12 @@ def self_test() -> None:
         raise AssertionError("expected --confirm BACKFILL guard")
     except RuntimeError as err:
         assert "Refusing to rebase" in str(err)
+    import io
+    from contextlib import redirect_stderr
+    buf = io.StringIO()
+    with redirect_stderr(buf):
+        assert main(["--vintage"]) == 2
+    assert "backfill_tickermint_vintage.py" in buf.getvalue()
     print("self-test ok")
 
 
@@ -569,7 +578,21 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--max-ids", type=int, default=None, help="Cap basket IDs (debug / smoke)")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("-v", "--verbose", action="store_true")
+    parser.add_argument(
+        "--vintage",
+        action="store_true",
+        help="Rejected — 1st Edition vs Shadowless need tools/backfill_tickermint_vintage.py",
+    )
     args = parser.parse_args(argv)
+
+    if args.vintage:
+        print(
+            "ERROR: tools/backfill_tickermint.py skips 1st Edition (EN representative printing). "
+            "Use tools/backfill_tickermint_vintage.py so 1st / Shadowless / Unlimited "
+            "each keep their own TickerMint printing.",
+            file=sys.stderr,
+        )
+        return 2
 
     if args.self_test:
         self_test()

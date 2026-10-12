@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "rule": "fixture baskets — BSS ids A/B shared by 1st + shadowless; U is Unlimited-only",
+  "indexes": {
+    "base-1st": {
+      "id": "base-1st",
+      "name": "Base 1st Edition",
+      "nameZh": "Base 第一版",
+      "printing": "1st Edition",
+      "groupId": "1663",
+      "groupName": "Base Set (Shadowless)",
+      "subtypeNeedles": ["1st edition"],
+      "subtypeMode": "include",
+      "universe": "fixture 1st",
+      "constituents": [
+        {"id": "A", "name": "Alakazam", "number": "001/102", "rarity": "Holo Rare", "image": ""},
+        {"id": "B", "name": "Blastoise", "number": "002/102", "rarity": "Holo Rare", "image": ""}
+      ]
+    },
+    "base-shadowless": {
+      "id": "base-shadowless",
+      "name": "Base Shadowless",
+      "nameZh": "Base 無陰影",
+      "printing": "Unlimited Shadowless",
+      "groupId": "1663",
+      "groupName": "Base Set (Shadowless)",
+      "subtypeNeedles": ["unlimited"],
+      "subtypeMode": "include",
+      "universe": "fixture shadowless",
+      "constituents": [
+        {"id": "A", "name": "Alakazam", "number": "001/102", "rarity": "Holo Rare", "image": ""},
+        {"id": "B", "name": "Blastoise", "number": "002/102", "rarity": "Holo Rare", "image": ""}
+      ]
+    },
+    "base-unlimited": {
+      "id": "base-unlimited",
+      "name": "Base Unlimited",
+      "nameZh": "Base 無限版",
+      "printing": "Unlimited (with shadow)",
+      "groupId": "604",
+      "groupName": "Base Set",
+      "subtypeNeedles": ["1st edition"],
+      "subtypeMode": "exclude",
+      "universe": "fixture unlimited",
+      "constituents": [
+        {"id": "U", "name": "Alakazam", "number": "001/102", "rarity": "Holo Rare", "image": ""}
+      ]
+    }
+  }
+}

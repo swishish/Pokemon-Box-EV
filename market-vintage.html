@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>Base 復古指數 · Box EV v1.24.0</title>
+<title>Base 復古指數 · Box EV v1.25.0</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <style>
   :root {
@@ -483,7 +483,7 @@
 <header>
   <div class="header-inner">
     <div>
-      <h1>Base 復古指數 <span class="pill">EN raw · v1.24.0</span></h1>
+      <h1>Base 復古指數 <span class="pill">EN raw · v1.25.0</span></h1>
       <p>Base Set 1st Edition / Shadowless / Unlimited · TCGPlayer Market via TCGCSV · 每日一點</p>
     </div>
     <nav class="header-nav" aria-label="站內導覽">
@@ -640,7 +640,7 @@
     <ul class="tiny">
       <li><b>三條獨立指數</b>：Base Set 英文裸卡（raw / ungraded）——<b>1st Edition</b>（第一版）、<b>Shadowless</b>（無限版、無右緣陰影）、<b>Unlimited</b>（後來有陰影的無限版）。不是 Jungle / Fossil 中世代。</li>
       <li><b>固定籃子</b>：Holo Rare + Rare（對照 Base Unlimited 速查 #1–102，有 TCGPlayer ID 才收）。價格加權；成分有人加入／退出時用 divisor 保持連續（S&amp;P 500 同款）。首次保留的每日快照基準＝<b>1,000</b>。</li>
-      <li><b>每日一點</b>：GitHub Action 只 append 當天。v1 <b>不回填</b>歷史（TickerMint / TCGCSV archive 都未接）。5D／30D／YTD 要夠多每日點才會亮，在此之前是 N/A，<b>不虛構報酬</b>。</li>
+      <li><b>5D／30D／YTD</b>：用 <code>history.json</code> 裡<strong>真實快照</strong>算區間報酬，缺日就跳過、不補價。每日「今天」仍是 TCGCSV 現況 dump；往回的歷史用免費 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a>（<code>tools/backfill_tickermint_vintage.py</code>，按印刷篩 1st／Shadowless／Unlimited，預設 2024-02-08 起每週一點）。<b>不要</b>用 EN 的 <code>backfill_tickermint.py</code>（那支會跳過 1st Edition）。沒有 cutoff 當天或更早的點就 disable，不虛構報酬。</li>
       <li><b>代表價</b>：TCGPlayer <b>Market Price</b>（NM raw），按印刷 subtype 分開：1st Edition 只用 1st Edition 列；Shadowless 用該 group 的 Unlimited 列；Unlimited 用 Base Set group 的 Holofoil／Normal。</li>
       <li><b>卡冊 Binder</b>：同一籃子的格狀速覽（縮圖、編號、USD、有的話才顯示 1D %）。用上方「指數／卡冊」切換；三條指數 tab 共用。搜尋與 Holo／Rare 晶片只篩這一頁，不改指數。</li>
       <li><b>不含</b>：密封盒、Jumbo、JP promo、error 異圖（Black Dot Charizard、Red Cheeks Pikachu）。<b>Machamp 008/102</b> 在 TCGCSV 兩個 Base group 都沒有單卡 ID，暫缺（卡冊裡以虛線口袋標「缺口」）。</li>
@@ -648,17 +648,17 @@
   </div>
 
   <div class="disclaimer" id="disclaimer">
-    <p><b>資料來源：</b>TCGPlayer Market Price，經免費 <a href="https://tcgcsv.com" target="_blank" rel="noopener">TCGCSV</a> Pokemon dump（category 3）。僅 <b>英文 Base Set 裸卡</b>。對照名單見姊妹站 <a href="https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/" target="_blank" rel="noopener">Base Unlimited cheatsheet</a>。<b>不是</b>投資建議。</p>
+    <p><b>資料來源：</b>TCGPlayer Market Price。每日現況經免費 <a href="https://tcgcsv.com" target="_blank" rel="noopener">TCGCSV</a> Pokemon dump（category 3）；多日歷史經免費 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a>（卡頁例如 <a href="https://tickermint.cards/card/106999" target="_blank" rel="noopener">tickermint.cards/card/106999</a>）。僅 <b>英文 Base Set 裸卡</b>。對照名單見姊妹站 <a href="https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/" target="_blank" rel="noopener">Base Unlimited cheatsheet</a>。<b>不是</b>投資建議。</p>
     <p>數字為第三方市場估計，可能延遲或不準；1st Edition 成交偏薄，缺市價的卡當天不進指數。Pokémon 與相關名稱為其權利人商標。本頁為獨立粉絲工具，與 Nintendo／The Pokémon Company／TCGPlayer／S&amp;P Global 無關。</p>
   </div>
 </main>
-<footer>日盒 EV 小算盤 · Base vintage pulse · Snapshot 靜態資料 · 非正式投資建議 · <a href="./index.html">首頁</a> · <a href="./market-en.html">EN 市況</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/" target="_blank" rel="noopener">Base Unlimited</a></footer>
+<footer>日盒 EV 小算盤 · Base vintage pulse · Snapshot 靜態資料 · 非正式投資建議 · 歷史價 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a> · <a href="./index.html">首頁</a> · <a href="./market-en.html">EN 市況</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/" target="_blank" rel="noopener">Base Unlimited</a></footer>
 
-<script src="./data/market-vintage/latest.js?v=1.24.0"></script>
-<script src="./data/market-vintage/history.js?v=1.24.0"></script>
+<script src="./data/market-vintage/latest.js?v=1.25.0"></script>
+<script src="./data/market-vintage/history.js?v=1.25.0"></script>
 <script>
 (async function () {
-  const VERSION = '1.24.0';
+  const VERSION = '1.25.0';
   const PERIODS = ['1D', '5D', '30D', 'YTD'];
   const HASH_TO_ID = {
     '1st': 'base-1st', first: 'base-1st', '1sted': 'base-1st', 'base-1st': 'base-1st',
@@ -739,7 +739,7 @@
       el.textContent = '數字可能過期（TCGCSV 快照：' + ymd + ' · 已過 ' + age + ' 日）— 下單前請核對現價';
     } else {
       el.className = 'data-freshness';
-      el.textContent = 'TCGCSV 快照 ' + ymd + (DATA.sourceStamp ? ' · ' + DATA.sourceStamp : '') + ' · 每日一點、不回填';
+      el.textContent = 'TCGCSV 快照 ' + ymd + (DATA.sourceStamp ? ' · ' + DATA.sourceStamp : '') + ' · 每日現況；歷史 TickerMint';
     }
   }
   renderFreshness();
@@ -760,6 +760,11 @@
     if (!id) return '';
     return ' <a class="tiny" href="https://www.tcgplayer.com/product/' + encodeURIComponent(id) +
       '" target="_blank" rel="noopener">TCGPlayer</a>';
+  }
+  function tmLink(id) {
+    if (!id) return '';
+    return ' <a class="tiny" href="https://tickermint.cards/card/' + encodeURIComponent(id) +
+      '" target="_blank" rel="noopener">TickerMint</a>';
   }
   function emptyRow(msg, cols) {
     return '<tr><td colspan="' + cols + '" class="tiny">' + escapeHtml(msg) + '</td></tr>';
@@ -816,7 +821,7 @@
     }
     function vsCutoff(cutoff, label) {
       if (!cutoff) return packReturn(null, last, label + ': invalid dates');
-      return packReturn(lastOnOrBefore(cutoff), last, 'need more daily snapshots (backfill deferred)');
+      return packReturn(lastOnOrBefore(cutoff), last, 'no snapshot on or before ' + cutoff + ' (need TickerMint backfill)');
     }
     return {
       asOf: last.date,
@@ -923,7 +928,7 @@
         : '';
       return '<tr>' +
         '<td>' + img + '</td>' +
-        '<td>' + escapeHtml(c.name) + ' <span class="tiny">' + escapeHtml(c.number || '') + '</span>' + tcgLink(c.id) + '</td>' +
+        '<td>' + escapeHtml(c.name) + ' <span class="tiny">' + escapeHtml(c.number || '') + '</span>' + tcgLink(c.id) + tmLink(c.id) + '</td>' +
         '<td class="num">' + fmtUsd(c.price) + '</td>' +
         '<td class="num chg ' + cls + '">' + fmtPct(c.changePct, true) + '</td>' +
         '</tr>';
@@ -966,10 +971,10 @@
     const need = info && info.neededBy ? info.neededBy : null;
     const earliest = earliestSnap ? ('目前最早 ' + earliestSnap) : '目前只有每日 log';
     if (period === 'YTD') {
-      return 'N/A — 尚無今年年初快照' + (need ? '（需要 ' + need + ' 或更早）' : '') + ' · ' + earliest + ' · 不回填';
+      return 'N/A — 尚無今年年初快照' + (need ? '（需要 ' + need + ' 或更早）' : '') + ' · ' + earliest + ' · 跑 TickerMint 回填';
     }
     if (period === '1D') return '尚無漲跌（需要兩份快照）';
-    return 'N/A — 尚無 ' + period + ' 快照' + (need ? '（需要 ' + need + ' 或更早）' : '') + ' · ' + earliest + ' · 不回填';
+    return 'N/A — 尚無 ' + period + ' 快照' + (need ? '（需要 ' + need + ' 或更早）' : '') + ' · ' + earliest + ' · 跑 TickerMint 回填';
   }
 
   function renderMovers(DATA_ONE) {
@@ -1120,7 +1125,7 @@
         btn.classList.toggle('is-active', p === period && avail);
         btn.title = avail
           ? (RETURNS[p].from + ' → ' + RETURNS[p].to)
-          : (RETURNS[p] && RETURNS[p].reason) || '需要更多每日快照（不回填）';
+          : (RETURNS[p] && RETURNS[p].reason) || '需要更多快照（TickerMint 回填）';
       });
       if (!ret.available) {
         if (period !== '1D' && RETURNS['1D'] && RETURNS['1D'].available) {
@@ -1132,7 +1137,7 @@
         chgEl.textContent = DATA_ONE.changePct == null
           ? '首次快照 · 下一次更新才有 1D %'
           : ('尚無 ' + (PERIOD_LABEL[period] || period));
-        note.textContent = ret.reason || '需要更多每日快照（backfill deferred）';
+        note.textContent = ret.reason || '需要更多快照（TickerMint 回填）';
         drawSpark(points, '1D', RETURNS);
         return;
       }
@@ -1179,7 +1184,7 @@
       return '<tr>' +
         '<td>' + (c.rank || '') + '</td>' +
         '<td>' + img + '</td>' +
-        '<td>' + escapeHtml(c.name) + ' <span class="tiny">#' + escapeHtml(c.number || '') + '</span>' + tcgLink(c.id) + '</td>' +
+        '<td>' + escapeHtml(c.name) + ' <span class="tiny">#' + escapeHtml(c.number || '') + '</span>' + tcgLink(c.id) + tmLink(c.id) + '</td>' +
         '<td class="set-col">' + escapeHtml(c.setName || '') + '</td>' +
         '<td class="num">' + fmtUsd(c.price) + '</td>' +
         '</tr>';
@@ -1197,7 +1202,7 @@
       return '<tr>' +
         '<td class="tiny">' + escapeHtml(c.number || '') + '</td>' +
         '<td>' + img + '</td>' +
-        '<td>' + escapeHtml(c.name) + tcgLink(c.id) +
+        '<td>' + escapeHtml(c.name) + tcgLink(c.id) + tmLink(c.id) +
         (c.printing ? ' <span class="tiny">' + escapeHtml(c.printing) + '</span>' : '') + '</td>' +
         '<td class="tiny">' + escapeHtml(c.rarity || '') + '</td>' +
         '<td class="num">' + priceCell + '</td>' +
