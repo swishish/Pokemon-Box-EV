@@ -148,6 +148,7 @@
   .period-btn:disabled {
     opacity: 0.4;
     cursor: not-allowed;
+    pointer-events: none;
   }
   .kicker { font-size: .72rem; color: var(--muted); font-weight: 650; }
   .metrics {
@@ -286,10 +287,10 @@
       <div class="index-level" id="indexLevel">—</div>
       <div class="index-chg muted" id="indexChg">載入中…</div>
       <div class="period-btns" role="tablist" aria-label="Return period">
-        <button type="button" class="period-btn is-active" data-period="1D">1D</button>
-        <button type="button" class="period-btn" data-period="5D">5D</button>
-        <button type="button" class="period-btn" data-period="30D">30D</button>
-        <button type="button" class="period-btn" data-period="YTD">YTD</button>
+        <button type="button" class="period-btn is-active" data-period="1D" aria-selected="true">1D</button>
+        <button type="button" class="period-btn" data-period="5D" disabled aria-selected="false">5D</button>
+        <button type="button" class="period-btn" data-period="30D" disabled aria-selected="false">30D</button>
+        <button type="button" class="period-btn" data-period="YTD" disabled aria-selected="false">YTD</button>
       </div>
       <svg class="spark" id="spark" viewBox="0 0 300 56" hidden aria-hidden="true"></svg>
       <p class="tiny" id="indexNote" style="margin:8px 0 0"></p>
@@ -586,12 +587,19 @@
       const p = btn.getAttribute('data-period');
       const avail = !!(RETURNS[p] && RETURNS[p].available);
       btn.disabled = !avail;
+      btn.setAttribute('aria-selected', p === period && avail ? 'true' : 'false');
       btn.classList.toggle('is-active', p === period && avail);
       btn.title = avail
         ? (RETURNS[p].from + ' → ' + RETURNS[p].to)
         : (RETURNS[p] && RETURNS[p].reason) || '需要更多快照';
     });
     if (!ret.available) {
+      // Stay on the last usable period — never blank the % or invent a return.
+      if (period !== '1D' && RETURNS['1D'] && RETURNS['1D'].available) {
+        periodState.period = '1D';
+        renderPeriod('1D');
+        return;
+      }
       chgEl.className = 'index-chg muted';
       chgEl.textContent = '尚無 ' + (PERIOD_LABEL[period] || period);
       note.textContent = ret.reason || '需要 TCGCSV archive 回填後才有多日報酬';
@@ -609,9 +617,10 @@
   }
   document.querySelectorAll('.period-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
-      if (btn.disabled) return;
-      periodState.period = btn.getAttribute('data-period') || '1D';
-      renderPeriod(periodState.period);
+      const p = btn.getAttribute('data-period') || '1D';
+      if (btn.disabled || !(RETURNS[p] && RETURNS[p].available)) return;
+      periodState.period = p;
+      renderPeriod(p);
     });
   });
   renderPeriod(RETURNS['1D'] && RETURNS['1D'].available ? '1D' : '1D');
