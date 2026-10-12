@@ -1,12 +1,18 @@
 {
-  "generated": "2026-10-12T10:42:18.824191+00:00",
-  "sourceStamp": "2026-10-11T20:05:45+0000",
+  "generated": "2026-10-12T13:23:45.840292+00:00",
+  "sourceStamp": null,
   "asOfDate": "2026-10-11",
-  "priceSource": "TCGplayer Market Price (via tcgcsv.com daily snapshot)",
+  "priceSource": "TCGplayer Market Price (TickerMint history + TCGCSV daily snap)",
   "universe": "English Base Set raw / ungraded singles — 1st Edition / Shadowless / Unlimited",
   "staleDays": 70,
   "baseValue": 1000.0,
-  "backfill": "deferred",
+  "backfill": {
+    "source": "tickermint",
+    "script": "tools/backfill_tickermint_vintage.py",
+    "start": "2024-02-08",
+    "uniqueProducts": 62,
+    "docs": "https://tickermint.cards/developers/pokemon"
+  },
   "basketRule": "Fixed chase baskets: Base Set EN raw singles, Holo Rare + Rare only (cheatsheet #1–102 where IDs exist). Split by printing. Sealed / jumbo / JP / error variants excluded. Not mid-era (Jungle/Fossil/Rocket).",
   "gaps": [
     {
@@ -43,38 +49,20 @@
       "asOfDate": "2026-10-11",
       "universe": "English Base Set 1st Edition raw / ungraded (TCGPlayer Market, NM)",
       "staleDays": 70,
-      "index": 1000.0,
-      "prevIndex": null,
-      "change": null,
-      "changePct": null,
-      "changeLabel": "first snapshot — daily % after the next refresh",
-      "divisor": 6.73355,
+      "index": 1265.38,
+      "prevIndex": 1262.8,
+      "change": 2.58,
+      "changePct": 0.2,
+      "changeLabel": "vs previous snapshot",
+      "divisor": 14.534399443144787,
       "baseValue": 1000.0,
-      "baseDate": "2026-10-11",
+      "baseDate": "2024-02-08",
+      "archiveStart": "2024-02-08",
       "listedCount": 31,
-      "constituentCount": 28,
-      "totalValue": 6733.55,
+      "constituentCount": 31,
+      "totalValue": 18391.56,
       "pricedToday": 28,
-      "listedUnpriced": [
-        {
-          "id": "106997",
-          "name": "Blastoise",
-          "number": "002/102",
-          "rarity": "Holo Rare"
-        },
-        {
-          "id": "106999",
-          "name": "Charizard",
-          "number": "004/102",
-          "rarity": "Holo Rare"
-        },
-        {
-          "id": "107005",
-          "name": "Mewtwo",
-          "number": "010/102",
-          "rarity": "Holo Rare"
-        }
-      ],
+      "listedUnpriced": [],
       "breadth": {
         "available": false,
         "advancing": 0,
@@ -86,6 +74,26 @@
       "top": [
         {
           "rank": 1,
+          "id": "106999",
+          "name": "Charizard",
+          "number": "004/102",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/106999_200w.jpg",
+          "setName": "Base Set (Shadowless)",
+          "price": 10000.0,
+          "rarity": "Holo Rare"
+        },
+        {
+          "rank": 2,
+          "id": "106997",
+          "name": "Blastoise",
+          "number": "002/102",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/106997_200w.jpg",
+          "setName": "Base Set (Shadowless)",
+          "price": 1300.0,
+          "rarity": "Holo Rare"
+        },
+        {
+          "rank": 3,
           "id": "107010",
           "name": "Venusaur",
           "number": "015/102",
@@ -95,7 +103,7 @@
           "rarity": "Holo Rare"
         },
         {
-          "rank": 2,
+          "rank": 4,
           "id": "107008",
           "name": "Ninetales",
           "number": "012/102",
@@ -105,7 +113,7 @@
           "rarity": "Holo Rare"
         },
         {
-          "rank": 3,
+          "rank": 5,
           "id": "107009",
           "name": "Raichu",
           "number": "014/102",
@@ -115,7 +123,7 @@
           "rarity": "Holo Rare"
         },
         {
-          "rank": 4,
+          "rank": 6,
           "id": "107003",
           "name": "Magneton",
           "number": "009/102",
@@ -125,7 +133,7 @@
           "rarity": "Holo Rare"
         },
         {
-          "rank": 5,
+          "rank": 7,
           "id": "106998",
           "name": "Chansey",
           "number": "003/102",
@@ -135,7 +143,17 @@
           "rarity": "Holo Rare"
         },
         {
-          "rank": 6,
+          "rank": 8,
+          "id": "107005",
+          "name": "Mewtwo",
+          "number": "010/102",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107005_200w.jpg",
+          "setName": "Base Set (Shadowless)",
+          "price": 358.01,
+          "rarity": "Holo Rare"
+        },
+        {
+          "rank": 9,
           "id": "107006",
           "name": "Nidoking",
           "number": "011/102",
@@ -145,43 +163,13 @@
           "rarity": "Holo Rare"
         },
         {
-          "rank": 7,
+          "rank": 10,
           "id": "107001",
           "name": "Clefairy",
           "number": "005/102",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/107001_200w.jpg",
           "setName": "Base Set (Shadowless)",
           "price": 335.47,
-          "rarity": "Holo Rare"
-        },
-        {
-          "rank": 8,
-          "id": "106996",
-          "name": "Alakazam",
-          "number": "001/102",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/106996_200w.jpg",
-          "setName": "Base Set (Shadowless)",
-          "price": 328.13,
-          "rarity": "Holo Rare"
-        },
-        {
-          "rank": 9,
-          "id": "107002",
-          "name": "Hitmonchan",
-          "number": "007/102",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107002_200w.jpg",
-          "setName": "Base Set (Shadowless)",
-          "price": 300.0,
-          "rarity": "Holo Rare"
-        },
-        {
-          "rank": 10,
-          "id": "107011",
-          "name": "Zapdos",
-          "number": "016/102",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107011_200w.jpg",
-          "setName": "Base Set (Shadowless)",
-          "price": 257.87,
           "rarity": "Holo Rare"
         }
       ],
@@ -202,9 +190,9 @@
           "number": "002/102",
           "rarity": "Holo Rare",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/106997_200w.jpg",
-          "price": null,
+          "price": 1300.0,
           "printing": null,
-          "carried": false
+          "carried": true
         },
         {
           "id": "106998",
@@ -222,9 +210,9 @@
           "number": "004/102",
           "rarity": "Holo Rare",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/106999_200w.jpg",
-          "price": null,
+          "price": 10000.0,
           "printing": null,
-          "carried": false
+          "carried": true
         },
         {
           "id": "107001",
@@ -272,9 +260,9 @@
           "number": "010/102",
           "rarity": "Holo Rare",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/107005_200w.jpg",
-          "price": null,
+          "price": 358.01,
           "printing": null,
-          "carried": false
+          "carried": true
         },
         {
           "id": "107006",
@@ -500,6 +488,38 @@
       "constituents": [
         {
           "rank": 1,
+          "id": "106999",
+          "name": "Charizard",
+          "number": "004/102",
+          "rarity": "Holo Rare",
+          "setName": "Base Set (Shadowless)",
+          "setId": "1663",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/106999_200w.jpg",
+          "price": 10000.0,
+          "prevPrice": null,
+          "changePct": null,
+          "printing": null,
+          "pricedAsOf": null,
+          "carried": true
+        },
+        {
+          "rank": 2,
+          "id": "106997",
+          "name": "Blastoise",
+          "number": "002/102",
+          "rarity": "Holo Rare",
+          "setName": "Base Set (Shadowless)",
+          "setId": "1663",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/106997_200w.jpg",
+          "price": 1300.0,
+          "prevPrice": null,
+          "changePct": null,
+          "printing": null,
+          "pricedAsOf": null,
+          "carried": true
+        },
+        {
+          "rank": 3,
           "id": "107010",
           "name": "Venusaur",
           "number": "015/102",
@@ -515,7 +535,7 @@
           "carried": false
         },
         {
-          "rank": 2,
+          "rank": 4,
           "id": "107008",
           "name": "Ninetales",
           "number": "012/102",
@@ -531,7 +551,7 @@
           "carried": false
         },
         {
-          "rank": 3,
+          "rank": 5,
           "id": "107009",
           "name": "Raichu",
           "number": "014/102",
@@ -547,7 +567,7 @@
           "carried": false
         },
         {
-          "rank": 4,
+          "rank": 6,
           "id": "107003",
           "name": "Magneton",
           "number": "009/102",
@@ -563,7 +583,7 @@
           "carried": false
         },
         {
-          "rank": 5,
+          "rank": 7,
           "id": "106998",
           "name": "Chansey",
           "number": "003/102",
@@ -579,7 +599,23 @@
           "carried": false
         },
         {
-          "rank": 6,
+          "rank": 8,
+          "id": "107005",
+          "name": "Mewtwo",
+          "number": "010/102",
+          "rarity": "Holo Rare",
+          "setName": "Base Set (Shadowless)",
+          "setId": "1663",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107005_200w.jpg",
+          "price": 358.01,
+          "prevPrice": null,
+          "changePct": null,
+          "printing": null,
+          "pricedAsOf": null,
+          "carried": true
+        },
+        {
+          "rank": 9,
           "id": "107006",
           "name": "Nidoking",
           "number": "011/102",
@@ -595,7 +631,7 @@
           "carried": false
         },
         {
-          "rank": 7,
+          "rank": 10,
           "id": "107001",
           "name": "Clefairy",
           "number": "005/102",
@@ -611,7 +647,7 @@
           "carried": false
         },
         {
-          "rank": 8,
+          "rank": 11,
           "id": "106996",
           "name": "Alakazam",
           "number": "001/102",
@@ -627,7 +663,7 @@
           "carried": false
         },
         {
-          "rank": 9,
+          "rank": 12,
           "id": "107002",
           "name": "Hitmonchan",
           "number": "007/102",
@@ -643,7 +679,7 @@
           "carried": false
         },
         {
-          "rank": 10,
+          "rank": 13,
           "id": "107011",
           "name": "Zapdos",
           "number": "016/102",
@@ -659,7 +695,7 @@
           "carried": false
         },
         {
-          "rank": 11,
+          "rank": 14,
           "id": "107007",
           "name": "Poliwrath",
           "number": "013/102",
@@ -675,7 +711,7 @@
           "carried": false
         },
         {
-          "rank": 12,
+          "rank": 15,
           "id": "107013",
           "name": "Dragonair",
           "number": "018/102",
@@ -691,7 +727,7 @@
           "carried": false
         },
         {
-          "rank": 13,
+          "rank": 16,
           "id": "107012",
           "name": "Beedrill",
           "number": "017/102",
@@ -707,7 +743,7 @@
           "carried": false
         },
         {
-          "rank": 14,
+          "rank": 17,
           "id": "107076",
           "name": "Super Energy Removal",
           "number": "079/102",
@@ -723,7 +759,7 @@
           "carried": false
         },
         {
-          "rank": 15,
+          "rank": 18,
           "id": "107015",
           "name": "Electabuzz",
           "number": "020/102",
@@ -739,7 +775,7 @@
           "carried": false
         },
         {
-          "rank": 16,
+          "rank": 19,
           "id": "107068",
           "name": "Computer Search",
           "number": "071/102",
@@ -755,7 +791,7 @@
           "carried": false
         },
         {
-          "rank": 17,
+          "rank": 20,
           "id": "107014",
           "name": "Dugtrio",
           "number": "019/102",
@@ -771,7 +807,7 @@
           "carried": false
         },
         {
-          "rank": 18,
+          "rank": 21,
           "id": "107000",
           "name": "Gyarados",
           "number": "006/102",
@@ -787,7 +823,7 @@
           "carried": false
         },
         {
-          "rank": 19,
+          "rank": 22,
           "id": "107071",
           "name": "Lass",
           "number": "075/102",
@@ -803,7 +839,7 @@
           "carried": false
         },
         {
-          "rank": 20,
+          "rank": 23,
           "id": "107067",
           "name": "Clefairy Doll",
           "number": "070/102",
@@ -819,7 +855,7 @@
           "carried": false
         },
         {
-          "rank": 21,
+          "rank": 24,
           "id": "107017",
           "name": "Pidgeotto",
           "number": "022/102",
@@ -835,7 +871,7 @@
           "carried": false
         },
         {
-          "rank": 22,
+          "rank": 25,
           "id": "107072",
           "name": "Item Finder",
           "number": "074/102",
@@ -851,7 +887,7 @@
           "carried": false
         },
         {
-          "rank": 23,
+          "rank": 26,
           "id": "107074",
           "name": "Pokemon Breeder",
           "number": "076/102",
@@ -867,7 +903,7 @@
           "carried": false
         },
         {
-          "rank": 24,
+          "rank": 27,
           "id": "107016",
           "name": "Electrode",
           "number": "021/102",
@@ -883,7 +919,7 @@
           "carried": false
         },
         {
-          "rank": 25,
+          "rank": 28,
           "id": "107070",
           "name": "Impostor Professor Oak",
           "number": "073/102",
@@ -899,7 +935,7 @@
           "carried": false
         },
         {
-          "rank": 26,
+          "rank": 29,
           "id": "107069",
           "name": "Devolution Spray",
           "number": "072/102",
@@ -915,7 +951,7 @@
           "carried": false
         },
         {
-          "rank": 27,
+          "rank": 30,
           "id": "107075",
           "name": "Scoop Up",
           "number": "078/102",
@@ -931,7 +967,7 @@
           "carried": false
         },
         {
-          "rank": 28,
+          "rank": 31,
           "id": "107073",
           "name": "Pokemon Trader",
           "number": "077/102",
@@ -947,44 +983,12 @@
           "carried": false
         }
       ],
-      "snapshotRange": {
-        "earliest": "2026-10-11",
-        "latest": "2026-10-11",
-        "count": 1
-      },
-      "movers": {
-        "1D": {
-          "available": false,
-          "baselineDate": null,
-          "neededBy": null,
-          "label": "need a previous snapshot",
-          "gainers": [],
-          "losers": []
-        },
-        "5D": {
-          "available": false,
-          "baselineDate": null,
-          "neededBy": "2026-10-06",
-          "label": "need a snapshot on or before 2026-10-06",
-          "gainers": [],
-          "losers": []
-        },
-        "30D": {
-          "available": false,
-          "baselineDate": null,
-          "neededBy": "2026-09-11",
-          "label": "need a snapshot on or before 2026-09-11",
-          "gainers": [],
-          "losers": []
-        },
-        "YTD": {
-          "available": false,
-          "baselineDate": null,
-          "neededBy": "2026-01-01",
-          "label": "need a snapshot on or before 2026-01-01",
-          "gainers": [],
-          "losers": []
-        }
+      "movers": {},
+      "backfill": {
+        "source": "tickermint",
+        "start": "2024-02-08",
+        "points": 141,
+        "docs": "https://tickermint.cards/developers/pokemon"
       }
     },
     "base-shadowless": {
@@ -997,14 +1001,15 @@
       "asOfDate": "2026-10-11",
       "universe": "English Base Set Shadowless (Unlimited) raw / ungraded (TCGPlayer Market, NM)",
       "staleDays": 70,
-      "index": 1000.0,
-      "prevIndex": null,
-      "change": null,
-      "changePct": null,
-      "changeLabel": "first snapshot — daily % after the next refresh",
-      "divisor": 6.14854,
+      "index": 2176.97,
+      "prevIndex": 2172.04,
+      "change": 4.93,
+      "changePct": 0.23,
+      "changeLabel": "vs previous snapshot",
+      "divisor": 2.82436,
       "baseValue": 1000.0,
-      "baseDate": "2026-10-11",
+      "baseDate": "2024-02-08",
+      "archiveStart": "2024-02-08",
       "listedCount": 31,
       "constituentCount": 31,
       "totalValue": 6148.54,
@@ -1930,44 +1935,12 @@
           "carried": false
         }
       ],
-      "snapshotRange": {
-        "earliest": "2026-10-11",
-        "latest": "2026-10-11",
-        "count": 1
-      },
-      "movers": {
-        "1D": {
-          "available": false,
-          "baselineDate": null,
-          "neededBy": null,
-          "label": "need a previous snapshot",
-          "gainers": [],
-          "losers": []
-        },
-        "5D": {
-          "available": false,
-          "baselineDate": null,
-          "neededBy": "2026-10-06",
-          "label": "need a snapshot on or before 2026-10-06",
-          "gainers": [],
-          "losers": []
-        },
-        "30D": {
-          "available": false,
-          "baselineDate": null,
-          "neededBy": "2026-09-11",
-          "label": "need a snapshot on or before 2026-09-11",
-          "gainers": [],
-          "losers": []
-        },
-        "YTD": {
-          "available": false,
-          "baselineDate": null,
-          "neededBy": "2026-01-01",
-          "label": "need a snapshot on or before 2026-01-01",
-          "gainers": [],
-          "losers": []
-        }
+      "movers": {},
+      "backfill": {
+        "source": "tickermint",
+        "start": "2024-02-08",
+        "points": 141,
+        "docs": "https://tickermint.cards/developers/pokemon"
       }
     },
     "base-unlimited": {
@@ -1980,14 +1953,15 @@
       "asOfDate": "2026-10-11",
       "universe": "English Base Set Unlimited (shadowed) raw / ungraded (TCGPlayer Market, NM)",
       "staleDays": 70,
-      "index": 1000.0,
-      "prevIndex": null,
-      "change": null,
-      "changePct": null,
-      "changeLabel": "first snapshot — daily % after the next refresh",
-      "divisor": 2.0381199999999997,
+      "index": 2109.92,
+      "prevIndex": 2103.09,
+      "change": 6.83,
+      "changePct": 0.32,
+      "changeLabel": "vs previous snapshot",
+      "divisor": 0.96597,
       "baseValue": 1000.0,
-      "baseDate": "2026-10-11",
+      "baseDate": "2024-02-08",
+      "archiveStart": "2024-02-08",
       "listedCount": 31,
       "constituentCount": 31,
       "totalValue": 2038.12,
@@ -2913,45 +2887,20 @@
           "carried": false
         }
       ],
-      "snapshotRange": {
-        "earliest": "2026-10-11",
-        "latest": "2026-10-11",
-        "count": 1
-      },
-      "movers": {
-        "1D": {
-          "available": false,
-          "baselineDate": null,
-          "neededBy": null,
-          "label": "need a previous snapshot",
-          "gainers": [],
-          "losers": []
-        },
-        "5D": {
-          "available": false,
-          "baselineDate": null,
-          "neededBy": "2026-10-06",
-          "label": "need a snapshot on or before 2026-10-06",
-          "gainers": [],
-          "losers": []
-        },
-        "30D": {
-          "available": false,
-          "baselineDate": null,
-          "neededBy": "2026-09-11",
-          "label": "need a snapshot on or before 2026-09-11",
-          "gainers": [],
-          "losers": []
-        },
-        "YTD": {
-          "available": false,
-          "baselineDate": null,
-          "neededBy": "2026-01-01",
-          "label": "need a snapshot on or before 2026-01-01",
-          "gainers": [],
-          "losers": []
-        }
+      "movers": {},
+      "backfill": {
+        "source": "tickermint",
+        "start": "2024-02-08",
+        "points": 141,
+        "docs": "https://tickermint.cards/developers/pokemon"
       }
     }
+  },
+  "archiveStart": "2024-02-08",
+  "sampling": {
+    "stepDays": 7,
+    "start": "2024-02-08",
+    "end": "2026-10-11",
+    "uniqueProducts": 62
   }
 }
