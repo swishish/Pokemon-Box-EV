@@ -424,6 +424,57 @@
     min-width: 0;
   }
   .chart-card { padding: 10px 10px 12px; }
+  .fit-formula {
+    margin: 0 0 8px;
+    padding: 8px 10px;
+    text-align: center;
+    max-width: 100%;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    border: 1.5px solid var(--ink);
+    border-radius: 10px;
+    background: var(--bg-2);
+  }
+  .fit-formula .eq {
+    margin: 0;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: clamp(0.62rem, 2.15vw, 0.78rem);
+    font-weight: 750;
+    line-height: 1.45;
+    color: var(--ink);
+  }
+  .fit-formula .eq .fit-name {
+    font-family: inherit;
+    font-weight: 850;
+    margin-right: 0.35em;
+  }
+  .fit-formula .coefs,
+  .fit-formula .stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px 6px;
+    margin: 6px 0 0;
+    max-width: 100%;
+  }
+  .fit-formula .coef-chip {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 4px;
+    max-width: 100%;
+    font-size: clamp(0.6rem, 1.9vw, 0.7rem);
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    padding: 2px 8px;
+    border-radius: 999px;
+    border: 1.5px solid var(--ink);
+    background: var(--card);
+    color: var(--ink);
+    overflow-wrap: anywhere;
+  }
+  .fit-formula .coef-chip .t { color: var(--muted); font-weight: 750; }
+  .fit-formula .coef-chip .v { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
   .chart-box {
     position: relative;
     width: 100%;
@@ -666,6 +717,7 @@
     .nav-btn { font-size: .7rem; padding: 6px 10px; }
     main { padding: 10px 12px 48px; }
     .chart-box { height: 300px; }
+    .fit-formula { padding: 6px 8px; margin-bottom: 6px; }
     .kv { grid-template-columns: minmax(6.5em, 36%) minmax(0, 1fr); }
   }
 </style>
@@ -717,6 +769,7 @@
   <div class="plot-grid">
     <section class="card chart-card">
       <h2><img class="mon mon-sm" src="./img/accents/ditto.svg" alt="" width="20" height="20" aria-hidden="true" />散點</h2>
+      <div class="fit-formula" id="fitFormula" aria-label="Chase_Fit 回歸公式"></div>
       <div class="chart-box" id="chartBox">
         <svg id="chart" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="PSA10 預測對實際散點"></svg>
         <div class="empty-plot" id="emptyPlot" hidden>
@@ -911,6 +964,34 @@
     }
   }
   renderFreshness();
+
+  function coefTermLabel(term) {
+    if (term === 'C(language)[T.JP]') return 'JP';
+    return term;
+  }
+  function renderFormula() {
+    const el = $('fitFormula');
+    if (!el) return;
+    const formula = META.formula || 'log_psa10 ~ gem_rate + log_pop + log_raw + C(language) + promo_flag';
+    const r2 = META.r2 == null ? '—' : Number(META.r2).toFixed(3);
+    const n = META.n != null ? META.n : CARDS.length;
+    const coefs = DATA.coefficients || [];
+    let html = '<p class="eq"><span class="fit-name">Chase_Fit</span>' + escapeHtml(formula) + '</p>';
+    if (coefs.length) {
+      html += '<div class="coefs">';
+      coefs.forEach((row) => {
+        html += '<span class="coef-chip"><span class="t">' + escapeHtml(coefTermLabel(row.term)) +
+          '</span> <span class="v">' + fmtCoef(row.coef) + '</span></span>';
+      });
+      html += '</div>';
+    }
+    html += '<div class="stats">' +
+      '<span class="meta-chip">R²=' + r2 + '</span>' +
+      '<span class="meta-chip">n=' + n + '</span>' +
+      '</div>';
+    el.innerHTML = html;
+  }
+  renderFormula();
 
   const state = {
     q: '',
