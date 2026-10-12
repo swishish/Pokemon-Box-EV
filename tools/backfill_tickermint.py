@@ -167,11 +167,12 @@ def _http_get_json(url: str, timeout: int = 60) -> dict:
     raise RuntimeError(f"TickerMint request failed: {url}\n{last}")
 
 
-def fetch_product_prices(pid: str, cfg: dict, *, use_cache: bool = True) -> dict:
+def fetch_product_prices(pid: str, cfg: dict, *, use_cache: bool = True) -> tuple[dict, bool]:
+    """Return (payload, cached). cached=True means no HTTP call was made."""
     cache_path = os.path.join(cache_dir(cfg), f"{pid}.json")
     if use_cache and os.path.isfile(cache_path):
         with open(cache_path, "r", encoding="utf-8") as handle:
-            return json.load(handle)
+            return json.load(handle), True
     url = f"{cfg['baseUrl'].rstrip('/')}/products/{pid}/prices"
     payload = _http_get_json(url)
     if use_cache and payload:
@@ -179,7 +180,7 @@ def fetch_product_prices(pid: str, cfg: dict, *, use_cache: bool = True) -> dict
         with open(cache_path, "w", encoding="utf-8") as handle:
             json.dump(payload, handle)
             handle.write("\n")
-    return payload
+    return payload, False
 
 
 def load_fixture_payloads(fixture_dir: str) -> dict[str, dict]:
@@ -352,8 +353,9 @@ def fetch_payloads(
     n = len(pids)
     print(f"Fetching TickerMint history for {n} products (sleep {sleep_s}s, ≤{cfg.get('maxPerMinute', 120)}/min) ...", flush=True)
     for i, pid in enumerate(pids, 1):
+        cached = False
         try:
-            payload = fetch_product_prices(pid, cfg, use_cache=use_cache)
+            payload, cached = fetch_product_prices(pid, cfg, use_cache=use_cache)
         except Exception as err:  # noqa: BLE001
             print(f"  skip {pid}: {err}", flush=True)
             payload = {}
@@ -361,8 +363,10 @@ def fetch_payloads(
             payloads[pid] = payload
         if verbose or i == 1 or i == n or i % 25 == 0:
             first = first_priced_date(payload) if payload else None
-            print(f"  {i}/{n} id={pid} printings={list(payload.keys()) if payload else []} first={first}", flush=True)
-        if sleep_s and i != n:
+            src = "cache" if cached else "http"
+            print(f"  {i}/{n} id={pid} {src} printings={list(payload.keys()) if payload else []} first={first}", flush=True)
+        # Only sleep after a real HTTP call (stay under 120/min). Cache hits are free.
+        if sleep_s and i != n and not cached:
             time.sleep(sleep_s)
     print(f"Got history for {len(payloads)}/{n} products.", flush=True)
     return payloads
@@ -508,9 +512,7 @@ def self_test() -> None:
     assert replayed["points"][0]["index"] == 1000.0
     # 2024-02-15: a 110 + b 55 on old basket → +10%.
     assert abs(replayed["points"][1]["index"] - 1100.0) < 1e-6
-    # c must not appear before 2026-09-10.
-    assert "c" not in replayed["points"][0]  # points don't store ids; check last basket instead
-    # After c lists, it can enter (price 80 > b's 65 on 2026-09-10).
+    # c's first priced date is 2026-09-10; after that it can enter (80 > b's 65).
     assert "c" in replayed["last"]["ids"] or replayed["last_prices"].get("c")
 
     rets = en.period_returns(replayed["points"], "2026-10-11")
@@ -529,7 +531,18 @@ def self_test() -> None:
         step_days=7, basket_size=2, verbose=False, cfg=cfg,
     )
     assert result["history"]["source"] == "tickermint"
-    assert result["history"]["returns"]["YTD"]["available"] or result["history"]["sampling"]["kept"] >= 2
+    # Sparse weekly fixtures still light 5D/30D/YTD from real kept points (no interpolation).
+    wre = result["history"]["returns"]
+    assert wre["1D"]["available"] and wre["5D"]["available"]
+    assert wre["30D"]["available"] and wre["YTD"]["available"]
+    try:
+        run_backfill(
+            start=date(2024, 2, 8), end=None, step_days=7,
+            max_ids=None, confirm="", dry_run=False, verbose=False, cfg=cfg,
+        )
+        raise AssertionError("expected --confirm BACKFILL guard")
+    except RuntimeError as err:
+        assert "Refusing to rebase" in str(err)
     print("self-test ok")
 
 

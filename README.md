@@ -39,7 +39,7 @@ Chase 公允值（PSA10 回歸散點）：**https://swishish.github.io/Pokemon-B
 1. GitHub Action **Update EN market pulse**（`.github/workflows/update-market-en.yml`）
    - **排程**：每天 21:23 UTC（TCGCSV 約 20:05 UTC 刷新之後）
    - **手動**：Actions 頁按 **Run workflow**
-   - **PR**：只跑 `python3 tools/refresh_market_en.py --self-test`（不抓 dump、不 commit）
+   - **PR**：只跑 self-test（`refresh_market_en` + `fetch_tcgcsv_archive` + `backfill_tickermint`），不抓 dump、不 commit
 2. 腳本 `python3 tools/refresh_market_en.py` 先讀 `https://tcgcsv.com/last-updated.txt`；stamp 沒變就結束（零流量）。
 3. 有新 dump 才抓 `Groups.csv` + 各系列 `ProductsAndPrices.csv`，寫入：
    - `data/market-en/latest.json`（指數、廣度、漲跌榜、500 張成分——給下一次對比用）
@@ -75,8 +75,8 @@ python3 tools/backfill_tickermint.py --backfill --confirm BACKFILL
 ```
 
 1. `--self-test`：不連網，用小樣本確認「缺價不補 0、1st Edition 不當代表價、5D／30D／YTD 在有足夠快照時會亮」。
-2. `--sample`：只抓籃子裡前幾張卡，**不改**網站上的 `history.json`。約幾秒。用來確認 API 通。
-3. `--backfill --confirm BACKFILL`：抓現況 Top 500 全部（約 500 次、約 4–5 分鐘），重寫 `history.json`。指數會 **rebase**（第一個有資料的日子＝1,000）。預設 **每週一點**（`--step-days 7`，約 140 點，GitHub Pages 很輕）。若要每日一點（約 980 點）：
+2. `--sample`：只抓籃子裡最貴的幾張卡，**不改**網站上的 `history.json`。約幾秒。用來確認 API 通。這幾張常常是 2026 新卡，示範的 30D 可能用到更早的真實點；全 500 回填後區間會密很多。
+3. `--backfill --confirm BACKFILL`：抓現況 Top 500 全部（約 500 次、約 4–5 分鐘），重寫 `history.json`。指數會 **rebase**（第一個有資料的日子＝1,000）。預設 **每週一點**（`--step-days 7`，約 140 點，GitHub Pages 很輕）。每週取樣時，5D 會用 cutoff 當天或更早「最近的一個真實點」（可能是 6–7 天前），**不會**補中間的日子。若要每日一點（約 980 點）：
 
 ```bash
 python3 tools/backfill_tickermint.py --backfill --confirm BACKFILL --step-days 1
