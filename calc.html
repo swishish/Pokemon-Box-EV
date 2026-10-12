@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>日盒 EV 小算盤 v1.21.5 · JP Mega Sealed</title>
+<title>日盒 EV 小算盤 v1.21.6 · JP Mega Sealed</title>
 <style>
   :root {
     --bg: #faf6ef;
@@ -1266,7 +1266,7 @@
 <body>
 <header>
   <div class="header-inner">
-    <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.21.5</span></h1>
+    <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.21.6</span></h1>
     <nav class="header-nav" aria-label="市況頁">
       <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
       <a class="nav-btn" href="./market-en.html" title="English raw singles market pulse">EN 市況</a>
@@ -1413,13 +1413,13 @@
 <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="放大圖">
   <img id="lightboxImg" alt="" />
 </div>
-<footer><img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" /><span>日盒 EV 小算盤 <b>v1.21.5</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期 · <a href="./index.html">首頁</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · 日語熱度（即將推出）</span></footer>
+<footer><img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" /><span>日盒 EV 小算盤 <b>v1.21.6</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期 · <a href="./index.html">首頁</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · 日語熱度（即將推出）</span></footer>
 
-<script src="./data.js?v=1.21.5"></script>
+<script src="./data.js?v=1.21.6"></script>
 <script>
 (async function () {
   // Keep in sync with the data.js?v= query above.
-  const VERSION = '1.21.5';
+  const VERSION = '1.21.6';
   async function loadJson(rel) {
     const url = new URL(rel, document.baseURI || window.location.href);
     url.searchParams.set('v', VERSION);
@@ -1563,7 +1563,18 @@
   }
 
   let currentSet = readSetFromLocation() || 'M6';
-  let landDenom = 'shrink'; // 'shrink' | 'ns' — sticky % denominator
+  let preferredDenom = 'shrink'; // last explicit 有膜/無膜; keep across pack/set changes
+  let landDenom = 'shrink'; // 'shrink' | 'ns' — active sticky % denominator
+
+  function setHasNsLanded(set) {
+    const ns = set && set.landed && set.landed.ns;
+    return !!(ns && ns.landed_yen != null && Number(ns.landed_yen) > 0);
+  }
+  /** Use last 有膜/無膜 choice; if this pack has no 無膜 landed, stay on 有膜 (do not invent NS). */
+  function applyPreferredDenom() {
+    const set = DATA.sets[currentSet];
+    landDenom = (preferredDenom === 'ns' && setHasNsLanded(set)) ? 'ns' : 'shrink';
+  }
   const setList = Object.values(DATA.sets).sort((a, b) => {
     const da = a.release_date || '';
     const db = b.release_date || '';
@@ -1943,7 +1954,7 @@
     toc.querySelectorAll('.toc-item').forEach((btn) => {
       btn.addEventListener('click', () => {
         currentSet = btn.getAttribute('data-set');
-        landDenom = 'shrink'; // TOC / default denom
+        applyPreferredDenom();
         syncPcOverrideInput();
         updateSetUrl(currentSet);
         setPickerOpen(false);
@@ -1958,6 +1969,7 @@
   }
 
   function renderMain() {
+    applyPreferredDenom();
     const r = calcSet(currentSet, true);
     const active = activeRatios(r);
     const ratioSticky = active.ratios || {};
@@ -1996,13 +2008,8 @@
     const togN = $('togNS');
     togS.classList.toggle('active', landDenom === 'shrink');
     togN.classList.toggle('active', landDenom === 'ns');
-    const hasNS = r.landNS != null;
+    const hasNS = setHasNsLanded(r.set);
     togN.disabled = !hasNS;
-    if (!hasNS && landDenom === 'ns') {
-      landDenom = 'shrink';
-      togS.classList.add('active');
-      togN.classList.remove('active');
-    }
 
     function metricHTML(label, ratio, yen, missingNote) {
       if (missingNote) {
@@ -2106,6 +2113,7 @@
   }
 
   function render() {
+    applyPreferredDenom();
     renderToc();
     renderMain();
   }
@@ -2136,19 +2144,22 @@
   }
 
   $('togShrink').addEventListener('click', () => {
-    landDenom = 'shrink';
+    preferredDenom = 'shrink';
+    applyPreferredDenom();
     syncPcOverrideInput();
     render();
   });
   $('togNS').addEventListener('click', () => {
     if ($('togNS').disabled) return;
-    landDenom = 'ns';
+    preferredDenom = 'ns';
+    applyPreferredDenom();
     syncPcOverrideInput();
     render();
   });
 
   function resetDefaults() {
-    landDenom = 'shrink';
+    preferredDenom = 'shrink';
+    applyPreferredDenom();
     Object.keys(DATA.defaults.haircuts).forEach((k) => { hcState[k] = DATA.defaults.haircuts[k]; });
     // keep linked pools in sync
     if (hcState.SAR != null) hcState.sup_SAR = hcState.SAR;
@@ -2380,6 +2391,7 @@
   if (mqMobile.addEventListener) mqMobile.addEventListener('change', placeChrome);
   else if (mqMobile.addListener) mqMobile.addListener(placeChrome);
 
+  applyPreferredDenom();
   syncPcOverrideInput();
   updateSetUrl(currentSet);
   placeChrome();
