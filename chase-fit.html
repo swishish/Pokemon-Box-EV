@@ -976,7 +976,7 @@
     const r2 = META.r2 == null ? '—' : Number(META.r2).toFixed(3);
     const n = META.n != null ? META.n : CARDS.length;
     const coefs = DATA.coefficients || [];
-    let html = '<p class="eq"><span class="fit-name">Chase_Fit</span>' + escapeHtml(formula) + '</p>';
+    let html = '<p class="eq"><span class="fit-name">Chase_Fit</span> ' + escapeHtml(formula) + '</p>';
     if (coefs.length) {
       html += '<div class="coefs">';
       coefs.forEach((row) => {
