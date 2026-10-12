@@ -1,6 +1,6 @@
 # Pokemon Box EV
 
-日盒 EV 小算盤（朋友向）· **v1.21.7**
+日盒 EV 小算盤（朋友向）· **v1.21.8**
 
 給「不太懂金融／AI」的買卡朋友看的工具：首頁介紹點樣用 → 開盒算盤選系列 → 看 **四個預期回報 %**（同一分母）→ 有膜／無膜切換 → 看主力 chase 卡與「買單卡 vs 開盒」粗略提示。
 
@@ -28,7 +28,7 @@ Chase 公允值（PSA10 回歸散點）：**https://swishish.github.io/Pokemon-B
 | --- | --- |
 | Index + % | 相對**上一份已提交快照**。第一次建檔只有指數 1,000，沒有每日 % |
 | Breadth | 籃子裡上漲 vs 下跌張數（有歷史才有） |
-| Top gainers / losers | 同一份快照對比 |
+| Top gainers / losers | 期間可選 1D／5D／30D／YTD；歷史快照不足則 N/A，不虛構報酬 |
 | Disclaimer | TCGPlayer Market via TCGCSV；僅 EN raw；非 JP／SNKRDUNK；非正式投資建議 |
 
 ### 資料怎麼更新
@@ -41,9 +41,10 @@ Chase 公允值（PSA10 回歸散點）：**https://swishish.github.io/Pokemon-B
    - **PR**：只跑 `python3 tools/refresh_market_en.py --self-test`（不抓 dump、不 commit）
 2. 腳本 `python3 tools/refresh_market_en.py` 先讀 `https://tcgcsv.com/last-updated.txt`；stamp 沒變就結束（零流量）。
 3. 有新 dump 才抓 `Groups.csv` + 各系列 `ProductsAndPrices.csv`，寫入：
-   - `data/market-en/latest.json`（指數、廣度、漲跌榜、500 張成分——給下一次對比用）
-   - `data/market-en/history.json`
-   - `data/market-en/latest.js`（`file://` / 快取備援，同 `data.js` 慣例）
+  - `data/market-en/latest.json`（指數、廣度、漲跌榜、500 張成分——給下一次對比用）
+  - `data/market-en/history.json`（指數走勢）
+  - `data/market-en/price-history.json`（成分市價，用來算 5D／30D／YTD）
+  - `data/market-en/latest.js`（`file://` / 快取備援，同 `data.js` 慣例）
 4. Action 把變更 commit 回預設分支；GitHub Pages 仍是純靜態。
 
 本機重跑：
@@ -77,6 +78,7 @@ python3 -m http.server 8765
 
 ## Changelog（摘要）
 
+- **v1.21.8**：EN 市況漲跌榜加 **1D／5D／30D／YTD** 期間選擇。多日報酬只用 repo 裡已提交的每日快照；缺歷史（含 TCGCSV archive 目前 403）就顯示 N/A，不虛構數字。EV／Chase_Fit 算法不變
 - **v1.21.7**：加書籤／分頁 favicon（`favicon.svg`，原創簡幾何 Pokéball）。各公開頁加 `<link rel="icon">`。EV／Chase_Fit 算法不變
 - **v1.21.6**：算盤切系列／TOC／pack dropdown 時保留上次選的有膜／無膜；新系列無無膜落地則沿用有膜、不虛構價格。EV／Chase_Fit 算法不變
 - **v1.21.5**：頂欄加姊妹站 **Base Unlimited** 外連（首頁／算盤／Chase／EN 市況）；手機頂欄 nav 改全寬換行，避免溢出。EV／Chase_Fit 算法不變

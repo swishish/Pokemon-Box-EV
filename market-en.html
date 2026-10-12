@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>EN 裸卡市況 · Box EV v1.19.0</title>
+<title>EN 裸卡市況 · Box EV v1.21.8</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <style>
   :root {
@@ -160,6 +160,55 @@
     grid-template-columns: 1fr 1fr;
     gap: 12px;
   }
+  .movers-period {
+    margin: 0 0 10px;
+    min-width: 0;
+    max-width: 100%;
+  }
+  .movers-period-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 10px;
+    min-width: 0;
+  }
+  .period-picker {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    max-width: 100%;
+    min-width: 0;
+  }
+  .period-btn {
+    font: inherit;
+    font-size: .72rem;
+    font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: #eef2f6;
+    color: var(--muted);
+    cursor: pointer;
+    line-height: 1.2;
+    min-width: 2.55rem;
+    text-align: center;
+    touch-action: manipulation;
+    white-space: nowrap;
+    flex: 0 0 auto;
+    user-select: none;
+  }
+  .period-btn[aria-pressed="true"] {
+    background: #eef3ff;
+    border-color: #bfd0f5;
+    color: var(--accent);
+  }
+  .period-btn.is-na {
+    opacity: .55;
+  }
+  .period-btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
   table { width: 100%; border-collapse: collapse; font-size: .86rem; }
   th, td { text-align: left; padding: 7px 6px; border-bottom: 1px solid var(--line); vertical-align: middle; }
   th { color: var(--muted); font-weight: 600; font-size: .75rem; }
@@ -231,6 +280,7 @@
     }
     .wrap { padding: 10px 12px 48px; }
     .index-level { font-size: 2rem; }
+    .period-btn { padding: 6px 9px; }
   }
 </style>
 </head>
@@ -238,7 +288,7 @@
 <header>
   <div class="header-inner">
     <div>
-      <h1>EN 裸卡市況 <span class="pill">S&amp;P-style · v1.19.0</span></h1>
+      <h1>EN 裸卡市況 <span class="pill">S&amp;P-style · v1.21.8</span></h1>
       <p>英文 raw singles 市場溫度 · TCGPlayer Market via TCGCSV · 靜態快照</p>
     </div>
     <nav class="header-nav" aria-label="站內導覽">
@@ -270,9 +320,22 @@
     </div>
   </div>
 
+  <div class="movers-period">
+    <div class="movers-period-row">
+      <span class="kicker">期間 Period</span>
+      <div class="period-picker" id="periodPicker" role="group" aria-label="Top gainers / losers period">
+        <button type="button" class="period-btn" data-period="1D" aria-pressed="true">1D</button>
+        <button type="button" class="period-btn" data-period="5D" aria-pressed="false">5D</button>
+        <button type="button" class="period-btn" data-period="30D" aria-pressed="false">30D</button>
+        <button type="button" class="period-btn" data-period="YTD" aria-pressed="false">YTD</button>
+      </div>
+    </div>
+    <p class="tiny" id="periodNote" style="margin:6px 0 0" role="status" aria-live="polite"></p>
+  </div>
+
   <div class="movers">
     <div class="card">
-      <h2>漲幅榜 Top gainers</h2>
+      <h2>漲幅榜 Top gainers <span class="pill" id="gainerPeriodPill">1D</span></h2>
       <div class="table-wrap">
         <table>
           <thead>
@@ -288,7 +351,7 @@
       </div>
     </div>
     <div class="card">
-      <h2>跌幅榜 Top losers</h2>
+      <h2>跌幅榜 Top losers <span class="pill" id="loserPeriodPill">1D</span></h2>
       <div class="table-wrap">
         <table>
           <thead>
@@ -329,6 +392,7 @@
     <ul class="tiny">
       <li><b>指數</b>：英文 TCGPlayer 裸卡（raw / ungraded）市價最高的 500 張，價格加權；成分輪替時用 divisor 保持連續（S&amp;P 500 同款手法）。首次快照基準＝<b>1,000</b>。</li>
       <li><b>每日漲跌</b>：相對上一份已提交的快照。若這是第一份快照，指數仍顯示 1,000，% 與廣度會在下一次 GitHub Action 更新後出現。</li>
+      <li><b>漲跌榜期間</b>：1D＝上一份快照；5D／30D／YTD＝當日籃子相對該期間基準日的市價（YTD 需要當年 1 月 1 日或更早的快照）。沒有對應快照的期間顯示 N/A，不虛構報酬。</li>
       <li><b>代表價</b>：同一張卡取一般印刷（Holofoil / Reverse 等）裡最高的 TCGPlayer <b>Market Price</b>；1st Edition 預設不計入（TCGPlayer 上成交太薄）。</li>
       <li><b>不含</b>：密封盒、Jumbo／oversized、JP promo（卡號 <code>-P</code>）、日版 SNKRDUNK、PriceCharting。</li>
     </ul>
@@ -341,10 +405,11 @@
 </main>
 <footer>日盒 EV 小算盤 · EN market pulse · Snapshot 靜態資料 · 非正式投資建議 · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · 日語熱度（即將推出）</footer>
 
-<script src="./data/market-en/latest.js?v=1.19.0"></script>
+<script src="./data/market-en/latest.js?v=1.21.8"></script>
 <script>
 (async function () {
-  const VERSION = '1.19.0';
+  const VERSION = '1.21.8';
+  const PERIODS = ['1D', '5D', '30D', 'YTD'];
   const $ = (id) => document.getElementById(id);
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, (ch) => ({
@@ -503,8 +568,85 @@
         '</tr>';
     }).join('');
   }
-  $('gainerBody').innerHTML = moverRows(DATA.gainers, '尚無漲幅（需要兩份快照）');
-  $('loserBody').innerHTML = moverRows(DATA.losers, '尚無跌幅（需要兩份快照）');
+
+  const snapshotRange = DATA.snapshotRange || {};
+  const earliestSnap = snapshotRange.earliest || null;
+  const moversByPeriod = DATA.movers || {};
+  function periodInfo(period) {
+    const info = moversByPeriod[period];
+    if (info) return info;
+    if (period === '1D') {
+      const has = (DATA.gainers && DATA.gainers.length) || (DATA.losers && DATA.losers.length) || DATA.prevIndex != null;
+      return {
+        available: !!has,
+        baselineDate: null,
+        neededBy: null,
+        label: has ? 'vs previous snapshot' : 'need a previous snapshot',
+        gainers: DATA.gainers || [],
+        losers: DATA.losers || []
+      };
+    }
+    return { available: false, baselineDate: null, neededBy: null, label: '', gainers: [], losers: [] };
+  }
+  function unavailableMsg(period, info) {
+    const need = info && info.neededBy ? info.neededBy : null;
+    const earliest = earliestSnap ? ('目前最早 ' + earliestSnap) : '目前沒有歷史快照';
+    if (period === 'YTD') {
+      return 'N/A — 尚無今年年初快照' + (need ? '（需要 ' + need + ' 或更早）' : '') + ' · ' + earliest;
+    }
+    if (period === '1D') {
+      return '尚無漲跌（需要兩份快照）';
+    }
+    return 'N/A — 尚無 ' + period + ' 快照' + (need ? '（需要 ' + need + ' 或更早）' : '') + ' · ' + earliest;
+  }
+  function periodNoteText(period, info) {
+    if (info.available) {
+      if (period === '1D') {
+        return '相對上一份已提交快照' + (info.baselineDate ? '（' + info.baselineDate + '）' : '');
+      }
+      return '相對 ' + (info.baselineDate || period) + ' 快照';
+    }
+    return unavailableMsg(period, info);
+  }
+  let selectedPeriod = '1D';
+  function renderMovers(period) {
+    selectedPeriod = period;
+    const info = periodInfo(period);
+    const gainerEmpty = info.available
+      ? '此期間沒有上漲成分'
+      : unavailableMsg(period, info);
+    const loserEmpty = info.available
+      ? '此期間沒有下跌成分'
+      : unavailableMsg(period, info);
+    $('gainerBody').innerHTML = moverRows(info.available ? info.gainers : [], gainerEmpty);
+    $('loserBody').innerHTML = moverRows(info.available ? info.losers : [], loserEmpty);
+    const pill = period;
+    if ($('gainerPeriodPill')) $('gainerPeriodPill').textContent = pill;
+    if ($('loserPeriodPill')) $('loserPeriodPill').textContent = pill;
+    if ($('periodNote')) $('periodNote').textContent = periodNoteText(period, info);
+    const picker = $('periodPicker');
+    if (!picker) return;
+    picker.querySelectorAll('.period-btn').forEach((btn) => {
+      const p = btn.getAttribute('data-period');
+      const pInfo = periodInfo(p);
+      btn.setAttribute('aria-pressed', p === period ? 'true' : 'false');
+      btn.classList.toggle('is-na', !pInfo.available);
+      btn.title = pInfo.available
+        ? (pInfo.label || p)
+        : unavailableMsg(p, pInfo);
+    });
+  }
+  const picker = $('periodPicker');
+  if (picker) {
+    picker.addEventListener('click', (e) => {
+      const btn = e.target.closest('.period-btn');
+      if (!btn || !picker.contains(btn)) return;
+      const period = btn.getAttribute('data-period');
+      if (!PERIODS.includes(period) || period === selectedPeriod) return;
+      renderMovers(period);
+    });
+  }
+  renderMovers('1D');
 
   const top = DATA.top || [];
   $('topBody').innerHTML = top.length ? top.map((c) => {
