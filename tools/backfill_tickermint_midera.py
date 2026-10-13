@@ -265,7 +265,7 @@ def run_sample(verbose: bool = True, cfg: dict | None = None) -> dict:
         f"index {hist['points'][-1]['index']:.2f}",
         flush=True,
     )
-    for key in ("1D", "5D", "30D", "YTD"):
+    for key in ("1D", "5D", "30D", "1Y", "YTD"):
         r = rets[key]
         flag = "yes" if r["available"] else "no"
         extra = f"{r['from']} → {r['to']} ({r['pct']}%)" if r["available"] else r.get("reason")
@@ -328,7 +328,7 @@ def run_backfill(
         f"index {hist['points'][-1]['index']:.2f}",
         flush=True,
     )
-    for key in ("1D", "5D", "30D", "YTD"):
+    for key in ("1D", "5D", "30D", "1Y", "YTD"):
         r = hist["returns"][key]
         print(
             f"  {key}: {'available ' + str(r['pct']) + '%' if r['available'] else 'disabled — ' + (r.get('reason') or '')}",

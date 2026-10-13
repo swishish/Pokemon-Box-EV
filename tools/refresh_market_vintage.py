@@ -1002,7 +1002,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--rebuild-movers",
         action="store_true",
-        help="Recompute 1D/5D/30D/YTD movers from stored price history (no TCGCSV fetch)",
+        help="Recompute 1D/5D/30D/1Y/YTD movers from stored price history (no TCGCSV fetch)",
     )
     parser.add_argument("-v", "--verbose", action="store_true")
     args = parser.parse_args(argv)

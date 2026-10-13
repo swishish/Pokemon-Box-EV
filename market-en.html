@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>EN 裸卡市況 · Box EV v1.28.0</title>
+<title>EN 裸卡市況 · Box EV v1.28.1</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <style>
   :root {
@@ -249,6 +249,7 @@
     min-width: 0;
     max-width: 100%;
   }
+  .movers-period .range-form { margin-top: 6px; }
   .range-form label {
     display: inline-flex;
     align-items: center;
@@ -471,7 +472,7 @@
 <header>
   <div class="header-inner">
     <div class="header-top">
-      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.28.0</span></h1>
+      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.28.1</span></h1>
       <nav class="header-nav" aria-label="站內導覽">
         <a class="nav-btn" href="./calc.html">開盒 EV</a>
         <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
@@ -528,9 +529,15 @@
         <button type="button" class="period-btn" data-period="1D" aria-pressed="true">1D</button>
         <button type="button" class="period-btn" data-period="5D" aria-pressed="false">5D</button>
         <button type="button" class="period-btn" data-period="30D" aria-pressed="false">30D</button>
+        <button type="button" class="period-btn" data-period="1Y" aria-pressed="false">1Y</button>
         <button type="button" class="period-btn" data-period="YTD" aria-pressed="false">YTD</button>
       </div>
     </div>
+    <form class="range-form" id="moversRangeForm">
+      <label>由 <input type="date" id="moversRangeFrom" name="movers-from" /></label>
+      <label>至 <input type="date" id="moversRangeTo" name="movers-to" /></label>
+      <button type="submit" class="period-btn" id="moversRangeApply">自訂</button>
+    </form>
     <p class="tiny" id="moversPeriodNote" style="margin:6px 0 0" role="status" aria-live="polite"></p>
   </div>
 
@@ -595,7 +602,7 @@
       <li><b>固定籃子精神</b>：每天重看誰進 Top 500，但指數用 divisor 接起來，不會因為換卡就跳一截。</li>
       <li><b>每日漲跌</b>：相對上一份已公布的快照。第一份快照只會看到 1,000，% 與廣度要等下一份才有。</li>
       <li><b>5D／30D／1Y／YTD／自訂</b>：用<strong>真實歷史點</strong>放大圖表，<b>缺日就跳過、不補價、不發明點</b>。指數水平維持系列起點的固定基準 1,000，<b>唔會</b>喺視窗開頭重設。沒有夠早的點就不顯示該期間。每日現況來自 <a href="https://tcgcsv.com" target="_blank" rel="noopener">TCGCSV</a>；往回的歷史來自 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a>。</li>
-      <li><b>漲跌榜</b>：1D＝上一份快照；5D／30D／YTD＝當日籃子相對該期間基準日。沒有對應快照就顯示 N/A。</li>
+      <li><b>漲跌榜</b>：1D＝上一份快照；5D／30D／1Y／YTD／自訂＝當日籃子相對該期間基準日（自訂用區間內第一同最後一個真實快照，<b>唔重設</b>指數基準）。沒有對應快照就顯示 N/A。</li>
       <li><b>代表價</b>：同一張卡取一般印刷（Holofoil / Reverse 等）裡最高的 TCGPlayer <b>Market Price</b>；1st Edition 預設不計入（成交太薄）。</li>
       <li><b>不含</b>：密封盒、Jumbo／oversized、日版 promo、日版行情、評級價。</li>
     </ul>
@@ -608,13 +615,14 @@
 </main>
 <footer>日盒 EV 小算盤 · EN market pulse · Snapshot 靜態資料 · 非正式投資建議 · 歷史價 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a> · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · 日語熱度（即將推出）</footer>
 
-<script src="./js/spark-tip.js?v=1.25.2"></script>
-<script src="./data/market-en/latest.js?v=1.25.2"></script>
-<script src="./data/market-en/history.js?v=1.25.2"></script>
+<script src="./js/spark-tip.js?v=1.28.1"></script>
+<script src="./js/movers-range.js?v=1.28.1"></script>
+<script src="./data/market-en/latest.js?v=1.28.1"></script>
+<script src="./data/market-en/history.js?v=1.28.1"></script>
 <script>
 (async function () {
-  const VERSION = '1.25.2';
-  const PERIODS = ['1D', '5D', '30D', 'YTD'];
+  const VERSION = '1.28.1';
+  const PERIODS = ['1D', '5D', '30D', '1Y', 'YTD'];
   const $ = (id) => document.getElementById(id);
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, (ch) => ({
@@ -951,7 +959,10 @@
   const snapshotRange = DATA.snapshotRange || {};
   const earliestSnap = snapshotRange.earliest || null;
   const moversByPeriod = DATA.movers || {};
+  const moverState = { period: '1D', customFrom: '', customTo: '' };
+  let customMoverInfo = null;
   function periodInfo(period) {
+    if (period === 'CUSTOM') return customMoverInfo || { available: false, baselineDate: null, neededBy: null, label: '', gainers: [], losers: [], reason: '請輸入起迄日期' };
     const info = moversByPeriod[period];
     if (info) return info;
     if (period === '1D') {
@@ -968,6 +979,7 @@
     return { available: false, baselineDate: null, neededBy: null, label: '', gainers: [], losers: [] };
   }
   function unavailableMsg(period, info) {
+    if (period === 'CUSTOM') return (info && info.reason) || '請輸入起迄日期';
     const need = info && info.neededBy ? info.neededBy : null;
     const earliest = earliestSnap ? ('目前最早 ' + earliestSnap) : '目前沒有歷史快照';
     if (period === 'YTD') {
@@ -980,6 +992,9 @@
   }
   function periodNoteText(period, info) {
     if (info.available) {
+      if (period === 'CUSTOM') {
+        return (info.baselineDate || '') + ' → ' + (info.endDate || '') + ' · 缺日不補價 · 唔重設基準';
+      }
       if (period === '1D') {
         return '相對上一份已提交快照' + (info.baselineDate ? '（' + info.baselineDate + '）' : '');
       }
@@ -987,9 +1002,8 @@
     }
     return unavailableMsg(period, info);
   }
-  let selectedPeriod = '1D';
   function renderMovers(period) {
-    selectedPeriod = period;
+    moverState.period = period;
     const info = periodInfo(period);
     const gainerEmpty = info.available
       ? '此期間沒有上漲成分'
@@ -999,20 +1013,60 @@
       : unavailableMsg(period, info);
     $('gainerBody').innerHTML = moverRows(info.available ? info.gainers : [], gainerEmpty);
     $('loserBody').innerHTML = moverRows(info.available ? info.losers : [], loserEmpty);
-    const pill = period;
+    const pill = period === 'CUSTOM' ? '自訂' : period;
     if ($('gainerPeriodPill')) $('gainerPeriodPill').textContent = pill;
     if ($('loserPeriodPill')) $('loserPeriodPill').textContent = pill;
     if ($('moversPeriodNote')) $('moversPeriodNote').textContent = periodNoteText(period, info);
+    const applyBtn = $('moversRangeApply');
+    if (applyBtn) applyBtn.classList.toggle('is-active', period === 'CUSTOM' && info.available);
     const picker = $('periodPicker');
     if (!picker) return;
     picker.querySelectorAll('.period-btn').forEach((btn) => {
       const p = btn.getAttribute('data-period');
       const pInfo = periodInfo(p);
-      btn.setAttribute('aria-pressed', p === period ? 'true' : 'false');
+      btn.setAttribute('aria-pressed', period !== 'CUSTOM' && p === period ? 'true' : 'false');
       btn.classList.toggle('is-na', !pInfo.available);
       btn.title = pInfo.available
         ? (pInfo.label || p)
         : unavailableMsg(p, pInfo);
+    });
+  }
+  function bindMoversRange(earliest, latest) {
+    const form = $('moversRangeForm');
+    const fromEl = $('moversRangeFrom');
+    const toEl = $('moversRangeTo');
+    if (!form || !fromEl || !toEl) return;
+    if (earliest) {
+      fromEl.min = earliest;
+      toEl.min = earliest;
+      if (!fromEl.value) fromEl.value = earliest;
+    }
+    if (latest) {
+      fromEl.max = latest;
+      toEl.max = latest;
+      if (!toEl.value) toEl.value = latest;
+    }
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      moverState.customFrom = fromEl.value || '';
+      moverState.customTo = toEl.value || '';
+      if (typeof MoversRange === 'undefined') {
+        customMoverInfo = { available: false, reason: '自訂漲跌未載入', gainers: [], losers: [] };
+        renderMovers('CUSTOM');
+        return;
+      }
+      try {
+        const hist = await MoversRange.load('./data/market-en/price-history.json?v=' + VERSION);
+        customMoverInfo = MoversRange.compute(
+          DATA.constituents || [],
+          MoversRange.pointsOf(hist),
+          moverState.customFrom,
+          moverState.customTo
+        );
+      } catch (err) {
+        customMoverInfo = { available: false, reason: '載入歷史價失敗', gainers: [], losers: [] };
+      }
+      renderMovers('CUSTOM');
     });
   }
   const picker = $('periodPicker');
@@ -1021,10 +1075,11 @@
       const btn = e.target.closest('.period-btn');
       if (!btn || !picker.contains(btn)) return;
       const period = btn.getAttribute('data-period');
-      if (!PERIODS.includes(period) || period === selectedPeriod) return;
+      if (!PERIODS.includes(period) || period === moverState.period) return;
       renderMovers(period);
     });
   }
+  bindMoversRange(earliestSnap, snapshotRange.latest || DATA.asOfDate);
   renderMovers('1D');
 
   const top = DATA.top || [];
