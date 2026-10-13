@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>中世代指數 · Box EV v1.26.0</title>
+<title>中世代指數 · Box EV v1.26.1</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <style>
   :root {
@@ -400,10 +400,41 @@
     overscroll-behavior-x: contain;
     -webkit-overflow-scrolling: touch;
   }
+  .spark-wrap {
+    position: relative;
+    margin-top: 8px;
+    min-width: 0;
+  }
   .spark {
     width: 100%;
-    height: 56px;
+    height: 100px;
     display: block;
+    cursor: crosshair;
+    touch-action: none;
+  }
+  .spark-tip {
+    position: absolute;
+    z-index: 5;
+    pointer-events: none;
+    transform: translate(-50%, calc(-100% - 8px));
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 6px 10px;
+    box-shadow: var(--shadow);
+    white-space: nowrap;
+  }
+  .spark-tip[hidden] { display: none !important; }
+  .spark-tip .tt-value {
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    font-size: .95rem;
+    line-height: 1.2;
+  }
+  .spark-tip .tt-date {
+    color: var(--muted);
+    font-size: .72rem;
+    margin-top: 2px;
   }
   .data-freshness {
     margin: 0 0 8px;
@@ -493,7 +524,7 @@
 <header>
   <div class="header-inner">
     <div>
-      <h1>中世代指數 <span class="pill">DP–SM · v1.26.0</span></h1>
+      <h1>中世代指數 <span class="pill">DP–SM · v1.26.1</span></h1>
       <p>Diamond &amp; Pearl → Sun &amp; Moon chase Top 50 · TCGPlayer Market via TCGCSV · 固定籃子</p>
     </div>
     <nav class="header-nav" aria-label="站內導覽">
@@ -563,7 +594,10 @@
         <button type="button" class="period-btn" data-period="30D" disabled aria-selected="false">30D</button>
         <button type="button" class="period-btn" data-period="YTD" disabled aria-selected="false">YTD</button>
       </div>
-      <svg class="spark" id="spark" viewBox="0 0 300 56" hidden aria-hidden="true"></svg>
+      <div class="spark-wrap" id="sparkWrap">
+        <svg class="spark" id="spark" viewBox="0 0 320 100" hidden aria-hidden="true"></svg>
+        <div class="spark-tip" id="sparkTip" hidden role="status"></div>
+      </div>
       <p class="tiny" id="indexNote" style="margin:8px 0 0"></p>
       <p class="tiny" id="indexPeriodNote" style="margin:4px 0 0"></p>
     </div>
@@ -678,11 +712,10 @@
   <div class="card method-card">
     <h2>這是什麼 Method</h2>
     <ul class="tiny">
-      <li><b>一條固定指數</b>：英文裸卡（raw / ungraded），時代＝<b>Diamond &amp; Pearl → Sun &amp; Moon</b>（含 BW／XY／SM）。<b>不含</b> Base／Wizards 復古，也不含 Sword &amp; Shield／Scarlet &amp; Violet 現代。Base 1st／Shadowless／Unlimited 仍在 <a href="./market-vintage.html">Base 復古</a>。頁頂「故事背景」只係入門，<b>唔係</b>編籃準則。</li>
-      <li><b>固定籃子 ~50</b>：從 2026-10-12 EN Top 500 裡篩中世代、按當日市價排名後凍結（holo／EX／GX／FA／SA／Prime／LV.X／Legend／Secret／Rainbow／Shiny Vault）。<b>不是</b>每週重排的 Double Holo Mid-Era 100。名單在 <code>data/market-midera/baskets.json</code>。</li>
-      <li><b>指數規則</b>：價格加權；成分加入／退出用 divisor 保持連續（S&amp;P 同款）。缺市價<b>不當 $0</b>，該卡從第一個有價日才進籃。意圖基準＝<b>1,000 @ 2024-02-08</b>（TickerMint 週線回填後）。本 PR 先上每日 TCGCSV 路徑，回填跟 vintage #28 一樣是 follow-up。</li>
-      <li><b>5D／30D／YTD</b>：用 <code>history.json</code> 真實快照，缺日不補價。每日「今天」是 TCGCSV 現況；往回用免費 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a>（<code>tools/backfill_tickermint_midera.py</code>）。沒有 cutoff 當天或更早的點就 disable。</li>
-      <li><b>代表價</b>：一般印刷裡最高的 TCGPlayer <b>Market Price</b>；1st Edition 預設不計入（成交太薄），與 EN Top 500 相同。</li>
+      <li><b>指數是什麼</b>：英文裸卡（raw / ungraded），時代＝<b>Diamond &amp; Pearl → Sun &amp; Moon</b>（含 BW／XY／SM）。<b>不含</b> Base／Wizards 復古，也不含劍盾／朱紫。Base 1st／Shadowless／Unlimited 仍在 <a href="./market-vintage.html">Base 復古</a>。頁頂「故事背景」只係入門，<b>唔係</b>編籃準則。</li>
+      <li><b>固定籃子 ~50</b>：中世代 chase（holo／EX／GX／FA／SA／Prime／LV.X／Legend／Secret 等）凍結名單，<b>不每週重排</b>。<b>價格加權</b>；有卡加入／退出時用 divisor 保持連續。缺市價<b>不當 $0</b>，有價那天才進籃。基準＝<b>1,000</b>（最早有資料的日子）。</li>
+      <li><b>5D／30D／YTD</b>：用<strong>真實歷史點</strong>算區間，<b>缺日就跳過、不補價、不發明點</b>。沒有夠早的點就不顯示該期間。每日現況來自 <a href="https://tcgcsv.com" target="_blank" rel="noopener">TCGCSV</a>；往回的歷史來自 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a>。</li>
+      <li><b>代表價</b>：一般印刷裡最高的 <a href="https://www.tcgplayer.com/search/pokemon/product?productLineName=pokemon&amp;view=grid" target="_blank" rel="noopener">TCGPlayer</a> <b>Market Price</b>；1st Edition 預設不計入（成交太薄）。</li>
     </ul>
   </div>
 
@@ -693,11 +726,12 @@
 </main>
 <footer>日盒 EV 小算盤 · Mid-era pulse · Snapshot 靜態資料 · 非正式投資建議 · 歷史價 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a> · <a href="./index.html">首頁</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./chase-fit.html">Chase 公允值</a></footer>
 
-<script src="./data/market-midera/latest.js?v=1.26.0"></script>
-<script src="./data/market-midera/history.js?v=1.26.0"></script>
+<script src="./js/spark-tip.js?v=1.26.1"></script>
+<script src="./data/market-midera/latest.js?v=1.26.1"></script>
+<script src="./data/market-midera/history.js?v=1.26.1"></script>
 <script>
 (async function () {
-  const VERSION = '1.26.0';
+  const VERSION = '1.26.1';
   const PERIODS = ['1D', '5D', '30D', 'YTD'];
   const $ = (id) => document.getElementById(id);
   function escapeHtml(s) {
@@ -880,24 +914,11 @@
   }
   function drawSpark(period) {
     const spark = $('spark');
-    const pts = pointsForPeriod(period);
-    const vals = pts.map((p) => Number(p.index)).filter((n) => !Number.isNaN(n));
-    if (vals.length < 2) {
-      spark.setAttribute('hidden', 'hidden');
-      spark.innerHTML = '';
-      return;
-    }
-    const min = Math.min.apply(null, vals);
-    const max = Math.max.apply(null, vals);
-    const span = (max - min) || 1;
-    const w = 300, h = 56, pad = 4;
-    const coords = vals.map((v, i) => {
-      const x = pad + (i / (vals.length - 1)) * (w - pad * 2);
-      const y = pad + (1 - (v - min) / span) * (h - pad * 2);
-      return x.toFixed(1) + ',' + y.toFixed(1);
+    if (typeof SparkTip === 'undefined') return;
+    SparkTip.draw(spark, pointsForPeriod(period), {
+      color: '#2563eb',
+      ariaLabel: '中世代指數走勢，可懸停或點選看日期與指數'
     });
-    spark.innerHTML = '<polyline fill="none" stroke="#2563eb" stroke-width="2" points="' + coords.join(' ') + '" />';
-    spark.removeAttribute('hidden');
   }
   function renderPeriod(period) {
     const chgEl = $('indexChg');
