@@ -249,12 +249,14 @@ def build_one_snapshot(
     if prev.get("asOfDate") == today_iso:
         # Same-day upsert: keep yesterday's baseline. A true first snapshot
         # has prevIndex=None — do not compare the index to itself as a fake 1D.
+        # After a TickerMint rebase prevPrice is often null; do not fall back
+        # to today's prices (that would invent a 0% component 1D).
         baseline_index = prev.get("prevIndex")
         baseline_prices = {
             c["id"]: c.get("prevPrice")
             for c in prev.get("constituents", [])
             if c.get("prevPrice")
-        } or (prev_prices if baseline_index is not None else {})
+        }
     else:
         baseline_index = prev_index
         baseline_prices = prev_prices
@@ -453,10 +455,19 @@ def merge_all_price_history(price_history: dict, indexes: dict, now: datetime) -
     return {"generated": now.isoformat(), "indexes": out}
 
 
-def attach_all_movers(indexes: dict, price_history: dict) -> None:
+def attach_all_movers(
+    indexes: dict,
+    price_history: dict,
+    baseline_strategy: str = "on_or_before",
+) -> None:
+    """Weekly TickerMint series uses on_or_before (same cutoff as index returns)."""
     ph_indexes = (price_history or {}).get("indexes") or {}
     for iid, latest in indexes.items():
-        en.attach_period_movers(latest, ph_indexes.get(iid) or {"points": []})
+        en.attach_period_movers(
+            latest,
+            ph_indexes.get(iid) or {"points": []},
+            baseline_strategy=baseline_strategy,
+        )
 
 
 def write_latest_js(latest: dict) -> None:
@@ -919,7 +930,64 @@ def self_test() -> None:
     assert live_baskets["indexes"]["base-shadowless"]["subtypeNeedles"] == ["unlimited"]
     assert live_baskets["indexes"]["base-unlimited"]["subtypeMode"] == "exclude"
 
+    # After rebase, pairwise % can be recovered from the last two priced snaps.
+    ph = {
+        "points": [
+            {"date": "2026-10-08", "prices": {"A": 40.0}},
+            {"date": "2026-10-12", "prices": {"A": 44.0}},
+        ]
+    }
+    snap_empty = {
+        "asOfDate": "2026-10-12",
+        "prevIndex": 1000.0,
+        "gainers": [],
+        "losers": [],
+        "breadth": {"available": False, "advancing": 0, "declining": 0, "unchanged": 0},
+        "constituents": [
+            {
+                "id": "A",
+                "name": "Alakazam",
+                "number": "001/102",
+                "image": "",
+                "setName": "S",
+                "price": 44.0,
+                "prevPrice": None,
+                "changePct": None,
+                "carried": False,
+            }
+        ],
+    }
+    attach_all_movers({"base-1st": snap_empty}, {"indexes": {"base-1st": ph}})
+    assert snap_empty["gainers"] and snap_empty["gainers"][0]["changePct"] == 10.0
+    assert snap_empty["breadth"]["available"] is True
+    assert snap_empty["movers"]["1D"]["available"] is True
+    assert snap_empty["movers"]["1D"]["baselineDate"] == "2026-10-08"
+
     print("self-test ok")
+
+
+def rebuild_movers(now: datetime | None = None) -> None:
+    """Recompute period movers from stored price history (no TCGCSV fetch)."""
+    latest = en.load_json(LATEST_PATH, {})
+    indexes = latest.get("indexes") or {}
+    if not indexes:
+        raise RuntimeError("latest.json is missing indexes")
+    stamp = now or datetime.now(timezone.utc)
+    price_history = en.load_json(PRICE_HISTORY_PATH, {}) or {}
+    attach_all_movers(indexes, price_history)
+    latest["generated"] = stamp.isoformat()
+    latest["indexes"] = indexes
+    en.write_json(LATEST_PATH, latest)
+    write_latest_js(latest)
+    bits = []
+    for iid in latest.get("indexOrder") or indexes:
+        row = indexes[iid]
+        movers = row.get("movers") or {}
+        avail = [p for p, info in movers.items() if info.get("available")]
+        n_g = len((movers.get("1D") or {}).get("gainers") or row.get("gainers") or [])
+        n_l = len((movers.get("1D") or {}).get("losers") or row.get("losers") or [])
+        bits.append(f"{iid} 1D +{n_g}/-{n_l} periods={','.join(avail) or 'none'}")
+    print("vintage movers rebuilt | " + " | ".join(bits), flush=True)
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -931,10 +999,22 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="Regenerate data/market-vintage/baskets.json from live TCGCSV (does not append history)",
     )
+    parser.add_argument(
+        "--rebuild-movers",
+        action="store_true",
+        help="Recompute 1D/5D/30D/YTD movers from stored price history (no TCGCSV fetch)",
+    )
     parser.add_argument("-v", "--verbose", action="store_true")
     args = parser.parse_args(argv)
     if args.self_test:
         self_test()
+        return 0
+    if args.rebuild_movers:
+        try:
+            rebuild_movers()
+        except Exception as err:  # noqa: BLE001
+            print(f"ERROR: {err}", file=sys.stderr)
+            return 1
         return 0
     if args.rebuild_baskets:
         try:

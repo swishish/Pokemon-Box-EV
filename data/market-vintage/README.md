@@ -38,7 +38,7 @@ Writes:
 
 - `latest.json` / `latest.js` — three indexes, constituents, movers
 - `history.json` / `history.js` — one point per index per `asOfDate` (upsert that day, never wipe; keeps TickerMint backfill points)
-- `price-history.json` — per-card prices for mover 1D/5D/30D/YTD once enough **daily** TCGCSV points exist
+- `price-history.json` — per-card prices for mover 1D/5D/30D/YTD. TickerMint `--backfill` / `--rebuild-movers` writes the weekly prints so Top 10 / Bottom 10 work immediately; daily TCGCSV then appends
 
 First retained snapshot of each index is rebased to **1,000**. When a listed ID later gets (or loses) a TCGPlayer Market Price, an S&P-style divisor keeps the level continuous — same as `market-en`.
 
@@ -54,7 +54,8 @@ python3 tools/backfill_tickermint_vintage.py --backfill --confirm BACKFILL
 
 1. `--self-test`: no network. Checks printing filters, unique-ID count (62), `$0` skip, rebase confirm guard.
 2. `--sample`: a few BSS + Unlimited IDs, **does not** rewrite live JSON. Seconds.
-3. `--backfill --confirm BACKFILL`: ~62 unique product calls (~1 min), weekly points (`--step-days 7`, ~140/index), rebases each index to **1,000** on the first retained day, rewrites `history.json` + `latest.json` divisors. Today's index **level will move** off the temporary Oct-2026 = 1,000 series. Type `BACKFILL` on purpose — do not mix the old chain.
+3. `--backfill --confirm BACKFILL`: ~62 unique product calls (~1 min), weekly points (`--step-days 7`, ~140/index), rebases each index to **1,000** on the first retained day, rewrites `history.json` + `latest.json` divisors **and** `price-history.json` so Top gainers / losers / Breadth use the last two priced snaps (no empty “first snapshot” UI). Today's index **level will move** off the temporary Oct-2026 = 1,000 series. Type `BACKFILL` on purpose — do not mix the old chain.
+4. `--rebuild-movers`: refill `price-history.json` + mover lists from TickerMint **without** changing index levels. Use this after an older backfill that cleared `prevPrice`.
 
 Optional later start: `--start 2024-02-28`. Daily series: `--step-days 1`.
 
