@@ -9,6 +9,7 @@ need tools/backfill_tickermint_vintage.py).
   python3 tools/backfill_tickermint_midera.py --self-test
   python3 tools/backfill_tickermint_midera.py --sample
   python3 tools/backfill_tickermint_midera.py --backfill --confirm BACKFILL
+  python3 tools/backfill_tickermint_midera.py --rebuild-movers
 
 Default start = 2024-02-08. Weekly points (--step-days 7). Never fills
 missing days with $0. A card enters on its first positive market date.
@@ -387,6 +388,11 @@ def self_test() -> None:
     assert latest["baseValue"] == 1000.0
     assert latest["id"] == mid.INDEX_ID
     assert latest["archiveStart"] == "2024-02-08"
+    # Last two priced snaps fill prevPrice (PR #31 pairwise; never leave null).
+    assert result["price_points"] and len(result["price_points"]) >= 2
+    assert latest["breadth"]["available"] is True
+    priced_rows = [c for c in latest["constituents"] if c.get("price")]
+    assert priced_rows and all(c.get("prevPrice") is not None for c in priced_rows)
 
     live = mid.load_baskets()
     ids = [c["id"] for c in live["index"]["constituents"]]
@@ -433,6 +439,11 @@ def main(argv: list[str] | None = None) -> int:
         help="7 = weekly (default). 1 = daily",
     )
     parser.add_argument("--max-ids", type=int, default=None, help="Cap basket IDs (debug / smoke)")
+    parser.add_argument(
+        "--rebuild-movers",
+        action="store_true",
+        help="Fill Top 10/Bottom 10 from last two priced weekly snaps (does not rebase)",
+    )
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("-v", "--verbose", action="store_true")
     args = parser.parse_args(argv)
@@ -443,6 +454,9 @@ def main(argv: list[str] | None = None) -> int:
     try:
         if args.sample:
             run_sample(verbose=True, cfg=cfg)
+            return 0
+        if args.rebuild_movers:
+            mid.rebuild_movers()
             return 0
         if args.backfill:
             start = _parse_day(args.start, cfg["archiveStart"])
