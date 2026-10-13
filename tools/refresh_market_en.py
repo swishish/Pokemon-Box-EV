@@ -339,6 +339,7 @@ def replay_price_series(
     carry_dt: dict = {}
     skipped = 0
     need = min_priced if min_priced is not None else min(basket_size, max(1, len(catalog)))
+    price_points: list[dict] = []
 
     for d in dates:
         prices, subtypes = prices_for_day(d)
@@ -373,6 +374,12 @@ def replay_price_series(
         last_date = d.isoformat()
         last_prices = priced
         last_subtypes = subtypes or {}
+        price_points.append(
+            {
+                "date": last_date,
+                "prices": {pid: round(pr, 2) for pid, pr in sorted(priced.items())},
+            }
+        )
         if verbose:
             print(
                 f"  {d.isoformat()}: index {step['index']:.2f} "
@@ -385,6 +392,7 @@ def replay_price_series(
 
     return {
         "points": points,
+        "price_points": price_points,
         "last": last,
         "last_date": last_date,
         "last_prices": last_prices,
@@ -574,13 +582,19 @@ def period_needed_by(as_of: str, period: str) -> str | None:
     raise ValueError(f"unknown period {period}")
 
 
-def pick_baseline_date(dates: list[str], as_of: str, period: str) -> str | None:
+def pick_baseline_date(
+    dates: list[str],
+    as_of: str,
+    period: str,
+    strategy: str = "slack",
+) -> str | None:
     """Latest stored snapshot that can serve as the period baseline.
 
-    1D = previous snapshot (any gap). Other periods need a date on or before
-    the lookback target, not older than PERIOD_SLACK_DAYS past that target.
-    Dates after `as_of` are ignored. Missing history returns None — never
-    substitute a nearer snapshot (that would invent a 5D/30D/YTD return).
+    1D = previous snapshot (any gap). Other periods:
+      slack         — must land in the lookback window (daily TCGCSV)
+      on_or_before  — last real snap on or before the cutoff (weekly
+                      TickerMint; same honesty as index period_returns)
+    Dates after `as_of` are ignored. Never interpolates a missing day.
     """
     known = sorted({d for d in dates if d and d < as_of})
     if period == "1D":
@@ -588,6 +602,9 @@ def pick_baseline_date(dates: list[str], as_of: str, period: str) -> str | None:
     target = period_needed_by(as_of, period)
     if not target:
         return None
+    if strategy == "on_or_before":
+        candidates = [d for d in known if d <= target]
+        return candidates[-1] if candidates else None
     slack = PERIOD_SLACK_DAYS[period]
     earliest_ok = (parse_iso_date(target) - timedelta(days=slack)).isoformat()
     candidates = [d for d in known if earliest_ok <= d <= target]
@@ -623,6 +640,73 @@ def movers_from_constituents(
         if c["changePct"] < 0
     ]
     return gainers, losers
+
+
+def apply_pairwise_movers(latest: dict, baseline_prices: dict) -> dict:
+    """Fill prevPrice / changePct / breadth / gainers / losers from a prior map.
+
+    Only live (non-carried) rows with both a current price and a positive
+    baseline print are compared. Missing prints stay null — never invented.
+    """
+    baseline = {str(k): v for k, v in (baseline_prices or {}).items() if v}
+    advancing = declining = unchanged = 0
+    for row in latest.get("constituents") or []:
+        pid = str(row.get("id") or "")
+        prior = baseline.get(pid)
+        prev_out = round(float(prior), 2) if prior and float(prior) > 0 else None
+        price = row.get("price")
+        change_pct = None
+        if (
+            not row.get("carried")
+            and prev_out
+            and price
+            and float(price) > 0
+        ):
+            change_pct = round((float(price) / float(prev_out) - 1) * 100, 2)
+            if change_pct > 0:
+                advancing += 1
+            elif change_pct < 0:
+                declining += 1
+            else:
+                unchanged += 1
+        row["prevPrice"] = prev_out
+        row["changePct"] = change_pct
+    movable = [c for c in (latest.get("constituents") or []) if c.get("changePct") is not None]
+    movable.sort(key=lambda c: c["changePct"], reverse=True)
+    latest["gainers"] = [
+        {k: c[k] for k in MOVER_FIELDS} for c in movable[:TOP_MOVERS] if c["changePct"] > 0
+    ]
+    latest["losers"] = [
+        {k: c[k] for k in MOVER_FIELDS}
+        for c in reversed(movable[-TOP_MOVERS:])
+        if c["changePct"] < 0
+    ]
+    latest["breadth"] = {
+        "available": bool(movable),
+        "advancing": advancing,
+        "declining": declining,
+        "unchanged": unchanged,
+    }
+    return latest
+
+
+def fill_pairwise_from_price_history(latest: dict, price_history: dict) -> dict:
+    """If the snapshot has no pairwise %, use the previous stored price map."""
+    if any(c.get("changePct") is not None for c in latest.get("constituents") or []):
+        return latest
+    as_of = latest.get("asOfDate")
+    if not as_of:
+        return latest
+    dates = [p["date"] for p in price_history.get("points") or [] if p.get("date")]
+    baseline = pick_baseline_date(dates, as_of, "1D")
+    if not baseline:
+        return latest
+    prices_by_date = {
+        p["date"]: p.get("prices") or {}
+        for p in price_history.get("points") or []
+        if p.get("date")
+    }
+    return apply_pairwise_movers(latest, prices_by_date.get(baseline) or {})
 
 
 def prune_price_points(points: list, as_of: str) -> list:
@@ -673,8 +757,12 @@ def snapshot_range(price_history: dict) -> dict:
     }
 
 
-def build_period_movers(latest: dict, price_history: dict) -> dict:
-    """1D copies the existing snapshot movers; 5D/30D/YTD use stored prices."""
+def build_period_movers(
+    latest: dict,
+    price_history: dict,
+    baseline_strategy: str = "slack",
+) -> dict:
+    """1D copies snapshot movers (or last two price maps); 5D/30D/YTD use stored prices."""
     as_of = latest["asOfDate"]
     dates = [p["date"] for p in price_history.get("points") or [] if p.get("date")]
     prices_by_date = {
@@ -686,17 +774,32 @@ def build_period_movers(latest: dict, price_history: dict) -> dict:
     out = {}
     for period in MOVER_PERIODS:
         needed = period_needed_by(as_of, period)
-        baseline = pick_baseline_date(dates, as_of, period)
+        baseline = pick_baseline_date(dates, as_of, period, strategy=baseline_strategy)
         if period == "1D":
-            has_prev = latest.get("prevIndex") is not None or bool(latest.get("gainers") or latest.get("losers"))
-            # Same lists as the legacy gainers/losers fields (vs previous snapshot).
+            gainers = list(latest.get("gainers") or [])
+            losers = list(latest.get("losers") or [])
+            if (not gainers and not losers) and baseline:
+                gainers, losers = movers_from_constituents(
+                    constituents, prices_by_date.get(baseline) or {}
+                )
+            has_pairs = bool(gainers or losers) or bool(
+                (latest.get("breadth") or {}).get("available")
+            )
+            if not has_pairs and baseline:
+                prior_map = prices_by_date.get(baseline) or {}
+                has_pairs = any(
+                    not c.get("carried")
+                    and c.get("price")
+                    and prior_map.get(str(c.get("id") or ""))
+                    for c in constituents
+                )
             out[period] = {
-                "available": bool(has_prev),
+                "available": bool(has_pairs),
                 "baselineDate": baseline,
                 "neededBy": needed,
-                "label": "vs previous snapshot" if has_prev else "need a previous snapshot",
-                "gainers": latest.get("gainers") or [],
-                "losers": latest.get("losers") or [],
+                "label": "vs previous snapshot" if has_pairs else "need a previous snapshot",
+                "gainers": gainers,
+                "losers": losers,
             }
             continue
         if not baseline:
@@ -725,9 +828,16 @@ def build_period_movers(latest: dict, price_history: dict) -> dict:
     return out
 
 
-def attach_period_movers(latest: dict, price_history: dict) -> dict:
+def attach_period_movers(
+    latest: dict,
+    price_history: dict,
+    baseline_strategy: str = "slack",
+) -> dict:
+    fill_pairwise_from_price_history(latest, price_history)
     latest["snapshotRange"] = snapshot_range(price_history)
-    latest["movers"] = build_period_movers(latest, price_history)
+    latest["movers"] = build_period_movers(
+        latest, price_history, baseline_strategy=baseline_strategy
+    )
     return latest
 
 
@@ -1035,6 +1145,10 @@ def self_test() -> None:
     assert pick_baseline_date(short, "2026-10-11", "YTD") is None
     # Do not use a nearer snapshot when the lookback date is missing.
     assert pick_baseline_date(["2026-10-08", "2026-10-11"], "2026-10-11", "5D") is None
+    weekly = ["2026-09-10", "2026-10-01", "2026-10-08", "2026-10-11"]
+    assert pick_baseline_date(weekly, "2026-10-11", "5D") is None
+    assert pick_baseline_date(weekly, "2026-10-11", "5D", strategy="on_or_before") == "2026-10-01"
+    assert pick_baseline_date(weekly, "2026-10-11", "30D", strategy="on_or_before") == "2026-09-10"
     # Dec 31 previous year is a valid YTD baseline.
     assert pick_baseline_date(["2025-12-31", "2026-10-11"], "2026-10-11", "YTD") == "2025-12-31"
     assert period_needed_by("2026-10-11", "5D") == "2026-10-06"
@@ -1072,6 +1186,48 @@ def self_test() -> None:
     assert periods["5D"]["gainers"][0]["changePct"] == 10.0
     assert periods["30D"]["available"] is False
     assert periods["YTD"]["available"] is False
+
+    # After a rebase, gainers may be empty even though prevIndex is set.
+    # Do not mark 1D available unless a pairwise price map exists.
+    empty_after_rebase = {
+        "asOfDate": "2026-10-11",
+        "prevIndex": 1262.8,
+        "gainers": [],
+        "losers": [],
+        "constituents": constituents,
+        "breadth": {"available": False},
+    }
+    lonely = {"points": [{"date": "2026-10-11", "prices": {"a": 110.0, "b": 40.0}}]}
+    empty_1d = build_period_movers(empty_after_rebase, lonely)
+    assert empty_1d["1D"]["available"] is False
+    assert empty_1d["1D"]["gainers"] == []
+    filled_1d = build_period_movers(empty_after_rebase, hist)
+    assert filled_1d["1D"]["available"] is True
+    assert filled_1d["1D"]["gainers"][0]["id"] == "a"
+    weekly_hist = {
+        "points": [
+            {"date": "2026-10-01", "prices": {"a": 100.0, "b": 50.0}},
+            {"date": "2026-10-08", "prices": {"a": 102.0, "b": 48.0}},
+            {"date": "2026-10-11", "prices": {"a": 110.0, "b": 40.0}},
+        ]
+    }
+    weekly_movers = build_period_movers(
+        empty_after_rebase, weekly_hist, baseline_strategy="on_or_before"
+    )
+    assert weekly_movers["5D"]["available"] is True
+    assert weekly_movers["5D"]["baselineDate"] == "2026-10-01"
+    applied = apply_pairwise_movers(
+        {
+            "constituents": [
+                {"id": "a", "name": "A", "number": "1", "image": "", "setName": "S", "price": 110.0, "carried": False},
+                {"id": "b", "name": "B", "number": "2", "image": "", "setName": "S", "price": 40.0, "carried": False},
+            ]
+        },
+        {"a": 100.0, "b": 50.0},
+    )
+    assert applied["breadth"]["available"] and applied["breadth"]["advancing"] == 1
+    assert applied["gainers"][0]["changePct"] == 10.0
+    assert applied["losers"][0]["changePct"] == -20.0
 
     pruned = prune_price_points(
         [

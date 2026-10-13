@@ -1,6 +1,6 @@
 # Pokemon Box EV
 
-日盒 EV 小算盤（朋友向）· **v1.25.0**
+日盒 EV 小算盤（朋友向）· **v1.25.1**
 
 給「不太懂金融／AI」的買卡朋友看的工具：首頁介紹點樣用 → 開盒算盤選系列 → 看 **四個預期回報 %**（同一分母）→ 有膜／無膜切換 → 看主力 chase 卡與「買單卡 vs 開盒」粗略提示。
 
@@ -146,7 +146,8 @@ python3 tools/backfill_tickermint_vintage.py --backfill --confirm BACKFILL
 
 1. `--self-test`：不連網。確認印刷篩選、unique id＝62、缺價不補 0、沒有 `--confirm BACKFILL` 就拒寫。
 2. `--sample`：只抓幾張 BSS + Unlimited，**不改**網站上的 JSON。
-3. `--backfill --confirm BACKFILL`：回填 2024-02-08 起、預設**每週一點**（`--step-days 7`，每指數約 140 點），每條指數第一個有資料的日子 rebase 成 **1,000**（固定歷史基準，不是每個期間重設）。會重寫 `history.json` 與 `latest.json` 的 divisor——**今天的指數水平會離開暫時的 Oct-2026＝1,000 序列**。必須打 `BACKFILL`，不要把舊鏈混進去。
+3. `--backfill --confirm BACKFILL`：回填 2024-02-08 起、預設**每週一點**（`--step-days 7`，每指數約 140 點），每條指數第一個有資料的日子 rebase 成 **1,000**（固定歷史基準，不是每個期間重設）。會重寫 `history.json`、`latest.json` 的 divisor，以及 `price-history.json`（成分週線市價），所以 Top 10／Bottom 10／廣度在 rebase 當天就能用，不必等下一份每日 dump。**今天的指數水平會離開暫時的 Oct-2026＝1,000 序列**。必須打 `BACKFILL`，不要把舊鏈混進去。
+4. `--rebuild-movers`：只從 TickerMint 週線重算漲跌榜，**不改**指數水平。舊回填若把 `prevPrice` 清成空，用這條。
 
 可選較晚切點：`--start 2024-02-28`。每日一點：`--step-days 1`。頁尾／卡名有 TickerMint linkback（ToS）。快取在 `data/tickermint-cache/`（gitignore）。History 與 EN 一樣由 Gary 本機或手動 Action 跑完再 commit——本 PR **不**塞進已回填的 140 點檔。
 
@@ -174,6 +175,7 @@ python3 -m http.server 8765
 
 ## Changelog（摘要）
 
+- **v1.25.1**：復古指數 rebase 後立刻用週線最後兩份有市價快照填 Top 10／Bottom 10／廣度（1st／Shadowless／Unlimited 同一條路）。缺印刷市價仍空白，不虛構。EV／Chase_Fit／EN Top 500 算法不變
 - **v1.25.0**：Base Set 復古指數加印刷感知的 TickerMint 週線回填（`tools/backfill_tickermint_vintage.py`，2024-02-08 起、rebase 需 `--confirm BACKFILL`）。**不要**重用 EN 的 `backfill_tickermint.py`（會跳過 1st Edition）。5D／30D／YTD 在 Gary 跑完回填後才會亮。EV／Chase_Fit／EN Top 500 算法不變
 - **v1.24.0**：新增 Base Set EN 復古指數頁（`market-vintage.html`）——1st Edition／Shadowless／Unlimited 三條固定 chase 籃子，每日 TCGCSV 只 append 一點，**不回填**歷史；同一頁有卡冊 Binder 格狀速覽。EV／Chase_Fit／EN Top 500 算法不變
 - **v1.23.0**：EN 市況歷史改走免費 TickerMint API 回填（TCGCSV archive 仍 403）；頁尾／卡名 TickerMint linkback；指數 5D／30D／YTD 有真實快照才亮。每日現況仍是 TCGCSV dump。EV／Chase_Fit 算法不變

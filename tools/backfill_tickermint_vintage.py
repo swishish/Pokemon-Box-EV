@@ -228,6 +228,7 @@ def build_one_index(
         "last_date": replayed["last_date"],
         "last_prices": replayed["last_prices"],
         "last_subtypes": replayed["last_subtypes"],
+        "price_points": replayed.get("price_points") or [],
         "catalog": catalog,
         "firstPriced": {
             pid: first_priced_date(payloads[pid], needles, mode)
@@ -311,7 +312,9 @@ def compose_index_latest(result: dict, prev_index: dict, now: datetime) -> dict:
     basket_rows.sort(key=lambda c: (vin._num_key(c.get("number")), c.get("name") or ""))
     has_prev = prev_snap is not None
     index_value = last["index"]
-    return {
+    price_points = result.get("price_points") or []
+    prior_prices = price_points[-2]["prices"] if len(price_points) >= 2 else {}
+    latest_block = {
         "id": spec["id"],
         "name": spec.get("name"),
         "nameZh": spec.get("nameZh"),
@@ -356,6 +359,9 @@ def compose_index_latest(result: dict, prev_index: dict, now: datetime) -> dict:
             "docs": history.get("sourceDocs"),
         },
     }
+    if prior_prices:
+        en.apply_pairwise_movers(latest_block, prior_prices)
+    return latest_block
 
 
 def compose_payload(indexes: dict, baskets: dict, history: dict, now: datetime) -> dict:
@@ -381,6 +387,29 @@ def compose_payload(indexes: dict, baskets: dict, history: dict, now: datetime) 
     if sampling:
         payload["sampling"] = sampling
     return payload
+
+
+def compose_price_history(results: dict, now: datetime) -> dict:
+    """Keep every retained weekly print — same dates as history.json points."""
+    indexes = {}
+    for iid, result in results.items():
+        indexes[iid] = {
+            "generated": now.isoformat(),
+            "points": list(result.get("price_points") or []),
+        }
+    return {"generated": now.isoformat(), "source": "tickermint", "indexes": indexes}
+
+
+def price_points_for_dates(spec: dict, payloads: dict[str, dict], days: list[date]) -> list[dict]:
+    """Actual market prints on each history date (no carry, no $0 fill)."""
+    prices_for_day = make_prices_for_day(payloads, spec)
+    points = []
+    for day in days:
+        prices, _sub = prices_for_day(day)
+        priced = {pid: round(pr, 2) for pid, pr in prices.items() if pr and pr > 0}
+        if priced:
+            points.append({"date": day.isoformat(), "prices": dict(sorted(priced.items()))})
+    return points
 
 
 def wrap_history(index_results: dict, baskets: dict, *, start: date, end: date, step_days: int, unique_n: int, cfg: dict) -> dict:
@@ -551,11 +580,14 @@ def run_backfill(
         iid: compose_index_latest(results[iid], prev_indexes.get(iid) or {}, now)
         for iid in history["indexOrder"]
     }
+    price_history = compose_price_history(results, now)
+    vin.attach_all_movers(built, price_history)
     latest_out = compose_payload(built, baskets, history, now)
     en.write_json(vin.HISTORY_PATH, history)
     vin.write_history_js(history)
     en.write_json(vin.LATEST_PATH, latest_out)
     vin.write_latest_js(latest_out)
+    en.write_json(vin.PRICE_HISTORY_PATH, price_history)
     print(
         f"Wrote vintage history.json and latest.json asOf {latest_out['asOfDate']} "
         f"(rebased; first retained day of each index = 1,000).",
@@ -566,7 +598,70 @@ def run_backfill(
         "Do not mix the old Oct-2026 = 1,000 series.",
         flush=True,
     )
-    return {"history": history, "results": results, "latest": latest_out}
+    return {"history": history, "results": results, "latest": latest_out, "price_history": price_history}
+
+
+def run_rebuild_movers(
+    *,
+    verbose: bool = False,
+    dry_run: bool = False,
+    cfg: dict | None = None,
+) -> dict:
+    """Fill price-history + movers from TickerMint without rebasing index levels."""
+    cfg = cfg or tm.load_config()
+    baskets = vin.load_baskets()
+    history = en.load_json(vin.HISTORY_PATH, {}) or {}
+    latest = en.load_json(vin.LATEST_PATH, {}) or {}
+    hist_indexes = history.get("indexes") or {}
+    if not hist_indexes:
+        raise RuntimeError("history.json has no indexes — run --backfill --confirm BACKFILL first")
+    pids = unique_product_ids(baskets)
+    sleep_s = float(cfg.get("sleepSeconds") or 0.55)
+    payloads = tm.fetch_payloads(pids, cfg, sleep_s=sleep_s, verbose=verbose, use_cache=True)
+    if not payloads:
+        raise RuntimeError("TickerMint returned no vintage product histories")
+    now = datetime.now(timezone.utc)
+    results: dict = {}
+    built = dict(latest.get("indexes") or {})
+    for iid in vin.index_ids(baskets):
+        spec = baskets["indexes"][iid]
+        block = hist_indexes.get(iid) or {}
+        days = []
+        for point in block.get("points") or []:
+            day = en._parse_day(point.get("date"))
+            if day:
+                days.append(day)
+        sliced = {pid: payloads[pid] for pid in catalog_from_spec(spec) if pid in payloads}
+        points = price_points_for_dates(spec, sliced, days)
+        results[iid] = {"price_points": points}
+        row = built.get(iid)
+        if row and len(points) >= 2:
+            en.apply_pairwise_movers(row, points[-2].get("prices") or {})
+        if verbose:
+            print(f"  {iid}: {len(points)} priced snaps", flush=True)
+    price_history = compose_price_history(results, now)
+    vin.attach_all_movers(built, price_history)
+    latest["generated"] = now.isoformat()
+    latest["indexes"] = built
+    if dry_run:
+        return {"latest": latest, "price_history": price_history, "results": results}
+    en.write_json(vin.LATEST_PATH, latest)
+    vin.write_latest_js(latest)
+    en.write_json(vin.PRICE_HISTORY_PATH, price_history)
+    bits = []
+    for iid in latest.get("indexOrder") or built:
+        row = built[iid]
+        movers = row.get("movers") or {}
+        avail = [p for p, info in movers.items() if info.get("available")]
+        n_g = len((movers.get("1D") or {}).get("gainers") or [])
+        n_l = len((movers.get("1D") or {}).get("losers") or [])
+        bits.append(f"{iid} 1D +{n_g}/-{n_l} periods={','.join(avail) or 'none'}")
+    print(
+        "Rebuilt vintage movers from TickerMint weekly prints (index levels unchanged) | "
+        + " | ".join(bits),
+        flush=True,
+    )
+    return {"latest": latest, "price_history": price_history, "results": results}
 
 
 def self_test() -> None:
@@ -645,6 +740,28 @@ def self_test() -> None:
     assert latest_1st["divisor"] == r1["last"]["divisor"]
     assert any(row["id"] == "B" and row["price"] is None for row in latest_1st["basket"])
     assert {u["id"] for u in latest_1st["listedUnpriced"]} == {"B"}
+    # Last two priced snaps (not a blank first-snapshot) populate 1D movers.
+    assert r1["price_points"] and len(r1["price_points"]) >= 2
+    assert latest_1st["breadth"]["available"] is True
+    assert latest_1st["gainers"] or latest_1st["losers"]
+    alakazam = next(c for c in latest_1st["constituents"] if c["id"] == "A")
+    assert alakazam["prevPrice"] is not None and alakazam["changePct"] is not None
+
+    latest_sh = compose_index_latest(rsh, {}, datetime(2026, 10, 12, tzinfo=timezone.utc))
+    latest_un = compose_index_latest(run, {}, datetime(2026, 10, 12, tzinfo=timezone.utc))
+    ph = compose_price_history(results, datetime(2026, 10, 12, tzinfo=timezone.utc))
+    vin.attach_all_movers(
+        {"base-1st": latest_1st, "base-shadowless": latest_sh, "base-unlimited": latest_un},
+        ph,
+    )
+    for row in (latest_1st, latest_sh, latest_un):
+        movers = row["movers"]
+        assert movers["1D"]["available"]
+        assert movers["1D"]["gainers"] or movers["1D"]["losers"] or row["breadth"]["available"]
+        assert movers["5D"]["available"]
+        assert movers["30D"]["available"]
+        assert movers["YTD"]["available"]
+        assert movers["5D"]["baselineDate"]  # on_or_before weekly cutoff, not slack-empty
 
     try:
         run_backfill(
@@ -697,6 +814,11 @@ def main(argv: list[str] | None = None) -> int:
         help="7 = weekly (default, ~140 points/index). 1 = daily ~980 points",
     )
     parser.add_argument("--max-ids", type=int, default=None, help="Cap unique product IDs (debug / smoke)")
+    parser.add_argument(
+        "--rebuild-movers",
+        action="store_true",
+        help="Fill price-history + Top 10/Bottom 10 from TickerMint weekly prints (does not rebase)",
+    )
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("-v", "--verbose", action="store_true")
     args = parser.parse_args(argv)
@@ -707,6 +829,9 @@ def main(argv: list[str] | None = None) -> int:
     try:
         if args.sample:
             run_sample(verbose=True, cfg=cfg)
+            return 0
+        if args.rebuild_movers:
+            run_rebuild_movers(verbose=args.verbose or True, dry_run=args.dry_run, cfg=cfg)
             return 0
         if args.backfill:
             start = _parse_day(args.start, cfg["archiveStart"])

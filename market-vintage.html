@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>Base 復古指數 · Box EV v1.25.0</title>
+<title>Base 復古指數 · Box EV v1.25.1</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <style>
   :root {
@@ -483,7 +483,7 @@
 <header>
   <div class="header-inner">
     <div>
-      <h1>Base 復古指數 <span class="pill">EN raw · v1.25.0</span></h1>
+      <h1>Base 復古指數 <span class="pill">EN raw · v1.25.1</span></h1>
       <p>Base Set 1st Edition / Shadowless / Unlimited · TCGPlayer Market via TCGCSV · 每日一點</p>
     </div>
     <nav class="header-nav" aria-label="站內導覽">
@@ -955,7 +955,7 @@
     const info = moversByPeriod[period];
     if (info) return info;
     if (period === '1D') {
-      const has = (DATA_ONE.gainers && DATA_ONE.gainers.length) || (DATA_ONE.losers && DATA_ONE.losers.length) || DATA_ONE.prevIndex != null;
+      const has = (DATA_ONE.gainers && DATA_ONE.gainers.length) || (DATA_ONE.losers && DATA_ONE.losers.length) || !!(DATA_ONE.breadth && DATA_ONE.breadth.available);
       return {
         available: !!has,
         baselineDate: null,
