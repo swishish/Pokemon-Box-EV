@@ -1,6 +1,6 @@
 # Pokemon Box EV
 
-日盒 EV 小算盤（朋友向）· **v1.27.0**
+日盒 EV 小算盤（朋友向）· **v1.28.0**
 
 給「不太懂金融／AI」的買卡朋友看的工具：首頁介紹點樣用 → 開盒算盤選系列 → 看 **四個預期回報 %**（同一分母）→ 有膜／無膜切換 → 看主力 chase 卡與「買單卡 vs 開盒」粗略提示。
 
@@ -31,7 +31,7 @@ Chase 公允值（PSA10 回歸散點）：**https://swishish.github.io/Pokemon-B
 | 顯示 | 說明 |
 | --- | --- |
 | Index + % | 預設 **1D**＝相對上一份已提交快照。第一次建檔只有指數 1,000，沒有每日 % |
-| 5D / 30D / YTD | 用 `history.json` 真實快照算區間報酬；缺日跳過、**不補價**。沒有 cutoff 當天或更早的點就 disable |
+| 5D / 30D / 1Y / YTD / 自訂 | 用 `history.json` 真實快照算區間報酬；缺日跳過、**不補價**。沒有 cutoff 當天或更早的點就 disable。自訂日期只放大圖，**不**把指數重設成 1000 |
 | Breadth | 籃子裡上漲 vs 下跌張數（有歷史才有） |
 | Top gainers / losers | 期間可選 1D／5D／30D／YTD（`price-history.json`）；歷史快照不足則 N/A，不虛構報酬 |
 | Disclaimer | 每日 TCGCSV；歷史 TickerMint（免費、需 linkback）；僅 EN raw；非正式投資建議 |
@@ -199,6 +199,7 @@ python3 -m http.server 8765
 
 ## Changelog（摘要）
 
+- **v1.28.0**：頂欄改成左 Pokéball＋標題＋版本、右黃 3D 導覽鈕（手機自動換行）；Pokéball／標題回首頁同一分頁；Base Unlimited 外連改同一分頁。市況圖加 **1Y** 同由–至自訂日期，只放大視窗、不重設基準 1,000。EV／Chase_Fit 算法不變
 - **v1.27.0**：中世代 TickerMint 週線回填（2024-02-08 起 rebase 1,000）＋最後兩份有市價快照填 Top 10／Bottom 10；圖表懸停提示對齊游標（不再用 viewBox 對 CSS 寬度錯位）；市況頁改奶油紙面／黃 3D 圓鈕／黑框，頂欄 nav 泡泡改成內容寬度內一條帶。EV／Chase_Fit 算法不變
 - **v1.26.0**：新增中世代 EN raw 指數（`market-midera.html`）——DP→SM 固定 chase Top 50，價格加權，意圖 rebase 1,000 @ 2024-02-08。每日 TCGCSV append；TickerMint 週線回填腳本已備、跟 vintage #28 一樣先不上完整歷史。Base 1st／Shadowless／Unlimited 與 EN Top 500 算法不變
 - **v1.25.2**：EN Top 500 rebase 後立刻用週線最後兩份有市價快照填 Top 10／Bottom 10／廣度（1D／5D／30D／YTD）。缺市價仍空白，不虛構、不重設指數。EV／Chase_Fit／復古算法不變

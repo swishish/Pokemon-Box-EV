@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>EN 裸卡市況 · Box EV v1.27.0</title>
+<title>EN 裸卡市況 · Box EV v1.28.0</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <style>
   :root {
@@ -65,10 +65,18 @@
   .header-inner {
     display: flex;
     flex-direction: column;
-    align-items: stretch;
-    gap: 8px;
+    gap: 6px;
     max-width: 1100px;
     margin: 0 auto;
+    min-width: 0;
+    width: 100%;
+  }
+  .header-top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px 12px;
     min-width: 0;
     width: 100%;
   }
@@ -81,6 +89,26 @@
     align-items: center;
     gap: 8px;
     flex-wrap: wrap;
+    min-width: 0;
+  }
+  .home-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    max-width: 100%;
+    flex-wrap: wrap;
+    color: inherit;
+    text-decoration: none;
+    border-radius: 8px;
+    outline-offset: 3px;
+  }
+  .home-title:hover { color: var(--ink); }
+  .home-title:hover .poke-mark { transform: rotate(-14deg); }
+  .home-title:focus-visible {
+    outline: 2px solid var(--ink);
+    background: var(--accent-fill);
+    box-shadow: var(--shadow-xs);
   }
   header p { margin: 3px 0 0; color: var(--muted); font-size: .78rem; }
   .poke-mark {
@@ -93,6 +121,7 @@
     position: relative;
     flex-shrink: 0;
     box-shadow: 1px 1px 0 var(--ink);
+    transition: transform .12s ease;
   }
   .poke-mark::after {
     content: "";
@@ -129,11 +158,11 @@
   .header-nav {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: flex-end;
     gap: 6px;
-    width: 100%;
     max-width: 100%;
     min-width: 0;
+    flex: 1 1 auto;
   }
   .nav-btn.soon {
     background: var(--bg-2);
@@ -210,6 +239,36 @@
     opacity: 0.4;
     cursor: not-allowed;
     pointer-events: none;
+  }
+  .range-form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 8px;
+    margin-top: 8px;
+    min-width: 0;
+    max-width: 100%;
+  }
+  .range-form label {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: .72rem;
+    font-weight: 800;
+    color: var(--muted);
+    min-width: 0;
+  }
+  .range-form input[type="date"] {
+    font: inherit;
+    font-size: .72rem;
+    font-weight: 700;
+    border: var(--bw) solid var(--ink);
+    border-radius: 8px;
+    padding: 4px 6px;
+    background: var(--card);
+    color: var(--ink);
+    min-width: 0;
+    max-width: 11.5rem;
   }
   .kicker { font-size: .72rem; color: var(--muted); font-weight: 650; }
   .metrics {
@@ -411,19 +470,19 @@
 <body>
 <header>
   <div class="header-inner">
-    <div>
-      <h1><span class="poke-mark" aria-hidden="true"></span> EN 裸卡市況 <span class="pill">S&amp;P-style · v1.27.0</span></h1>
-      <p>英文 raw singles 市場溫度 · TCGPlayer Market via TCGCSV · 靜態快照</p>
+    <div class="header-top">
+      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.28.0</span></h1>
+      <nav class="header-nav" aria-label="站內導覽">
+        <a class="nav-btn" href="./calc.html">開盒 EV</a>
+        <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
+        <a class="nav-btn" href="./market-en.html" title="English raw singles market pulse">EN 市況</a>
+        <a class="nav-btn" href="./market-vintage.html" title="Base Set 1st / Shadowless / Unlimited raw indexes">Base 復古</a>
+        <a class="nav-btn" href="./market-midera.html" title="DP → SM chase Top 50 raw index">中世代</a>
+        <a class="nav-btn" href="https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/" title="Base Set Unlimited cheat sheet">Base Unlimited</a>
+        <span class="nav-btn soon" title="即將推出">日語熱度</span>
+      </nav>
     </div>
-    <nav class="header-nav" aria-label="站內導覽">
-      <a class="nav-btn" href="./index.html">首頁</a>
-      <a class="nav-btn" href="./calc.html">開盒 EV</a>
-      <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
-      <a class="nav-btn" href="./market-vintage.html" title="Base Set 1st / Shadowless / Unlimited raw indexes">Base 復古</a>
-      <a class="nav-btn" href="./market-midera.html" title="DP → SM chase Top 50 raw index">中世代</a>
-      <a class="nav-btn" href="https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/" target="_blank" rel="noopener" title="Base Set Unlimited cheat sheet">Base Unlimited</a>
-      <span class="nav-btn soon" title="即將推出">日語熱度</span>
-    </nav>
+    <p>EN 裸卡市況 · 英文 raw singles 市場溫度 · TCGPlayer Market via TCGCSV · 靜態快照</p>
   </div>
 </header>
 
@@ -439,8 +498,14 @@
         <button type="button" class="period-btn is-active" data-period="1D" aria-selected="true">1D</button>
         <button type="button" class="period-btn" data-period="5D" disabled aria-selected="false">5D</button>
         <button type="button" class="period-btn" data-period="30D" disabled aria-selected="false">30D</button>
+        <button type="button" class="period-btn" data-period="1Y" disabled aria-selected="false">1Y</button>
         <button type="button" class="period-btn" data-period="YTD" disabled aria-selected="false">YTD</button>
       </div>
+      <form class="range-form" id="rangeForm">
+        <label>由 <input type="date" id="rangeFrom" name="from" /></label>
+        <label>至 <input type="date" id="rangeTo" name="to" /></label>
+        <button type="submit" class="period-btn" id="rangeApply">自訂</button>
+      </form>
       <div class="spark-wrap" id="sparkWrap">
         <svg class="spark" id="spark" viewBox="0 0 320 100" hidden aria-hidden="true"></svg>
         <div class="spark-tip" id="sparkTip" hidden role="status"></div>
@@ -529,7 +594,7 @@
       <li><b>指數是什麼</b>：英文 <a href="https://www.tcgplayer.com/search/pokemon/product?productLineName=pokemon&amp;view=grid" target="_blank" rel="noopener">TCGPlayer</a> 裸卡（raw / ungraded）市價最高的 500 張，<b>價格加權</b>。成分輪替時用 divisor 保持連續（與 S&amp;P 500 同一思路）。基準＝<b>1,000</b>（最早有資料的日子，2024-02-08）。</li>
       <li><b>固定籃子精神</b>：每天重看誰進 Top 500，但指數用 divisor 接起來，不會因為換卡就跳一截。</li>
       <li><b>每日漲跌</b>：相對上一份已公布的快照。第一份快照只會看到 1,000，% 與廣度要等下一份才有。</li>
-      <li><b>5D／30D／YTD</b>：用<strong>真實歷史點</strong>算區間，<b>缺日就跳過、不補價、不發明點</b>。沒有夠早的點就不顯示該期間。每日現況來自 <a href="https://tcgcsv.com" target="_blank" rel="noopener">TCGCSV</a>；往回的歷史來自 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a>。</li>
+      <li><b>5D／30D／1Y／YTD／自訂</b>：用<strong>真實歷史點</strong>放大圖表，<b>缺日就跳過、不補價、不發明點</b>。指數水平維持系列起點的固定基準 1,000，<b>唔會</b>喺視窗開頭重設。沒有夠早的點就不顯示該期間。每日現況來自 <a href="https://tcgcsv.com" target="_blank" rel="noopener">TCGCSV</a>；往回的歷史來自 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a>。</li>
       <li><b>漲跌榜</b>：1D＝上一份快照；5D／30D／YTD＝當日籃子相對該期間基準日。沒有對應快照就顯示 N/A。</li>
       <li><b>代表價</b>：同一張卡取一般印刷（Holofoil / Reverse 等）裡最高的 TCGPlayer <b>Market Price</b>；1st Edition 預設不計入（成交太薄）。</li>
       <li><b>不含</b>：密封盒、Jumbo／oversized、日版 promo、日版行情、評級價。</li>
@@ -685,13 +750,14 @@
   function computePeriodReturns(asOf) {
     const last = lastPointOnOrBefore(asOf) || (points.length ? points[points.length - 1] : null);
     const empty = { available: false, pct: null, from: null, to: asOf, reason: 'no snapshots' };
-    if (!last) return { asOf: asOf, '1D': empty, '5D': empty, '30D': empty, 'YTD': empty };
+    if (!last) return { asOf: asOf, '1D': empty, '5D': empty, '30D': empty, '1Y': empty, 'YTD': empty };
     let prevSnap = null;
     for (let i = 0; i < points.length; i++) {
       if (points[i].date < last.date) prevSnap = points[i];
     }
     const cutoff5 = addDaysYmd(last.date, -5);
     const cutoff30 = addDaysYmd(last.date, -30);
+    const cutoff1y = addDaysYmd(last.date, -365);
     const dt = parseAsOfDate(last.date);
     const cutoffYtd = dt ? (dt.getFullYear() + '-01-01') : null;
     function vsCutoff(cutoff, label) {
@@ -707,6 +773,7 @@
       '1D': packReturn(prevSnap, last, 'no previous snapshot'),
       '5D': vsCutoff(cutoff5, '5D'),
       '30D': vsCutoff(cutoff30, '30D'),
+      '1Y': vsCutoff(cutoff1y, '1Y'),
       'YTD': vsCutoff(cutoffYtd, 'YTD')
     };
   }
@@ -717,14 +784,39 @@
     '1D': serverReturns['1D'] || computedReturns['1D'],
     '5D': serverReturns['5D'] || computedReturns['5D'],
     '30D': serverReturns['30D'] || computedReturns['30D'],
+    '1Y': serverReturns['1Y'] || computedReturns['1Y'],
     'YTD': serverReturns['YTD'] || computedReturns['YTD']
   };
-  const periodState = { period: '1D' };
-  const PERIOD_LABEL = { '1D': 'vs 上一快照', '5D': '5D', '30D': '30D', 'YTD': 'YTD' };
+  const periodState = { period: '1D', customFrom: '', customTo: '' };
+  const PERIOD_LABEL = { '1D': 'vs 上一快照', '5D': '5D', '30D': '30D', '1Y': '1Y', 'YTD': 'YTD', CUSTOM: '自訂' };
 
+  function computeCustomReturn(from, to) {
+    if (!from || !to) {
+      return { available: false, pct: null, from: from || null, to: to || null, reason: '請輸入起迄日期' };
+    }
+    if (from > to) {
+      return { available: false, pct: null, from: from, to: to, reason: '起始日不能晚於結束日' };
+    }
+    const windowPts = points.filter((p) => p.date >= from && p.date <= to);
+    if (windowPts.length < 2) {
+      return { available: false, pct: null, from: from, to: to, reason: '此區間少於兩個快照（缺日不補價）' };
+    }
+    return packReturn(windowPts[0], windowPts[windowPts.length - 1], 'no snapshots in range');
+  }
+  function returnFor(period) {
+    if (period === 'CUSTOM') {
+      return computeCustomReturn(periodState.customFrom, periodState.customTo);
+    }
+    return RETURNS[period] || { available: false, reason: 'no snapshots' };
+  }
   function pointsForPeriod(period) {
-    const ret = RETURNS[period];
-    if (!ret || !ret.available || !ret.from) return points;
+    const ret = returnFor(period);
+    if (!ret || !ret.available || !ret.from) {
+      if (period === 'CUSTOM' && periodState.customFrom && periodState.customTo) {
+        return points.filter((p) => p.date >= periodState.customFrom && p.date <= periodState.customTo);
+      }
+      return points;
+    }
     return points.filter((p) => p.date >= ret.from && p.date <= (ret.to || p.date));
   }
   function drawSpark(period) {
@@ -738,7 +830,7 @@
   function renderPeriod(period) {
     const chgEl = $('indexChg');
     const note = $('indexPeriodNote');
-    const ret = RETURNS[period] || { available: false, reason: 'no snapshots' };
+    const ret = returnFor(period);
     document.querySelectorAll('.period-btns .period-btn').forEach((btn) => {
       const p = btn.getAttribute('data-period');
       const avail = !!(RETURNS[p] && RETURNS[p].available);
@@ -749,7 +841,16 @@
         ? (RETURNS[p].from + ' → ' + RETURNS[p].to)
         : (RETURNS[p] && RETURNS[p].reason) || '需要更多快照';
     });
+    const applyBtn = $('rangeApply');
+    if (applyBtn) applyBtn.classList.toggle('is-active', period === 'CUSTOM');
     if (!ret.available) {
+      if (period === 'CUSTOM') {
+        chgEl.className = 'index-chg muted';
+        chgEl.textContent = '自訂區間未套用';
+        note.textContent = ret.reason || '請輸入起迄日期';
+        drawSpark(RETURNS['1D'] && RETURNS['1D'].available ? '1D' : period);
+        return;
+      }
       // Stay on the last usable period — never blank the % or invent a return.
       if (period !== '1D' && RETURNS['1D'] && RETURNS['1D'].available) {
         periodState.period = '1D';
@@ -768,7 +869,7 @@
       extra = ' · ' + (DATA.change > 0 ? '+' : '') + DATA.change.toFixed(2);
     }
     chgEl.textContent = fmtPct(ret.pct, true) + extra + '（' + (PERIOD_LABEL[period] || period) + '）';
-    note.textContent = ret.from + ' → ' + ret.to + ' · ' + pointsForPeriod(period).length + ' 個快照（缺日不補價）';
+    note.textContent = ret.from + ' → ' + ret.to + ' · ' + pointsForPeriod(period).length + ' 個快照（缺日不補價 · 唔重設基準）';
     drawSpark(period);
   }
   document.querySelectorAll('.period-btns .period-btn').forEach((btn) => {
@@ -779,6 +880,31 @@
       renderPeriod(p);
     });
   });
+  (function setupRangeForm() {
+    const form = $('rangeForm');
+    const fromEl = $('rangeFrom');
+    const toEl = $('rangeTo');
+    if (!form || !fromEl || !toEl) return;
+    const first = points[0] && points[0].date;
+    const last = points.length ? points[points.length - 1].date : '';
+    if (first) {
+      fromEl.min = first;
+      toEl.min = first;
+    }
+    if (last) {
+      fromEl.max = last;
+      toEl.max = last;
+      if (!toEl.value) toEl.value = last;
+    }
+    if (first && !fromEl.value) fromEl.value = first;
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      periodState.customFrom = fromEl.value || '';
+      periodState.customTo = toEl.value || '';
+      periodState.period = 'CUSTOM';
+      renderPeriod('CUSTOM');
+    });
+  })();
   renderPeriod(RETURNS['1D'] && RETURNS['1D'].available ? '1D' : '1D');
 
   const b = DATA.breadth || {};
