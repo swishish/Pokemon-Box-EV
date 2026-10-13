@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-12T13:23:45.840262+00:00",
+  "generated": "2026-10-13T02:38:06.761202+00:00",
   "baseValue": 1000.0,
   "backfill": {
     "source": "tickermint",
@@ -8,16 +8,6 @@
     "uniqueProducts": 62,
     "docs": "https://tickermint.cards/developers/pokemon"
   },
-  "archiveStart": "2024-02-08",
-  "optionalStart": "2024-02-28",
-  "source": "tickermint",
-  "sourceDocs": "https://tickermint.cards/developers/pokemon",
-  "sampling": {
-    "stepDays": 7,
-    "start": "2024-02-08",
-    "end": "2026-10-11",
-    "uniqueProducts": 62
-  },
   "indexOrder": [
     "base-1st",
     "base-shadowless",
@@ -25,7 +15,7 @@
   ],
   "indexes": {
     "base-1st": {
-      "generated": "2026-10-12T13:23:45.506993+00:00",
+      "generated": "2026-10-13T02:38:06.761202+00:00",
       "points": [
         {
           "date": "2024-02-08",
@@ -872,6 +862,12 @@
           "index": 1265.38,
           "totalValue": 18391.56,
           "count": 31
+        },
+        {
+          "date": "2026-10-12",
+          "index": 1265.22,
+          "totalValue": 18389.25,
+          "count": 31
         }
       ],
       "baseValue": 1000.0,
@@ -889,47 +885,47 @@
         "products": 31
       },
       "returns": {
-        "asOf": "2026-10-11",
+        "asOf": "2026-10-12",
         "1D": {
           "available": true,
-          "pct": 0.2,
-          "from": "2026-10-08",
-          "to": "2026-10-11",
-          "fromIndex": 1262.8,
-          "toIndex": 1265.38,
+          "pct": -0.01,
+          "from": "2026-10-11",
+          "to": "2026-10-12",
+          "fromIndex": 1265.38,
+          "toIndex": 1265.22,
           "reason": null
         },
         "5D": {
           "available": true,
-          "pct": -3.04,
+          "pct": -3.06,
           "from": "2026-10-01",
-          "to": "2026-10-11",
+          "to": "2026-10-12",
           "fromIndex": 1305.11,
-          "toIndex": 1265.38,
+          "toIndex": 1265.22,
           "reason": null
         },
         "30D": {
           "available": true,
-          "pct": -3.74,
+          "pct": -3.75,
           "from": "2026-09-10",
-          "to": "2026-10-11",
+          "to": "2026-10-12",
           "fromIndex": 1314.54,
-          "toIndex": 1265.38,
+          "toIndex": 1265.22,
           "reason": null
         },
         "YTD": {
           "available": true,
-          "pct": 63.71,
+          "pct": 63.69,
           "from": "2026-01-01",
-          "to": "2026-10-11",
+          "to": "2026-10-12",
           "fromIndex": 772.95,
-          "toIndex": 1265.38,
+          "toIndex": 1265.22,
           "reason": null
         }
       }
     },
     "base-shadowless": {
-      "generated": "2026-10-12T13:23:45.687477+00:00",
+      "generated": "2026-10-13T02:38:06.761202+00:00",
       "points": [
         {
           "date": "2024-02-08",
@@ -1776,6 +1772,12 @@
           "index": 2176.97,
           "totalValue": 6148.54,
           "count": 31
+        },
+        {
+          "date": "2026-10-12",
+          "index": 2176.92,
+          "totalValue": 6148.4,
+          "count": 31
         }
       ],
       "baseValue": 1000.0,
@@ -1793,47 +1795,47 @@
         "products": 31
       },
       "returns": {
-        "asOf": "2026-10-11",
+        "asOf": "2026-10-12",
         "1D": {
           "available": true,
-          "pct": 0.23,
-          "from": "2026-10-08",
-          "to": "2026-10-11",
-          "fromIndex": 2172.04,
-          "toIndex": 2176.97,
+          "pct": -0.0,
+          "from": "2026-10-11",
+          "to": "2026-10-12",
+          "fromIndex": 2176.97,
+          "toIndex": 2176.92,
           "reason": null
         },
         "5D": {
           "available": true,
           "pct": 1.46,
           "from": "2026-10-01",
-          "to": "2026-10-11",
+          "to": "2026-10-12",
           "fromIndex": 2145.65,
-          "toIndex": 2176.97,
+          "toIndex": 2176.92,
           "reason": null
         },
         "30D": {
           "available": true,
           "pct": 23.01,
           "from": "2026-09-10",
-          "to": "2026-10-11",
+          "to": "2026-10-12",
           "fromIndex": 1769.7,
-          "toIndex": 2176.97,
+          "toIndex": 2176.92,
           "reason": null
         },
         "YTD": {
           "available": true,
-          "pct": 10.95,
+          "pct": 10.94,
           "from": "2026-01-01",
-          "to": "2026-10-11",
+          "to": "2026-10-12",
           "fromIndex": 1962.2,
-          "toIndex": 2176.97,
+          "toIndex": 2176.92,
           "reason": null
         }
       }
     },
     "base-unlimited": {
-      "generated": "2026-10-12T13:23:45.811400+00:00",
+      "generated": "2026-10-13T02:38:06.761202+00:00",
       "points": [
         {
           "date": "2024-02-08",
@@ -2680,6 +2682,12 @@
           "index": 2109.92,
           "totalValue": 2038.12,
           "count": 31
+        },
+        {
+          "date": "2026-10-12",
+          "index": 2153.53,
+          "totalValue": 2080.25,
+          "count": 31
         }
       ],
       "baseValue": 1000.0,
@@ -2697,44 +2705,54 @@
         "products": 31
       },
       "returns": {
-        "asOf": "2026-10-11",
+        "asOf": "2026-10-12",
         "1D": {
           "available": true,
-          "pct": 0.32,
-          "from": "2026-10-08",
-          "to": "2026-10-11",
-          "fromIndex": 2103.09,
-          "toIndex": 2109.92,
+          "pct": 2.07,
+          "from": "2026-10-11",
+          "to": "2026-10-12",
+          "fromIndex": 2109.92,
+          "toIndex": 2153.53,
           "reason": null
         },
         "5D": {
           "available": true,
-          "pct": -1.05,
+          "pct": 0.99,
           "from": "2026-10-01",
-          "to": "2026-10-11",
+          "to": "2026-10-12",
           "fromIndex": 2132.39,
-          "toIndex": 2109.92,
+          "toIndex": 2153.53,
           "reason": null
         },
         "30D": {
           "available": true,
-          "pct": -0.31,
+          "pct": 1.75,
           "from": "2026-09-10",
-          "to": "2026-10-11",
+          "to": "2026-10-12",
           "fromIndex": 2116.39,
-          "toIndex": 2109.92,
+          "toIndex": 2153.53,
           "reason": null
         },
         "YTD": {
           "available": true,
-          "pct": 62.18,
+          "pct": 65.53,
           "from": "2026-01-01",
-          "to": "2026-10-11",
+          "to": "2026-10-12",
           "fromIndex": 1300.99,
-          "toIndex": 2109.92,
+          "toIndex": 2153.53,
           "reason": null
         }
       }
     }
+  },
+  "archiveStart": "2024-02-08",
+  "optionalStart": "2024-02-28",
+  "source": "tickermint",
+  "sourceDocs": "https://tickermint.cards/developers/pokemon",
+  "sampling": {
+    "stepDays": 7,
+    "start": "2024-02-08",
+    "end": "2026-10-11",
+    "uniqueProducts": 62
   }
 }
