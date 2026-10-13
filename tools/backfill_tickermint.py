@@ -560,7 +560,7 @@ def run_sample(verbose: bool = True, cfg: dict | None = None) -> dict:
         f"index {hist['points'][-1]['index']:.2f}",
         flush=True,
     )
-    for key in ("1D", "5D", "30D", "YTD"):
+    for key in ("1D", "5D", "30D", "1Y", "YTD"):
         r = rets[key]
         flag = "yes" if r["available"] else "no"
         extra = f"{r['from']} → {r['to']} ({r['pct']}%)" if r["available"] else r.get("reason")
@@ -613,7 +613,7 @@ def run_backfill(
         f"index {hist['points'][-1]['index']:.2f}",
         flush=True,
     )
-    for key in ("1D", "5D", "30D", "YTD"):
+    for key in ("1D", "5D", "30D", "1Y", "YTD"):
         r = hist["returns"][key]
         print(f"  {key}: {'available ' + str(r['pct']) + '%' if r['available'] else 'disabled — ' + (r.get('reason') or '')}", flush=True)
     if dry_run:
@@ -755,6 +755,7 @@ def self_test() -> None:
     assert rets["5D"]["available"] and rets["5D"]["from"] == "2026-10-06"
     assert rets["30D"]["available"] and rets["30D"]["from"] == "2026-09-10"
     assert rets["YTD"]["available"] and rets["YTD"]["from"] == "2025-12-31"
+    assert rets["1Y"]["available"]
 
     # Weekly sampling still includes the end date.
     weekly = arch.daterange(date(2024, 2, 8), date(2024, 2, 28), 7)
@@ -766,10 +767,10 @@ def self_test() -> None:
         step_days=7, basket_size=2, verbose=False, cfg=cfg,
     )
     assert result["history"]["source"] == "tickermint"
-    # Sparse weekly fixtures still light 5D/30D/YTD from real kept points (no interpolation).
+    # Sparse weekly fixtures still light 5D/30D/1Y/YTD from real kept points (no interpolation).
     wre = result["history"]["returns"]
     assert wre["1D"]["available"] and wre["5D"]["available"]
-    assert wre["30D"]["available"] and wre["YTD"]["available"]
+    assert wre["30D"]["available"] and wre["1Y"]["available"] and wre["YTD"]["available"]
 
     # Last two priced snaps (not a blank first-snapshot) populate 1D movers.
     assert result["price_points"] and len(result["price_points"]) >= 2
@@ -794,6 +795,7 @@ def self_test() -> None:
     assert movers["1D"]["gainers"] or movers["1D"]["losers"] or latest_out["breadth"]["available"]
     assert movers["5D"]["available"]
     assert movers["30D"]["available"]
+    assert movers["1Y"]["available"]
     assert movers["YTD"]["available"]
     assert movers["5D"]["baselineDate"]  # on_or_before weekly cutoff, not slack-empty
     try:

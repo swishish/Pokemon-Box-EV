@@ -451,7 +451,7 @@ def _print_index_summary(label: str, hist: dict) -> None:
         flush=True,
     )
     rets = hist.get("returns") or {}
-    for key in ("1D", "5D", "30D", "YTD"):
+    for key in ("1D", "5D", "30D", "1Y", "YTD"):
         r = rets.get(key) or {}
         flag = "yes" if r.get("available") else "no"
         extra = f"{r.get('from')} → {r.get('to')} ({r.get('pct')}%)" if r.get("available") else r.get("reason")

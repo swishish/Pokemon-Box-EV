@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>日盒開盒值不值？ v1.27.0 · 首頁</title>
+<title>日盒開盒值不值？ v1.28.1 · 首頁</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <style>
   :root {
@@ -76,6 +76,26 @@
     align-items: center;
     gap: 8px;
     flex-wrap: wrap;
+    min-width: 0;
+  }
+  .home-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    max-width: 100%;
+    flex-wrap: wrap;
+    color: inherit;
+    text-decoration: none;
+    border-radius: 8px;
+    outline-offset: 3px;
+  }
+  .home-title:hover { color: var(--ink); }
+  .home-title:hover .poke-mark { transform: rotate(-14deg); }
+  .home-title:focus-visible {
+    outline: 2px solid var(--ink);
+    background: var(--accent-fill);
+    box-shadow: var(--shadow-xs);
   }
   header p {
     margin: 3px 0 0;
@@ -96,6 +116,7 @@
     position: relative;
     flex-shrink: 0;
     box-shadow: 1px 1px 0 var(--ink);
+    transition: transform .12s ease;
   }
   .poke-mark::after {
     content: "";
@@ -107,26 +128,31 @@
     border: 2px solid var(--ink);
   }
   .header-inner {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    align-items: start;
-    row-gap: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
     max-width: 1100px;
     margin: 0 auto;
     min-width: 0;
     width: 100%;
   }
-  .header-inner h1 { grid-column: 1; min-width: 0; }
-  .header-inner .header-nav { grid-column: 1; }
-  .header-inner p { grid-column: 1; }
+  .header-top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px 12px;
+    min-width: 0;
+    width: 100%;
+  }
   .header-nav {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: flex-end;
     gap: 6px;
     min-width: 0;
-    width: 100%;
     max-width: 100%;
+    flex: 1 1 auto;
   }
   .nav-btn, .chip {
     display: inline-flex;
@@ -455,9 +481,7 @@
   @media (max-width: 899px) {
     header { padding: 8px 12px 6px; }
     header h1, header p { overflow-wrap: break-word; }
-    .header-inner .header-nav {
-      justify-content: flex-start;
-    }
+    .header-nav { justify-content: flex-start; }
     .nav-btn { font-size: .68rem; padding: 5px 9px; }
     main { padding: 12px 12px 48px; }
     .hero { padding: 16px 14px 14px; }
@@ -470,16 +494,18 @@
 <body>
 <header>
   <div class="header-inner">
-    <h1><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？ <span class="pill">v1.27.0</span></h1>
-    <nav class="header-nav" aria-label="站內導覽">
-      <a class="nav-btn" href="./calc.html">開盒 EV</a>
-      <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
-      <a class="nav-btn" href="./market-en.html" title="English raw singles market pulse">EN 市況</a>
-      <a class="nav-btn" href="./market-vintage.html" title="Base Set 1st / Shadowless / Unlimited raw indexes">Base 復古</a>
-      <a class="nav-btn" href="./market-midera.html" title="DP → SM chase Top 50 raw index">中世代</a>
-      <a class="nav-btn" href="https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/" target="_blank" rel="noopener" title="Base Set Unlimited cheat sheet">Base Unlimited</a>
-      <span class="nav-btn soon" title="即將推出">日語熱度</span>
-    </nav>
+    <div class="header-top">
+      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.28.1</span></h1>
+      <nav class="header-nav" aria-label="站內導覽">
+        <a class="nav-btn" href="./calc.html">開盒 EV</a>
+        <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
+        <a class="nav-btn" href="./market-en.html" title="English raw singles market pulse">EN 市況</a>
+        <a class="nav-btn" href="./market-vintage.html" title="Base Set 1st / Shadowless / Unlimited raw indexes">Base 復古</a>
+        <a class="nav-btn" href="./market-midera.html" title="DP → SM chase Top 50 raw index">中世代</a>
+        <a class="nav-btn" href="https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/" title="Base Set Unlimited cheat sheet">Base Unlimited</a>
+        <span class="nav-btn soon" title="即將推出">日語熱度</span>
+      </nav>
+    </div>
     <p><img class="mon mon-sm" src="./img/accents/eevee.svg" alt="" width="20" height="20" aria-hidden="true" />給朋友看的簡易日盒 EV 小算盤 · 無登入 · 非即時行情</p>
   </div>
 </header>
@@ -744,7 +770,7 @@
 
 <footer>
   <img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" />
-  <span>日盒 EV 小算盤 <b>v1.27.0</b> · Snapshot 靜態資料 · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · 日語熱度（即將推出）</span>
+  <span>日盒 EV 小算盤 <b>v1.28.1</b> · Snapshot 靜態資料 · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · 日語熱度（即將推出）</span>
 </footer>
 </body>
 </html>
