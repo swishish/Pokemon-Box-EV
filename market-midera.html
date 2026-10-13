@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<title>中世代指數 · Box EV v1.26.0</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<style>
+  :root {
+    --bg: #f6f7f9;
+    --card: #fff;
+    --text: #1a1d21;
+    --muted: #5c6570;
+    --line: #e4e7ec;
+    --good: #1b7f4a;
+    --good-bg: #e8f7ef;
+    --ok: #9a6b00;
+    --ok-bg: #fff6e0;
+    --bad: #b42318;
+    --bad-bg: #fdecea;
+    --accent: #2563eb;
+    --radius: 12px;
+    --shadow: 0 1px 2px rgba(16,24,40,.06), 0 1px 3px rgba(16,24,40,.08);
+  }
+  * { box-sizing: border-box; }
+  html { overflow-x: clip; }
+  [hidden] { display: none !important; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    font-size: 15px;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
+  }
+  header {
+    background: var(--card);
+    border-bottom: 1px solid var(--line);
+    padding: 10px 16px 8px;
+  }
+  .header-inner {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  header h1 { margin: 0; font-size: 1.05rem; font-weight: 700; }
+  header p { margin: 2px 0 0; color: var(--muted); font-size: .78rem; }
+  .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid #bfd0f5;
+    background: #eef3ff;
+    color: var(--accent);
+    font: inherit;
+    font-size: .75rem;
+    font-weight: 700;
+    padding: 7px 12px;
+    border-radius: 999px;
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .nav-btn:hover { border-color: var(--accent); }
+  .header-nav {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  .nav-btn.soon {
+    background: #f3f4f6;
+    color: var(--muted);
+    border-color: var(--line);
+    cursor: default;
+  }
+  .nav-btn.soon:hover { border-color: var(--line); }
+  .wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 12px 14px 48px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 14px 16px;
+    margin-bottom: 12px;
+  }
+  h2 { margin: 0 0 8px; font-size: .95rem; }
+  .pill {
+    display: inline-block; font-size: .7rem; padding: 2px 7px;
+    border-radius: 999px; background: #eef2f6; color: var(--muted); margin-left: 4px;
+  }
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: 10px;
+  }
+  .index-level {
+    font-size: 2.4rem;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+  .index-chg {
+    font-size: 1.15rem;
+    font-weight: 750;
+    font-variant-numeric: tabular-nums;
+    margin-top: 4px;
+  }
+  .index-chg.good { color: var(--good); }
+  .index-chg.bad { color: var(--bad); }
+  .index-chg.muted { color: var(--muted); }
+  .period-btns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 8px;
+  }
+  .period-btn {
+    font: inherit;
+    font-size: .72rem;
+    font-weight: 700;
+    padding: 5px 9px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: #fafbfc;
+    color: var(--muted);
+    cursor: pointer;
+  }
+  .period-btn.is-active {
+    background: #eef3ff;
+    border-color: #bfd0f5;
+    color: var(--accent);
+  }
+  .period-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  .kicker { font-size: .72rem; color: var(--muted); font-weight: 650; }
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .metric {
+    background: #fafbfc;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 8px 10px;
+  }
+  .metric .k { font-size: .72rem; color: var(--muted); }
+  .metric .v { font-size: 1.05rem; font-weight: 650; font-variant-numeric: tabular-nums; }
+  .metric .v.good { color: var(--good); }
+  .metric .v.bad { color: var(--bad); }
+  .breadth {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .bar {
+    display: flex;
+    height: 10px;
+    border-radius: 999px;
+    overflow: hidden;
+    background: #eef2f6;
+  }
+  .bar .adv { background: var(--good); }
+  .bar .unch { background: #c5cbd3; }
+  .bar .dec { background: var(--bad); }
+  .movers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .movers-period {
+    margin: 0 0 10px;
+    min-width: 0;
+    max-width: 100%;
+  }
+  .movers-period-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 10px;
+    min-width: 0;
+  }
+  .period-picker {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    max-width: 100%;
+    min-width: 0;
+  }
+  #periodPicker .period-btn {
+    font: inherit;
+    font-size: .72rem;
+    font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: #eef2f6;
+    color: var(--muted);
+    cursor: pointer;
+    line-height: 1.2;
+    min-width: 2.55rem;
+    text-align: center;
+    touch-action: manipulation;
+    white-space: nowrap;
+    flex: 0 0 auto;
+    user-select: none;
+  }
+  #periodPicker .period-btn[aria-pressed="true"] {
+    background: #eef3ff;
+    border-color: #bfd0f5;
+    color: var(--accent);
+  }
+  #periodPicker .period-btn.is-na {
+    opacity: .55;
+  }
+  #periodPicker .period-btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  #indexPeriodNote, #moversPeriodNote, td.tiny {
+    overflow-wrap: break-word;
+  }
+  table { width: 100%; border-collapse: collapse; font-size: .86rem; overflow-wrap: break-word; }
+  th, td { text-align: left; padding: 7px 6px; border-bottom: 1px solid var(--line); vertical-align: middle; overflow-wrap: break-word; }
+  .set-col { max-width: 9.5rem; }
+  .view-switch {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0 0 10px;
+  }
+  .view-btn {
+    font: inherit;
+    font-size: .78rem;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: #fafbfc;
+    color: var(--muted);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .view-btn.is-active {
+    background: #eef3ff;
+    border-color: #bfd0f5;
+    color: var(--accent);
+  }
+  .binder-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 10px;
+    margin: 0 0 10px;
+    min-width: 0;
+  }
+  .binder-search {
+    flex: 1 1 160px;
+    min-width: 0;
+    max-width: 100%;
+    font: inherit;
+    font-size: .86rem;
+    padding: 7px 10px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fff;
+  }
+  .binder-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 148px), 1fr));
+    gap: 10px;
+  }
+  .binder-tile {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    padding: 8px;
+    text-decoration: none;
+    color: inherit;
+  }
+  .binder-art {
+    position: relative;
+    aspect-ratio: 2.5 / 3.5;
+    background: #eef2f6;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+  .binder-art img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+  .binder-art.is-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    font-size: .72rem;
+    font-weight: 650;
+    text-align: center;
+    padding: 8px;
+  }
+  .binder-num {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    background: rgba(255,255,255,.92);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: .68rem;
+    font-weight: 800;
+    padding: 1px 6px;
+    font-variant-numeric: tabular-nums;
+  }
+  .binder-name {
+    font-size: .82rem;
+    font-weight: 750;
+    line-height: 1.25;
+    margin-bottom: 2px;
+  }
+  .binder-rarity { font-size: .7rem; color: var(--muted); margin-bottom: 4px; }
+  .binder-meta {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 6px;
+    font-variant-numeric: tabular-nums;
+    margin-top: auto;
+  }
+  .binder-price { font-weight: 800; font-size: .88rem; }
+  .binder-pct { font-size: .75rem; font-weight: 700; }
+  .binder-empty {
+    grid-column: 1 / -1;
+    font-size: .86rem;
+    color: var(--muted);
+    padding: 16px 4px;
+  }
+  th { color: var(--muted); font-weight: 600; font-size: .75rem; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .card-thumb {
+    width: 32px; height: 44px;
+    object-fit: contain;
+    border-radius: 4px;
+    background: #f0f2f5;
+    border: 1px solid var(--line);
+    display: block;
+  }
+  .chg.good { color: var(--good); font-weight: 700; }
+  .chg.bad { color: var(--bad); font-weight: 700; }
+  .tiny { font-size: .75rem; color: var(--muted); }
+  .tiny a { color: var(--accent); font-weight: 650; text-decoration: none; }
+  .tiny a:hover { text-decoration: underline; }
+  .hint {
+    font-size: .86rem; color: var(--muted);
+    background: #fafbfc; border-radius: 8px; padding: 10px 12px; margin-top: 10px;
+  }
+  .disclaimer {
+    font-size: .8rem; color: var(--muted);
+    background: #fafbfc; border: 1px dashed #c9d0da; border-radius: 8px; padding: 10px 12px;
+  }
+  .disclaimer p { margin: 0; }
+  .disclaimer p + p { margin-top: 0.55em; }
+  .method-card a { color: var(--accent); }
+  .method-card ul { margin: 0; padding-left: 1.1rem; color: var(--muted); }
+  .method-card li { margin: 0.35em 0; }
+  footer { text-align: center; color: var(--muted); font-size: .75rem; padding: 8px 16px 24px; }
+  footer a { color: var(--accent); font-weight: 700; }
+  .err { color: var(--bad); padding: 20px; line-height: 1.55; }
+  .err .err-hint { color: var(--text); font-size: .92rem; margin-top: 8px; }
+  .table-wrap {
+    max-width: 100%;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+  .spark {
+    width: 100%;
+    height: 56px;
+    display: block;
+  }
+  .data-freshness {
+    margin: 0 0 8px;
+    padding: 0;
+    font-size: .72rem;
+    line-height: 1.4;
+    color: var(--muted);
+  }
+  .data-freshness.stale {
+    margin: 0 0 8px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: #e8eaed;
+    color: #3c4043;
+    border: 1px solid #dadce0;
+    font-size: .78rem;
+    font-weight: 600;
+  }
+  @media (max-width: 720px) {
+    .hero, .movers { grid-template-columns: 1fr; }
+    header { padding: 8px 12px 6px; }
+    .header-inner { flex-wrap: wrap; }
+    .binder-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .header-nav {
+      flex-shrink: 1;
+      max-width: 100%;
+      justify-content: flex-start;
+    }
+    .wrap { padding: 10px 12px 48px; }
+    .index-level { font-size: 2rem; }
+    .period-btn { padding: 6px 9px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <div>
+      <h1>中世代指數 <span class="pill">DP–SM · v1.26.0</span></h1>
+      <p>Diamond &amp; Pearl → Sun &amp; Moon chase Top 50 · TCGPlayer Market via TCGCSV · 固定籃子</p>
+    </div>
+    <nav class="header-nav" aria-label="站內導覽">
+      <a class="nav-btn" href="./index.html">首頁</a>
+      <a class="nav-btn" href="./calc.html">開盒 EV</a>
+      <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
+      <a class="nav-btn" href="./market-en.html" title="English raw singles market pulse">EN 市況</a>
+      <a class="nav-btn" href="./market-vintage.html" title="Base Set 1st / Shadowless / Unlimited raw indexes">Base 復古</a>
+      <a class="nav-btn" href="https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/" target="_blank" rel="noopener" title="Base Set Unlimited cheat sheet">Base Unlimited</a>
+      <span class="nav-btn soon" title="即將推出">日語熱度</span>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" id="app">
+  <div id="dataFreshness" class="data-freshness" role="status" aria-live="polite"></div>
+
+  <div class="view-switch" id="viewSwitch" role="tablist" aria-label="Pulse or binder">
+    <button type="button" class="view-btn is-active" data-view="pulse" aria-selected="true">指數 Pulse</button>
+    <button type="button" class="view-btn" data-view="binder" aria-selected="false">卡冊 Binder</button>
+  </div>
+
+  <div id="pulseView">
+  <div class="hero">
+    <div class="card">
+      <div class="kicker">Box-EV Mid-era Pulse · 價格加權 Top 50</div>
+      <div class="index-level" id="indexLevel">—</div>
+      <div class="index-chg muted" id="indexChg">載入中…</div>
+      <div class="period-btns" role="tablist" aria-label="Return period">
+        <button type="button" class="period-btn is-active" data-period="1D" aria-selected="true">1D</button>
+        <button type="button" class="period-btn" data-period="5D" disabled aria-selected="false">5D</button>
+        <button type="button" class="period-btn" data-period="30D" disabled aria-selected="false">30D</button>
+        <button type="button" class="period-btn" data-period="YTD" disabled aria-selected="false">YTD</button>
+      </div>
+      <svg class="spark" id="spark" viewBox="0 0 300 56" hidden aria-hidden="true"></svg>
+      <p class="tiny" id="indexNote" style="margin:8px 0 0"></p>
+      <p class="tiny" id="indexPeriodNote" style="margin:4px 0 0"></p>
+    </div>
+    <div class="card">
+      <h2>市場廣度 Breadth</h2>
+      <div class="metrics" id="breadthMetrics"></div>
+      <div class="breadth" id="breadthBar"></div>
+      <p class="tiny" id="breadthNote" style="margin:8px 0 0"></p>
+    </div>
+  </div>
+
+  <div class="movers-period">
+    <div class="movers-period-row">
+      <span class="kicker">期間 Period</span>
+      <div class="period-picker" id="periodPicker" role="group" aria-label="Top gainers / losers period">
+        <button type="button" class="period-btn" data-period="1D" aria-pressed="true">1D</button>
+        <button type="button" class="period-btn" data-period="5D" aria-pressed="false">5D</button>
+        <button type="button" class="period-btn" data-period="30D" aria-pressed="false">30D</button>
+        <button type="button" class="period-btn" data-period="YTD" aria-pressed="false">YTD</button>
+      </div>
+    </div>
+    <p class="tiny" id="moversPeriodNote" style="margin:6px 0 0" role="status" aria-live="polite"></p>
+  </div>
+
+  <div class="movers">
+    <div class="card">
+      <h2>漲幅榜 Top gainers <span class="pill" id="gainerPeriodPill">1D</span></h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th>卡</th>
+              <th class="num">USD</th>
+              <th class="num">%</th>
+            </tr>
+          </thead>
+          <tbody id="gainerBody"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <h2>跌幅榜 Top losers <span class="pill" id="loserPeriodPill">1D</span></h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th>卡</th>
+              <th class="num">USD</th>
+              <th class="num">%</th>
+            </tr>
+          </thead>
+          <tbody id="loserBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>最重成分 Top 10 by market price</h2>
+    <p class="tiny" style="margin:0 0 6px">價格加權籃子裡市值最大的中世代 chase（非漲跌榜）。</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th></th>
+            <th>卡</th>
+            <th class="set-col">系列</th>
+            <th class="num">USD</th>
+          </tr>
+        </thead>
+        <tbody id="topBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>完整籃子 Full basket <span class="pill" id="basketCountPill"></span></h2>
+    <p class="tiny" style="margin:0 0 6px">固定 50 張 DP→SM chase（凍結名單，不是每週重排）。未有市價的 ID 仍保留，下一次有 Market Price 才用 divisor 加入。</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th></th>
+            <th>卡</th>
+            <th class="set-col">系列</th>
+            <th>稀有</th>
+            <th class="num">USD</th>
+          </tr>
+        </thead>
+        <tbody id="basketBody"></tbody>
+      </table>
+    </div>
+    <p class="tiny" id="unpricedNote" style="margin:8px 0 0"></p>
+  </div>
+  </div>
+
+  <div id="binderView" hidden>
+    <div class="card">
+      <h2>卡冊 Binder <span class="pill" id="binderCountPill"></span></h2>
+      <p class="tiny" id="binderNote" style="margin:0 0 8px">凍結 DP→SM chase 口袋。缺市價顯示「無市價」，不虛構價錢。</p>
+      <div class="binder-toolbar">
+        <input class="binder-search" id="binderQ" type="search" placeholder="搜尋卡名／編號／系列…" autocomplete="off" enterkeyhint="search" />
+      </div>
+      <div class="binder-grid" id="binderGrid"></div>
+    </div>
+  </div>
+
+  <div class="card method-card">
+    <h2>這是什麼 Method</h2>
+    <ul class="tiny">
+      <li><b>一條固定指數</b>：英文裸卡（raw / ungraded），時代＝<b>Diamond &amp; Pearl → Sun &amp; Moon</b>（含 BW／XY／SM）。<b>不含</b> Base／Wizards 復古，也不含 Sword &amp; Shield／Scarlet &amp; Violet 現代。Base 1st／Shadowless／Unlimited 仍在 <a href="./market-vintage.html">Base 復古</a>。</li>
+      <li><b>固定籃子 ~50</b>：從 2026-10-12 EN Top 500 裡篩中世代、按當日市價排名後凍結（holo／EX／GX／FA／SA／Prime／LV.X／Legend／Secret／Rainbow／Shiny Vault）。<b>不是</b>每週重排的 Double Holo Mid-Era 100。名單在 <code>data/market-midera/baskets.json</code>。</li>
+      <li><b>指數規則</b>：價格加權；成分加入／退出用 divisor 保持連續（S&amp;P 同款）。缺市價<b>不當 $0</b>，該卡從第一個有價日才進籃。意圖基準＝<b>1,000 @ 2024-02-08</b>（TickerMint 週線回填後）。本 PR 先上每日 TCGCSV 路徑，回填跟 vintage #28 一樣是 follow-up。</li>
+      <li><b>5D／30D／YTD</b>：用 <code>history.json</code> 真實快照，缺日不補價。每日「今天」是 TCGCSV 現況；往回用免費 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a>（<code>tools/backfill_tickermint_midera.py</code>）。沒有 cutoff 當天或更早的點就 disable。</li>
+      <li><b>代表價</b>：一般印刷裡最高的 TCGPlayer <b>Market Price</b>；1st Edition 預設不計入（成交太薄），與 EN Top 500 相同。</li>
+    </ul>
+  </div>
+
+  <div class="disclaimer" id="disclaimer">
+    <p><b>資料來源：</b>TCGPlayer Market Price。每日現況經免費 <a href="https://tcgcsv.com" target="_blank" rel="noopener">TCGCSV</a> Pokemon dump；多日歷史經免費 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a>（卡頁例如 <a href="https://tickermint.cards/card/183899" target="_blank" rel="noopener">tickermint.cards/card/183899</a>）。僅 <b>英文 DP→SM 裸卡</b>。<b>不是</b>投資建議。</p>
+    <p>數字為第三方市場估計，可能延遲或不準。Pokémon 與相關名稱為其權利人商標。本頁為獨立粉絲工具，與 Nintendo／The Pokémon Company／TCGPlayer／S&amp;P Global 無關。</p>
+  </div>
+</main>
+<footer>日盒 EV 小算盤 · Mid-era pulse · Snapshot 靜態資料 · 非正式投資建議 · 歷史價 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a> · <a href="./index.html">首頁</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./chase-fit.html">Chase 公允值</a></footer>
+
+<script src="./data/market-midera/latest.js?v=1.26.0"></script>
+<script src="./data/market-midera/history.js?v=1.26.0"></script>
+<script>
+(async function () {
+  const VERSION = '1.26.0';
+  const PERIODS = ['1D', '5D', '30D', 'YTD'];
+  const $ = (id) => document.getElementById(id);
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, (ch) => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    })[ch]);
+  }
+  async function loadJson(rel) {
+    const url = new URL(rel, document.baseURI || window.location.href);
+    url.searchParams.set('v', VERSION);
+    try {
+      const res = await fetch(url.href, { cache: 'no-store' });
+      if (!res.ok) {
+        return { ok: false, status: res.status, url: url.href, data: null, err: 'HTTP ' + res.status };
+      }
+      return { ok: true, status: res.status, url: url.href, data: await res.json(), err: null };
+    } catch (e) {
+      return { ok: false, status: 0, url: url.href, data: null, err: (e && e.message) ? e.message : String(e) };
+    }
+  }
+  function showLoadError(dataRes) {
+    const app = $('app');
+    if (!app) return;
+    const status = dataRes
+      ? (dataRes.status ? ('HTTP ' + dataRes.status) : (dataRes.err || '沒有回應'))
+      : '沒有回應';
+    const where = dataRes && dataRes.url ? dataRes.url : ('./data/market-midera/latest.json?v=' + VERSION);
+    app.innerHTML =
+      '<p class="err"><b>載入失敗：找不到中世代指數資料。</b>' +
+      '<span class="err-hint">抓取 ' + where.replace(/&/g, '&amp;').replace(/</g, '&lt;') +
+      ' → ' + String(status).replace(/</g, '&lt;') + '。</span>' +
+      '<span class="err-hint">請強制重新整理，或確認 GitHub Action「Update EN market pulse」已跑過 mid-era 腳本。</span></p>';
+  }
+  const dataRes = await loadJson('./data/market-midera/latest.json');
+  const histRes = await loadJson('./data/market-midera/history.json');
+  const DATA = (dataRes && dataRes.data) || window.MARKET_MIDERA;
+  const HIST = (histRes && histRes.data) || window.MARKET_MIDERA_HISTORY || { points: [] };
+  if (!DATA || DATA.index == null) {
+    showLoadError(dataRes);
+    return;
+  }
+
+  function parseAsOfDate(raw) {
+    if (raw == null || raw === '') return null;
+    const m = String(raw).trim().match(/^(\d{4})-(\d{2})-(\d{2})/);
+    if (!m) return null;
+    const y = Number(m[1]), mo = Number(m[2]) - 1, d = Number(m[3]);
+    const dt = new Date(y, mo, d);
+    if (dt.getFullYear() !== y || dt.getMonth() !== mo || dt.getDate() !== d) return null;
+    return dt;
+  }
+  function ymdLocal(dt) {
+    return dt.getFullYear() + '-' + String(dt.getMonth() + 1).padStart(2, '0') + '-' + String(dt.getDate()).padStart(2, '0');
+  }
+  function ageDays(asOfDate, today) {
+    const a = Date.UTC(asOfDate.getFullYear(), asOfDate.getMonth(), asOfDate.getDate());
+    const b = Date.UTC(today.getFullYear(), today.getMonth(), today.getDate());
+    return Math.floor((b - a) / 86400000);
+  }
+  function renderFreshness() {
+    const el = $('dataFreshness');
+    const asOfDate = parseAsOfDate(DATA.asOfDate);
+    if (!asOfDate) {
+      el.className = 'data-freshness stale';
+      el.textContent = '數字可能過期（資料日期無法確認）— 下單前請核對現價';
+      return;
+    }
+    const age = ageDays(asOfDate, new Date());
+    const ymd = ymdLocal(asOfDate);
+    if (age > 7) {
+      el.className = 'data-freshness stale';
+      el.textContent = '數字可能過期（TCGCSV 快照：' + ymd + ' · 已過 ' + age + ' 日）— 下單前請核對現價';
+    } else {
+      el.className = 'data-freshness';
+      el.textContent = 'TCGCSV 快照 ' + ymd + (DATA.sourceStamp ? ' · ' + DATA.sourceStamp : '');
+    }
+  }
+  renderFreshness();
+
+  function fmtUsd(n) {
+    if (n == null || Number.isNaN(n)) return '—';
+    return '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+  function fmtPct(n, signed) {
+    if (n == null || Number.isNaN(n)) return '—';
+    const s = (signed && n > 0 ? '+' : '') + n.toFixed(2) + '%';
+    return s;
+  }
+  function chgClass(n) {
+    if (n == null || Number.isNaN(n) || n === 0) return 'muted';
+    return n > 0 ? 'good' : 'bad';
+  }
+
+  $('indexLevel').textContent = Number(DATA.index).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const points = ((HIST && HIST.points) || []).filter((p) => p && p.date && p.index != null)
+    .sort((a, b) => String(a.date).localeCompare(String(b.date)));
+  const baseDate = DATA.baseDate || (HIST && HIST.baseDate) || (points[0] && points[0].date) || '';
+  $('indexNote').textContent =
+    '列出 ' + (DATA.listedCount || DATA.constituentCount || 50) +
+    ' · 進指數 ' + (DATA.constituentCount || 0) +
+    ' · 合計 ' + fmtUsd(DATA.totalValue) +
+    ' · 基準 ' + (DATA.baseValue || 1000) + (baseDate ? ' @ ' + baseDate : '');
+
+  function addDaysYmd(iso, days) {
+    const dt = parseAsOfDate(iso);
+    if (!dt) return null;
+    dt.setDate(dt.getDate() + days);
+    return ymdLocal(dt);
+  }
+  function lastPointOnOrBefore(iso) {
+    let found = null;
+    for (let i = 0; i < points.length; i++) {
+      if (points[i].date <= iso) found = points[i];
+    }
+    return found;
+  }
+  function packReturn(baseline, last, reason) {
+    if (!baseline || last == null || last.index == null) {
+      return { available: false, pct: null, from: null, to: last ? last.date : null, reason: reason };
+    }
+    const prev = Number(baseline.index);
+    const cur = Number(last.index);
+    if (!(prev > 0)) {
+      return { available: false, pct: null, from: baseline.date, to: last.date, reason: 'non-positive baseline index' };
+    }
+    return {
+      available: true,
+      pct: Math.round((cur / prev - 1) * 10000) / 100,
+      from: baseline.date,
+      to: last.date,
+      fromIndex: prev,
+      toIndex: cur,
+      reason: null
+    };
+  }
+  function computePeriodReturns(asOf) {
+    const last = lastPointOnOrBefore(asOf) || (points.length ? points[points.length - 1] : null);
+    const empty = { available: false, pct: null, from: null, to: asOf, reason: 'no snapshots' };
+    if (!last) return { asOf: asOf, '1D': empty, '5D': empty, '30D': empty, 'YTD': empty };
+    let prevSnap = null;
+    for (let i = 0; i < points.length; i++) {
+      if (points[i].date < last.date) prevSnap = points[i];
+    }
+    const cutoff5 = addDaysYmd(last.date, -5);
+    const cutoff30 = addDaysYmd(last.date, -30);
+    const dt = parseAsOfDate(last.date);
+    const cutoffYtd = dt ? (dt.getFullYear() + '-01-01') : null;
+    function vsCutoff(cutoff, label) {
+      if (!cutoff) return packReturn(null, last, label + ': invalid dates');
+      let baseline = null;
+      for (let i = 0; i < points.length; i++) {
+        if (points[i].date <= cutoff && points[i].date < last.date) baseline = points[i];
+      }
+      return packReturn(baseline, last, 'no snapshot on or before ' + cutoff + ' (need TickerMint backfill)');
+    }
+    return {
+      asOf: last.date,
+      '1D': packReturn(prevSnap, last, 'no previous snapshot'),
+      '5D': vsCutoff(cutoff5, '5D'),
+      '30D': vsCutoff(cutoff30, '30D'),
+      'YTD': vsCutoff(cutoffYtd, 'YTD')
+    };
+  }
+  const serverReturns = (HIST && HIST.returns) || {};
+  const computedReturns = computePeriodReturns(DATA.asOfDate || (points[0] && points[0].date) || '');
+  const RETURNS = {
+    asOf: serverReturns.asOf || computedReturns.asOf,
+    '1D': serverReturns['1D'] || computedReturns['1D'],
+    '5D': serverReturns['5D'] || computedReturns['5D'],
+    '30D': serverReturns['30D'] || computedReturns['30D'],
+    'YTD': serverReturns['YTD'] || computedReturns['YTD']
+  };
+  const periodState = { period: '1D' };
+  const PERIOD_LABEL = { '1D': 'vs 上一快照', '5D': '5D', '30D': '30D', 'YTD': 'YTD' };
+
+  function pointsForPeriod(period) {
+    const ret = RETURNS[period];
+    if (!ret || !ret.available || !ret.from) return points;
+    return points.filter((p) => p.date >= ret.from && p.date <= (ret.to || p.date));
+  }
+  function drawSpark(period) {
+    const spark = $('spark');
+    const pts = pointsForPeriod(period);
+    const vals = pts.map((p) => Number(p.index)).filter((n) => !Number.isNaN(n));
+    if (vals.length < 2) {
+      spark.setAttribute('hidden', 'hidden');
+      spark.innerHTML = '';
+      return;
+    }
+    const min = Math.min.apply(null, vals);
+    const max = Math.max.apply(null, vals);
+    const span = (max - min) || 1;
+    const w = 300, h = 56, pad = 4;
+    const coords = vals.map((v, i) => {
+      const x = pad + (i / (vals.length - 1)) * (w - pad * 2);
+      const y = pad + (1 - (v - min) / span) * (h - pad * 2);
+      return x.toFixed(1) + ',' + y.toFixed(1);
+    });
+    spark.innerHTML = '<polyline fill="none" stroke="#2563eb" stroke-width="2" points="' + coords.join(' ') + '" />';
+    spark.removeAttribute('hidden');
+  }
+  function renderPeriod(period) {
+    const chgEl = $('indexChg');
+    const note = $('indexPeriodNote');
+    const ret = RETURNS[period] || { available: false, reason: 'no snapshots' };
+    document.querySelectorAll('.period-btns .period-btn').forEach((btn) => {
+      const p = btn.getAttribute('data-period');
+      const avail = !!(RETURNS[p] && RETURNS[p].available);
+      btn.disabled = !avail;
+      btn.setAttribute('aria-selected', p === period && avail ? 'true' : 'false');
+      btn.classList.toggle('is-active', p === period && avail);
+      btn.title = avail
+        ? (RETURNS[p].from + ' → ' + RETURNS[p].to)
+        : (RETURNS[p] && RETURNS[p].reason) || '需要更多快照';
+    });
+    if (!ret.available) {
+      // Stay on the last usable period — never blank the % or invent a return.
+      if (period !== '1D' && RETURNS['1D'] && RETURNS['1D'].available) {
+        periodState.period = '1D';
+        renderPeriod('1D');
+        return;
+      }
+      chgEl.className = 'index-chg muted';
+      chgEl.textContent = '尚無 ' + (PERIOD_LABEL[period] || period);
+      note.textContent = ret.reason || '需要 TickerMint 回填後才有多日報酬';
+      drawSpark('1D');
+      return;
+    }
+    chgEl.className = 'index-chg ' + chgClass(ret.pct);
+    let extra = '';
+    if (period === '1D' && DATA.change != null && RETURNS['1D'] && RETURNS['1D'].to === DATA.asOfDate) {
+      extra = ' · ' + (DATA.change > 0 ? '+' : '') + DATA.change.toFixed(2);
+    }
+    chgEl.textContent = fmtPct(ret.pct, true) + extra + '（' + (PERIOD_LABEL[period] || period) + '）';
+    note.textContent = ret.from + ' → ' + ret.to + ' · ' + pointsForPeriod(period).length + ' 個快照（缺日不補價）';
+    drawSpark(period);
+  }
+  document.querySelectorAll('.period-btns .period-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const p = btn.getAttribute('data-period') || '1D';
+      if (btn.disabled || !(RETURNS[p] && RETURNS[p].available)) return;
+      periodState.period = p;
+      renderPeriod(p);
+    });
+  });
+  renderPeriod(RETURNS['1D'] && RETURNS['1D'].available ? '1D' : '1D');
+
+  const b = DATA.breadth || {};
+  const tot = (b.advancing || 0) + (b.declining || 0) + (b.unchanged || 0);
+  $('breadthMetrics').innerHTML =
+    '<div class="metric"><div class="k">上漲 Advancers</div><div class="v' + (b.available ? ' good' : '') + '">' + (b.available ? b.advancing : '—') + '</div></div>' +
+    '<div class="metric"><div class="k">下跌 Decliners</div><div class="v' + (b.available ? ' bad' : '') + '">' + (b.available ? b.declining : '—') + '</div></div>';
+  if (b.available && tot > 0) {
+    $('breadthBar').innerHTML =
+      '<div class="bar">' +
+      '<div class="adv" style="width:' + ((b.advancing / tot) * 100).toFixed(1) + '%"></div>' +
+      '<div class="unch" style="width:' + ((b.unchanged / tot) * 100).toFixed(1) + '%"></div>' +
+      '<div class="dec" style="width:' + ((b.declining / tot) * 100).toFixed(1) + '%"></div>' +
+      '</div>';
+    $('breadthNote').textContent = '有確認漲跌的成分：上漲 ' + b.advancing + ' · 持平 ' + b.unchanged + ' · 下跌 ' + b.declining;
+  } else {
+    $('breadthNote').textContent = '首次快照沒有廣度數字；下一份快照才會出現 advancers / decliners。';
+  }
+
+  function emptyRow(msg, cols) {
+    return '<tr><td colspan="' + cols + '" class="tiny">' + escapeHtml(msg) + '</td></tr>';
+  }
+  function tmLink(id) {
+    if (!id) return '';
+    return ' <a class="tiny" href="https://tickermint.cards/card/' + encodeURIComponent(id) +
+      '" target="_blank" rel="noopener">TickerMint</a>';
+  }
+  function tcgLink(id) {
+    if (!id) return '';
+    return ' <a class="tiny" href="https://www.tcgplayer.com/product/' + encodeURIComponent(id) +
+      '" target="_blank" rel="noopener">TCG</a>';
+  }
+  function moverRows(list, emptyMsg) {
+    if (!list || !list.length) return emptyRow(emptyMsg, 4);
+    return list.map((c) => {
+      const cls = chgClass(c.changePct);
+      const img = c.image
+        ? '<img class="card-thumb" src="' + escapeHtml(c.image) + '" alt="" width="32" height="44" loading="lazy" />'
+        : '';
+      return '<tr>' +
+        '<td>' + img + '</td>' +
+        '<td>' + escapeHtml(c.name) + ' <span class="tiny">' + escapeHtml(c.setName || '') + '</span>' + tmLink(c.id) + '</td>' +
+        '<td class="num">' + fmtUsd(c.price) + '</td>' +
+        '<td class="num chg ' + cls + '">' + fmtPct(c.changePct, true) + '</td>' +
+        '</tr>';
+    }).join('');
+  }
+
+  const snapshotRange = DATA.snapshotRange || {};
+  const earliestSnap = snapshotRange.earliest || null;
+  const moversByPeriod = DATA.movers || {};
+  function periodInfo(period) {
+    const info = moversByPeriod[period];
+    if (info) return info;
+    if (period === '1D') {
+      const has = (DATA.gainers && DATA.gainers.length) || (DATA.losers && DATA.losers.length) || DATA.prevIndex != null;
+      return {
+        available: !!has,
+        baselineDate: null,
+        neededBy: null,
+        label: has ? 'vs previous snapshot' : 'need a previous snapshot',
+        gainers: DATA.gainers || [],
+        losers: DATA.losers || []
+      };
+    }
+    return { available: false, baselineDate: null, neededBy: null, label: '', gainers: [], losers: [] };
+  }
+  function unavailableMsg(period, info) {
+    const need = info && info.neededBy ? info.neededBy : null;
+    const earliest = earliestSnap ? ('目前最早 ' + earliestSnap) : '目前沒有歷史快照';
+    if (period === 'YTD') {
+      return 'N/A — 尚無今年年初快照' + (need ? '（需要 ' + need + ' 或更早）' : '') + ' · ' + earliest;
+    }
+    if (period === '1D') {
+      return '尚無漲跌（需要兩份快照）';
+    }
+    return 'N/A — 尚無 ' + period + ' 快照' + (need ? '（需要 ' + need + ' 或更早）' : '') + ' · ' + earliest;
+  }
+  function periodNoteText(period, info) {
+    if (info.available) {
+      if (period === '1D') {
+        return '相對上一份已提交快照' + (info.baselineDate ? '（' + info.baselineDate + '）' : '');
+      }
+      return '相對 ' + (info.baselineDate || period) + ' 快照';
+    }
+    return unavailableMsg(period, info);
+  }
+  let selectedPeriod = '1D';
+  function renderMovers(period) {
+    selectedPeriod = period;
+    const info = periodInfo(period);
+    const gainerEmpty = info.available
+      ? '此期間沒有上漲成分'
+      : unavailableMsg(period, info);
+    const loserEmpty = info.available
+      ? '此期間沒有下跌成分'
+      : unavailableMsg(period, info);
+    $('gainerBody').innerHTML = moverRows(info.available ? info.gainers : [], gainerEmpty);
+    $('loserBody').innerHTML = moverRows(info.available ? info.losers : [], loserEmpty);
+    const pill = period;
+    if ($('gainerPeriodPill')) $('gainerPeriodPill').textContent = pill;
+    if ($('loserPeriodPill')) $('loserPeriodPill').textContent = pill;
+    if ($('moversPeriodNote')) $('moversPeriodNote').textContent = periodNoteText(period, info);
+    const picker = $('periodPicker');
+    if (!picker) return;
+    picker.querySelectorAll('.period-btn').forEach((btn) => {
+      const p = btn.getAttribute('data-period');
+      const pInfo = periodInfo(p);
+      btn.setAttribute('aria-pressed', p === period ? 'true' : 'false');
+      btn.classList.toggle('is-na', !pInfo.available);
+      btn.title = pInfo.available
+        ? (pInfo.label || p)
+        : unavailableMsg(p, pInfo);
+    });
+  }
+  const picker = $('periodPicker');
+  if (picker) {
+    picker.addEventListener('click', (e) => {
+      const btn = e.target.closest('.period-btn');
+      if (!btn || !picker.contains(btn)) return;
+      const period = btn.getAttribute('data-period');
+      if (!PERIODS.includes(period) || period === selectedPeriod) return;
+      renderMovers(period);
+    });
+  }
+  renderMovers('1D');
+
+  const top = DATA.top || [];
+  $('topBody').innerHTML = top.length ? top.map((c) => {
+    const img = c.image
+      ? '<img class="card-thumb" src="' + escapeHtml(c.image) + '" alt="" width="32" height="44" loading="lazy" />'
+      : '';
+    return '<tr>' +
+      '<td>' + (c.rank || '') + '</td>' +
+      '<td>' + img + '</td>' +
+      '<td>' + escapeHtml(c.name) + ' <span class="tiny">#' + escapeHtml(c.number || '') + '</span>' + tcgLink(c.id) + tmLink(c.id) + '</td>' +
+      '<td class="set-col">' + escapeHtml(c.setName || '') + '</td>' +
+      '<td class="num">' + fmtUsd(c.price) + '</td>' +
+      '</tr>';
+  }).join('') : emptyRow('沒有成分資料', 5);
+
+  const byId = {};
+  (DATA.constituents || []).forEach((c) => { if (c && c.id) byId[c.id] = c; });
+  const basket = DATA.basket || (DATA.constituents || []).map((c) => ({
+    id: c.id, name: c.name, number: c.number, rarity: c.rarity, image: c.image,
+    setName: c.setName, price: c.price, printing: c.printing, carried: c.carried
+  }));
+  if ($('basketCountPill')) $('basketCountPill').textContent = String(basket.length);
+  $('basketBody').innerHTML = basket.length ? basket.map((c) => {
+    const live = byId[c.id] || c;
+    const img = c.image
+      ? '<img class="card-thumb" src="' + escapeHtml(c.image) + '" alt="" width="32" height="44" loading="lazy" />'
+      : '';
+    const priceCell = c.price == null
+      ? '<span class="tiny">無市價</span>'
+      : (c.carried ? (fmtUsd(c.price) + ' <span class="tiny">carried</span>') : fmtUsd(c.price));
+    return '<tr>' +
+      '<td class="tiny">' + escapeHtml(c.number || '') + '</td>' +
+      '<td>' + img + '</td>' +
+      '<td>' + escapeHtml(c.name) + tcgLink(c.id) + tmLink(c.id) + '</td>' +
+      '<td class="set-col tiny">' + escapeHtml(c.setName || live.setName || '') + '</td>' +
+      '<td class="tiny">' + escapeHtml(c.rarity || '') + '</td>' +
+      '<td class="num">' + priceCell + '</td>' +
+      '</tr>';
+  }).join('') : emptyRow('沒有籃子資料', 6);
+  const missing = DATA.listedUnpriced || [];
+  if ($('unpricedNote')) {
+    $('unpricedNote').textContent = missing.length
+      ? ('今日無市價（仍列在籃子、未進指數）：' + missing.map((c) => c.name + ' ' + (c.number || '')).join('、'))
+      : '';
+  }
+
+  const viewState = { view: (location.hash || '').indexOf('binder') !== -1 ? 'binder' : 'pulse', q: '' };
+  function applyView() {
+    const pulse = $('pulseView');
+    const binder = $('binderView');
+    if (pulse) pulse.hidden = viewState.view !== 'pulse';
+    if (binder) binder.hidden = viewState.view !== 'binder';
+    document.querySelectorAll('#viewSwitch .view-btn').forEach((btn) => {
+      const on = btn.getAttribute('data-view') === viewState.view;
+      btn.classList.toggle('is-active', on);
+      btn.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    if (viewState.view === 'binder') {
+      if (location.hash !== '#binder') history.replaceState(null, '', '#binder');
+    } else if (location.hash === '#binder') {
+      history.replaceState(null, '', location.pathname + location.search);
+    }
+  }
+  function binderRows() {
+    const q = (viewState.q || '').trim().toLowerCase();
+    return basket.filter((c) => {
+      if (!q) return true;
+      const blob = ((c.name || '') + ' ' + (c.number || '') + ' ' + (c.setName || '') + ' ' + (c.rarity || '')).toLowerCase();
+      return blob.indexOf(q) !== -1;
+    });
+  }
+  function renderBinder() {
+    const grid = $('binderGrid');
+    if (!grid) return;
+    const rows = binderRows();
+    if ($('binderCountPill')) $('binderCountPill').textContent = String(rows.length);
+    if ($('binderNote')) {
+      $('binderNote').textContent =
+        '凍結 DP→SM chase · 列出 ' + (DATA.listedCount || basket.length) +
+        ' · 有市價 ' + (DATA.pricedToday || 0) + ' · 缺市價不虛構。';
+    }
+    if (!rows.length) {
+      grid.innerHTML = '<p class="binder-empty">沒有符合的口袋</p>';
+      return;
+    }
+    grid.innerHTML = rows.map((c) => {
+      const live = byId[c.id] || c;
+      const cls = chgClass(live.changePct);
+      const pct = c.price == null || live.changePct == null
+        ? '<span class="tiny">—</span>'
+        : '<span class="binder-pct chg ' + cls + '">' + fmtPct(live.changePct, true) + '</span>';
+      const price = c.price == null
+        ? '<span class="tiny">無市價</span>'
+        : '<span class="binder-price">' + fmtUsd(c.price) + '</span>';
+      const artInner = c.image
+        ? '<img src="' + escapeHtml(c.image) + '" alt="" loading="lazy" />'
+        : '無圖';
+      const inner =
+        '<div class="binder-art' + (c.image ? '' : ' is-empty') + '">' +
+        artInner +
+        '<span class="binder-num">' + escapeHtml(c.number || '') + '</span></div>' +
+        '<div class="binder-name">' + escapeHtml(c.name || '') + '</div>' +
+        '<div class="binder-rarity">' + escapeHtml(c.setName || live.setName || c.rarity || '') + '</div>' +
+        '<div class="binder-meta">' + price + pct + '</div>';
+      if (!c.id) return '<div class="binder-tile">' + inner + '</div>';
+      return '<a class="binder-tile" href="https://www.tcgplayer.com/product/' + encodeURIComponent(c.id) +
+        '" target="_blank" rel="noopener">' + inner + '</a>';
+    }).join('');
+  }
+  const viewSwitch = $('viewSwitch');
+  if (viewSwitch) {
+    viewSwitch.addEventListener('click', (e) => {
+      const btn = e.target.closest('.view-btn');
+      if (!btn || !viewSwitch.contains(btn)) return;
+      const view = btn.getAttribute('data-view');
+      if (view !== 'pulse' && view !== 'binder') return;
+      viewState.view = view;
+      applyView();
+      if (view === 'binder') renderBinder();
+    });
+  }
+  const binderQ = $('binderQ');
+  if (binderQ) {
+    binderQ.addEventListener('input', () => {
+      viewState.q = binderQ.value || '';
+      renderBinder();
+    });
+  }
+  applyView();
+  if (viewState.view === 'binder') renderBinder();
+})();
+</script>
+</body>
+</html>

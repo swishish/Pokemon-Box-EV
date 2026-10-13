@@ -1,0 +1,55 @@
+{
+  "generated": "2026-10-13T03:32:12.265875+00:00",
+  "points": [
+    {
+      "date": "2026-10-12",
+      "index": 1000.0,
+      "totalValue": 40441.58,
+      "count": 49
+    }
+  ],
+  "baseValue": 1000.0,
+  "baseDate": "2026-10-12",
+  "archiveStart": "2024-02-08",
+  "optionalStart": "2024-02-28",
+  "returns": {
+    "asOf": "2026-10-12",
+    "1D": {
+      "available": false,
+      "pct": null,
+      "from": null,
+      "to": "2026-10-12",
+      "fromIndex": null,
+      "toIndex": 1000.0,
+      "reason": "no previous snapshot"
+    },
+    "5D": {
+      "available": false,
+      "pct": null,
+      "from": null,
+      "to": "2026-10-12",
+      "fromIndex": null,
+      "toIndex": 1000.0,
+      "reason": "no snapshot on or before 2026-10-07 (need TickerMint / archive backfill)"
+    },
+    "30D": {
+      "available": false,
+      "pct": null,
+      "from": null,
+      "to": "2026-10-12",
+      "fromIndex": null,
+      "toIndex": 1000.0,
+      "reason": "no snapshot on or before 2026-09-12 (need TickerMint / archive backfill)"
+    },
+    "YTD": {
+      "available": false,
+      "pct": null,
+      "from": null,
+      "to": "2026-10-12",
+      "fromIndex": null,
+      "toIndex": 1000.0,
+      "reason": "no snapshot on or before 2026-01-01 (need TickerMint / archive backfill)"
+    }
+  },
+  "backfill": "deferred"
+}
