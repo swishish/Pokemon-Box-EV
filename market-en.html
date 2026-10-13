@@ -279,10 +279,41 @@
     overscroll-behavior-x: contain;
     -webkit-overflow-scrolling: touch;
   }
+  .spark-wrap {
+    position: relative;
+    margin-top: 8px;
+    min-width: 0;
+  }
   .spark {
     width: 100%;
-    height: 56px;
+    height: 100px;
     display: block;
+    cursor: crosshair;
+    touch-action: none;
+  }
+  .spark-tip {
+    position: absolute;
+    z-index: 5;
+    pointer-events: none;
+    transform: translate(-50%, calc(-100% - 8px));
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 6px 10px;
+    box-shadow: var(--shadow);
+    white-space: nowrap;
+  }
+  .spark-tip[hidden] { display: none !important; }
+  .spark-tip .tt-value {
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    font-size: .95rem;
+    line-height: 1.2;
+  }
+  .spark-tip .tt-date {
+    color: var(--muted);
+    font-size: .72rem;
+    margin-top: 2px;
   }
   .data-freshness {
     margin: 0 0 8px;
@@ -349,7 +380,10 @@
         <button type="button" class="period-btn" data-period="30D" disabled aria-selected="false">30D</button>
         <button type="button" class="period-btn" data-period="YTD" disabled aria-selected="false">YTD</button>
       </div>
-      <svg class="spark" id="spark" viewBox="0 0 300 56" hidden aria-hidden="true"></svg>
+      <div class="spark-wrap" id="sparkWrap">
+        <svg class="spark" id="spark" viewBox="0 0 320 100" hidden aria-hidden="true"></svg>
+        <div class="spark-tip" id="sparkTip" hidden role="status"></div>
+      </div>
       <p class="tiny" id="indexNote" style="margin:8px 0 0"></p>
       <p class="tiny" id="indexPeriodNote" style="margin:4px 0 0"></p>
     </div>
@@ -431,12 +465,13 @@
   <div class="card method-card">
     <h2>這是什麼</h2>
     <ul class="tiny">
-      <li><b>指數</b>：英文 TCGPlayer 裸卡（raw / ungraded）市價最高的 500 張，價格加權；成分輪替時用 divisor 保持連續（S&amp;P 500 同款手法）。首次快照基準＝<b>1,000</b>。</li>
-      <li><b>每日漲跌</b>：相對上一份已提交的快照。若這是第一份快照，指數仍顯示 1,000，% 與廣度會在下一次 GitHub Action 更新後出現。</li>
-      <li><b>5D／30D／YTD</b>：用 <code>history.json</code> 裡<strong>真實快照</strong>算區間報酬，缺日就跳過、不補價。5D／30D 要有 cutoff 當天或更早的點；YTD 要有當年 1 月 1 日或更早的點。每日「今天」仍是 TCGCSV 現況 dump；往回的歷史用免費 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a>（<code>tools/backfill_tickermint.py</code>，預設 2024-02-08；<code>--start 2024-02-28</code> 可選較晚切點）。TCGCSV dated archive 仍 403，只留 probe 路徑。</li>
-      <li><b>漲跌榜期間</b>：1D＝上一份快照；5D／30D／YTD＝當日籃子相對該期間基準日的市價（YTD 需要當年 1 月 1 日或更早的快照）。沒有對應快照的期間顯示 N/A，不虛構報酬。</li>
-      <li><b>代表價</b>：同一張卡取一般印刷（Holofoil / Reverse 等）裡最高的 TCGPlayer <b>Market Price</b>；1st Edition 預設不計入（TCGPlayer 上成交太薄）。</li>
-      <li><b>不含</b>：密封盒、Jumbo／oversized、JP promo（卡號 <code>-P</code>）、日版 SNKRDUNK、PriceCharting。</li>
+      <li><b>指數是什麼</b>：英文 <a href="https://www.tcgplayer.com/search/pokemon/product?productLineName=pokemon&amp;view=grid" target="_blank" rel="noopener">TCGPlayer</a> 裸卡（raw / ungraded）市價最高的 500 張，<b>價格加權</b>。成分輪替時用 divisor 保持連續（與 S&amp;P 500 同一思路）。基準＝<b>1,000</b>（最早有資料的日子，2024-02-08）。</li>
+      <li><b>固定籃子精神</b>：每天重看誰進 Top 500，但指數用 divisor 接起來，不會因為換卡就跳一截。</li>
+      <li><b>每日漲跌</b>：相對上一份已公布的快照。第一份快照只會看到 1,000，% 與廣度要等下一份才有。</li>
+      <li><b>5D／30D／YTD</b>：用<strong>真實歷史點</strong>算區間，<b>缺日就跳過、不補價、不發明點</b>。沒有夠早的點就不顯示該期間。每日現況來自 <a href="https://tcgcsv.com" target="_blank" rel="noopener">TCGCSV</a>；往回的歷史來自 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a>。</li>
+      <li><b>漲跌榜</b>：1D＝上一份快照；5D／30D／YTD＝當日籃子相對該期間基準日。沒有對應快照就顯示 N/A。</li>
+      <li><b>代表價</b>：同一張卡取一般印刷（Holofoil / Reverse 等）裡最高的 TCGPlayer <b>Market Price</b>；1st Edition 預設不計入（成交太薄）。</li>
+      <li><b>不含</b>：密封盒、Jumbo／oversized、日版 promo、日版行情、評級價。</li>
     </ul>
   </div>
 
@@ -447,8 +482,9 @@
 </main>
 <footer>日盒 EV 小算盤 · EN market pulse · Snapshot 靜態資料 · 非正式投資建議 · 歷史價 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a> · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · 日語熱度（即將推出）</footer>
 
-<script src="./data/market-en/latest.js?v=1.24.0"></script>
-<script src="./data/market-en/history.js?v=1.24.0"></script>
+<script src="./js/spark-tip.js?v=1.25.2"></script>
+<script src="./data/market-en/latest.js?v=1.25.2"></script>
+<script src="./data/market-en/history.js?v=1.25.2"></script>
 <script>
 (async function () {
   const VERSION = '1.25.2';
@@ -632,24 +668,11 @@
   }
   function drawSpark(period) {
     const spark = $('spark');
-    const pts = pointsForPeriod(period);
-    const vals = pts.map((p) => Number(p.index)).filter((n) => !Number.isNaN(n));
-    if (vals.length < 2) {
-      spark.setAttribute('hidden', 'hidden');
-      spark.innerHTML = '';
-      return;
-    }
-    const min = Math.min.apply(null, vals);
-    const max = Math.max.apply(null, vals);
-    const span = (max - min) || 1;
-    const w = 300, h = 56, pad = 4;
-    const coords = vals.map((v, i) => {
-      const x = pad + (i / (vals.length - 1)) * (w - pad * 2);
-      const y = pad + (1 - (v - min) / span) * (h - pad * 2);
-      return x.toFixed(1) + ',' + y.toFixed(1);
+    if (typeof SparkTip === 'undefined') return;
+    SparkTip.draw(spark, pointsForPeriod(period), {
+      color: '#2563eb',
+      ariaLabel: 'EN 指數走勢，可懸停或點選看日期與指數'
     });
-    spark.innerHTML = '<polyline fill="none" stroke="#2563eb" stroke-width="2" points="' + coords.join(' ') + '" />';
-    spark.removeAttribute('hidden');
   }
   function renderPeriod(period) {
     const chgEl = $('indexChg');
