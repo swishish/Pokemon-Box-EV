@@ -1,6 +1,6 @@
 # Pokemon Box EV
 
-日盒 EV 小算盤（朋友向）· **v1.26.0**
+日盒 EV 小算盤（朋友向）· **v1.27.0**
 
 給「不太懂金融／AI」的買卡朋友看的工具：首頁介紹點樣用 → 開盒算盤選系列 → 看 **四個預期回報 %**（同一分母）→ 有膜／無膜切換 → 看主力 chase 卡與「買單卡 vs 開盒」粗略提示。
 
@@ -164,7 +164,7 @@ python3 tools/backfill_tickermint_vintage.py --backfill --confirm BACKFILL
 
 怎麼選的：從 2026-10-12 EN Top 500（已有 TCGPlayer Market Price＝流動性）篩中世代，按當日市價排名，凍結前 50 個 product ID 於 `data/market-midera/baskets.json`。每日 job **不**重建名單。
 
-指數規則與 vintage／EN 相同：缺價不當 $0；卡從第一個有市價日才進籃；意圖 rebase＝**1,000 @ 2024-02-08**。本 PR 先上籃子＋每日 TCGCSV 路徑；TickerMint 週線回填是 follow-up（跟 vintage #28 一樣，Gary 跑 `--backfill --confirm BACKFILL`）。
+指數規則與 vintage／EN 相同：缺價不當 $0；卡從第一個有市價日才進籃；rebase＝**1,000 @ 2024-02-08**（TickerMint 週線已回填）。期間視窗只放大圖，不把每段重設成 1000。Top 10／Bottom 10 用最後兩份有市價快照的 pairwise（同 EN Pulse）。
 
 ```bash
 python3 tools/refresh_market_midera.py --self-test
@@ -172,6 +172,7 @@ python3 tools/refresh_market_midera.py -v --force
 python3 tools/backfill_tickermint_midera.py --self-test
 python3 tools/backfill_tickermint_midera.py --sample
 python3 tools/backfill_tickermint_midera.py --backfill --confirm BACKFILL
+python3 tools/backfill_tickermint_midera.py --rebuild-movers
 ```
 
 同一個 GitHub Action **Update EN market pulse** 在 vintage 之後跑 mid-era：只抓凍結 ID 所在的 ~28 個 group，append／upsert 當天。Base 1st／Shadowless／Unlimited 腳本與 JSON **不動**。
@@ -198,6 +199,7 @@ python3 -m http.server 8765
 
 ## Changelog（摘要）
 
+- **v1.27.0**：中世代 TickerMint 週線回填（2024-02-08 起 rebase 1,000）＋最後兩份有市價快照填 Top 10／Bottom 10；圖表懸停提示對齊游標（不再用 viewBox 對 CSS 寬度錯位）；市況頁改奶油紙面／黃 3D 圓鈕／黑框，頂欄 nav 泡泡改成內容寬度內一條帶。EV／Chase_Fit 算法不變
 - **v1.26.0**：新增中世代 EN raw 指數（`market-midera.html`）——DP→SM 固定 chase Top 50，價格加權，意圖 rebase 1,000 @ 2024-02-08。每日 TCGCSV append；TickerMint 週線回填腳本已備、跟 vintage #28 一樣先不上完整歷史。Base 1st／Shadowless／Unlimited 與 EN Top 500 算法不變
 - **v1.25.2**：EN Top 500 rebase 後立刻用週線最後兩份有市價快照填 Top 10／Bottom 10／廣度（1D／5D／30D／YTD）。缺市價仍空白，不虛構、不重設指數。EV／Chase_Fit／復古算法不變
 - **v1.25.1**：復古指數 rebase 後立刻用週線最後兩份有市價快照填 Top 10／Bottom 10／廣度（1st／Shadowless／Unlimited 同一條路）。缺印刷市價仍空白，不虛構。EV／Chase_Fit／EN Top 500 算法不變

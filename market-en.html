@@ -6,31 +6,43 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>EN 裸卡市況 · Box EV v1.25.2</title>
+<title>EN 裸卡市況 · Box EV v1.27.0</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <style>
   :root {
-    --bg: #f6f7f9;
+    --bg: #faf6ef;
+    --bg-2: #f3ede1;
     --card: #fff;
-    --text: #1a1d21;
-    --muted: #5c6570;
-    --line: #e4e7ec;
-    --good: #1b7f4a;
-    --good-bg: #e8f7ef;
-    --ok: #9a6b00;
-    --ok-bg: #fff6e0;
-    --bad: #b42318;
-    --bad-bg: #fdecea;
-    --accent: #2563eb;
+    --text: #141414;
+    --muted: #5f5a51;
+    --line: #e7dfd0;
+    --ink: #141414;
+    --bw: 2px;
+    --good: #1e9e5a;
+    --good-bg: #d9f3e5;
+    --ok: #b8860b;
+    --ok-bg: #fff3c4;
+    --bad: #c93540;
+    --bad-bg: #fbdfe1;
+    --accent: #3d6fd9;
+    --accent-fill: #ffd23f;
+    --accent-hover: #ffc907;
     --radius: 12px;
-    --shadow: 0 1px 2px rgba(16,24,40,.06), 0 1px 3px rgba(16,24,40,.08);
+    --shadow: 4px 4px 0 var(--ink);
+    --shadow-sm: 3px 3px 0 var(--ink);
+    --shadow-xs: 2px 2px 0 var(--ink);
+    --shadow-pressed: 1px 1px 0 var(--ink);
   }
   * { box-sizing: border-box; }
   html { overflow-x: clip; }
   body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
-    background: var(--bg);
+    background-color: var(--bg);
+    background-image:
+      radial-gradient(1200px 420px at 12% -8%, rgba(255, 210, 63, .22), transparent 55%),
+      radial-gradient(900px 380px at 110% 0%, rgba(79, 134, 247, .12), transparent 50%),
+      repeating-linear-gradient(0deg, transparent, transparent 11px, rgba(20,20,20,.015) 12px);
     color: var(--text);
     line-height: 1.5;
     font-size: 15px;
@@ -39,51 +51,98 @@
     padding-left: env(safe-area-inset-left, 0px);
     padding-right: env(safe-area-inset-right, 0px);
   }
+  body::before {
+    content: "";
+    display: block;
+    height: 4px;
+    background: linear-gradient(90deg, #e4434f 0 34%, #ffd23f 34% 66%, #4f86f7 66%);
+  }
   header {
     background: var(--card);
-    border-bottom: 1px solid var(--line);
-    padding: 10px 16px 8px;
+    border-bottom: var(--bw) solid var(--ink);
+    padding: 10px 16px 10px;
   }
   .header-inner {
     display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 12px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
     max-width: 1100px;
     margin: 0 auto;
+    min-width: 0;
+    width: 100%;
   }
-  header h1 { margin: 0; font-size: 1.05rem; font-weight: 700; }
-  header p { margin: 2px 0 0; color: var(--muted); font-size: .78rem; }
+  header h1 {
+    margin: 0;
+    font-size: 1.08rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  header p { margin: 3px 0 0; color: var(--muted); font-size: .78rem; }
+  .poke-mark {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid var(--ink);
+    background: linear-gradient(180deg, #e4434f 49%, #fff 51%);
+    position: relative;
+    flex-shrink: 0;
+    box-shadow: 1px 1px 0 var(--ink);
+  }
+  .poke-mark::after {
+    content: "";
+    position: absolute;
+    left: 4px; top: 4px;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid var(--ink);
+  }
   .nav-btn {
     display: inline-flex;
     align-items: center;
-    border: 1px solid #bfd0f5;
-    background: #eef3ff;
-    color: var(--accent);
+    justify-content: center;
+    border: var(--bw) solid var(--ink);
+    background: var(--accent-fill);
+    color: var(--ink);
     font: inherit;
     font-size: .75rem;
-    font-weight: 700;
+    font-weight: 800;
     padding: 7px 12px;
     border-radius: 999px;
     text-decoration: none;
     white-space: nowrap;
     flex-shrink: 0;
+    box-shadow: var(--shadow-xs);
+    transition: box-shadow .1s ease, transform .1s ease, background .1s ease;
   }
-  .nav-btn:hover { border-color: var(--accent); }
+  .nav-btn:hover { background: var(--accent-hover); }
+  .nav-btn:active {
+    box-shadow: var(--shadow-pressed);
+    transform: translate(1px, 1px);
+  }
   .header-nav {
     display: flex;
-    gap: 8px;
-    flex-shrink: 0;
     flex-wrap: wrap;
-    justify-content: flex-end;
+    justify-content: flex-start;
+    gap: 6px;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
   }
   .nav-btn.soon {
-    background: #f3f4f6;
+    background: var(--bg-2);
     color: var(--muted);
-    border-color: var(--line);
+    box-shadow: none;
     cursor: default;
   }
-  .nav-btn.soon:hover { border-color: var(--line); }
+  .nav-btn.soon:hover { background: var(--bg-2); }
+  .nav-btn.soon:active { transform: none; box-shadow: none; }
   .wrap {
     max-width: 1100px;
     margin: 0 auto;
@@ -91,16 +150,17 @@
   }
   .card {
     background: var(--card);
-    border: 1px solid var(--line);
+    border: var(--bw) solid var(--ink);
     border-radius: var(--radius);
-    box-shadow: var(--shadow);
+    box-shadow: var(--shadow-sm);
     padding: 14px 16px;
     margin-bottom: 12px;
   }
   h2 { margin: 0 0 8px; font-size: .95rem; }
   .pill {
-    display: inline-block; font-size: .7rem; padding: 2px 7px;
-    border-radius: 999px; background: #eef2f6; color: var(--muted); margin-left: 4px;
+    display: inline-block; font-size: .7rem; padding: 2px 8px;
+    border-radius: 999px; background: var(--accent-fill); color: var(--ink);
+    border: 1.5px solid var(--ink); font-weight: 800; margin-left: 4px;
   }
   .hero {
     display: grid;
@@ -132,18 +192,19 @@
   .period-btn {
     font: inherit;
     font-size: .72rem;
-    font-weight: 700;
+    font-weight: 800;
     padding: 5px 9px;
     border-radius: 999px;
-    border: 1px solid var(--line);
-    background: #fafbfc;
-    color: var(--muted);
+    border: var(--bw) solid var(--ink);
+    background: var(--card);
+    color: var(--ink);
     cursor: pointer;
+    box-shadow: var(--shadow-xs);
   }
   .period-btn.is-active {
-    background: #eef3ff;
-    border-color: #bfd0f5;
-    color: var(--accent);
+    background: var(--accent-fill);
+    border-color: var(--ink);
+    color: var(--ink);
   }
   .period-btn:disabled {
     opacity: 0.4;
@@ -157,8 +218,8 @@
     gap: 8px;
   }
   .metric {
-    background: #fafbfc;
-    border: 1px solid var(--line);
+    background: var(--bg-2);
+    border: var(--bw) solid var(--ink);
     border-radius: 8px;
     padding: 8px 10px;
   }
@@ -177,7 +238,8 @@
     height: 10px;
     border-radius: 999px;
     overflow: hidden;
-    background: #eef2f6;
+    background: var(--bg-2);
+    border: 1.5px solid var(--ink);
   }
   .bar .adv { background: var(--good); }
   .bar .unch { background: #c5cbd3; }
@@ -209,12 +271,12 @@
   #periodPicker .period-btn {
     font: inherit;
     font-size: .72rem;
-    font-weight: 700;
+    font-weight: 800;
     padding: 5px 10px;
     border-radius: 999px;
-    border: 1px solid var(--line);
-    background: #eef2f6;
-    color: var(--muted);
+    border: var(--bw) solid var(--ink);
+    background: var(--card);
+    color: var(--ink);
     cursor: pointer;
     line-height: 1.2;
     min-width: 2.55rem;
@@ -223,17 +285,18 @@
     white-space: nowrap;
     flex: 0 0 auto;
     user-select: none;
+    box-shadow: var(--shadow-xs);
   }
   #periodPicker .period-btn[aria-pressed="true"] {
-    background: #eef3ff;
-    border-color: #bfd0f5;
-    color: var(--accent);
+    background: var(--accent-fill);
+    border-color: var(--ink);
+    color: var(--ink);
   }
   #periodPicker .period-btn.is-na {
     opacity: .55;
   }
   #periodPicker .period-btn:focus-visible {
-    outline: 2px solid var(--accent);
+    outline: 2px solid var(--ink);
     outline-offset: 2px;
   }
   #indexPeriodNote, #moversPeriodNote, td.tiny {
@@ -247,30 +310,30 @@
     width: 32px; height: 44px;
     object-fit: contain;
     border-radius: 4px;
-    background: #f0f2f5;
-    border: 1px solid var(--line);
+    background: var(--bg-2);
+    border: 1.5px solid var(--ink);
     display: block;
   }
   .chg.good { color: var(--good); font-weight: 700; }
   .chg.bad { color: var(--bad); font-weight: 700; }
   .tiny { font-size: .75rem; color: var(--muted); }
-  .tiny a { color: var(--accent); font-weight: 650; text-decoration: none; }
+  .tiny a { color: var(--ink); font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
   .tiny a:hover { text-decoration: underline; }
   .hint {
     font-size: .86rem; color: var(--muted);
-    background: #fafbfc; border-radius: 8px; padding: 10px 12px; margin-top: 10px;
+    background: var(--ok-bg); border: var(--bw) solid var(--ink); border-radius: 8px; padding: 10px 12px; margin-top: 10px;
   }
   .disclaimer {
     font-size: .8rem; color: var(--muted);
-    background: #fafbfc; border: 1px dashed #c9d0da; border-radius: 8px; padding: 10px 12px;
+    background: var(--bg-2); border: var(--bw) solid var(--ink); border-radius: 8px; padding: 10px 12px;
   }
   .disclaimer p { margin: 0; }
   .disclaimer p + p { margin-top: 0.55em; }
-  .method-card a { color: var(--accent); }
+  .method-card a { color: var(--ink); font-weight: 700; }
   .method-card ul { margin: 0; padding-left: 1.1rem; color: var(--muted); }
   .method-card li { margin: 0.35em 0; }
   footer { text-align: center; color: var(--muted); font-size: .75rem; padding: 8px 16px 24px; }
-  footer a { color: var(--accent); font-weight: 700; }
+  footer a { color: var(--ink); font-weight: 700; }
   .err { color: var(--bad); padding: 20px; line-height: 1.55; }
   .err .err-hint { color: var(--text); font-size: .92rem; margin-top: 8px; }
   .table-wrap {
@@ -291,16 +354,17 @@
     cursor: crosshair;
     touch-action: none;
   }
+  .spark-wrap { overflow: visible; }
   .spark-tip {
     position: absolute;
     z-index: 5;
     pointer-events: none;
     transform: translate(-50%, calc(-100% - 8px));
     background: var(--card);
-    border: 1px solid var(--line);
+    border: var(--bw) solid var(--ink);
     border-radius: 8px;
     padding: 6px 10px;
-    box-shadow: var(--shadow);
+    box-shadow: var(--shadow-xs);
     white-space: nowrap;
   }
   .spark-tip[hidden] { display: none !important; }
@@ -326,21 +390,18 @@
     margin: 0 0 8px;
     padding: 8px 12px;
     border-radius: 8px;
-    background: #e8eaed;
-    color: #3c4043;
-    border: 1px solid #dadce0;
+    background: var(--ok-bg);
+    color: var(--ink);
+    border: var(--bw) solid var(--ink);
     font-size: .78rem;
     font-weight: 600;
+    box-shadow: var(--shadow-xs);
   }
   @media (max-width: 720px) {
     .hero, .movers { grid-template-columns: 1fr; }
-    header { padding: 8px 12px 6px; }
-    .header-inner { flex-wrap: wrap; }
-    .header-nav {
-      flex-shrink: 1;
-      max-width: 100%;
-      justify-content: flex-start;
-    }
+    header { padding: 8px 12px 8px; }
+    .header-nav { justify-content: flex-start; }
+    .nav-btn { font-size: .68rem; padding: 5px 9px; }
     .wrap { padding: 10px 12px 48px; }
     .index-level { font-size: 2rem; }
     .period-btn { padding: 6px 9px; }
@@ -351,7 +412,7 @@
 <header>
   <div class="header-inner">
     <div>
-      <h1>EN 裸卡市況 <span class="pill">S&amp;P-style · v1.25.2</span></h1>
+      <h1><span class="poke-mark" aria-hidden="true"></span> EN 裸卡市況 <span class="pill">S&amp;P-style · v1.27.0</span></h1>
       <p>英文 raw singles 市場溫度 · TCGPlayer Market via TCGCSV · 靜態快照</p>
     </div>
     <nav class="header-nav" aria-label="站內導覽">
@@ -670,7 +731,7 @@
     const spark = $('spark');
     if (typeof SparkTip === 'undefined') return;
     SparkTip.draw(spark, pointsForPeriod(period), {
-      color: '#2563eb',
+      color: '#3d6fd9',
       ariaLabel: 'EN 指數走勢，可懸停或點選看日期與指數'
     });
   }

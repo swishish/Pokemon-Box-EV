@@ -19,18 +19,18 @@
     var s = document.createElement('style');
     s.id = 'spark-tip-css';
     s.textContent = [
-      '.spark-wrap{position:relative;margin-top:8px;min-width:0;}',
+      '.spark-wrap{position:relative;margin-top:8px;min-width:0;overflow:visible;}',
       '.spark-wrap .spark{width:100%;height:100px;display:block;cursor:crosshair;touch-action:none;}',
-      '.spark-wrap .spark:focus{outline:2px solid var(--accent,#2563eb);outline-offset:2px;}',
+      '.spark-wrap .spark:focus{outline:2px solid var(--ink,#141414);outline-offset:2px;}',
       '.spark-tip{position:absolute;z-index:5;pointer-events:none;',
       'transform:translate(-50%,calc(-100% - 8px));background:var(--card,#fff);',
-      'border:1px solid var(--line,#e4e7ec);border-radius:8px;padding:6px 10px;',
-      'box-shadow:0 1px 2px rgba(16,24,40,.06),0 1px 3px rgba(16,24,40,.08);',
+      'border:var(--bw,2px) solid var(--ink,#141414);border-radius:8px;padding:6px 10px;',
+      'box-shadow:var(--shadow-xs,2px 2px 0 #141414);',
       'white-space:nowrap;}',
       '.spark-tip[hidden]{display:none !important;}',
-      '.spark-tip .tt-value{font-weight:700;font-variant-numeric:tabular-nums;',
-      'font-size:.95rem;color:var(--text,#1a1d21);line-height:1.2;}',
-      '.spark-tip .tt-date{color:var(--muted,#5c6570);font-size:.72rem;margin-top:2px;}'
+      '.spark-tip .tt-value{font-weight:800;font-variant-numeric:tabular-nums;',
+      'font-size:.95rem;color:var(--text,#141414);line-height:1.2;}',
+      '.spark-tip .tt-date{color:var(--muted,#5f5a51);font-size:.72rem;margin-top:2px;}'
     ].join('');
     document.head.appendChild(s);
   }
@@ -57,6 +57,38 @@
 
   function canHover() {
     return !(window.matchMedia && window.matchMedia('(hover: none)').matches);
+  }
+
+  /* Map a client X through the SVG's screen CTM so letterboxing / CSS stretch
+     cannot put the tip in a different place than the polyline. */
+  function clientToViewBoxX(svg, clientX) {
+    var ctm = svg.getScreenCTM && svg.getScreenCTM();
+    if (ctm && svg.createSVGPoint) {
+      var pt = svg.createSVGPoint();
+      pt.x = clientX;
+      pt.y = 0;
+      return pt.matrixTransform(ctm.inverse()).x;
+    }
+    var rect = svg.getBoundingClientRect();
+    if (!rect.width) return W;
+    return ((clientX - rect.left) / rect.width) * W;
+  }
+
+  function viewBoxToWrap(svg, wrap, vx, vy) {
+    var wrapRect = wrap.getBoundingClientRect();
+    var ctm = svg.getScreenCTM && svg.getScreenCTM();
+    if (ctm && svg.createSVGPoint) {
+      var pt = svg.createSVGPoint();
+      pt.x = vx;
+      pt.y = vy;
+      var screen = pt.matrixTransform(ctm);
+      return { x: screen.x - wrapRect.left, y: screen.y - wrapRect.top };
+    }
+    var svgRect = svg.getBoundingClientRect();
+    return {
+      x: (svgRect.left - wrapRect.left) + (vx / W) * svgRect.width,
+      y: (svgRect.top - wrapRect.top) + (vy / H) * svgRect.height
+    };
   }
 
   function draw(svg, points, opts) {
@@ -89,7 +121,7 @@
 
     while (svg.firstChild) svg.removeChild(svg.firstChild);
 
-    var color = opts.color || '#2563eb';
+    var color = opts.color || '#3d6fd9';
     var state = {
       laid: [],
       i: -1,
@@ -123,6 +155,10 @@
     svg.setAttribute('role', 'img');
     svg.setAttribute('aria-label', opts.ariaLabel || '指數走勢，可懸停或點選看日期與指數');
     svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    /* Stretch viewBox to the CSS box. Default "meet" letterboxed the line in
+       the middle of a wide 100px-tall chart, so tip left/top (mapped across
+       the full CSS width) sat far from the actual stroke. */
+    svg.setAttribute('preserveAspectRatio', 'none');
 
     var vals = pts.map(function (p) { return Number(p.index); });
     var min = Math.min.apply(null, vals);
@@ -144,6 +180,7 @@
       'stroke-width': '2',
       'stroke-linejoin': 'round',
       'stroke-linecap': 'round',
+      'vector-effect': 'non-scaling-stroke',
       points: laid.map(function (p) {
         return p.x.toFixed(1) + ',' + p.y.toFixed(1);
       }).join(' ')
@@ -162,8 +199,9 @@
       x2: '0',
       y1: String(PAD),
       y2: String(H - PAD),
-      stroke: '#98a2b3',
+      stroke: '#5f5a51',
       'stroke-width': '1',
+      'vector-effect': 'non-scaling-stroke',
       opacity: '0'
     });
     var dot = mk('circle', {
@@ -200,19 +238,17 @@
         '<div class="tt-value">' + fmtIndex(p.index) + '</div>' +
         '<div class="tt-date">' + p.date + '</div>';
       tip.hidden = false;
-      var rect = svg.getBoundingClientRect();
-      var left = (p.x / W) * rect.width;
+      var pos = viewBoxToWrap(svg, wrap, p.x, p.y);
       var half = tip.offsetWidth / 2 || 40;
-      left = Math.max(half + 4, Math.min(rect.width - half - 4, left));
-      var top = Math.max(10, (p.y / H) * rect.height);
+      var maxLeft = Math.max(half + 4, wrap.clientWidth - half - 4);
+      var left = Math.max(half + 4, Math.min(maxLeft, pos.x));
+      var top = Math.max(10, pos.y);
       tip.style.left = left + 'px';
       tip.style.top = top + 'px';
     }
 
     function clientToIndex(clientX) {
-      var rect = svg.getBoundingClientRect();
-      if (!rect.width) return laid.length - 1;
-      return nearestByX(laid, ((clientX - rect.left) / rect.width) * W);
+      return nearestByX(laid, clientToViewBoxX(svg, clientX));
     }
 
     function onPointer(e) {

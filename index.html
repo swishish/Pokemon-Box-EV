@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>日盒開盒值不值？ v1.21.7 · 首頁</title>
+<title>日盒開盒值不值？ v1.27.0 · 首頁</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <style>
   :root {
@@ -108,23 +108,25 @@
   }
   .header-inner {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: center;
-    column-gap: 12px;
-    row-gap: 2px;
-    max-width: 1040px;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    row-gap: 8px;
+    max-width: 1100px;
     margin: 0 auto;
     min-width: 0;
+    width: 100%;
   }
   .header-inner h1 { grid-column: 1; min-width: 0; }
-  .header-inner .header-nav { grid-column: 2; grid-row: 1; }
-  .header-inner p { grid-column: 1 / -1; }
+  .header-inner .header-nav { grid-column: 1; }
+  .header-inner p { grid-column: 1; }
   .header-nav {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-end;
+    justify-content: flex-start;
     gap: 6px;
     min-width: 0;
+    width: 100%;
+    max-width: 100%;
   }
   .nav-btn, .chip {
     display: inline-flex;
@@ -174,7 +176,7 @@
   .mon-sm { width: 20px; height: 20px; }
 
   main {
-    max-width: 1040px;
+    max-width: 1100px;
     margin: 0 auto;
     padding: 16px 16px 48px;
     min-width: 0;
@@ -454,8 +456,6 @@
     header { padding: 8px 12px 6px; }
     header h1, header p { overflow-wrap: break-word; }
     .header-inner .header-nav {
-      grid-column: 1 / -1;
-      grid-row: auto;
       justify-content: flex-start;
     }
     .nav-btn { font-size: .68rem; padding: 5px 9px; }
@@ -470,7 +470,7 @@
 <body>
 <header>
   <div class="header-inner">
-    <h1><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？ <span class="pill">v1.21.7</span></h1>
+    <h1><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？ <span class="pill">v1.27.0</span></h1>
     <nav class="header-nav" aria-label="站內導覽">
       <a class="nav-btn" href="./calc.html">開盒 EV</a>
       <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
@@ -744,7 +744,7 @@
 
 <footer>
   <img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" />
-  <span>日盒 EV 小算盤 <b>v1.26.0</b> · Snapshot 靜態資料 · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · 日語熱度（即將推出）</span>
+  <span>日盒 EV 小算盤 <b>v1.27.0</b> · Snapshot 靜態資料 · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · 日語熱度（即將推出）</span>
 </footer>
 </body>
 </html>

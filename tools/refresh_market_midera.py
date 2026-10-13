@@ -568,19 +568,30 @@ def rebuild_baskets(verbose: bool = False) -> dict:
 
 
 def rebuild_movers(now: datetime | None = None) -> None:
+    """Fill Top 10 / Bottom 10 from the last two *priced* weekly snaps.
+
+    Same pairwise path as EN Pulse PR #31: never leave prevPrice null when a
+    prior print exists. Does not rebase the index.
+    """
     latest = en.load_json(LATEST_PATH, {})
     if not latest.get("constituents"):
         raise RuntimeError("latest.json is missing constituents")
     stamp = now or datetime.now(timezone.utc)
     price_history = en.load_json(PRICE_HISTORY_PATH, {}) or {}
-    en.attach_period_movers(latest, price_history)
+    priced = [p for p in (price_history.get("points") or []) if p.get("prices")]
+    if len(priced) >= 2:
+        en.apply_pairwise_movers(latest, priced[-2].get("prices") or {})
+    en.attach_period_movers(latest, price_history, baseline_strategy="on_or_before")
     latest["generated"] = stamp.isoformat()
     en.write_json(LATEST_PATH, latest)
     write_latest_js(latest)
     movers = latest.get("movers") or {}
     avail = [p for p, info in movers.items() if info.get("available")]
+    n_g = len((movers.get("1D") or {}).get("gainers") or latest.get("gainers") or [])
+    n_l = len((movers.get("1D") or {}).get("losers") or latest.get("losers") or [])
     print(
-        f"mid-era movers rebuilt | periods={','.join(avail) or 'none'}",
+        f"mid-era movers rebuilt from last two priced snaps | "
+        f"1D +{n_g}/-{n_l} periods={','.join(avail) or 'none'}",
         flush=True,
     )
 

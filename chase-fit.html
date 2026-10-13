@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>Chase 公允值 v1.21.7 · PSA10 回歸</title>
+<title>Chase 公允值 v1.27.0 · PSA10 回歸</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <style>
   :root {
@@ -127,23 +127,25 @@
   }
   .header-inner {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: center;
-    column-gap: 12px;
-    row-gap: 2px;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    row-gap: 8px;
     max-width: 1100px;
     margin: 0 auto;
     min-width: 0;
+    width: 100%;
   }
   .header-inner h1 { grid-column: 1; min-width: 0; }
-  .header-inner .header-nav { grid-column: 2; grid-row: 1; }
-  .header-inner p { grid-column: 1 / -1; }
+  .header-inner .header-nav { grid-column: 1; }
+  .header-inner p { grid-column: 1; }
   .header-nav {
     display: flex;
-    gap: 8px;
-    flex-shrink: 0;
+    gap: 6px;
     flex-wrap: wrap;
-    justify-content: flex-end;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
   }
   .nav-btn {
     display: inline-flex;
@@ -724,8 +726,6 @@
     header h1, header p { overflow-wrap: anywhere; }
     .header-inner { column-gap: 8px; min-width: 0; }
     .header-inner .header-nav {
-      grid-column: 1 / -1;
-      grid-row: auto;
       justify-content: flex-start;
     }
     .nav-btn { font-size: .7rem; padding: 6px 10px; }
@@ -743,7 +743,7 @@
       <a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁">
         <span class="poke-mark" aria-hidden="true"></span> Chase 公允值
       </a>
-      <span class="pill">v1.21.7</span>
+      <span class="pill">v1.27.0</span>
     </h1>
     <nav class="header-nav" aria-label="站內導覽">
       <a class="nav-btn" href="./calc.html">開盒 EV</a>
@@ -846,7 +846,7 @@
 
 <footer>
   <img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" />
-  <span>日盒 EV 小算盤 <b>v1.21.7</b> · Chase_Fit 靜態快照 · 非正式投資建議 · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a></span>
+  <span>日盒 EV 小算盤 <b>v1.27.0</b> · Chase_Fit 靜態快照 · 非正式投資建議 · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a></span>
 </footer>
 
 <script src="./data/chase-fit/latest.js?v=1.21.7"></script>
