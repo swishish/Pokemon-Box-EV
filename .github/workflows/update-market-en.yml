@@ -1,12 +1,14 @@
 name: Update EN market pulse
 
-# Rebuilds the English raw-singles Top 500 index and the three Base Set
-# vintage indexes from TCGCSV daily Pokemon dumps, then commits
-# data/market-en/* and data/market-vintage/*. GitHub Pages stays static —
-# the Action is the only network fetch. No TCGPlayer API key.
+# Rebuilds the English raw-singles Top 500 index, the three Base Set
+# vintage indexes, and the mid-era DP→SM Top 50 from TCGCSV daily Pokemon
+# dumps, then commits data/market-en/*, data/market-vintage/*, and
+# data/market-midera/*. GitHub Pages stays static — the Action is the
+# only network fetch. No TCGPlayer API key.
 #
-# Vintage daily job appends *today only*. TickerMint rebase is a separate
-# manual script: tools/backfill_tickermint_vintage.py (not the EN backfill).
+# Vintage / mid-era daily jobs append *today only*. TickerMint rebase is
+# a separate manual script (backfill_tickermint_vintage.py /
+# backfill_tickermint_midera.py — not the EN backfill).
 #
 # TCGCSV refreshes once per day (~20:05 UTC). Each script checks
 # last-updated.txt first and exits if the stamp matches the committed snapshot.
@@ -41,6 +43,8 @@ jobs:
           python3 tools/backfill_tickermint.py --self-test
           python3 tools/backfill_tickermint_vintage.py --self-test
           python3 tools/refresh_market_vintage.py --self-test
+          python3 tools/refresh_market_midera.py --self-test
+          python3 tools/backfill_tickermint_midera.py --self-test
 
   build:
     if: github.event_name != 'pull_request'
@@ -65,12 +69,17 @@ jobs:
           python3 tools/backfill_tickermint.py --self-test
           python3 tools/backfill_tickermint_vintage.py --self-test
           python3 tools/refresh_market_vintage.py --self-test
+          python3 tools/refresh_market_midera.py --self-test
+          python3 tools/backfill_tickermint_midera.py --self-test
 
       - name: Fetch TCGCSV dumps and rebuild EN pulse
         run: python3 tools/refresh_market_en.py -v
 
       - name: Fetch Base Set dumps and append vintage snapshots
         run: python3 tools/refresh_market_vintage.py -v
+
+      - name: Fetch mid-era groups and append DP–SM snapshot
+        run: python3 tools/refresh_market_midera.py -v
 
       - name: Commit updated data
         run: |
@@ -82,10 +91,14 @@ jobs:
                   data/market-vintage/latest.json data/market-vintage/latest.js \
                   data/market-vintage/history.json data/market-vintage/history.js \
                   data/market-vintage/price-history.json \
-                  data/market-vintage/baskets.json
+                  data/market-vintage/baskets.json \
+                  data/market-midera/latest.json data/market-midera/latest.js \
+                  data/market-midera/history.json data/market-midera/history.js \
+                  data/market-midera/price-history.json \
+                  data/market-midera/baskets.json
           if git diff --cached --quiet; then
             echo "No data changes to commit."
           else
-            git commit -m "chore: update EN market pulse + vintage ($(date -u +%Y-%m-%d))"
+            git commit -m "chore: update EN market pulse + vintage + mid-era ($(date -u +%Y-%m-%d))"
             git push
           fi

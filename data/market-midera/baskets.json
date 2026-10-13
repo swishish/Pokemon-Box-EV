@@ -1,0 +1,691 @@
+{
+  "version": 1,
+  "generated": "2026-10-13T03:27:51.179145+00:00",
+  "source": "Frozen from EN Top 500 TCGCSV snapshot asOf 2026-10-12 (data/market-en/latest.json)",
+  "rule": "Fixed chase basket: English raw singles, Diamond & Pearl through Sun & Moon (DP / Platinum / HGSS / BW / XY / SM). Exclude Wizards vintage, EX-era, Sword & Shield, and Scarlet & Violet. Price-weighted S&P-style. Not a weekly rebalance (unlike a Double Holo Mid-Era 100).",
+  "selection": {
+    "method": "Take the committed EN Top 500 (liquid TCGPlayer Market Price names), keep only mid-era sets (DP→SM inclusive), rank by that snapshot's market price, freeze the top 50 product IDs. Chase style is holo / EX / GX / FA / SA / Prime / LV.X / Legend / Secret / Rainbow / Shiny Vault. Daily job does not rebuild this list.",
+    "asOfDate": "2026-10-12",
+    "universeRankSource": "data/market-en/latest.json",
+    "targetSize": 50,
+    "minAsOfPrice": 479.99,
+    "maxAsOfPrice": 3916.85,
+    "setCount": 28
+  },
+  "sizeNote": "50 frozen TCGPlayer product IDs. Commons / bulk holos omitted so breadth is not dominated by $1 cards. Adding/removing an ID later uses the same divisor math as market-en / vintage (no $0 fill; card enters on first priced day).",
+  "backfill": "TickerMint free API via tools/backfill_tickermint_midera.py (EN representative printing; 1st Edition skipped unless it is the only priced print). Daily job appends on the rebased divisor after --backfill --confirm BACKFILL. Intended rebase is 1,000 at 2024-02-08. Until Gary runs that, the first daily snap is a temporary 1,000 (same follow-up as vintage #28).",
+  "index": {
+    "id": "mid-era-50",
+    "name": "Mid-era Top 50",
+    "nameZh": "中世代 Top 50",
+    "era": "DP-SM",
+    "universe": "English DP→SM raw / ungraded chase singles (TCGPlayer Market, NM)",
+    "constituentCount": 50,
+    "groups": [
+      {
+        "groupId": "1367",
+        "groupName": "Rising Rivals"
+      },
+      {
+        "groupId": "1369",
+        "groupName": "Stormfront"
+      },
+      {
+        "groupId": "1370",
+        "groupName": "Plasma Blast"
+      },
+      {
+        "groupId": "1381",
+        "groupName": "Triumphant"
+      },
+      {
+        "groupId": "1382",
+        "groupName": "Plasma Freeze"
+      },
+      {
+        "groupId": "1386",
+        "groupName": "Dark Explorers"
+      },
+      {
+        "groupId": "1391",
+        "groupName": "Arceus"
+      },
+      {
+        "groupId": "1394",
+        "groupName": "Dragons Exalted"
+      },
+      {
+        "groupId": "1402",
+        "groupName": "HeartGold SoulSilver"
+      },
+      {
+        "groupId": "1403",
+        "groupName": "Undaunted"
+      },
+      {
+        "groupId": "1407",
+        "groupName": "Black and White Promos"
+      },
+      {
+        "groupId": "1408",
+        "groupName": "Boundaries Crossed"
+      },
+      {
+        "groupId": "1413",
+        "groupName": "Plasma Storm"
+      },
+      {
+        "groupId": "1415",
+        "groupName": "Call of Legends"
+      },
+      {
+        "groupId": "1421",
+        "groupName": "Diamond and Pearl Promos"
+      },
+      {
+        "groupId": "1433",
+        "groupName": "Rumble"
+      },
+      {
+        "groupId": "1451",
+        "groupName": "XY Promos"
+      },
+      {
+        "groupId": "1464",
+        "groupName": "XY - Flashfire"
+      },
+      {
+        "groupId": "1494",
+        "groupName": "XY - Phantom Forces"
+      },
+      {
+        "groupId": "1525",
+        "groupName": "Double Crisis"
+      },
+      {
+        "groupId": "1534",
+        "groupName": "XY - Roaring Skies"
+      },
+      {
+        "groupId": "1576",
+        "groupName": "XY - Ancient Origins"
+      },
+      {
+        "groupId": "1957",
+        "groupName": "SM - Burning Shadows"
+      },
+      {
+        "groupId": "2054",
+        "groupName": "Shining Legends"
+      },
+      {
+        "groupId": "2377",
+        "groupName": "SM - Team Up"
+      },
+      {
+        "groupId": "2420",
+        "groupName": "SM - Unbroken Bonds"
+      },
+      {
+        "groupId": "2534",
+        "groupName": "SM - Cosmic Eclipse"
+      },
+      {
+        "groupId": "2594",
+        "groupName": "Hidden Fates: Shiny Vault"
+      }
+    ],
+    "constituents": [
+      {
+        "id": "183899",
+        "number": "170/181",
+        "name": "Latias & Latios GX (Alternate Full Art)",
+        "rarity": "Ultra Rare",
+        "setName": "SM - Team Up",
+        "setId": "2377",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/183899_200w.jpg",
+        "asOfRank": 1,
+        "asOfPrice": 3916.85
+      },
+      {
+        "id": "183830",
+        "number": "165/181",
+        "name": "Gengar & Mimikyu GX (Alternate Full Art)",
+        "rarity": "Ultra Rare",
+        "setName": "SM - Team Up",
+        "setId": "2377",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/183830_200w.jpg",
+        "asOfRank": 2,
+        "asOfPrice": 2119.05
+      },
+      {
+        "id": "91246",
+        "number": "108/106",
+        "name": "M Charizard EX (X) (Secret)",
+        "rarity": "Secret Rare",
+        "setName": "XY - Flashfire",
+        "setId": "1464",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/91246_200w.jpg",
+        "asOfRank": 3,
+        "asOfPrice": 1501.23
+      },
+      {
+        "id": "86916",
+        "number": "134/135",
+        "name": "Lugia EX (Team Plasma) (134 Full Art)",
+        "rarity": "Ultra Rare",
+        "setName": "Plasma Storm",
+        "setId": "1413",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/86916_200w.jpg",
+        "asOfRank": 4,
+        "asOfPrice": 1344.25
+      },
+      {
+        "id": "90135",
+        "number": "122/116",
+        "name": "Ultra Ball",
+        "rarity": "Secret Rare",
+        "setName": "Plasma Freeze",
+        "setId": "1382",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/90135_200w.jpg",
+        "asOfRank": 5,
+        "asOfPrice": 1199.51
+      },
+      {
+        "id": "101520",
+        "number": "98/98",
+        "name": "M Rayquaza EX (Shiny Full Art)",
+        "rarity": "Ultra Rare",
+        "setName": "XY - Ancient Origins",
+        "setId": "1576",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/101520_200w.jpg",
+        "asOfRank": 6,
+        "asOfPrice": 1147.27
+      },
+      {
+        "id": "94689",
+        "number": "122/119",
+        "name": "Dialga EX (122 Secret Rare)",
+        "rarity": "Secret Rare",
+        "setName": "XY - Phantom Forces",
+        "setId": "1494",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/94689_200w.jpg",
+        "asOfRank": 7,
+        "asOfPrice": 1022.31
+      },
+      {
+        "id": "88628",
+        "number": "20/95",
+        "name": "Rayquaza",
+        "rarity": "Holo Rare",
+        "setName": "Call of Legends",
+        "setId": "1415",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/88628_200w.jpg",
+        "asOfRank": 8,
+        "asOfPrice": 1013.27
+      },
+      {
+        "id": "89397",
+        "number": "111/111",
+        "name": "Snorlax Lv.X",
+        "rarity": "Ultra Rare",
+        "setName": "Rising Rivals",
+        "setId": "1367",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/89397_200w.jpg",
+        "asOfRank": 9,
+        "asOfPrice": 999.99
+      },
+      {
+        "id": "85638",
+        "number": "109/108",
+        "name": "Gardevoir",
+        "rarity": "Secret Rare",
+        "setName": "Dark Explorers",
+        "setId": "1386",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/85638_200w.jpg",
+        "asOfRank": 10,
+        "asOfPrice": 946.33
+      },
+      {
+        "id": "83857",
+        "number": "145/149",
+        "name": "Black Kyurem EX (145 Full Art)",
+        "rarity": "Ultra Rare",
+        "setName": "Boundaries Crossed",
+        "setId": "1408",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/83857_200w.jpg",
+        "asOfRank": 11,
+        "asOfPrice": 900.96
+      },
+      {
+        "id": "88096",
+        "number": "7",
+        "name": "Pikachu",
+        "rarity": "Promo",
+        "setName": "Rumble",
+        "setId": "1433",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/88096_200w.jpg",
+        "asOfRank": 12,
+        "asOfPrice": 899.99
+      },
+      {
+        "id": "183964",
+        "number": "161/181",
+        "name": "Magikarp & Wailord GX (Alternate Full Art)",
+        "rarity": "Ultra Rare",
+        "setName": "SM - Team Up",
+        "setId": "2377",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/183964_200w.jpg",
+        "asOfRank": 13,
+        "asOfPrice": 896.86
+      },
+      {
+        "id": "86127",
+        "number": "SL5",
+        "name": "Ho-Oh (Shiny)",
+        "rarity": "Shiny Holo Rare",
+        "setName": "Call of Legends",
+        "setId": "1415",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/86127_200w.jpg",
+        "asOfRank": 14,
+        "asOfPrice": 833.32
+      },
+      {
+        "id": "146698",
+        "number": "78/73",
+        "name": "Mewtwo GX (Secret Shining)",
+        "rarity": "Shiny Holo Rare",
+        "setName": "Shining Legends",
+        "setId": "2054",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/146698_200w.jpg",
+        "asOfRank": 15,
+        "asOfPrice": 824.69
+      },
+      {
+        "id": "138497",
+        "number": "150/147",
+        "name": "Charizard GX (Secret)",
+        "rarity": "Rainbow Rare",
+        "setName": "SM - Burning Shadows",
+        "setId": "1957",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/138497_200w.jpg",
+        "asOfRank": 16,
+        "asOfPrice": 818.03
+      },
+      {
+        "id": "84709",
+        "number": "107/108",
+        "name": "Darkrai EX (107 Full Art)",
+        "rarity": "Ultra Rare",
+        "setName": "Dark Explorers",
+        "setId": "1386",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/84709_200w.jpg",
+        "asOfRank": 17,
+        "asOfPrice": 816.28
+      },
+      {
+        "id": "197780",
+        "number": "SV49/SV94",
+        "name": "Charizard GX",
+        "rarity": "Shiny Holo Rare",
+        "setName": "Hidden Fates: Shiny Vault",
+        "setId": "2594",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/197780_200w.jpg",
+        "asOfRank": 18,
+        "asOfPrice": 768.1
+      },
+      {
+        "id": "94683",
+        "number": "114/119",
+        "name": "Gengar EX (114 Full Art)",
+        "rarity": "Ultra Rare",
+        "setName": "XY - Phantom Forces",
+        "setId": "1494",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/94683_200w.jpg",
+        "asOfRank": 19,
+        "asOfPrice": 758.52
+      },
+      {
+        "id": "84777",
+        "number": "111/116",
+        "name": "Deoxys EX (Team Plasma) (Full Art)",
+        "rarity": "Ultra Rare",
+        "setName": "Plasma Freeze",
+        "setId": "1382",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/84777_200w.jpg",
+        "asOfRank": 20,
+        "asOfPrice": 751.67
+      },
+      {
+        "id": "88629",
+        "number": "SL10",
+        "name": "Rayquaza (Shiny)",
+        "rarity": "Shiny Holo Rare",
+        "setName": "Call of Legends",
+        "setId": "1415",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/88629_200w.jpg",
+        "asOfRank": 21,
+        "asOfPrice": 750.0
+      },
+      {
+        "id": "84190",
+        "number": "103/100",
+        "name": "Charizard",
+        "rarity": "Secret Rare",
+        "setName": "Stormfront",
+        "setId": "1369",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/84190_200w.jpg",
+        "asOfRank": 22,
+        "asOfPrice": 737.5
+      },
+      {
+        "id": "85682",
+        "number": "97/99",
+        "name": "Gengar Lv.X",
+        "rarity": "Ultra Rare",
+        "setName": "Arceus",
+        "setId": "1391",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/85682_200w.jpg",
+        "asOfRank": 23,
+        "asOfPrice": 730.5
+      },
+      {
+        "id": "189316",
+        "number": "205/214",
+        "name": "Gardevoir & Sylveon GX (205) (Alternate Full Art)",
+        "rarity": "Ultra Rare",
+        "setName": "SM - Unbroken Bonds",
+        "setId": "2420",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/189316_200w.jpg",
+        "asOfRank": 24,
+        "asOfPrice": 700.8
+      },
+      {
+        "id": "88536",
+        "number": "SL9",
+        "name": "Raikou (Shiny)",
+        "rarity": "Shiny Holo Rare",
+        "setName": "Call of Legends",
+        "setId": "1415",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/88536_200w.jpg",
+        "asOfRank": 25,
+        "asOfPrice": 698.99
+      },
+      {
+        "id": "87404",
+        "number": "10",
+        "name": "Mew",
+        "rarity": "Promo",
+        "setName": "Rumble",
+        "setId": "1433",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/87404_200w.jpg",
+        "asOfRank": 26,
+        "asOfPrice": 697.99
+      },
+      {
+        "id": "84193",
+        "number": "136/135",
+        "name": "Charizard",
+        "rarity": "Secret Rare",
+        "setName": "Plasma Storm",
+        "setId": "1413",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/84193_200w.jpg",
+        "asOfRank": 27,
+        "asOfPrice": 649.98
+      },
+      {
+        "id": "97052",
+        "number": "6/34",
+        "name": "Team Aqua's Kyogre EX",
+        "rarity": "Ultra Rare",
+        "setName": "Double Crisis",
+        "setId": "1525",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/97052_200w.jpg",
+        "asOfRank": 28,
+        "asOfPrice": 645.09
+      },
+      {
+        "id": "90146",
+        "number": "86/90",
+        "name": "Umbreon (Prime)",
+        "rarity": "Ultra Rare",
+        "setName": "Undaunted",
+        "setId": "1403",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/90146_200w.jpg",
+        "asOfRank": 29,
+        "asOfPrice": 625.52
+      },
+      {
+        "id": "88641",
+        "number": "DP47",
+        "name": "Rayquaza C LV.X - DP47",
+        "rarity": "Promo",
+        "setName": "Diamond and Pearl Promos",
+        "setId": "1421",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/88641_200w.jpg",
+        "asOfRank": 30,
+        "asOfPrice": 611.27
+      },
+      {
+        "id": "88637",
+        "number": "90/90",
+        "name": "Rayquaza & Deoxys Legend (Bottom)",
+        "rarity": "Ultra Rare",
+        "setName": "Undaunted",
+        "setId": "1403",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/88637_200w.jpg",
+        "asOfRank": 31,
+        "asOfPrice": 599.99
+      },
+      {
+        "id": "88638",
+        "number": "89/90",
+        "name": "Rayquaza & Deoxys Legend (Top)",
+        "rarity": "Ultra Rare",
+        "setName": "Undaunted",
+        "setId": "1403",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/88638_200w.jpg",
+        "asOfRank": 32,
+        "asOfPrice": 599.14
+      },
+      {
+        "id": "201338",
+        "number": "221/236",
+        "name": "Arceus & Dialga & Palkia GX (Alternate Full Art)",
+        "rarity": "Ultra Rare",
+        "setName": "SM - Cosmic Eclipse",
+        "setId": "2534",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/201338_200w.jpg",
+        "asOfRank": 33,
+        "asOfPrice": 595.06
+      },
+      {
+        "id": "85741",
+        "number": "124/124",
+        "name": "Giratina EX (124 Full Art)",
+        "rarity": "Ultra Rare",
+        "setName": "Dragons Exalted",
+        "setId": "1394",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/85741_200w.jpg",
+        "asOfRank": 34,
+        "asOfPrice": 581.37
+      },
+      {
+        "id": "85679",
+        "number": "94/102",
+        "name": "Gengar (Prime)",
+        "rarity": "Ultra Rare",
+        "setName": "Triumphant",
+        "setId": "1381",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/85679_200w.jpg",
+        "asOfRank": 35,
+        "asOfPrice": 560.92
+      },
+      {
+        "id": "83605",
+        "number": "DP53",
+        "name": "Arceus LV.X - DP53",
+        "rarity": "Promo",
+        "setName": "Diamond and Pearl Promos",
+        "setId": "1421",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/83605_200w.jpg",
+        "asOfRank": 36,
+        "asOfPrice": 557.5
+      },
+      {
+        "id": "183831",
+        "number": "186/181",
+        "name": "Gengar & Mimikyu GX (Secret)",
+        "rarity": "Secret Rare",
+        "setName": "SM - Team Up",
+        "setId": "2377",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/183831_200w.jpg",
+        "asOfRank": 37,
+        "asOfPrice": 552.2
+      },
+      {
+        "id": "87423",
+        "number": "9",
+        "name": "Mewtwo",
+        "rarity": "Promo",
+        "setName": "Rumble",
+        "setId": "1433",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/87423_200w.jpg",
+        "asOfRank": 38,
+        "asOfPrice": 550.0
+      },
+      {
+        "id": "98141",
+        "number": "105/108",
+        "name": "M Rayquaza EX (105 Full Art)",
+        "rarity": "Ultra Rare",
+        "setName": "XY - Roaring Skies",
+        "setId": "1534",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/98141_200w.jpg",
+        "asOfRank": 39,
+        "asOfPrice": 544.27
+      },
+      {
+        "id": "90592",
+        "number": "146/149",
+        "name": "White Kyurem EX (146 Full Art)",
+        "rarity": "Ultra Rare",
+        "setName": "Boundaries Crossed",
+        "setId": "1408",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/90592_200w.jpg",
+        "asOfRank": 40,
+        "asOfPrice": 543.39
+      },
+      {
+        "id": "85926",
+        "number": "SL4",
+        "name": "Groudon (Shiny)",
+        "rarity": "Shiny Holo Rare",
+        "setName": "Call of Legends",
+        "setId": "1415",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/85926_200w.jpg",
+        "asOfRank": 41,
+        "asOfPrice": 514.16
+      },
+      {
+        "id": "94688",
+        "number": "121/119",
+        "name": "M Gengar EX (121 Secret Rare)",
+        "rarity": "Secret Rare",
+        "setName": "XY - Phantom Forces",
+        "setId": "1494",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/94688_200w.jpg",
+        "asOfRank": 42,
+        "asOfPrice": 503.58
+      },
+      {
+        "id": "201334",
+        "number": "215/236",
+        "name": "Blastoise & Piplup GX (Alternate Full Art)",
+        "rarity": "Ultra Rare",
+        "setName": "SM - Cosmic Eclipse",
+        "setId": "2534",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/201334_200w.jpg",
+        "asOfRank": 43,
+        "asOfPrice": 500.99
+      },
+      {
+        "id": "83897",
+        "number": "137/135",
+        "name": "Blastoise",
+        "rarity": "Secret Rare",
+        "setName": "Plasma Storm",
+        "setId": "1413",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/83897_200w.jpg",
+        "asOfRank": 44,
+        "asOfPrice": 500.0
+      },
+      {
+        "id": "84758",
+        "number": "SL1",
+        "name": "Deoxys (Shiny)",
+        "rarity": "Shiny Holo Rare",
+        "setName": "Call of Legends",
+        "setId": "1415",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/84758_200w.jpg",
+        "asOfRank": 45,
+        "asOfPrice": 500.0
+      },
+      {
+        "id": "85995",
+        "number": "123/123",
+        "name": "Gyarados (Red)",
+        "rarity": "Holo Rare",
+        "setName": "HeartGold SoulSilver",
+        "setId": "1402",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/85995_200w.jpg",
+        "asOfRank": 46,
+        "asOfPrice": 499.99
+      },
+      {
+        "id": "87916",
+        "number": "100/101",
+        "name": "Palkia EX (Team Plasma) (100 Full Art)",
+        "rarity": "Ultra Rare",
+        "setName": "Plasma Blast",
+        "setId": "1370",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/87916_200w.jpg",
+        "asOfRank": 47,
+        "asOfPrice": 499.81
+      },
+      {
+        "id": "123436",
+        "number": "XY124",
+        "name": "Pikachu EX - XY124",
+        "rarity": "Promo",
+        "setName": "XY Promos",
+        "setId": "1451",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/123436_200w.jpg",
+        "asOfRank": 48,
+        "asOfPrice": 493.11
+      },
+      {
+        "id": "87406",
+        "number": "BW98",
+        "name": "Mew - BW98",
+        "rarity": "Promo",
+        "setName": "Black and White Promos",
+        "setId": "1407",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/87406_200w.jpg",
+        "asOfRank": 49,
+        "asOfPrice": 489.99
+      },
+      {
+        "id": "126022",
+        "number": "11/108",
+        "name": "Charizard (XY Evolutions Prerelease)",
+        "rarity": "Promo",
+        "setName": "XY Promos",
+        "setId": "1451",
+        "image": "https://tcgplayer-cdn.tcgplayer.com/product/126022_200w.jpg",
+        "asOfRank": 50,
+        "asOfPrice": 479.99
+      }
+    ]
+  }
+}

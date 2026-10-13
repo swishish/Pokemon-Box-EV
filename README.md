@@ -1,6 +1,6 @@
 # Pokemon Box EV
 
-日盒 EV 小算盤（朋友向）· **v1.25.1**
+日盒 EV 小算盤（朋友向）· **v1.26.0**
 
 給「不太懂金融／AI」的買卡朋友看的工具：首頁介紹點樣用 → 開盒算盤選系列 → 看 **四個預期回報 %**（同一分母）→ 有膜／無膜切換 → 看主力 chase 卡與「買單卡 vs 開盒」粗略提示。
 
@@ -15,6 +15,8 @@
 英文裸卡市況（S&P-style pulse）：**https://swishish.github.io/Pokemon-Box-EV/market-en.html**
 
 Base Set 復古指數（1st / Shadowless / Unlimited）：**https://swishish.github.io/Pokemon-Box-EV/market-vintage.html**
+
+中世代指數（DP → SM chase Top 50）：**https://swishish.github.io/Pokemon-Box-EV/market-midera.html**
 
 Chase 公允值（PSA10 回歸散點）：**https://swishish.github.io/Pokemon-Box-EV/chase-fit.html**
 
@@ -41,7 +43,7 @@ Chase 公允值（PSA10 回歸散點）：**https://swishish.github.io/Pokemon-B
 1. GitHub Action **Update EN market pulse**（`.github/workflows/update-market-en.yml`）
    - **排程**：每天 21:23 UTC（TCGCSV 約 20:05 UTC 刷新之後）
    - **手動**：Actions 頁按 **Run workflow**
-   - **PR**：只跑 self-test（`refresh_market_en` + `fetch_tcgcsv_archive` + `backfill_tickermint` + `backfill_tickermint_vintage` + `refresh_market_vintage`），不抓 dump、不 commit
+   - **PR**：只跑 self-test（`refresh_market_en` + `fetch_tcgcsv_archive` + `backfill_tickermint` + `backfill_tickermint_vintage` + `refresh_market_vintage` + `refresh_market_midera` + `backfill_tickermint_midera`），不抓 dump、不 commit
 2. 腳本 `python3 tools/refresh_market_en.py` 先讀 `https://tcgcsv.com/last-updated.txt`；stamp 沒變就結束（零流量）。
 3. 有新 dump 才抓 `Groups.csv` + 各系列 `ProductsAndPrices.csv`，寫入：
    - `data/market-en/latest.json`（指數、廣度、漲跌榜、500 張成分——給下一次對比用）
@@ -153,6 +155,24 @@ python3 tools/backfill_tickermint_vintage.py --backfill --confirm BACKFILL
 
 風險：1st Edition 在 Charizard／Mewtwo／Blastoise 上常常沒有 Market Price（籃子較薄）；rebase 後今日指數不再是 1,000。
 
+## Mid-era Top 50（EN raw, DP → SM）
+
+獨立頁 `market-midera.html`：一條**固定** chase 籃子（約 50 張），價格加權，基準 1,000。時代＝Diamond & Pearl → Sun & Moon（含 BW／XY／SM）。**不含** Base／Wizards 復古，也不含 Sword & Shield／Scarlet & Violet。不是每週重排的 Double Holo Mid-Era 100。
+
+怎麼選的：從 2026-10-12 EN Top 500（已有 TCGPlayer Market Price＝流動性）篩中世代，按當日市價排名，凍結前 50 個 product ID 於 `data/market-midera/baskets.json`。每日 job **不**重建名單。
+
+指數規則與 vintage／EN 相同：缺價不當 $0；卡從第一個有市價日才進籃；意圖 rebase＝**1,000 @ 2024-02-08**。本 PR 先上籃子＋每日 TCGCSV 路徑；TickerMint 週線回填是 follow-up（跟 vintage #28 一樣，Gary 跑 `--backfill --confirm BACKFILL`）。
+
+```bash
+python3 tools/refresh_market_midera.py --self-test
+python3 tools/refresh_market_midera.py -v --force
+python3 tools/backfill_tickermint_midera.py --self-test
+python3 tools/backfill_tickermint_midera.py --sample
+python3 tools/backfill_tickermint_midera.py --backfill --confirm BACKFILL
+```
+
+同一個 GitHub Action **Update EN market pulse** 在 vintage 之後跑 mid-era：只抓凍結 ID 所在的 ~28 個 group，append／upsert 當天。Base 1st／Shadowless／Unlimited 腳本與 JSON **不動**。
+
 ## 本機打開
 
 1. 下載本 repo
@@ -165,7 +185,7 @@ python3 tools/backfill_tickermint_vintage.py --backfill --confirm BACKFILL
 python3 -m http.server 8765
 ```
 
-瀏覽器開：`http://127.0.0.1:8765/`（首頁）、`http://127.0.0.1:8765/calc.html`（算盤）、`http://127.0.0.1:8765/market-en.html`（EN 市況）、`http://127.0.0.1:8765/market-vintage.html`（Base 復古）或 `http://127.0.0.1:8765/chase-fit.html`（Chase 公允值）
+瀏覽器開：`http://127.0.0.1:8765/`（首頁）、`http://127.0.0.1:8765/calc.html`（算盤）、`http://127.0.0.1:8765/market-en.html`（EN 市況）、`http://127.0.0.1:8765/market-vintage.html`（Base 復古）、`http://127.0.0.1:8765/market-midera.html`（中世代）或 `http://127.0.0.1:8765/chase-fit.html`（Chase 公允值）
 
 ## Chase 公允值（PSA10 回歸）
 
@@ -175,6 +195,7 @@ python3 -m http.server 8765
 
 ## Changelog（摘要）
 
+- **v1.26.0**：新增中世代 EN raw 指數（`market-midera.html`）——DP→SM 固定 chase Top 50，價格加權，意圖 rebase 1,000 @ 2024-02-08。每日 TCGCSV append；TickerMint 週線回填腳本已備、跟 vintage #28 一樣先不上完整歷史。Base 1st／Shadowless／Unlimited 與 EN Top 500 算法不變
 - **v1.25.1**：復古指數 rebase 後立刻用週線最後兩份有市價快照填 Top 10／Bottom 10／廣度（1st／Shadowless／Unlimited 同一條路）。缺印刷市價仍空白，不虛構。EV／Chase_Fit／EN Top 500 算法不變
 - **v1.25.0**：Base Set 復古指數加印刷感知的 TickerMint 週線回填（`tools/backfill_tickermint_vintage.py`，2024-02-08 起、rebase 需 `--confirm BACKFILL`）。**不要**重用 EN 的 `backfill_tickermint.py`（會跳過 1st Edition）。5D／30D／YTD 在 Gary 跑完回填後才會亮。EV／Chase_Fit／EN Top 500 算法不變
 - **v1.24.0**：新增 Base Set EN 復古指數頁（`market-vintage.html`）——1st Edition／Shadowless／Unlimited 三條固定 chase 籃子，每日 TCGCSV 只 append 一點，**不回填**歷史；同一頁有卡冊 Binder 格狀速覽。EV／Chase_Fit／EN Top 500 算法不變

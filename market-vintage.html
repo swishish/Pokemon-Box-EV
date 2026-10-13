@@ -491,6 +491,7 @@
       <a class="nav-btn" href="./calc.html">開盒 EV</a>
       <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
       <a class="nav-btn" href="./market-en.html" title="English raw singles market pulse">EN 市況</a>
+      <a class="nav-btn" href="./market-midera.html" title="DP → SM chase Top 50 raw index">中世代</a>
       <a class="nav-btn" href="https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/" target="_blank" rel="noopener" title="Base Set Unlimited cheat sheet">Base Unlimited</a>
       <span class="nav-btn soon" title="即將推出">日語熱度</span>
     </nav>
@@ -638,7 +639,7 @@
   <div class="card method-card">
     <h2>這是什麼 Method</h2>
     <ul class="tiny">
-      <li><b>三條獨立指數</b>：Base Set 英文裸卡（raw / ungraded）——<b>1st Edition</b>（第一版）、<b>Shadowless</b>（無限版、無右緣陰影）、<b>Unlimited</b>（後來有陰影的無限版）。不是 Jungle / Fossil 中世代。</li>
+      <li><b>三條獨立指數</b>：Base Set 英文裸卡（raw / ungraded）——<b>1st Edition</b>（第一版）、<b>Shadowless</b>（無限版、無右緣陰影）、<b>Unlimited</b>（後來有陰影的無限版）。不是 Jungle / Fossil，也不是 DP→SM（那條在 <a href="./market-midera.html">中世代指數</a>）。</li>
       <li><b>固定籃子</b>：Holo Rare + Rare（對照 Base Unlimited 速查 #1–102，有 TCGPlayer ID 才收）。價格加權；成分有人加入／退出時用 divisor 保持連續（S&amp;P 500 同款）。首次保留的每日快照基準＝<b>1,000</b>。</li>
       <li><b>5D／30D／YTD</b>：用 <code>history.json</code> 裡<strong>真實快照</strong>算區間報酬，缺日就跳過、不補價。每日「今天」仍是 TCGCSV 現況 dump；往回的歷史用免費 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a>（<code>tools/backfill_tickermint_vintage.py</code>，按印刷篩 1st／Shadowless／Unlimited，預設 2024-02-08 起每週一點）。<b>不要</b>用 EN 的 <code>backfill_tickermint.py</code>（那支會跳過 1st Edition）。沒有 cutoff 當天或更早的點就 disable，不虛構報酬。</li>
       <li><b>代表價</b>：TCGPlayer <b>Market Price</b>（NM raw），按印刷 subtype 分開：1st Edition 只用 1st Edition 列；Shadowless 用該 group 的 Unlimited 列；Unlimited 用 Base Set group 的 Holofoil／Normal。</li>
@@ -652,7 +653,7 @@
     <p>數字為第三方市場估計，可能延遲或不準；1st Edition 成交偏薄，缺市價的卡當天不進指數。Pokémon 與相關名稱為其權利人商標。本頁為獨立粉絲工具，與 Nintendo／The Pokémon Company／TCGPlayer／S&amp;P Global 無關。</p>
   </div>
 </main>
-<footer>日盒 EV 小算盤 · Base vintage pulse · Snapshot 靜態資料 · 非正式投資建議 · 歷史價 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a> · <a href="./index.html">首頁</a> · <a href="./market-en.html">EN 市況</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/" target="_blank" rel="noopener">Base Unlimited</a></footer>
+<footer>日盒 EV 小算盤 · Base vintage pulse · Snapshot 靜態資料 · 非正式投資建議 · 歷史價 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a> · <a href="./index.html">首頁</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-midera.html">中世代</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/" target="_blank" rel="noopener">Base Unlimited</a></footer>
 
 <script src="./data/market-vintage/latest.js?v=1.25.0"></script>
 <script src="./data/market-vintage/history.js?v=1.25.0"></script>
