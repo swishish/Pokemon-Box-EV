@@ -77,15 +77,18 @@ python3 tools/refresh_market_en.py -v --force
 python3 tools/backfill_tickermint.py --self-test
 python3 tools/backfill_tickermint.py --sample
 python3 tools/backfill_tickermint.py --backfill --confirm BACKFILL
+python3 tools/backfill_tickermint.py --rebuild-movers
 ```
 
 1. `--self-test`：不連網，用小樣本確認「缺價不補 0、1st Edition 不當代表價、5D／30D／YTD 在有足夠快照時會亮」。
 2. `--sample`：只抓籃子裡最貴的幾張卡，**不改**網站上的 `history.json`。約幾秒。用來確認 API 通。這幾張常常是 2026 新卡，示範的 30D 可能用到更早的真實點；全 500 回填後區間會密很多。
-3. `--backfill --confirm BACKFILL`：抓現況 Top 500 全部（約 500 次、約 4–5 分鐘），重寫 `history.json`。指數會 **rebase**（第一個有資料的日子＝1,000）。預設 **每週一點**（`--step-days 7`，約 140 點，GitHub Pages 很輕）。每週取樣時，5D 會用 cutoff 當天或更早「最近的一個真實點」（可能是 6–7 天前），**不會**補中間的日子。若要每日一點（約 980 點）：
+3. `--backfill --confirm BACKFILL`：抓現況 Top 500 全部（約 500 次、約 4–5 分鐘），重寫 `history.json`、`latest.json` 的 divisor，以及 `price-history.json`（成分週線市價），所以 Top 10／Bottom 10／廣度在 rebase 當天就能用，不必等下一份每日 dump。指數會 **rebase**（第一個有資料的日子＝1,000）。預設 **每週一點**（`--step-days 7`，約 140 點，GitHub Pages 很輕）。每週取樣時，5D 會用 cutoff 當天或更早「最近的一個真實點」（可能是 6–7 天前），**不會**補中間的日子。若要每日一點（約 980 點）：
 
 ```bash
 python3 tools/backfill_tickermint.py --backfill --confirm BACKFILL --step-days 1
 ```
+
+4. `--rebuild-movers`：只從 TickerMint 週線重算漲跌榜，**不改**指數水平。舊回填若把 `prevPrice` 清成空，用這條。
 
 之後每日 Action 仍用 TCGCSV **現況**往後加一天，接在這條歷史後面。
 
@@ -196,6 +199,7 @@ python3 -m http.server 8765
 ## Changelog（摘要）
 
 - **v1.26.0**：新增中世代 EN raw 指數（`market-midera.html`）——DP→SM 固定 chase Top 50，價格加權，意圖 rebase 1,000 @ 2024-02-08。每日 TCGCSV append；TickerMint 週線回填腳本已備、跟 vintage #28 一樣先不上完整歷史。Base 1st／Shadowless／Unlimited 與 EN Top 500 算法不變
+- **v1.25.2**：EN Top 500 rebase 後立刻用週線最後兩份有市價快照填 Top 10／Bottom 10／廣度（1D／5D／30D／YTD）。缺市價仍空白，不虛構、不重設指數。EV／Chase_Fit／復古算法不變
 - **v1.25.1**：復古指數 rebase 後立刻用週線最後兩份有市價快照填 Top 10／Bottom 10／廣度（1st／Shadowless／Unlimited 同一條路）。缺印刷市價仍空白，不虛構。EV／Chase_Fit／EN Top 500 算法不變
 - **v1.25.0**：Base Set 復古指數加印刷感知的 TickerMint 週線回填（`tools/backfill_tickermint_vintage.py`，2024-02-08 起、rebase 需 `--confirm BACKFILL`）。**不要**重用 EN 的 `backfill_tickermint.py`（會跳過 1st Edition）。5D／30D／YTD 在 Gary 跑完回填後才會亮。EV／Chase_Fit／EN Top 500 算法不變
 - **v1.24.0**：新增 Base Set EN 復古指數頁（`market-vintage.html`）——1st Edition／Shadowless／Unlimited 三條固定 chase 籃子，每日 TCGCSV 只 append 一點，**不回填**歷史；同一頁有卡冊 Binder 格狀速覽。EV／Chase_Fit／EN Top 500 算法不變

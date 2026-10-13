@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-13T02:38:06.484139+00:00",
+  "generated": "2026-10-13T04:03:23.654656+00:00",
   "sourceStamp": "2026-10-12T20:05:44+0000",
   "asOfDate": "2026-10-12",
   "priceSource": "TCGplayer Market Price (via tcgcsv.com daily snapshot)",
@@ -8322,9 +8322,9 @@
     }
   ],
   "snapshotRange": {
-    "earliest": "2026-10-08",
+    "earliest": "2024-02-08",
     "latest": "2026-10-12",
-    "count": 5
+    "count": 144
   },
   "movers": {
     "1D": {
@@ -8538,28 +8538,634 @@
       ]
     },
     "5D": {
-      "available": false,
-      "baselineDate": null,
+      "available": true,
+      "baselineDate": "2026-10-01",
       "neededBy": "2026-10-07",
-      "label": "need a snapshot on or before 2026-10-07",
-      "gainers": [],
-      "losers": []
+      "label": "vs 2026-10-01",
+      "gainers": [
+        {
+          "id": "88084",
+          "name": "Pikachu",
+          "number": "57/108",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/88084_200w.jpg",
+          "setName": "EX Power Keepers",
+          "price": 429.99,
+          "prevPrice": 81.11,
+          "changePct": 430.13
+        },
+        {
+          "id": "83605",
+          "name": "Arceus LV.X - DP53",
+          "number": "DP53",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/83605_200w.jpg",
+          "setName": "Diamond and Pearl Promos",
+          "price": 557.5,
+          "prevPrice": 115.0,
+          "changePct": 384.78
+        },
+        {
+          "id": "85685",
+          "name": "Geodude",
+          "number": "077/110",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/85685_200w.jpg",
+          "setName": "Legendary Collection",
+          "price": 444.0,
+          "prevPrice": 94.99,
+          "changePct": 367.42
+        },
+        {
+          "id": "89328",
+          "name": "Slowpoke",
+          "number": "76/109",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/89328_200w.jpg",
+          "setName": "EX Team Rocket Returns",
+          "price": 399.99,
+          "prevPrice": 95.21,
+          "changePct": 320.11
+        },
+        {
+          "id": "86199",
+          "name": "Houndoom (H11)",
+          "number": "H11/H32",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/86199_200w.jpg",
+          "setName": "Aquapolis",
+          "price": 1571.99,
+          "prevPrice": 399.99,
+          "changePct": 293.01
+        },
+        {
+          "id": "90114",
+          "name": "Tyranitar (H28)",
+          "number": "H28/H32",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/90114_200w.jpg",
+          "setName": "Aquapolis",
+          "price": 698.0,
+          "prevPrice": 198.86,
+          "changePct": 251.0
+        },
+        {
+          "id": "87167",
+          "name": "Manectric ex",
+          "number": "101/107",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/87167_200w.jpg",
+          "setName": "EX Deoxys",
+          "price": 250.0,
+          "prevPrice": 74.5,
+          "changePct": 235.57
+        },
+        {
+          "id": "84532",
+          "name": "Cubone",
+          "number": "51/109",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/84532_200w.jpg",
+          "setName": "EX Team Rocket Returns",
+          "price": 299.99,
+          "prevPrice": 92.49,
+          "changePct": 224.35
+        },
+        {
+          "id": "87419",
+          "name": "Mewtwo",
+          "number": "029/110",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/87419_200w.jpg",
+          "setName": "Legendary Collection",
+          "price": 3300.0,
+          "prevPrice": 1042.66,
+          "changePct": 216.5
+        },
+        {
+          "id": "83446",
+          "name": "Abra",
+          "number": "067/110",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/83446_200w.jpg",
+          "setName": "Legendary Collection",
+          "price": 340.0,
+          "prevPrice": 109.12,
+          "changePct": 211.58
+        }
+      ],
+      "losers": [
+        {
+          "id": "86905",
+          "name": "Lugia",
+          "number": "149/147",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/86905_200w.jpg",
+          "setName": "Aquapolis",
+          "price": 500.0,
+          "prevPrice": 4500.0,
+          "changePct": -88.89
+        },
+        {
+          "id": "88658",
+          "name": "Regice Star",
+          "number": "90/92",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/88658_200w.jpg",
+          "setName": "EX Legend Maker",
+          "price": 649.98,
+          "prevPrice": 1250.0,
+          "changePct": -48.0
+        },
+        {
+          "id": "84193",
+          "name": "Charizard",
+          "number": "136/135",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/84193_200w.jpg",
+          "setName": "Plasma Storm",
+          "price": 649.98,
+          "prevPrice": 1150.0,
+          "changePct": -43.48
+        },
+        {
+          "id": "88213",
+          "name": "Pokemon Center",
+          "number": "40/53",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/88213_200w.jpg",
+          "setName": "WoTC Promo",
+          "price": 850.0,
+          "prevPrice": 1199.0,
+          "changePct": -29.11
+        },
+        {
+          "id": "85505",
+          "name": "Flareon ex",
+          "number": "108/113",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/85505_200w.jpg",
+          "setName": "EX Delta Species",
+          "price": 329.31,
+          "prevPrice": 464.42,
+          "changePct": -29.09
+        },
+        {
+          "id": "676088",
+          "name": "Pikachu ex - 276/217",
+          "number": "276/217",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/676088_200w.jpg",
+          "setName": "Ascended Heroes",
+          "price": 774.56,
+          "prevPrice": 926.12,
+          "changePct": -16.37
+        },
+        {
+          "id": "42479",
+          "name": "Charizard",
+          "number": "004/130",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42479_200w.jpg",
+          "setName": "Base Set 2",
+          "price": 417.78,
+          "prevPrice": 488.97,
+          "changePct": -14.56
+        },
+        {
+          "id": "676102",
+          "name": "Mega Dragonite ex - 290/217",
+          "number": "290/217",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/676102_200w.jpg",
+          "setName": "Ascended Heroes",
+          "price": 477.42,
+          "prevPrice": 531.92,
+          "changePct": -10.25
+        },
+        {
+          "id": "676106",
+          "name": "Mega Charizard Y ex - 294/217",
+          "number": "294/217",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/676106_200w.jpg",
+          "setName": "Ascended Heroes",
+          "price": 288.31,
+          "prevPrice": 320.86,
+          "changePct": -10.14
+        },
+        {
+          "id": "87916",
+          "name": "Palkia EX (Team Plasma) (100 Full Art)",
+          "number": "100/101",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/87916_200w.jpg",
+          "setName": "Plasma Blast",
+          "price": 499.81,
+          "prevPrice": 555.13,
+          "changePct": -9.97
+        }
+      ]
     },
     "30D": {
-      "available": false,
-      "baselineDate": null,
+      "available": true,
+      "baselineDate": "2026-09-10",
       "neededBy": "2026-09-12",
-      "label": "need a snapshot on or before 2026-09-12",
-      "gainers": [],
-      "losers": []
+      "label": "vs 2026-09-10",
+      "gainers": [
+        {
+          "id": "83605",
+          "name": "Arceus LV.X - DP53",
+          "number": "DP53",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/83605_200w.jpg",
+          "setName": "Diamond and Pearl Promos",
+          "price": 557.5,
+          "prevPrice": 59.26,
+          "changePct": 840.77
+        },
+        {
+          "id": "88080",
+          "name": "Pikachu",
+          "number": "60/106",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/88080_200w.jpg",
+          "setName": "EX Emerald",
+          "price": 599.99,
+          "prevPrice": 65.76,
+          "changePct": 812.39
+        },
+        {
+          "id": "84571",
+          "name": "Dark Celebi",
+          "number": "4/101",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/84571_200w.jpg",
+          "setName": "EX Hidden Legends",
+          "price": 499.99,
+          "prevPrice": 75.07,
+          "changePct": 566.03
+        },
+        {
+          "id": "86122",
+          "name": "Ho-Oh",
+          "number": "27/115",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/86122_200w.jpg",
+          "setName": "EX Unseen Forces",
+          "price": 285.0,
+          "prevPrice": 42.99,
+          "changePct": 562.94
+        },
+        {
+          "id": "88084",
+          "name": "Pikachu",
+          "number": "57/108",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/88084_200w.jpg",
+          "setName": "EX Power Keepers",
+          "price": 429.99,
+          "prevPrice": 71.33,
+          "changePct": 502.82
+        },
+        {
+          "id": "85685",
+          "name": "Geodude",
+          "number": "077/110",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/85685_200w.jpg",
+          "setName": "Legendary Collection",
+          "price": 444.0,
+          "prevPrice": 94.99,
+          "changePct": 367.42
+        },
+        {
+          "id": "86909",
+          "name": "Lugia - HGSS02",
+          "number": "HGSS02",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/86909_200w.jpg",
+          "setName": "HGSS Promos",
+          "price": 435.28,
+          "prevPrice": 100.3,
+          "changePct": 333.98
+        },
+        {
+          "id": "87314",
+          "name": "Meowth",
+          "number": "078/144",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/87314_200w.jpg",
+          "setName": "Skyridge",
+          "price": 297.5,
+          "prevPrice": 69.99,
+          "changePct": 325.06
+        },
+        {
+          "id": "89328",
+          "name": "Slowpoke",
+          "number": "76/109",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/89328_200w.jpg",
+          "setName": "EX Team Rocket Returns",
+          "price": 399.99,
+          "prevPrice": 94.17,
+          "changePct": 324.75
+        },
+        {
+          "id": "84532",
+          "name": "Cubone",
+          "number": "51/109",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/84532_200w.jpg",
+          "setName": "EX Team Rocket Returns",
+          "price": 299.99,
+          "prevPrice": 71.99,
+          "changePct": 316.71
+        }
+      ],
+      "losers": [
+        {
+          "id": "86905",
+          "name": "Lugia",
+          "number": "149/147",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/86905_200w.jpg",
+          "setName": "Aquapolis",
+          "price": 500.0,
+          "prevPrice": 4500.0,
+          "changePct": -88.89
+        },
+        {
+          "id": "154997",
+          "name": "Clefable (Prerelease)",
+          "number": "01/64",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/154997_200w.jpg",
+          "setName": "WoTC Promo",
+          "price": 499.99,
+          "prevPrice": 999.95,
+          "changePct": -50.0
+        },
+        {
+          "id": "88658",
+          "name": "Regice Star",
+          "number": "90/92",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/88658_200w.jpg",
+          "setName": "EX Legend Maker",
+          "price": 649.98,
+          "prevPrice": 1250.0,
+          "changePct": -48.0
+        },
+        {
+          "id": "89171",
+          "name": "Shining Tyranitar",
+          "number": "113/105",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/89171_200w.jpg",
+          "setName": "Neo Destiny",
+          "price": 345.0,
+          "prevPrice": 662.25,
+          "changePct": -47.9
+        },
+        {
+          "id": "88782",
+          "name": "Rocket's Moltres ex",
+          "number": "100/109",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/88782_200w.jpg",
+          "setName": "EX Team Rocket Returns",
+          "price": 272.49,
+          "prevPrice": 498.88,
+          "changePct": -45.38
+        },
+        {
+          "id": "88247",
+          "name": "Politoed (H23)",
+          "number": "H23/H32",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/88247_200w.jpg",
+          "setName": "Skyridge",
+          "price": 250.0,
+          "prevPrice": 450.0,
+          "changePct": -44.44
+        },
+        {
+          "id": "84193",
+          "name": "Charizard",
+          "number": "136/135",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/84193_200w.jpg",
+          "setName": "Plasma Storm",
+          "price": 649.98,
+          "prevPrice": 1150.0,
+          "changePct": -43.48
+        },
+        {
+          "id": "89167",
+          "name": "Shining Mewtwo",
+          "number": "109/105",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/89167_200w.jpg",
+          "setName": "Neo Destiny",
+          "price": 577.0,
+          "prevPrice": 969.0,
+          "changePct": -40.45
+        },
+        {
+          "id": "85505",
+          "name": "Flareon ex",
+          "number": "108/113",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/85505_200w.jpg",
+          "setName": "EX Delta Species",
+          "price": 329.31,
+          "prevPrice": 549.99,
+          "changePct": -40.12
+        },
+        {
+          "id": "88213",
+          "name": "Pokemon Center",
+          "number": "40/53",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/88213_200w.jpg",
+          "setName": "WoTC Promo",
+          "price": 850.0,
+          "prevPrice": 1199.0,
+          "changePct": -29.11
+        }
+      ]
     },
     "YTD": {
-      "available": false,
-      "baselineDate": null,
+      "available": true,
+      "baselineDate": "2026-01-01",
       "neededBy": "2026-01-01",
-      "label": "need a snapshot on or before 2026-01-01",
-      "gainers": [],
-      "losers": []
+      "label": "vs 2026-01-01",
+      "gainers": [
+        {
+          "id": "83605",
+          "name": "Arceus LV.X - DP53",
+          "number": "DP53",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/83605_200w.jpg",
+          "setName": "Diamond and Pearl Promos",
+          "price": 557.5,
+          "prevPrice": 31.44,
+          "changePct": 1673.22
+        },
+        {
+          "id": "88084",
+          "name": "Pikachu",
+          "number": "57/108",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/88084_200w.jpg",
+          "setName": "EX Power Keepers",
+          "price": 429.99,
+          "prevPrice": 34.33,
+          "changePct": 1152.52
+        },
+        {
+          "id": "89788",
+          "name": "Team Aqua's Kyogre",
+          "number": "3/95",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/89788_200w.jpg",
+          "setName": "EX Team Magma vs Team Aqua",
+          "price": 542.6,
+          "prevPrice": 48.23,
+          "changePct": 1025.03
+        },
+        {
+          "id": "89328",
+          "name": "Slowpoke",
+          "number": "76/109",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/89328_200w.jpg",
+          "setName": "EX Team Rocket Returns",
+          "price": 399.99,
+          "prevPrice": 37.4,
+          "changePct": 969.49
+        },
+        {
+          "id": "88628",
+          "name": "Rayquaza",
+          "number": "20/95",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/88628_200w.jpg",
+          "setName": "Call of Legends",
+          "price": 1013.27,
+          "prevPrice": 95.44,
+          "changePct": 961.68
+        },
+        {
+          "id": "84765",
+          "name": "Deoxys (Delta Species)",
+          "number": "002/017",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/84765_200w.jpg",
+          "setName": "POP Series 4",
+          "price": 350.0,
+          "prevPrice": 35.58,
+          "changePct": 883.7
+        },
+        {
+          "id": "88083",
+          "name": "Pikachu",
+          "number": "013/017",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/88083_200w.jpg",
+          "setName": "POP Series 4",
+          "price": 369.63,
+          "prevPrice": 39.39,
+          "changePct": 838.39
+        },
+        {
+          "id": "85685",
+          "name": "Geodude",
+          "number": "077/110",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/85685_200w.jpg",
+          "setName": "Legendary Collection",
+          "price": 444.0,
+          "prevPrice": 47.6,
+          "changePct": 832.77
+        },
+        {
+          "id": "88080",
+          "name": "Pikachu",
+          "number": "60/106",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/88080_200w.jpg",
+          "setName": "EX Emerald",
+          "price": 599.99,
+          "prevPrice": 65.76,
+          "changePct": 812.39
+        },
+        {
+          "id": "199681",
+          "name": "Lillie - 125a/156 (Regional Championships)",
+          "number": "125a/156",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/199681_200w.jpg",
+          "setName": "League & Championship Cards",
+          "price": 369.99,
+          "prevPrice": 42.21,
+          "changePct": 776.55
+        }
+      ],
+      "losers": [
+        {
+          "id": "89163",
+          "name": "Shining Charizard",
+          "number": "107/105",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/89163_200w.jpg",
+          "setName": "Neo Destiny",
+          "price": 1700.99,
+          "prevPrice": 6502.49,
+          "changePct": -73.84
+        },
+        {
+          "id": "89171",
+          "name": "Shining Tyranitar",
+          "number": "113/105",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/89171_200w.jpg",
+          "setName": "Neo Destiny",
+          "price": 345.0,
+          "prevPrice": 669.65,
+          "changePct": -48.48
+        },
+        {
+          "id": "84187",
+          "name": "Charizard",
+          "number": "100/97",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/84187_200w.jpg",
+          "setName": "EX Dragon",
+          "price": 489.99,
+          "prevPrice": 769.99,
+          "changePct": -36.36
+        },
+        {
+          "id": "84485",
+          "name": "Crobat (147)",
+          "number": "147/144",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/84485_200w.jpg",
+          "setName": "Skyridge",
+          "price": 447.5,
+          "prevPrice": 700.0,
+          "changePct": -36.07
+        },
+        {
+          "id": "89167",
+          "name": "Shining Mewtwo",
+          "number": "109/105",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/89167_200w.jpg",
+          "setName": "Neo Destiny",
+          "price": 577.0,
+          "prevPrice": 891.14,
+          "changePct": -35.25
+        },
+        {
+          "id": "84193",
+          "name": "Charizard",
+          "number": "136/135",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/84193_200w.jpg",
+          "setName": "Plasma Storm",
+          "price": 649.98,
+          "prevPrice": 1000.0,
+          "changePct": -35.0
+        },
+        {
+          "id": "87345",
+          "name": "Metagross Star",
+          "number": "113/113",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/87345_200w.jpg",
+          "setName": "EX Delta Species",
+          "price": 951.99,
+          "prevPrice": 1381.24,
+          "changePct": -31.08
+        },
+        {
+          "id": "88782",
+          "name": "Rocket's Moltres ex",
+          "number": "100/109",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/88782_200w.jpg",
+          "setName": "EX Team Rocket Returns",
+          "price": 272.49,
+          "prevPrice": 394.5,
+          "changePct": -30.93
+        },
+        {
+          "id": "90292",
+          "name": "Vaporeon Star",
+          "number": "102/108",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/90292_200w.jpg",
+          "setName": "EX Power Keepers",
+          "price": 1399.95,
+          "prevPrice": 1999.99,
+          "changePct": -30.0
+        },
+        {
+          "id": "85331",
+          "name": "Espeon ex",
+          "number": "102/115",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/85331_200w.jpg",
+          "setName": "EX Unseen Forces",
+          "price": 362.62,
+          "prevPrice": 514.5,
+          "changePct": -29.52
+        }
+      ]
     }
   }
 }

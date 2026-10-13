@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>EN 裸卡市況 · Box EV v1.24.0</title>
+<title>EN 裸卡市況 · Box EV v1.25.2</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <style>
   :root {
@@ -320,7 +320,7 @@
 <header>
   <div class="header-inner">
     <div>
-      <h1>EN 裸卡市況 <span class="pill">S&amp;P-style · v1.24.0</span></h1>
+      <h1>EN 裸卡市況 <span class="pill">S&amp;P-style · v1.25.2</span></h1>
       <p>英文 raw singles 市場溫度 · TCGPlayer Market via TCGCSV · 靜態快照</p>
     </div>
     <nav class="header-nav" aria-label="站內導覽">
@@ -451,7 +451,7 @@
 <script src="./data/market-en/history.js?v=1.24.0"></script>
 <script>
 (async function () {
-  const VERSION = '1.24.0';
+  const VERSION = '1.25.2';
   const PERIODS = ['1D', '5D', '30D', 'YTD'];
   const $ = (id) => document.getElementById(id);
   function escapeHtml(s) {
@@ -745,7 +745,7 @@
     const info = moversByPeriod[period];
     if (info) return info;
     if (period === '1D') {
-      const has = (DATA.gainers && DATA.gainers.length) || (DATA.losers && DATA.losers.length) || DATA.prevIndex != null;
+      const has = (DATA.gainers && DATA.gainers.length) || (DATA.losers && DATA.losers.length) || !!(DATA.breadth && DATA.breadth.available);
       return {
         available: !!has,
         baselineDate: null,

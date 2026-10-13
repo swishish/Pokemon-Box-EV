@@ -18,6 +18,7 @@ This folder is **gitignored except this README**. Do not commit the JSON dumps.
 python3 tools/backfill_tickermint.py --self-test
 python3 tools/backfill_tickermint.py --sample
 python3 tools/backfill_tickermint.py --backfill --confirm BACKFILL
+python3 tools/backfill_tickermint.py --rebuild-movers
 ```
 
 ## Base Set vintage (copy-paste)
@@ -31,7 +32,8 @@ python3 tools/backfill_tickermint_vintage.py --backfill --confirm BACKFILL
 ```
 
 - `--sample` = a few cards, no live JSON rewrite (safe).
-- `--backfill --confirm BACKFILL` = rewrite `history.json` (rebases each index to 1,000 on the first kept day). Default is **weekly** points (`--step-days 7`). Daily: add `--step-days 1`.
+- `--backfill --confirm BACKFILL` = rewrite `history.json` + `price-history.json` (rebases each index to 1,000 on the first kept day; Top 10 / Bottom 10 / Breadth use the last two priced snaps). Default is **weekly** points (`--step-days 7`). Daily: add `--step-days 1`.
+- `--rebuild-movers` = refill EN or vintage movers from TickerMint **without** changing index levels.
 - Start date default **2024-02-08**. Optional later cut: `--start 2024-02-28`.
 - Vintage unique calls ≈ 62 (31 BSS shared by 1st+Shadowless + 31 Unlimited). First run ~1 min at 120 req/min.
 

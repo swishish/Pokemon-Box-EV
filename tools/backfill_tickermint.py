@@ -8,6 +8,7 @@ this script is the history source Gary chose.
   python3 tools/backfill_tickermint.py --self-test
   python3 tools/backfill_tickermint.py --sample
   python3 tools/backfill_tickermint.py --backfill --confirm BACKFILL
+  python3 tools/backfill_tickermint.py --rebuild-movers
 
 TickerMint (non-commercial, 120 req/min, no key):
   GET https://api.tickermint.cards/products/{tcgplayerId}/prices
@@ -24,7 +25,10 @@ pass --step-days 1 for a daily series (~980 points).
 
 --sample fetches a few current-basket IDs (live) and writes nothing to
 history.json. --backfill --confirm BACKFILL rebases live history.json
-(and latest.json divisor) so 5D/30D/YTD can light up.
+(and latest.json divisor) and writes price-history.json so Top 10 /
+Bottom 10 / Breadth use the last two priced snaps (no empty “first
+snapshot” UI). --rebuild-movers refills those lists from TickerMint
+weekly prints without changing index levels.
 
 Do **not** use this script for Base Set vintage indexes (1st / Shadowless /
 Unlimited). It skips 1st Edition. Use tools/backfill_tickermint_vintage.py.
@@ -35,9 +39,11 @@ import argparse
 import json
 import os
 import sys
+import threading
 import time
 import urllib.error
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import date, datetime, timedelta, timezone
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -61,6 +67,7 @@ def load_config() -> dict:
         "sampleIds": 5,
         "defaultStepDays": 7,
         "cacheDir": "data/tickermint-cache",
+        "fetchWorkers": 6,
     }
     if os.path.exists(CONFIG_PATH):
         with open(CONFIG_PATH, "r", encoding="utf-8") as handle:
@@ -99,12 +106,20 @@ def catalog_from_latest(path: str | None = None) -> tuple[dict, dict]:
     return catalog, latest
 
 
-def representative_on_date(payload: dict, day: date) -> tuple[float, str] | None:
+def representative_on_date(
+    payload: dict,
+    day: date,
+    prefer_printing: str | None = None,
+) -> tuple[float, str] | None:
     """Pick the EN representative market price for one calendar day.
 
     TickerMint payload: { printingName: [{snapshot_date, market, low}, ...] }.
     Null/empty market is skipped (not zero-filled). 1st Edition is ignored
     unless it is the only priced printing — same rule as refresh_market_en.
+
+    When prefer_printing is set (mover history), only that printing counts —
+    no fallback to a cheaper subtype. Same honesty as vintage: a card appears
+    only if that printing had a real market on both dates.
     """
     target = day.isoformat()
     rows: list[dict] = []
@@ -127,6 +142,15 @@ def representative_on_date(payload: dict, day: date) -> tuple[float, str] | None
                 "subTypeName": printing or "",
             }
         )
+    if prefer_printing:
+        needle = prefer_printing.lower().strip()
+        for row in rows:
+            sub = (row.get("subTypeName") or "").lower()
+            if needle == sub:
+                val = en._parse_price(row.get("marketPrice"))
+                if val is not None:
+                    return val, row.get("subTypeName") or prefer_printing
+        return None
     return en.pick_representative(rows)
 
 
@@ -146,7 +170,7 @@ def first_priced_date(payload: dict) -> str | None:
     return best
 
 
-def _http_get_json(url: str, timeout: int = 60) -> dict:
+def _http_get_json(url: str, timeout: int = 20) -> dict:
     req = urllib.request.Request(
         url,
         headers={"User-Agent": en.USER_AGENT, "Accept": "application/json"},
@@ -198,12 +222,14 @@ def load_fixture_payloads(fixture_dir: str) -> dict[str, dict]:
     return out
 
 
-def make_prices_for_day(payloads: dict[str, dict]):
+def make_prices_for_day(payloads: dict[str, dict], preferred: dict[str, str] | None = None):
+    preferred = preferred or {}
+
     def prices_for_day(day: date) -> tuple[dict, dict]:
         prices: dict = {}
         subtypes: dict = {}
         for pid, payload in payloads.items():
-            picked = representative_on_date(payload, day)
+            picked = representative_on_date(payload, day, preferred.get(pid))
             if not picked:
                 continue
             price, sub = picked
@@ -263,7 +289,67 @@ def build_history(
         "last_prices": replayed["last_prices"],
         "last_subtypes": replayed["last_subtypes"],
         "catalog": catalog,
+        "price_points": replayed.get("price_points") or [],
         "firstPriced": {pid: first_priced_date(p) for pid, p in payloads.items()},
+    }
+
+
+def compose_price_history(result: dict, now: datetime) -> dict:
+    """Keep every retained weekly print — same dates as history.json points."""
+    return {
+        "generated": now.isoformat(),
+        "source": "tickermint",
+        "points": list(result.get("price_points") or []),
+    }
+
+
+def price_points_for_dates(
+    payloads: dict[str, dict],
+    days: list[date],
+    preferred: dict[str, str] | None = None,
+) -> list[dict]:
+    """Actual market prints on each history date (no carry, no $0 fill)."""
+    prices_for_day = make_prices_for_day(payloads, preferred)
+    points = []
+    for day in days:
+        prices, _sub = prices_for_day(day)
+        priced = {pid: round(pr, 2) for pid, pr in prices.items() if pr and pr > 0}
+        if priced:
+            points.append({"date": day.isoformat(), "prices": dict(sorted(priced.items()))})
+    return points
+
+
+def preferred_printings(latest: dict) -> dict[str, str]:
+    out: dict[str, str] = {}
+    for row in latest.get("constituents") or []:
+        pid = str(row.get("id") or "").strip()
+        printing = (row.get("printing") or "").strip()
+        if pid and printing:
+            out[pid] = printing
+    return out
+
+
+def merge_price_history(existing: dict, weekly: dict, latest: dict, now: datetime) -> dict:
+    """Keep weekly prints; upsert today's basket prices; keep extra daily snaps.
+
+    Does not prune — same retention as vintage compose_price_history. The daily
+    TCGCSV job may later trim via upsert_price_history.
+    """
+    by_date: dict[str, dict] = {}
+    for src in (existing, weekly):
+        for point in (src or {}).get("points") or []:
+            d = point.get("date")
+            prices = point.get("prices") or {}
+            if d and prices:
+                by_date[d] = {"date": d, "prices": dict(prices)}
+    as_of = (latest or {}).get("asOfDate")
+    today_prices = en.collect_basket_prices((latest or {}).get("constituents") or [])
+    if as_of and today_prices:
+        by_date[as_of] = {"date": as_of, "prices": today_prices}
+    return {
+        "generated": now.isoformat(),
+        "source": "tickermint",
+        "points": [by_date[d] for d in sorted(by_date)],
     }
 
 
@@ -271,7 +357,8 @@ def compose_latest(result: dict, prev_latest: dict, now: datetime) -> dict:
     """Rebase latest.json onto the TickerMint-chained divisor.
 
     Keeps card names/images from the live TCGCSV snapshot. Clears sourceStamp
-    so the next daily TCGCSV job still runs.
+    so the next daily TCGCSV job still runs. Pairwise % comes from the last
+    two priced snaps — not a blank first-snapshot write.
     """
     history = result["history"]
     last = result["last"]
@@ -308,7 +395,9 @@ def compose_latest(result: dict, prev_latest: dict, now: datetime) -> dict:
         )
     has_prev = prev_index is not None
     index_value = last["index"]
-    return {
+    price_points = result.get("price_points") or []
+    prior_prices = price_points[-2]["prices"] if len(price_points) >= 2 else {}
+    latest = {
         "generated": now.isoformat(),
         "sourceStamp": None,
         "asOfDate": last_date,
@@ -328,15 +417,15 @@ def compose_latest(result: dict, prev_latest: dict, now: datetime) -> dict:
         "totalValue": round(last["sum_today"], 2),
         "pricedToday": sum(1 for c in constituents if not c["carried"]),
         "breadth": {"available": False, "advancing": 0, "declining": 0, "unchanged": 0},
-        "gainers": prev_latest.get("gainers") or [],
-        "losers": prev_latest.get("losers") or [],
+        "gainers": [],
+        "losers": [],
         "top": [
             {k: c[k] for k in ("rank", "id", "name", "number", "image", "setName", "price")}
             for c in constituents[:10]
         ],
         "constituents": constituents,
-        "movers": prev_latest.get("movers") or {},
-        "snapshotRange": prev_latest.get("snapshotRange"),
+        "movers": {},
+        "snapshotRange": None,
         "backfill": {
             "source": "tickermint",
             "start": history["baseDate"],
@@ -344,6 +433,9 @@ def compose_latest(result: dict, prev_latest: dict, now: datetime) -> dict:
             "docs": history.get("sourceDocs"),
         },
     }
+    if prior_prices:
+        en.apply_pairwise_movers(latest, prior_prices)
+    return latest
 
 
 def fetch_payloads(
@@ -353,26 +445,90 @@ def fetch_payloads(
     sleep_s: float,
     verbose: bool = False,
     use_cache: bool = True,
+    workers: int | None = None,
 ) -> dict[str, dict]:
+    """Fetch product histories. Cache hits are free; HTTP stays ≤ maxPerMinute.
+
+    A few TickerMint calls take 10–20s, so EN's 500 IDs run a small thread
+    pool. Vintage (~62) finishes in the same path.
+    """
     payloads: dict[str, dict] = {}
     n = len(pids)
-    print(f"Fetching TickerMint history for {n} products (sleep {sleep_s}s, ≤{cfg.get('maxPerMinute', 120)}/min) ...", flush=True)
-    for i, pid in enumerate(pids, 1):
-        cached = False
+    workers = int(workers if workers is not None else cfg.get("fetchWorkers") or 1)
+    workers = max(1, min(workers, n or 1))
+    max_per_min = float(cfg.get("maxPerMinute") or 120)
+    print(
+        f"Fetching TickerMint history for {n} products "
+        f"(workers={workers}, ≤{int(max_per_min)}/min) ...",
+        flush=True,
+    )
+    log_lock = threading.Lock()
+    done = [0]
+
+    def log_one(i: int, pid: str, payload: dict, cached: bool) -> None:
+        if not (verbose or i == 1 or i == n or i % 25 == 0):
+            return
+        first = first_priced_date(payload) if payload else None
+        src = "cache" if cached else "http"
+        print(
+            f"  {i}/{n} id={pid} {src} printings={list(payload.keys()) if payload else []} first={first}",
+            flush=True,
+        )
+
+    if workers == 1:
+        for i, pid in enumerate(pids, 1):
+            cached = False
+            try:
+                payload, cached = fetch_product_prices(pid, cfg, use_cache=use_cache)
+            except Exception as err:  # noqa: BLE001
+                print(f"  skip {pid}: {err}", flush=True)
+                payload = {}
+            if payload:
+                payloads[pid] = payload
+            log_one(i, pid, payload, cached)
+            if sleep_s and i != n and not cached:
+                time.sleep(sleep_s)
+        print(f"Got history for {len(payloads)}/{n} products.", flush=True)
+        return payloads
+
+    interval = 60.0 / max_per_min if max_per_min > 0 else 0.0
+    next_ok = [time.monotonic()]
+    gate = threading.Lock()
+
+    def throttle_http() -> None:
+        if interval <= 0:
+            return
+        with gate:
+            now = time.monotonic()
+            wait = next_ok[0] - now
+            next_ok[0] = max(next_ok[0], now) + interval
+        if wait > 0:
+            time.sleep(wait)
+
+    def one(item: tuple[int, str]) -> tuple[int, str, dict, bool]:
+        i, pid = item
+        cache_path = os.path.join(cache_dir(cfg), f"{pid}.json")
+        if use_cache and os.path.isfile(cache_path):
+            payload, cached = fetch_product_prices(pid, cfg, use_cache=True)
+            return i, pid, payload, True
+        throttle_http()
         try:
             payload, cached = fetch_product_prices(pid, cfg, use_cache=use_cache)
         except Exception as err:  # noqa: BLE001
             print(f"  skip {pid}: {err}", flush=True)
-            payload = {}
-        if payload:
-            payloads[pid] = payload
-        if verbose or i == 1 or i == n or i % 25 == 0:
-            first = first_priced_date(payload) if payload else None
-            src = "cache" if cached else "http"
-            print(f"  {i}/{n} id={pid} {src} printings={list(payload.keys()) if payload else []} first={first}", flush=True)
-        # Only sleep after a real HTTP call (stay under 120/min). Cache hits are free.
-        if sleep_s and i != n and not cached:
-            time.sleep(sleep_s)
+            return i, pid, {}, False
+        return i, pid, payload, cached
+
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        futures = [pool.submit(one, (i, pid)) for i, pid in enumerate(pids, 1)]
+        for fut in as_completed(futures):
+            i, pid, payload, cached = fut.result()
+            if payload:
+                payloads[pid] = payload
+            with log_lock:
+                done[0] += 1
+                # Progress uses completion count so logs stay monotonic.
+                log_one(done[0], pid, payload, cached)
     print(f"Got history for {len(payloads)}/{n} products.", flush=True)
     return payloads
 
@@ -464,17 +620,88 @@ def run_backfill(
         return result
     now = datetime.now(timezone.utc)
     latest_out = compose_latest(result, latest, now)
+    days = [
+        day
+        for day in (en._parse_day(p.get("date")) for p in (result.get("price_points") or []))
+        if day
+    ]
+    mover_points = price_points_for_dates(
+        payloads, days, preferred=preferred_printings(latest_out)
+    )
+    price_history = {
+        "generated": now.isoformat(),
+        "source": "tickermint",
+        "points": mover_points or list(result.get("price_points") or []),
+    }
+    en.attach_period_movers(latest_out, price_history, baseline_strategy="on_or_before")
     en.write_json(en.HISTORY_PATH, hist)
     en.write_history_js(hist)
     en.write_json(en.LATEST_PATH, latest_out)
     en.write_latest_js(latest_out)
+    en.write_json(en.PRICE_HISTORY_PATH, price_history)
     print(
-        f"Wrote history.json ({len(hist['points'])} points) and latest.json "
-        f"asOf {latest_out['asOfDate']} (rebased from {hist['baseDate']}).",
+        f"Wrote history.json ({len(hist['points'])} points), latest.json "
+        f"asOf {latest_out['asOfDate']} (rebased from {hist['baseDate']}), "
+        f"and price-history.json ({len(price_history.get('points') or [])} priced snaps).",
         flush=True,
     )
     print("Daily TCGCSV job can now append on this divisor. Do not mix the old Oct-2026 = 1,000 series.", flush=True)
+    result["latest"] = latest_out
+    result["price_history"] = price_history
     return result
+
+
+def run_rebuild_movers(
+    *,
+    verbose: bool = False,
+    dry_run: bool = False,
+    cfg: dict | None = None,
+) -> dict:
+    """Fill price-history + movers from TickerMint without rebasing index levels."""
+    cfg = cfg or load_config()
+    catalog, latest = catalog_from_latest()
+    history = en.load_json(en.HISTORY_PATH, {}) or {}
+    hist_points = history.get("points") or []
+    if not hist_points:
+        raise RuntimeError("history.json has no points — run --backfill --confirm BACKFILL first")
+    days = []
+    for point in hist_points:
+        day = en._parse_day(point.get("date"))
+        if day:
+            days.append(day)
+    sleep_s = float(cfg.get("sleepSeconds") or 0.55)
+    payloads = fetch_payloads(list(catalog.keys()), cfg, sleep_s=sleep_s, verbose=verbose, use_cache=True)
+    if not payloads:
+        raise RuntimeError("TickerMint returned no product histories")
+    now = datetime.now(timezone.utc)
+    price_points = price_points_for_dates(
+        payloads, days, preferred=preferred_printings(latest)
+    )
+    weekly = {"generated": now.isoformat(), "source": "tickermint", "points": price_points}
+    existing = en.load_json(en.PRICE_HISTORY_PATH, {}) or {}
+    price_history = merge_price_history(existing, weekly, latest, now)
+    if not any(c.get("changePct") is not None for c in latest.get("constituents") or []):
+        if len(price_points) >= 2:
+            en.apply_pairwise_movers(latest, price_points[-2].get("prices") or {})
+    en.attach_period_movers(latest, price_history, baseline_strategy="on_or_before")
+    latest["generated"] = now.isoformat()
+    if dry_run:
+        return {"latest": latest, "price_history": price_history, "price_points": price_points}
+    en.write_json(en.LATEST_PATH, latest)
+    en.write_latest_js(latest)
+    en.write_json(en.PRICE_HISTORY_PATH, price_history)
+    movers = latest.get("movers") or {}
+    avail = [p for p, info in movers.items() if info.get("available")]
+    n_g = len((movers.get("1D") or {}).get("gainers") or [])
+    n_l = len((movers.get("1D") or {}).get("losers") or [])
+    rng = latest.get("snapshotRange") or {}
+    print(
+        "Rebuilt EN movers from TickerMint weekly prints (index levels unchanged) | "
+        f"1D +{n_g}/-{n_l} periods={','.join(avail) or 'none'} | "
+        f"snapshots {rng.get('earliest')}→{rng.get('latest')} ({rng.get('count')})",
+        flush=True,
+    )
+    return {"latest": latest, "price_history": price_history, "price_points": price_points}
 
 
 def self_test() -> None:
@@ -487,6 +714,9 @@ def self_test() -> None:
     # 1st Edition 999 must lose to Holofoil 100.
     picked = representative_on_date(payloads["a"], date(2024, 2, 8))
     assert picked and picked[0] == 100.0 and picked[1] == "Holofoil"
+    # Mover pairs keep the live printing — no fallback to a cheaper subtype.
+    assert representative_on_date(payloads["a"], date(2024, 2, 8), "Reverse Holofoil") is None
+    assert representative_on_date(payloads["a"], date(2024, 2, 8), "Holofoil")[0] == 100.0
     # Null market that day → no print (no zero-fill).
     assert representative_on_date(payloads["a"], date(2024, 2, 9)) is None
     # Card c has no 2024 history.
@@ -540,6 +770,32 @@ def self_test() -> None:
     wre = result["history"]["returns"]
     assert wre["1D"]["available"] and wre["5D"]["available"]
     assert wre["30D"]["available"] and wre["YTD"]["available"]
+
+    # Last two priced snaps (not a blank first-snapshot) populate 1D movers.
+    assert result["price_points"] and len(result["price_points"]) >= 2
+    pts = price_points_for_dates(
+        payloads, [date(2024, 2, 8), date(2024, 2, 9), date(2024, 2, 15)]
+    )
+    assert [p["date"] for p in pts] == ["2024-02-08", "2024-02-15"]
+    assert pts[0]["prices"]["a"] == 100.0
+    latest_out = compose_latest(
+        result, {"constituents": list(catalog.values()), "gainers": [{"id": "stale"}]},
+        datetime(2026, 10, 12, tzinfo=timezone.utc),
+    )
+    assert latest_out["breadth"]["available"] is True
+    assert latest_out["gainers"] or latest_out["losers"]
+    assert all(row.get("id") != "stale" for row in latest_out["gainers"])
+    alpha = next(c for c in latest_out["constituents"] if c["id"] == "a")
+    assert alpha["prevPrice"] is not None and alpha["changePct"] is not None
+    ph = compose_price_history(result, datetime(2026, 10, 12, tzinfo=timezone.utc))
+    en.attach_period_movers(latest_out, ph, baseline_strategy="on_or_before")
+    movers = latest_out["movers"]
+    assert movers["1D"]["available"]
+    assert movers["1D"]["gainers"] or movers["1D"]["losers"] or latest_out["breadth"]["available"]
+    assert movers["5D"]["available"]
+    assert movers["30D"]["available"]
+    assert movers["YTD"]["available"]
+    assert movers["5D"]["baselineDate"]  # on_or_before weekly cutoff, not slack-empty
     try:
         run_backfill(
             start=date(2024, 2, 8), end=None, step_days=7,
@@ -576,6 +832,11 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--step-days", type=int, default=int(cfg.get("defaultStepDays") or 7),
                         help="7 = weekly (default, smaller history.json). 1 = daily ~980 points")
     parser.add_argument("--max-ids", type=int, default=None, help="Cap basket IDs (debug / smoke)")
+    parser.add_argument(
+        "--rebuild-movers",
+        action="store_true",
+        help="Fill price-history + Top 10/Bottom 10 from TickerMint weekly prints (does not rebase)",
+    )
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("-v", "--verbose", action="store_true")
     parser.add_argument(
@@ -600,6 +861,9 @@ def main(argv: list[str] | None = None) -> int:
     try:
         if args.sample:
             run_sample(verbose=True, cfg=cfg)
+            return 0
+        if args.rebuild_movers:
+            run_rebuild_movers(verbose=args.verbose, dry_run=args.dry_run, cfg=cfg)
             return 0
         if args.backfill:
             start = _parse_day(args.start, cfg["archiveStart"])

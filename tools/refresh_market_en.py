@@ -17,7 +17,9 @@ Writes (stdlib only — GitHub Actions needs no pip install):
 
 Index 5D / 30D / YTD returns come from history.json points (no interpolation).
 Longer index history is backfilled from the TickerMint free API
-(tools/backfill_tickermint.py). Mover periods use price-history.json.
+(tools/backfill_tickermint.py). Mover periods use price-history.json
+(weekly TickerMint prints plus daily TCGCSV upserts). After a rebase,
+pairwise % compares the last two priced snaps — not a blank first snapshot.
 TCGCSV current dumps remain the daily snap; the TCGCSV *archive* path is
 kept but still 403 as of 2026-10-12.
 
@@ -831,7 +833,7 @@ def build_period_movers(
 def attach_period_movers(
     latest: dict,
     price_history: dict,
-    baseline_strategy: str = "slack",
+    baseline_strategy: str = "on_or_before",
 ) -> dict:
     fill_pairwise_from_price_history(latest, price_history)
     latest["snapshotRange"] = snapshot_range(price_history)
@@ -1216,6 +1218,24 @@ def self_test() -> None:
     )
     assert weekly_movers["5D"]["available"] is True
     assert weekly_movers["5D"]["baselineDate"] == "2026-10-01"
+    # Daily attach uses on_or_before so weekly prints still light 5D after a snap.
+    attached = attach_period_movers(
+        {
+            "asOfDate": "2026-10-11",
+            "prevIndex": 1262.8,
+            "gainers": [],
+            "losers": [],
+            "constituents": [
+                {"id": "a", "name": "A", "number": "1", "image": "", "setName": "S", "price": 110.0, "carried": False},
+                {"id": "b", "name": "B", "number": "2", "image": "", "setName": "S", "price": 40.0, "carried": False},
+                {"id": "c", "name": "C", "number": "3", "image": "", "setName": "S", "price": 80.0, "carried": True},
+            ],
+            "breadth": {"available": False},
+        },
+        weekly_hist,
+    )
+    assert attached["movers"]["5D"]["available"] is True
+    assert attached["movers"]["5D"]["baselineDate"] == "2026-10-01"
     applied = apply_pairwise_movers(
         {
             "constituents": [
