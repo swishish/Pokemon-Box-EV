@@ -30,7 +30,16 @@
       '.spark-tip[hidden]{display:none !important;}',
       '.spark-tip .tt-value{font-weight:800;font-variant-numeric:tabular-nums;',
       'font-size:.95rem;color:var(--text,#141414);line-height:1.2;}',
-      '.spark-tip .tt-date{color:var(--muted,#5f5a51);font-size:.72rem;margin-top:2px;}'
+      '.spark-tip .tt-date{color:var(--muted,#5f5a51);font-size:.72rem;margin-top:2px;}',
+      '.spark-tip.is-multi{white-space:normal;min-width:0;max-width:min(16rem,calc(100% - 8px));}',
+      '.spark-tip .tt-row{display:flex;align-items:baseline;justify-content:space-between;',
+      'gap:8px 12px;font-variant-numeric:tabular-nums;font-size:.78rem;line-height:1.25;}',
+      '.spark-tip .tt-row + .tt-row{margin-top:3px;}',
+      '.spark-tip .tt-name{display:inline-flex;align-items:center;gap:5px;min-width:0;',
+      'color:var(--muted,#5f5a51);font-weight:700;}',
+      '.spark-tip .tt-swatch{width:8px;height:8px;border-radius:50%;border:1px solid #141414;',
+      'flex-shrink:0;}',
+      '.spark-tip .tt-num{font-weight:800;color:var(--text,#141414);}'
     ].join('');
     document.head.appendChild(s);
   }
@@ -40,6 +49,12 @@
       minimumFractionDigits: 2,
       maximumFractionDigits: 2
     });
+  }
+
+  function ymdToNum(ymd) {
+    var m = String(ymd || '').match(/^(\d{4})-(\d{2})-(\d{2})/);
+    if (!m) return NaN;
+    return Date.UTC(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
   }
 
   function nearestByX(laid, x) {
@@ -91,7 +106,7 @@
     };
   }
 
-  function draw(svg, points, opts) {
+  function drawMulti(svg, series, opts) {
     ensureCss();
     opts = opts || {};
     if (!svg) return;
@@ -110,6 +125,270 @@
       tip.setAttribute('role', 'status');
       wrap.appendChild(tip);
     }
+    tip.classList.add('is-multi');
+
+    if (wrap._spark && typeof wrap._spark.unbind === 'function') {
+      wrap._spark.unbind();
+    }
+
+    var cleaned = (series || []).map(function (s) {
+      var pts = ((s && s.points) || []).filter(function (p) {
+        return p && p.date && p.index != null && !Number.isNaN(Number(p.index));
+      }).map(function (p) {
+        return { date: String(p.date), index: Number(p.index) };
+      });
+      return {
+        id: (s && s.id) || '',
+        name: (s && (s.name || s.label)) || '',
+        color: (s && s.color) || '#3d6fd9',
+        points: pts
+      };
+    }).filter(function (s) { return s.points.length >= 1; });
+
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+
+    var state = {
+      laid: [],
+      dates: [],
+      i: -1,
+      cross: null,
+      dots: [],
+      tip: tip,
+      svg: svg,
+      wrap: wrap
+    };
+
+    function hide() {
+      if (state.cross) state.cross.setAttribute('opacity', '0');
+      state.dots.forEach(function (d) { d.setAttribute('opacity', '0'); });
+      if (state.tip) state.tip.hidden = true;
+      state.i = -1;
+    }
+
+    hide();
+
+    var allVals = [];
+    var allDates = [];
+    cleaned.forEach(function (s) {
+      s.points.forEach(function (p) {
+        allVals.push(p.index);
+        allDates.push(p.date);
+      });
+    });
+
+    if (cleaned.length === 0 || allVals.length < 2) {
+      svg.setAttribute('hidden', 'hidden');
+      svg.setAttribute('aria-hidden', 'true');
+      svg.removeAttribute('tabindex');
+      wrap._spark = { unbind: function () {} };
+      return;
+    }
+
+    svg.removeAttribute('hidden');
+    svg.removeAttribute('aria-hidden');
+    svg.setAttribute('tabindex', '0');
+    svg.setAttribute('role', 'img');
+    svg.setAttribute('aria-label', opts.ariaLabel || '三條復古指數走勢，可懸停或點選看日期與指數');
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    svg.setAttribute('preserveAspectRatio', 'none');
+
+    var uniqDates = allDates.filter(function (d, i) { return allDates.indexOf(d) === i; });
+    uniqDates.sort();
+    var t0 = ymdToNum(uniqDates[0]);
+    var t1 = ymdToNum(uniqDates[uniqDates.length - 1]);
+    var tSpan = (t1 - t0) || 1;
+    var min = Math.min.apply(null, allVals);
+    var max = Math.max.apply(null, allVals);
+    var span = (max - min) || 1;
+
+    function xOf(date) {
+      var t = ymdToNum(date);
+      if (Number.isNaN(t)) return PAD;
+      return PAD + ((t - t0) / tSpan) * (W - PAD * 2);
+    }
+    function yOf(val) {
+      return PAD + (1 - (val - min) / span) * (H - PAD * 2);
+    }
+
+    var dateIndex = {};
+    uniqDates.forEach(function (d, i) { dateIndex[d] = i; });
+
+    cleaned.forEach(function (s) {
+      var laid = s.points.map(function (p) {
+        return { date: p.date, index: p.index, x: xOf(p.date), y: yOf(p.index) };
+      });
+      s.byDate = {};
+      laid.forEach(function (p) { s.byDate[p.date] = p; });
+      if (laid.length >= 2) {
+        svg.appendChild(mk('polyline', {
+          fill: 'none',
+          stroke: s.color,
+          'stroke-width': '2',
+          'stroke-linejoin': 'round',
+          'stroke-linecap': 'round',
+          'vector-effect': 'non-scaling-stroke',
+          points: laid.map(function (p) {
+            return p.x.toFixed(1) + ',' + p.y.toFixed(1);
+          }).join(' ')
+        }));
+      }
+      var last = laid[laid.length - 1];
+      svg.appendChild(mk('circle', {
+        cx: last.x.toFixed(1),
+        cy: last.y.toFixed(1),
+        r: '3.2',
+        fill: s.color
+      }));
+    });
+
+    var datesLaid = uniqDates.map(function (d) {
+      return { date: d, x: xOf(d) };
+    });
+    state.dates = datesLaid;
+
+    var cross = mk('line', {
+      x1: '0',
+      x2: '0',
+      y1: String(PAD),
+      y2: String(H - PAD),
+      stroke: '#5f5a51',
+      'stroke-width': '1',
+      'vector-effect': 'non-scaling-stroke',
+      opacity: '0'
+    });
+    svg.appendChild(cross);
+    state.cross = cross;
+
+    var dots = cleaned.map(function (s) {
+      var dot = mk('circle', {
+        r: '4.5',
+        fill: s.color,
+        stroke: '#fff',
+        'stroke-width': '2',
+        opacity: '0'
+      });
+      svg.appendChild(dot);
+      return dot;
+    });
+    state.dots = dots;
+
+    var hit = mk('rect', {
+      x: '0',
+      y: '0',
+      width: String(W),
+      height: String(H),
+      fill: 'transparent'
+    });
+    svg.appendChild(hit);
+
+    function show(i) {
+      if (i < 0 || i >= datesLaid.length) return;
+      var slot = datesLaid[i];
+      state.i = i;
+      cross.setAttribute('x1', slot.x.toFixed(1));
+      cross.setAttribute('x2', slot.x.toFixed(1));
+      cross.setAttribute('opacity', '1');
+      var rows = '';
+      var tipY = H;
+      cleaned.forEach(function (s, si) {
+        var p = s.byDate[slot.date];
+        if (p) {
+          dots[si].setAttribute('cx', p.x.toFixed(1));
+          dots[si].setAttribute('cy', p.y.toFixed(1));
+          dots[si].setAttribute('opacity', '1');
+          if (p.y < tipY) tipY = p.y;
+        } else {
+          dots[si].setAttribute('opacity', '0');
+        }
+        rows +=
+          '<div class="tt-row"><span class="tt-name"><span class="tt-swatch" style="background:' +
+          s.color + '"></span>' + (s.name || s.id) + '</span><span class="tt-num">' +
+          (p ? fmtIndex(p.index) : '—') + '</span></div>';
+      });
+      tip.innerHTML =
+        '<div class="tt-date">' + slot.date + '</div>' + rows;
+      tip.hidden = false;
+      var pos = viewBoxToWrap(svg, wrap, slot.x, tipY === H ? PAD : tipY);
+      var half = tip.offsetWidth / 2 || 40;
+      var maxLeft = Math.max(half + 4, wrap.clientWidth - half - 4);
+      var left = Math.max(half + 4, Math.min(maxLeft, pos.x));
+      var top = Math.max(10, pos.y);
+      tip.style.left = left + 'px';
+      tip.style.top = top + 'px';
+    }
+
+    function clientToIndex(clientX) {
+      return nearestByX(datesLaid, clientToViewBoxX(svg, clientX));
+    }
+
+    function onPointer(e) {
+      if (typeof e.clientX !== 'number') return;
+      show(clientToIndex(e.clientX));
+    }
+
+    function onLeave() {
+      if (canHover()) hide();
+    }
+
+    function onDocDown(e) {
+      if (!wrap.contains(e.target)) hide();
+    }
+
+    function onKey(e) {
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+        e.preventDefault();
+        var cur = state.i < 0 ? datesLaid.length - 1 : state.i;
+        var next = e.key === 'ArrowLeft'
+          ? Math.max(0, cur - 1)
+          : Math.min(datesLaid.length - 1, cur + 1);
+        show(next);
+      } else if (e.key === 'Escape') {
+        hide();
+      }
+    }
+
+    wrap.addEventListener('pointermove', onPointer);
+    wrap.addEventListener('pointerdown', onPointer);
+    wrap.addEventListener('pointerleave', onLeave);
+    svg.addEventListener('keydown', onKey);
+    svg.addEventListener('blur', hide);
+    document.addEventListener('pointerdown', onDocDown);
+
+    state.unbind = function () {
+      wrap.removeEventListener('pointermove', onPointer);
+      wrap.removeEventListener('pointerdown', onPointer);
+      wrap.removeEventListener('pointerleave', onLeave);
+      svg.removeEventListener('keydown', onKey);
+      svg.removeEventListener('blur', hide);
+      document.removeEventListener('pointerdown', onDocDown);
+    };
+    wrap._spark = state;
+  }
+
+  function draw(svg, points, opts) {
+    ensureCss();
+    opts = opts || {};
+    if (!svg) return;
+    if (opts.series && opts.series.length) {
+      drawMulti(svg, opts.series, opts);
+      return;
+    }
+
+    var wrap = svg.closest ? svg.closest('.spark-wrap') : null;
+    if (!wrap) wrap = svg.parentNode;
+    if (wrap && wrap.classList && !wrap.classList.contains('spark-wrap')) {
+      wrap.classList.add('spark-wrap');
+    }
+
+    var tip = wrap.querySelector('.spark-tip');
+    if (!tip) {
+      tip = document.createElement('div');
+      tip.className = 'spark-tip';
+      tip.hidden = true;
+      tip.setAttribute('role', 'status');
+      wrap.appendChild(tip);
+    }
+    tip.classList.remove('is-multi');
 
     if (wrap._spark && typeof wrap._spark.unbind === 'function') {
       wrap._spark.unbind();
@@ -295,5 +574,5 @@
     wrap._spark = state;
   }
 
-  global.SparkTip = { draw: draw };
+  global.SparkTip = { draw: draw, drawMulti: drawMulti };
 })(window);

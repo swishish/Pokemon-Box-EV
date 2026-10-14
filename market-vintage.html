@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>Base 復古指數 · Box EV v1.28.1</title>
+<title>Base 復古指數 · Box EV v1.28.2</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <style>
   :root {
@@ -194,9 +194,13 @@
   }
   .index-tabs {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 8px;
     margin-bottom: 12px;
+  }
+  .index-tab.is-all .lvl {
+    font-size: 1.15rem;
+    letter-spacing: -0.02em;
   }
   .index-tab {
     display: block;
@@ -278,6 +282,10 @@
     opacity: 0.4;
     cursor: not-allowed;
     pointer-events: none;
+  }
+  .period-btns .period-btn.is-na { opacity: .55; }
+  @media (max-width: 900px) {
+    .index-tabs { grid-template-columns: 1fr 1fr; }
   }
   .range-form {
     display: flex;
@@ -448,6 +456,63 @@
     cursor: crosshair;
     touch-action: none;
   }
+  .spark.is-all { height: 128px; }
+  .spark-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    margin-top: 8px;
+    min-width: 0;
+    max-width: 100%;
+  }
+  .spark-legend[hidden] { display: none !important; }
+  .spark-legend .lg {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: .72rem;
+    font-weight: 800;
+    color: var(--muted);
+    min-width: 0;
+  }
+  .spark-legend i {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1.5px solid var(--ink);
+    flex-shrink: 0;
+  }
+  .spark-tip.is-multi {
+    white-space: normal;
+    min-width: 0;
+    max-width: min(16rem, calc(100% - 8px));
+  }
+  .spark-tip .tt-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px 12px;
+    font-variant-numeric: tabular-nums;
+    font-size: .78rem;
+    line-height: 1.25;
+  }
+  .spark-tip .tt-row + .tt-row { margin-top: 3px; }
+  .spark-tip .tt-name {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    min-width: 0;
+    color: var(--muted);
+    font-weight: 700;
+  }
+  .spark-tip .tt-swatch {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1px solid var(--ink);
+    flex-shrink: 0;
+  }
+  .spark-tip .tt-num { font-weight: 800; }
   .spark-wrap { overflow: visible; }
   .spark-tip {
     position: absolute;
@@ -622,7 +687,8 @@
     padding: 16px 4px;
   }
   @media (max-width: 720px) {
-    .hero, .movers, .index-tabs { grid-template-columns: 1fr; }
+    .hero, .movers { grid-template-columns: 1fr; }
+    .index-tabs { grid-template-columns: 1fr 1fr; }
     header { padding: 8px 12px 8px; }
     .header-nav { justify-content: flex-start; }
     .nav-btn { font-size: .68rem; padding: 5px 9px; }
@@ -637,7 +703,7 @@
 <header>
   <div class="header-inner">
     <div class="header-top">
-      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.28.1</span></h1>
+      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.28.2</span></h1>
       <nav class="header-nav" aria-label="站內導覽">
         <a class="nav-btn" href="./calc.html">開盒 EV</a>
         <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
@@ -684,11 +750,13 @@
         <svg class="spark" id="spark" viewBox="0 0 320 100" hidden aria-hidden="true"></svg>
         <div class="spark-tip" id="sparkTip" hidden role="status"></div>
       </div>
+      <div class="spark-legend" id="sparkLegend" hidden></div>
+      <p class="tiny" id="chartAllNote" hidden style="margin:8px 0 0"></p>
       <p class="tiny" id="indexNote" style="margin:8px 0 0"></p>
       <p class="tiny" id="indexPeriodNote" style="margin:4px 0 0"></p>
     </div>
     <div class="card">
-      <h2>市場廣度 Breadth</h2>
+      <h2>市場廣度 Breadth <span class="pill" id="breadthPeriodPill">1D</span></h2>
       <div class="metrics" id="breadthMetrics"></div>
       <div class="breadth" id="breadthBar"></div>
       <p class="tiny" id="breadthNote" style="margin:8px 0 0"></p>
@@ -812,6 +880,7 @@
       <li><b>固定籃子</b>：Holo Rare + Rare（對照 <a href="https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/">Base Unlimited 速查</a> #1–102）。<b>價格加權</b>；有卡加入／退出時用 divisor 保持連續。每條指數基準＝<b>1,000</b>（該條第一個有資料的日子）。</li>
       <li><b>5D／30D／1Y／YTD／自訂</b>：用<strong>真實歷史點</strong>放大圖表，<b>缺日就跳過、不補價、不發明點</b>。指數水平維持該條第一個有資料日子的固定基準 1,000，<b>唔會</b>喺視窗開頭重設。沒有夠早的點就不顯示該期間。每日現況來自 <a href="https://tcgcsv.com" target="_blank" rel="noopener">TCGCSV</a>；往回的歷史來自 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a>。</li>
       <li><b>漲跌榜</b>：1D／5D／30D／1Y／YTD／自訂。自訂用區間內第一同最後一個真實價圖，唔重設指數基準。</li>
+      <li><b>廣度 Breadth</b>：跟漲跌榜同一個期間——選 5D／30D／1Y／YTD／自訂就數該段有確認漲跌的成分（上漲／持平／下跌），不是永遠只看 1 日。</li>
       <li><b>印刷規則</b>：<a href="https://www.tcgplayer.com/search/pokemon/product?productLineName=pokemon&amp;productName=base+set&amp;view=grid" target="_blank" rel="noopener">TCGPlayer</a> <b>Market Price</b>（NM raw），三條分開算：1st Edition 只用 1st Edition 列；Shadowless 用無陰影無限版列；Unlimited 用後來有陰影的 Holofoil／Normal。</li>
       <li><b>卡冊 Binder</b>：同一籃子的格狀速覽（縮圖、編號、USD、有的話才顯示 1D %）。上方「指數／卡冊」切換；三條 tab 共用。搜尋與 Holo／Rare 晶片只篩這一頁，不改指數。</li>
       <li><b>不含</b>：密封盒、Jumbo、日版 promo、error 異圖（Black Dot Charizard、Red Cheeks Pikachu）。<b>Machamp 008/102</b> 暫缺可靠單卡市價（卡冊標「缺口」）。</li>
@@ -825,14 +894,27 @@
 </main>
 <footer>日盒 EV 小算盤 · Base vintage pulse · Snapshot 靜態資料 · 非正式投資建議 · 歷史價 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a> · <a href="./index.html">首頁</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-midera.html">中世代</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/">Base Unlimited</a></footer>
 
-<script src="./js/spark-tip.js?v=1.28.1"></script>
-<script src="./js/movers-range.js?v=1.28.1"></script>
-<script src="./data/market-vintage/latest.js?v=1.28.1"></script>
-<script src="./data/market-vintage/history.js?v=1.28.1"></script>
+<script src="./js/spark-tip.js?v=1.28.2"></script>
+<script src="./js/movers-range.js?v=1.28.2"></script>
+<script src="./data/market-vintage/latest.js?v=1.28.2"></script>
+<script src="./data/market-vintage/history.js?v=1.28.2"></script>
 <script>
 (async function () {
-  const VERSION = '1.28.1';
+  const VERSION = '1.28.2';
   const PERIODS = ['1D', '5D', '30D', '1Y', 'YTD'];
+  const LS_INDEX_PERIOD = 'pbev-vintage-index-period';
+  const LS_MOVER_PERIOD = 'pbev-vintage-mover-period';
+  const LS_TAB = 'pbev-vintage-tab';
+  const SERIES_COLOR = {
+    'base-1st': '#e4434f',
+    'base-shadowless': '#8a6914',
+    'base-unlimited': '#3d6fd9'
+  };
+  const SERIES_SHORT = {
+    'base-1st': '第一版',
+    'base-shadowless': '無陰影',
+    'base-unlimited': '無限版'
+  };
   const HASH_TO_ID = {
     '1st': 'base-1st', first: 'base-1st', '1sted': 'base-1st', 'base-1st': 'base-1st',
     shadowless: 'base-shadowless', shadow: 'base-shadowless', 'base-shadowless': 'base-shadowless',
@@ -1008,26 +1090,70 @@
   }
 
   const PERIOD_LABEL = { '1D': 'vs 上一快照', '5D': '5D', '30D': '30D', '1Y': '1Y', 'YTD': 'YTD', CUSTOM: '自訂' };
-  const state = { id: ORDER[0], period: '1D', moverPeriod: '1D', view: 'pulse', rarity: 'all', q: '', customFrom: '', customTo: '', moverFrom: '', moverTo: '' };
+  const state = {
+    id: ORDER[0], period: '1D', moverPeriod: '1D', view: 'pulse', rarity: 'all', q: '',
+    customFrom: '', customTo: '', moverFrom: '', moverTo: '', chartAll: false
+  };
+
+  function readLs(key) {
+    try {
+      const raw = localStorage.getItem(key);
+      if (!raw) return null;
+      return JSON.parse(raw);
+    } catch (e) {
+      return null;
+    }
+  }
+  function writeLs(key, val) {
+    try { localStorage.setItem(key, JSON.stringify(val)); } catch (e) { /* private mode */ }
+  }
+  function validPeriod(p) {
+    return p === 'CUSTOM' || PERIODS.includes(p);
+  }
+  function saveIndexPeriod() {
+    writeLs(LS_INDEX_PERIOD, { period: state.period, from: state.customFrom, to: state.customTo });
+  }
+  function saveMoverPeriod() {
+    writeLs(LS_MOVER_PERIOD, { period: state.moverPeriod, from: state.moverFrom, to: state.moverTo });
+  }
+  function saveTab() {
+    writeLs(LS_TAB, { id: state.id, chartAll: !!state.chartAll });
+  }
+  function restorePrefs() {
+    const ip = readLs(LS_INDEX_PERIOD);
+    if (ip && validPeriod(ip.period)) {
+      state.period = ip.period;
+      if (typeof ip.from === 'string') state.customFrom = ip.from;
+      if (typeof ip.to === 'string') state.customTo = ip.to;
+    }
+    const mp = readLs(LS_MOVER_PERIOD);
+    if (mp && validPeriod(mp.period)) {
+      state.moverPeriod = mp.period;
+      if (typeof mp.from === 'string') state.moverFrom = mp.from;
+      if (typeof mp.to === 'string') state.moverTo = mp.to;
+    }
+    const tab = readLs(LS_TAB);
+    if (tab && DATA.indexes[tab.id]) state.id = tab.id;
+    if (tab && tab.chartAll) state.chartAll = true;
+  }
 
   function parseHash() {
     const raw = (location.hash || '').replace(/^#/, '').toLowerCase();
     const parts = raw.split(/[/:_-]+/).filter(Boolean);
     let view = 'pulse';
-    let id = ORDER[0];
+    let id = null;
+    let chartAll = false;
     for (let i = 0; i < parts.length; i++) {
       const p = parts[i];
       if (p === 'binder' || p === 'card' || p === 'cards') view = 'binder';
       else if (p === 'pulse' || p === 'index') view = 'pulse';
+      else if (p === 'all' || p === 'overlay') chartAll = true;
       else if (HASH_TO_ID[p]) id = HASH_TO_ID[p];
     }
-    return { id, view };
-  }
-  function idFromHash() {
-    return parseHash().id;
+    return { id: id || ORDER[0], view, chartAll, idSpecified: !!id };
   }
   function writeHash() {
-    const h = ID_TO_HASH[state.id] || state.id;
+    const h = state.chartAll ? 'all' : (ID_TO_HASH[state.id] || state.id);
     const extra = state.view === 'binder' ? '/binder' : '';
     const next = '#' + h + extra;
     if ((location.hash || '') === next) return;
@@ -1087,16 +1213,69 @@
     return RETURNS[period] || { available: false, reason: 'no snapshots' };
   }
 
+  function calendarFrom(period, asOf) {
+    if (period === 'CUSTOM') return state.customFrom || null;
+    if (period === '5D') return addDaysYmd(asOf, -5);
+    if (period === '30D') return addDaysYmd(asOf, -30);
+    if (period === '1Y') return addDaysYmd(asOf, -365);
+    if (period === 'YTD') {
+      const dt = parseAsOfDate(asOf);
+      return dt ? (dt.getFullYear() + '-01-01') : null;
+    }
+    return null;
+  }
+  function windowPoints(points, period, RETURNS) {
+    const ret = returnFor(RETURNS, points, period);
+    if (ret && ret.available && ret.from) {
+      return points.filter((p) => p.date >= ret.from && p.date <= (ret.to || p.date));
+    }
+    if (period === 'CUSTOM') {
+      if (!state.customFrom || !state.customTo || state.customFrom > state.customTo) return [];
+      return points.filter((p) => p.date >= state.customFrom && p.date <= state.customTo);
+    }
+    if (period === '1D') {
+      return points.length >= 2 ? points.slice(-2) : points;
+    }
+    const asOf = (points.length ? points[points.length - 1].date : '') || DATA.asOfDate || '';
+    const from = calendarFrom(period, asOf);
+    if (!from) return points;
+    return points.filter((p) => p.date >= from);
+  }
   function drawSpark(points, period, RETURNS) {
     const spark = $('spark');
-    if (typeof SparkTip === 'undefined') return;
-    const ret = returnFor(RETURNS, points, period);
-    let pts = points;
-    if (ret && ret.available && ret.from) {
-      pts = points.filter((p) => p.date >= ret.from && p.date <= (ret.to || p.date));
+    if (typeof SparkTip === 'undefined' || !spark) return;
+    const legend = $('sparkLegend');
+    if (state.chartAll) {
+      spark.classList.add('is-all');
+      const series = ORDER.map((id) => {
+        const row = DATA.indexes[id] || {};
+        const pts = pointsOf(id);
+        const rets = returnsOf(id, row.asOfDate || DATA.asOfDate || '');
+        return {
+          id: id,
+          name: SERIES_SHORT[id] || row.nameZh || row.name || id,
+          color: SERIES_COLOR[id] || '#3d6fd9',
+          points: windowPoints(pts, period, rets)
+        };
+      });
+      SparkTip.drawMulti(spark, series, {
+        ariaLabel: '三條 Base 復古指數走勢，可懸停或點選看日期與指數'
+      });
+      if (legend) {
+        legend.hidden = false;
+        legend.innerHTML = series.map((s) =>
+          '<span class="lg"><i style="background:' + s.color + '"></i>' + escapeHtml(s.name) + '</span>'
+        ).join('');
+      }
+      return;
     }
-    SparkTip.draw(spark, pts, {
-      color: '#3d6fd9',
+    spark.classList.remove('is-all');
+    if (legend) {
+      legend.hidden = true;
+      legend.innerHTML = '';
+    }
+    SparkTip.draw(spark, windowPoints(points, period, RETURNS), {
+      color: SERIES_COLOR[state.id] || '#3d6fd9',
       ariaLabel: '復古指數走勢，可懸停或點選看日期與指數'
     });
   }
@@ -1118,9 +1297,9 @@
   }
 
   function renderTabs() {
-    $('indexTabs').innerHTML = ORDER.map((id) => {
+    const setTabs = ORDER.map((id) => {
       const row = DATA.indexes[id] || {};
-      const active = id === state.id;
+      const active = id === state.id && !state.chartAll;
       return '<button type="button" class="index-tab' + (active ? ' is-active' : '') +
         '" role="tab" aria-selected="' + (active ? 'true' : 'false') + '" data-id="' + escapeHtml(id) + '">' +
         '<div class="kicker">' + escapeHtml(row.nameZh || row.name || id) +
@@ -1129,33 +1308,77 @@
         '<div class="sub">' + (row.changePct == null ? '首次快照 first snap' : fmtPct(row.changePct, true) + ' 1D') +
         ' · n=' + (row.constituentCount || 0) + '</div>' +
         '</button>';
-    }).join('');
+    });
+    const allOn = state.chartAll;
+    setTabs.push(
+      '<button type="button" class="index-tab is-all' + (allOn ? ' is-active' : '') +
+      '" role="tab" aria-selected="' + (allOn ? 'true' : 'false') + '" data-id="all">' +
+      '<div class="kicker">全部 All</div>' +
+      '<div class="lvl">三條</div>' +
+      '<div class="sub">第一版 · 無陰影 · 無限</div>' +
+      '</button>'
+    );
+    $('indexTabs').innerHTML = setTabs.join('');
   }
 
   let priceHistCache = null;
   const customMoverById = {};
+  function emptyBreadth() {
+    return { available: false, advancing: 0, declining: 0, unchanged: 0 };
+  }
+  function attachBreadth(info, DATA_ONE, period) {
+    if (!info) info = { available: false, gainers: [], losers: [] };
+    if (info.breadth && typeof info.breadth.available === 'boolean') return info;
+    if (period === '1D' && DATA_ONE.breadth && typeof DATA_ONE.breadth.available === 'boolean') {
+      info.breadth = DATA_ONE.breadth;
+      return info;
+    }
+    if (typeof MoversRange !== 'undefined' && priceHistCache && info.baselineDate) {
+      const pts = MoversRange.pointsOf(priceHistCache, state.id);
+      let fromP = null;
+      let toP = null;
+      const end = info.endDate || DATA_ONE.asOfDate;
+      (pts || []).forEach((p) => {
+        if (p.date === info.baselineDate) fromP = p;
+        if (end && p.date === end) toP = p;
+      });
+      if (!toP && pts && pts.length) toP = pts[pts.length - 1];
+      if (fromP && toP && MoversRange.breadthFromPrices) {
+        info.breadth = MoversRange.breadthFromPrices(
+          DATA_ONE.constituents || [],
+          fromP.prices || {},
+          toP.prices || {}
+        );
+        return info;
+      }
+    }
+    info.breadth = emptyBreadth();
+    return info;
+  }
   function periodInfo(DATA_ONE, period) {
     if (period === 'CUSTOM') {
-      return customMoverById[state.id] || {
+      return attachBreadth(customMoverById[state.id] || {
         available: false, baselineDate: null, neededBy: null, label: '',
-        gainers: [], losers: [], reason: '請輸入起迄日期'
-      };
+        gainers: [], losers: [], reason: '請輸入起迄日期', breadth: emptyBreadth()
+      }, DATA_ONE, period);
     }
     const moversByPeriod = DATA_ONE.movers || {};
     const info = moversByPeriod[period];
-    if (info) return info;
+    if (info) return attachBreadth(info, DATA_ONE, period);
     if (period === '1D') {
       const has = (DATA_ONE.gainers && DATA_ONE.gainers.length) || (DATA_ONE.losers && DATA_ONE.losers.length) || !!(DATA_ONE.breadth && DATA_ONE.breadth.available);
-      return {
+      return attachBreadth({
         available: !!has,
         baselineDate: null,
         neededBy: null,
         label: has ? 'vs previous snapshot' : 'need a previous snapshot',
         gainers: DATA_ONE.gainers || [],
         losers: DATA_ONE.losers || []
-      };
+      }, DATA_ONE, period);
     }
-    return { available: false, baselineDate: null, neededBy: null, label: '', gainers: [], losers: [] };
+    return attachBreadth({
+      available: false, baselineDate: null, neededBy: null, label: '', gainers: [], losers: []
+    }, DATA_ONE, period);
   }
   function unavailableMsg(period, info, earliestSnap) {
     if (period === 'CUSTOM') return (info && info.reason) || '請輸入起迄日期';
@@ -1201,10 +1424,41 @@
     });
   }
 
+  function renderBreadth(DATA_ONE) {
+    const period = state.moverPeriod;
+    const info = periodInfo(DATA_ONE, period);
+    const earliestSnap = (DATA_ONE.snapshotRange || {}).earliest || null;
+    const b = info.breadth || emptyBreadth();
+    const pill = period === 'CUSTOM' ? '自訂' : period;
+    if ($('breadthPeriodPill')) $('breadthPeriodPill').textContent = pill;
+    const tot = (b.advancing || 0) + (b.declining || 0) + (b.unchanged || 0);
+    if (b.available && tot > 0) {
+      $('breadthMetrics').innerHTML =
+        '<div class="metric"><div class="k">上漲 Advancers</div><div class="v good">' + b.advancing + '</div></div>' +
+        '<div class="metric"><div class="k">下跌 Decliners</div><div class="v bad">' + b.declining + '</div></div>';
+      $('breadthBar').innerHTML =
+        '<div class="bar">' +
+        '<div class="adv" style="width:' + ((b.advancing / tot) * 100).toFixed(1) + '%"></div>' +
+        '<div class="unch" style="width:' + ((b.unchanged / tot) * 100).toFixed(1) + '%"></div>' +
+        '<div class="dec" style="width:' + ((b.declining / tot) * 100).toFixed(1) + '%"></div>' +
+        '</div>';
+      $('breadthNote').textContent =
+        pill + ' 有確認漲跌的成分：上漲 ' + b.advancing + ' · 持平 ' + b.unchanged + ' · 下跌 ' + b.declining;
+    } else {
+      $('breadthMetrics').innerHTML =
+        '<div class="metric"><div class="k">上漲 Advancers</div><div class="v">—</div></div>' +
+        '<div class="metric"><div class="k">下跌 Decliners</div><div class="v">—</div></div>';
+      $('breadthBar').innerHTML = '';
+      $('breadthNote').textContent = info.available
+        ? (pill + ' 沒有可比較的成分（缺市價不補）')
+        : unavailableMsg(period, info, earliestSnap);
+    }
+  }
+
   function computeCustomMovers(DATA_ONE) {
     if (typeof MoversRange === 'undefined' || !priceHistCache) {
       customMoverById[state.id] = {
-        available: false, reason: '載入歷史價中…', gainers: [], losers: []
+        available: false, reason: '載入歷史價中…', gainers: [], losers: [], breadth: emptyBreadth()
       };
       return customMoverById[state.id];
     }
@@ -1315,51 +1569,77 @@
     const points = pointsOf(state.id);
     const RETURNS = returnsOf(state.id, DATA_ONE.asOfDate || DATA.asOfDate || '');
     $('heroKicker').textContent =
-      (DATA_ONE.nameZh || DATA_ONE.name || '') + ' · ' + (DATA_ONE.printing || '') + ' · 價格加權 chase';
+      (DATA_ONE.nameZh || DATA_ONE.name || '') + ' · ' + (DATA_ONE.printing || '') +
+      (state.chartAll ? ' · 圖表＝全部 All' : ' · 價格加權 chase');
     $('indexLevel').textContent = Number(DATA_ONE.index).toLocaleString('en-US', {
       minimumFractionDigits: 2, maximumFractionDigits: 2
     });
+    const allNote = $('chartAllNote');
+    if (allNote) {
+      if (state.chartAll) {
+        allNote.hidden = false;
+        allNote.textContent = '圖表重疊三條 Base 指數，只放大視窗、唔重設 1,000。下方廣度／漲跌榜／籃子仍是 ' +
+          (DATA_ONE.nameZh || DATA_ONE.name || '') + '。';
+      } else {
+        allNote.hidden = true;
+        allNote.textContent = '';
+      }
+    }
     const baseDate = DATA_ONE.baseDate || (historyBlock(state.id).baseDate) || (points[0] && points[0].date) || '';
     $('indexNote').textContent =
       '列出 ' + (DATA_ONE.listedCount || 0) + ' · 進指數 ' + (DATA_ONE.constituentCount || 0) +
       ' · 合計 ' + fmtUsd(DATA_ONE.totalValue) +
       ' · 基準 ' + (DATA_ONE.baseValue || 1000) + (baseDate ? ' @ ' + baseDate : '');
 
+    function anySeriesHasPeriod(period) {
+      if (period === 'CUSTOM') {
+        return !!(state.customFrom && state.customTo && state.customFrom <= state.customTo);
+      }
+      return ORDER.some((id) => {
+        const row = DATA.indexes[id] || {};
+        const rets = returnsOf(id, row.asOfDate || DATA.asOfDate || '');
+        return !!(rets[period] && rets[period].available);
+      });
+    }
     function renderPeriod(period) {
       const chgEl = $('indexChg');
       const note = $('indexPeriodNote');
       const ret = returnFor(RETURNS, points, period);
       document.querySelectorAll('.period-btns .period-btn').forEach((btn) => {
         const p = btn.getAttribute('data-period');
-        const avail = !!(RETURNS[p] && RETURNS[p].available);
+        const avail = state.chartAll ? anySeriesHasPeriod(p) : !!(RETURNS[p] && RETURNS[p].available);
         btn.disabled = !avail;
-        btn.setAttribute('aria-selected', p === period && avail ? 'true' : 'false');
-        btn.classList.toggle('is-active', p === period && avail);
+        const on = p === period && period !== 'CUSTOM';
+        btn.setAttribute('aria-selected', on ? 'true' : 'false');
+        btn.classList.toggle('is-active', on);
+        btn.classList.toggle('is-na', !avail);
         btn.title = avail
-          ? (RETURNS[p].from + ' → ' + RETURNS[p].to)
+          ? ((RETURNS[p] && RETURNS[p].from)
+            ? (RETURNS[p].from + ' → ' + RETURNS[p].to)
+            : p)
           : (RETURNS[p] && RETURNS[p].reason) || '需要更多快照（TickerMint 回填）';
       });
       const applyBtn = $('rangeApply');
       if (applyBtn) applyBtn.classList.toggle('is-active', period === 'CUSTOM');
+      let chartPeriod = period;
+      if (!ret.available && period !== 'CUSTOM' && !state.chartAll && RETURNS['1D'] && RETURNS['1D'].available) {
+        chartPeriod = '1D';
+      }
+      if (state.chartAll) chartPeriod = period;
       if (!ret.available) {
+        chgEl.className = 'index-chg muted';
         if (period === 'CUSTOM') {
-          chgEl.className = 'index-chg muted';
           chgEl.textContent = '自訂區間未套用';
           note.textContent = ret.reason || '請輸入起迄日期';
-          drawSpark(points, RETURNS['1D'] && RETURNS['1D'].available ? '1D' : period, RETURNS);
-          return;
+        } else {
+          chgEl.textContent = (DATA_ONE.changePct == null && period === '1D')
+            ? '首次快照 · 下一次更新才有 1D %'
+            : ('尚無 ' + (PERIOD_LABEL[period] || period));
+          note.textContent = state.chartAll
+            ? ('此條尚無 ' + period + ' · 圖表仍放大該視窗（唔重設基準）')
+            : (ret.reason || '需要更多快照（TickerMint 回填）');
         }
-        if (period !== '1D' && RETURNS['1D'] && RETURNS['1D'].available) {
-          state.period = '1D';
-          renderPeriod('1D');
-          return;
-        }
-        chgEl.className = 'index-chg muted';
-        chgEl.textContent = DATA_ONE.changePct == null
-          ? '首次快照 · 下一次更新才有 1D %'
-          : ('尚無 ' + (PERIOD_LABEL[period] || period));
-        note.textContent = ret.reason || '需要更多快照（TickerMint 回填）';
-        drawSpark(points, '1D', RETURNS);
+        drawSpark(points, chartPeriod, RETURNS);
         return;
       }
       chgEl.className = 'index-chg ' + chgClass(ret.pct);
@@ -1373,11 +1653,7 @@
         ' 個快照（缺日不補價 · 唔重設基準）';
       drawSpark(points, period, RETURNS);
     }
-    const want = state.period === 'CUSTOM'
-      ? 'CUSTOM'
-      : ((RETURNS[state.period] && RETURNS[state.period].available) ? state.period : '1D');
-    state.period = want;
-    renderPeriod(want);
+    renderPeriod(state.period);
     const fromEl = $('rangeFrom');
     const toEl = $('rangeTo');
     if (fromEl && toEl && points.length) {
@@ -1387,8 +1663,10 @@
       toEl.min = first;
       fromEl.max = last;
       toEl.max = last;
-      if (!fromEl.value) fromEl.value = first;
-      if (!toEl.value) toEl.value = last;
+      if (state.customFrom) fromEl.value = state.customFrom;
+      else if (!fromEl.value) fromEl.value = first;
+      if (state.customTo) toEl.value = state.customTo;
+      else if (!toEl.value) toEl.value = last;
     }
     const mFrom = $('moversRangeFrom');
     const mTo = $('moversRangeTo');
@@ -1399,36 +1677,21 @@
       if (firstM) {
         mFrom.min = firstM;
         mTo.min = firstM;
-        if (!mFrom.value) mFrom.value = firstM;
+        if (state.moverFrom) mFrom.value = state.moverFrom;
+        else if (!mFrom.value) mFrom.value = firstM;
       }
       if (lastM) {
         mFrom.max = lastM;
         mTo.max = lastM;
-        if (!mTo.value) mTo.value = lastM;
+        if (state.moverTo) mTo.value = state.moverTo;
+        else if (!mTo.value) mTo.value = lastM;
       }
     }
     if (state.moverPeriod === 'CUSTOM' && state.moverFrom && state.moverTo && priceHistCache) {
       computeCustomMovers(DATA_ONE);
     }
 
-    const b = DATA_ONE.breadth || {};
-    const tot = (b.advancing || 0) + (b.declining || 0) + (b.unchanged || 0);
-    $('breadthMetrics').innerHTML =
-      '<div class="metric"><div class="k">上漲 Advancers</div><div class="v' + (b.available ? ' good' : '') + '">' + (b.available ? b.advancing : '—') + '</div></div>' +
-      '<div class="metric"><div class="k">下跌 Decliners</div><div class="v' + (b.available ? ' bad' : '') + '">' + (b.available ? b.declining : '—') + '</div></div>';
-    if (b.available && tot > 0) {
-      $('breadthBar').innerHTML =
-        '<div class="bar">' +
-        '<div class="adv" style="width:' + ((b.advancing / tot) * 100).toFixed(1) + '%"></div>' +
-        '<div class="unch" style="width:' + ((b.unchanged / tot) * 100).toFixed(1) + '%"></div>' +
-        '<div class="dec" style="width:' + ((b.declining / tot) * 100).toFixed(1) + '%"></div>' +
-        '</div>';
-      $('breadthNote').textContent = '有確認漲跌的成分：上漲 ' + b.advancing + ' · 持平 ' + b.unchanged + ' · 下跌 ' + b.declining;
-    } else {
-      $('breadthBar').innerHTML = '';
-      $('breadthNote').textContent = '首次快照沒有廣度數字；下一份快照才會出現 advancers / decliners。';
-    }
-
+    renderBreadth(DATA_ONE);
     renderMovers(DATA_ONE);
 
     const top = DATA_ONE.top || [];
@@ -1480,10 +1743,19 @@
     const btn = e.target.closest('.index-tab');
     if (!btn) return;
     const id = btn.getAttribute('data-id');
-    if (!id || id === state.id) return;
+    if (id === 'all') {
+      if (state.chartAll) return;
+      state.chartAll = true;
+      saveTab();
+      writeHash();
+      renderIndex();
+      return;
+    }
+    if (!id || !DATA.indexes[id]) return;
+    if (id === state.id && !state.chartAll) return;
     state.id = id;
-    state.period = '1D';
-    state.moverPeriod = '1D';
+    state.chartAll = false;
+    saveTab();
     writeHash();
     renderIndex();
   });
@@ -1529,6 +1801,7 @@
       const p = btn.getAttribute('data-period') || '1D';
       if (btn.disabled) return;
       state.period = p;
+      saveIndexPeriod();
       renderIndex();
     });
   });
@@ -1541,6 +1814,7 @@
       state.customFrom = fromEl ? fromEl.value : '';
       state.customTo = toEl ? toEl.value : '';
       state.period = 'CUSTOM';
+      saveIndexPeriod();
       renderIndex();
     });
   }
@@ -1552,7 +1826,12 @@
       const period = btn.getAttribute('data-period');
       if (!PERIODS.includes(period) || period === state.moverPeriod) return;
       state.moverPeriod = period;
-      renderMovers(DATA.indexes[state.id]);
+      saveMoverPeriod();
+      const one = DATA.indexes[state.id];
+      if (one) {
+        renderMovers(one);
+        renderBreadth(one);
+      }
     });
   }
   const moversRangeForm = $('moversRangeForm');
@@ -1566,9 +1845,11 @@
       const one = DATA.indexes[state.id];
       if (!one) return;
       if (typeof MoversRange === 'undefined') {
-        customMoverById[state.id] = { available: false, reason: '自訂漲跌未載入', gainers: [], losers: [] };
+        customMoverById[state.id] = { available: false, reason: '自訂漲跌未載入', gainers: [], losers: [], breadth: emptyBreadth() };
         state.moverPeriod = 'CUSTOM';
+        saveMoverPeriod();
         renderMovers(one);
+        renderBreadth(one);
         return;
       }
       try {
@@ -1577,25 +1858,50 @@
         }
         computeCustomMovers(one);
       } catch (err) {
-        customMoverById[state.id] = { available: false, reason: '載入歷史價失敗', gainers: [], losers: [] };
+        customMoverById[state.id] = { available: false, reason: '載入歷史價失敗', gainers: [], losers: [], breadth: emptyBreadth() };
       }
       state.moverPeriod = 'CUSTOM';
+      saveMoverPeriod();
       renderMovers(one);
+      renderBreadth(one);
     });
   }
   window.addEventListener('hashchange', () => {
     const parsed = parseHash();
-    const nextId = DATA.indexes[parsed.id] ? parsed.id : state.id;
-    if (nextId !== state.id || parsed.view !== state.view) {
+    const nextId = (parsed.idSpecified && DATA.indexes[parsed.id]) ? parsed.id : state.id;
+    if (nextId !== state.id || parsed.view !== state.view || parsed.chartAll !== state.chartAll) {
       state.id = nextId;
       state.view = parsed.view;
+      state.chartAll = !!parsed.chartAll;
+      saveTab();
       renderIndex();
     }
   });
+  restorePrefs();
   const boot = parseHash();
-  state.id = DATA.indexes[boot.id] ? boot.id : ORDER[0];
-  state.view = boot.view === 'binder' ? 'binder' : 'pulse';
+  const hashRaw = (location.hash || '').replace(/^#/, '');
+  if (hashRaw) {
+    if (boot.idSpecified && DATA.indexes[boot.id]) state.id = boot.id;
+    state.view = boot.view === 'binder' ? 'binder' : 'pulse';
+    state.chartAll = !!boot.chartAll;
+  }
+  if (!DATA.indexes[state.id]) {
+    state.id = ORDER[0];
+    state.chartAll = false;
+  }
+  writeHash();
   applyView();
+  if (state.moverPeriod === 'CUSTOM' && state.moverFrom && state.moverTo && typeof MoversRange !== 'undefined') {
+    try {
+      priceHistCache = await MoversRange.load('./data/market-vintage/price-history.json?v=' + VERSION);
+      const one = DATA.indexes[state.id];
+      if (one) computeCustomMovers(one);
+    } catch (e) {
+      customMoverById[state.id] = {
+        available: false, reason: '載入歷史價失敗', gainers: [], losers: [], breadth: emptyBreadth()
+      };
+    }
+  }
   renderIndex();
 })();
 </script>

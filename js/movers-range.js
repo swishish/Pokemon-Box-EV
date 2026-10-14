@@ -12,6 +12,36 @@
     return hist.points || [];
   }
 
+  function emptyBreadth() {
+    return { available: false, advancing: 0, declining: 0, unchanged: 0 };
+  }
+
+  function breadthFromPrices(constituents, fromPrices, toPrices) {
+    var advancing = 0;
+    var declining = 0;
+    var unchanged = 0;
+    fromPrices = fromPrices || {};
+    toPrices = toPrices || {};
+    (constituents || []).forEach(function (row) {
+      if (!row || row.carried) return;
+      var id = String(row.id || '');
+      var prior = fromPrices[id];
+      var price = toPrices[id];
+      if (!id || price == null || !prior || !(Number(prior) > 0) || !(Number(price) > 0)) return;
+      var changePct = Math.round((Number(price) / Number(prior) - 1) * 10000) / 100;
+      if (changePct > 0) advancing += 1;
+      else if (changePct < 0) declining += 1;
+      else unchanged += 1;
+    });
+    var n = advancing + declining + unchanged;
+    return {
+      available: n > 0,
+      advancing: advancing,
+      declining: declining,
+      unchanged: unchanged
+    };
+  }
+
   function empty(reason, from, to) {
     return {
       available: false,
@@ -21,7 +51,8 @@
       label: '',
       reason: reason,
       gainers: [],
-      losers: []
+      losers: [],
+      breadth: emptyBreadth()
     };
   }
 
@@ -69,7 +100,8 @@
       label: baseline.date + ' → ' + end.date,
       reason: null,
       gainers: gainers,
-      losers: losers
+      losers: losers,
+      breadth: breadthFromPrices(constituents, fromPrices, toPrices)
     };
   }
 
@@ -86,6 +118,7 @@
   global.MoversRange = {
     pointsOf: pointsOf,
     compute: compute,
-    load: load
+    load: load,
+    breadthFromPrices: breadthFromPrices
   };
 })(window);

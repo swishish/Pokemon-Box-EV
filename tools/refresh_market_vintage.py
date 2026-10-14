@@ -962,6 +962,8 @@ def self_test() -> None:
     assert snap_empty["breadth"]["available"] is True
     assert snap_empty["movers"]["1D"]["available"] is True
     assert snap_empty["movers"]["1D"]["baselineDate"] == "2026-10-08"
+    assert snap_empty["movers"]["1D"]["breadth"]["available"] is True
+    assert snap_empty["movers"]["1D"]["breadth"]["advancing"] == 1
 
     print("self-test ok")
 
