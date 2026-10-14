@@ -623,6 +623,38 @@ def pick_baseline_date(
     return candidates[-1] if candidates else None
 
 
+def empty_breadth() -> dict:
+    return {"available": False, "advancing": 0, "declining": 0, "unchanged": 0}
+
+
+def breadth_from_constituents(constituents: list, baseline_prices: dict) -> dict:
+    """Advancers / decliners / unchanged vs a historical price map. No invented prints."""
+    advancing = declining = unchanged = 0
+    baseline = {str(k): v for k, v in (baseline_prices or {}).items() if v}
+    for row in constituents or []:
+        if row.get("carried"):
+            continue
+        pid = str(row.get("id") or "")
+        price = row.get("price")
+        prior = baseline.get(pid)
+        if not pid or not price or not prior or float(prior) <= 0 or float(price) <= 0:
+            continue
+        change_pct = round((float(price) / float(prior) - 1) * 100, 2)
+        if change_pct > 0:
+            advancing += 1
+        elif change_pct < 0:
+            declining += 1
+        else:
+            unchanged += 1
+    n = advancing + declining + unchanged
+    return {
+        "available": n > 0,
+        "advancing": advancing,
+        "declining": declining,
+        "unchanged": unchanged,
+    }
+
+
 def movers_from_constituents(
     constituents: list,
     baseline_prices: dict,
@@ -805,6 +837,20 @@ def build_period_movers(
                     and prior_map.get(str(c.get("id") or ""))
                     for c in constituents
                 )
+            snap_breadth = latest.get("breadth") or {}
+            if snap_breadth.get("available"):
+                breadth = {
+                    "available": True,
+                    "advancing": int(snap_breadth.get("advancing") or 0),
+                    "declining": int(snap_breadth.get("declining") or 0),
+                    "unchanged": int(snap_breadth.get("unchanged") or 0),
+                }
+            elif baseline:
+                breadth = breadth_from_constituents(
+                    constituents, prices_by_date.get(baseline) or {}
+                )
+            else:
+                breadth = empty_breadth()
             out[period] = {
                 "available": bool(has_pairs),
                 "baselineDate": baseline,
@@ -812,6 +858,7 @@ def build_period_movers(
                 "label": "vs previous snapshot" if has_pairs else "need a previous snapshot",
                 "gainers": gainers,
                 "losers": losers,
+                "breadth": breadth,
             }
             continue
         if not baseline:
@@ -826,9 +873,11 @@ def build_period_movers(
                 ),
                 "gainers": [],
                 "losers": [],
+                "breadth": empty_breadth(),
             }
             continue
-        gainers, losers = movers_from_constituents(constituents, prices_by_date.get(baseline) or {})
+        prior_map = prices_by_date.get(baseline) or {}
+        gainers, losers = movers_from_constituents(constituents, prior_map)
         out[period] = {
             "available": True,
             "baselineDate": baseline,
@@ -836,6 +885,7 @@ def build_period_movers(
             "label": f"vs {baseline}",
             "gainers": gainers,
             "losers": losers,
+            "breadth": breadth_from_constituents(constituents, prior_map),
         }
     return out
 
@@ -1209,7 +1259,9 @@ def self_test() -> None:
     assert periods["5D"]["baselineDate"] == "2026-10-06"
     assert periods["5D"]["gainers"][0]["id"] == "a"
     assert periods["5D"]["gainers"][0]["changePct"] == 10.0
+    assert periods["5D"]["breadth"] == {"available": True, "advancing": 1, "declining": 1, "unchanged": 0}
     assert periods["30D"]["available"] is False
+    assert periods["30D"]["breadth"]["available"] is False
     assert periods["1Y"]["available"] is False
     assert periods["YTD"]["available"] is False
     year_hist = {
@@ -1223,6 +1275,9 @@ def self_test() -> None:
     assert year_movers["1Y"]["available"] is True
     assert year_movers["1Y"]["baselineDate"] == "2025-10-08"
     assert year_movers["1Y"]["gainers"][0]["id"] == "a"
+    assert year_movers["1Y"]["breadth"]["available"] is True
+    assert year_movers["1Y"]["breadth"]["advancing"] == 1
+    assert year_movers["1Y"]["breadth"]["declining"] == 1
 
     # After a rebase, gainers may be empty even though prevIndex is set.
     # Do not mark 1D available unless a pairwise price map exists.
