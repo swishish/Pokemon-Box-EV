@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>Base 復古指數 · Box EV v1.28.2</title>
+<title>Base 復古指數 · Box EV v1.28.3</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <style>
   :root {
@@ -34,7 +34,7 @@
     --shadow-pressed: 1px 1px 0 var(--ink);
   }
   * { box-sizing: border-box; }
-  html { overflow-x: clip; }
+  html { overflow-x: hidden; }
   [hidden] { display: none !important; }
   body {
     margin: 0;
@@ -177,6 +177,7 @@
     max-width: 1100px;
     margin: 0 auto;
     padding: 12px 14px 48px;
+    min-width: 0;
   }
   .card {
     background: var(--card);
@@ -185,6 +186,8 @@
     box-shadow: var(--shadow-sm);
     padding: 14px 16px;
     margin-bottom: 12px;
+    min-width: 0;
+    overflow: visible;
   }
   h2 { margin: 0 0 8px; font-size: .95rem; }
   .pill {
@@ -411,7 +414,14 @@
   th, td { text-align: left; padding: 7px 6px; border-bottom: 1px solid var(--line); vertical-align: middle; overflow-wrap: break-word; }
   .set-col { max-width: 9.5rem; }
   th { color: var(--muted); font-weight: 600; font-size: .75rem; }
-  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  td.num, th.num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    overflow-wrap: normal;
+    word-break: keep-all;
+    min-width: max-content;
+  }
   .card-thumb {
     width: 32px; height: 44px;
     object-fit: contain;
@@ -440,9 +450,24 @@
   .err .err-hint { color: var(--text); font-size: .92rem; margin-top: 8px; }
   .table-wrap {
     max-width: 100%;
+    min-width: 0;
     overflow-x: auto;
+    overflow-y: hidden;
     overscroll-behavior-x: contain;
     -webkit-overflow-scrolling: touch;
+    touch-action: pan-x pinch-zoom;
+    isolation: isolate;
+  }
+  .table-wrap table {
+    width: 100%;
+  }
+  .table-wrap th.num,
+  .table-wrap td.num {
+    position: sticky;
+    right: 0;
+    z-index: 1;
+    background: var(--card);
+    box-shadow: -6px 0 8px -6px rgba(20, 20, 20, .28);
   }
   .spark-wrap {
     position: relative;
@@ -703,7 +728,7 @@
 <header>
   <div class="header-inner">
     <div class="header-top">
-      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.28.2</span></h1>
+      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.28.3</span></h1>
       <nav class="header-nav" aria-label="站內導覽">
         <a class="nav-btn" href="./calc.html">開盒 EV</a>
         <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
@@ -894,13 +919,13 @@
 </main>
 <footer>日盒 EV 小算盤 · Base vintage pulse · Snapshot 靜態資料 · 非正式投資建議 · 歷史價 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a> · <a href="./index.html">首頁</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-midera.html">中世代</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/">Base Unlimited</a></footer>
 
-<script src="./js/spark-tip.js?v=1.28.2"></script>
-<script src="./js/movers-range.js?v=1.28.2"></script>
-<script src="./data/market-vintage/latest.js?v=1.28.2"></script>
-<script src="./data/market-vintage/history.js?v=1.28.2"></script>
+<script src="./js/spark-tip.js?v=1.28.3"></script>
+<script src="./js/movers-range.js?v=1.28.3"></script>
+<script src="./data/market-vintage/latest.js?v=1.28.3"></script>
+<script src="./data/market-vintage/history.js?v=1.28.3"></script>
 <script>
 (async function () {
-  const VERSION = '1.28.2';
+  const VERSION = '1.28.3';
   const PERIODS = ['1D', '5D', '30D', '1Y', 'YTD'];
   const LS_INDEX_PERIOD = 'pbev-vintage-index-period';
   const LS_MOVER_PERIOD = 'pbev-vintage-mover-period';
