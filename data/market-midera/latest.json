@@ -1,7 +1,7 @@
 {
-  "generated": "2026-10-17T23:13:28.838862+00:00",
-  "sourceStamp": "2026-10-17T20:05:21+0000",
-  "asOfDate": "2026-10-17",
+  "generated": "2026-10-18T23:22:43.345069+00:00",
+  "sourceStamp": "2026-10-18T20:05:40+0000",
+  "asOfDate": "2026-10-18",
   "priceSource": "TCGplayer Market Price (TickerMint history + TCGCSV daily snap)",
   "universe": "English DP→SM raw / ungraded chase singles (TCGPlayer Market, NM)",
   "staleDays": 70,
@@ -9,26 +9,19 @@
   "name": "Mid-era Top 50",
   "nameZh": "中世代 Top 50",
   "era": "DP-SM",
-  "index": 4657.63,
-  "prevIndex": 4660.93,
-  "change": -3.3,
-  "changePct": -0.07,
+  "index": 4671.83,
+  "prevIndex": 4657.63,
+  "change": 14.2,
+  "changePct": 0.3,
   "changeLabel": "vs previous snapshot",
   "divisor": 8.79424742687378,
   "baseValue": 1000.0,
   "baseDate": "2024-02-08",
   "listedCount": 50,
   "constituentCount": 50,
-  "totalValue": 40960.39,
-  "pricedToday": 48,
+  "totalValue": 41085.2,
+  "pricedToday": 49,
   "listedUnpriced": [
-    {
-      "id": "89397",
-      "name": "Snorlax Lv.X",
-      "number": "111/111",
-      "rarity": "Ultra Rare",
-      "setName": "Rising Rivals"
-    },
     {
       "id": "87423",
       "name": "Mewtwo",
@@ -39,23 +32,43 @@
   ],
   "breadth": {
     "available": true,
-    "advancing": 0,
-    "declining": 1,
-    "unchanged": 47
+    "advancing": 3,
+    "declining": 0,
+    "unchanged": 46
   },
-  "gainers": [],
-  "losers": [
+  "gainers": [
     {
-      "id": "88536",
-      "name": "Raikou (Shiny)",
-      "number": "SL9",
-      "image": "https://tcgplayer-cdn.tcgplayer.com/product/88536_200w.jpg",
-      "setName": "Call of Legends",
-      "price": 554.24,
-      "prevPrice": 583.19,
-      "changePct": -4.96
+      "id": "89397",
+      "name": "Snorlax Lv.X",
+      "number": "111/111",
+      "image": "https://tcgplayer-cdn.tcgplayer.com/product/89397_200w.jpg",
+      "setName": "Rising Rivals",
+      "price": 1099.99,
+      "prevPrice": 999.99,
+      "changePct": 10.0
+    },
+    {
+      "id": "87916",
+      "name": "Palkia EX (Team Plasma) (100 Full Art)",
+      "number": "100/101",
+      "image": "https://tcgplayer-cdn.tcgplayer.com/product/87916_200w.jpg",
+      "setName": "Plasma Blast",
+      "price": 526.5,
+      "prevPrice": 508.12,
+      "changePct": 3.62
+    },
+    {
+      "id": "98141",
+      "name": "M Rayquaza EX (105 Full Art)",
+      "number": "105/108",
+      "image": "https://tcgplayer-cdn.tcgplayer.com/product/98141_200w.jpg",
+      "setName": "XY - Roaring Skies",
+      "price": 550.7,
+      "prevPrice": 544.27,
+      "changePct": 1.18
     }
   ],
+  "losers": [],
   "top": [
     {
       "rank": 1,
@@ -109,6 +122,16 @@
     },
     {
       "rank": 6,
+      "id": "89397",
+      "name": "Snorlax Lv.X",
+      "number": "111/111",
+      "image": "https://tcgplayer-cdn.tcgplayer.com/product/89397_200w.jpg",
+      "setName": "Rising Rivals",
+      "price": 1099.99,
+      "rarity": "Ultra Rare"
+    },
+    {
+      "rank": 7,
       "id": "94689",
       "name": "Dialga EX (122 Secret Rare)",
       "number": "122/119",
@@ -118,7 +141,7 @@
       "rarity": "Secret Rare"
     },
     {
-      "rank": 7,
+      "rank": 8,
       "id": "88628",
       "name": "Rayquaza",
       "number": "20/95",
@@ -126,16 +149,6 @@
       "setName": "Call of Legends",
       "price": 1013.27,
       "rarity": "Holo Rare"
-    },
-    {
-      "rank": 8,
-      "id": "89397",
-      "name": "Snorlax Lv.X",
-      "number": "111/111",
-      "image": "https://tcgplayer-cdn.tcgplayer.com/product/89397_200w.jpg",
-      "setName": "Rising Rivals",
-      "price": 999.99,
-      "rarity": "Ultra Rare"
     },
     {
       "rank": 9,
@@ -295,7 +308,7 @@
       "number": "100/101",
       "rarity": "Ultra Rare",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/87916_200w.jpg",
-      "price": 508.12,
+      "price": 526.5,
       "printing": "Holofoil",
       "carried": false
     },
@@ -315,7 +328,7 @@
       "number": "105/108",
       "rarity": "Ultra Rare",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/98141_200w.jpg",
-      "price": 544.27,
+      "price": 550.7,
       "printing": "Holofoil",
       "carried": false
     },
@@ -365,9 +378,9 @@
       "number": "111/111",
       "rarity": "Ultra Rare",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/89397_200w.jpg",
-      "price": 999.99,
+      "price": 1099.99,
       "printing": "Holofoil",
-      "carried": true
+      "carried": false
     },
     {
       "id": "94683",
@@ -674,7 +687,7 @@
       "prevPrice": 4499.66,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
@@ -690,7 +703,7 @@
       "prevPrice": 2155.56,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
@@ -706,7 +719,7 @@
       "prevPrice": 1344.25,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
@@ -722,7 +735,7 @@
       "prevPrice": 1199.51,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
@@ -738,11 +751,27 @@
       "prevPrice": 1172.0,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
       "rank": 6,
+      "id": "89397",
+      "name": "Snorlax Lv.X",
+      "number": "111/111",
+      "rarity": "Ultra Rare",
+      "setName": "Rising Rivals",
+      "setId": "1367",
+      "image": "https://tcgplayer-cdn.tcgplayer.com/product/89397_200w.jpg",
+      "price": 1099.99,
+      "prevPrice": 999.99,
+      "changePct": 10.0,
+      "printing": "Holofoil",
+      "pricedAsOf": "2026-10-18",
+      "carried": false
+    },
+    {
+      "rank": 7,
       "id": "94689",
       "name": "Dialga EX (122 Secret Rare)",
       "number": "122/119",
@@ -754,11 +783,11 @@
       "prevPrice": 1022.31,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
-      "rank": 7,
+      "rank": 8,
       "id": "88628",
       "name": "Rayquaza",
       "number": "20/95",
@@ -770,24 +799,8 @@
       "prevPrice": 1013.27,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
-    },
-    {
-      "rank": 8,
-      "id": "89397",
-      "name": "Snorlax Lv.X",
-      "number": "111/111",
-      "rarity": "Ultra Rare",
-      "setName": "Rising Rivals",
-      "setId": "1367",
-      "image": "https://tcgplayer-cdn.tcgplayer.com/product/89397_200w.jpg",
-      "price": 999.99,
-      "prevPrice": 999.99,
-      "changePct": null,
-      "printing": "Holofoil",
-      "pricedAsOf": "2026-10-15",
-      "carried": true
     },
     {
       "rank": 9,
@@ -802,7 +815,7 @@
       "prevPrice": 946.33,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
@@ -818,7 +831,7 @@
       "prevPrice": 904.13,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
@@ -834,7 +847,7 @@
       "prevPrice": 900.96,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
@@ -850,7 +863,7 @@
       "prevPrice": 899.99,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
@@ -866,7 +879,7 @@
       "prevPrice": 840.75,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
@@ -882,7 +895,7 @@
       "prevPrice": 833.32,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
@@ -898,7 +911,7 @@
       "prevPrice": 830.72,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
@@ -914,7 +927,7 @@
       "prevPrice": 822.1,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
@@ -930,7 +943,7 @@
       "prevPrice": 802.12,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
@@ -946,7 +959,7 @@
       "prevPrice": 768.1,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
@@ -962,7 +975,7 @@
       "prevPrice": 761.04,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
@@ -978,7 +991,7 @@
       "prevPrice": 750.0,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
@@ -994,7 +1007,7 @@
       "prevPrice": 737.5,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
@@ -1010,7 +1023,7 @@
       "prevPrice": 737.0,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
@@ -1026,7 +1039,7 @@
       "prevPrice": 724.05,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
@@ -1042,7 +1055,7 @@
       "prevPrice": 700.8,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
@@ -1058,7 +1071,7 @@
       "prevPrice": 697.99,
       "changePct": 0.0,
       "printing": "Normal",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
@@ -1074,7 +1087,7 @@
       "prevPrice": 667.7,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
@@ -1090,7 +1103,7 @@
       "prevPrice": 649.98,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
@@ -1106,7 +1119,7 @@
       "prevPrice": 645.09,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
@@ -1122,7 +1135,7 @@
       "prevPrice": 628.77,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
@@ -1138,7 +1151,7 @@
       "prevPrice": 623.74,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
@@ -1154,7 +1167,7 @@
       "prevPrice": 617.81,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
@@ -1170,7 +1183,7 @@
       "prevPrice": 599.99,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
@@ -1186,7 +1199,7 @@
       "prevPrice": 599.14,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
@@ -1202,7 +1215,7 @@
       "prevPrice": 595.06,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
@@ -1218,7 +1231,7 @@
       "prevPrice": 557.5,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
@@ -1231,10 +1244,10 @@
       "setId": "1415",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/88536_200w.jpg",
       "price": 554.24,
-      "prevPrice": 583.19,
-      "changePct": -4.96,
+      "prevPrice": 554.24,
+      "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
@@ -1250,11 +1263,27 @@
       "prevPrice": 552.64,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
       "rank": 38,
+      "id": "98141",
+      "name": "M Rayquaza EX (105 Full Art)",
+      "number": "105/108",
+      "rarity": "Ultra Rare",
+      "setName": "XY - Roaring Skies",
+      "setId": "1534",
+      "image": "https://tcgplayer-cdn.tcgplayer.com/product/98141_200w.jpg",
+      "price": 550.7,
+      "prevPrice": 544.27,
+      "changePct": 1.18,
+      "printing": "Holofoil",
+      "pricedAsOf": "2026-10-18",
+      "carried": false
+    },
+    {
+      "rank": 39,
       "id": "87423",
       "name": "Mewtwo",
       "number": "9",
@@ -1270,7 +1299,7 @@
       "carried": true
     },
     {
-      "rank": 39,
+      "rank": 40,
       "id": "90592",
       "name": "White Kyurem EX (146 Full Art)",
       "number": "146/149",
@@ -1282,27 +1311,27 @@
       "prevPrice": 545.71,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
-      "carried": false
-    },
-    {
-      "rank": 40,
-      "id": "98141",
-      "name": "M Rayquaza EX (105 Full Art)",
-      "number": "105/108",
-      "rarity": "Ultra Rare",
-      "setName": "XY - Roaring Skies",
-      "setId": "1534",
-      "image": "https://tcgplayer-cdn.tcgplayer.com/product/98141_200w.jpg",
-      "price": 544.27,
-      "prevPrice": 544.27,
-      "changePct": 0.0,
-      "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
       "rank": 41,
+      "id": "87916",
+      "name": "Palkia EX (Team Plasma) (100 Full Art)",
+      "number": "100/101",
+      "rarity": "Ultra Rare",
+      "setName": "Plasma Blast",
+      "setId": "1370",
+      "image": "https://tcgplayer-cdn.tcgplayer.com/product/87916_200w.jpg",
+      "price": 526.5,
+      "prevPrice": 508.12,
+      "changePct": 3.62,
+      "printing": "Holofoil",
+      "pricedAsOf": "2026-10-18",
+      "carried": false
+    },
+    {
+      "rank": 42,
       "id": "85926",
       "name": "Groudon (Shiny)",
       "number": "SL4",
@@ -1314,23 +1343,7 @@
       "prevPrice": 514.16,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
-      "carried": false
-    },
-    {
-      "rank": 42,
-      "id": "87916",
-      "name": "Palkia EX (Team Plasma) (100 Full Art)",
-      "number": "100/101",
-      "rarity": "Ultra Rare",
-      "setName": "Plasma Blast",
-      "setId": "1370",
-      "image": "https://tcgplayer-cdn.tcgplayer.com/product/87916_200w.jpg",
-      "price": 508.12,
-      "prevPrice": 508.12,
-      "changePct": 0.0,
-      "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
@@ -1346,7 +1359,7 @@
       "prevPrice": 503.58,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
@@ -1362,7 +1375,7 @@
       "prevPrice": 500.0,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
@@ -1378,7 +1391,7 @@
       "prevPrice": 500.0,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
@@ -1394,7 +1407,7 @@
       "prevPrice": 499.99,
       "changePct": 0.0,
       "printing": "Reverse Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
@@ -1410,7 +1423,7 @@
       "prevPrice": 489.99,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
@@ -1426,7 +1439,7 @@
       "prevPrice": 487.12,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
@@ -1442,7 +1455,7 @@
       "prevPrice": 482.35,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     },
     {
@@ -1458,41 +1471,61 @@
       "prevPrice": 479.99,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-17",
+      "pricedAsOf": "2026-10-18",
       "carried": false
     }
   ],
   "movers": {
     "1D": {
       "available": true,
-      "baselineDate": "2026-10-16",
+      "baselineDate": "2026-10-17",
       "neededBy": null,
       "label": "vs previous snapshot",
-      "gainers": [],
-      "losers": [
+      "gainers": [
         {
-          "id": "88536",
-          "name": "Raikou (Shiny)",
-          "number": "SL9",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/88536_200w.jpg",
-          "setName": "Call of Legends",
-          "price": 554.24,
-          "prevPrice": 583.19,
-          "changePct": -4.96
+          "id": "89397",
+          "name": "Snorlax Lv.X",
+          "number": "111/111",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/89397_200w.jpg",
+          "setName": "Rising Rivals",
+          "price": 1099.99,
+          "prevPrice": 999.99,
+          "changePct": 10.0
+        },
+        {
+          "id": "87916",
+          "name": "Palkia EX (Team Plasma) (100 Full Art)",
+          "number": "100/101",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/87916_200w.jpg",
+          "setName": "Plasma Blast",
+          "price": 526.5,
+          "prevPrice": 508.12,
+          "changePct": 3.62
+        },
+        {
+          "id": "98141",
+          "name": "M Rayquaza EX (105 Full Art)",
+          "number": "105/108",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/98141_200w.jpg",
+          "setName": "XY - Roaring Skies",
+          "price": 550.7,
+          "prevPrice": 544.27,
+          "changePct": 1.18
         }
       ],
+      "losers": [],
       "breadth": {
         "available": true,
-        "advancing": 0,
-        "declining": 1,
-        "unchanged": 47
+        "advancing": 3,
+        "declining": 0,
+        "unchanged": 46
       }
     },
     "5D": {
       "available": true,
-      "baselineDate": "2026-10-12",
-      "neededBy": "2026-10-12",
-      "label": "vs 2026-10-12",
+      "baselineDate": "2026-10-13",
+      "neededBy": "2026-10-13",
+      "label": "vs 2026-10-13",
       "gainers": [
         {
           "id": "183899",
@@ -1515,6 +1548,16 @@
           "changePct": 11.2
         },
         {
+          "id": "89397",
+          "name": "Snorlax Lv.X",
+          "number": "111/111",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/89397_200w.jpg",
+          "setName": "Rising Rivals",
+          "price": 1099.99,
+          "prevPrice": 999.99,
+          "changePct": 10.0
+        },
+        {
           "id": "90146",
           "name": "Umbreon (Prime)",
           "number": "86/90",
@@ -1525,34 +1568,14 @@
           "changePct": 6.74
         },
         {
-          "id": "85741",
-          "name": "Giratina EX (124 Full Art)",
-          "number": "124/124",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/85741_200w.jpg",
-          "setName": "Dragons Exalted",
-          "price": 617.81,
-          "prevPrice": 581.37,
-          "changePct": 6.27
-        },
-        {
-          "id": "88641",
-          "name": "Rayquaza C LV.X - DP47",
-          "number": "DP47",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/88641_200w.jpg",
-          "setName": "Diamond and Pearl Promos",
-          "price": 628.77,
-          "prevPrice": 611.27,
-          "changePct": 2.86
-        },
-        {
-          "id": "138497",
-          "name": "Charizard GX (Secret)",
-          "number": "150/147",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/138497_200w.jpg",
-          "setName": "SM - Burning Shadows",
-          "price": 840.75,
-          "prevPrice": 818.03,
-          "changePct": 2.78
+          "id": "87916",
+          "name": "Palkia EX (Team Plasma) (100 Full Art)",
+          "number": "100/101",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/87916_200w.jpg",
+          "setName": "Plasma Blast",
+          "price": 526.5,
+          "prevPrice": 499.81,
+          "changePct": 5.34
         },
         {
           "id": "101520",
@@ -1575,14 +1598,14 @@
           "changePct": 1.72
         },
         {
-          "id": "87916",
-          "name": "Palkia EX (Team Plasma) (100 Full Art)",
-          "number": "100/101",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/87916_200w.jpg",
-          "setName": "Plasma Blast",
-          "price": 508.12,
-          "prevPrice": 499.81,
-          "changePct": 1.66
+          "id": "98141",
+          "name": "M Rayquaza EX (105 Full Art)",
+          "number": "105/108",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/98141_200w.jpg",
+          "setName": "XY - Roaring Skies",
+          "price": 550.7,
+          "prevPrice": 544.27,
+          "changePct": 1.18
         },
         {
           "id": "183964",
@@ -1593,6 +1616,16 @@
           "price": 904.13,
           "prevPrice": 896.86,
           "changePct": 0.81
+        },
+        {
+          "id": "84709",
+          "name": "Darkrai EX (107 Full Art)",
+          "number": "107/108",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/84709_200w.jpg",
+          "setName": "Dark Explorers",
+          "price": 822.1,
+          "prevPrice": 816.28,
+          "changePct": 0.71
         }
       ],
       "losers": [
@@ -1615,16 +1648,6 @@
           "price": 554.24,
           "prevPrice": 698.99,
           "changePct": -20.71
-        },
-        {
-          "id": "201334",
-          "name": "Blastoise & Piplup GX (Alternate Full Art)",
-          "number": "215/236",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/201334_200w.jpg",
-          "setName": "SM - Cosmic Eclipse",
-          "price": 482.35,
-          "prevPrice": 500.99,
-          "changePct": -3.72
         },
         {
           "id": "84777",
@@ -1655,19 +1678,39 @@
           "price": 724.05,
           "prevPrice": 730.5,
           "changePct": -0.88
+        },
+        {
+          "id": "201334",
+          "name": "Blastoise & Piplup GX (Alternate Full Art)",
+          "number": "215/236",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/201334_200w.jpg",
+          "setName": "SM - Cosmic Eclipse",
+          "price": 482.35,
+          "prevPrice": 486.0,
+          "changePct": -0.75
+        },
+        {
+          "id": "94683",
+          "name": "Gengar EX (114 Full Art)",
+          "number": "114/119",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/94683_200w.jpg",
+          "setName": "XY - Phantom Forces",
+          "price": 761.04,
+          "prevPrice": 762.94,
+          "changePct": -0.25
         }
       ],
       "breadth": {
         "available": true,
-        "advancing": 15,
-        "declining": 6,
-        "unchanged": 27
+        "advancing": 12,
+        "declining": 7,
+        "unchanged": 30
       }
     },
     "30D": {
       "available": true,
       "baselineDate": "2026-09-17",
-      "neededBy": "2026-09-17",
+      "neededBy": "2026-09-18",
       "label": "vs 2026-09-17",
       "gainers": [
         {
@@ -1689,6 +1732,16 @@
           "price": 554.24,
           "prevPrice": 225.0,
           "changePct": 146.33
+        },
+        {
+          "id": "89397",
+          "name": "Snorlax Lv.X",
+          "number": "111/111",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/89397_200w.jpg",
+          "setName": "Rising Rivals",
+          "price": 1099.99,
+          "prevPrice": 499.5,
+          "changePct": 120.22
         },
         {
           "id": "86916",
@@ -1759,16 +1812,6 @@
           "price": 645.09,
           "prevPrice": 536.37,
           "changePct": 20.27
-        },
-        {
-          "id": "88096",
-          "name": "Pikachu",
-          "number": "7",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/88096_200w.jpg",
-          "setName": "Rumble",
-          "price": 899.99,
-          "prevPrice": 750.0,
-          "changePct": 20.0
         }
       ],
       "losers": [
@@ -1803,16 +1846,6 @@
           "changePct": -8.98
         },
         {
-          "id": "87916",
-          "name": "Palkia EX (Team Plasma) (100 Full Art)",
-          "number": "100/101",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/87916_200w.jpg",
-          "setName": "Plasma Blast",
-          "price": 508.12,
-          "prevPrice": 539.08,
-          "changePct": -5.74
-        },
-        {
           "id": "123436",
           "name": "Pikachu EX - XY124",
           "number": "XY124",
@@ -1831,6 +1864,16 @@
           "price": 482.35,
           "prevPrice": 496.14,
           "changePct": -2.78
+        },
+        {
+          "id": "87916",
+          "name": "Palkia EX (Team Plasma) (100 Full Art)",
+          "number": "100/101",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/87916_200w.jpg",
+          "setName": "Plasma Blast",
+          "price": 526.5,
+          "prevPrice": 539.08,
+          "changePct": -2.33
         },
         {
           "id": "87406",
@@ -1875,7 +1918,7 @@
       ],
       "breadth": {
         "available": true,
-        "advancing": 29,
+        "advancing": 30,
         "declining": 10,
         "unchanged": 9
       }
@@ -1883,7 +1926,7 @@
     "1Y": {
       "available": true,
       "baselineDate": "2025-10-16",
-      "neededBy": "2025-10-17",
+      "neededBy": "2025-10-18",
       "label": "vs 2025-10-16",
       "gainers": [
         {
@@ -1905,6 +1948,16 @@
           "price": 1013.27,
           "prevPrice": 52.66,
           "changePct": 1824.17
+        },
+        {
+          "id": "89397",
+          "name": "Snorlax Lv.X",
+          "number": "111/111",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/89397_200w.jpg",
+          "setName": "Rising Rivals",
+          "price": 1099.99,
+          "prevPrice": 190.99,
+          "changePct": 475.94
         },
         {
           "id": "88641",
@@ -1975,22 +2028,12 @@
           "price": 554.24,
           "prevPrice": 145.75,
           "changePct": 280.27
-        },
-        {
-          "id": "90146",
-          "name": "Umbreon (Prime)",
-          "number": "86/90",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/90146_200w.jpg",
-          "setName": "Undaunted",
-          "price": 667.7,
-          "prevPrice": 203.53,
-          "changePct": 228.06
         }
       ],
       "losers": [],
       "breadth": {
         "available": true,
-        "advancing": 47,
+        "advancing": 48,
         "declining": 0,
         "unchanged": 0
       }
@@ -2166,7 +2209,7 @@
       ],
       "breadth": {
         "available": true,
-        "advancing": 42,
+        "advancing": 43,
         "declining": 6,
         "unchanged": 0
       }
@@ -2174,8 +2217,8 @@
   },
   "snapshotRange": {
     "earliest": "2024-12-26",
-    "latest": "2026-10-17",
-    "count": 63
+    "latest": "2026-10-18",
+    "count": 64
   },
   "backfill": {
     "source": "tickermint",
