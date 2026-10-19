@@ -1,10 +1,10 @@
 # Pokemon Box EV
 
-日盒 EV 小算盤（朋友向）· **v1.28.10**
+日盒 EV 小算盤（朋友向）· **v1.28.11**
 
 給「不太懂金融／AI」的買卡朋友看的工具：首頁介紹點樣用 → 開盒算盤選系列 → 看 **四個預期回報 %**（同一分母）→ 有膜／無膜切換 → 看主力 chase 卡與「買單卡 vs 開盒」粗略提示。
 
-資料來自靜態 snapshot（`ev_live`），**無登入、無即時爬價**。
+資料來自靜態 snapshot（`ev_live`），**無登入、無即時行情**。盒價可用公開頁手動／Actions 刷新；單卡仍然要人手。
 
 ## 線上使用（GitHub Pages）
 
@@ -43,7 +43,7 @@ Chase 公允值（PSA10 回歸散點）：**https://swishish.github.io/Pokemon-B
 1. GitHub Action **Update EN market pulse**（`.github/workflows/update-market-en.yml`）
    - **排程**：每天 21:23 UTC（TCGCSV 約 20:05 UTC 刷新之後）
    - **手動**：Actions 頁按 **Run workflow**
-   - **PR**：只跑 self-test（`refresh_market_en` + `fetch_tcgcsv_archive` + `backfill_tickermint` + `backfill_tickermint_vintage` + `refresh_market_vintage` + `refresh_market_midera` + `backfill_tickermint_midera`），不抓 dump、不 commit
+   - **PR**：只跑 self-test（`refresh_market_en` + `fetch_tcgcsv_archive` + `backfill_tickermint` + `backfill_tickermint_vintage` + `refresh_market_vintage` + `refresh_market_midera` + `backfill_tickermint_midera` + `refresh_sealed_boxes`），不抓 dump、不 commit
 2. 腳本 `python3 tools/refresh_market_en.py` 先讀 `https://tcgcsv.com/last-updated.txt`；stamp 沒變就結束（零流量）。
 3. 有新 dump 才抓 `Groups.csv` + 各系列 `ProductsAndPrices.csv`，寫入：
    - `data/market-en/latest.json`（指數、廣度、漲跌榜、500 張成分——給下一次對比用）
@@ -207,9 +207,32 @@ python3 tools/export_chase_fit.py /path/to/pokemon_psa10_regression_YYYY-MM-DD.x
 
 每週報告裡 Vintage_Fit 的 Strong Buy（例如 臭泥 Grimer #88）**唔會**出現在此頁，除非之後另接 Vintage_Fit。
 
-## Box EV 週更（手動）
+## 刷新日盒盒價（給 Gary · 唔使識寫 code）
 
-開盒算盤 `calc.html` 用 `data.json`／`data.js`。`tools/refresh_box_ev.py` 要先有手存的 PriceCharting console HTML（`/tmp/pc-sets/{SET}.html`，例如 `M6.html`）。**沒有這些檔就唔好跑**——腳本會拒絕寫入，避免虛構價格或把 `as_of` 推到今天。SNKRDUNK Grade A 亦唔會自動爬。市場頁先由 `update-market-en.yml` 每日更新；Chase／Box EV 仍然係人手。`calc.html` 資料超過 **8 日**會用橙色過期橫幅。
+算盤頂欄「盒價」嘅預設分母（有膜／無膜落地）而家可以用公開頁自動更新，**唔使逐個盒抄價**。只讀 SNKRDUNK／PriceCharting 公開資料，**唔會登入、下單、出價或傳訊息**。
+
+**一週刷新一次就夠**（盒價會變，但唔使日日睇）。
+
+1. 打開 GitHub → **Actions** → 左邊揀 **Refresh sealed box prices** → **Run workflow** → 再按一次綠色 **Run workflow**
+2. 等佢跑完。成功就會自動把新盒價寫入網站資料。
+3. 若 Actions 失敗（有時 SNKRDUNK 會擋伺服器 IP），用本機（只要有 Python，唔使安裝套件）：
+
+```bash
+python3 tools/refresh_sealed_boxes.py --self-test
+python3 tools/refresh_sealed_boxes.py --root .
+```
+
+然後照常 commit／push `data.json` 同 `data.js`。
+
+**而家自動得到：** 各系列有膜盒價（通常取 2–4 盒一組嘅公開掛牌，再加原本嗰條落地運費）、搵到就一齊更新無膜、以及 PriceCharting 盒均價（只係參考連結，唔會改成盒價分母）。
+
+**仍然要人手：** 單卡 Grade A／抽出率。呢啲仍要先手存每個系列嘅 PriceCharting 卡表（`/tmp/pc-sets/M6.html` 噉），再跑下面嘅 `refresh_box_ev.py`。橙色「數字已過期」橫幅跟單卡資料日期，唔單止盒價。
+
+唔會發明未見過嘅 SNKRDUNK 產品編號或價格；某系列抓唔到就留舊數。
+
+## Box EV 週更（單卡 · 仍然手動）
+
+開盒算盤 `calc.html` 用 `data.json`／`data.js`。`tools/refresh_box_ev.py` 要先有手存的 PriceCharting **單卡** console HTML（`/tmp/pc-sets/{SET}.html`，例如 `M6.html`）。**沒有這些檔就唔好跑**——腳本會拒絕寫入，避免虛構價格或把 `as_of` 推到今天。SNKRDUNK Grade A **單卡**亦唔會自動爬。市場頁先由 `update-market-en.yml` 每日更新；Chase 同單卡 Box EV 仍然係人手。`calc.html` 資料超過 **8 日**會用橙色過期橫幅。
 
 ```bash
 python3 tools/refresh_box_ev.py --root . --pc-dir /tmp/pc-sets
@@ -217,6 +240,7 @@ python3 tools/refresh_box_ev.py --root . --pc-dir /tmp/pc-sets
 
 ## Changelog（摘要）
 
+- **v1.28.11**：日盒**盒價**可用公開 SNKRDUNK 掛牌＋PriceCharting 盒頁刷新（`tools/refresh_sealed_boxes.py`，Actions 手動掣）。只讀、唔登入／下單。單卡 Grade A／抽出率同 EV 算法不變
 - **v1.28.10**：Chase「落後籃子」——模型殘差低估（最低估先）；與 EN 指數重疊的英文卡另給 30D 落後（卡 % − 指數 %，唔發明 ID）。中世代「落後籃子」同 Unlimited：30D／YTD vs 同一籃子指數。EV／Chase_Fit 算法不變
 - **v1.28.9**：Base 復古 Unlimited「落後籃子」——成分 30D／YTD 相對同一籃子指數落後（最落後先；真實快照，不補價）。中世代圖表加 **All**（全部已有日期、唔重設 1,000）、懸停／點選睇指數與日期、卡冊／籃子 DP·BW·XY·SM 晶片。EV／Chase_Fit 算法不變
 - **v1.28.8**：Chase「便宜過模型」清單加卡縮圖（JP＝本機 `img/cards/*.webp`，EN＝市況已有 TCGPlayer `_200w.jpg`；無對就 placeholder）。`loading=lazy`＋`decoding=async`。EV／Chase 算法不變

@@ -36,6 +36,15 @@ Vintage_Fit Strong Buys (e.g. 臭泥 Grimer #88) live on the Shortlist **vintage
 
 ## Weekly Box EV snapshot (manual)
 
+Sealed **box denoms** (有膜／無膜 landed yen) can be refreshed from public SNKRDUNK apparel JSON + PriceCharting booster-box HTML — view-only, no login:
+
+```bash
+python3 tools/refresh_sealed_boxes.py --self-test
+python3 tools/refresh_sealed_boxes.py --root .
+```
+
+Or GitHub → Actions → **Refresh sealed box prices** → Run workflow. Missing fetches keep the previous snapshot (will not invent apparel IDs or prices). This does **not** refresh card Grade A / pity rates.
+
 `tools/refresh_box_ev.py` **cannot** run without hand-saved PriceCharting console HTML:
 
 ```bash
@@ -43,4 +52,4 @@ Vintage_Fit Strong Buys (e.g. 臭泥 Grimer #88) live on the Shortlist **vintage
 python3 tools/refresh_box_ev.py --root . --pc-dir /tmp/pc-sets
 ```
 
-If `/tmp/pc-sets` is empty the script **exits without writing** (will not invent prices or bump `as_of`). SNKRDUNK Grade A asks in `data.json` are also not auto-refreshed. `calc.html` turns the freshness banner orange after ≥8 days.
+If `/tmp/pc-sets` is empty the script **exits without writing** (will not invent prices or bump `as_of`). SNKRDUNK Grade A **singles** in `data.json` are also not auto-refreshed. `calc.html` turns the freshness banner orange after ≥8 days (card snapshot `as_of`).
