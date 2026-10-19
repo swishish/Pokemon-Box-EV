@@ -21,6 +21,7 @@
     s.textContent = [
       '.spark-wrap{position:relative;margin-top:8px;min-width:0;overflow:visible;}',
       '.spark-wrap .spark{width:100%;height:100px;display:block;cursor:crosshair;touch-action:none;}',
+      '.spark-wrap .spark.has-vol{height:148px;}',
       '.spark-wrap .spark:focus{outline:2px solid var(--ink,#141414);outline-offset:2px;}',
       '.spark-tip{position:absolute;z-index:5;pointer-events:none;',
       'transform:translate(-50%,calc(-100% - 8px));background:var(--card,#fff);',
@@ -141,6 +142,7 @@
         id: (s && s.id) || '',
         name: (s && (s.name || s.label)) || '',
         color: (s && s.color) || '#3d6fd9',
+        dash: (s && s.dash) || '',
         points: pts
       };
     }).filter(function (s) { return s.points.length >= 1; });
@@ -167,6 +169,19 @@
 
     hide();
 
+    var volPts = ((opts && opts.volume) || []).filter(function (p) {
+      return p && p.date && p.volume != null && !Number.isNaN(Number(p.volume));
+    }).map(function (p) {
+      return { date: String(p.date), volume: Math.max(0, Number(p.volume)) };
+    });
+    var volByDate = {};
+    volPts.forEach(function (p) { volByDate[p.date] = p.volume; });
+    var hasVol = volPts.length > 0;
+    var chartH = hasVol ? 148 : H;
+    var priceBottom = hasVol ? 100 : (chartH - PAD);
+    if (hasVol) svg.classList.add('has-vol');
+    else svg.classList.remove('has-vol');
+
     var allVals = [];
     var allDates = [];
     cleaned.forEach(function (s) {
@@ -175,6 +190,7 @@
         allDates.push(p.date);
       });
     });
+    volPts.forEach(function (p) { allDates.push(p.date); });
 
     if (cleaned.length === 0 || allVals.length < 2) {
       svg.setAttribute('hidden', 'hidden');
@@ -189,7 +205,7 @@
     svg.setAttribute('tabindex', '0');
     svg.setAttribute('role', 'img');
     svg.setAttribute('aria-label', opts.ariaLabel || '三條復古指數走勢，可懸停或點選看日期與指數');
-    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + chartH);
     svg.setAttribute('preserveAspectRatio', 'none');
 
     var uniqDates = allDates.filter(function (d, i) { return allDates.indexOf(d) === i; });
@@ -200,6 +216,8 @@
     var min = Math.min.apply(null, allVals);
     var max = Math.max.apply(null, allVals);
     var span = (max - min) || 1;
+    var volMax = 0;
+    volPts.forEach(function (p) { if (p.volume > volMax) volMax = p.volume; });
 
     function xOf(date) {
       var t = ymdToNum(date);
@@ -207,11 +225,43 @@
       return PAD + ((t - t0) / tSpan) * (W - PAD * 2);
     }
     function yOf(val) {
-      return PAD + (1 - (val - min) / span) * (H - PAD * 2);
+      return PAD + (1 - (val - min) / span) * (priceBottom - PAD);
     }
 
     var dateIndex = {};
     uniqDates.forEach(function (d, i) { dateIndex[d] = i; });
+
+    if (hasVol) {
+      var volTop = 108;
+      var volBottom = chartH - PAD;
+      var volSpan = volMax || 1;
+      var barW = Math.max(0.6, (W - PAD * 2) / Math.max(uniqDates.length, 1) * 0.72);
+      uniqDates.forEach(function (d) {
+        var v = volByDate[d] || 0;
+        if (!(v > 0)) return;
+        var bh = (v / volSpan) * (volBottom - volTop);
+        svg.appendChild(mk('rect', {
+          x: (xOf(d) - barW / 2).toFixed(2),
+          y: (volBottom - bh).toFixed(2),
+          width: barW.toFixed(2),
+          height: bh.toFixed(2),
+          fill: opts.volumeColor || '#ffd23f',
+          stroke: '#141414',
+          'stroke-width': '0.4',
+          'vector-effect': 'non-scaling-stroke',
+          opacity: '0.92'
+        }));
+      });
+      svg.appendChild(mk('line', {
+        x1: String(PAD),
+        x2: String(W - PAD),
+        y1: String(104),
+        y2: String(104),
+        stroke: '#e7dfd0',
+        'stroke-width': '1',
+        'vector-effect': 'non-scaling-stroke'
+      }));
+    }
 
     cleaned.forEach(function (s) {
       var laid = s.points.map(function (p) {
@@ -220,7 +270,7 @@
       s.byDate = {};
       laid.forEach(function (p) { s.byDate[p.date] = p; });
       if (laid.length >= 2) {
-        svg.appendChild(mk('polyline', {
+        var lineAttrs = {
           fill: 'none',
           stroke: s.color,
           'stroke-width': '2',
@@ -230,7 +280,9 @@
           points: laid.map(function (p) {
             return p.x.toFixed(1) + ',' + p.y.toFixed(1);
           }).join(' ')
-        }));
+        };
+        if (s.dash) lineAttrs['stroke-dasharray'] = s.dash;
+        svg.appendChild(mk('polyline', lineAttrs));
       }
       var last = laid[laid.length - 1];
       svg.appendChild(mk('circle', {
@@ -250,7 +302,7 @@
       x1: '0',
       x2: '0',
       y1: String(PAD),
-      y2: String(H - PAD),
+      y2: String(chartH - PAD),
       stroke: '#5f5a51',
       'stroke-width': '1',
       'vector-effect': 'non-scaling-stroke',
@@ -276,7 +328,7 @@
       x: '0',
       y: '0',
       width: String(W),
-      height: String(H),
+      height: String(chartH),
       fill: 'transparent'
     });
     svg.appendChild(hit);
@@ -289,7 +341,7 @@
       cross.setAttribute('x2', slot.x.toFixed(1));
       cross.setAttribute('opacity', '1');
       var rows = '';
-      var tipY = H;
+      var tipY = chartH;
       cleaned.forEach(function (s, si) {
         var p = s.byDate[slot.date];
         if (p) {
@@ -305,10 +357,18 @@
           s.color + '"></span>' + (s.name || s.id) + '</span><span class="tt-num">' +
           (p ? fmtIndex(p.index) : '—') + '</span></div>';
       });
+      if (hasVol) {
+        var vol = volByDate[slot.date];
+        rows +=
+          '<div class="tt-row"><span class="tt-name"><span class="tt-swatch" style="background:' +
+          (opts.volumeColor || '#ffd23f') + '"></span>' +
+          (opts.volumeLabel || '成交') + '</span><span class="tt-num">' +
+          (vol == null ? '—' : Number(vol).toLocaleString('en-US')) + '</span></div>';
+      }
       tip.innerHTML =
         '<div class="tt-date">' + slot.date + '</div>' + rows;
       tip.hidden = false;
-      var pos = viewBoxToWrap(svg, wrap, slot.x, tipY === H ? PAD : tipY);
+      var pos = viewBoxToWrap(svg, wrap, slot.x, tipY === chartH ? PAD : tipY);
       var half = tip.offsetWidth / 2 || 40;
       var maxLeft = Math.max(half + 4, wrap.clientWidth - half - 4);
       var left = Math.max(half + 4, Math.min(maxLeft, pos.x));
