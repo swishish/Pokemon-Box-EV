@@ -7,6 +7,21 @@
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
 <title>Base 復古指數 · Box EV v1.28.4</title>
+<meta name="description" content="Base Set 1st / Shadowless / Unlimited 英文裸卡指數與卡冊。靜態快照，非正式投資建議。" />
+<meta property="og:site_name" content="日盒開盒值不值？" />
+<meta property="og:title" content="Base 復古指數 · 1st / Shadowless / Unlimited" />
+<meta property="og:description" content="Base Set 英文裸卡指數與卡冊。靜態快照，非正式投資建議。" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://swishish.github.io/Pokemon-Box-EV/market-vintage.html" />
+<meta property="og:image" content="https://swishish.github.io/Pokemon-Box-EV/og.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content="zh_HK" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Base 復古指數 · 1st / Shadowless / Unlimited" />
+<meta name="twitter:description" content="Base Set 英文裸卡指數與卡冊。靜態快照，非正式投資建議。" />
+<meta name="twitter:image" content="https://swishish.github.io/Pokemon-Box-EV/og.png" />
+<link rel="canonical" href="https://swishish.github.io/Pokemon-Box-EV/market-vintage.html" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <style>
   :root {
@@ -915,7 +930,7 @@
   </div>
 
   <div class="disclaimer" id="disclaimer">
-    <p><b>資料來源：</b>TCGPlayer Market Price。每日現況經免費 <a href="https://tcgcsv.com" target="_blank" rel="noopener">TCGCSV</a> Pokemon dump（category 3）；多日歷史經免費 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a>（卡頁例如 <a href="https://tickermint.cards/card/106999" target="_blank" rel="noopener">tickermint.cards/card/106999</a>）。僅 <b>英文 Base Set 裸卡</b>。對照名單見姊妹站 <a href="https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/">Base Unlimited cheatsheet</a>。<b>不是</b>投資建議。</p>
+    <p><b>資料來源：</b>TCGPlayer Market Price。每日現況經免費 <a href="https://tcgcsv.com" target="_blank" rel="noopener">TCGCSV</a> Pokemon dump（category 3）；多日歷史經免費 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a>（卡頁例如 <a href="https://tickermint.cards/card/106999" target="_blank" rel="noopener">tickermint.cards/card/106999</a>）。僅 <b>英文 Base Set 裸卡</b>。對照名單見姊妹站 <a href="https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/">Base Unlimited cheatsheet</a>（本站另提供精簡價 <a href="./data/market-vintage/cheatsheet.json">cheatsheet.json</a>，Holo／Rare 有市價才有數字，唔虛構）。<b>不是</b>投資建議。</p>
     <p>數字為第三方市場估計，可能延遲或不準；1st Edition 成交偏薄，缺市價的卡當天不進指數。Pokémon 與相關名稱為其權利人商標。本頁為獨立粉絲工具，與 Nintendo／The Pokémon Company／TCGPlayer／S&amp;P Global 無關。</p>
   </div>
 </main>
@@ -1604,7 +1619,7 @@
         ? '<span class="tiny">缺口</span>'
         : (c.price == null ? '<span class="tiny">無市價</span>' : '<span class="binder-price">' + fmtUsd(c.price) + '</span>');
       const artInner = c.image
-        ? '<img src="' + escapeHtml(c.image) + '" alt="" loading="lazy" />'
+        ? '<img src="' + escapeHtml(c.image) + '" alt="" width="120" height="168" loading="lazy" decoding="async" />'
         : (c.gap ? '無 TCGCSV ID' : '無圖');
       const inner =
         '<div class="binder-art' + (c.image ? '' : ' is-empty') + '">' +

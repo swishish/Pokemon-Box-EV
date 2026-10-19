@@ -6,7 +6,22 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>日盒 EV 小算盤 v1.28.6 · JP Mega Sealed</title>
+<title>日盒 EV 小算盤 v1.28.7 · JP Mega Sealed</title>
+<meta name="description" content="日盒開盒 EV 小算盤：選系列睇四個預期回報 %、有膜／無膜落地、chase 單卡。靜態快照，非正式投資建議。" />
+<meta property="og:site_name" content="日盒開盒值不值？" />
+<meta property="og:title" content="日盒 EV 小算盤 · JP Mega Sealed" />
+<meta property="og:description" content="選系列睇四個預期回報 %、有膜／無膜落地、chase 單卡。靜態快照，非正式投資建議。" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://swishish.github.io/Pokemon-Box-EV/calc.html" />
+<meta property="og:image" content="https://swishish.github.io/Pokemon-Box-EV/og.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content="zh_HK" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="日盒 EV 小算盤 · JP Mega Sealed" />
+<meta name="twitter:description" content="選系列睇四個預期回報 %。靜態快照，非正式投資建議。" />
+<meta name="twitter:image" content="https://swishish.github.io/Pokemon-Box-EV/og.png" />
+<link rel="canonical" href="https://swishish.github.io/Pokemon-Box-EV/calc.html" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <style>
   :root {
@@ -1283,7 +1298,7 @@
 <header>
   <div class="header-inner">
     <div class="header-top">
-      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.28.6</span></h1>
+      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.28.7</span></h1>
       <nav class="header-nav" aria-label="站內導覽">
         <a class="nav-btn" href="./calc.html">開盒 EV</a>
         <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
@@ -1340,7 +1355,7 @@
         </div>
         <div class="sticky-drawer" id="stickyDrawer">
           <div class="sticky-row">
-            <img class="sticky-box" id="stickyBox" alt="" width="64" height="64" />
+            <img class="sticky-box" id="stickyBox" alt="" width="64" height="64" loading="lazy" decoding="async" />
             <div class="sticky-metrics" id="stickyMetrics"></div>
           </div>
         </div>
@@ -1432,13 +1447,13 @@
 <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="放大圖">
   <img id="lightboxImg" alt="" />
 </div>
-<footer><img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" /><span>日盒 EV 小算盤 <b>v1.28.6</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期 · <a href="./index.html">首頁</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a></span></footer>
+<footer><img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" /><span>日盒 EV 小算盤 <b>v1.28.7</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期 · <a href="./index.html">首頁</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a></span></footer>
 
-<script src="./data.js?v=1.28.6"></script>
+<script src="./data.js?v=1.28.7"></script>
 <script>
 (async function () {
   // Keep in sync with the data.js?v= query above.
-  const VERSION = '1.28.6';
+  const VERSION = '1.28.7';
   async function loadJson(rel) {
     const url = new URL(rel, document.baseURI || window.location.href);
     url.searchParams.set('v', VERSION);
@@ -1747,6 +1762,8 @@
     return 'data:image/svg+xml,' + svg;
   }
   function cardThumb(setc, num) {
+    // JP chase thumbs stay local img/cards/*.webp (PC / SNKR image CDNs are not
+    // derivable). loading=lazy + decoding=async keep offscreen tiles off first paint.
     const key = setc + '|' + num;
     const src = IMG.cards && IMG.cards[key];
     if (src) return assetUrl(src);
@@ -1966,7 +1983,7 @@
       const art = boxThumb(s.code);
       parts.push(
         `<button type="button" class="toc-item${active}" data-set="${s.code}">` +
-        `<img class="toc-art" src="${art}" alt="" width="40" height="40" loading="lazy" />` +
+        `<img class="toc-art" src="${art}" alt="" width="40" height="40" loading="lazy" decoding="async" />` +
         `<span class="toc-meta">` +
         `<span class="toc-title"><span class="code">${escapeHtml(s.code)}</span><span class="ja">${escapeHtml(s.zh || s.ja)}</span></span>` +
         `<span class="ev-line">有膜 <span class="ev ${bS.cls}">${fmtPct(hcS)}</span> · 無膜 <span class="ev ${bNS.cls}">${nsTxt}</span></span>` +
@@ -2104,7 +2121,7 @@
         return `<article class="chase-tile">
           <div class="chase-art">
             <span class="chase-rank">${i + 1}</span>
-            <img class="card-thumb" src="${thumb}" alt="${escapeHtml(dname)}" loading="lazy" data-full="${thumb}" />
+            <img class="card-thumb" src="${thumb}" alt="${escapeHtml(dname)}" width="80" height="112" loading="lazy" decoding="async" fetchpriority="low" data-full="${thumb}" />
           </div>
           <div class="chase-name">${escapeHtml(dname)} <span class="tiny">#${c.num}</span></div>
           <div class="chase-meta">

@@ -16,6 +16,7 @@ Writes (stdlib only):
   data/market-vintage/latest.json        three indexes + constituents
   data/market-vintage/history.json       one point per index per day (append/upsert)
   data/market-vintage/price-history.json per-index basket prices by date
+  data/market-vintage/cheatsheet.json    slim Base Set prices for the sister cheatsheet
   data/market-vintage/latest.js          window.MARKET_VINTAGE fallback
   data/market-vintage/history.js         window.MARKET_VINTAGE_HISTORY fallback
 
@@ -46,6 +47,7 @@ LATEST_JS_PATH = os.path.join(DATA_DIR, "latest.js")
 HISTORY_PATH = os.path.join(DATA_DIR, "history.json")
 HISTORY_JS_PATH = os.path.join(DATA_DIR, "history.js")
 PRICE_HISTORY_PATH = os.path.join(DATA_DIR, "price-history.json")
+CHEATSHEET_PATH = os.path.join(DATA_DIR, "cheatsheet.json")
 
 USER_AGENT = "Pokemon-Box-EV/1.25 (+https://github.com/swishish/Pokemon-Box-EV)"
 INDEX_ORDER = ("base-1st", "base-shadowless", "base-unlimited")
@@ -474,6 +476,54 @@ def write_latest_js(latest: dict) -> None:
     en._write_js(LATEST_JS_PATH, "MARKET_VINTAGE", latest)
 
 
+def cheatsheet_payload(latest: dict) -> dict:
+    """Slim Base Set prices the sister Unlimited cheatsheet can fetch. No invented prices."""
+    printings = {}
+    for iid in latest.get("indexOrder") or (latest.get("indexes") or {}):
+        spec = (latest.get("indexes") or {}).get(iid) or {}
+        by_id = {c.get("id"): c for c in (spec.get("constituents") or []) if c.get("id")}
+        cards = []
+        rows = spec.get("basket") or spec.get("constituents") or []
+        for row in rows:
+            live = by_id.get(row.get("id")) or {}
+            cards.append(
+                {
+                    "number": row.get("number") or live.get("number") or "",
+                    "name": row.get("name") or live.get("name") or "",
+                    "rarity": row.get("rarity") or live.get("rarity") or "",
+                    "usd": row.get("price") if row.get("price") is not None else live.get("price"),
+                    "tcgplayerId": row.get("id") or live.get("id") or "",
+                    "image": row.get("image") or live.get("image") or "",
+                    "printing": row.get("printing") or live.get("printing") or spec.get("printing") or "",
+                    "carried": bool(row.get("carried", live.get("carried"))),
+                }
+            )
+        cards.sort(key=lambda c: (_num_sort_key(c.get("number") or ""), c.get("name") or ""))
+        printings[iid] = {
+            "id": iid,
+            "name": spec.get("name") or iid,
+            "nameZh": spec.get("nameZh") or "",
+            "printing": spec.get("printing") or "",
+            "asOfDate": spec.get("asOfDate") or latest.get("asOfDate"),
+            "cards": cards,
+        }
+    return {
+        "asOfDate": latest.get("asOfDate"),
+        "sourceStamp": latest.get("sourceStamp"),
+        "priceSource": latest.get("priceSource"),
+        "page": "https://swishish.github.io/Pokemon-Box-EV/market-vintage.html",
+        "notes": "Holo Rare + Rare only (cheatsheet #1–102 where TCGCSV IDs exist). Missing usd = no market print that day — do not invent. Machamp 008 is a documented gap.",
+        "gaps": latest.get("gaps") or [],
+        "printings": printings,
+    }
+
+
+def write_cheatsheet_prices(latest: dict, path: str | None = None) -> str:
+    dest = path or CHEATSHEET_PATH
+    en.write_json(dest, cheatsheet_payload(latest))
+    return dest
+
+
 def write_history_js(history: dict) -> None:
     en._write_js(HISTORY_JS_PATH, "MARKET_VINTAGE_HISTORY", history)
 
@@ -514,6 +564,9 @@ def build(verbose: bool = False, force: bool = False) -> None:
     stamp = source_stamp()
     if stamp and prev_latest.get("sourceStamp") == stamp and not force:
         print(f"TCGCSV unchanged since {stamp}; vintage nothing to do.", flush=True)
+        if prev_latest and not os.path.exists(CHEATSHEET_PATH):
+            write_cheatsheet_prices(prev_latest)
+            print("wrote missing", os.path.relpath(CHEATSHEET_PATH, ROOT), flush=True)
         return
 
     group_names = {
@@ -561,6 +614,7 @@ def build(verbose: bool = False, force: bool = False) -> None:
     en.write_json(LATEST_PATH, latest)
     en.write_json(HISTORY_PATH, history)
     en.write_json(PRICE_HISTORY_PATH, price_history)
+    write_cheatsheet_prices(latest)
     write_latest_js(latest)
     write_history_js(history)
 
@@ -964,6 +1018,39 @@ def self_test() -> None:
     assert snap_empty["movers"]["1D"]["baselineDate"] == "2026-10-08"
     assert snap_empty["movers"]["1D"]["breadth"]["available"] is True
     assert snap_empty["movers"]["1D"]["breadth"]["advancing"] == 1
+
+    sheet = cheatsheet_payload(
+        {
+            "asOfDate": "2026-10-18",
+            "priceSource": "test",
+            "indexOrder": ["base-unlimited"],
+            "gaps": [{"number": "008/102", "name": "Machamp"}],
+            "indexes": {
+                "base-unlimited": {
+                    "name": "Base Unlimited",
+                    "nameZh": "Base 無限版",
+                    "printing": "Unlimited",
+                    "asOfDate": "2026-10-18",
+                    "basket": [
+                        {
+                            "id": "42382",
+                            "name": "Charizard",
+                            "number": "004/102",
+                            "rarity": "Holo Rare",
+                            "image": "https://tcgplayer-cdn.tcgplayer.com/product/42382_200w.jpg",
+                            "price": 12.5,
+                            "printing": "Holofoil",
+                            "carried": False,
+                        }
+                    ],
+                    "constituents": [],
+                }
+            },
+        }
+    )
+    assert sheet["printings"]["base-unlimited"]["cards"][0]["usd"] == 12.5
+    assert sheet["printings"]["base-unlimited"]["cards"][0]["number"] == "004/102"
+    assert sheet["gaps"][0]["name"] == "Machamp"
 
     print("self-test ok")
 
