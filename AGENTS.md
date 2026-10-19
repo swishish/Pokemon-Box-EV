@@ -20,6 +20,7 @@ After Gary drops the dated workbook (`pokemon_psa10_regression_YYYY-MM-DD.xlsx`)
 
 ```bash
 python3 tools/export_chase_fit.py --self-test
+python3 tools/build_chase_thumbs.py --self-test
 python3 tools/export_chase_fit.py /path/to/pokemon_psa10_regression_YYYY-MM-DD.xlsx
 ```
 
@@ -27,6 +28,7 @@ python3 tools/export_chase_fit.py /path/to/pokemon_psa10_regression_YYYY-MM-DD.x
 - Archives the previous `data/chase-fit/latest.json` to `data/chase-fit/archive/YYYY-MM-DD.json`.
 - Diffs Strong Buy labels into `weekly_changes` (新進 / 退出 / 維持) for the 「本週變動」 box.
 - The live page ranks a 「便宜過模型」 buy list above the scatter (`data/names_zh.json`, `data/snkrdunk_ids.json`). Do not invent Chinese names or SNKRDUNK apparel IDs.
+- After a successful write, rebuilds `data/chase-fit/thumbs.json` (`tools/build_chase_thumbs.py`). JP = local calc webps via PriceCharting URL overlap; EN = TCGPlayer CDN already on market-en/midera. Missing → page placeholder. Do not invent SNKR/PC image URLs.
 - Refuses to write if required columns / coefficients / PriceCharting URLs are missing.
 - Bump `chase-fit.html` `?v=` if the page HTML also changed.
 

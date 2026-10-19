@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>Chase 公允值 v1.28.7 · PSA10 回歸</title>
+<title>Chase 公允值 v1.28.8 · PSA10 回歸</title>
 <meta name="description" content="Chase PSA10 公允值：便宜過模型買入清單、殘差散點、Strong Buy 四關。靜態快照，非正式投資建議。" />
 <meta property="og:site_name" content="日盒開盒值不值？" />
 <meta property="og:title" content="Chase 公允值 · 便宜過模型" />
@@ -424,19 +424,60 @@
     white-space: nowrap;
   }
   .buy-table th.num, .buy-table td.num { text-align: right; white-space: nowrap; }
+  .buy-table td[data-label="評級"],
+  .buy-table td[data-label="成交"],
+  .buy-table td[data-label="四關"] { white-space: nowrap; }
   .buy-table tbody tr {
     cursor: pointer;
   }
   .buy-table tbody tr:hover { background: #fff8d6; }
   .buy-table tbody tr.is-selected { background: var(--good-bg); }
   .buy-table tbody tr.is-pin { box-shadow: inset 3px 0 0 var(--accent); }
+  .buy-id {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    min-width: 0;
+    max-width: 22rem;
+  }
+  .buy-thumb {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 78px;
+    flex-shrink: 0;
+    border: 1.5px solid var(--ink);
+    border-radius: 8px;
+    background:
+      linear-gradient(180deg, #fff8d6 0 46%, #f3ede1 46%);
+    overflow: hidden;
+    box-shadow: var(--shadow-xs);
+  }
+  .buy-thumb img {
+    display: block;
+    width: 56px;
+    height: 78px;
+    object-fit: cover;
+    object-position: center top;
+  }
+  .buy-thumb.is-ph .poke-mark {
+    width: 22px;
+    height: 22px;
+  }
+  @media (min-width: 900px) {
+    .buy-thumb, .buy-thumb img {
+      width: 64px;
+      height: 90px;
+    }
+  }
   .buy-name {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 1px;
     min-width: 0;
-    max-width: 16rem;
+    flex: 1 1 auto;
   }
   .buy-name .zh-row {
     display: flex;
@@ -446,8 +487,8 @@
     min-width: 0;
     max-width: 100%;
   }
-  .buy-name .zh { font-weight: 850; color: var(--ink); overflow-wrap: anywhere; }
-  .buy-name .en { font-size: .65rem; color: var(--muted); font-weight: 700; overflow-wrap: anywhere; }
+  .buy-name .zh { font-weight: 850; color: var(--ink); overflow-wrap: break-word; }
+  .buy-name .en { font-size: .65rem; color: var(--muted); font-weight: 700; overflow-wrap: break-word; }
   .buy-pin {
     display: inline-flex;
     align-items: center;
@@ -461,7 +502,7 @@
   }
   .buy-ticks {
     display: inline-flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: 3px;
     align-items: center;
   }
@@ -572,8 +613,9 @@
       font-weight: 800;
       font-size: .68rem;
     }
+    .buy-id { max-width: 100%; width: 100%; min-width: 0; }
     .buy-name { max-width: 100%; flex: 1 1 auto; }
-    .buy-table td.buy-name-cell { display: block; }
+    .buy-table td.buy-name-cell { display: block; padding-bottom: 8px; }
     .buy-table td.buy-name-cell::before { display: none; }
     .buy-table td.buy-cta { display: block; padding-top: 8px; }
     .buy-table td.buy-cta::before { display: none; }
@@ -1003,7 +1045,7 @@
         <a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？">
           <span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？
         </a>
-        <span class="pill">v1.28.7</span>
+        <span class="pill">v1.28.8</span>
       </h1>
       <nav class="header-nav" aria-label="站內導覽">
         <a class="nav-btn" href="./calc.html">開盒 EV</a>
@@ -1158,13 +1200,13 @@
 
 <footer>
   <img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" />
-  <span>日盒 EV 小算盤 <b>v1.28.7</b> · Chase_Fit 靜態快照 · 非正式投資建議 · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a></span>
+  <span>日盒 EV 小算盤 <b>v1.28.8</b> · Chase_Fit 靜態快照 · 非正式投資建議 · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a></span>
 </footer>
 
-<script src="./data/chase-fit/latest.js?v=1.28.7"></script>
+<script src="./data/chase-fit/latest.js?v=1.28.8"></script>
 <script>
 (async function () {
-  const VERSION = '1.28.7';
+  const VERSION = '1.28.8';
   const $ = (id) => document.getElementById(id);
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, (ch) => ({
@@ -1200,10 +1242,16 @@
     showLoadError(dataRes);
     return;
   }
-  const namesRes = await loadJson('./data/names_zh.json');
-  const snkrRes = await loadJson('./data/snkrdunk_ids.json');
+  const [namesRes, snkrRes, thumbsRes] = await Promise.all([
+    loadJson('./data/names_zh.json'),
+    loadJson('./data/snkrdunk_ids.json'),
+    loadJson('./data/chase-fit/thumbs.json')
+  ]);
   const NAMES_ZH = (namesRes && namesRes.data) || { species: {}, trainers: {}, by_id: {}, aliases: {} };
   const SNKR_IDS = (snkrRes && snkrRes.data) || { links: [] };
+  const THUMBS = (thumbsRes && thumbsRes.data && thumbsRes.data.by_id) || {};
+  const LOCAL_WEBP = /^img\/cards\/[A-Za-z0-9]+_\d+\.webp$/;
+  const TCG_CDN = /^https:\/\/tcgplayer-cdn\.tcgplayer\.com\/product\/\d+_200w\.jpg$/;
 
   const META = DATA.meta;
   const COEF = {};
@@ -2032,6 +2080,34 @@
     return '<span class="tick ' + (ok ? 'ok' : 'no') + '" title="' + escapeHtml(title) + '">' +
       (ok ? '✓' : '✗') + '</span>';
   }
+  function thumbRec(card) {
+    const rec = THUMBS[card && card.card_id];
+    if (!rec || !rec.src) return null;
+    if (rec.kind === 'local' && LOCAL_WEBP.test(rec.src)) {
+      return { href: './' + rec.src, kind: 'local' };
+    }
+    if (rec.kind === 'tcgplayer' && TCG_CDN.test(rec.src)) {
+      return { href: rec.src, kind: 'tcgplayer' };
+    }
+    return null;
+  }
+  function placeholderThumb() {
+    return '<span class="buy-thumb is-ph" aria-hidden="true"><span class="poke-mark"></span></span>';
+  }
+  function thumbHtml(card) {
+    const rec = thumbRec(card);
+    if (!rec) return placeholderThumb();
+    return '<span class="buy-thumb"><img src="' + escapeHtml(rec.href) +
+      '" alt="" width="56" height="78" loading="lazy" decoding="async"></span>';
+  }
+  document.addEventListener('error', function (e) {
+    const img = e.target;
+    if (!img || img.tagName !== 'IMG') return;
+    const wrap = img.closest('.buy-thumb');
+    if (!wrap || wrap.classList.contains('is-ph')) return;
+    wrap.classList.add('is-ph');
+    wrap.innerHTML = '<span class="poke-mark" aria-hidden="true"></span>';
+  }, true);
   function renderBuyList() {
     const body = $('buyBody');
     const count = $('buyCount');
@@ -2060,12 +2136,14 @@
       const snkrLabel = apparel ? 'SNKRDUNK 產品頁' : 'SNKRDUNK 搜尋';
       html += '<tr data-id="' + escapeHtml(card.card_id) + '" class="' +
         (sel ? ' is-selected' : '') + (pin ? ' is-pin' : '') + '">';
-      html += '<td class="buy-name-cell" data-label="名稱"><div class="buy-name">' +
+      html += '<td class="buy-name-cell" data-label="名稱"><div class="buy-id">' +
+        thumbHtml(card) +
+        '<div class="buy-name">' +
         '<span class="zh-row">' +
         (pin ? '<span class="buy-pin">釘</span>' : '') +
         (zh ? '<span class="zh">' + escapeHtml(zh) + '</span>' : '') +
         '</span>' +
-        '<span class="en">' + escapeHtml(card.name || '—') + '</span></div></td>';
+        '<span class="en">' + escapeHtml(card.name || '—') + '</span></div></div></td>';
       html += '<td data-label="評級">PSA10</td>';
       html += '<td class="num" data-label="現價 HK$">' + fmtHkd(priceHkd(card)) + '</td>';
       html += '<td class="num" data-label="公允值">' + fmtHkd(fvHkd(card)) + '</td>';

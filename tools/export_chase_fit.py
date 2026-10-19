@@ -7,6 +7,7 @@ Raw_Data URLs, then writes:
   data/chase-fit/latest.json
   data/chase-fit/latest.js          window.CHASE_FIT fallback
   data/chase-fit/archive/YYYY-MM-DD.json   previous latest, before overwrite
+  data/chase-fit/thumbs.json        JP local webp / EN TCGPlayer (after write)
 
 Stdlib only (zipfile + xml) — no openpyxl / pandas. GitHub Actions can
 `--self-test` without the workbook. Publishing still needs the dated xlsx
@@ -594,6 +595,32 @@ def write_js(path: str, data: dict) -> None:
         fh.write(";\n")
 
 
+def refresh_thumbs() -> str | None:
+    """Rebuild thumbs.json from existing site image sources. Non-fatal."""
+    path = os.path.join(ROOT, "tools", "build_chase_thumbs.py")
+    if not os.path.isfile(path):
+        print("WARN: tools/build_chase_thumbs.py missing; skip thumbs", file=sys.stderr)
+        return None
+    try:
+        import importlib.util
+        spec = importlib.util.spec_from_file_location("build_chase_thumbs", path)
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        thumbs = mod.build_from_repo()
+        dest = mod.write_thumbs(thumbs)
+        counts = thumbs.get("counts") or {}
+        print(
+            "wrote",
+            os.path.relpath(dest, ROOT),
+            f"local={counts.get('local', 0)} tcgplayer={counts.get('tcgplayer', 0)} "
+            f"none={counts.get('none', 0)}",
+        )
+        return dest
+    except Exception as err:
+        print(f"WARN: thumbs rebuild failed (non-fatal): {err}", file=sys.stderr)
+        return None
+
+
 def archive_previous(latest: dict | None) -> str | None:
     if not latest or not isinstance(latest, dict):
         return None
@@ -659,6 +686,7 @@ def export(xlsx_path: str, *, sheet: str = LIVE_SHEET, dry_run: bool = False) ->
     write_json(LATEST_JSON, payload)
     write_js(LATEST_JS, payload)
     payload["_archived"] = archived
+    payload["_thumbs"] = refresh_thumbs()
     return payload
 
 
