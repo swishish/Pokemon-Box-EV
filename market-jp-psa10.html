@@ -6,11 +6,11 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>日版 PSA10 指數 · Box EV v1.29.0</title>
-<meta name="description" content="日版寶可夢 TCG PSA10 市況指數：等權、流動性加權、價格加權，另加 SNKRDUNK 成交量柱。靜態快照，非正式投資建議。" />
+<title>日版 PSA10 指數 · Box EV v1.29.1</title>
+<meta name="description" content="日版寶可夢 TCG PSA10 市況指數：等權、流動性加權、價格加權（3% cap），另加無 cap 對照線與 SNKRDUNK 成交量柱。靜態快照，非正式投資建議。" />
 <meta property="og:site_name" content="日盒開盒值不值？" />
 <meta property="og:title" content="日版 PSA10 指數 · 等權／流動性／市值" />
-<meta property="og:description" content="同一籃子三條 SNKRDUNK JP PSA10 指數，下方成交量柱。靜態快照，非正式投資建議。" />
+<meta property="og:description" content="同一籃子三條 SNKRDUNK JP PSA10 指數（價格 3% cap）＋無 cap 對照，下方成交量柱。靜態快照，非正式投資建議。" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://swishish.github.io/Pokemon-Box-EV/market-jp-psa10.html" />
 <meta property="og:image" content="https://swishish.github.io/Pokemon-Box-EV/og.png" />
@@ -19,7 +19,7 @@
 <meta property="og:locale" content="zh_HK" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="日版 PSA10 指數" />
-<meta name="twitter:description" content="等權／流動性／價格加權三條線 + 成交量。非正式投資建議。" />
+<meta name="twitter:description" content="等權／流動性／價格加權三條線 + 無 cap 對照 + 成交量。非正式投資建議。" />
 <meta name="twitter:image" content="https://swishish.github.io/Pokemon-Box-EV/og.png" />
 <link rel="canonical" href="https://swishish.github.io/Pokemon-Box-EV/market-jp-psa10.html" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
@@ -50,6 +50,7 @@
     --eq: #141414;
     --liq: #3d6fd9;
     --px: #c93540;
+    --px-nocap: #e67a1a;
   }
   * { box-sizing: border-box; }
   html { overflow-x: clip; }
@@ -220,6 +221,8 @@
     flex-wrap: wrap;
     gap: 4px;
     margin-top: 8px;
+    max-width: 100%;
+    min-width: 0;
   }
   .period-btn, .legend-btn {
     font: inherit;
@@ -253,6 +256,11 @@
   }
   .swatch.dash { border-top-style: dashed; }
   .swatch.dot { border-top-style: dotted; }
+  .swatch.longdash {
+    width: 18px;
+    border-top-width: 2px;
+    border-top-style: dashed;
+  }
   .range-form {
     display: flex;
     flex-wrap: wrap;
@@ -303,6 +311,7 @@
   .metric .v.eq { color: var(--eq); }
   .metric .v.liq { color: var(--liq); }
   .metric .v.px { color: var(--px); }
+  .metric .v.pxnc { color: var(--px-nocap); }
   .breadth { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 8px; }
   .bar {
     display: flex; height: 10px; border-radius: 999px; overflow: hidden;
@@ -394,7 +403,7 @@
 <header>
   <div class="header-inner">
     <div class="header-top">
-      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.29.0</span></h1>
+      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.29.1</span></h1>
       <nav class="header-nav" aria-label="站內導覽">
         <a class="nav-btn" href="./calc.html">開盒 EV</a>
         <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
@@ -405,7 +414,7 @@
         <a class="nav-btn" href="https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/" title="Base Set Unlimited cheat sheet">Base Unlimited</a>
       </nav>
     </div>
-    <p>日版 PSA10 指數 · 等權／流動性／價格加權 · SNKRDUNK 公開成交圖價 · 靜態快照</p>
+    <p>日版 PSA10 指數 · 等權／流動性／價格加權（3% cap）· 無 cap 對照 · SNKRDUNK 公開成交圖價 · 靜態快照</p>
   </div>
 </header>
 
@@ -414,13 +423,14 @@
 
   <div class="hero">
     <div class="card">
-      <div class="kicker">Box-EV JP PSA10 · 同一籃子三條線</div>
+      <div class="kicker">Box-EV JP PSA10 · 同一籃子三條線 + 無 cap 對照</div>
       <div class="index-level" id="indexLevel">—</div>
       <div class="index-chg muted" id="indexChg">載入中…</div>
       <div class="legend-row" role="group" aria-label="Show or hide series">
         <button type="button" class="legend-btn is-on" data-series="equal" aria-pressed="true"><span class="swatch" style="color:var(--eq)"></span>等權 Equal</button>
         <button type="button" class="legend-btn is-on" data-series="liquidity" aria-pressed="true"><span class="swatch dash" style="color:var(--liq)"></span>流動性 Liq</button>
         <button type="button" class="legend-btn is-on" data-series="price" aria-pressed="true"><span class="swatch dash" style="color:var(--px)"></span>價格 Price</button>
+        <button type="button" class="legend-btn is-on" data-series="priceNoCap" aria-pressed="true" title="price no-cap overlay — comparison only; headline price stays 3% capped"><span class="swatch longdash" style="color:var(--px-nocap)"></span>價格·無 cap</button>
       </div>
       <div class="period-btns" role="tablist" aria-label="Return period">
         <button type="button" class="period-btn is-active" data-period="1D" aria-selected="true">1D</button>
@@ -443,7 +453,7 @@
       <p class="tiny" id="indexPeriodNote" style="margin:4px 0 0"></p>
     </div>
     <div class="card">
-      <h2>三條水平 + 廣度</h2>
+      <h2>水平 + 廣度</h2>
       <div class="metrics" id="levelMetrics"></div>
       <div class="metrics" id="breadthMetrics" style="margin-top:8px"></div>
       <div class="breadth" id="breadthBar"></div>
@@ -512,8 +522,9 @@
   <div class="card method-card">
     <h2>這是什麼 · 方法</h2>
     <ul class="tiny">
-      <li><b>三條線、同一個籃子</b>：日版寶可夢 TCG <b>PSA10</b>（唔係 Grade A 裸卡）。<b>實線等權</b>＝每張同等權（廣度）；<b>虛線流動性</b>＝近 30 日 SNK 成交日圓（先用最近 20 筆 PSA10 成交，冇就用刊價日×價）；<b>點線／虛線價格</b>＝市值權重（該張價／籃子總價）。</li>
-      <li><b>3% 上限</b>：流動性同價格權重每張最多 3%，再 renormalize。等權本身就係 1/n（約 1.7% @ 60 張），唔使再 cap。籃子細到 1/n ≥ 3% 時 cap 做唔到，就維持原權重。</li>
+      <li><b>三條主線、同一個籃子</b>：日版寶可夢 TCG <b>PSA10</b>（唔係 Grade A 裸卡）。<b>實線等權</b>＝每張同等權（廣度）；<b>虛線流動性</b>＝近 30 日 SNK 成交日圓（先用最近 20 筆 PSA10 成交，冇就用刊價日×價）；<b>點線／虛線價格</b>＝市值權重（該張價／籃子總價），<b>每張 3% cap</b>。</li>
+      <li><b>價格·無 cap 對照</b>：橙／長虛線 overlay，權重同價格線（滯後日圓／總和）但<b>唔套 3% 上限</b>。只係比較用，唔取代主價格線；圖例可開關，預設開。</li>
+      <li><b>3% 上限</b>：流動性同<b>主</b>價格權重每張最多 3%，再 renormalize。等權本身就係 1/n（約 1.7% @ 60 張），唔使再 cap。籃子細到 1/n ≥ 3% 時 cap 做唔到，就維持原權重。</li>
       <li><b>基準 1,000</b>：第一個有足夠成分（≥40 張有價）的東京曆日。之後用<b>每日報酬鏈</b>接（唔係平均日圓水平）。期間掣只放大圖，<b>唔會</b>把該段重設成 1,000。</li>
       <li><b>缺日</b>：單卡用上一次 SNK PSA10 圖價延續（LOCF），<b>唔補 ¥0</b>。成交量柱只計<b>當日有刊價</b>的張數（SNK 唔公開完整筆數歷史，最近 20 筆成交唔夠畫長圖）。</li>
       <li><b>稀疏／異常刊價</b>：距上一次實際刊價超過 14 個曆日＝重入籃子（當日報酬 0，只更新價）。其餘單卡日報酬 winsorize 喺 ±25%，避免 SNK 圖上偶發 8× 跳價把等權指數炸穿。漲跌榜仍顯示<b>當日刊價的原價％</b>（未 clip）。</li>
@@ -529,18 +540,21 @@
 </main>
 <footer>日盒 EV 小算盤 · JP PSA10 · Snapshot 靜態資料 · 非正式投資建議 · 來源 <a href="https://snkrdunk.com/" target="_blank" rel="noopener">SNKRDUNK</a> · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a></footer>
 
-<script src="./js/spark-tip.js?v=1.29.0"></script>
-<script src="./data/market-jp-psa10/latest.js?v=1.29.0"></script>
-<script src="./data/market-jp-psa10/history.js?v=1.29.0"></script>
+<script src="./js/spark-tip.js?v=1.29.1"></script>
+<script src="./data/market-jp-psa10/latest.js?v=1.29.1"></script>
+<script src="./data/market-jp-psa10/history.js?v=1.29.1"></script>
 <script>
 (async function () {
-  const VERSION = '1.29.0';
+  const VERSION = '1.29.1';
+  const SERIES_ORDER = ['equal', 'liquidity', 'price', 'priceNoCap'];
   const SERIES = {
     equal: { id: 'equal', name: '等權', color: '#141414' },
     liquidity: { id: 'liquidity', name: '流動性', color: '#3d6fd9', dash: '6 4' },
-    price: { id: 'price', name: '價格', color: '#c93540', dash: '2 3' }
+    price: { id: 'price', name: '價格', color: '#c93540', dash: '2 3' },
+    priceNoCap: { id: 'priceNoCap', name: '價格·無 cap', color: '#e67a1a', dash: '10 3', width: '1.25' }
   };
-  const visible = { equal: true, liquidity: true, price: true };
+  const visible = { equal: true, liquidity: true, price: true, priceNoCap: true };
+  const VCLASS = { equal: 'eq', liquidity: 'liq', price: 'px', priceNoCap: 'pxnc' };
   const $ = (id) => document.getElementById(id);
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, (ch) => ({
@@ -651,7 +665,7 @@
     ' 張 · 基準 ' + (DATA.baseValue || 1000) +
     (DATA.baseDate ? ' @ ' + DATA.baseDate : '') +
     ' · 當日有刊價 ' + (DATA.pricedToday != null ? DATA.pricedToday : '—') +
-    ' · 3% 權重上限';
+    ' · 主線 3% 權重上限 · 無 cap 為對照';
 
   const serverRets = (HIST && HIST.returns) || {};
   function lastPointOnOrBefore(iso, pts) {
@@ -698,7 +712,8 @@
   const RETURNS = {
     equal: serverRets.equal || computePeriodReturns('equal'),
     liquidity: serverRets.liquidity || computePeriodReturns('liquidity'),
-    price: serverRets.price || computePeriodReturns('price')
+    price: serverRets.price || computePeriodReturns('price'),
+    priceNoCap: serverRets.priceNoCap || computePeriodReturns('priceNoCap')
   };
 
   const periodState = { period: '1D', customFrom: '', customTo: '' };
@@ -740,7 +755,7 @@
   function drawChart() {
     const wpts = windowPoints(periodState.period);
     const series = [];
-    ['equal', 'liquidity', 'price'].forEach((id) => {
+    SERIES_ORDER.forEach((id) => {
       if (!visible[id]) return;
       const spec = SERIES[id];
       series.push({
@@ -748,6 +763,7 @@
         name: spec.name,
         color: spec.color,
         dash: spec.dash,
+        width: spec.width,
         points: wpts.filter((p) => p[id] != null).map((p) => ({ date: p.date, index: p[id] }))
       });
     });
@@ -758,7 +774,7 @@
         volume: volume,
         volumeLabel: '刊價張數',
         volumeColor: '#ffd23f',
-        ariaLabel: '日版 PSA10 三條指數與成交量，可懸停看日期與數字'
+        ariaLabel: '日版 PSA10 指數與成交量，可懸停看日期與數字'
       });
     }
   }
@@ -776,12 +792,12 @@
       el.textContent = '等權 ' + label + ' 不足兩個點（缺日不補價）';
     }
     const lm = $('levelMetrics');
-    lm.innerHTML = ['equal', 'liquidity', 'price'].map((id) => {
+    lm.innerHTML = SERIES_ORDER.map((id) => {
       const spec = SERIES[id];
       const idx = DATA.indexes[id] || {};
       const r = returnFor(id, periodState.period);
       return '<div class="metric"><div class="k">' + spec.name + '</div>' +
-        '<div class="v ' + id.replace('liquidity', 'liq').replace('price', 'px').replace('equal', 'eq') + '">' + fmtIdx(idx.index) + '</div>' +
+        '<div class="v ' + (VCLASS[id] || '') + '">' + fmtIdx(idx.index) + '</div>' +
         '<div class="tiny ' + chgClass(r.pct) + '">' + (r.available ? fmtPct(r.pct, true) : '—') + '</div></div>';
     }).join('');
     const br = DATA.breadth || {};
@@ -856,7 +872,7 @@
     btn.addEventListener('click', () => {
       const id = btn.getAttribute('data-series');
       visible[id] = !visible[id];
-      if (!visible.equal && !visible.liquidity && !visible.price) {
+      if (!SERIES_ORDER.some((sid) => visible[sid])) {
         visible[id] = true;
         return;
       }

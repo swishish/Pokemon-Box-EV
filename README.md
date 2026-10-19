@@ -1,6 +1,6 @@
 # Pokemon Box EV
 
-日盒 EV 小算盤（朋友向）· **v1.29.0**
+日盒 EV 小算盤（朋友向）· **v1.29.1**
 
 給「不太懂金融／AI」的買卡朋友看的工具：首頁介紹點樣用 → 開盒算盤選系列 → 看 **四個預期回報 %**（同一分母）→ 有膜／無膜切換 → 看主力 chase 卡與「買單卡 vs 開盒」粗略提示。
 
@@ -20,7 +20,7 @@ Base Set 復古指數（1st / Shadowless / Unlimited）：**https://swishish.git
 
 Chase 公允值（PSA10 回歸散點）：**https://swishish.github.io/Pokemon-Box-EV/chase-fit.html**
 
-日版 PSA10 指數（等權／流動性／價格加權）：**https://swishish.github.io/Pokemon-Box-EV/market-jp-psa10.html**
+日版 PSA10 指數（等權／流動性／價格加權 + 無 cap 對照）：**https://swishish.github.io/Pokemon-Box-EV/market-jp-psa10.html**
 
 姊妹站 Base Unlimited（Base Set Unlimited 速查）：**https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/**（頂欄外連，唔喺本 repo）
 
@@ -242,13 +242,14 @@ python3 tools/refresh_box_ev.py --root . --pc-dir /tmp/pc-sets
 
 ## 日版 PSA10 指數
 
-獨立頁 `market-jp-psa10.html`：同一個凍結籃子畫 **三條** 鏈結報酬指數（基準 1,000）＋下方成交量柱。
+獨立頁 `market-jp-psa10.html`：同一個凍結籃子畫 **三條** 鏈結報酬指數（基準 1,000）＋一條 **價格·無 cap** 對照 overlay＋下方成交量柱。主價格線維持 3% cap；無 cap 只係比較用，唔取代既有水平。
 
 | 線 | 權重 |
 | --- | --- |
 | 等權（實線） | 每張 1/n（廣度） |
 | 流動性（虛線） | 近 30 日 SNK PSA10 成交日圓（先用最近 20 筆；冇就用刊價日×價），**每張最多 3%** |
-| 價格（點虛線） | 滯後市價／籃子總價（Gary 的 market weight），**同一個 3% 上限** |
+| 價格（點虛線） | 滯後市價／籃子總價（Gary 的 market weight），**同一個 3% 上限**（主線） |
+| 價格·無 cap（橙長虛線 overlay） | 同一個滯後日圓／總和，**跳過 3% cap**。圖例可關；預設開 |
 
 價＝SNKRDUNK 公開 `trading-history` PSA10 圖價（JP 站、只讀）。缺日用上一次刊價延續，**唔補 ¥0**。量柱＝當日有刊價的成分張數（SNK 唔公開完整成交筆數；不是 pokeca 乘數）。刊價缺口 **> 14 日**當重入（當日報酬 0）；其餘單卡日報酬 **±25%** 封頂。基準 1,000＝第一日有 ≥40 張有價。
 
@@ -265,6 +266,7 @@ GitHub Action **Update JP PSA10 index** 每晚跑刷新；PR 只跑 self-test。
 
 ## Changelog（摘要）
 
+- **v1.29.1**：日版 PSA10 加 **價格·無 cap** overlay（`priceNoCap`）——同滯後日圓權重、跳過 3% 單卡上限，只係比較線；等權／流動性／價格（3% cap）水平不變。EV／Chase_Fit／EN／復古／中世代算法不變
 - **v1.29.0**：新增日版 PSA10 指數頁（`market-jp-psa10.html`）——同一籃子等權／流動性／價格加權三條線 + SNK 刊價量柱；3% 單卡上限；公開 SNKRDUNK trading-history。EV／Chase_Fit／EN／復古／中世代算法不變
 - **v1.28.11**：日盒**盒價**可用公開 SNKRDUNK 掛牌＋PriceCharting 盒頁刷新（`tools/refresh_sealed_boxes.py`，Actions 手動掣）。只讀、唔登入／下單。單卡 Grade A／抽出率同 EV 算法不變
 - **v1.28.10**：Chase「落後籃子」——模型殘差低估（最低估先）；與 EN 指數重疊的英文卡另給 30D 落後（卡 % − 指數 %，唔發明 ID）。中世代「落後籃子」同 Unlimited：30D／YTD vs 同一籃子指數。EV／Chase_Fit 算法不變
