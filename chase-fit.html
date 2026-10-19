@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>Chase 公允值 v1.28.1 · PSA10 回歸</title>
+<title>Chase 公允值 v1.28.5 · PSA10 回歸</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <style>
   :root {
@@ -230,6 +230,47 @@
     background: var(--card);
     color: var(--ink);
     font-size: .72rem;
+  }
+  .meta-chip.model-date { background: var(--accent-fill); }
+
+  .weekly-card h2 { margin-bottom: 4px; }
+  .weekly-range {
+    margin: 0 0 8px;
+    font-size: .75rem;
+    color: var(--muted);
+    font-weight: 700;
+  }
+  .weekly-cols {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+    min-width: 0;
+    align-items: start;
+  }
+  .weekly-col {
+    min-width: 0;
+    padding: 8px 10px;
+    border: 1.5px solid var(--ink);
+    border-radius: 10px;
+    background: var(--bg-2);
+  }
+  .weekly-col.enter { background: var(--good-bg); }
+  .weekly-col.exit { background: var(--bad-bg); }
+  .weekly-kicker {
+    margin: 0 0 4px;
+    font-size: .72rem;
+    font-weight: 850;
+  }
+  .weekly-col ul {
+    margin: 0;
+    padding-left: 1.1rem;
+    font-size: .78rem;
+    font-weight: 700;
+  }
+  .weekly-col li { margin: 0.2em 0; overflow-wrap: anywhere; }
+  .weekly-empty { color: var(--muted); font-weight: 700; font-size: .78rem; margin: 0; }
+  @media (min-width: 720px) {
+    .weekly-cols { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   }
 
   .card {
@@ -748,7 +789,7 @@
         <a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？">
           <span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？
         </a>
-        <span class="pill">v1.28.1</span>
+        <span class="pill">v1.28.5</span>
       </h1>
       <nav class="header-nav" aria-label="站內導覽">
         <a class="nav-btn" href="./calc.html">開盒 EV</a>
@@ -757,7 +798,6 @@
         <a class="nav-btn" href="./market-vintage.html" title="Base Set 1st / Shadowless / Unlimited raw indexes">Base 復古</a>
         <a class="nav-btn" href="./market-midera.html" title="DP → SM chase Top 50 raw index">中世代</a>
         <a class="nav-btn" href="https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/" title="Base Set Unlimited cheat sheet">Base Unlimited</a>
-        <span class="nav-btn soon" title="即將推出">日語熱度</span>
       </nav>
     </div>
     <p><img class="mon mon-sm" src="./img/accents/eevee.svg" alt="" width="20" height="20" aria-hidden="true" />PSA10 回歸散點 · 預測 vs 實際 · 點擊睇卡片</p>
@@ -766,6 +806,12 @@
 
 <main id="app">
   <div id="dataFreshness" class="data-freshness" role="status" aria-live="polite"></div>
+
+  <section class="card weekly-card" id="weeklyCard" hidden aria-label="本週變動">
+    <h2><img class="mon mon-sm" src="./img/accents/ditto.svg" alt="" width="20" height="20" aria-hidden="true" />本週變動</h2>
+    <p class="weekly-range" id="weeklyRange"></p>
+    <div class="weekly-cols" id="weeklyBody"></div>
+  </section>
 
   <section class="card" aria-label="篩選">
     <div class="filters">
@@ -846,7 +892,7 @@
       <li><b>隱藏全部點</b>：隱藏未標記散點。有標籤的卡仍用原本彩色圓點。卡相只喺右側詳情，唔畫上圖。</li>
       <li>篩選會寫入網址（<code>replaceState</code>）；重新整理可還原。公式同 R²／n 仍在第一張圖上方。</li>
       <li>公式：<code>log_psa10 ~ gem_rate + log_pop + log_raw + C(language) + promo_flag</code>；<code>log_pop</code> 用 <code>ln(pop+1)</code>。匯率 US$1＝HK$7.8。</li>
-      <li>數字來自 2026-10-09 PriceCharting 快照（GemRate pop 覆寫沿用 10-08）。點卡片用「睇卡相／價」開 <b>PriceCharting 產品頁</b>（raw／PSA9／PSA10 現場價）。唔熱鏈 Rarebox 或第三方卡圖；PC 圖 CDN 雜湊無法由網址推導，故用佔位＋連結。JP 另有 SNKRDUNK <b>搜尋</b>（非已核實產品頁）；EN 另有 TCGPlayer 搜尋。</li>
+      <li>數字來自 <span id="methodSnapDate">模型日期</span> PriceCharting 快照（GemRate pop 覆寫沿用 10-08）。點卡片用「睇卡相／價」開 <b>PriceCharting 產品頁</b>（raw／PSA9／PSA10 現場價）。唔熱鏈 Rarebox 或第三方卡圖；PC 圖 CDN 雜湊無法由網址推導，故用佔位＋連結。JP 另有 SNKRDUNK <b>搜尋</b>（非已核實產品頁）；EN 另有 TCGPlayer 搜尋。</li>
       <li><b>非正式投資建議</b>；下單前請核對現場價。</li>
     </ul>
   </section>
@@ -854,13 +900,13 @@
 
 <footer>
   <img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" />
-  <span>日盒 EV 小算盤 <b>v1.28.1</b> · Chase_Fit 靜態快照 · 非正式投資建議 · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a></span>
+  <span>日盒 EV 小算盤 <b>v1.28.5</b> · Chase_Fit 靜態快照 · 非正式投資建議 · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a></span>
 </footer>
 
-<script src="./data/chase-fit/latest.js?v=1.21.7"></script>
+<script src="./data/chase-fit/latest.js?v=1.28.5"></script>
 <script>
 (async function () {
-  const VERSION = '1.21.6';
+  const VERSION = '1.28.5';
   const $ = (id) => document.getElementById(id);
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, (ch) => ({
@@ -994,23 +1040,68 @@
     const asOfDate = parseAsOfDate(META.data_date);
     const r2 = META.r2 == null ? '—' : Number(META.r2).toFixed(3);
     const n = META.n != null ? META.n : CARDS.length;
-    const chips = '<span class="meta-chip">n=' + n + '</span><span class="meta-chip">R²=' + r2 + '</span>';
+    const ymd = asOfDate ? ymdLocal(asOfDate) : '';
+    const modelChip = '<span class="meta-chip model-date">模型日期 ' +
+      escapeHtml(ymd || String(META.data_date || '—')) + '</span>';
+    const chips = modelChip +
+      '<span class="meta-chip">n=' + n + '</span>' +
+      '<span class="meta-chip">R²=' + r2 + '</span>';
+    const methodDate = $('methodSnapDate');
+    if (methodDate) methodDate.textContent = ymd || String(META.data_date || '模型日期');
     if (!asOfDate) {
       el.className = 'data-freshness stale';
       el.innerHTML = '數字過期（資料日期無法確認）— 下單前請核對現價 ' + chips;
       return;
     }
     const age = ageDays(asOfDate, new Date());
-    const ymd = ymdLocal(asOfDate);
     if (age > 7) {
       el.className = 'data-freshness stale';
-      el.innerHTML = '數字過期 · 資料日期 ' + ymd + ' · 已過 ' + age + ' 日 — 下單前請核對現價 ' + chips;
+      el.innerHTML = '數字過期 · 已過 ' + age + ' 日 — 下單前請核對現價 ' + chips;
     } else {
       el.className = 'data-freshness fresh';
-      el.innerHTML = '資料日期 <b>' + ymd + '</b> · Chase_Fit 即時 Strong Buy 模型 ' + chips;
+      el.innerHTML = 'Chase_Fit 即時 Strong Buy 模型 ' + chips;
     }
   }
+  function weeklyItemHtml(row) {
+    const name = escapeHtml((row && (row.name || row.card_id)) || '—');
+    const lang = row && row.language ? escapeHtml(row.language) + ' · ' : '';
+    const pct = (row && row.residual_pct != null && !Number.isNaN(Number(row.residual_pct)))
+      ? ' ' + fmtPct(row.residual_pct) : '';
+    return '<li>' + lang + name + pct + '</li>';
+  }
+  function weeklyColHtml(cls, title, rows) {
+    let html = '<div class="weekly-col ' + cls + '"><p class="weekly-kicker">' +
+      escapeHtml(title) + ' · ' + (rows && rows.length ? rows.length : 0) + '</p>';
+    if (!rows || !rows.length) {
+      html += '<p class="weekly-empty">無</p></div>';
+      return html;
+    }
+    html += '<ul>' + rows.map(weeklyItemHtml).join('') + '</ul></div>';
+    return html;
+  }
+  function renderWeeklyChanges() {
+    const card = $('weeklyCard');
+    const body = $('weeklyBody');
+    const range = $('weeklyRange');
+    const w = DATA.weekly_changes;
+    if (!card || !body || !w) return;
+    const enter = w.enter || [];
+    const exitRows = w.exit || [];
+    const still = w.still || [];
+    if (!enter.length && !exitRows.length && !still.length) return;
+    card.hidden = false;
+    const prior = w.prior_date ? String(w.prior_date) : '上週';
+    const cur = w.current_date ? String(w.current_date) : (META.data_date || '');
+    if (range) {
+      range.textContent = prior + ' → ' + cur + ' · Strong Buy 標籤進出（Chase_Fit）';
+    }
+    body.innerHTML =
+      weeklyColHtml('enter', '新進 Strong Buy', enter) +
+      weeklyColHtml('exit', '退出 Strong Buy', exitRows) +
+      weeklyColHtml('still', '維持 Strong Buy', still);
+  }
   renderFreshness();
+  renderWeeklyChanges();
 
   function coefTermLabel(term) {
     if (term === 'C(language)[T.JP]') return 'JP';
@@ -1510,7 +1601,9 @@
         '" target="_blank" rel="noopener noreferrer">TCGPlayer 搜尋</a>';
     }
     html += '</div>';
-    html += '<p class="tiny snap-note">以下數字係 2026-10-09 模型快照，唔會跟連結現場價自動更新。</p>';
+    html += '<p class="tiny snap-note">以下數字係 ' +
+      escapeHtml(String(META.data_date || '模型')) +
+      ' 模型快照，唔會跟連結現場價自動更新。</p>';
     return html;
   }
 

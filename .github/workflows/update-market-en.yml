@@ -45,6 +45,7 @@ jobs:
           python3 tools/refresh_market_vintage.py --self-test
           python3 tools/refresh_market_midera.py --self-test
           python3 tools/backfill_tickermint_midera.py --self-test
+          python3 tools/export_chase_fit.py --self-test
 
   build:
     if: github.event_name != 'pull_request'
@@ -71,6 +72,7 @@ jobs:
           python3 tools/refresh_market_vintage.py --self-test
           python3 tools/refresh_market_midera.py --self-test
           python3 tools/backfill_tickermint_midera.py --self-test
+          python3 tools/export_chase_fit.py --self-test
 
       - name: Fetch TCGCSV dumps and rebuild EN pulse
         run: python3 tools/refresh_market_en.py -v
