@@ -190,6 +190,8 @@
   .nav-btn.soon:active { transform: none; box-shadow: none; }
   .wrap {
     max-width: 1100px;
+    width: 100%;
+    min-width: 0;
     margin: 0 auto;
     padding: 12px 14px 48px;
   }
@@ -200,6 +202,8 @@
     box-shadow: var(--shadow-sm);
     padding: 14px 16px;
     margin-bottom: 12px;
+    min-width: 0;
+    max-width: 100%;
   }
   h2 { margin: 0 0 8px; font-size: .95rem; }
   .pill {
@@ -542,10 +546,55 @@
   .err .err-hint { color: var(--text); font-size: .92rem; margin-top: 8px; }
   .table-wrap {
     max-width: 100%;
+    min-width: 0;
     overflow-x: auto;
+    overflow-y: hidden;
     overscroll-behavior-x: contain;
     -webkit-overflow-scrolling: touch;
+    touch-action: pan-x pinch-zoom;
+    isolation: isolate;
   }
+  .table-wrap table { width: 100%; }
+  .basket-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+    max-width: 100%;
+  }
+  .basket-row {
+    display: grid;
+    grid-template-columns: 32px minmax(0, 1fr) auto;
+    gap: 8px 10px;
+    align-items: center;
+    min-width: 0;
+    max-width: 100%;
+    padding: 8px;
+    border: var(--bw) solid var(--ink);
+    border-radius: 10px;
+    background: var(--bg-2);
+  }
+  .basket-row .basket-copy { min-width: 0; }
+  .basket-row .basket-name {
+    font-weight: 750;
+    font-size: .86rem;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+  }
+  .basket-row .basket-sub { margin-top: 2px; }
+  .basket-nums {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: baseline;
+    gap: 4px 12px;
+    font-variant-numeric: tabular-nums;
+    font-size: .82rem;
+    font-weight: 750;
+    text-align: right;
+    min-width: 0;
+  }
+  .basket-nums .basket-usd { white-space: nowrap; }
   .spark-wrap {
     position: relative;
     margin-top: 8px;
@@ -653,6 +702,11 @@
     .wrap { padding: 10px 12px 48px; }
     .index-level { font-size: 2rem; }
     .period-btn { padding: 6px 9px; }
+    .basket-row { grid-template-columns: 32px minmax(0, 1fr); }
+    .basket-nums {
+      grid-column: 1 / -1;
+      justify-content: space-between;
+    }
     .story { padding: 10px 12px; }
     .story-row {
       grid-template-columns: 1fr;
@@ -844,21 +898,7 @@
         <button type="button" class="period-btn" data-era="SM" aria-pressed="false">SM</button>
       </div>
     </div>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>No.</th>
-            <th></th>
-            <th>卡</th>
-            <th class="set-col">系列</th>
-            <th>稀有</th>
-            <th class="num">USD</th>
-          </tr>
-        </thead>
-        <tbody id="basketBody"></tbody>
-      </table>
-    </div>
+    <div class="basket-list" id="basketList"></div>
     <p class="tiny" id="unpricedNote" style="margin:8px 0 0"></p>
   </div>
   </div>
@@ -1466,10 +1506,17 @@
     });
   }
   function renderBasket() {
+    const el = $('basketList');
+    if (!el) return;
     const era = viewState.era || 'all';
     const rows = basket.filter((c) => era === 'all' || eraOf(c.setName || (byId[c.id] || {}).setName) === era);
     if ($('basketCountPill')) $('basketCountPill').textContent = String(rows.length);
-    $('basketBody').innerHTML = rows.length ? rows.map((c) => {
+    if (!rows.length) {
+      el.innerHTML = '<p class="tiny" style="margin:0">' +
+        escapeHtml(era === 'all' ? '沒有籃子資料' : '此時代沒有口袋') + '</p>';
+      return;
+    }
+    el.innerHTML = rows.map((c) => {
       const live = byId[c.id] || c;
       const img = c.image
         ? '<img class="card-thumb" src="' + escapeHtml(c.image) + '" alt="" width="32" height="44" loading="lazy" />'
@@ -1477,15 +1524,15 @@
       const priceCell = c.price == null
         ? '<span class="tiny">無市價</span>'
         : (c.carried ? (fmtUsd(c.price) + ' <span class="tiny">carried</span>') : fmtUsd(c.price));
-      return '<tr>' +
-        '<td class="tiny">' + escapeHtml(c.number || '') + '</td>' +
-        '<td>' + img + '</td>' +
-        '<td>' + escapeHtml(c.name) + tcgLink(c.id) + tmLink(c.id) + '</td>' +
-        '<td class="set-col tiny">' + escapeHtml(c.setName || live.setName || '') + '</td>' +
-        '<td class="tiny">' + escapeHtml(c.rarity || '') + '</td>' +
-        '<td class="num">' + priceCell + '</td>' +
-        '</tr>';
-    }).join('') : emptyRow(era === 'all' ? '沒有籃子資料' : '此時代沒有口袋', 6);
+      const setBits = [c.number, c.setName || live.setName, c.rarity].filter(Boolean).join(' · ');
+      return '<div class="basket-row">' +
+        '<div>' + img + '</div>' +
+        '<div class="basket-copy"><div class="basket-name">' + escapeHtml(c.name || '') + '</div>' +
+        '<div class="basket-sub tiny">' + escapeHtml(setBits) +
+        tcgLink(c.id) + tmLink(c.id) + '</div></div>' +
+        '<div class="basket-nums"><span class="basket-usd">' + priceCell + '</span></div>' +
+        '</div>';
+    }).join('');
   }
   renderBasket();
   const missing = DATA.listedUnpriced || [];
