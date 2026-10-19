@@ -1,0 +1,67 @@
+{
+  "notes": "Offline fixtures for refresh_market_jp_psa10.py --self-test. Fake prints, not live SNK.",
+  "cards": [
+    {
+      "id": "A",
+      "apparelId": 1,
+      "catalogId": 101,
+      "name": "Alpha",
+      "localizedName": "アルファ",
+      "nameZh": null,
+      "productNumber": "pkmn-tcg-TEST-1",
+      "set": "TEST",
+      "image": "",
+      "url": "https://snkrdunk.com/apparels/1",
+      "prints": [
+        ["2026-09-01", 10000],
+        ["2026-09-02", 11000],
+        ["2026-09-03", 12100],
+        ["2026-09-10", 12100]
+      ],
+      "trades": [
+        {"price": 12100, "soldAt": "2026-09-10T03:00:00Z", "title": "PSA10"}
+      ]
+    },
+    {
+      "id": "B",
+      "apparelId": 2,
+      "catalogId": 102,
+      "name": "Beta",
+      "localizedName": "ベータ",
+      "nameZh": null,
+      "productNumber": "pkmn-tcg-TEST-2",
+      "set": "TEST",
+      "image": "",
+      "url": "https://snkrdunk.com/apparels/2",
+      "prints": [
+        ["2026-09-01", 20000],
+        ["2026-09-02", 20000],
+        ["2026-09-03", 20000],
+        ["2026-09-10", 20000]
+      ],
+      "trades": [
+        {"price": 20000, "soldAt": "2026-09-10T04:00:00Z", "title": "PSA10"},
+        {"price": 20100, "soldAt": "2026-09-09T04:00:00Z", "title": "PSA10"}
+      ]
+    },
+    {
+      "id": "C",
+      "apparelId": 3,
+      "catalogId": 103,
+      "name": "Gamma",
+      "localizedName": "ガンマ",
+      "nameZh": null,
+      "productNumber": "pkmn-tcg-TEST-3",
+      "set": "TEST",
+      "image": "",
+      "url": "https://snkrdunk.com/apparels/3",
+      "prints": [
+        ["2026-09-01", 5000],
+        ["2026-09-02", 10000],
+        ["2026-09-03", 5000],
+        ["2026-09-10", 5000]
+      ],
+      "trades": []
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # Pokemon Box EV
 
-日盒 EV 小算盤（朋友向）· **v1.28.11**
+日盒 EV 小算盤（朋友向）· **v1.29.0**
 
 給「不太懂金融／AI」的買卡朋友看的工具：首頁介紹點樣用 → 開盒算盤選系列 → 看 **四個預期回報 %**（同一分母）→ 有膜／無膜切換 → 看主力 chase 卡與「買單卡 vs 開盒」粗略提示。
 
@@ -19,6 +19,8 @@ Base Set 復古指數（1st / Shadowless / Unlimited）：**https://swishish.git
 中世代指數（DP → SM chase Top 50）：**https://swishish.github.io/Pokemon-Box-EV/market-midera.html**
 
 Chase 公允值（PSA10 回歸散點）：**https://swishish.github.io/Pokemon-Box-EV/chase-fit.html**
+
+日版 PSA10 指數（等權／流動性／價格加權）：**https://swishish.github.io/Pokemon-Box-EV/market-jp-psa10.html**
 
 姊妹站 Base Unlimited（Base Set Unlimited 速查）：**https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/**（頂欄外連，唔喺本 repo）
 
@@ -43,7 +45,7 @@ Chase 公允值（PSA10 回歸散點）：**https://swishish.github.io/Pokemon-B
 1. GitHub Action **Update EN market pulse**（`.github/workflows/update-market-en.yml`）
    - **排程**：每天 21:23 UTC（TCGCSV 約 20:05 UTC 刷新之後）
    - **手動**：Actions 頁按 **Run workflow**
-   - **PR**：只跑 self-test（`refresh_market_en` + `fetch_tcgcsv_archive` + `backfill_tickermint` + `backfill_tickermint_vintage` + `refresh_market_vintage` + `refresh_market_midera` + `backfill_tickermint_midera` + `refresh_sealed_boxes`），不抓 dump、不 commit
+   - **PR**：只跑 self-test（`refresh_market_en` + `fetch_tcgcsv_archive` + `backfill_tickermint` + `backfill_tickermint_vintage` + `refresh_market_vintage` + `refresh_market_midera` + `backfill_tickermint_midera` + `refresh_sealed_boxes` + `refresh_market_jp_psa10`），不抓 dump、不 commit
 2. 腳本 `python3 tools/refresh_market_en.py` 先讀 `https://tcgcsv.com/last-updated.txt`；stamp 沒變就結束（零流量）。
 3. 有新 dump 才抓 `Groups.csv` + 各系列 `ProductsAndPrices.csv`，寫入：
    - `data/market-en/latest.json`（指數、廣度、漲跌榜、500 張成分——給下一次對比用）
@@ -189,7 +191,7 @@ python3 tools/backfill_tickermint_midera.py --rebuild-movers
 python3 -m http.server 8765
 ```
 
-瀏覽器開：`http://127.0.0.1:8765/`（首頁）、`http://127.0.0.1:8765/calc.html`（算盤）、`http://127.0.0.1:8765/market-en.html`（EN 市況）、`http://127.0.0.1:8765/market-vintage.html`（Base 復古）、`http://127.0.0.1:8765/market-midera.html`（中世代）或 `http://127.0.0.1:8765/chase-fit.html`（Chase 公允值）
+瀏覽器開：`http://127.0.0.1:8765/`（首頁）、`http://127.0.0.1:8765/calc.html`（算盤）、`http://127.0.0.1:8765/market-en.html`（EN 市況）、`http://127.0.0.1:8765/market-vintage.html`（Base 復古）、`http://127.0.0.1:8765/market-midera.html`（中世代）、`http://127.0.0.1:8765/market-jp-psa10.html`（日版 PSA10）或 `http://127.0.0.1:8765/chase-fit.html`（Chase 公允值）
 
 ## Chase 公允值（PSA10 回歸）
 
@@ -238,8 +240,32 @@ python3 tools/refresh_sealed_boxes.py --root .
 python3 tools/refresh_box_ev.py --root . --pc-dir /tmp/pc-sets
 ```
 
+## 日版 PSA10 指數
+
+獨立頁 `market-jp-psa10.html`：同一個凍結籃子畫 **三條** 鏈結報酬指數（基準 1,000）＋下方成交量柱。
+
+| 線 | 權重 |
+| --- | --- |
+| 等權（實線） | 每張 1/n（廣度） |
+| 流動性（虛線） | 近 30 日 SNK PSA10 成交日圓（先用最近 20 筆；冇就用刊價日×價），**每張最多 3%** |
+| 價格（點虛線） | 滯後市價／籃子總價（Gary 的 market weight），**同一個 3% 上限** |
+
+價＝SNKRDUNK 公開 `trading-history` PSA10 圖價（JP 站、只讀）。缺日用上一次刊價延續，**唔補 ¥0**。量柱＝當日有刊價的成分張數（SNK 唔公開完整成交筆數；不是 pokeca 乘數）。刊價缺口 **> 14 日**當重入（當日報酬 0）；其餘單卡日報酬 **±25%** 封頂。基準 1,000＝第一日有 ≥40 張有價。
+
+籃子來自本站 `data.json` 已有嘅 apparel ID，再篩最低價 ¥3,000 ＋ 90 日 ≥12 個刊價日，凍結約 60 張。每日 job **唔重排**。
+
+```bash
+python3 tools/refresh_market_jp_psa10.py --self-test
+python3 tools/refresh_market_jp_psa10.py --rebuild-baskets --confirm REBUILD -v
+python3 tools/refresh_market_jp_psa10.py --from-cache
+python3 tools/refresh_market_jp_psa10.py -v
+```
+
+GitHub Action **Update JP PSA10 index** 每晚跑刷新；PR 只跑 self-test。詳見 `data/market-jp-psa10/README.md`。
+
 ## Changelog（摘要）
 
+- **v1.29.0**：新增日版 PSA10 指數頁（`market-jp-psa10.html`）——同一籃子等權／流動性／價格加權三條線 + SNK 刊價量柱；3% 單卡上限；公開 SNKRDUNK trading-history。EV／Chase_Fit／EN／復古／中世代算法不變
 - **v1.28.11**：日盒**盒價**可用公開 SNKRDUNK 掛牌＋PriceCharting 盒頁刷新（`tools/refresh_sealed_boxes.py`，Actions 手動掣）。只讀、唔登入／下單。單卡 Grade A／抽出率同 EV 算法不變
 - **v1.28.10**：Chase「落後籃子」——模型殘差低估（最低估先）；與 EN 指數重疊的英文卡另給 30D 落後（卡 % − 指數 %，唔發明 ID）。中世代「落後籃子」同 Unlimited：30D／YTD vs 同一籃子指數。EV／Chase_Fit 算法不變
 - **v1.28.9**：Base 復古 Unlimited「落後籃子」——成分 30D／YTD 相對同一籃子指數落後（最落後先；真實快照，不補價）。中世代圖表加 **All**（全部已有日期、唔重設 1,000）、懸停／點選睇指數與日期、卡冊／籃子 DP·BW·XY·SM 晶片。EV／Chase_Fit 算法不變
