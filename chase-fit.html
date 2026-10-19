@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>Chase 公允值 v1.28.5 · PSA10 回歸</title>
+<title>Chase 公允值 v1.28.6 · PSA10 回歸</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <style>
   :root {
@@ -364,6 +364,205 @@
     font-size: .75rem;
     color: var(--muted);
     font-weight: 700;
+  }
+
+  .buy-card { min-width: 0; max-width: 100%; }
+  .buy-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    min-width: 0;
+    margin-bottom: 8px;
+  }
+  .buy-toolbar .chip-check:has(input:checked) { background: var(--accent-fill); }
+  .buy-note {
+    margin: 0 0 8px;
+    font-size: .75rem;
+    color: var(--muted);
+    font-weight: 700;
+  }
+  .buy-table-wrap {
+    max-width: 100%;
+    min-width: 0;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+  .buy-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .72rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .buy-table th, .buy-table td {
+    text-align: left;
+    padding: 6px 6px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+    max-width: 100%;
+  }
+  .buy-table th {
+    color: var(--muted);
+    font-weight: 800;
+    font-size: .65rem;
+    white-space: nowrap;
+  }
+  .buy-table th.num, .buy-table td.num { text-align: right; white-space: nowrap; }
+  .buy-table tbody tr {
+    cursor: pointer;
+  }
+  .buy-table tbody tr:hover { background: #fff8d6; }
+  .buy-table tbody tr.is-selected { background: var(--good-bg); }
+  .buy-table tbody tr.is-pin { box-shadow: inset 3px 0 0 var(--accent); }
+  .buy-name {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1px;
+    min-width: 0;
+    max-width: 16rem;
+  }
+  .buy-name .zh-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    min-width: 0;
+    max-width: 100%;
+  }
+  .buy-name .zh { font-weight: 850; color: var(--ink); overflow-wrap: anywhere; }
+  .buy-name .en { font-size: .65rem; color: var(--muted); font-weight: 700; overflow-wrap: anywhere; }
+  .buy-pin {
+    display: inline-flex;
+    align-items: center;
+    font-size: .6rem;
+    font-weight: 850;
+    padding: 0 6px;
+    border-radius: 999px;
+    border: 1.5px solid var(--ink);
+    background: var(--accent-fill);
+    flex-shrink: 0;
+  }
+  .buy-ticks {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    align-items: center;
+  }
+  .tick {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.35rem;
+    height: 1.35rem;
+    border-radius: 6px;
+    border: 1.5px solid var(--ink);
+    font-size: .68rem;
+    font-weight: 900;
+    line-height: 1;
+  }
+  .tick.ok { background: var(--good-bg); color: var(--good); }
+  .tick.no { background: var(--bad-bg); color: var(--bad); }
+  .gate-warn {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: .6rem;
+    font-weight: 850;
+    color: #8a4b00;
+    background: var(--ok-bg);
+    border: 1.5px solid var(--ink);
+    border-radius: 999px;
+    padding: 1px 6px;
+  }
+  .buy-snkr {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 32px;
+    padding: 4px 9px;
+    border: 1.5px solid var(--ink);
+    border-radius: 999px;
+    background: var(--accent-fill);
+    color: var(--ink);
+    font-size: .68rem;
+    font-weight: 850;
+    text-decoration: none;
+    box-shadow: var(--shadow-xs);
+    white-space: nowrap;
+    max-width: 100%;
+  }
+  .buy-snkr.search { background: var(--bg-2); }
+  .buy-empty { color: var(--muted); font-weight: 700; padding: 12px 4px; }
+  .method-fold {
+    margin-top: 10px;
+    border: 1.5px solid var(--ink);
+    border-radius: 10px;
+    background: var(--bg-2);
+    padding: 4px 10px 8px;
+    max-width: 100%;
+    min-width: 0;
+  }
+  .method-fold > summary {
+    cursor: pointer;
+    font-weight: 850;
+    font-size: .82rem;
+    padding: 6px 0;
+    list-style: none;
+  }
+  .method-fold > summary::-webkit-details-marker { display: none; }
+  .method-fold > summary::before {
+    content: "▸ ";
+  }
+  .method-fold[open] > summary::before { content: "▾ "; }
+  .method-fold .fit-formula {
+    margin: 4px 0 8px;
+    text-align: left;
+  }
+  .method-fold .fit-formula .coefs,
+  .method-fold .fit-formula .stats { justify-content: flex-start; }
+  @media (max-width: 720px) {
+    .buy-table-wrap { overflow: visible; }
+    .buy-table thead { display: none; }
+    .buy-table, .buy-table tbody, .buy-table tr, .buy-table td {
+      display: block;
+      width: 100%;
+    }
+    .buy-table tbody tr {
+      border: 1.5px solid var(--ink);
+      border-radius: 10px;
+      padding: 10px;
+      margin: 0 0 8px;
+      background: var(--bg-2);
+      box-shadow: var(--shadow-xs);
+    }
+    .buy-table tbody tr.is-pin { box-shadow: var(--shadow-xs), inset 3px 0 0 var(--accent); }
+    .buy-table th, .buy-table td {
+      border-bottom: 0;
+      padding: 3px 0;
+      text-align: left;
+      white-space: normal;
+    }
+    .buy-table td.num { text-align: left; }
+    .buy-table td {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .buy-table td::before {
+      content: attr(data-label);
+      flex: 0 0 6.2em;
+      color: var(--muted);
+      font-weight: 800;
+      font-size: .68rem;
+    }
+    .buy-name { max-width: 100%; flex: 1 1 auto; }
+    .buy-table td.buy-name-cell { display: block; }
+    .buy-table td.buy-name-cell::before { display: none; }
+    .buy-table td.buy-cta { display: block; padding-top: 8px; }
+    .buy-table td.buy-cta::before { display: none; }
+    .buy-snkr { width: 100%; min-height: 40px; }
   }
 
   .legend {
@@ -789,7 +988,7 @@
         <a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？">
           <span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？
         </a>
-        <span class="pill">v1.28.5</span>
+        <span class="pill">v1.28.6</span>
       </h1>
       <nav class="header-nav" aria-label="站內導覽">
         <a class="nav-btn" href="./calc.html">開盒 EV</a>
@@ -815,7 +1014,7 @@
 
   <section class="card" aria-label="篩選">
     <div class="filters">
-      <input class="search" id="q" type="search" placeholder="搜尋卡名…" autocomplete="off" enterkeyhint="search" />
+      <input class="search" id="q" type="search" placeholder="搜尋卡名／淚眼蜥…" autocomplete="off" enterkeyhint="search" />
       <div class="seg" role="group" aria-label="語言">
         <button type="button" class="tog active" data-lang="all" id="langAll">全部</button>
         <button type="button" class="tog" data-lang="JP" id="langJp">JP</button>
@@ -837,11 +1036,47 @@
     <div class="legend" id="legend" role="group" aria-label="標籤篩選"></div>
   </section>
 
+  <section class="card buy-card" aria-label="便宜過模型">
+    <h2><img class="mon mon-sm" src="./img/accents/sobble.svg" alt="" width="20" height="20" aria-hidden="true" />便宜過模型</h2>
+    <p class="buy-note">預設最負殘差（最便宜過公允值）排前。淚眼蜥（Sobble）會釘在最上；只顯示 PSA10 模型價。尚無約 4 週封存時，「1 週變動」用 workbook 對上週 %，沒有就顯示 —。</p>
+    <div class="buy-toolbar">
+      <div class="seg" role="group" aria-label="排序">
+        <button type="button" class="tog active" data-buysort="resid" id="buySortResid">最低估</button>
+        <button type="button" class="tog" data-buysort="price" id="buySortPrice">現價</button>
+        <button type="button" class="tog" data-buysort="chg" id="buySortChg">1週變動</button>
+        <button type="button" class="tog" data-buysort="name" id="buySortName">名稱</button>
+      </div>
+      <label class="chip-check"><input type="checkbox" id="buySobble" />只看淚眼蜥</label>
+      <label class="chip-check"><input type="checkbox" id="buyLag" />只看 −40% 以下</label>
+    </div>
+    <p class="count-line" id="buyCount">載入中…</p>
+    <div class="buy-table-wrap">
+      <table class="buy-table" id="buyTable">
+        <thead>
+          <tr>
+            <th>名稱</th>
+            <th>評級</th>
+            <th class="num">現價 HK$</th>
+            <th class="num">公允值</th>
+            <th class="num">低於 FV</th>
+            <th class="num">1週變動</th>
+            <th>成交</th>
+            <th class="num">PSA10 pop</th>
+            <th class="num">PSA10/raw</th>
+            <th>四關</th>
+            <th>workbook</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="buyBody"></tbody>
+      </table>
+    </div>
+  </section>
+
   <div class="plot-grid">
     <div class="charts-stack">
     <section class="card chart-card">
       <h2><img class="mon mon-sm" src="./img/accents/ditto.svg" alt="" width="20" height="20" aria-hidden="true" />散點</h2>
-      <div class="fit-formula" id="fitFormula" aria-label="Chase_Fit 回歸公式"></div>
       <div class="chart-box" id="chartBox">
         <svg id="chart" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="PSA10 預測對實際散點"></svg>
         <div class="empty-plot" id="emptyPlot" hidden>
@@ -883,30 +1118,38 @@
   <section class="card method-card">
     <h2><img class="mon" src="./img/accents/starters.svg" alt="" width="72" height="24" aria-hidden="true" style="width:72px;height:24px" />這是什麼</h2>
     <ul class="tiny">
+      <li><b>便宜過模型</b>：上面清單按殘差%由低到高，找市價低於公允值的卡。淚眼蜥（Sobble／Kanazawa #146/S-P）可釘選。四關（殘差 ≤ −40%、每週+成交、pop &lt; 4000、PSA10/raw ≥ 2×）喺頁面即場打勾；旁邊係 workbook 的 Strong Buy 標籤。兩者唔一致會出警告（常見原因：成交薄等額外關卡）。</li>
       <li><b>Chase_Fit</b>：用 PSA10 成交、裸卡價、gem 率、pop、語言、是否 promo，估一張 chase 卡的 PSA10 <b>公允值（FV）</b>。</li>
       <li><b>公允值圖</b>：X＝模型預測 PSA10，Y＝實際 PSA10（對數軸）。紅線是 y＝x（市價＝公允值）。<b>線下方</b>＝市價低於 FV（可能低估）。</li>
       <li><b>殘差%</b>＝（實際 − 預測）÷ 預測。負數＝便宜過模型；正數＝貴過模型。</li>
       <li><b>Strong Buy</b> 是資料裡的即時標籤，不是自動按殘差重算。</li>
       <li><b>圖例標籤</b>可點選篩選散點（可多選）。關掉的標籤會淡化；全部關掉＝沒有點，按「顯示全部」還原。與搜尋／JP·EN／只看 Strong Buy 一齊 AND。</li>
-      <li><b>POP × 倍數</b>：X＝PSA10 pop，Y＝PSA10／raw 倍數（皆對數軸，避免極端倍數壓扁圖）。點色同大細＝gem%。紅線係 log(multiple)～log(pop) 簡單趨勢。點擊行為同上面散點。</li>
-      <li><b>隱藏全部點</b>：隱藏未標記散點。有標籤的卡仍用原本彩色圓點。卡相只喺右側詳情，唔畫上圖。</li>
-      <li>篩選會寫入網址（<code>replaceState</code>）；重新整理可還原。公式同 R²／n 仍在第一張圖上方。</li>
-      <li>公式：<code>log_psa10 ~ gem_rate + log_pop + log_raw + C(language) + promo_flag</code>；<code>log_pop</code> 用 <code>ln(pop+1)</code>。匯率 US$1＝HK$7.8。</li>
-      <li>數字來自 <span id="methodSnapDate">模型日期</span> PriceCharting 快照（GemRate pop 覆寫沿用 10-08）。點卡片用「睇卡相／價」開 <b>PriceCharting 產品頁</b>（raw／PSA9／PSA10 現場價）。唔熱鏈 Rarebox 或第三方卡圖；PC 圖 CDN 雜湊無法由網址推導，故用佔位＋連結。JP 另有 SNKRDUNK <b>搜尋</b>（非已核實產品頁）；EN 另有 TCGPlayer 搜尋。</li>
+      <li><b>POP × 倍數</b>：X＝PSA10 pop，Y＝PSA10／raw 倍數（皆對數軸）。點色同大細＝gem%。點擊行為同上面散點。</li>
+      <li>篩選會寫入網址；清單排序／淚眼蜥篩選另存瀏覽器（private mode 會忽略）。</li>
+      <li>數字來自 <span id="methodSnapDate">模型日期</span> PriceCharting 快照。來源：<a href="https://www.pricecharting.com/category/pokemon-cards" target="_blank" rel="noopener">PriceCharting</a> 產品頁、已知卡的 <a href="https://snkrdunk.com/en" target="_blank" rel="noopener">SNKRDUNK</a> 產品頁（其餘用搜尋）。EN 另有 TCGPlayer 搜尋。</li>
       <li><b>非正式投資建議</b>；下單前請核對現場價。</li>
     </ul>
+    <details class="method-fold" id="methodFold">
+      <summary>方法</summary>
+      <div class="fit-formula" id="fitFormula" aria-label="Chase_Fit 回歸公式"></div>
+      <ul class="tiny">
+        <li>公式：<code>log_psa10 ~ gem_rate + log_pop + log_raw + C(language) + promo_flag</code>；<code>log_pop</code> 用 <code>ln(pop+1)</code>。匯率 US$1＝HK$7.8。</li>
+        <li>workbook Strong Buy 另有「成交薄」等關卡，所以四勾全過唔等於標籤一定是 Strong Buy。</li>
+        <li>唔熱鏈 Rarebox 或第三方卡圖；PC 圖 CDN 雜湊無法由網址推導。</li>
+      </ul>
+    </details>
   </section>
 </main>
 
 <footer>
   <img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" />
-  <span>日盒 EV 小算盤 <b>v1.28.5</b> · Chase_Fit 靜態快照 · 非正式投資建議 · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a></span>
+  <span>日盒 EV 小算盤 <b>v1.28.6</b> · Chase_Fit 靜態快照 · 非正式投資建議 · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a></span>
 </footer>
 
-<script src="./data/chase-fit/latest.js?v=1.28.5"></script>
+<script src="./data/chase-fit/latest.js?v=1.28.6"></script>
 <script>
 (async function () {
-  const VERSION = '1.28.5';
+  const VERSION = '1.28.6';
   const $ = (id) => document.getElementById(id);
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, (ch) => ({
@@ -942,6 +1185,10 @@
     showLoadError(dataRes);
     return;
   }
+  const namesRes = await loadJson('./data/names_zh.json');
+  const snkrRes = await loadJson('./data/snkrdunk_ids.json');
+  const NAMES_ZH = (namesRes && namesRes.data) || { species: {}, trainers: {}, by_id: {}, aliases: {} };
+  const SNKR_IDS = (snkrRes && snkrRes.data) || { links: [] };
 
   const META = DATA.meta;
   const COEF = {};
@@ -1034,6 +1281,153 @@
     const v = Number(n);
     return (v >= 0 ? '+' : '') + v.toFixed(3);
   }
+  function escapeRe(s) {
+    return String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+  function cardGrade() { return 'PSA10'; }
+  function priceHkd(card) {
+    const usd = Number(card && card.psa10_usd);
+    if (!Number.isFinite(usd)) return null;
+    return usd * FX;
+  }
+  function fvHkd(card) {
+    if (card && card.fv_hkd != null && Number.isFinite(Number(card.fv_hkd))) return Number(card.fv_hkd);
+    const pred = Number(card && card.pred_usd);
+    return Number.isFinite(pred) ? pred * FX : null;
+  }
+  function chgPct(card) {
+    const v = card && card.psa10_chg_pct_vs_prior;
+    if (v == null || v === '' || Number.isNaN(Number(v))) return null;
+    return Number(v);
+  }
+  function fmtVolume(card) {
+    const note = String((card && card.n_sold_note) || '').trim();
+    const m = note.match(/^(\d+)\s+sales?\s+per\s+(day|week|month|year)$/i);
+    if (m) {
+      const unit = { day: '每日', week: '每週', month: '每月', year: '每年' }[m[2].toLowerCase()];
+      return unit + ' ' + m[1] + ' 筆';
+    }
+    if (/^rare$/i.test(note)) return '稀少';
+    const vol = card && card.sales_per_year;
+    if (vol == null || Number.isNaN(Number(vol))) return '—';
+    return fmtNum(vol, 0) + '/年';
+  }
+  function firstSpeciesZh(rest) {
+    const species = NAMES_ZH.species || {};
+    const keys = Object.keys(species).sort((a, b) => b.length - a.length);
+    let best = '', bestPos = Infinity, bestLen = 0;
+    keys.forEach((en) => {
+      const re = new RegExp('\\b' + escapeRe(en) + '\\b', 'i');
+      const m = String(rest).match(re);
+      if (!m) return;
+      if (m.index < bestPos || (m.index === bestPos && en.length > bestLen)) {
+        best = species[en];
+        bestPos = m.index;
+        bestLen = en.length;
+      }
+    });
+    if (/^M\s+Charizard\b/i.test(rest) && species.Charizard) return '超級' + species.Charizard;
+    return best;
+  }
+  function zhHead(card) {
+    if (!card) return '';
+    const byId = NAMES_ZH.by_id && NAMES_ZH.by_id[card.card_id];
+    if (byId) return byId;
+    let rest = String(card.name || '');
+    let trainer = '';
+    const trainers = NAMES_ZH.trainers || {};
+    const tKeys = Object.keys(trainers).sort((a, b) => b.length - a.length);
+    for (let i = 0; i < tKeys.length; i++) {
+      const en = tKeys[i];
+      const poss = new RegExp('^' + escapeRe(en) + "'s\\s+", 'i');
+      if (poss.test(rest)) {
+        trainer = trainers[en] + '的';
+        rest = rest.replace(poss, '');
+        break;
+      }
+    }
+    if (!trainer) {
+      for (let i = 0; i < tKeys.length; i++) {
+        const en = tKeys[i];
+        const re = new RegExp('^' + escapeRe(en) + '(?=\\s|[\\[#]|$)', 'i');
+        if (re.test(rest)) {
+          trainer = trainers[en];
+          rest = rest.replace(re, '').replace(/^\s+/, '');
+          break;
+        }
+      }
+    }
+    const spec = firstSpeciesZh(rest);
+    if (!trainer && !spec) return '';
+    if (trainer && spec) return (trainer.endsWith('的') ? trainer : trainer + '的') + spec;
+    return trainer || spec;
+  }
+  function isSobble(card) {
+    const id = String((card && card.card_id) || '').toUpperCase();
+    const name = String((card && card.name) || '');
+    if (id.indexOf('SOBBLE') !== -1) return true;
+    if (/\bSobble\b/i.test(name) || /\bMesson\b/i.test(name) || /メッソン/.test(name)) return true;
+    return zhHead(card) === '淚眼蜥';
+  }
+  function searchHay(card) {
+    const parts = [
+      card && card.name,
+      card && card.card_id,
+      zhHead(card)
+    ];
+    if (isSobble(card) && NAMES_ZH.aliases && NAMES_ZH.aliases.sobble) {
+      parts.push.apply(parts, NAMES_ZH.aliases.sobble);
+    }
+    return parts.filter(Boolean).join(' ').toLowerCase();
+  }
+  const SNKR_MAP = {};
+  (SNKR_IDS.links || []).forEach((row) => {
+    if (!row || !row.card_id || row.apparel_id == null) return;
+    const grade = String(row.grade || SNKR_IDS.default_grade || 'PSA10');
+    SNKR_MAP[row.card_id + '|' + grade] = String(row.apparel_id);
+    if (!SNKR_MAP[row.card_id]) SNKR_MAP[row.card_id] = String(row.apparel_id);
+  });
+  function snkrApparelId(card) {
+    if (!card) return '';
+    return SNKR_MAP[card.card_id + '|' + cardGrade()] || SNKR_MAP[card.card_id] || '';
+  }
+  function snkrProductUrl(id) {
+    return 'https://snkrdunk.com/apparels/' + encodeURIComponent(id);
+  }
+  function snkrSearchUrl(card) {
+    return 'https://snkrdunk.com/en/search?keyword=' + encodeURIComponent((card && card.name) || '');
+  }
+  function snkrHref(card) {
+    const id = snkrApparelId(card);
+    return id ? snkrProductUrl(id) : snkrSearchUrl(card);
+  }
+  function gateTicks(card) {
+    const resid = Number(card && card.residual_pct);
+    const vol = Number(card && card.sales_per_year);
+    const pop = Number(card && card.pop_psa10);
+    const mult = Number(card && card.psa10_raw_multiple);
+    return {
+      resid: Number.isFinite(resid) && resid <= -40,
+      volume: Number.isFinite(vol) && vol >= 52,
+      pop: Number.isFinite(pop) && pop < 4000,
+      multiple: Number.isFinite(mult) && mult >= 2
+    };
+  }
+  function ticksPass(g) { return !!(g.resid && g.volume && g.pop && g.multiple); }
+
+  const LS_BUY = 'pbev-chase-buy';
+  function readLs(key) {
+    try {
+      const raw = localStorage.getItem(key);
+      if (!raw) return null;
+      return JSON.parse(raw);
+    } catch (e) {
+      return null;
+    }
+  }
+  function writeLs(key, val) {
+    try { localStorage.setItem(key, JSON.stringify(val)); } catch (e) { /* private mode */ }
+  }
 
   function renderFreshness() {
     const el = $('dataFreshness');
@@ -1063,7 +1457,8 @@
     }
   }
   function weeklyItemHtml(row) {
-    const name = escapeHtml((row && (row.name || row.card_id)) || '—');
+    const zh = zhHead(row);
+    const name = escapeHtml((zh ? zh + ' · ' : '') + ((row && (row.name || row.card_id)) || '—'));
     const lang = row && row.language ? escapeHtml(row.language) + ' · ' : '';
     const pct = (row && row.residual_pct != null && !Number.isNaN(Number(row.residual_pct)))
       ? ' ' + fmtPct(row.residual_pct) : '';
@@ -1140,8 +1535,22 @@
     clipExtreme: true,
     hideDots: false,
     selectedId: null,
-    labels: allLabelsOnMap()
+    labels: allLabelsOnMap(),
+    buySort: 'resid',
+    buySobble: false,
+    buyLag: false
   };
+  const BUY_SORTS = ['resid', 'price', 'chg', 'name'];
+  function loadBuyPrefs() {
+    const saved = readLs(LS_BUY);
+    if (!saved || typeof saved !== 'object') return;
+    if (BUY_SORTS.indexOf(saved.sort) !== -1) state.buySort = saved.sort;
+    if (typeof saved.sobble === 'boolean') state.buySobble = saved.sobble;
+    if (typeof saved.lag === 'boolean') state.buyLag = saved.lag;
+  }
+  function saveBuyPrefs() {
+    writeLs(LS_BUY, { sort: state.buySort, sobble: state.buySobble, lag: state.buyLag });
+  }
   const LABEL_ALIAS = {
     'Strong Buy': 'sb',
     'Mild undervalued': 'mild',
@@ -1205,7 +1614,13 @@
     if ($('clipExtreme')) $('clipExtreme').checked = state.clipExtreme;
     if ($('hideDots')) $('hideDots').checked = state.hideDots;
     if ($('clipWrap')) $('clipWrap').hidden = state.view !== 'resid';
+    [['buySortResid', 'resid'], ['buySortPrice', 'price'], ['buySortChg', 'chg'], ['buySortName', 'name']].forEach(([id, v]) => {
+      const el = $(id); if (el) el.classList.toggle('active', state.buySort === v);
+    });
+    if ($('buySobble')) $('buySobble').checked = state.buySobble;
+    if ($('buyLag')) $('buyLag').checked = state.buyLag;
   }
+  loadBuyPrefs();
   readUrlState();
   syncControlsFromState();
 
@@ -1213,7 +1628,7 @@
     if (state.onlySb && card.label !== 'Strong Buy') return false;
     if (state.lang !== 'all' && card.language !== state.lang) return false;
     const q = state.q.trim().toLowerCase();
-    if (q && String(card.name || '').toLowerCase().indexOf(q) === -1) return false;
+    if (q && searchHay(card).indexOf(q) === -1) return false;
     if (!state.labels[labelKey(card)]) return false;
     return true;
   }
@@ -1559,7 +1974,112 @@
   function renderPlots() {
     renderChart();
     renderPopChart();
+    renderBuyList();
     writeUrlState();
+  }
+
+  function buyCards() {
+    let rows = CARDS.filter(matchesBase);
+    if (state.buySobble) rows = rows.filter(isSobble);
+    if (state.buyLag) {
+      rows = rows.filter((c) => Number.isFinite(Number(c.residual_pct)) && Number(c.residual_pct) <= -40);
+    }
+    const sort = state.buySort;
+    rows = rows.slice().sort((a, b) => {
+      if (sort === 'price') return (priceHkd(a) || 0) - (priceHkd(b) || 0);
+      if (sort === 'chg') {
+        const ca = chgPct(a), cb = chgPct(b);
+        if (ca == null && cb == null) return 0;
+        if (ca == null) return 1;
+        if (cb == null) return -1;
+        return ca - cb;
+      }
+      if (sort === 'name') {
+        const za = zhHead(a) || a.name || '';
+        const zb = zhHead(b) || b.name || '';
+        return String(za).localeCompare(String(zb), 'zh-Hant');
+      }
+      const ra = Number(a.residual_pct), rb = Number(b.residual_pct);
+      if (!Number.isFinite(ra) && !Number.isFinite(rb)) return 0;
+      if (!Number.isFinite(ra)) return 1;
+      if (!Number.isFinite(rb)) return -1;
+      return ra - rb;
+    });
+    if (!state.buySobble) {
+      const pinned = [];
+      const rest = [];
+      rows.forEach((c) => { (isSobble(c) ? pinned : rest).push(c); });
+      rows = pinned.concat(rest);
+    }
+    return rows;
+  }
+  function tickHtml(ok, title) {
+    return '<span class="tick ' + (ok ? 'ok' : 'no') + '" title="' + escapeHtml(title) + '">' +
+      (ok ? '✓' : '✗') + '</span>';
+  }
+  function renderBuyList() {
+    const body = $('buyBody');
+    const count = $('buyCount');
+    if (!body) return;
+    const rows = buyCards();
+    if (count) {
+      count.textContent = '清單 ' + rows.length + ' / ' + CARDS.length +
+        (state.buySobble ? ' · 淚眼蜥' : '') +
+        (state.buyLag ? ' · 殘差 ≤ −40%' : '') +
+        ' · 點列睇詳情';
+    }
+    if (!rows.length) {
+      body.innerHTML = '<tr><td class="buy-empty" colspan="12">沒有符合的卡。改搜尋或清篩選再試。</td></tr>';
+      return;
+    }
+    let html = '';
+    rows.forEach((card) => {
+      const zh = zhHead(card);
+      const g = gateTicks(card);
+      const pass = ticksPass(g);
+      const sb = card.label === 'Strong Buy';
+      const warn = pass !== sb;
+      const pin = isSobble(card) && !state.buySobble;
+      const sel = card.card_id === state.selectedId;
+      const apparel = snkrApparelId(card);
+      const snkrLabel = apparel ? 'SNKRDUNK 產品頁' : 'SNKRDUNK 搜尋';
+      html += '<tr data-id="' + escapeHtml(card.card_id) + '" class="' +
+        (sel ? ' is-selected' : '') + (pin ? ' is-pin' : '') + '">';
+      html += '<td class="buy-name-cell" data-label="名稱"><div class="buy-name">' +
+        '<span class="zh-row">' +
+        (pin ? '<span class="buy-pin">釘</span>' : '') +
+        (zh ? '<span class="zh">' + escapeHtml(zh) + '</span>' : '') +
+        '</span>' +
+        '<span class="en">' + escapeHtml(card.name || '—') + '</span></div></td>';
+      html += '<td data-label="評級">PSA10</td>';
+      html += '<td class="num" data-label="現價 HK$">' + fmtHkd(priceHkd(card)) + '</td>';
+      html += '<td class="num" data-label="公允值">' + fmtHkd(fvHkd(card)) + '</td>';
+      html += '<td class="num ' + residClass(card.residual_pct) + '" data-label="低於 FV">' +
+        fmtPct(card.residual_pct) + '</td>';
+      html += '<td class="num" data-label="1週變動" title="workbook 對上週 %；尚無約 4 週封存">' +
+        (chgPct(card) == null ? '—' : fmtPct(chgPct(card))) + '</td>';
+      html += '<td data-label="成交">' + escapeHtml(fmtVolume(card)) + '</td>';
+      html += '<td class="num" data-label="PSA10 pop">' + fmtNum(card.pop_psa10, 0) + '</td>';
+      html += '<td class="num" data-label="PSA10/raw">' +
+        (card.psa10_raw_multiple == null ? '—' : fmtNum(card.psa10_raw_multiple, 2) + '×') + '</td>';
+      html += '<td data-label="四關"><span class="buy-ticks">' +
+        tickHtml(g.resid, '殘差 ≤ −40%') +
+        tickHtml(g.volume, '成交每週+（sales_per_year ≥ 52）') +
+        tickHtml(g.pop, 'PSA10 pop < 4000') +
+        tickHtml(g.multiple, 'PSA10/raw ≥ 2×') +
+        '</span></td>';
+      html += '<td data-label="workbook">' +
+        '<span class="tag' + (sb ? ' sb' : (card.label ? ' watch' : '')) + '">' +
+        escapeHtml(card.label || '未標記') + '</span>' +
+        (warn ? '<span class="gate-warn" title="四關與 workbook 標籤不一致（成交薄等額外關卡）">⚠ 不一致</span>' : '') +
+        '</td>';
+      html += '<td class="buy-cta"><a class="buy-snkr' + (apparel ? '' : ' search') +
+        '" href="' + escapeHtml(snkrHref(card)) +
+        '" target="_blank" rel="noopener noreferrer" data-snkr="1">' +
+        escapeHtml(snkrLabel) + '</a></td>';
+      html += '</tr>';
+    });
+    body.innerHTML = html;
   }
 
   function residClass(pct) {
@@ -1570,9 +2090,6 @@
   }
   function pcUrl(card) {
     return (card && card.pricecharting_url) ? String(card.pricecharting_url) : '';
-  }
-  function snkrSearchUrl(card) {
-    return 'https://snkrdunk.com/en/search?keyword=' + encodeURIComponent(card.name || '');
   }
   function tcgSearchUrl(card) {
     return 'https://www.tcgplayer.com/search/pokemon/product?productLineName=pokemon&q=' +
@@ -1594,8 +2111,10 @@
     html += '<div class="link-row">';
     html += '<a class="link-pill pc" href="' + href + '" target="_blank" rel="noopener noreferrer">PriceCharting · 現場價</a>';
     if (card.language === 'JP') {
-      html += '<a class="link-pill search" href="' + escapeHtml(snkrSearchUrl(card)) +
-        '" target="_blank" rel="noopener noreferrer">SNKRDUNK 搜尋（非產品頁）</a>';
+      const apparel = snkrApparelId(card);
+      html += '<a class="link-pill search" href="' + escapeHtml(snkrHref(card)) +
+        '" target="_blank" rel="noopener noreferrer">' +
+        (apparel ? 'SNKRDUNK 產品頁' : 'SNKRDUNK 搜尋（非產品頁）') + '</a>';
     } else if (card.language === 'EN') {
       html += '<a class="link-pill search" href="' + escapeHtml(tcgSearchUrl(card)) +
         '" target="_blank" rel="noopener noreferrer">TCGPlayer 搜尋</a>';
@@ -1634,8 +2153,9 @@
     contrib += '<p class="tiny" style="margin:6px 0 0">e<sup>合計</sup> ≈ ' + fmtUsd(recon, 0) +
       '（頁面公允值用資料檔 pred，非重算）</p>';
 
+    const zh = zhHead(card);
     body.innerHTML =
-      '<p class="detail-name">' + escapeHtml(card.name) + '</p>' +
+      '<p class="detail-name">' + (zh ? escapeHtml(zh) + ' · ' : '') + escapeHtml(card.name) + '</p>' +
       '<div class="detail-tags">' + tags + '</div>' +
       photoAndLinks(card) +
       '<dl class="kv">' +
@@ -1650,8 +2170,7 @@
       '<dt>成交註記</dt><dd>' + escapeHtml(card.n_sold_note || '—') + '</dd>' +
       '<dt>標籤</dt><dd>' + escapeHtml(card.label || '未標記') + '</dd>' +
       '</dl>' +
-      '<h2 style="margin:14px 0 4px;font-size:.85rem">公式組成</h2>' +
-      contrib;
+      '<details class="method-fold"><summary>公式組成</summary>' + contrib + '</details>';
   }
 
   function selectById(id) {
@@ -1726,6 +2245,41 @@
   $('showAllLabels').addEventListener('click', () => {
     resetLabelFilter();
   });
+  if ($('buyBody')) {
+    $('buyBody').addEventListener('click', (ev) => {
+      const snkr = ev.target.closest ? ev.target.closest('[data-snkr]') : null;
+      if (snkr && $('buyBody').contains(snkr)) return;
+      const tr = ev.target.closest ? ev.target.closest('tr[data-id]') : null;
+      if (!tr || !$('buyBody').contains(tr)) return;
+      selectById(tr.getAttribute('data-id'));
+    });
+  }
+  [['buySortResid', 'resid'], ['buySortPrice', 'price'], ['buySortChg', 'chg'], ['buySortName', 'name']].forEach(([id, v]) => {
+    const el = $(id);
+    if (!el) return;
+    el.addEventListener('click', () => {
+      state.buySort = v;
+      [['buySortResid', 'resid'], ['buySortPrice', 'price'], ['buySortChg', 'chg'], ['buySortName', 'name']].forEach(([oid, ov]) => {
+        const b = $(oid); if (b) b.classList.toggle('active', ov === v);
+      });
+      saveBuyPrefs();
+      renderBuyList();
+    });
+  });
+  if ($('buySobble')) {
+    $('buySobble').addEventListener('change', () => {
+      state.buySobble = $('buySobble').checked;
+      saveBuyPrefs();
+      renderBuyList();
+    });
+  }
+  if ($('buyLag')) {
+    $('buyLag').addEventListener('change', () => {
+      state.buyLag = $('buyLag').checked;
+      saveBuyPrefs();
+      renderBuyList();
+    });
+  }
 
   renderPlots();
 })();

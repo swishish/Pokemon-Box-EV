@@ -26,6 +26,7 @@ python3 tools/export_chase_fit.py /path/to/pokemon_psa10_regression_YYYY-MM-DD.x
 - Publishes sheet **Chase_Fit** only (not `Chase_Fit_Large`).
 - Archives the previous `data/chase-fit/latest.json` to `data/chase-fit/archive/YYYY-MM-DD.json`.
 - Diffs Strong Buy labels into `weekly_changes` (新進 / 退出 / 維持) for the 「本週變動」 box.
+- The live page ranks a 「便宜過模型」 buy list above the scatter (`data/names_zh.json`, `data/snkrdunk_ids.json`). Do not invent Chinese names or SNKRDUNK apparel IDs.
 - Refuses to write if required columns / coefficients / PriceCharting URLs are missing.
 - Bump `chase-fit.html` `?v=` if the page HTML also changed.
 
