@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>中世代指數 · Box EV v1.28.9</title>
+<title>中世代指數 · Box EV v1.28.10</title>
 <meta name="description" content="DP→SM 中世代 chase Top 50 英文裸卡指數。靜態快照，非正式投資建議。" />
 <meta property="og:site_name" content="日盒開盒值不值？" />
 <meta property="og:title" content="中世代指數 · DP→SM Top 50" />
@@ -379,6 +379,70 @@
     outline: 2px solid var(--ink);
     outline-offset: 2px;
   }
+  .lag-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+    max-width: 100%;
+  }
+  .lag-row {
+    display: grid;
+    grid-template-columns: 32px minmax(0, 1fr) auto;
+    gap: 8px 10px;
+    align-items: center;
+    min-width: 0;
+    max-width: 100%;
+    padding: 8px;
+    border: var(--bw) solid var(--ink);
+    border-radius: 10px;
+    background: var(--bg-2);
+  }
+  .lag-row .lag-copy { min-width: 0; }
+  .lag-row .lag-name {
+    font-weight: 750;
+    font-size: .86rem;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+  }
+  .lag-row .lag-links { margin-top: 2px; }
+  .lag-nums {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: baseline;
+    gap: 4px 12px;
+    font-variant-numeric: tabular-nums;
+    font-size: .82rem;
+    font-weight: 750;
+    text-align: right;
+    min-width: 0;
+  }
+  .lag-nums .lag-usd { white-space: nowrap; }
+  .lag-nums .lag-gap { font-size: .75rem; }
+  #lagPicker .period-btn {
+    font: inherit;
+    font-size: .72rem;
+    font-weight: 800;
+    padding: 5px 10px;
+    border-radius: 999px;
+    border: var(--bw) solid var(--ink);
+    background: var(--card);
+    color: var(--ink);
+    cursor: pointer;
+    line-height: 1.2;
+    min-width: 2.55rem;
+    text-align: center;
+    touch-action: manipulation;
+    white-space: nowrap;
+    box-shadow: var(--shadow-xs);
+  }
+  #lagPicker .period-btn[aria-pressed="true"] {
+    background: var(--accent-fill);
+    border-color: var(--ink);
+    color: var(--ink);
+  }
+  #lagPicker .period-btn.is-na { opacity: .55; }
   #indexPeriodNote, #moversPeriodNote, td.tiny {
     overflow-wrap: break-word;
   }
@@ -707,6 +771,11 @@
       grid-column: 1 / -1;
       justify-content: space-between;
     }
+    .lag-row { grid-template-columns: 32px minmax(0, 1fr); }
+    .lag-nums {
+      grid-column: 1 / -1;
+      justify-content: space-between;
+    }
     .story { padding: 10px 12px; }
     .story-row {
       grid-template-columns: 1fr;
@@ -722,7 +791,7 @@
 <header>
   <div class="header-inner">
     <div class="header-top">
-      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.28.9</span></h1>
+      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.28.10</span></h1>
       <nav class="header-nav" aria-label="站內導覽">
         <a class="nav-btn" href="./calc.html">開盒 EV</a>
         <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
@@ -867,6 +936,20 @@
     </div>
   </div>
 
+  <div class="card" id="lagCard">
+    <h2>落後籃子 Lag vs index <span class="pill" id="lagPeriodPill">30D</span></h2>
+    <p class="tiny" id="lagLead" style="margin:0 0 8px">相對中世代指數落後的成分（最落後先）。只用已有快照，不補價、不發明。</p>
+    <div class="movers-period-row" style="margin-bottom:8px">
+      <span class="kicker">對照期間</span>
+      <div class="period-picker" id="lagPicker" role="group" aria-label="Lag list period">
+        <button type="button" class="period-btn" data-period="30D" aria-pressed="true">30D</button>
+        <button type="button" class="period-btn" data-period="YTD" aria-pressed="false">YTD</button>
+      </div>
+    </div>
+    <p class="tiny" id="lagNote" style="margin:0 0 8px" role="status" aria-live="polite"></p>
+    <div class="lag-list" id="lagList"></div>
+  </div>
+
   <div class="card">
     <h2>最重成分 Top 10 by market price</h2>
     <p class="tiny" style="margin:0 0 6px">價格加權籃子裡市值最大的中世代 chase（非漲跌榜）。</p>
@@ -928,6 +1011,7 @@
       <li><b>固定籃子 ~50</b>：中世代 chase（holo／EX／GX／FA／SA／Prime／LV.X／Legend／Secret 等）凍結名單，<b>不每週重排</b>。<b>價格加權</b>；有卡加入／退出時用 divisor 保持連續。缺市價<b>不當 $0</b>，有價那天才進籃。基準＝<b>1,000</b>（最早有資料的日子）。</li>
       <li><b>5D／30D／1Y／YTD／All／自訂</b>：用<strong>真實歷史點</strong>放大圖表，<b>缺日就跳過、不補價、不發明點</b>。<b>All</b>＝全部已有日期，只放大、唔會重設 1,000。指數水平維持系列起點的固定基準 1,000，<b>唔會</b>喺視窗開頭重設。沒有夠早的點就不顯示該期間。懸停／點選圖表可見當日指數水平。每日現況來自 <a href="https://tcgcsv.com" target="_blank" rel="noopener">TCGCSV</a>；往回的歷史來自 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a>。</li>
       <li><b>漲跌榜</b>：1D／5D／30D／1Y／YTD／自訂。自訂用區間內第一同最後一個真實價圖，唔重設指數基準。</li>
+      <li><b>落後籃子 Lag vs index</b>：卡片報酬＝該段第一／最後一個真實價；指數報酬＝同一中世代籃子同一期間。差距＝卡 % − 指數 %，負數＝落後，最落後排前面。缺市價跳過。連結同漲跌榜（TCGPlayer／TickerMint）。</li>
       <li><b>卡冊／籃子時代晶片</b>：DP · BW · XY · SM 只篩這一頁（HGSS／Call of Legends 歸 DP），<b>唔改</b>指數成分。</li>
       <li><b>代表價</b>：一般印刷裡最高的 <a href="https://www.tcgplayer.com/search/pokemon/product?productLineName=pokemon&amp;view=grid" target="_blank" rel="noopener">TCGPlayer</a> <b>Market Price</b>；1st Edition 預設不計入（成交太薄）。</li>
     </ul>
@@ -940,14 +1024,15 @@
 </main>
 <footer>日盒 EV 小算盤 · Mid-era pulse · Snapshot 靜態資料 · 非正式投資建議 · 歷史價 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a> · <a href="./index.html">首頁</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./chase-fit.html">Chase 公允值</a></footer>
 
-<script src="./js/spark-tip.js?v=1.28.9"></script>
-<script src="./js/movers-range.js?v=1.28.9"></script>
-<script src="./data/market-midera/latest.js?v=1.28.9"></script>
-<script src="./data/market-midera/history.js?v=1.28.9"></script>
+<script src="./js/spark-tip.js?v=1.28.10"></script>
+<script src="./js/movers-range.js?v=1.28.10"></script>
+<script src="./data/market-midera/latest.js?v=1.28.10"></script>
+<script src="./data/market-midera/history.js?v=1.28.10"></script>
 <script>
 (async function () {
-  const VERSION = '1.28.9';
+  const VERSION = '1.28.10';
   const PERIODS = ['1D', '5D', '30D', '1Y', 'YTD'];
+  const LAG_PERIODS = ['30D', 'YTD'];
   const INDEX_PERIODS = ['1D', '5D', '30D', '1Y', 'YTD', 'ALL'];
   const ERAS = ['DP', 'BW', 'XY', 'SM'];
   const $ = (id) => document.getElementById(id);
@@ -1401,6 +1486,99 @@
         : unavailableMsg(p, pInfo);
     });
   }
+  let priceHistCache = null;
+  const lagState = { period: '30D' };
+  async function loadPriceHist() {
+    if (priceHistCache) return priceHistCache;
+    if (typeof MoversRange === 'undefined' || !MoversRange.load) return null;
+    priceHistCache = await MoversRange.load('./data/market-midera/price-history.json?v=' + VERSION);
+    return priceHistCache;
+  }
+  function fmtGap(n) {
+    if (n == null || Number.isNaN(n)) return '—';
+    return (n > 0 ? '+' : '') + n.toFixed(2) + 'pp';
+  }
+  function lagRows(list, emptyMsg) {
+    const el = $('lagList');
+    if (!el) return;
+    if (!list || !list.length) {
+      el.innerHTML = '<p class="tiny" style="margin:0">' + escapeHtml(emptyMsg) + '</p>';
+      return;
+    }
+    el.innerHTML = list.map((c) => {
+      const img = c.image
+        ? '<img class="card-thumb" src="' + escapeHtml(c.image) + '" alt="" width="32" height="44" loading="lazy" />'
+        : '';
+      return '<div class="lag-row">' +
+        '<div>' + img + '</div>' +
+        '<div class="lag-copy"><div class="lag-name">' + escapeHtml(c.name || '') +
+        ' <span class="tiny">' + escapeHtml(c.number || '') + '</span></div>' +
+        '<div class="lag-links tiny">' + tcgLink(c.id).trim() + ' ' + tmLink(c.id).trim() + '</div></div>' +
+        '<div class="lag-nums">' +
+        '<span class="lag-usd">' + fmtUsd(c.price) + '</span>' +
+        '<span class="chg ' + chgClass(c.changePct) + '">' + fmtPct(c.changePct, true) + '</span>' +
+        '<span class="lag-gap chg ' + chgClass(c.gap) + '">' + fmtGap(c.gap) + ' vs idx</span>' +
+        '</div></div>';
+    }).join('');
+  }
+  function renderLag() {
+    const period = LAG_PERIODS.indexOf(lagState.period) >= 0 ? lagState.period : '30D';
+    lagState.period = period;
+    if ($('lagPeriodPill')) $('lagPeriodPill').textContent = period;
+    const picker = $('lagPicker');
+    if (picker) {
+      picker.querySelectorAll('.period-btn').forEach((btn) => {
+        const p = btn.getAttribute('data-period');
+        btn.setAttribute('aria-pressed', p === period ? 'true' : 'false');
+      });
+    }
+    const ret = returnFor(period);
+    if ($('lagLead')) {
+      $('lagLead').textContent =
+        (DATA.nameZh || DATA.name || '中世代') + ' 成分相對同一籃子指數落後（最落後先）。只用已有快照，不補價、不發明。';
+    }
+    if (picker) {
+      picker.querySelectorAll('.period-btn').forEach((btn) => {
+        const p = btn.getAttribute('data-period');
+        const pRet = returnFor(p);
+        btn.classList.toggle('is-na', !(pRet && pRet.available));
+      });
+    }
+    if (!ret || !ret.available) {
+      lagRows([], unavailableMsg(period, periodInfo(period)));
+      if ($('lagNote')) $('lagNote').textContent = '需要指數 ' + period + ' 報酬後才可對照。';
+      return;
+    }
+    if (typeof MoversRange === 'undefined' || !MoversRange.lagVsIndex) {
+      lagRows([], '落後清單未載入');
+      if ($('lagNote')) $('lagNote').textContent = '';
+      return;
+    }
+    if (!priceHistCache) {
+      lagRows([], '載入歷史價中…');
+      if ($('lagNote')) $('lagNote').textContent = '讀完歷史價後才對照指數。';
+      return;
+    }
+    const lag = MoversRange.lagVsIndex(
+      DATA.constituents || DATA.basket || [],
+      MoversRange.pointsOf(priceHistCache),
+      ret.from,
+      ret.to,
+      ret.pct
+    );
+    if (!lag.available) {
+      lagRows([], lag.reason || unavailableMsg(period, periodInfo(period)));
+      if ($('lagNote')) $('lagNote').textContent = lag.reason || '';
+      return;
+    }
+    lagRows(lag.rows, '此期間沒有落後指數的成分');
+    if ($('lagNote')) {
+      $('lagNote').textContent =
+        (lag.baselineDate || ret.from) + ' → ' + (lag.endDate || ret.to) +
+        ' · 指數 ' + fmtPct(lag.indexPct, true) +
+        ' · 落後 ' + lag.rows.length + ' 張（卡 % − 指數 %）';
+    }
+  }
   function bindMoversRange(earliest, latest) {
     const form = $('moversRangeForm');
     const fromEl = $('moversRangeFrom');
@@ -1426,7 +1604,7 @@
         return;
       }
       try {
-        const hist = await MoversRange.load('./data/market-midera/price-history.json?v=' + VERSION);
+        const hist = await loadPriceHist();
         customMoverInfo = MoversRange.compute(
           DATA.constituents || [],
           MoversRange.pointsOf(hist),
@@ -1449,8 +1627,20 @@
       renderMovers(period);
     });
   }
+  const lagPicker = $('lagPicker');
+  if (lagPicker) {
+    lagPicker.addEventListener('click', (e) => {
+      const btn = e.target.closest('.period-btn');
+      if (!btn || !lagPicker.contains(btn)) return;
+      const period = btn.getAttribute('data-period');
+      if (!LAG_PERIODS.includes(period) || period === lagState.period) return;
+      lagState.period = period;
+      renderLag();
+    });
+  }
   bindMoversRange(earliestSnap, snapshotRange.latest || DATA.asOfDate);
   renderMovers('1D');
+  renderLag();
 
   const top = DATA.top || [];
   $('topBody').innerHTML = top.length ? top.map((c) => {
@@ -1643,6 +1833,14 @@
   }
   applyView();
   if (viewState.view === 'binder') renderBinder();
+  if (typeof MoversRange !== 'undefined') {
+    try {
+      await loadPriceHist();
+    } catch (e) {
+      priceHistCache = null;
+    }
+    renderLag();
+  }
 })();
 </script>
 </body>

@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>Chase 公允值 v1.28.8 · PSA10 回歸</title>
+<title>Chase 公允值 v1.28.10 · PSA10 回歸</title>
 <meta name="description" content="Chase PSA10 公允值：便宜過模型買入清單、殘差散點、Strong Buy 四關。靜態快照，非正式投資建議。" />
 <meta property="og:site_name" content="日盒開盒值不值？" />
 <meta property="og:title" content="Chase 公允值 · 便宜過模型" />
@@ -619,6 +619,11 @@
     .buy-table td.buy-name-cell::before { display: none; }
     .buy-table td.buy-cta { display: block; padding-top: 8px; }
     .buy-table td.buy-cta::before { display: none; }
+    .lag-row { grid-template-columns: 32px minmax(0, 1fr); }
+    .lag-nums {
+      grid-column: 1 / -1;
+      justify-content: space-between;
+    }
     .buy-snkr { width: 100%; min-height: 40px; }
   }
 
@@ -989,6 +994,116 @@
   .contrib td.num, .contrib th.num { text-align: right; white-space: nowrap; }
   .contrib tfoot td { font-weight: 850; border-bottom: 0; padding-top: 6px; }
   .tiny { font-size: .75rem; color: var(--muted); }
+  .tiny a { color: var(--ink); font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
+  .kicker { font-size: .72rem; color: var(--muted); font-weight: 650; }
+  .period-picker {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    max-width: 100%;
+    min-width: 0;
+  }
+  .lag-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+    max-width: 100%;
+  }
+  .lag-row {
+    display: grid;
+    grid-template-columns: 32px minmax(0, 1fr) auto;
+    gap: 8px 10px;
+    align-items: center;
+    min-width: 0;
+    max-width: 100%;
+    padding: 8px;
+    border: var(--bw) solid var(--ink);
+    border-radius: 10px;
+    background: var(--bg-2);
+    cursor: pointer;
+  }
+  .lag-row:hover { background: #fff8d6; }
+  .lag-row.is-selected { background: var(--good-bg); }
+  .lag-row .lag-copy { min-width: 0; }
+  .lag-row .lag-name {
+    font-weight: 750;
+    font-size: .86rem;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+  }
+  .lag-row .lag-links { margin-top: 2px; }
+  .lag-nums {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: baseline;
+    gap: 4px 12px;
+    font-variant-numeric: tabular-nums;
+    font-size: .82rem;
+    font-weight: 750;
+    text-align: right;
+    min-width: 0;
+  }
+  .lag-nums .lag-usd { white-space: nowrap; }
+  .lag-nums .lag-gap { font-size: .75rem; }
+  .lag-badge {
+    display: inline-block;
+    font-size: .6rem;
+    font-weight: 850;
+    padding: 1px 6px;
+    border-radius: 999px;
+    border: 1.5px solid var(--ink);
+    background: var(--ok-bg);
+    color: var(--ink);
+    margin-left: 4px;
+    vertical-align: middle;
+  }
+  .card-thumb {
+    width: 32px; height: 44px;
+    object-fit: contain;
+    border-radius: 4px;
+    background: var(--bg-2);
+    border: 1.5px solid var(--ink);
+    display: block;
+  }
+  .lag-ph {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 44px;
+    border-radius: 4px;
+    border: 1.5px solid var(--ink);
+    background: linear-gradient(180deg, #fff8d6 0 46%, #f3ede1 46%);
+  }
+  .lag-ph .poke-mark { width: 14px; height: 14px; }
+  .chg.good { color: var(--good); font-weight: 700; }
+  .chg.bad { color: var(--bad); font-weight: 700; }
+  .chg.muted { color: var(--muted); font-weight: 700; }
+  #lagPicker .period-btn {
+    font: inherit;
+    font-size: .72rem;
+    font-weight: 800;
+    padding: 5px 10px;
+    border-radius: 999px;
+    border: var(--bw) solid var(--ink);
+    background: var(--card);
+    color: var(--ink);
+    cursor: pointer;
+    line-height: 1.2;
+    min-width: 2.55rem;
+    text-align: center;
+    touch-action: manipulation;
+    white-space: nowrap;
+    box-shadow: var(--shadow-xs);
+  }
+  #lagPicker .period-btn[aria-pressed="true"] {
+    background: var(--accent-fill);
+    border-color: var(--ink);
+    color: var(--ink);
+  }
+  #lagPicker .period-btn.is-na { opacity: .55; }
   .hint {
     font-size: .78rem;
     color: var(--muted);
@@ -1045,7 +1160,7 @@
         <a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？">
           <span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？
         </a>
-        <span class="pill">v1.28.8</span>
+        <span class="pill">v1.28.10</span>
       </h1>
       <nav class="header-nav" aria-label="站內導覽">
         <a class="nav-btn" href="./calc.html">開盒 EV</a>
@@ -1130,6 +1245,20 @@
     </div>
   </section>
 
+  <section class="card" id="lagCard" aria-label="落後籃子">
+    <h2><img class="mon mon-sm" src="./img/accents/ditto.svg" alt="" width="20" height="20" aria-hidden="true" />落後籃子 Lag vs model <span class="pill" id="lagPeriodPill">模型</span></h2>
+    <p class="buy-note" id="lagLead">相對 Chase_Fit 公允值低估的卡（最低估先）。30D 只覆蓋與 EN 指數重疊的英文卡；無重疊就不列出，唔發明。</p>
+    <div class="buy-toolbar" style="margin-bottom:8px">
+      <span class="kicker">對照</span>
+      <div class="period-picker" id="lagPicker" role="group" aria-label="Lag list period">
+        <button type="button" class="period-btn" data-period="model" aria-pressed="true">模型</button>
+        <button type="button" class="period-btn" data-period="30D" aria-pressed="false">30D</button>
+      </div>
+    </div>
+    <p class="tiny" id="lagNote" style="margin:0 0 8px" role="status" aria-live="polite"></p>
+    <div class="lag-list" id="lagList"></div>
+  </section>
+
   <div class="plot-grid">
     <div class="charts-stack">
     <section class="card chart-card">
@@ -1176,6 +1305,7 @@
     <h2><img class="mon" src="./img/accents/starters.svg" alt="" width="72" height="24" aria-hidden="true" style="width:72px;height:24px" />這是什麼</h2>
     <ul class="tiny">
       <li><b>便宜過模型</b>：上面清單按殘差%由低到高，找市價低於公允值的卡。淚眼蜥（Sobble／Kanazawa #146/S-P）可釘選。四關（殘差 ≤ −40%、每週+成交、pop &lt; 4000、PSA10/raw ≥ 2×）喺頁面即場打勾；旁邊係 workbook 的 Strong Buy 標籤。兩者唔一致會出警告（常見原因：成交薄等額外關卡）。</li>
+      <li><b>落後籃子 Lag vs model</b>：<b>模型</b>＝PSA10 低於 Chase_Fit 公允值（殘差負數，最低估先）。<b>30D</b>＝與 EN 指數重疊的英文裸卡，卡 % − 指數 %，負數＝落後。無重疊嘅卡唔會出現喺 30D。模型列若同時 30D 落後會標「30D 落後」。點列睇詳情。</li>
       <li><b>Chase_Fit</b>：用 PSA10 成交、裸卡價、gem 率、pop、語言、是否 promo，估一張 chase 卡的 PSA10 <b>公允值（FV）</b>。</li>
       <li><b>公允值圖</b>：X＝模型預測 PSA10，Y＝實際 PSA10（對數軸）。紅線是 y＝x（市價＝公允值）。<b>線下方</b>＝市價低於 FV（可能低估）。</li>
       <li><b>殘差%</b>＝（實際 − 預測）÷ 預測。負數＝便宜過模型；正數＝貴過模型。</li>
@@ -1200,13 +1330,14 @@
 
 <footer>
   <img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" />
-  <span>日盒 EV 小算盤 <b>v1.28.8</b> · Chase_Fit 靜態快照 · 非正式投資建議 · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a></span>
+  <span>日盒 EV 小算盤 <b>v1.28.10</b> · Chase_Fit 靜態快照 · 非正式投資建議 · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a></span>
 </footer>
 
-<script src="./data/chase-fit/latest.js?v=1.28.8"></script>
+<script src="./js/movers-range.js?v=1.28.10"></script>
+<script src="./data/chase-fit/latest.js?v=1.28.10"></script>
 <script>
 (async function () {
-  const VERSION = '1.28.8';
+  const VERSION = '1.28.10';
   const $ = (id) => document.getElementById(id);
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, (ch) => ({
@@ -1252,6 +1383,11 @@
   const THUMBS = (thumbsRes && thumbsRes.data && thumbsRes.data.by_id) || {};
   const LOCAL_WEBP = /^img\/cards\/[A-Za-z0-9]+_\d+\.webp$/;
   const TCG_CDN = /^https:\/\/tcgplayer-cdn\.tcgplayer\.com\/product\/\d+_200w\.jpg$/;
+  const TCG_ID_RE = /\/product\/(\d+)_/;
+  const LAG_PERIODS = ['model', '30D'];
+  let enPriceHist = null;
+  let enLagMeta = { loaded: false, available: false, reason: '', indexPct: null, from: null, to: null };
+  let enLagByTcgId = Object.create(null);
 
   const META = DATA.meta;
   const COEF = {};
@@ -1601,7 +1737,8 @@
     labels: allLabelsOnMap(),
     buySort: 'resid',
     buySobble: false,
-    buyLag: false
+    buyLag: false,
+    lagPeriod: 'model'
   };
   const BUY_SORTS = ['resid', 'price', 'chg', 'name'];
   function loadBuyPrefs() {
@@ -2038,6 +2175,7 @@
     renderChart();
     renderPopChart();
     renderBuyList();
+    renderLag();
     writeUrlState();
   }
 
@@ -2100,13 +2238,227 @@
     return '<span class="buy-thumb"><img src="' + escapeHtml(rec.href) +
       '" alt="" width="56" height="78" loading="lazy" decoding="async"></span>';
   }
+  function tcgIdFromThumb(card) {
+    const rec = THUMBS[card && card.card_id];
+    if (!rec || rec.kind !== 'tcgplayer') return '';
+    const src = String(rec.src || '');
+    if (!TCG_CDN.test(src)) return '';
+    const m = src.match(TCG_ID_RE);
+    return m ? m[1] : '';
+  }
+  function lagThumbHtml(card) {
+    const rec = thumbRec(card);
+    if (!rec) return '<span class="lag-ph" aria-hidden="true"><span class="poke-mark"></span></span>';
+    return '<img class="card-thumb" src="' + escapeHtml(rec.href) +
+      '" alt="" width="32" height="44" loading="lazy" decoding="async">';
+  }
+  function fmtGap(n) {
+    if (n == null || Number.isNaN(Number(n))) return '—';
+    return (Number(n) > 0 ? '+' : '') + Number(n).toFixed(2) + 'pp';
+  }
+  function chgClass(n) {
+    if (n == null || Number.isNaN(Number(n)) || Number(n) === 0) return 'muted';
+    return Number(n) > 0 ? 'good' : 'bad';
+  }
+  function lagLinkHtml(card) {
+    const bits = [];
+    const pc = pcUrl(card);
+    if (pc) {
+      bits.push('<a href="' + escapeHtml(pc) + '" target="_blank" rel="noopener noreferrer" data-lag-link="1">PriceCharting</a>');
+    }
+    const apparel = snkrApparelId(card);
+    if (apparel) {
+      bits.push('<a href="' + escapeHtml(snkrProductUrl(apparel)) + '" target="_blank" rel="noopener noreferrer" data-lag-link="1">SNKRDUNK</a>');
+    }
+    const tcgId = tcgIdFromThumb(card);
+    if (tcgId) {
+      bits.push('<a href="https://www.tcgplayer.com/product/' + encodeURIComponent(tcgId) +
+        '" target="_blank" rel="noopener noreferrer" data-lag-link="1">TCG</a>');
+    }
+    return bits.join(' ');
+  }
+  function overlapConstituents() {
+    const rows = [];
+    CARDS.forEach((card) => {
+      const id = tcgIdFromThumb(card);
+      if (!id) return;
+      const rec = thumbRec(card);
+      rows.push({
+        id: id,
+        name: card.name,
+        number: '',
+        image: rec ? rec.href : '',
+        card_id: card.card_id
+      });
+    });
+    return rows;
+  }
+  function computeEnLag() {
+    enLagByTcgId = Object.create(null);
+    const ret = enLagMeta;
+    if (!ret.available || !enPriceHist) return;
+    if (typeof MoversRange === 'undefined' || !MoversRange.lagVsIndex) return;
+    const lag = MoversRange.lagVsIndex(
+      overlapConstituents(),
+      MoversRange.pointsOf(enPriceHist),
+      ret.from,
+      ret.to,
+      ret.indexPct
+    );
+    if (!lag || !lag.available) {
+      enLagMeta.available = false;
+      enLagMeta.reason = (lag && lag.reason) || '尚無 30D 對照';
+      return;
+    }
+    enLagMeta.from = lag.baselineDate || ret.from;
+    enLagMeta.to = lag.endDate || ret.to;
+    enLagMeta.indexPct = lag.indexPct;
+    (lag.rows || []).forEach((row) => {
+      if (row && row.id) enLagByTcgId[String(row.id)] = row;
+    });
+  }
+  function lagEmpty(msg) {
+    const el = $('lagList');
+    if (!el) return;
+    el.innerHTML = '<p class="tiny" style="margin:0">' + escapeHtml(msg) + '</p>';
+  }
+  function renderLag() {
+    const period = LAG_PERIODS.indexOf(state.lagPeriod) >= 0 ? state.lagPeriod : 'model';
+    state.lagPeriod = period;
+    if ($('lagPeriodPill')) $('lagPeriodPill').textContent = period === 'model' ? '模型' : period;
+    const picker = $('lagPicker');
+    if (picker) {
+      picker.querySelectorAll('.period-btn').forEach((btn) => {
+        const p = btn.getAttribute('data-period');
+        btn.setAttribute('aria-pressed', p === period ? 'true' : 'false');
+        if (p === '30D') {
+          const na = enLagMeta.loaded && !enLagMeta.available;
+          btn.classList.toggle('is-na', !!na);
+        } else {
+          btn.classList.remove('is-na');
+        }
+      });
+    }
+    if ($('lagLead')) {
+      $('lagLead').textContent = period === '30D'
+        ? '與 EN 指數重疊的英文卡，裸卡相對 EN 指數落後（最落後先）。無重疊就不列出，唔發明。'
+        : '相對 Chase_Fit 公允值低估的卡（最低估先）。有與 EN 指數重疊且 30D 落後的會標示。';
+    }
+    const el = $('lagList');
+    if (!el) return;
+    if (period === '30D') {
+      if (!enLagMeta.loaded) {
+        lagEmpty('載入 EN 市況 30D…');
+        if ($('lagNote')) $('lagNote').textContent = '讀完重疊卡的 30D 後才對照。';
+        return;
+      }
+      if (!enLagMeta.available) {
+        lagEmpty(enLagMeta.reason || '尚無 30D 對照（需要與 EN 指數重疊）');
+        if ($('lagNote')) $('lagNote').textContent = enLagMeta.reason || '';
+        return;
+      }
+      const rows = [];
+      CARDS.forEach((card) => {
+        if (!matchesBase(card)) return;
+        const tid = tcgIdFromThumb(card);
+        const lag = tid ? enLagByTcgId[tid] : null;
+        if (!lag) return;
+        rows.push({ card: card, lag: lag });
+      });
+      rows.sort((a, b) => a.lag.gap - b.lag.gap);
+      if (!rows.length) {
+        lagEmpty('此篩選沒有 30D 落後 EN 指數的重疊卡');
+        if ($('lagNote')) {
+          $('lagNote').textContent =
+            (enLagMeta.from || '') + ' → ' + (enLagMeta.to || '') +
+            ' · EN 指數 ' + fmtPct(enLagMeta.indexPct, true) +
+            ' · 重疊落後 0 張';
+        }
+        return;
+      }
+      el.innerHTML = rows.map((row) => lagRowHtml(row.card, row.lag, '30D')).join('');
+      if ($('lagNote')) {
+        $('lagNote').textContent =
+          (enLagMeta.from || '') + ' → ' + (enLagMeta.to || '') +
+          ' · EN 指數 ' + fmtPct(enLagMeta.indexPct, true) +
+          ' · 落後 ' + rows.length + ' 張（卡 % − 指數 %）';
+      }
+      return;
+    }
+    const modelRows = CARDS.filter((c) => {
+      if (!matchesBase(c)) return false;
+      return Number.isFinite(Number(c.residual_pct)) && Number(c.residual_pct) < 0;
+    }).sort((a, b) => Number(a.residual_pct) - Number(b.residual_pct));
+    if (!modelRows.length) {
+      lagEmpty('此篩選沒有低於公允值的卡');
+      if ($('lagNote')) $('lagNote').textContent = '殘差＝（實際 − 預測）÷ 預測；負數＝低估。';
+      return;
+    }
+    let both = 0;
+    el.innerHTML = modelRows.map((card) => {
+      const tid = tcgIdFromThumb(card);
+      const lag = tid ? enLagByTcgId[tid] : null;
+      if (lag) both += 1;
+      return lagRowHtml(card, lag, 'model');
+    }).join('');
+    if ($('lagNote')) {
+      $('lagNote').textContent =
+        '低估 ' + modelRows.length + ' 張（殘差 vs 公允值）' +
+        (enLagMeta.loaded && enLagMeta.available
+          ? (' · 其中 ' + both + ' 張同時 30D 落後 EN 指數')
+          : (enLagMeta.loaded ? '' : ' · 30D 重疊載入中'));
+    }
+  }
+  function lagRowHtml(card, lag, mode) {
+    const zh = zhHead(card);
+    const sel = card.card_id === state.selectedId;
+    const badge = (mode === 'model' && lag)
+      ? '<span class="lag-badge">30D 落後</span>'
+      : '';
+    const name = (zh ? escapeHtml(zh) + ' · ' : '') + escapeHtml(card.name || '');
+    let nums = '';
+    if (mode === '30D' && lag) {
+      nums =
+        '<span class="lag-usd">' + fmtUsd(lag.price) + '</span>' +
+        '<span class="chg ' + chgClass(lag.changePct) + '">' + fmtPct(lag.changePct, true) + '</span>' +
+        '<span class="lag-gap chg ' + chgClass(lag.gap) + '">' + fmtGap(lag.gap) + ' vs idx</span>' +
+        '<span class="lag-gap ' + residClass(card.residual_pct) + '">' + fmtPct(card.residual_pct) + ' vs FV</span>';
+    } else {
+      nums =
+        '<span class="lag-usd">' + fmtHkd(priceHkd(card)) + '</span>' +
+        '<span class="lag-gap ' + residClass(card.residual_pct) + '">' + fmtPct(card.residual_pct) + ' vs FV</span>';
+      if (lag) {
+        nums += '<span class="lag-gap chg ' + chgClass(lag.gap) + '">' + fmtGap(lag.gap) + ' vs idx</span>';
+      }
+      const wk = chgPct(card);
+      if (wk != null) {
+        nums += '<span class="lag-gap chg ' + chgClass(wk) + '">' + fmtPct(wk) + ' 1週</span>';
+      }
+    }
+    return '<div class="lag-row' + (sel ? ' is-selected' : '') + '" data-id="' + escapeHtml(card.card_id) + '">' +
+      '<div>' + lagThumbHtml(card) + '</div>' +
+      '<div class="lag-copy"><div class="lag-name">' + name + badge +
+      ' <span class="tiny">' + escapeHtml(card.language || '') + '</span></div>' +
+      '<div class="lag-links tiny">' + lagLinkHtml(card) + '</div></div>' +
+      '<div class="lag-nums">' + nums + '</div></div>';
+  }
   document.addEventListener('error', function (e) {
     const img = e.target;
     if (!img || img.tagName !== 'IMG') return;
-    const wrap = img.closest('.buy-thumb');
-    if (!wrap || wrap.classList.contains('is-ph')) return;
-    wrap.classList.add('is-ph');
-    wrap.innerHTML = '<span class="poke-mark" aria-hidden="true"></span>';
+    const buyWrap = img.closest('.buy-thumb');
+    if (buyWrap && !buyWrap.classList.contains('is-ph')) {
+      buyWrap.classList.add('is-ph');
+      buyWrap.innerHTML = '<span class="poke-mark" aria-hidden="true"></span>';
+      return;
+    }
+    const lagRow = img.closest('.lag-row');
+    if (lagRow && img.classList.contains('card-thumb')) {
+      const ph = document.createElement('span');
+      ph.className = 'lag-ph';
+      ph.setAttribute('aria-hidden', 'true');
+      ph.innerHTML = '<span class="poke-mark"></span>';
+      img.replaceWith(ph);
+    }
   }, true);
   function renderBuyList() {
     const body = $('buyBody');
@@ -2373,8 +2725,60 @@
       renderBuyList();
     });
   }
+  const lagPicker = $('lagPicker');
+  if (lagPicker) {
+    lagPicker.addEventListener('click', (e) => {
+      const btn = e.target.closest('.period-btn');
+      if (!btn || !lagPicker.contains(btn)) return;
+      const period = btn.getAttribute('data-period');
+      if (!LAG_PERIODS.includes(period) || period === state.lagPeriod) return;
+      state.lagPeriod = period;
+      renderLag();
+    });
+  }
+  if ($('lagList')) {
+    $('lagList').addEventListener('click', (ev) => {
+      const link = ev.target.closest ? ev.target.closest('[data-lag-link]') : null;
+      if (link && $('lagList').contains(link)) return;
+      const row = ev.target.closest ? ev.target.closest('.lag-row[data-id]') : null;
+      if (!row || !$('lagList').contains(row)) return;
+      selectById(row.getAttribute('data-id'));
+    });
+  }
 
   renderPlots();
+  (async function loadEnLag() {
+    try {
+      const [histRes, priceRes] = await Promise.all([
+        loadJson('./data/market-en/history.json'),
+        loadJson('./data/market-en/price-history.json')
+      ]);
+      const hist = histRes && histRes.data;
+      const prices = priceRes && priceRes.data;
+      const ret = hist && hist.returns && hist.returns['30D'];
+      if (typeof MoversRange === 'undefined' || !MoversRange.lagVsIndex) {
+        enLagMeta = { loaded: true, available: false, reason: '落後清單未載入', indexPct: null, from: null, to: null };
+      } else if (!prices) {
+        enLagMeta = { loaded: true, available: false, reason: '尚無 EN 30D 對照', indexPct: null, from: null, to: null };
+      } else if (!ret || !ret.available || ret.pct == null || !ret.from || !ret.to) {
+        enLagMeta = { loaded: true, available: false, reason: '尚無 EN 指數 30D 報酬', indexPct: null, from: null, to: null };
+      } else {
+        enPriceHist = prices;
+        enLagMeta = {
+          loaded: true,
+          available: true,
+          reason: '',
+          indexPct: Number(ret.pct),
+          from: ret.from,
+          to: ret.to
+        };
+        computeEnLag();
+      }
+    } catch (e) {
+      enLagMeta = { loaded: true, available: false, reason: '載入 EN 30D 失敗', indexPct: null, from: null, to: null };
+    }
+    renderLag();
+  })();
 })();
 </script>
 </body>
