@@ -1,6 +1,6 @@
 # Pokemon Box EV
 
-日盒 EV 小算盤（朋友向）· **v1.28.1**
+日盒 EV 小算盤（朋友向）· **v1.28.7**
 
 給「不太懂金融／AI」的買卡朋友看的工具：首頁介紹點樣用 → 開盒算盤選系列 → 看 **四個預期回報 %**（同一分母）→ 有膜／無膜切換 → 看主力 chase 卡與「買單卡 vs 開盒」粗略提示。
 
@@ -193,12 +193,32 @@ python3 -m http.server 8765
 
 ## Chase 公允值（PSA10 回歸）
 
-獨立頁 `chase-fit.html`：Gary 的 **Chase_Fit** 模型散點（預測 PSA10 vs 實際 PSA10），下方另有 POP × PSA10/raw 倍數圖（點色／大細＝gem%）。資料是靜態 JSON（`data/chase-fit/latest.json`），不經瀏覽器打 PriceCharting。圖例標籤可點選篩選散點（可多選；全關＝沒有點，按「顯示全部」還原）。第一張圖上方置中顯示回歸公式、係數、R² 與 n。篩選寫入網址；「隱藏全部點」只收起未標記散點，有標籤卡仍用原本彩色圓點。卡相只喺右側詳情。
+獨立頁 `chase-fit.html`：Gary 的 **Chase_Fit** 模型。**便宜過模型** 清單在散點上方（預設最負殘差、淚眼蜥可釘選；四關 ✓/✗ 對 workbook Strong Buy）。繁中名見 `data/names_zh.json`（official 名才翻譯）；SNKRDUNK 產品頁見 `data/snkrdunk_ids.json`（未知則搜尋）。散點＝預測 PSA10 vs 實際 PSA10，下方另有 POP × PSA10/raw 倍數圖。公式／係數收入摺疊「方法」。資料是靜態 JSON（`data/chase-fit/latest.json`）。圖例標籤可點選篩選。篩選寫入網址；清單排序／淚眼蜥另存 localStorage。頂列有 **模型日期** chip 同 **本週變動**。
 
-數字為 2026-10-09 快照，**非正式投資建議**。`as_of` 超過 7 日會顯示灰色「數字過期」。
+**沒有** GitHub Action 會自動匯出 Chase——每週要 Gary 的 dated workbook，然後本機／agent 跑：
+
+```bash
+python3 tools/export_chase_fit.py --self-test
+python3 tools/export_chase_fit.py /path/to/pokemon_psa10_regression_YYYY-MM-DD.xlsx
+```
+
+只發佈 sheet **Chase_Fit**（唔用 `Chase_Fit_Large`）。會先把舊 `latest.json` 存去 `data/chase-fit/archive/YYYY-MM-DD.json`。缺欄就拒絕寫入。數字為模型快照，**非正式投資建議**。資料日期超過 7 日會顯示灰色「數字過期」。
+
+每週報告裡 Vintage_Fit 的 Strong Buy（例如 臭泥 Grimer #88）**唔會**出現在此頁，除非之後另接 Vintage_Fit。
+
+## Box EV 週更（手動）
+
+開盒算盤 `calc.html` 用 `data.json`／`data.js`。`tools/refresh_box_ev.py` 要先有手存的 PriceCharting console HTML（`/tmp/pc-sets/{SET}.html`，例如 `M6.html`）。**沒有這些檔就唔好跑**——腳本會拒絕寫入，避免虛構價格或把 `as_of` 推到今天。SNKRDUNK Grade A 亦唔會自動爬。市場頁先由 `update-market-en.yml` 每日更新；Chase／Box EV 仍然係人手。`calc.html` 資料超過 **8 日**會用橙色過期橫幅。
+
+```bash
+python3 tools/refresh_box_ev.py --root . --pc-dir /tmp/pc-sets
+```
 
 ## Changelog（摘要）
 
+- **v1.28.7**：分享 OG／Twitter 圖；算盤 chase 縮圖 `loading=lazy`＋`decoding=async`（JP 仍用本機 webp，唔發明 SNKR／PC 圖 CDN）；Base 復古輸出 `data/market-vintage/cheatsheet.json` 給姊妹 cheatsheet 取價。EV／Chase 算法不變
+- **v1.28.6**：Chase 公允值加「便宜過模型」買入清單（圖表上方）——最負殘差排序、淚眼蜥釘選、四關 ✓/✗、official 繁中名、已知 SNKRDUNK 產品頁；係數收入摺疊「方法」。EV／市況算法不變
+- **v1.28.5**：Chase 公允值接每週 `Chase_Fit` workbook（`tools/export_chase_fit.py`）——模型日期 chip、本週 Strong Buy 進出、封存 10-09、上 10-16 快照；首頁 PriceCharting／SNKRDUNK 死連結修好；隱藏已放棄的「日語熱度」佔位。Box EV 仍要手存 `/tmp/pc-sets`，過期 ≥8 日橙色橫幅。EV／市況算法不變
 - **v1.28.4**：Base 復古——圖表期間 **All**＝該條全部已有日期（唔重設 1,000）；三條重疊改叫 **三條 Overlay**（唔再搶 All）；廣度跟漲跌榜期間掣即時更新。EV／Chase_Fit／EN／中世代算法不變
 - **v1.28.3**：Base 復古手機 Top 10／完整籃子表可橫滑，USD（含 carried）唔再被裁成「$3」。v1.28.2 的廣度期間／All 圖／期間記憶不變
 - **v1.28.2**：Base 復古頁——廣度跟漲跌榜同一個期間（5D／30D／1Y／YTD／自訂）；圖表加 **全部 All** 三條重疊（只放大、唔重設 1,000）；指數期間同漲跌榜期間各自記住，換 1st／Shadowless／Unlimited／All 唔會打回 1D。EV／Chase_Fit／EN／中世代算法不變

@@ -39,6 +39,7 @@ Writes:
 - `latest.json` / `latest.js` — three indexes, constituents, movers
 - `history.json` / `history.js` — one point per index per `asOfDate` (upsert that day, never wipe; keeps TickerMint backfill points)
 - `price-history.json` — per-card prices for mover 1D/5D/30D/YTD. TickerMint `--backfill` / `--rebuild-movers` writes the weekly prints so Top 10 / Bottom 10 work immediately; daily TCGCSV then appends
+- `cheatsheet.json` — slim 1st / Shadowless / Unlimited prices (Holo Rare + Rare only) for the sister [Base Unlimited cheatsheet](https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/). Missing `usd` means no market print — do not invent. Machamp 008 is in `gaps`.
 
 First retained snapshot of each index is rebased to **1,000**. When a listed ID later gets (or loses) a TCGPlayer Market Price, an S&P-style divisor keeps the level continuous — same as `market-en`.
 

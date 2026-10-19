@@ -6,7 +6,22 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>日盒 EV 小算盤 v1.28.1 · JP Mega Sealed</title>
+<title>日盒 EV 小算盤 v1.28.7 · JP Mega Sealed</title>
+<meta name="description" content="日盒開盒 EV 小算盤：選系列睇四個預期回報 %、有膜／無膜落地、chase 單卡。靜態快照，非正式投資建議。" />
+<meta property="og:site_name" content="日盒開盒值不值？" />
+<meta property="og:title" content="日盒 EV 小算盤 · JP Mega Sealed" />
+<meta property="og:description" content="選系列睇四個預期回報 %、有膜／無膜落地、chase 單卡。靜態快照，非正式投資建議。" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://swishish.github.io/Pokemon-Box-EV/calc.html" />
+<meta property="og:image" content="https://swishish.github.io/Pokemon-Box-EV/og.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content="zh_HK" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="日盒 EV 小算盤 · JP Mega Sealed" />
+<meta name="twitter:description" content="選系列睇四個預期回報 %。靜態快照，非正式投資建議。" />
+<meta name="twitter:image" content="https://swishish.github.io/Pokemon-Box-EV/og.png" />
+<link rel="canonical" href="https://swishish.github.io/Pokemon-Box-EV/calc.html" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <style>
   :root {
@@ -1266,13 +1281,24 @@
     font-weight: 600;
     box-shadow: var(--shadow-xs);
   }
+  .data-freshness.stale-loud {
+    margin: 0 0 8px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: #ffd8a8;
+    color: var(--ink);
+    border: var(--bw) solid var(--ink);
+    font-size: .8rem;
+    font-weight: 800;
+    box-shadow: var(--shadow-xs);
+  }
 </style>
 </head>
 <body>
 <header>
   <div class="header-inner">
     <div class="header-top">
-      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.28.1</span></h1>
+      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.28.7</span></h1>
       <nav class="header-nav" aria-label="站內導覽">
         <a class="nav-btn" href="./calc.html">開盒 EV</a>
         <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
@@ -1280,7 +1306,6 @@
         <a class="nav-btn" href="./market-vintage.html" title="Base Set 1st / Shadowless / Unlimited raw indexes">Base 復古</a>
         <a class="nav-btn" href="./market-midera.html" title="DP → SM chase Top 50 raw index">中世代</a>
         <a class="nav-btn" href="https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/" title="Base Set Unlimited cheat sheet">Base Unlimited</a>
-        <span class="nav-btn soon" title="即將推出">日語熱度</span>
       </nav>
     </div>
     <p><img class="mon mon-sm" src="./img/accents/eevee.svg" alt="" width="20" height="20" aria-hidden="true" />給朋友看的簡易 EV 小算盤 · 無登入、非即時行情</p>
@@ -1330,7 +1355,7 @@
         </div>
         <div class="sticky-drawer" id="stickyDrawer">
           <div class="sticky-row">
-            <img class="sticky-box" id="stickyBox" alt="" width="64" height="64" />
+            <img class="sticky-box" id="stickyBox" alt="" width="64" height="64" loading="lazy" decoding="async" />
             <div class="sticky-metrics" id="stickyMetrics"></div>
           </div>
         </div>
@@ -1400,13 +1425,13 @@
         <li><b>有膜／無膜</b>只改分母（落地盒價），分子不變。</li>
         <li><b>紅綠燈</b>：值得考慮 ≥ 55% · 普通 40%–55% · 偏貴 &lt; 40%（睇打折分數）。</li>
         <li><b>匯率</b>：日圓 → <b>HK$ = ¥ ÷ 20.3</b>；美元 → <b>HK$ = USD × 7.80</b>。頁面以 HK$ 為主；PSA／CGC 費用用 USD 編輯。</li>
-        <li><b>落地分母</b>：盒價（有膜／無膜）× 1.035 + 運費分攤；未含稅／關稅。可用頂部「盒價」改成你實際入手嘅 HK$。盒價參考 <a href="https://snkrdunk.com/en/trading-cards" target="_blank" rel="noopener">SNKRDUNK</a>。</li>
-        <li><b>來源連結</b>：系列名旁可開 <a href="https://www.pricecharting.com/console/pokemon-cards" target="_blank" rel="noopener">PriceCharting</a> 盒頁同 <a href="https://snkrdunk.com/en/trading-cards" target="_blank" rel="noopener">SNKRDUNK</a> 有膜產品頁。「回到默認」還原折扣、費用同盒價。</li>
+        <li><b>落地分母</b>：盒價（有膜／無膜）× 1.035 + 運費分攤；未含稅／關稅。可用頂部「盒價」改成你實際入手嘅 HK$。盒價參考 <a href="https://snkrdunk.com/en" target="_blank" rel="noopener">SNKRDUNK</a>。</li>
+        <li><b>來源連結</b>：系列名旁可開 <a href="https://www.pricecharting.com/category/pokemon-cards" target="_blank" rel="noopener">PriceCharting</a> 盒頁同 <a href="https://snkrdunk.com/en" target="_blank" rel="noopener">SNKRDUNK</a> 有膜產品頁。「回到默認」還原折扣、費用同盒價。</li>
         <li><b>Gem 折扣</b>（進階，預設 <b>20%</b>）：送評路徑嘅有效 gem = 公佈 gem × (1 − 折扣)，留少少挑選偏差。</li>
         <li><b>抽出率</b>（社群估計，非正式）：每盒先計保底張數，再加「多一格 chase」（額外 SR <i>或</i> SAR，唔加兩次）。MEGA 盒大致 AR×3 + 道具 SR×1 + 1 格 chase；SV 盒大致 AR×3 + 1 格 SR／SAR／UR。同一稀有度用均價（好貴嘅一張會拉高）。來源：<a href="https://pokemon-infomation.com/" target="_blank" rel="noopener">Pokegto</a>、<a href="https://pokeka-atari.jp/" target="_blank" rel="noopener">pokeka-atari</a>、<a href="https://axstex01.com/" target="_blank" rel="noopener">axstex</a>。</li>
-        <li><b>SR／AR 單卡價</b>：兩邊都有就取較低者——<a href="https://www.pricecharting.com/console/pokemon-cards" target="_blank" rel="noopener">PriceCharting</a> 未評成交（換成日圓）同 <a href="https://snkrdunk.com/en/trading-cards" target="_blank" rel="noopener">SNKRDUNK</a> Grade A；缺一邊就用另一邊，唔虛構。更高稀有度仍用 SNKRDUNK Grade A。</li>
+        <li><b>SR／AR 單卡價</b>：兩邊都有就取較低者——<a href="https://www.pricecharting.com/category/pokemon-cards" target="_blank" rel="noopener">PriceCharting</a> 未評成交（換成日圓）同 <a href="https://snkrdunk.com/en" target="_blank" rel="noopener">SNKRDUNK</a> Grade A；缺一邊就用另一邊，唔虛構。更高稀有度仍用 SNKRDUNK Grade A。</li>
         <li><b>稀有度折扣（Haircut）</b>：滑桿係「打幾多 % 折」，10%＝×0.9。預設：MUR／SAR／支援 SAR <b>10%</b>；寶可夢／道具 SR <b>25%</b>；SSR／復刻 S <b>20%</b>；AR／UR／ACE <b>50%</b>；MA <b>25%</b>；BWR <b>0%</b>。可喺進階假設改。</li>
-        <li><b>行情／抽出率來源</b>：日版裸卡同盒價 → <a href="https://snkrdunk.com/en/trading-cards" target="_blank" rel="noopener">SNKRDUNK</a> Grade A；美元成交同 CGC10 → <a href="https://www.pricecharting.com/console/pokemon-cards" target="_blank" rel="noopener">PriceCharting</a>；抽出率 → <a href="https://pokemon-infomation.com/" target="_blank" rel="noopener">Pokegto</a>／<a href="https://pokeka-atari.jp/" target="_blank" rel="noopener">pokeka-atari</a>／<a href="https://axstex01.com/" target="_blank" rel="noopener">axstex</a>。日版ポケカ相場參考 → <a href="https://xn--pok500-dva.com/" target="_blank" rel="noopener">SC / Rarebox</a>。冇可靠 Grade A 價嘅卡（例如部分 Master Ball 鏡）唔會發明價格。</li>
+        <li><b>行情／抽出率來源</b>：日版裸卡同盒價 → <a href="https://snkrdunk.com/en" target="_blank" rel="noopener">SNKRDUNK</a> Grade A；美元成交同 CGC10 → <a href="https://www.pricecharting.com/category/pokemon-cards" target="_blank" rel="noopener">PriceCharting</a>；抽出率 → <a href="https://pokemon-infomation.com/" target="_blank" rel="noopener">Pokegto</a>／<a href="https://pokeka-atari.jp/" target="_blank" rel="noopener">pokeka-atari</a>／<a href="https://axstex01.com/" target="_blank" rel="noopener">axstex</a>。日版ポケカ相場參考 → <a href="https://xn--pok500-dva.com/" target="_blank" rel="noopener">SC / Rarebox</a>。冇可靠 Grade A 價嘅卡（例如部分 Master Ball 鏡）唔會發明價格。</li>
       </ul>
       </div>
     </details>
@@ -1422,13 +1447,13 @@
 <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="放大圖">
   <img id="lightboxImg" alt="" />
 </div>
-<footer><img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" /><span>日盒 EV 小算盤 <b>v1.28.1</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期 · <a href="./index.html">首頁</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · 日語熱度（即將推出）</span></footer>
+<footer><img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" /><span>日盒 EV 小算盤 <b>v1.28.7</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期 · <a href="./index.html">首頁</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a></span></footer>
 
-<script src="./data.js?v=1.21.7"></script>
+<script src="./data.js?v=1.28.7"></script>
 <script>
 (async function () {
   // Keep in sync with the data.js?v= query above.
-  const VERSION = '1.21.6';
+  const VERSION = '1.28.7';
   async function loadJson(rel) {
     const url = new URL(rel, document.baseURI || window.location.href);
     url.searchParams.set('v', VERSION);
@@ -1531,7 +1556,11 @@
     const today = new Date();
     const age = ageDays(asOfDate, today);
     const ymd = ymdLocal(asOfDate);
-    if (age > 7) {
+    if (age >= 8) {
+      el.className = 'data-freshness stale-loud';
+      el.textContent = '數字已過期（資料日期：' + ymd + ' · 已過 ' + age +
+        ' 日）— 開盒 EV 需手動更新 PriceCharting／SNKRDUNK，下單前請核對現價';
+    } else if (age > 7) {
       el.className = 'data-freshness stale';
       el.textContent = '數字可能過期（資料日期：' + ymd + ' · 已過 ' + age + ' 日）— 下單前請核對現價';
     } else {
@@ -1733,6 +1762,8 @@
     return 'data:image/svg+xml,' + svg;
   }
   function cardThumb(setc, num) {
+    // JP chase thumbs stay local img/cards/*.webp (PC / SNKR image CDNs are not
+    // derivable). loading=lazy + decoding=async keep offscreen tiles off first paint.
     const key = setc + '|' + num;
     const src = IMG.cards && IMG.cards[key];
     if (src) return assetUrl(src);
@@ -1952,7 +1983,7 @@
       const art = boxThumb(s.code);
       parts.push(
         `<button type="button" class="toc-item${active}" data-set="${s.code}">` +
-        `<img class="toc-art" src="${art}" alt="" width="40" height="40" loading="lazy" />` +
+        `<img class="toc-art" src="${art}" alt="" width="40" height="40" loading="lazy" decoding="async" />` +
         `<span class="toc-meta">` +
         `<span class="toc-title"><span class="code">${escapeHtml(s.code)}</span><span class="ja">${escapeHtml(s.zh || s.ja)}</span></span>` +
         `<span class="ev-line">有膜 <span class="ev ${bS.cls}">${fmtPct(hcS)}</span> · 無膜 <span class="ev ${bNS.cls}">${nsTxt}</span></span>` +
@@ -2090,7 +2121,7 @@
         return `<article class="chase-tile">
           <div class="chase-art">
             <span class="chase-rank">${i + 1}</span>
-            <img class="card-thumb" src="${thumb}" alt="${escapeHtml(dname)}" loading="lazy" data-full="${thumb}" />
+            <img class="card-thumb" src="${thumb}" alt="${escapeHtml(dname)}" width="80" height="112" loading="lazy" decoding="async" fetchpriority="low" data-full="${thumb}" />
           </div>
           <div class="chase-name">${escapeHtml(dname)} <span class="tiny">#${c.num}</span></div>
           <div class="chase-meta">

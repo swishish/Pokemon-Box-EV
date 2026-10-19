@@ -338,12 +338,33 @@ def snapshot_for(set_obj, cards, haircuts, grade_pools, fees):
 
 
 def main():
-    ap = argparse.ArgumentParser()
+    ap = argparse.ArgumentParser(
+        description=(
+            "Refresh JP box EV snapshot from data.json + hand-saved PriceCharting "
+            "console HTML. Does not scrape the network. Missing PC/SNKR never invents prices."
+        )
+    )
     ap.add_argument("--root", default="/workspace")
-    ap.add_argument("--pc-dir", default="/tmp/pc-sets")
+    ap.add_argument(
+        "--pc-dir",
+        default="/tmp/pc-sets",
+        help="Directory of saved PriceCharting console HTML ({SET}.html, e.g. M6.html)",
+    )
     args = ap.parse_args()
     root = Path(args.root)
     pc_dir = Path(args.pc_dir)
+
+    html_files = list(pc_dir.glob("*.html")) if pc_dir.is_dir() else []
+    if not html_files:
+        raise SystemExit(
+            "ERROR: PriceCharting HTML dumps not found in "
+            f"{pc_dir}. Save each set's PC console page as {pc_dir}/{{SET}}.html "
+            "(example: M6.html, SV8a.html) then re-run. "
+            "Refusing to invent prices or bump as_of.\n"
+            "TODO: weekly Box EV still needs a hand-saved /tmp/pc-sets scrape; "
+            "SNKRDUNK Grade A asks in data.json are not auto-refreshed. "
+            "Market pages update via update-market-en.yml — Chase/Box EV do not."
+        )
 
     data = json.loads((root / "data.json").read_text())
     as_of = datetime.now(ZoneInfo("Asia/Shanghai")).strftime("%Y-%m-%d %H:%M Asia/Shanghai")
