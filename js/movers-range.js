@@ -56,21 +56,28 @@
     };
   }
 
-  function compute(constituents, points, from, to, topN) {
-    topN = topN || TOP;
-    if (!from || !to) return empty('請輸入起迄日期', from, to);
-    if (from > to) return empty('起始日不能晚於結束日', from, to);
+  function windowSnaps(points, from, to) {
+    if (!from || !to) return { ok: false, reason: '請輸入起迄日期', from: from || null, to: to || null };
+    if (from > to) return { ok: false, reason: '起始日不能晚於結束日', from: from, to: to };
     var windowPts = (points || []).filter(function (p) {
       return p && p.date && p.date >= from && p.date <= to;
     });
     if (windowPts.length < 2) {
-      return empty('此區間少於兩個快照（缺日不補價）', from, to);
+      return { ok: false, reason: '此區間少於兩個快照（缺日不補價）', from: from, to: to };
     }
-    var baseline = windowPts[0];
-    var end = windowPts[windowPts.length - 1];
-    var fromPrices = baseline.prices || {};
-    var toPrices = end.prices || {};
+    return {
+      ok: true,
+      baseline: windowPts[0],
+      end: windowPts[windowPts.length - 1],
+      fromPrices: windowPts[0].prices || {},
+      toPrices: windowPts[windowPts.length - 1].prices || {}
+    };
+  }
+
+  function pairwiseMoves(constituents, fromPrices, toPrices) {
     var movable = [];
+    fromPrices = fromPrices || {};
+    toPrices = toPrices || {};
     (constituents || []).forEach(function (row) {
       if (!row || row.carried) return;
       var id = String(row.id || '');
@@ -90,18 +97,80 @@
       });
     });
     movable.sort(function (a, b) { return b.changePct - a.changePct; });
+    return movable;
+  }
+
+  function compute(constituents, points, from, to, topN) {
+    topN = topN || TOP;
+    var win = windowSnaps(points, from, to);
+    if (!win.ok) return empty(win.reason, from, to);
+    var movable = pairwiseMoves(constituents, win.fromPrices, win.toPrices);
     var gainers = movable.filter(function (c) { return c.changePct > 0; }).slice(0, topN);
     var losers = movable.filter(function (c) { return c.changePct < 0; }).slice(-topN).reverse();
     return {
       available: true,
-      baselineDate: baseline.date,
-      endDate: end.date,
+      baselineDate: win.baseline.date,
+      endDate: win.end.date,
       neededBy: from,
-      label: baseline.date + ' → ' + end.date,
+      label: win.baseline.date + ' → ' + win.end.date,
       reason: null,
       gainers: gainers,
       losers: losers,
-      breadth: breadthFromPrices(constituents, fromPrices, toPrices)
+      breadth: breadthFromPrices(constituents, win.fromPrices, win.toPrices)
+    };
+  }
+
+  /* Card % minus the same basket's index % over the same from–to window.
+     Negative gap = lagged. Missing prices skipped; no interpolation. */
+  function lagVsIndex(constituents, points, from, to, indexPct) {
+    var win = windowSnaps(points, from, to);
+    if (indexPct == null || Number.isNaN(Number(indexPct))) {
+      return {
+        available: false,
+        reason: '尚無指數報酬',
+        baselineDate: win.ok ? win.baseline.date : null,
+        endDate: win.ok ? win.end.date : null,
+        neededBy: from || null,
+        indexPct: null,
+        rows: []
+      };
+    }
+    if (!win.ok) {
+      return {
+        available: false,
+        reason: win.reason,
+        baselineDate: null,
+        endDate: null,
+        neededBy: from || null,
+        indexPct: Number(indexPct),
+        rows: []
+      };
+    }
+    var idx = Number(indexPct);
+    var rows = pairwiseMoves(constituents, win.fromPrices, win.toPrices).map(function (c) {
+      var gap = Math.round((c.changePct - idx) * 100) / 100;
+      return {
+        id: c.id,
+        name: c.name,
+        number: c.number,
+        image: c.image,
+        setName: c.setName,
+        price: c.price,
+        prevPrice: c.prevPrice,
+        changePct: c.changePct,
+        gap: gap
+      };
+    }).filter(function (c) { return c.gap < 0; });
+    rows.sort(function (a, b) { return a.gap - b.gap; });
+    return {
+      available: true,
+      baselineDate: win.baseline.date,
+      endDate: win.end.date,
+      neededBy: from,
+      label: win.baseline.date + ' → ' + win.end.date,
+      reason: null,
+      indexPct: idx,
+      rows: rows
     };
   }
 
@@ -118,6 +187,7 @@
   global.MoversRange = {
     pointsOf: pointsOf,
     compute: compute,
+    lagVsIndex: lagVsIndex,
     load: load,
     breadthFromPrices: breadthFromPrices
   };

@@ -1,6 +1,6 @@
 # Pokemon Box EV
 
-日盒 EV 小算盤（朋友向）· **v1.28.8**
+日盒 EV 小算盤（朋友向）· **v1.28.9**
 
 給「不太懂金融／AI」的買卡朋友看的工具：首頁介紹點樣用 → 開盒算盤選系列 → 看 **四個預期回報 %**（同一分母）→ 有膜／無膜切換 → 看主力 chase 卡與「買單卡 vs 開盒」粗略提示。
 
@@ -217,6 +217,7 @@ python3 tools/refresh_box_ev.py --root . --pc-dir /tmp/pc-sets
 
 ## Changelog（摘要）
 
+- **v1.28.9**：Base 復古 Unlimited「落後籃子」——成分 30D／YTD 相對同一籃子指數落後（最落後先；真實快照，不補價）。中世代圖表加 **All**（全部已有日期、唔重設 1,000）、懸停／點選睇指數與日期、卡冊／籃子 DP·BW·XY·SM 晶片。EV／Chase_Fit 算法不變
 - **v1.28.8**：Chase「便宜過模型」清單加卡縮圖（JP＝本機 `img/cards/*.webp`，EN＝市況已有 TCGPlayer `_200w.jpg`；無對就 placeholder）。`loading=lazy`＋`decoding=async`。EV／Chase 算法不變
 - **v1.28.7**：分享 OG／Twitter 圖；算盤 chase 縮圖 `loading=lazy`＋`decoding=async`（JP 仍用本機 webp，唔發明 SNKR／PC 圖 CDN）；Base 復古輸出 `data/market-vintage/cheatsheet.json` 給姊妹 cheatsheet 取價。EV／Chase 算法不變
 - **v1.28.6**：Chase 公允值加「便宜過模型」買入清單（圖表上方）——最負殘差排序、淚眼蜥釘選、四關 ✓/✗、official 繁中名、已知 SNKRDUNK 產品頁；係數收入摺疊「方法」。EV／市況算法不變
