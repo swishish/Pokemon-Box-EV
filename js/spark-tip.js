@@ -32,7 +32,7 @@
       '.spark-tip .tt-value{font-weight:800;font-variant-numeric:tabular-nums;',
       'font-size:.95rem;color:var(--text,#141414);line-height:1.2;}',
       '.spark-tip .tt-date{color:var(--muted,#5f5a51);font-size:.72rem;margin-top:2px;}',
-      '.spark-tip.is-multi{white-space:normal;min-width:0;max-width:min(16rem,calc(100% - 8px));}',
+      '.spark-tip.is-multi{white-space:normal;min-width:0;max-width:min(18rem,calc(100% - 8px));}',
       '.spark-tip .tt-row{display:flex;align-items:baseline;justify-content:space-between;',
       'gap:8px 12px;font-variant-numeric:tabular-nums;font-size:.78rem;line-height:1.25;}',
       '.spark-tip .tt-row + .tt-row{margin-top:3px;}',
@@ -143,6 +143,7 @@
         name: (s && (s.name || s.label)) || '',
         color: (s && s.color) || '#3d6fd9',
         dash: (s && s.dash) || '',
+        width: (s && (s.width || s.strokeWidth)) || '2',
         points: pts
       };
     }).filter(function (s) { return s.points.length >= 1; });
@@ -273,7 +274,7 @@
         var lineAttrs = {
           fill: 'none',
           stroke: s.color,
-          'stroke-width': '2',
+          'stroke-width': String(s.width || '2'),
           'stroke-linejoin': 'round',
           'stroke-linecap': 'round',
           'vector-effect': 'non-scaling-stroke',
@@ -285,10 +286,11 @@
         svg.appendChild(mk('polyline', lineAttrs));
       }
       var last = laid[laid.length - 1];
+      var lastR = Number(s.width) > 0 && Number(s.width) < 1.6 ? '2.4' : '3.2';
       svg.appendChild(mk('circle', {
         cx: last.x.toFixed(1),
         cy: last.y.toFixed(1),
-        r: '3.2',
+        r: lastR,
         fill: s.color
       }));
     });

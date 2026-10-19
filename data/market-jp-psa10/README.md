@@ -1,12 +1,12 @@
 # JP PSA10 index
 
-Static JSON for `market-jp-psa10.html`. Three chained-return series from **one frozen basket** of liquid Japanese Pokémon TCG **PSA10** slabs on SNKRDUNK.
+Static JSON for `market-jp-psa10.html`. Three chained-return series plus a **priceNoCap** overlay from **one frozen basket** of liquid Japanese Pokémon TCG **PSA10** slabs on SNKRDUNK.
 
 | File | Role |
 | --- | --- |
 | `baskets.json` | Frozen apparel / catalog IDs (source of truth for membership) |
-| `latest.json` / `latest.js` | Today: three index levels, breadth, movers, constituent weights |
-| `history.json` / `history.js` | Daily points: `equal`, `liquidity`, `price`, `volume` |
+| `latest.json` / `latest.js` | Today: three headline index levels + `priceNoCap` overlay, breadth, movers, constituent weights |
+| `history.json` / `history.js` | Daily points: `equal`, `liquidity`, `price`, `priceNoCap`, `volume` |
 | `series-cache.json` | Per-card SNK PSA10 chart prints + last-20 trades (merge on refresh) |
 
 ## Refresh
@@ -37,6 +37,7 @@ GitHub Action **Update JP PSA10 index** (`.github/workflows/update-market-jp-psa
 - **Equal**: 1/n of names with a return that day (breadth).
 - **Liquidity**: last-20 PSA10 sold yen in the prior 30 days; if none, sum of chart-print yen in that window. **3% cap**, then renormalize.
 - **Price**: lagged yen / sum of lagged yen (Gary’s market weight). **Same 3% cap** so a Moonbreon-class slab cannot become the whole index. If the basket is so small that 1/n ≥ 3%, the cap is infeasible and raw weights stay.
+- **priceNoCap** (overlay): same lagged yen / sum as Price, **skip the 3% cap**. Comparison only — the headline price line stays capped.
 
 Volume bars = count of basket cards with a PSA10 **chart print that JST day**. SNK does not publish a full sold-count history (only ~20 recent trades), so bars are a lower-bound activity count, not pokeca lot volume.
 

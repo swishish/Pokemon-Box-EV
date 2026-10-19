@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-19T12:34:22.909388+00:00",
+  "generated": "2026-10-19T13:49:12.869398+00:00",
   "asOfDate": "2026-10-19",
   "priceSource": "SNKRDUNK JP public trading-history chart (condition_code=trading_card_single_psa10)",
   "universe": "Japanese Pokémon TCG PSA10 slabs on snkrdunk.com; frozen liquid basket from apparel IDs already in data.json (Box EV chase cards)",
@@ -25,12 +25,19 @@
       "change": -1.31,
       "changePct": -0.24,
       "changeLabel": "vs previous day"
+    },
+    "priceNoCap": {
+      "index": 169.44,
+      "prevIndex": 169.7,
+      "change": -0.26,
+      "changePct": -0.15,
+      "changeLabel": "vs previous day"
     }
   },
   "volume": 28,
   "divisorCap": 0.03,
   "weightCap": 0.03,
-  "weightCapNote": "Price-weight and liquidity-weight cap each card at 3% after renormalization so mega chase cannot become the whole index. If 1/n ≥ 3% the cap is infeasible and weights stay uncapped.",
+  "weightCapNote": "Price-weight and liquidity-weight cap each card at 3% after renormalization so mega chase cannot become the whole index. If 1/n ≥ 3% the cap is infeasible and weights stay uncapped. priceNoCap is the same lagged-yen weights with the cap skipped — an overlay for comparison; the headline price line stays 3% capped.",
   "returnClip": 0.25,
   "maxPrintGapDays": 14,
   "baseValue": 1000.0,
@@ -282,6 +289,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 3.0,
       "priceWeight": 3.0,
+      "priceNoCapWeight": 6.762,
       "liquidityScore": 2436190.0,
       "prints30": 29
     },
@@ -299,6 +307,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 3.0,
       "priceWeight": 3.0,
+      "priceNoCapWeight": 6.214,
       "liquidityScore": 2021045.0,
       "prints30": 27
     },
@@ -316,6 +325,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 3.0,
       "priceWeight": 3.0,
+      "priceNoCapWeight": 5.94,
       "liquidityScore": 2217151.0,
       "prints30": 27
     },
@@ -333,6 +343,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 3.0,
       "priceWeight": 3.0,
+      "priceNoCapWeight": 5.744,
       "liquidityScore": 1971967.0,
       "prints30": 31
     },
@@ -350,6 +361,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 3.0,
       "priceWeight": 3.0,
+      "priceNoCapWeight": 5.104,
       "liquidityScore": 1643486.0,
       "prints30": 28
     },
@@ -367,6 +379,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 3.0,
       "priceWeight": 3.0,
+      "priceNoCapWeight": 4.935,
       "liquidityScore": 1947096.0,
       "prints30": 29
     },
@@ -384,6 +397,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 3.0,
       "priceWeight": 3.0,
+      "priceNoCapWeight": 3.842,
       "liquidityScore": 1496998.0,
       "prints30": 27
     },
@@ -401,6 +415,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 3.0,
       "priceWeight": 3.0,
+      "priceNoCapWeight": 3.561,
       "liquidityScore": 1271709.0,
       "prints30": 29
     },
@@ -418,6 +433,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 3.0,
       "priceWeight": 3.0,
+      "priceNoCapWeight": 3.425,
       "liquidityScore": 1172356.0,
       "prints30": 25
     },
@@ -435,6 +451,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 3.0,
       "priceWeight": 3.0,
+      "priceNoCapWeight": 2.977,
       "liquidityScore": 1126487.0,
       "prints30": 25
     },
@@ -452,6 +469,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 3.0,
       "priceWeight": 3.0,
+      "priceNoCapWeight": 2.515,
       "liquidityScore": 930399.0,
       "prints30": 24
     },
@@ -469,6 +487,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 2.959,
       "priceWeight": 3.0,
+      "priceNoCapWeight": 2.312,
       "liquidityScore": 774469.0,
       "prints30": 17
     },
@@ -486,6 +505,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 3.0,
       "priceWeight": 3.0,
+      "priceNoCapWeight": 2.339,
       "liquidityScore": 863397.0,
       "prints30": 26
     },
@@ -503,6 +523,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 3.0,
       "priceWeight": 3.0,
+      "priceNoCapWeight": 2.228,
       "liquidityScore": 813958.0,
       "prints30": 14
     },
@@ -520,6 +541,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 2.941,
       "priceWeight": 2.803,
+      "priceNoCapWeight": 2.034,
       "liquidityScore": 769660.0,
       "prints30": 24
     },
@@ -537,6 +559,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 2.603,
       "priceWeight": 2.421,
+      "priceNoCapWeight": 1.757,
       "liquidityScore": 681283.0,
       "prints30": 29
     },
@@ -554,6 +577,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 2.231,
       "priceWeight": 2.338,
+      "priceNoCapWeight": 1.697,
       "liquidityScore": 583960.0,
       "prints30": 21
     },
@@ -571,6 +595,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 2.271,
       "priceWeight": 2.316,
+      "priceNoCapWeight": 1.681,
       "liquidityScore": 594495.0,
       "prints30": 29
     },
@@ -588,6 +613,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 2.622,
       "priceWeight": 2.302,
+      "priceNoCapWeight": 1.671,
       "liquidityScore": 686152.0,
       "prints30": 29
     },
@@ -605,6 +631,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 2.346,
       "priceWeight": 2.302,
+      "priceNoCapWeight": 1.671,
       "liquidityScore": 614081.0,
       "prints30": 25
     },
@@ -622,6 +649,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 2.328,
       "priceWeight": 2.298,
+      "priceNoCapWeight": 1.668,
       "liquidityScore": 609345.0,
       "prints30": 24
     },
@@ -639,6 +667,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 2.22,
       "priceWeight": 2.151,
+      "priceNoCapWeight": 1.561,
       "liquidityScore": 580999.0,
       "prints30": 22
     },
@@ -656,6 +685,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 2.282,
       "priceWeight": 2.05,
+      "priceNoCapWeight": 1.488,
       "liquidityScore": 597304.0,
       "prints30": 22
     },
@@ -673,6 +703,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 2.059,
       "priceWeight": 2.014,
+      "priceNoCapWeight": 1.462,
       "liquidityScore": 539013.0,
       "prints30": 20
     },
@@ -690,6 +721,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 1.723,
       "priceWeight": 1.798,
+      "priceNoCapWeight": 1.305,
       "liquidityScore": 451078.0,
       "prints30": 27
     },
@@ -707,6 +739,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 1.817,
       "priceWeight": 1.798,
+      "priceNoCapWeight": 1.305,
       "liquidityScore": 475435.0,
       "prints30": 20
     },
@@ -724,6 +757,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 1.934,
       "priceWeight": 1.787,
+      "priceNoCapWeight": 1.297,
       "liquidityScore": 506081.0,
       "prints30": 23
     },
@@ -741,6 +775,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 1.851,
       "priceWeight": 1.762,
+      "priceNoCapWeight": 1.279,
       "liquidityScore": 484401.0,
       "prints30": 22
     },
@@ -758,6 +793,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 1.235,
       "priceWeight": 1.367,
+      "priceNoCapWeight": 0.992,
       "liquidityScore": 323150.0,
       "prints30": 18
     },
@@ -775,6 +811,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 1.417,
       "priceWeight": 1.367,
+      "priceNoCapWeight": 0.992,
       "liquidityScore": 370848.0,
       "prints30": 19
     },
@@ -792,6 +829,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 1.397,
       "priceWeight": 1.331,
+      "priceNoCapWeight": 0.966,
       "liquidityScore": 365700.0,
       "prints30": 16
     },
@@ -809,6 +847,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 1.294,
       "priceWeight": 1.288,
+      "priceNoCapWeight": 0.935,
       "liquidityScore": 338555.0,
       "prints30": 16
     },
@@ -826,6 +865,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 1.334,
       "priceWeight": 1.199,
+      "priceNoCapWeight": 0.87,
       "liquidityScore": 349096.0,
       "prints30": 28
     },
@@ -843,6 +883,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 0.973,
       "priceWeight": 1.439,
+      "priceNoCapWeight": 1.044,
       "liquidityScore": 254676.0,
       "prints30": 17
     },
@@ -860,6 +901,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 1.082,
       "priceWeight": 1.115,
+      "priceNoCapWeight": 0.809,
       "liquidityScore": 283176.0,
       "prints30": 17
     },
@@ -877,6 +919,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 1.127,
       "priceWeight": 1.114,
+      "priceNoCapWeight": 0.808,
       "liquidityScore": 294916.0,
       "prints30": 25
     },
@@ -894,6 +937,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 1.08,
       "priceWeight": 1.0,
+      "priceNoCapWeight": 0.726,
       "liquidityScore": 282765.0,
       "prints30": 24
     },
@@ -911,6 +955,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 0.965,
       "priceWeight": 0.978,
+      "priceNoCapWeight": 0.71,
       "liquidityScore": 252497.0,
       "prints30": 14
     },
@@ -928,6 +973,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 0.717,
       "priceWeight": 0.915,
+      "priceNoCapWeight": 0.664,
       "liquidityScore": 187559.0,
       "prints30": 29
     },
@@ -945,6 +991,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 0.889,
       "priceWeight": 0.966,
+      "priceNoCapWeight": 0.701,
       "liquidityScore": 232548.0,
       "prints30": 30
     },
@@ -962,6 +1009,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 0.913,
       "priceWeight": 0.959,
+      "priceNoCapWeight": 0.696,
       "liquidityScore": 239028.0,
       "prints30": 28
     },
@@ -979,6 +1027,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 0.908,
       "priceWeight": 0.854,
+      "priceNoCapWeight": 0.62,
       "liquidityScore": 237559.0,
       "prints30": 18
     },
@@ -996,6 +1045,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 0.793,
       "priceWeight": 0.865,
+      "priceNoCapWeight": 0.628,
       "liquidityScore": 207438.0,
       "prints30": 24
     },
@@ -1013,6 +1063,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 0.723,
       "priceWeight": 0.834,
+      "priceNoCapWeight": 0.606,
       "liquidityScore": 189344.0,
       "prints30": 31
     },
@@ -1030,6 +1081,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 0.58,
       "priceWeight": 0.755,
+      "priceNoCapWeight": 0.548,
       "liquidityScore": 151927.0,
       "prints30": 27
     },
@@ -1047,6 +1099,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 0.833,
       "priceWeight": 0.86,
+      "priceNoCapWeight": 0.624,
       "liquidityScore": 218097.0,
       "prints30": 27
     },
@@ -1064,6 +1117,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 0.793,
       "priceWeight": 0.842,
+      "priceNoCapWeight": 0.611,
       "liquidityScore": 207449.0,
       "prints30": 26
     },
@@ -1081,6 +1135,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 0.865,
       "priceWeight": 0.863,
+      "priceNoCapWeight": 0.626,
       "liquidityScore": 226477.0,
       "prints30": 26
     },
@@ -1098,6 +1153,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 0.856,
       "priceWeight": 0.734,
+      "priceNoCapWeight": 0.533,
       "liquidityScore": 224169.0,
       "prints30": 24
     },
@@ -1115,6 +1171,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 0.643,
       "priceWeight": 0.719,
+      "priceNoCapWeight": 0.522,
       "liquidityScore": 168277.0,
       "prints30": 31
     },
@@ -1132,6 +1189,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 0.591,
       "priceWeight": 0.652,
+      "priceNoCapWeight": 0.473,
       "liquidityScore": 154596.0,
       "prints30": 25
     },
@@ -1149,6 +1207,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 0.596,
       "priceWeight": 0.64,
+      "priceNoCapWeight": 0.465,
       "liquidityScore": 155974.0,
       "prints30": 18
     },
@@ -1166,6 +1225,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 0.656,
       "priceWeight": 0.641,
+      "priceNoCapWeight": 0.466,
       "liquidityScore": 171775.0,
       "prints30": 28
     },
@@ -1183,6 +1243,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 0.594,
       "priceWeight": 0.611,
+      "priceNoCapWeight": 0.444,
       "liquidityScore": 155598.0,
       "prints30": 15
     },
@@ -1200,6 +1261,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 0.604,
       "priceWeight": 0.626,
+      "priceNoCapWeight": 0.454,
       "liquidityScore": 158177.0,
       "prints30": 17
     },
@@ -1217,6 +1279,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 0.642,
       "priceWeight": 0.615,
+      "priceNoCapWeight": 0.446,
       "liquidityScore": 168158.0,
       "prints30": 19
     },
@@ -1234,6 +1297,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 0.558,
       "priceWeight": 0.525,
+      "priceNoCapWeight": 0.381,
       "liquidityScore": 146133.0,
       "prints30": 25
     },
@@ -1251,6 +1315,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 0.541,
       "priceWeight": 0.475,
+      "priceNoCapWeight": 0.345,
       "liquidityScore": 141585.0,
       "prints30": 18
     },
@@ -1268,6 +1333,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 0.307,
       "priceWeight": 0.374,
+      "priceNoCapWeight": 0.272,
       "liquidityScore": 80359.0,
       "prints30": 13
     },
@@ -1285,6 +1351,7 @@
       "equalWeight": 1.667,
       "liquidityWeight": 0.306,
       "priceWeight": 0.335,
+      "priceNoCapWeight": 0.243,
       "liquidityScore": 80208.0,
       "prints30": 18
     }
@@ -1297,7 +1364,8 @@
     "index": "Chained daily returns from LOCF prices; first day with ≥40 names = 1,000",
     "equal": "Arithmetic mean of available card returns",
     "liquidity": "Weight ∝ SNK last-20 PSA10 sold yen in the prior 30d; if none, sum of PSA10 chart-print yen in that window",
-    "priceWeight": "Lagged yen price / sum of lagged yen prices, then 3% cap",
+    "priceWeight": "Lagged yen price / sum of lagged yen prices, then 3% cap (headline price line)",
+    "priceNoCap": "Same lagged yen / sum as priceWeight, skip the 3% cap. Overlay for comparison only; main price series remains capped",
     "outliers": "Print-to-print gap > 14d is a re-entry (0 return, rebase). Remaining card-day returns winsorized at ±25%",
     "volume": "Count of basket cards with a PSA10 chart print that JST calendar day",
     "timezone": "Asia/Tokyo"

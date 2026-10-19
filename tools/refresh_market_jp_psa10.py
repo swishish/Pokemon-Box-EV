@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """JP PSA10 market index from public SNKRDUNK trading-history.
 
-Three series, one frozen basket of liquid Japanese Pokémon TCG PSA10 slabs:
+Four series, one frozen basket of liquid Japanese Pokémon TCG PSA10 slabs:
 
-  equal      — equal-weight daily returns (breadth)
-  liquidity  — weight ∝ recent SNK sold yen (last-20 PSA10 trades in 30d,
-               else 30d chart-print yen). 3% cap after renormalization
-  price      — weight = lagged card price / sum (Gary market-weight). Same 3% cap
+  equal       — equal-weight daily returns (breadth)
+  liquidity   — weight ∝ recent SNK sold yen (last-20 PSA10 trades in 30d,
+                else 30d chart-print yen). 3% cap after renormalization
+  price       — weight = lagged card price / sum (Gary market-weight). Same 3% cap
+  priceNoCap  — same lagged yen / sum as price, skip the 3% cap (overlay only)
 
 Volume bars = count of basket cards with a SNK PSA10 chart print that JST day
 (lower bound on sold lots; SNK does not publish a full sold-count history).
@@ -46,7 +47,7 @@ NAMES_ZH_PATH = os.path.join(ROOT, "data", "names_zh.json")
 TESTDATA = os.path.join(HERE, "testdata", "snkrdunk-jp-psa10", "cards.json")
 
 SNK = "https://snkrdunk.com"
-USER_AGENT = "Pokemon-Box-EV/1.29 (+https://github.com/swishish/Pokemon-Box-EV)"
+USER_AGENT = "Pokemon-Box-EV/1.29.1 (+https://github.com/swishish/Pokemon-Box-EV)"
 CONDITION_PSA10 = "trading_card_single_psa10"
 BOX_CATEGORY_ID = 14
 BASE_INDEX_VALUE = 1000.0
@@ -340,6 +341,15 @@ def cap_weights(raw: dict[str, float], cap: float = WEIGHT_CAP) -> dict[str, flo
     return {k: v / s for k, v in out.items()}
 
 
+def renorm_weights(raw: dict[str, float]) -> dict[str, float]:
+    """Positive weights renormalized to 1. No per-name cap (priceNoCap overlay).
+
+    Implemented as cap_weights with cap=1.0: after renormalization no name can
+    exceed 100%, so the cap loop is a no-op and raw shares stay.
+    """
+    return cap_weights(raw, cap=1.0)
+
+
 def daily_return(prev: float | None, cur: float | None) -> float | None:
     if prev is None or cur is None:
         return None
@@ -420,7 +430,7 @@ def build_index(
     max_gap: int = MAX_PRINT_GAP_DAYS,
     clip: float = RETURN_CLIP,
 ) -> dict:
-    """Build daily equal / liquidity / price indexes plus volume from prints."""
+    """Build daily equal / liquidity / price / priceNoCap indexes plus volume."""
     all_days: set[str] = set()
     prints_by: dict[str, list[tuple[str, float]]] = {}
     trades_by: dict[str, list[dict]] = {}
@@ -454,11 +464,11 @@ def build_index(
         actual[cid] = {d for d, _p in prints}
         print_days_by[cid] = sorted(actual[cid])
 
-    eq = liq = px = None
+    eq = liq = px = px_nc = None
     base_date = None
     points: list[dict] = []
     prev_prices: dict[str, float] = {}
-    last_weights = {"equal": {}, "liquidity": {}, "price": {}}
+    last_weights = {"equal": {}, "liquidity": {}, "price": {}, "priceNoCap": {}}
     printed_last: set[str] = set()
 
     for day in calendar:
@@ -476,7 +486,7 @@ def build_index(
             continue
         if base_date is None:
             base_date = day
-            eq = liq = px = base
+            eq = liq = px = px_nc = base
             equal_w = {cid: 1.0 / n for cid in today}
             liq_raw = {
                 cid: liquidity_score(prints_by[cid], trades_by[cid], day, window_days) for cid in today
@@ -486,13 +496,20 @@ def build_index(
             else:
                 liq_w = cap_weights(liq_raw, cap)
             px_w = cap_weights(today, cap)
-            last_weights = {"equal": equal_w, "liquidity": liq_w, "price": px_w}
+            px_nc_w = renorm_weights(today)
+            last_weights = {
+                "equal": equal_w,
+                "liquidity": liq_w,
+                "price": px_w,
+                "priceNoCap": px_nc_w,
+            }
             points.append(
                 {
                     "date": day,
                     "equal": round(eq, 2),
                     "liquidity": round(liq, 2),
                     "price": round(px, 2),
+                    "priceNoCap": round(px_nc, 2),
                     "volume": volume,
                     "count": n,
                 }
@@ -535,21 +552,30 @@ def build_index(
         lagged = {cid: prev_prices[cid] for cid in rets if cid in prev_prices and prev_prices[cid] > 0}
         px_w = cap_weights(lagged, cap) if lagged else dict(equal_w)
         r_px = weighted_return(rets, px_w)
+        px_nc_w = renorm_weights(lagged) if lagged else dict(equal_w)
+        r_px_nc = weighted_return(rets, px_nc_w)
 
-        if r_eq is None or r_liq is None or r_px is None:
+        if r_eq is None or r_liq is None or r_px is None or r_px_nc is None:
             prev_prices = today
             continue
-        assert eq is not None and liq is not None and px is not None
+        assert eq is not None and liq is not None and px is not None and px_nc is not None
         eq = eq * (1.0 + r_eq)
         liq = liq * (1.0 + r_liq)
         px = px * (1.0 + r_px)
-        last_weights = {"equal": equal_w, "liquidity": liq_w, "price": px_w}
+        px_nc = px_nc * (1.0 + r_px_nc)
+        last_weights = {
+            "equal": equal_w,
+            "liquidity": liq_w,
+            "price": px_w,
+            "priceNoCap": px_nc_w,
+        }
         points.append(
             {
                 "date": day,
                 "equal": round(eq, 2),
                 "liquidity": round(liq, 2),
                 "price": round(px, 2),
+                "priceNoCap": round(px_nc, 2),
                 "volume": volume,
                 "count": n,
             }
@@ -884,6 +910,7 @@ def constituents_payload(cards: list[dict], built: dict, series: dict[str, dict]
                 "equalWeight": round((weights.get("equal") or {}).get(cid, 0) * 100, 3),
                 "liquidityWeight": round((weights.get("liquidity") or {}).get(cid, 0) * 100, 3),
                 "priceWeight": round((weights.get("price") or {}).get(cid, 0) * 100, 3),
+                "priceNoCapWeight": round((weights.get("priceNoCap") or {}).get(cid, 0) * 100, 3),
                 "liquidityScore": round(liq, 1),
                 "prints30": print_count_between(
                     prints,
@@ -916,6 +943,7 @@ def publish(
         "equal": period_returns(points, as_of, "equal"),
         "liquidity": period_returns(points, as_of, "liquidity"),
         "price": period_returns(points, as_of, "price"),
+        "priceNoCap": period_returns(points, as_of, "priceNoCap"),
     }
     last = points[-1]
     movers = {"gainers": [], "losers": [], "breadth": {"available": False}}
@@ -964,6 +992,7 @@ def publish(
             "equal": pack_index("equal"),
             "liquidity": pack_index("liquidity"),
             "price": pack_index("price"),
+            "priceNoCap": pack_index("priceNoCap"),
         },
         "volume": last["volume"],
         "divisorCap": WEIGHT_CAP,
@@ -971,7 +1000,9 @@ def publish(
         "weightCapNote": (
             "Price-weight and liquidity-weight cap each card at 3% after "
             "renormalization so mega chase cannot become the whole index. "
-            "If 1/n ≥ 3% the cap is infeasible and weights stay uncapped."
+            "If 1/n ≥ 3% the cap is infeasible and weights stay uncapped. "
+            "priceNoCap is the same lagged-yen weights with the cap skipped — "
+            "an overlay for comparison; the headline price line stays 3% capped."
         ),
         "returnClip": RETURN_CLIP,
         "maxPrintGapDays": MAX_PRINT_GAP_DAYS,
@@ -997,7 +1028,11 @@ def publish(
                 f"Weight ∝ SNK last-20 PSA10 sold yen in the prior {LIQUIDITY_WINDOW_DAYS}d; "
                 "if none, sum of PSA10 chart-print yen in that window"
             ),
-            "priceWeight": "Lagged yen price / sum of lagged yen prices, then 3% cap",
+            "priceWeight": "Lagged yen price / sum of lagged yen prices, then 3% cap (headline price line)",
+            "priceNoCap": (
+                "Same lagged yen / sum as priceWeight, skip the 3% cap. "
+                "Overlay for comparison only; main price series remains capped"
+            ),
             "outliers": (
                 f"Print-to-print gap > {MAX_PRINT_GAP_DAYS}d is a re-entry (0 return, rebase). "
                 f"Remaining card-day returns winsorized at ±{int(RETURN_CLIP * 100)}%"
@@ -1145,6 +1180,11 @@ def self_test() -> None:
     # Tiny basket: 1/n > cap → leave raw (cap infeasible).
     tiny = cap_weights({"a": 8, "b": 1, "c": 1}, cap=0.03)
     assert abs(tiny["a"] - 0.8) < 1e-9, tiny
+    # No-cap overlay: cap=1.0 is a no-op; bulky star keeps ~90% share.
+    nocap = renorm_weights(bulky)
+    assert abs(nocap["star"] - 90.0 / (90.0 + 39.0)) < 1e-12, nocap["star"]
+    assert abs(sum(nocap.values()) - 1) < 1e-12
+    assert abs(renorm_weights({"a": 8, "b": 1, "c": 1})["a"] - 0.8) < 1e-9
     # LOCF does not invent a pre-history price.
     loc = locf_prices([("2026-09-02", 10.0), ("2026-09-04", 12.0)], ["2026-09-01", "2026-09-02", "2026-09-03", "2026-09-04"])
     assert "2026-09-01" not in loc
@@ -1159,10 +1199,16 @@ def self_test() -> None:
     pts = built["points"]
     assert pts, "expected points"
     assert pts[0]["equal"] == 1000.0
+    assert pts[0]["priceNoCap"] == 1000.0
     assert pts[0]["date"] == "2026-09-01"
     # 09-01 -> 09-02: A +10%, B 0%, C +100% clipped to +25% → equal +11.666...% → 1116.67
     d2 = next(p for p in pts if p["date"] == "2026-09-02")
     assert abs(d2["equal"] - 1116.67) < 0.05, d2
+    # cap=0.5 binds B (57% lagged share) so headline price ≠ no-cap overlay.
+    assert "priceNoCap" in d2
+    assert d2["priceNoCap"] != d2["price"], d2
+    # Lagged A=10k B=20k C=5k → raw B=20/35; no-cap r = 0.2857*10% + 0.1429*25% → 1064.29
+    assert abs(d2["priceNoCap"] - 1064.29) < 0.05, d2
     # Volume on 09-02 is 3 (all printed). LOCF-only days still have volume 0.
     fill_days = [p for p in pts if p["date"] > "2026-09-03" and p["date"] < "2026-09-10"]
     assert fill_days, "expected LOCF calendar days"
@@ -1172,9 +1218,11 @@ def self_test() -> None:
     assert d10["volume"] == 3
     # Price-weight uses lagged prices; A should not be allowed to explode vs equal without cap
     # (here cap=0.5 so A can be large). Sanity: all three series positive.
-    assert d2["liquidity"] > 0 and d2["price"] > 0
+    assert d2["liquidity"] > 0 and d2["price"] > 0 and d2["priceNoCap"] > 0
     latest, history = publish(cards, series, generated="test", source="fixture", min_constituents=3)
     assert latest["indexes"]["equal"]["index"] == history["points"][-1]["equal"]
+    assert latest["indexes"]["priceNoCap"]["index"] == history["points"][-1]["priceNoCap"]
+    assert "priceNoCap" in history["returns"]
     assert history["baseValue"] == 1000.0
     rets = period_returns(history["points"], history["points"][-1]["date"], "equal")
     assert rets["1D"]["available"]
@@ -1247,6 +1295,28 @@ def self_test() -> None:
     d11 = next(p for p in built_c["points"] if p["date"] == "2026-01-11")
     assert abs(d11["equal"] - 1083.33) < 0.05, d11
     assert d11["equal"] < 2000.0
+
+    # 40-name basket: 3% cap binds the star; no-cap keeps ~72% yen share and moves more.
+    bulky_series = {}
+    bulky_cards = []
+    for i in range(40):
+        cid = f"c{i}"
+        base_px = 100000.0 if i == 0 else 1000.0
+        nxt_px = base_px * 1.10 if i == 0 else base_px
+        bulky_series[cid] = {
+            "prints": [("2026-01-01", base_px), ("2026-01-02", nxt_px)],
+            "trades": [],
+        }
+        bulky_cards.append({"id": cid, "name": cid})
+    built_b = build_index(bulky_cards, bulky_series, cap=0.03, min_constituents=40)
+    d_b = next(p for p in built_b["points"] if p["date"] == "2026-01-02")
+    star_cap = built_b["lastWeights"]["price"]["c0"]
+    star_nc = built_b["lastWeights"]["priceNoCap"]["c0"]
+    assert abs(star_cap - 0.03) < 1e-9, star_cap
+    assert star_nc > 0.7, star_nc
+    assert d_b["priceNoCap"] > d_b["price"] + 50, d_b
+    assert abs(d_b["equal"] - 1002.50) < 0.05, d_b
+    assert abs(d_b["price"] - 1003.00) < 0.05, d_b
 
     tmp = os.path.join(HERE, "testdata", "snkrdunk-jp-psa10", "_selftest.js")
     write_js(tmp, "MARKET_JP_PSA10", {"ok": True})
@@ -1340,7 +1410,8 @@ def main(argv: list[str] | None = None) -> int:
     print(
         f"updated equal {latest['indexes']['equal']['index']} "
         f"liq {latest['indexes']['liquidity']['index']} "
-        f"px {latest['indexes']['price']['index']} @ {latest['asOfDate']}"
+        f"px {latest['indexes']['price']['index']} "
+        f"pxNC {latest['indexes']['priceNoCap']['index']} @ {latest['asOfDate']}"
     )
     return 0
 
