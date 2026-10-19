@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>中世代指數 · Box EV v1.28.1</title>
+<title>中世代指數 · Box EV v1.28.8</title>
 <meta name="description" content="DP→SM 中世代 chase Top 50 英文裸卡指數。靜態快照，非正式投資建議。" />
 <meta property="og:site_name" content="日盒開盒值不值？" />
 <meta property="og:title" content="中世代指數 · DP→SM Top 50" />
@@ -413,6 +413,13 @@
     margin: 0 0 10px;
     min-width: 0;
   }
+  .binder-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    min-width: 0;
+    max-width: 100%;
+  }
   .binder-search {
     flex: 1 1 160px;
     min-width: 0;
@@ -661,7 +668,7 @@
 <header>
   <div class="header-inner">
     <div class="header-top">
-      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.28.1</span></h1>
+      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.28.8</span></h1>
       <nav class="header-nav" aria-label="站內導覽">
         <a class="nav-btn" href="./calc.html">開盒 EV</a>
         <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
@@ -730,6 +737,7 @@
         <button type="button" class="period-btn" data-period="30D" disabled aria-selected="false">30D</button>
         <button type="button" class="period-btn" data-period="1Y" disabled aria-selected="false">1Y</button>
         <button type="button" class="period-btn" data-period="YTD" disabled aria-selected="false">YTD</button>
+        <button type="button" class="period-btn" data-period="ALL" disabled aria-selected="false" title="全部已有日期 All available dates">All</button>
       </div>
       <form class="range-form" id="rangeForm">
         <label>由 <input type="date" id="rangeFrom" name="from" /></label>
@@ -826,7 +834,16 @@
 
   <div class="card">
     <h2>完整籃子 Full basket <span class="pill" id="basketCountPill"></span></h2>
-    <p class="tiny" style="margin:0 0 6px">固定 50 張 DP→SM chase（凍結名單，不是每週重排）。未有市價的 ID 仍保留，下一次有 Market Price 才用 divisor 加入。</p>
+    <p class="tiny" style="margin:0 0 6px">固定 50 張 DP→SM chase（凍結名單，不是每週重排）。未有市價的 ID 仍保留，下一次有 Market Price 才用 divisor 加入。時代晶片只篩這一頁，不改指數。</p>
+    <div class="binder-toolbar">
+      <div class="binder-chips" id="basketChips" role="group" aria-label="Era filter">
+        <button type="button" class="period-btn is-active" data-era="all" aria-pressed="true">全部 All</button>
+        <button type="button" class="period-btn" data-era="DP" aria-pressed="false">DP</button>
+        <button type="button" class="period-btn" data-era="BW" aria-pressed="false">BW</button>
+        <button type="button" class="period-btn" data-era="XY" aria-pressed="false">XY</button>
+        <button type="button" class="period-btn" data-era="SM" aria-pressed="false">SM</button>
+      </div>
+    </div>
     <div class="table-wrap">
       <table>
         <thead>
@@ -852,6 +869,13 @@
       <p class="tiny" id="binderNote" style="margin:0 0 8px">凍結 DP→SM chase 口袋。缺市價顯示「無市價」，不虛構價錢。</p>
       <div class="binder-toolbar">
         <input class="binder-search" id="binderQ" type="search" placeholder="搜尋卡名／編號／系列…" autocomplete="off" enterkeyhint="search" />
+        <div class="binder-chips" id="binderChips" role="group" aria-label="Era filter">
+          <button type="button" class="period-btn is-active" data-era="all" aria-pressed="true">全部 All</button>
+          <button type="button" class="period-btn" data-era="DP" aria-pressed="false">DP</button>
+          <button type="button" class="period-btn" data-era="BW" aria-pressed="false">BW</button>
+          <button type="button" class="period-btn" data-era="XY" aria-pressed="false">XY</button>
+          <button type="button" class="period-btn" data-era="SM" aria-pressed="false">SM</button>
+        </div>
       </div>
       <div class="binder-grid" id="binderGrid"></div>
     </div>
@@ -862,8 +886,9 @@
     <ul class="tiny">
       <li><b>指數是什麼</b>：英文裸卡（raw / ungraded），時代＝<b>Diamond &amp; Pearl → Sun &amp; Moon</b>（含 BW／XY／SM）。<b>不含</b> Base／Wizards 復古，也不含劍盾／朱紫。Base 1st／Shadowless／Unlimited 仍在 <a href="./market-vintage.html">Base 復古</a>。頁頂「故事背景」只係入門，<b>唔係</b>編籃準則。</li>
       <li><b>固定籃子 ~50</b>：中世代 chase（holo／EX／GX／FA／SA／Prime／LV.X／Legend／Secret 等）凍結名單，<b>不每週重排</b>。<b>價格加權</b>；有卡加入／退出時用 divisor 保持連續。缺市價<b>不當 $0</b>，有價那天才進籃。基準＝<b>1,000</b>（最早有資料的日子）。</li>
-      <li><b>5D／30D／1Y／YTD／自訂</b>：用<strong>真實歷史點</strong>放大圖表，<b>缺日就跳過、不補價、不發明點</b>。指數水平維持系列起點的固定基準 1,000，<b>唔會</b>喺視窗開頭重設。沒有夠早的點就不顯示該期間。每日現況來自 <a href="https://tcgcsv.com" target="_blank" rel="noopener">TCGCSV</a>；往回的歷史來自 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a>。</li>
+      <li><b>5D／30D／1Y／YTD／All／自訂</b>：用<strong>真實歷史點</strong>放大圖表，<b>缺日就跳過、不補價、不發明點</b>。<b>All</b>＝全部已有日期，只放大、唔會重設 1,000。指數水平維持系列起點的固定基準 1,000，<b>唔會</b>喺視窗開頭重設。沒有夠早的點就不顯示該期間。懸停／點選圖表可見當日指數水平。每日現況來自 <a href="https://tcgcsv.com" target="_blank" rel="noopener">TCGCSV</a>；往回的歷史來自 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a>。</li>
       <li><b>漲跌榜</b>：1D／5D／30D／1Y／YTD／自訂。自訂用區間內第一同最後一個真實價圖，唔重設指數基準。</li>
+      <li><b>卡冊／籃子時代晶片</b>：DP · BW · XY · SM 只篩這一頁（HGSS／Call of Legends 歸 DP），<b>唔改</b>指數成分。</li>
       <li><b>代表價</b>：一般印刷裡最高的 <a href="https://www.tcgplayer.com/search/pokemon/product?productLineName=pokemon&amp;view=grid" target="_blank" rel="noopener">TCGPlayer</a> <b>Market Price</b>；1st Edition 預設不計入（成交太薄）。</li>
     </ul>
   </div>
@@ -875,14 +900,16 @@
 </main>
 <footer>日盒 EV 小算盤 · Mid-era pulse · Snapshot 靜態資料 · 非正式投資建議 · 歷史價 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a> · <a href="./index.html">首頁</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./chase-fit.html">Chase 公允值</a></footer>
 
-<script src="./js/spark-tip.js?v=1.28.1"></script>
-<script src="./js/movers-range.js?v=1.28.1"></script>
-<script src="./data/market-midera/latest.js?v=1.28.1"></script>
-<script src="./data/market-midera/history.js?v=1.28.1"></script>
+<script src="./js/spark-tip.js?v=1.28.8"></script>
+<script src="./js/movers-range.js?v=1.28.8"></script>
+<script src="./data/market-midera/latest.js?v=1.28.8"></script>
+<script src="./data/market-midera/history.js?v=1.28.8"></script>
 <script>
 (async function () {
-  const VERSION = '1.28.1';
+  const VERSION = '1.28.8';
   const PERIODS = ['1D', '5D', '30D', '1Y', 'YTD'];
+  const INDEX_PERIODS = ['1D', '5D', '30D', '1Y', 'YTD', 'ALL'];
+  const ERAS = ['DP', 'BW', 'XY', 'SM'];
   const $ = (id) => document.getElementById(id);
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, (ch) => ({
@@ -1020,7 +1047,7 @@
   function computePeriodReturns(asOf) {
     const last = lastPointOnOrBefore(asOf) || (points.length ? points[points.length - 1] : null);
     const empty = { available: false, pct: null, from: null, to: asOf, reason: 'no snapshots' };
-    if (!last) return { asOf: asOf, '1D': empty, '5D': empty, '30D': empty, '1Y': empty, 'YTD': empty };
+    if (!last) return { asOf: asOf, '1D': empty, '5D': empty, '30D': empty, '1Y': empty, 'YTD': empty, ALL: empty };
     let prevSnap = null;
     for (let i = 0; i < points.length; i++) {
       if (points[i].date < last.date) prevSnap = points[i];
@@ -1038,13 +1065,19 @@
       }
       return packReturn(baseline, last, 'no snapshot on or before ' + cutoff + ' (need TickerMint backfill)');
     }
+    const first = points[0] || null;
     return {
       asOf: last.date,
       '1D': packReturn(prevSnap, last, 'no previous snapshot'),
       '5D': vsCutoff(cutoff5, '5D'),
       '30D': vsCutoff(cutoff30, '30D'),
       '1Y': vsCutoff(cutoff1y, '1Y'),
-      'YTD': vsCutoff(cutoffYtd, 'YTD')
+      'YTD': vsCutoff(cutoffYtd, 'YTD'),
+      ALL: packReturn(
+        (first && first.date < last.date) ? first : null,
+        last,
+        'need at least two snapshots'
+      )
     };
   }
   const serverReturns = (HIST && HIST.returns) || {};
@@ -1055,10 +1088,11 @@
     '5D': serverReturns['5D'] || computedReturns['5D'],
     '30D': serverReturns['30D'] || computedReturns['30D'],
     '1Y': serverReturns['1Y'] || computedReturns['1Y'],
-    'YTD': serverReturns['YTD'] || computedReturns['YTD']
+    'YTD': serverReturns['YTD'] || computedReturns['YTD'],
+    ALL: computedReturns.ALL
   };
   const periodState = { period: '1D', customFrom: '', customTo: '' };
-  const PERIOD_LABEL = { '1D': 'vs 上一快照', '5D': '5D', '30D': '30D', '1Y': '1Y', 'YTD': 'YTD', CUSTOM: '自訂' };
+  const PERIOD_LABEL = { '1D': 'vs 上一快照', '5D': '5D', '30D': '30D', '1Y': '1Y', 'YTD': 'YTD', ALL: '全部 All', CUSTOM: '自訂' };
 
   function computeCustomReturn(from, to) {
     if (!from || !to) {
@@ -1077,9 +1111,20 @@
     if (period === 'CUSTOM') {
       return computeCustomReturn(periodState.customFrom, periodState.customTo);
     }
+    if (period === 'ALL') {
+      return RETURNS.ALL || computePeriodReturns((points[points.length - 1] || {}).date).ALL;
+    }
     return RETURNS[period] || { available: false, reason: 'no snapshots' };
   }
+  function periodAvailable(p) {
+    if (p === 'ALL') return points.length >= 1;
+    if (p === 'CUSTOM') {
+      return !!(periodState.customFrom && periodState.customTo && periodState.customFrom <= periodState.customTo);
+    }
+    return !!(RETURNS[p] && RETURNS[p].available);
+  }
   function pointsForPeriod(period) {
+    if (period === 'ALL') return points.slice();
     const ret = returnFor(period);
     if (!ret || !ret.available || !ret.from) {
       if (period === 'CUSTOM' && periodState.customFrom && periodState.customTo) {
@@ -1103,12 +1148,19 @@
     const ret = returnFor(period);
     document.querySelectorAll('.period-btns .period-btn').forEach((btn) => {
       const p = btn.getAttribute('data-period');
-      const avail = !!(RETURNS[p] && RETURNS[p].available);
+      const avail = periodAvailable(p);
       btn.disabled = !avail;
-      btn.setAttribute('aria-selected', p === period && avail ? 'true' : 'false');
-      btn.classList.toggle('is-active', p === period && avail);
+      const on = p === period && period !== 'CUSTOM';
+      btn.setAttribute('aria-selected', on ? 'true' : 'false');
+      btn.classList.toggle('is-active', on);
       btn.title = avail
-        ? (RETURNS[p].from + ' → ' + RETURNS[p].to)
+        ? (p === 'ALL'
+          ? ((points[0] && points[points.length - 1])
+            ? (points[0].date + ' → ' + points[points.length - 1].date + ' · 全部已有日期')
+            : '全部已有日期')
+          : ((RETURNS[p] && RETURNS[p].from)
+            ? (RETURNS[p].from + ' → ' + RETURNS[p].to)
+            : p))
         : (RETURNS[p] && RETURNS[p].reason) || '需要更多快照';
     });
     const applyBtn = $('rangeApply');
@@ -1119,6 +1171,15 @@
         chgEl.textContent = '自訂區間未套用';
         note.textContent = ret.reason || '請輸入起迄日期';
         drawSpark(RETURNS['1D'] && RETURNS['1D'].available ? '1D' : period);
+        return;
+      }
+      if (period === 'ALL') {
+        chgEl.className = 'index-chg muted';
+        chgEl.textContent = points.length ? '全部歷史 · 尚無兩份快照比對' : '尚無歷史點';
+        note.textContent = points.length
+          ? ((points[0].date) + ' · 1 個快照（缺日不補價 · 唔重設基準）')
+          : '需要快照';
+        drawSpark('ALL');
         return;
       }
       // Stay on the last usable period — never blank the % or invent a return.
@@ -1139,13 +1200,15 @@
       extra = ' · ' + (DATA.change > 0 ? '+' : '') + DATA.change.toFixed(2);
     }
     chgEl.textContent = fmtPct(ret.pct, true) + extra + '（' + (PERIOD_LABEL[period] || period) + '）';
-    note.textContent = ret.from + ' → ' + ret.to + ' · ' + pointsForPeriod(period).length + ' 個快照（缺日不補價 · 唔重設基準）';
+    note.textContent = ret.from + ' → ' + ret.to + ' · ' + pointsForPeriod(period).length +
+      ' 個快照（' + (period === 'ALL' ? '全部已有日期 · ' : '') + '缺日不補價 · 唔重設基準）';
     drawSpark(period);
   }
   document.querySelectorAll('.period-btns .period-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
       const p = btn.getAttribute('data-period') || '1D';
-      if (btn.disabled || !(RETURNS[p] && RETURNS[p].available)) return;
+      if (btn.disabled) return;
+      if (!INDEX_PERIODS.includes(p)) return;
       periodState.period = p;
       renderPeriod(p);
     });
@@ -1369,24 +1432,62 @@
     id: c.id, name: c.name, number: c.number, rarity: c.rarity, image: c.image,
     setName: c.setName, price: c.price, printing: c.printing, carried: c.carried
   }));
-  if ($('basketCountPill')) $('basketCountPill').textContent = String(basket.length);
-  $('basketBody').innerHTML = basket.length ? basket.map((c) => {
-    const live = byId[c.id] || c;
-    const img = c.image
-      ? '<img class="card-thumb" src="' + escapeHtml(c.image) + '" alt="" width="32" height="44" loading="lazy" />'
-      : '';
-    const priceCell = c.price == null
-      ? '<span class="tiny">無市價</span>'
-      : (c.carried ? (fmtUsd(c.price) + ' <span class="tiny">carried</span>') : fmtUsd(c.price));
-    return '<tr>' +
-      '<td class="tiny">' + escapeHtml(c.number || '') + '</td>' +
-      '<td>' + img + '</td>' +
-      '<td>' + escapeHtml(c.name) + tcgLink(c.id) + tmLink(c.id) + '</td>' +
-      '<td class="set-col tiny">' + escapeHtml(c.setName || live.setName || '') + '</td>' +
-      '<td class="tiny">' + escapeHtml(c.rarity || '') + '</td>' +
-      '<td class="num">' + priceCell + '</td>' +
-      '</tr>';
-  }).join('') : emptyRow('沒有籃子資料', 6);
+  const viewState = {
+    view: (location.hash || '').indexOf('binder') !== -1 ? 'binder' : 'pulse',
+    q: '',
+    era: 'all'
+  };
+  function eraOf(setName) {
+    const n = String(setName || '').toLowerCase();
+    if (!n) return '';
+    if (
+      n.indexOf('sm') === 0 || n.indexOf('sun') !== -1 || n.indexOf('hidden fates') !== -1 ||
+      n.indexOf('shining legends') !== -1 || n.indexOf('dragon majesty') !== -1 ||
+      n.indexOf('detective pikachu') !== -1
+    ) return 'SM';
+    if (
+      n.indexOf('xy') === 0 || n.indexOf('kalos') !== -1 || n.indexOf('double crisis') !== -1 ||
+      n.indexOf('generations') === 0
+    ) return 'XY';
+    if (
+      n.indexOf('black') !== -1 || n.indexOf('white') !== -1 || n.indexOf('plasma') !== -1 ||
+      n.indexOf('dark explorers') !== -1 || n.indexOf('boundaries') !== -1 ||
+      n.indexOf('dragons exalted') !== -1 || n.indexOf('dragon vault') !== -1 ||
+      n.indexOf('emerging') !== -1 || n.indexOf('noble') !== -1 ||
+      n.indexOf('next destinies') !== -1 || n.indexOf('legendary treasures') !== -1
+    ) return 'BW';
+    return 'DP';
+  }
+  function syncEraChips(era) {
+    document.querySelectorAll('[data-era]').forEach((btn) => {
+      const on = (btn.getAttribute('data-era') || '') === era;
+      btn.classList.toggle('is-active', on);
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+  }
+  function renderBasket() {
+    const era = viewState.era || 'all';
+    const rows = basket.filter((c) => era === 'all' || eraOf(c.setName || (byId[c.id] || {}).setName) === era);
+    if ($('basketCountPill')) $('basketCountPill').textContent = String(rows.length);
+    $('basketBody').innerHTML = rows.length ? rows.map((c) => {
+      const live = byId[c.id] || c;
+      const img = c.image
+        ? '<img class="card-thumb" src="' + escapeHtml(c.image) + '" alt="" width="32" height="44" loading="lazy" />'
+        : '';
+      const priceCell = c.price == null
+        ? '<span class="tiny">無市價</span>'
+        : (c.carried ? (fmtUsd(c.price) + ' <span class="tiny">carried</span>') : fmtUsd(c.price));
+      return '<tr>' +
+        '<td class="tiny">' + escapeHtml(c.number || '') + '</td>' +
+        '<td>' + img + '</td>' +
+        '<td>' + escapeHtml(c.name) + tcgLink(c.id) + tmLink(c.id) + '</td>' +
+        '<td class="set-col tiny">' + escapeHtml(c.setName || live.setName || '') + '</td>' +
+        '<td class="tiny">' + escapeHtml(c.rarity || '') + '</td>' +
+        '<td class="num">' + priceCell + '</td>' +
+        '</tr>';
+    }).join('') : emptyRow(era === 'all' ? '沒有籃子資料' : '此時代沒有口袋', 6);
+  }
+  renderBasket();
   const missing = DATA.listedUnpriced || [];
   if ($('unpricedNote')) {
     $('unpricedNote').textContent = missing.length
@@ -1394,7 +1495,6 @@
       : '';
   }
 
-  const viewState = { view: (location.hash || '').indexOf('binder') !== -1 ? 'binder' : 'pulse', q: '' };
   function applyView() {
     const pulse = $('pulseView');
     const binder = $('binderView');
@@ -1413,7 +1513,9 @@
   }
   function binderRows() {
     const q = (viewState.q || '').trim().toLowerCase();
+    const era = viewState.era || 'all';
     return basket.filter((c) => {
+      if (era !== 'all' && eraOf(c.setName || (byId[c.id] || {}).setName) !== era) return false;
       if (!q) return true;
       const blob = ((c.name || '') + ' ' + (c.number || '') + ' ' + (c.setName || '') + ' ' + (c.rarity || '')).toLowerCase();
       return blob.indexOf(q) !== -1;
@@ -1425,9 +1527,11 @@
     const rows = binderRows();
     if ($('binderCountPill')) $('binderCountPill').textContent = String(rows.length);
     if ($('binderNote')) {
+      const era = viewState.era && viewState.era !== 'all' ? viewState.era + ' · ' : '';
       $('binderNote').textContent =
-        '凍結 DP→SM chase · 列出 ' + (DATA.listedCount || basket.length) +
-        ' · 有市價 ' + (DATA.pricedToday || 0) + ' · 缺市價不虛構。';
+        '凍結 DP→SM chase · ' + era + '列出 ' + (DATA.listedCount || basket.length) +
+        ' · 顯示 ' + rows.length +
+        ' · 有市價 ' + (DATA.pricedToday || 0) + ' · 缺市價不虛構。時代晶片只篩這一頁。';
     }
     if (!rows.length) {
       grid.innerHTML = '<p class="binder-empty">沒有符合的口袋</p>';
@@ -1469,6 +1573,20 @@
       if (view === 'binder') renderBinder();
     });
   }
+  function setEra(era) {
+    if (era !== 'all' && ERAS.indexOf(era) < 0) era = 'all';
+    viewState.era = era;
+    syncEraChips(era);
+    renderBasket();
+    renderBinder();
+  }
+  document.querySelectorAll('#basketChips, #binderChips').forEach((group) => {
+    group.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-era]');
+      if (!btn || !group.contains(btn)) return;
+      setEra(btn.getAttribute('data-era') || 'all');
+    });
+  });
   const binderQ = $('binderQ');
   if (binderQ) {
     binderQ.addEventListener('input', () => {

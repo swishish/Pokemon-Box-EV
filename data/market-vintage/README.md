@@ -18,7 +18,7 @@ Exact product IDs live in `baskets.json` (Holo Rare + Rare, cheatsheet #1–102 
 
 | View | What |
 | --- | --- |
-| **指數 Pulse** (`#1st`) | Index level, 1D / 5D / 30D / 1Y / YTD / All / custom sparkline (All = full available history, no rebase), plus `#overlay` three-set compare (old `#all` still opens overlay), breadth for the same movers period, movers, top 10, full-basket table |
+| **指數 Pulse** (`#unlimited` default) | Index level, 1D / 5D / 30D / 1Y / YTD / All / custom sparkline (All = full available history, no rebase), plus `#overlay` three-set compare (old `#all` still opens overlay), breadth for the same movers period, movers, **lag vs index** (30D / YTD, most-lagging first), top 10, full-basket table |
 | **卡冊 Binder** (`#1st/binder`) | Binder-page grid of the same basket: thumb / placeholder, `#`, name, USD, 1D % when a previous snapshot exists |
 
 The three index tabs (1st / Shadowless / Unlimited) plus **三條 Overlay** filter both views. Binder also has name search and Holo Rare / Rare chips. Unpriced cards show **無市價**; Machamp 008 is a dashed gap pocket. Deep links: `#shadowless/binder`, `#unlimited/binder`, `#overlay`.
