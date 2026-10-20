@@ -1,0 +1,246 @@
+{
+  "notes": "Offline fixtures for refresh_market_jp_psa10_bench.py --self-test. Fake prints, not live SNK.",
+  "cards": [
+    {
+      "id": "V1",
+      "apparelId": 11,
+      "catalogId": 11,
+      "name": "Giratina EX SR :1ED [XY7 091/081](Expansion Pack \"Bandit Ring\")",
+      "localizedName": "ギラティナEX SR",
+      "nameZh": "騎拉帝納",
+      "set": "XY7",
+      "url": "https://snkrdunk.com/apparels/11",
+      "prints": [
+        ["2026-09-01", 20000],
+        ["2026-09-02", 20000],
+        ["2026-09-03", 21000],
+        ["2026-09-04", 21000],
+        ["2026-09-05", 21000],
+        ["2026-09-10", 22000]
+      ],
+      "trades": [{"price": 22000, "soldAt": "2026-09-10T03:00:00Z", "title": "PSA10"}]
+    },
+    {
+      "id": "V2",
+      "apparelId": 12,
+      "catalogId": 12,
+      "name": "Mewtwo EX SR :1ED [XY8-R 062/059](Expansion Pack \"Red Flash\")",
+      "localizedName": "ミュウツーEX SR",
+      "nameZh": "超夢",
+      "set": "XY8",
+      "url": "https://snkrdunk.com/apparels/12",
+      "prints": [
+        ["2026-09-01", 15000],
+        ["2026-09-02", 15000],
+        ["2026-09-03", 15000],
+        ["2026-09-04", 14800],
+        ["2026-09-05", 14800],
+        ["2026-09-10", 14800]
+      ],
+      "trades": []
+    },
+    {
+      "id": "V3",
+      "apparelId": 13,
+      "catalogId": 13,
+      "name": "Skyla SR: 1ED [BW7 076/070](Expansion Pack \"Plasma Gale\")",
+      "localizedName": "フウロ SR",
+      "set": "BW7",
+      "url": "https://snkrdunk.com/apparels/13",
+      "prints": [
+        ["2026-09-01", 8000],
+        ["2026-09-02", 8800],
+        ["2026-09-03", 8800],
+        ["2026-09-04", 8800],
+        ["2026-09-05", 9000],
+        ["2026-09-10", 9000]
+      ],
+      "trades": []
+    },
+    {
+      "id": "M1",
+      "apparelId": 21,
+      "catalogId": 21,
+      "name": "Vaporeon CHR[s8b 189/184](High Class Pack \"VMAX Climax\")",
+      "localizedName": "シャワーズ CHR",
+      "nameZh": "水伊布",
+      "set": "S8b",
+      "url": "https://snkrdunk.com/apparels/21",
+      "prints": [
+        ["2026-09-01", 12000],
+        ["2026-09-02", 12000],
+        ["2026-09-03", 12500],
+        ["2026-09-04", 12500],
+        ["2026-09-05", 12500],
+        ["2026-09-10", 13000]
+      ],
+      "trades": [{"price": 13000, "soldAt": "2026-09-10T04:00:00Z", "title": "PSA10"}]
+    },
+    {
+      "id": "M2",
+      "apparelId": 22,
+      "catalogId": 22,
+      "name": "Cynthia SR[SM8b 153/150](High Class Pack \"GX Ultra Shiny\")",
+      "localizedName": "シロナ SR",
+      "set": "SM8b",
+      "url": "https://snkrdunk.com/apparels/22",
+      "prints": [
+        ["2026-09-01", 18000],
+        ["2026-09-02", 18000],
+        ["2026-09-03", 18000],
+        ["2026-09-04", 19000],
+        ["2026-09-05", 19000],
+        ["2026-09-10", 19000]
+      ],
+      "trades": []
+    },
+    {
+      "id": "M3",
+      "apparelId": 23,
+      "catalogId": 23,
+      "name": "Pikachu & Zekrom GX SR [SM12a 221/173](High Class Pack \"TAG TEAM GX Tag All Stars\")",
+      "localizedName": "ピカチュウ&ゼクロムGX SR",
+      "nameZh": "皮卡丘",
+      "set": "SM12a",
+      "url": "https://snkrdunk.com/apparels/23",
+      "prints": [
+        ["2026-09-01", 50000],
+        ["2026-09-02", 55000],
+        ["2026-09-03", 55000],
+        ["2026-09-04", 56000],
+        ["2026-09-05", 56000],
+        ["2026-09-10", 54000]
+      ],
+      "trades": [{"price": 54000, "soldAt": "2026-09-09T04:00:00Z", "title": "PSA10"}]
+    },
+    {
+      "id": "M4",
+      "apparelId": 24,
+      "catalogId": 24,
+      "name": "Mewtwo & Mew GX SR [SM12a 098/173](High Class Pack \"TAG TEAM GX Tag All Stars\")",
+      "localizedName": "ミュウツー&ミュウGX SR",
+      "set": "SM12a",
+      "url": "https://snkrdunk.com/apparels/24",
+      "prints": [
+        ["2026-09-01", 30000],
+        ["2026-09-02", 30000],
+        ["2026-09-03", 31000],
+        ["2026-09-04", 31000],
+        ["2026-09-05", 31000],
+        ["2026-09-10", 31000]
+      ],
+      "trades": []
+    },
+    {
+      "id": "C1",
+      "apparelId": 31,
+      "catalogId": 31,
+      "name": "Charizard ex SAR [SV2a 201/165](Enhanced Expansion Pack \"Pokemon Card 151\")",
+      "localizedName": "リザードンex SAR",
+      "nameZh": "噴火龍",
+      "set": "SV2a",
+      "url": "https://snkrdunk.com/apparels/31",
+      "prints": [
+        ["2026-09-01", 40000],
+        ["2026-09-02", 44000],
+        ["2026-09-03", 44000],
+        ["2026-09-04", 45000],
+        ["2026-09-05", 45000],
+        ["2026-09-10", 46000]
+      ],
+      "trades": [{"price": 46000, "soldAt": "2026-09-10T03:00:00Z", "title": "PSA10"}]
+    },
+    {
+      "id": "C2",
+      "apparelId": 32,
+      "catalogId": 32,
+      "name": "Umbreon ex SAR [SV8a 217/187](High Class Pack \"Terastal Festival ex\")",
+      "localizedName": "ブラッキーex SAR",
+      "nameZh": "月亮伊布",
+      "set": "SV8a",
+      "url": "https://snkrdunk.com/apparels/32",
+      "prints": [
+        ["2026-09-01", 90000],
+        ["2026-09-02", 90000],
+        ["2026-09-03", 92000],
+        ["2026-09-04", 92000],
+        ["2026-09-05", 91000],
+        ["2026-09-10", 91000]
+      ],
+      "trades": []
+    },
+    {
+      "id": "C3",
+      "apparelId": 33,
+      "catalogId": 33,
+      "name": "MEGA Charizard X ex SAR [M2 110/080](Expansion Pack \"Inferno X\")",
+      "localizedName": "メガリザードンXex SAR",
+      "set": "M2",
+      "url": "https://snkrdunk.com/apparels/33",
+      "prints": [
+        ["2026-09-01", 25000],
+        ["2026-09-02", 25000],
+        ["2026-09-03", 26000],
+        ["2026-09-04", 26000],
+        ["2026-09-05", 26000],
+        ["2026-09-10", 25500]
+      ],
+      "trades": []
+    },
+    {
+      "id": "P1",
+      "apparelId": 41,
+      "catalogId": 41,
+      "name": "Mario Pikachu: PROMO[XY-P 293/XY-P](XY-P Promotional cards)",
+      "localizedName": "マリオピカチュウ PROMO",
+      "nameZh": "皮卡丘",
+      "set": "XY-P",
+      "url": "https://snkrdunk.com/apparels/41",
+      "prints": [
+        ["2026-09-01", 80000],
+        ["2026-09-02", 80000],
+        ["2026-09-03", 81000],
+        ["2026-09-04", 81000],
+        ["2026-09-05", 82000],
+        ["2026-09-10", 82000]
+      ],
+      "trades": []
+    },
+    {
+      "id": "P2",
+      "apparelId": 42,
+      "catalogId": 42,
+      "name": "Pikachu wearing a poncho Pikachu: PROMO[XY-P 231/XY-P](XY-P Promotional cards)",
+      "localizedName": "ポンチョピカチュウ",
+      "set": "XY-P",
+      "url": "https://snkrdunk.com/apparels/42",
+      "prints": [
+        ["2026-09-01", 70000],
+        ["2026-09-02", 72000],
+        ["2026-09-03", 72000],
+        ["2026-09-04", 72000],
+        ["2026-09-05", 71000],
+        ["2026-09-10", 71000]
+      ],
+      "trades": []
+    },
+    {
+      "id": "P3",
+      "apparelId": 43,
+      "catalogId": 43,
+      "name": "Pikachu: PROMO[S-P 208](S-P Promotional cards「YU NAGABA×Pokemon Card Game」)",
+      "localizedName": "長場ピカチュウ PROMO",
+      "set": "S-P",
+      "url": "https://snkrdunk.com/apparels/43",
+      "prints": [
+        ["2026-09-01", 35000],
+        ["2026-09-02", 35000],
+        ["2026-09-03", 36000],
+        ["2026-09-04", 36000],
+        ["2026-09-05", 36000],
+        ["2026-09-10", 37000]
+      ],
+      "trades": [{"price": 37000, "soldAt": "2026-09-10T05:00:00Z", "title": "PSA10"}]
+    }
+  ]
+}

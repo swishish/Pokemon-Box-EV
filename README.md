@@ -1,6 +1,6 @@
 # Pokemon Box EV
 
-日盒 EV 小算盤（朋友向）· **v1.29.0**
+日盒 EV 小算盤（朋友向）· **v1.30.0**
 
 給「不太懂金融／AI」的買卡朋友看的工具：首頁介紹點樣用 → 開盒算盤選系列 → 看 **四個預期回報 %**（同一分母）→ 有膜／無膜切換 → 看主力 chase 卡與「買單卡 vs 開盒」粗略提示。
 
@@ -20,7 +20,9 @@ Base Set 復古指數（1st / Shadowless / Unlimited）：**https://swishish.git
 
 Chase 公允值（PSA10 回歸散點）：**https://swishish.github.io/Pokemon-Box-EV/chase-fit.html**
 
-日版 PSA10 指數（等權／流動性／價格加權）：**https://swishish.github.io/Pokemon-Box-EV/market-jp-psa10.html**
+日版 PSA10 指數（SV chase 60 · 等權／流動性／價格加權）：**https://swishish.github.io/Pokemon-Box-EV/market-jp-psa10.html**
+
+日版 PSA10 廣度基準（復古／中世代／現行，每區 ≥80）：**https://swishish.github.io/Pokemon-Box-EV/market-jp-psa10-bench.html**
 
 姊妹站 Base Unlimited（Base Set Unlimited 速查）：**https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/**（頂欄外連，唔喺本 repo）
 
@@ -45,7 +47,7 @@ Chase 公允值（PSA10 回歸散點）：**https://swishish.github.io/Pokemon-B
 1. GitHub Action **Update EN market pulse**（`.github/workflows/update-market-en.yml`）
    - **排程**：每天 21:23 UTC（TCGCSV 約 20:05 UTC 刷新之後）
    - **手動**：Actions 頁按 **Run workflow**
-   - **PR**：只跑 self-test（`refresh_market_en` + `fetch_tcgcsv_archive` + `backfill_tickermint` + `backfill_tickermint_vintage` + `refresh_market_vintage` + `refresh_market_midera` + `backfill_tickermint_midera` + `refresh_sealed_boxes` + `refresh_market_jp_psa10`），不抓 dump、不 commit
+   - **PR**：只跑 self-test（`refresh_market_en` + `fetch_tcgcsv_archive` + `backfill_tickermint` + `backfill_tickermint_vintage` + `refresh_market_vintage` + `refresh_market_midera` + `backfill_tickermint_midera` + `refresh_sealed_boxes` + `refresh_market_jp_psa10` + `refresh_market_jp_psa10_bench`），不抓 dump、不 commit
 2. 腳本 `python3 tools/refresh_market_en.py` 先讀 `https://tcgcsv.com/last-updated.txt`；stamp 沒變就結束（零流量）。
 3. 有新 dump 才抓 `Groups.csv` + 各系列 `ProductsAndPrices.csv`，寫入：
    - `data/market-en/latest.json`（指數、廣度、漲跌榜、500 張成分——給下一次對比用）
@@ -191,7 +193,7 @@ python3 tools/backfill_tickermint_midera.py --rebuild-movers
 python3 -m http.server 8765
 ```
 
-瀏覽器開：`http://127.0.0.1:8765/`（首頁）、`http://127.0.0.1:8765/calc.html`（算盤）、`http://127.0.0.1:8765/market-en.html`（EN 市況）、`http://127.0.0.1:8765/market-vintage.html`（Base 復古）、`http://127.0.0.1:8765/market-midera.html`（中世代）、`http://127.0.0.1:8765/market-jp-psa10.html`（日版 PSA10）或 `http://127.0.0.1:8765/chase-fit.html`（Chase 公允值）
+瀏覽器開：`http://127.0.0.1:8765/`（首頁）、`http://127.0.0.1:8765/calc.html`（算盤）、`http://127.0.0.1:8765/market-en.html`（EN 市況）、`http://127.0.0.1:8765/market-vintage.html`（Base 復古）、`http://127.0.0.1:8765/market-midera.html`（中世代）、`http://127.0.0.1:8765/market-jp-psa10.html`（日版 PSA10 chase 60）、`http://127.0.0.1:8765/market-jp-psa10-bench.html`（日版 PSA10 廣度基準）或 `http://127.0.0.1:8765/chase-fit.html`（Chase 公允值）
 
 ## Chase 公允值（PSA10 回歸）
 
@@ -263,8 +265,33 @@ python3 tools/refresh_market_jp_psa10.py -v
 
 GitHub Action **Update JP PSA10 index** 每晚跑刷新；PR 只跑 self-test。詳見 `data/market-jp-psa10/README.md`。
 
+## 日版 PSA10 廣度基準
+
+獨立頁 `market-jp-psa10-bench.html`：**唔取代**上面嗰條 60 張 SV chase 袖。呢頁係 representable 日版 PSA10 市場（Pokeca 意圖：扇區地板 80、剩餘名額按成交、√(sales×price) 排名、等權頭條＋3% cap 流動／價格、季度重組名單）。
+
+| 籃子 | 說明 |
+| --- | --- |
+| 綜合 Composite | 復古＋中世代＋現行（各 ≥80），剩餘槽位按 √(30 日 SNK 日圓 × 刊價) 補到約 500 |
+| 復古 Vintage | SM 之前（約 1996–2016：XY／BW／DP…） |
+| 中世代 Modern | SM＋劍盾 S（Tag Team 亦算入呢區） |
+| 現行 Current | SV＋MEGA；宇宙來自 SNK 搜尋，唔限 `data.json` 657 個 chase ID |
+| 特典 Promo | 平行姊妹：Grey Felt Hat、Munch／Picasso／長場、Mario／Luigi／poncho 皮卡丘、Extra Battle Day 等 |
+| Tag Team / MID | 平行姊妹溫度計（SM8b–SM12a／SMM），避免中世代隱形 |
+
+四條每日重算權重（Gary 順序）：等權 → 流動性 3% cap → 價格 3% cap → 價格無 cap（只疊加）。成分**季度**重組（1／4／7／10 月 1 日 JST），每日 job 只刷新刊價同權重。
+
+```bash
+python3 tools/refresh_market_jp_psa10_bench.py --self-test
+python3 tools/refresh_market_jp_psa10_bench.py --rebuild-baskets --confirm REBUILD -v
+python3 tools/refresh_market_jp_psa10_bench.py --from-cache
+python3 tools/refresh_market_jp_psa10_bench.py -v
+```
+
+GitHub Action **Update JP PSA10 broad benchmark** 每晚重算權重、季度重組名單；PR 只跑 self-test。詳見 `data/market-jp-psa10-bench/README.md`。
+
 ## Changelog（摘要）
 
+- **v1.30.0**：新增日版 PSA10 **廣度基準**（`market-jp-psa10-bench.html`）——復古／中世代／現行每區地板 80、特典＋Tag Team 姊妹籃子、四條權重（等權／流動 3% cap／價格 3% cap／價格無 cap 疊加）、每日權重／季度名單。舊 60 張 `market-jp-psa10.html` SV chase 袖不變
 - **v1.29.0**：新增日版 PSA10 指數頁（`market-jp-psa10.html`）——同一籃子等權／流動性／價格加權三條線 + SNK 刊價量柱；3% 單卡上限；公開 SNKRDUNK trading-history。EV／Chase_Fit／EN／復古／中世代算法不變
 - **v1.28.11**：日盒**盒價**可用公開 SNKRDUNK 掛牌＋PriceCharting 盒頁刷新（`tools/refresh_sealed_boxes.py`，Actions 手動掣）。只讀、唔登入／下單。單卡 Grade A／抽出率同 EV 算法不變
 - **v1.28.10**：Chase「落後籃子」——模型殘差低估（最低估先）；與 EN 指數重疊的英文卡另給 30D 落後（卡 % − 指數 %，唔發明 ID）。中世代「落後籃子」同 Unlimited：30D／YTD vs 同一籃子指數。EV／Chase_Fit 算法不變

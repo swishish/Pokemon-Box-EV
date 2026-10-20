@@ -1,0 +1,80 @@
+name: Update JP PSA10 broad benchmark
+
+# Public SNKRDUNK trading-history for the broad JP PSA10 baskets.
+# View-only. No login. PR runs self-test only (no network fetch).
+# Daily = weight rebalance from frozen membership.
+# Quarterly (1 Jan/Apr/Jul/Oct) = membership reconstitution.
+on:
+  schedule:
+    - cron: "50 22 * * *"          # daily, after the chase-60 job
+    - cron: "20 23 1 1,4,7,10 *"   # quarterly reconstitution 23:20 UTC on quarter-start
+  workflow_dispatch:
+    inputs:
+      rebuild:
+        description: "Reconstitute membership (same as --rebuild-baskets)"
+        type: boolean
+        default: false
+  pull_request:
+
+concurrency:
+  group: update-market-jp-psa10-bench-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  selftest:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Self-test broad JP PSA10 benchmark math
+        run: python3 tools/refresh_market_jp_psa10_bench.py --self-test
+      - name: Chase 60 sleeve still self-tests
+        run: python3 tools/refresh_market_jp_psa10.py --self-test
+
+  build:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    timeout-minutes: 90
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Self-test
+        run: |
+          python3 tools/refresh_market_jp_psa10_bench.py --self-test
+          python3 tools/refresh_market_jp_psa10.py --self-test
+      - name: Reconstitute or refresh
+        env:
+          REBUILD: ${{ github.event.inputs.rebuild || '' }}
+        run: |
+          DUE=$(python3 tools/refresh_market_jp_psa10_bench.py --reconstitution-due)
+          echo "reconstitution-due=${DUE} rebuild-input=${REBUILD}"
+          if [ "${REBUILD}" = "true" ] || [ "${DUE}" = "yes" ]; then
+            echo "Quarterly / manual reconstitution"
+            python3 tools/refresh_market_jp_psa10_bench.py --rebuild-baskets --confirm REBUILD -v
+          else
+            echo "Daily weight rebalance (frozen membership)"
+            python3 tools/refresh_market_jp_psa10_bench.py -v
+          fi
+      - name: Commit updated data
+        run: |
+          git config user.name "box-ev-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/market-jp-psa10-bench/
+          if git diff --cached --quiet; then
+            echo "No data changes to commit."
+          else
+            git commit -m "chore: update JP PSA10 broad benchmark ($(date -u +%Y-%m-%d))"
+            git push
+          fi

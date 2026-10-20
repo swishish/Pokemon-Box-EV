@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>日版 PSA10 指數 · Box EV v1.29.0</title>
+<title>日版 PSA10 指數 · Box EV v1.30.0</title>
 <meta name="description" content="日版寶可夢 TCG PSA10 市況指數：等權、流動性加權、價格加權，另加 SNKRDUNK 成交量柱。靜態快照，非正式投資建議。" />
 <meta property="og:site_name" content="日盒開盒值不值？" />
 <meta property="og:title" content="日版 PSA10 指數 · 等權／流動性／市值" />
@@ -394,7 +394,7 @@
 <header>
   <div class="header-inner">
     <div class="header-top">
-      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.29.0</span></h1>
+      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.30.0</span></h1>
       <nav class="header-nav" aria-label="站內導覽">
         <a class="nav-btn" href="./calc.html">開盒 EV</a>
         <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
@@ -402,6 +402,7 @@
         <a class="nav-btn" href="./market-vintage.html" title="Base Set 1st / Shadowless / Unlimited raw indexes">Base 復古</a>
         <a class="nav-btn" href="./market-midera.html" title="DP → SM chase Top 50 raw index">中世代</a>
         <a class="nav-btn" href="./market-jp-psa10.html" title="Japanese PSA10 SNKRDUNK index">JP PSA10</a>
+        <a class="nav-btn" href="./market-jp-psa10-bench.html" title="日版 PSA10 廣度基準（復古／中世代／現行）">JP 基準</a>
         <a class="nav-btn" href="https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/" title="Base Set Unlimited cheat sheet">Base Unlimited</a>
       </nav>
     </div>
@@ -517,7 +518,7 @@
       <li><b>基準 1,000</b>：第一個有足夠成分（≥40 張有價）的東京曆日。之後用<b>每日報酬鏈</b>接（唔係平均日圓水平）。期間掣只放大圖，<b>唔會</b>把該段重設成 1,000。</li>
       <li><b>缺日</b>：單卡用上一次 SNK PSA10 圖價延續（LOCF），<b>唔補 ¥0</b>。成交量柱只計<b>當日有刊價</b>的張數（SNK 唔公開完整筆數歷史，最近 20 筆成交唔夠畫長圖）。</li>
       <li><b>稀疏／異常刊價</b>：距上一次實際刊價超過 14 個曆日＝重入籃子（當日報酬 0，只更新價）。其餘單卡日報酬 winsorize 喺 ±25%，避免 SNK 圖上偶發 8× 跳價把等權指數炸穿。漲跌榜仍顯示<b>當日刊價的原價％</b>（未 clip）。</li>
-      <li><b>籃子點嚟</b>：本站 <code>data.json</code> 已有嘅 SNKRDUNK apparel ID（開盒 EV 日版 chase），再篩「最近 PSA10 圖價 ≥ ¥3,000」同「90 日內 ≥ 12 個刊價日」，按 30 日活躍度凍結約 60 張。每日 job <b>唔重排</b>名單。冇黑盒 pokeca 乘數。</li>
+      <li><b>籃子點嚟</b>：本站 <code>data.json</code> 已有嘅 SNKRDUNK apparel ID（開盒 EV 日版 chase），再篩「最近 PSA10 圖價 ≥ ¥3,000」同「90 日內 ≥ 12 個刊價日」，按 30 日活躍度凍結約 60 張。每日 job <b>唔重排</b>名單。呢頁係 <b>SV chase 袖</b>；廣度基準（復古／中世代／現行，每區 ≥80）喺 <a href="./market-jp-psa10-bench.html">JP 基準</a>。</li>
       <li><b>來源</b>：公開 <a href="https://snkrdunk.com/" target="_blank" rel="noopener">SNKRDUNK</a> <code>/v3/products/&lt;id&gt;/trading-history?condition_code=trading_card_single_psa10</code>（JP 站、只讀）。圖價係站方成交序列，唔係 listing 最低賣。</li>
     </ul>
   </div>
@@ -527,14 +528,14 @@
     <p>Pokémon 與相關名稱為其權利人商標。本頁為獨立粉絲工具，與 Nintendo／The Pokémon Company／SNKRDUNK／PSA 無關。請只瀏覽行情，唔好用自動化去買／Bid／留言。</p>
   </div>
 </main>
-<footer>日盒 EV 小算盤 · JP PSA10 · Snapshot 靜態資料 · 非正式投資建議 · 來源 <a href="https://snkrdunk.com/" target="_blank" rel="noopener">SNKRDUNK</a> · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a></footer>
+<footer>日盒 EV 小算盤 · JP PSA10 chase 60 · Snapshot 靜態資料 · 非正式投資建議 · 來源 <a href="https://snkrdunk.com/" target="_blank" rel="noopener">SNKRDUNK</a> · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10-bench.html">JP 基準</a></footer>
 
-<script src="./js/spark-tip.js?v=1.29.0"></script>
-<script src="./data/market-jp-psa10/latest.js?v=1.29.0"></script>
-<script src="./data/market-jp-psa10/history.js?v=1.29.0"></script>
+<script src="./js/spark-tip.js?v=1.30.0"></script>
+<script src="./data/market-jp-psa10/latest.js?v=1.30.0"></script>
+<script src="./data/market-jp-psa10/history.js?v=1.30.0"></script>
 <script>
 (async function () {
-  const VERSION = '1.29.0';
+  const VERSION = '1.30.0';
   const SERIES = {
     equal: { id: 'equal', name: '等權', color: '#141414' },
     liquidity: { id: 'liquidity', name: '流動性', color: '#3d6fd9', dash: '6 4' },
