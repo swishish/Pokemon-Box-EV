@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>日版 PSA10 基準 · Box EV v1.30.0</title>
+<title>日版 PSA10 基準 · Box EV v1.30.1</title>
 <meta name="description" content="日版寶可夢 TCG PSA10 廣度基準：復古／中世代／現行每區 ≥80，另加特典與 Tag Team 姊妹籃子。等權／流動性／價格／無 cap 疊加。靜態快照，非正式投資建議。" />
 <meta property="og:site_name" content="日盒開盒值不值？" />
 <meta property="og:title" content="日版 PSA10 基準 · 復古／中世代／現行" />
@@ -436,7 +436,7 @@
 <header>
   <div class="header-inner">
     <div class="header-top">
-      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.30.0</span></h1>
+      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.30.1</span></h1>
       <nav class="header-nav" aria-label="站內導覽">
         <a class="nav-btn" href="./calc.html">開盒 EV</a>
         <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
@@ -465,8 +465,8 @@
       <div class="legend-row" role="group" aria-label="Show or hide series">
         <button type="button" class="legend-btn is-on" data-series="equal" aria-pressed="true"><span class="swatch" style="color:var(--eq)"></span>等權 Equal</button>
         <button type="button" class="legend-btn is-on" data-series="liquidity" aria-pressed="true"><span class="swatch dash" style="color:var(--liq)"></span>流動性 Liq</button>
-        <button type="button" class="legend-btn is-on" data-series="price" aria-pressed="true"><span class="swatch dash" style="color:var(--px)"></span>價格 Price</button>
-        <button type="button" class="legend-btn is-on" data-series="priceNoCap" aria-pressed="true"><span class="swatch long" style="color:var(--pxn)"></span>價格·無 cap</button>
+        <button type="button" class="legend-btn is-off" data-series="price" aria-pressed="false"><span class="swatch dash" style="color:var(--px)"></span>價格 Price</button>
+        <button type="button" class="legend-btn is-off" data-series="priceNoCap" aria-pressed="false"><span class="swatch long" style="color:var(--pxn)"></span>價格·無 cap</button>
       </div>
       <div class="period-btns" role="tablist" aria-label="Return period">
         <button type="button" class="period-btn is-active" data-period="1D" aria-selected="true">1D</button>
@@ -562,7 +562,9 @@
       <li><b>同 chase 60 並存</b>：<a href="./market-jp-psa10.html">JP PSA10</a> 仍然係凍結約 60 張 SV chase 袖（<code>data.json</code> apparel ID、¥3,000／90 日 12 刊價）。呢頁係廣度基準，宇宙來自 SNK 公開搜尋＋本站已有 ID，<b>唔發明</b>產品編號。</li>
       <li><b>三個時代扇區，地板 80</b>：<b>復古 VINTAGE</b>＝SM 之前（約 1996–2016，XY／BW／DP…，跟 Pokeca Vintage）；<b>中世代 MODERN</b>＝SM＋劍盾 S（Tag Team 亦算入呢區）；<b>現行 CURRENT</b>＝SV＋MEGA，唔限 Box EV chase 657 個 ID。綜合籃子＝三區地板 80 ＋剩餘名額按 √(30 日成交日圓 × 最新刊價) 補到約 500。</li>
       <li><b>平行姊妹籃子</b>：<b>特典 PROMO</b>（灰氈帽／Felt Hat、Munch／Picasso／長場、Mario／Luigi／poncho 皮卡丘、Extra Battle Day 等流動日版特典）；<b>Tag Team / MID</b>＝SM8b–SM12a／SMM 溫度計，即使 MODERN 已覆蓋 SM／S 都單獨顯示，避免中世代隱形。</li>
-      <li><b>四條權重（Gary 順序）</b>：1 等權 1/n（算術，唔係 Pokeca Jevons）；2 流動性（前一日 30 日 SNK 成交日圓，3% cap）；3 價格（滯後市值，3% cap）；4 價格無 cap 只係疊加，<b>唔改</b>前三條。籃子細到 1/n ≥ 3% 時 cap 做唔到。</li>
+      <li><b>四條權重（Gary 順序）</b>：1 等權 1/n（算術，唔係 Pokeca Jevons）；2 流動性（前一日 30 日 SNK 成交日圓，3% cap）；3 價格（滯後市值，3% cap）；4 價格無 cap 只係疊加，<b>唔改</b>前三條。籃子細到 1/n ≥ 3% 時 cap 做唔到。圖預設只開等權＋流動性；價格／無 cap 可手動打開。</li>
+      <li><b>廣度</b>：跟圖表期間（1D／5D／30D／1Y／YTD／All／自訂）。各成分用同一條 LOCF 刊價，比該段第一個指數日同最後一日（上漲／持平／下跌）。成交量柱仍只計當日有刊價張數。</li>
+      <li><b>英文卡名</b>：籃子／漲跌榜顯示 SNKRDUNK EN 產品名（資料裡的 <code>name</code>）。日文 <code>localizedName</code> 同繁中名只作後備，唔發明譯名。</li>
       <li><b>每日 vs 季度</b>：權重<b>每日</b>用前一日流動性／滯後價重算。成分<b>季度重組</b>（1 月／4 月／7 月／10 月 1 日 JST；GitHub Action ＋ <code>--rebuild-baskets --confirm REBUILD</code>）。每日 job 唔改名單。</li>
       <li><b>基準 1,000</b>：第一個有足夠成分（≥40 張有價，或籃子一半）的東京曆日。期間掣只放大圖，唔重設 1,000。缺日 LOCF、<b>唔補 ¥0</b>。刊價缺口 &gt; 14 日＝重入（當日報酬 0）；其餘 ±25% winsorize。</li>
       <li><b>來源</b>：公開 <a href="https://snkrdunk.com/" target="_blank" rel="noopener">SNKRDUNK</a> JP <code>trading-history?condition_code=trading_card_single_psa10</code>（只讀）。繁中名只用 <code>data/names_zh.json</code> official 種名，唔發明。EN／CN／KR 外文印刷同 Complete Set／全種套裝唔入單卡籃。Grey Felt Hat 常見 SNK 條目係 SVP EN，所以特典籃未必有佢；Mario／Munch／長場單卡按成交入選，唔人手塞名。</li>
@@ -576,12 +578,13 @@
 </main>
 <footer>日盒 EV 小算盤 · JP PSA10 基準 · Snapshot 靜態資料 · 非正式投資建議 · 來源 <a href="https://snkrdunk.com/" target="_blank" rel="noopener">SNKRDUNK</a> · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10.html">JP PSA10</a></footer>
 
-<script src="./js/spark-tip.js?v=1.30.0"></script>
-<script src="./data/market-jp-psa10-bench/latest.js?v=1.30.0"></script>
-<script src="./data/market-jp-psa10-bench/history.js?v=1.30.0"></script>
+<script src="./js/spark-tip.js?v=1.30.1"></script>
+<script src="./js/jp-psa10-ui.js?v=1.30.1"></script>
+<script src="./data/market-jp-psa10-bench/latest.js?v=1.30.1"></script>
+<script src="./data/market-jp-psa10-bench/history.js?v=1.30.1"></script>
 <script>
 (async function () {
-  const VERSION = '1.30.0';
+  const VERSION = '1.30.1';
   const ORDER = ['composite', 'vintage', 'modern', 'current', 'promo', 'midera'];
   const SERIES = {
     equal: { id: 'equal', name: '等權', color: '#141414' },
@@ -590,7 +593,9 @@
     priceNoCap: { id: 'priceNoCap', name: '價格·無 cap', color: '#e67a00', dash: '10 4', css: 'pxn' }
   };
   const WEIGHT_IDS = ['equal', 'liquidity', 'price', 'priceNoCap'];
-  const visible = { equal: true, liquidity: true, price: true, priceNoCap: true };
+  const visible = (window.JpPsa10Ui && JpPsa10Ui.defaultVisible)
+    ? JpPsa10Ui.defaultVisible(WEIGHT_IDS)
+    : { equal: true, liquidity: true, price: false, priceNoCap: false };
   const $ = (id) => document.getElementById(id);
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, (ch) => ({
@@ -680,17 +685,21 @@
     if (n == null || Number.isNaN(Number(n)) || n === 0) return 'muted';
     return n > 0 ? 'good' : 'bad';
   }
+  function nameLookup() {
+    const byId = {};
+    const blob = seriesBlob(activeKey) || {};
+    (blob.constituents || []).forEach((row) => {
+      if (row && row.id != null) byId[String(row.id)] = row;
+    });
+    return byId;
+  }
   function cardLabel(row) {
-    const zh = row && row.nameZh;
-    let loc = String((row && (row.localizedName || row.name)) || '');
-    loc = loc.replace(/[（(][^）)]*[）)]/g, '').replace(/\s*\[[^\]]+\]/g, '').replace(/\s+/g, ' ').trim();
-    if (zh && loc) {
-      const zhN = String(zh).replace(/\s+/g, '');
-      const locN = loc.replace(/\s+/g, '');
-      if (locN.indexOf(zhN) !== -1 || zhN.indexOf(locN) !== -1) return String(zh);
-      return zh + ' · ' + loc;
+    if (window.JpPsa10Ui && typeof JpPsa10Ui.cardLabel === 'function') {
+      return JpPsa10Ui.cardLabel(row, nameLookup());
     }
-    return zh || loc || (row && row.id) || '';
+    const loc = String((row && (row.name || row.localizedName)) || '');
+    return loc.replace(/[（(][^）)]*[）)]/g, '').replace(/\s*\[[^\]]+\]/g, '').replace(/\s+/g, ' ').trim()
+      || (row && row.id) || '';
   }
 
   function seriesBlob(key) {
@@ -701,6 +710,9 @@
   }
 
   const periodState = { period: '1D', customFrom: '', customTo: '' };
+  let printsById = null;
+  let printsLoading = false;
+  let printsFailed = false;
   let activeKey = 'composite';
   const hash = (location.hash || '').replace('#', '');
   if (ORDER.indexOf(hash) >= 0 && seriesBlob(hash)) activeKey = hash;
@@ -766,6 +778,72 @@
     const R = RETURNS();
     return (R[field] && R[field][period]) || { available: false, pct: null };
   }
+  function ensurePrints() {
+    if (printsById || printsLoading || printsFailed) return;
+    printsLoading = true;
+    loadJson('./data/market-jp-psa10-bench/series-cache.json').then((res) => {
+      printsLoading = false;
+      if (!res || !res.ok || !res.data) {
+        printsFailed = true;
+        renderHero();
+        return;
+      }
+      printsById = (window.JpPsa10Ui && JpPsa10Ui.printsFromCache)
+        ? JpPsa10Ui.printsFromCache(res.data)
+        : {};
+      renderHero();
+    }).catch(() => {
+      printsLoading = false;
+      printsFailed = true;
+      renderHero();
+    });
+  }
+
+  function currentBreadth() {
+    const ui = window.JpPsa10Ui;
+    const blob = cur();
+    const period = periodState.period;
+    const ret = returnFor('equal', period);
+    const constituents = blob.constituents || [];
+    if (printsById && ui && ret && ret.from && ret.to && ret.from < ret.to) {
+      const br = ui.breadthFromPrints(constituents, printsById, ret.from, ret.to);
+      return { br: br, note: ui.breadthNote(period, ret.from, ret.to, br) };
+    }
+    if (period === '1D' && blob.breadth && blob.breadth.available) {
+      const note = ui
+        ? ui.breadthNote('1D', ret && ret.from, ret && ret.to, blob.breadth)
+        : '1D 廣度（各成分窗口起迄 LOCF 價：上漲／下跌／持平；刊價日先算成交量柱）';
+      return { br: blob.breadth, note: note };
+    }
+    if (printsLoading) return { br: { available: false }, note: '載入廣度（LOCF 刊價）…' };
+    if (printsFailed) return { br: { available: false }, note: '廣度需要 series-cache 刊價；載入失敗。' };
+    if (!(ret && ret.from && ret.to)) {
+      return { br: { available: false }, note: '要有兩個日期先有廣度。' };
+    }
+    ensurePrints();
+    return { br: { available: false }, note: '載入廣度（LOCF 刊價）…' };
+  }
+
+  function paintBreadth(br, note) {
+    const bm = $('breadthMetrics');
+    const bar = $('breadthBar');
+    if (br && br.available) {
+      const n = (br.advancing || 0) + (br.declining || 0) + (br.unchanged || 0);
+      bm.innerHTML =
+        '<div class="metric"><div class="k">上漲</div><div class="v good">' + (br.advancing || 0) + '</div></div>' +
+        '<div class="metric"><div class="k">下跌</div><div class="v bad">' + (br.declining || 0) + '</div></div>';
+      const a = n ? (100 * br.advancing / n) : 0;
+      const u = n ? (100 * br.unchanged / n) : 0;
+      const d = n ? (100 * br.declining / n) : 0;
+      bar.innerHTML = '<div class="bar"><span class="adv" style="width:' + a + '%"></span><span class="unch" style="width:' + u + '%"></span><span class="dec" style="width:' + d + '%"></span></div>';
+      $('breadthNote').textContent = note;
+    } else {
+      bm.innerHTML = '<div class="metric"><div class="k">廣度</div><div class="v">N/A</div></div>';
+      if (bar) bar.innerHTML = '';
+      $('breadthNote').textContent = note || '要有兩個日期先有廣度。';
+    }
+  }
+
   function windowPoints(period) {
     const pts = pointsOf();
     if (!pts.length) return [];
@@ -847,23 +925,8 @@
         '<div class="v ' + css + '">' + fmtIdx(idx.index) + '</div>' +
         '<div class="tiny ' + chgClass(r.pct) + '">' + (r.available ? fmtPct(r.pct, true) : '—') + '</div></div>';
     }).join('');
-    const br = blob.breadth || {};
-    const bm = $('breadthMetrics');
-    if (br.available) {
-      const n = (br.advancing || 0) + (br.declining || 0) + (br.unchanged || 0);
-      bm.innerHTML =
-        '<div class="metric"><div class="k">上漲</div><div class="v good">' + (br.advancing || 0) + '</div></div>' +
-        '<div class="metric"><div class="k">下跌</div><div class="v bad">' + (br.declining || 0) + '</div></div>';
-      const bar = $('breadthBar');
-      const a = n ? (100 * br.advancing / n) : 0;
-      const u = n ? (100 * br.unchanged / n) : 0;
-      const d = n ? (100 * br.declining / n) : 0;
-      bar.innerHTML = '<div class="bar"><span class="adv" style="width:' + a + '%"></span><span class="unch" style="width:' + u + '%"></span><span class="dec" style="width:' + d + '%"></span></div>';
-      $('breadthNote').textContent = '1D 廣度（有 LOCF 價的成分；刊價日先算成交量柱）';
-    } else {
-      bm.innerHTML = '<div class="metric"><div class="k">廣度</div><div class="v">N/A</div></div>';
-      $('breadthNote').textContent = '要有上一交易日先有廣度。';
-    }
+    const packed = currentBreadth();
+    paintBreadth(packed.br, packed.note);
     const note = $('indexPeriodNote');
     const w = windowPoints(periodState.period);
     note.textContent = w.length
@@ -1001,9 +1064,12 @@
         visible[id] = true;
         return;
       }
-      btn.classList.toggle('is-on', visible[id]);
-      btn.classList.toggle('is-off', !visible[id]);
-      btn.setAttribute('aria-pressed', visible[id] ? 'true' : 'false');
+      if (window.JpPsa10Ui && JpPsa10Ui.syncLegendButtons) JpPsa10Ui.syncLegendButtons(document, visible);
+      else {
+        btn.classList.toggle('is-on', visible[id]);
+        btn.classList.toggle('is-off', !visible[id]);
+        btn.setAttribute('aria-pressed', visible[id] ? 'true' : 'false');
+      }
       drawChart();
     });
   });
@@ -1011,7 +1077,9 @@
     const h = (location.hash || '').replace('#', '');
     if (ORDER.indexOf(h) >= 0) setActive(h);
   });
+  if (window.JpPsa10Ui && JpPsa10Ui.syncLegendButtons) JpPsa10Ui.syncLegendButtons(document, visible);
   paint();
+  ensurePrints();
 })();
 </script>
 

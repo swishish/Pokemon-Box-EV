@@ -1,6 +1,6 @@
 # Pokemon Box EV
 
-日盒 EV 小算盤（朋友向）· **v1.30.0**
+日盒 EV 小算盤（朋友向）· **v1.30.1**
 
 給「不太懂金融／AI」的買卡朋友看的工具：首頁介紹點樣用 → 開盒算盤選系列 → 看 **四個預期回報 %**（同一分母）→ 有膜／無膜切換 → 看主力 chase 卡與「買單卡 vs 開盒」粗略提示。
 
@@ -291,6 +291,7 @@ GitHub Action **Update JP PSA10 broad benchmark** 每晚重算權重、季度重
 
 ## Changelog（摘要）
 
+- **v1.30.1**：JP PSA10 chase／基準圖預設只開等權＋流動性；廣度跟圖表期間（各成分窗口起迄 LOCF）；籃子顯示 SNK EN 卡名。指數數學／籃子／refresh 工具不變
 - **v1.30.0**：新增日版 PSA10 **廣度基準**（`market-jp-psa10-bench.html`）——復古／中世代／現行每區地板 80、特典＋Tag Team 姊妹籃子、四條權重（等權／流動 3% cap／價格 3% cap／價格無 cap 疊加）、每日權重／季度名單。舊 60 張 `market-jp-psa10.html` SV chase 袖不變
 - **v1.29.0**：新增日版 PSA10 指數頁（`market-jp-psa10.html`）——同一籃子等權／流動性／價格加權三條線 + SNK 刊價量柱；3% 單卡上限；公開 SNKRDUNK trading-history。EV／Chase_Fit／EN／復古／中世代算法不變
 - **v1.28.11**：日盒**盒價**可用公開 SNKRDUNK 掛牌＋PriceCharting 盒頁刷新（`tools/refresh_sealed_boxes.py`，Actions 手動掣）。只讀、唔登入／下單。單卡 Grade A／抽出率同 EV 算法不變
