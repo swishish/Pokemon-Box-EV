@@ -2,7 +2,7 @@
 
 Static JSON for `market-jp-psa10-bench.html`. A **representable** Japanese Pokémon TCG **PSA10** market, alongside (not instead of) the frozen ~60-card SV chase sleeve on `market-jp-psa10.html`.
 
-Pokeca intent (not a code clone): sector floors of 80, leftover slots by sales volume, rank √(sales×price), equal-weight headline + liquidity/price with a 3% cap, quarterly membership.
+Pokeca intent (not a code clone): era sectors + √(sales×price) rank for display, equal-weight headline + liquidity/price with a 3% cap, quarterly membership. **Sector N is not a Pokeca floor of 80.** Membership is whatever clears the liquidity/price screens; composite is the union of the three era sectors.
 
 | File | Role |
 | --- | --- |
@@ -17,7 +17,7 @@ Pokeca intent (not a code clone): sector floors of 80, leftover slots by sales v
 
 | Key | Chinese | What |
 | --- | --- | --- |
-| `composite` | 綜合 | Headline: VINTAGE + MODERN + CURRENT (floor 80 each, leftover by √(yen×price) toward 500) |
+| `composite` | 綜合 | Headline: union of screened VINTAGE + MODERN + CURRENT (N floats; no pad / no truncate) |
 | `vintage` | 復古 | Pre-SM, ~1996–2016 (XY / BW / DP / … as Pokeca Vintage) |
 | `modern` | 中世代 SM/S | Sun & Moon + Sword/Shield, including Tag Team in-sector |
 | `current` | 現行 SV/M | Scarlet & Violet + MEGA — **not** limited to Box EV `data.json` chase IDs |
@@ -34,13 +34,49 @@ The old 60 on `market-jp-psa10.html` is the **SV chase sleeve**. It still builds
 ```bash
 python3 tools/refresh_market_jp_psa10_bench.py --self-test
 python3 tools/refresh_market_jp_psa10_bench.py --rebuild-baskets --confirm REBUILD -v
+python3 tools/refresh_market_jp_psa10_bench.py --reselect -v
 python3 tools/refresh_market_jp_psa10_bench.py --from-cache
 python3 tools/refresh_market_jp_psa10_bench.py -v
 ```
 
-`--rebuild-baskets` requires `--confirm REBUILD` (refuses to invent a basket). Discovery is public `en/v1/search` plus apparel IDs already in this repo. Price history is JP `trading-history?condition_code=trading_card_single_psa10`. View-only; no login / buy / bid / list.
+`--rebuild-baskets` requires `--confirm REBUILD` (refuses to invent a basket). `--reselect` re-ranks from `scan-cache.json` + `series-cache.json` (fetches only missing PSA10 histories). Discovery is public `en/v1/search` plus apparel IDs already in this repo. Price history is JP `trading-history?condition_code=trading_card_single_psa10`. View-only; no login / buy / bid / list.
 
-If a sector cannot reach 80 after expanded search + a relaxed floor (¥1,500 / 3 print-days), `baskets.json` records the shortfall instead of inventing cards.
+## Screens (N floats)
+
+| Basket | Min last PSA10 print | Min 90-day print-days |
+| --- | --- | --- |
+| Vintage | ¥2,000 | 5 |
+| Modern / Current | ¥2,000 | 6 |
+| Promo | ¥2,500 | 5 |
+| Tag Team / MID | ¥2,000 | 5 |
+
+Print-days = distinct JST calendar days with a SNK PSA10 chart print (not Pokeca’s raw sale count). Rank inside a sector is still √(30d SNK yen × last print) for display; **every card that passes is kept**.
+
+If a primary screen yields fewer than 20 names, that sector only loosens to ¥1,500 / 3 print-days and still keeps every passer. That is **not** a floor: N may remain below 20. We do not invent IDs and we do not pad/truncate to 80 or 500.
+
+JP Pokémon singles only. EN / CN / KR / ID / TH print tags, sealed SKUs, and other TCGs are dropped (same as before).
+
+## 規模依據 (peer sizes, not our N)
+
+| Peer | Typical N | Role |
+| --- | --- | --- |
+| POKECA PSA INDEX | ~80+ per Vintage/Modern/Current historically; live TOTAL **~489** (target 500, Jevons) | Closest JP PSA10 sector model. They **floor 80** then fill leftover to 500. We keep the sector cut and screens, not the forced N. |
+| Grade10 PTCG100 / PTCG500 | **100** / **500** | Broad PSA10 benchmarks, fixed top-N by 90d volume (EN+JP). Soft composite peer band. |
+| Renaiss Pokémon | **~50** | Chase-scale Top 50, monthly. Not a broad-market size. |
+| This repo chase sleeve | **~60** | `market-jp-psa10.html` SV chase thermometer. Stays separate. |
+
+Soft composite band ~300–500 is a peer reference only. After these screens the live union is larger than 500 because Modern/Current SNK tape is deep; we refuse to cut liquid names to fake Pokeca’s 500.
+
+Live reconstitution (`--reselect`, 2026-10-20) after this rule change:
+
+| Series | Before (forced 80 / leftover-to-500) | After (screens only) |
+| --- | --- | --- |
+| Vintage | 80 | **77** (¥2,000 / 5 print-days; not loosened) |
+| Modern | 80 | **358** (¥2,000 / 6) |
+| Current | 80 | **446** (¥2,000 / 6) |
+| Composite | 500 | **881** (union) |
+| Promo | 80 | **96** (¥2,500 / 5) |
+| Tag Team / MID | 80 | **134** (¥2,000 / 5) |
 
 **JP Pokémon singles only.** EN / CN / KR / ID / TH print tags (`[SVP EN]`, `[CN]`, …) are dropped. Sealed SKUs (`Complete Set` / `全種セット` / booster boxes) are dropped. Other TCGs that leak through SNK search (e.g. Dragon Ball 孫悟空) are dropped. Grey Felt Hat’s liquid SNK listing is typically **SVP EN**, so it does not enter PROMO; JP-P equivalents would if they clear the tape floor. Van Gogh / Luigi poncho were not in the first SNK PSA10 scan (no inventing IDs). Mario / Extra Battle Day / Munch / Nagaba **singles** rank into PROMO by √(yen×price) — they are not force-inserted.
 

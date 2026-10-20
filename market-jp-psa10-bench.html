@@ -6,8 +6,8 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>日版 PSA10 基準 · Box EV v1.30.3</title>
-<meta name="description" content="日版寶可夢 TCG PSA10 廣度基準：復古／中世代／現行每區 ≥80，另加特典與 Tag Team 姊妹籃子。等權／流動性／價格／無 cap 疊加。靜態快照，非正式投資建議。" />
+<title>日版 PSA10 基準 · Box EV v1.30.4</title>
+<meta name="description" content="日版寶可夢 TCG PSA10 廣度基準：復古／中世代／現行 N 跟流動性篩選浮動，另加特典與 Tag Team 姊妹籃子。等權／流動性／價格／無 cap 疊加。靜態快照，非正式投資建議。" />
 <meta property="og:site_name" content="日盒開盒值不值？" />
 <meta property="og:title" content="日版 PSA10 基準 · 復古／中世代／現行" />
 <meta property="og:description" content="Pokeca-style JP PSA10 廣度基準。舊 60 張係 SV chase 袖。靜態快照，非正式投資建議。" />
@@ -459,7 +459,7 @@
 <header>
   <div class="header-inner">
     <div class="header-top">
-      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.30.3</span></h1>
+      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.30.4</span></h1>
       <nav class="header-nav" aria-label="站內導覽">
         <a class="nav-btn" href="./calc.html">開盒 EV</a>
         <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
@@ -477,7 +477,7 @@
 
 <main class="wrap" id="app">
   <div id="dataFreshness" class="data-freshness" role="status" aria-live="polite"></div>
-  <p class="kind-note">舊 <a href="./market-jp-psa10.html">JP PSA10</a> 60 張係 SV chase 袖，呢頁唔取代佢。綜合＝復古＋中世代＋現行（每區地板 80）；特典／Tag Team 係平行姊妹籃子。</p>
+  <p class="kind-note">舊 <a href="./market-jp-psa10.html">JP PSA10</a> 60 張係 SV chase 袖，呢頁唔取代佢。綜合＝復古＋中世代＋現行嘅流動性篩選聯集（N 跟篩選浮動，唔再每區鎖 80）；特典／Tag Team 係平行姊妹籃子。</p>
   <div class="series-tabs" id="seriesTabs" role="tablist" aria-label="Benchmark series"></div>
 
   <div class="hero">
@@ -583,8 +583,8 @@
     <h2>這是什麼 · 方法</h2>
     <ul class="tiny">
       <li><b>同 chase 60 並存</b>：<a href="./market-jp-psa10.html">JP PSA10</a> 仍然係凍結約 60 張 SV chase 袖（<code>data.json</code> apparel ID、¥3,000／90 日 12 刊價）。呢頁係廣度基準，宇宙來自 SNK 公開搜尋＋本站已有 ID，<b>唔發明</b>產品編號。</li>
-      <li><b>三個時代扇區，地板 80</b>：<b>復古 VINTAGE</b>＝SM 之前（約 1996–2016，XY／BW／DP…，跟 Pokeca Vintage）；<b>中世代 MODERN</b>＝SM＋劍盾 S（Tag Team 亦算入呢區）；<b>現行 CURRENT</b>＝SV＋MEGA，唔限 Box EV chase 657 個 ID。綜合籃子＝三區地板 80 ＋剩餘名額按 √(30 日成交日圓 × 最新刊價) 補到約 500。</li>
-      <li><b>平行姊妹籃子</b>：<b>特典 PROMO</b>（灰氈帽／Felt Hat、Munch／Picasso／長場、Mario／Luigi／poncho 皮卡丘、Extra Battle Day 等流動日版特典）；<b>Tag Team / MID</b>＝SM8b–SM12a／SMM 溫度計，即使 MODERN 已覆蓋 SM／S 都單獨顯示，避免中世代隱形。</li>
+      <li><b>三個時代扇區，N 跟篩選浮動</b>：<b>復古 VINTAGE</b>＝SM 之前（約 1996–2016，XY／BW／DP…，跟 Pokeca Vintage）；<b>中世代 MODERN</b>＝SM＋劍盾 S（Tag Team 亦算入呢區）；<b>現行 CURRENT</b>＝SV＋MEGA，唔限 Box EV chase 657 個 ID。通過篩選就入選——<b>唔再</b>地板 80／補到 80／截到 80。綜合＝三區聯集。篩選：最近 PSA10 刊價 ≥ ¥2,000；90 日刊價日復古 ≥5、中世代／現行 ≥6。某區通過少過 20 張先放寬到 ¥1,500／3 日（仍然取全部通過者，唔係地板）。</li>
+      <li><b>平行姊妹籃子</b>：<b>特典 PROMO</b>（灰氈帽／Felt Hat、Munch／Picasso／長場、Mario／Luigi／poncho 皮卡丘、Extra Battle Day 等流動日版特典；篩選 ¥2,500／90 日 5 刊價日）；<b>Tag Team / MID</b>＝SM8b–SM12a／SMM 溫度計（篩選同復古 ¥2,000／5 日），即使 MODERN 已覆蓋 SM／S 都單獨顯示，避免中世代隱形。兩條都係篩選全收，唔截 80。</li>
       <li><b>四條權重（Gary 順序）</b>：1 等權 1/n（算術，唔係 Pokeca Jevons）；2 流動性（前一日 30 日 SNK 成交日圓，3% cap）；3 價格（滯後市值，3% cap）；4 價格無 cap 只係疊加，<b>唔改</b>前三條。籃子細到 1/n ≥ 3% 時 cap 做唔到。圖預設只開等權＋流動性；價格／無 cap 可手動打開。</li>
       <li><b>廣度</b>：跟圖表期間（1D／5D／30D／1Y／YTD／All／自訂）。各成分用同一條 LOCF 刊價，比該段第一個指數日同最後一日（上漲／持平／下跌）。成交量柱仍只計當日有刊價張數。</li>
       <li><b>英文卡名</b>：籃子／漲跌榜顯示 SNKRDUNK EN 產品名（資料裡的 <code>name</code>）。日文 <code>localizedName</code> 同繁中名只作後備。SNK 把寫入訓練家空白顯示成 <code>_’s</code> 時，畫面改成 PSA 寫法 <code>___'s Pikachu</code>，唔發明其他譯名。</li>
@@ -601,13 +601,13 @@
 </main>
 <footer>日盒 EV 小算盤 · JP PSA10 基準 · Snapshot 靜態資料 · 非正式投資建議 · 來源 <a href="https://snkrdunk.com/" target="_blank" rel="noopener">SNKRDUNK</a> · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10.html">JP PSA10</a></footer>
 
-<script src="./js/spark-tip.js?v=1.30.3"></script>
-<script src="./js/jp-psa10-ui.js?v=1.30.3"></script>
-<script src="./data/market-jp-psa10-bench/latest.js?v=1.30.3"></script>
-<script src="./data/market-jp-psa10-bench/history.js?v=1.30.3"></script>
+<script src="./js/spark-tip.js?v=1.30.4"></script>
+<script src="./js/jp-psa10-ui.js?v=1.30.4"></script>
+<script src="./data/market-jp-psa10-bench/latest.js?v=1.30.4"></script>
+<script src="./data/market-jp-psa10-bench/history.js?v=1.30.4"></script>
 <script>
 (async function () {
-  const VERSION = '1.30.3';
+  const VERSION = '1.30.4';
   const ORDER = ['composite', 'vintage', 'modern', 'current', 'promo', 'midera'];
   const SERIES = {
     equal: { id: 'equal', name: '等權', color: '#141414' },

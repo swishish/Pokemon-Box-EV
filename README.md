@@ -1,6 +1,6 @@
 # Pokemon Box EV
 
-日盒 EV 小算盤（朋友向）· **v1.30.3**
+日盒 EV 小算盤（朋友向）· **v1.30.4**
 
 給「不太懂金融／AI」的買卡朋友看的工具：首頁介紹點樣用 → 開盒算盤選系列 → 看 **四個預期回報 %**（同一分母）→ 有膜／無膜切換 → 看主力 chase 卡與「買單卡 vs 開盒」粗略提示。
 
@@ -22,7 +22,7 @@ Chase 公允值（PSA10 回歸散點）：**https://swishish.github.io/Pokemon-B
 
 日版 PSA10 指數（SV chase 60 · 等權／流動性／價格加權）：**https://swishish.github.io/Pokemon-Box-EV/market-jp-psa10.html**
 
-日版 PSA10 廣度基準（復古／中世代／現行，每區 ≥80）：**https://swishish.github.io/Pokemon-Box-EV/market-jp-psa10-bench.html**
+日版 PSA10 廣度基準（復古／中世代／現行，N 跟篩選浮動）：**https://swishish.github.io/Pokemon-Box-EV/market-jp-psa10-bench.html**
 
 姊妹站 Base Unlimited（Base Set Unlimited 速查）：**https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/**（頂欄外連，唔喺本 repo）
 
@@ -267,11 +267,11 @@ GitHub Action **Update JP PSA10 index** 每晚跑刷新；PR 只跑 self-test。
 
 ## 日版 PSA10 廣度基準
 
-獨立頁 `market-jp-psa10-bench.html`：**唔取代**上面嗰條 60 張 SV chase 袖。呢頁係 representable 日版 PSA10 市場（Pokeca 意圖：扇區地板 80、剩餘名額按成交、√(sales×price) 排名、等權頭條＋3% cap 流動／價格、季度重組名單）。
+獨立頁 `market-jp-psa10-bench.html`：**唔取代**上面嗰條 60 張 SV chase 袖。呢頁係 representable 日版 PSA10 市場（Pokeca 意圖：時代扇區、√(sales×price) 排名、等權頭條＋3% cap 流動／價格、季度重組名單）。**唔再**每區鎖 80／補到 80／截到 80——N 跟流動性／刊價篩選浮動；綜合＝三區聯集。
 
 | 籃子 | 說明 |
 | --- | --- |
-| 綜合 Composite | 復古＋中世代＋現行（各 ≥80），剩餘槽位按 √(30 日 SNK 日圓 × 刊價) 補到約 500 |
+| 綜合 Composite | 復古＋中世代＋現行嘅篩選聯集（N 浮動；唔補／截到 500） |
 | 復古 Vintage | SM 之前（約 1996–2016：XY／BW／DP…） |
 | 中世代 Modern | SM＋劍盾 S（Tag Team 亦算入呢區） |
 | 現行 Current | SV＋MEGA；宇宙來自 SNK 搜尋，唔限 `data.json` 657 個 chase ID |
@@ -283,6 +283,7 @@ GitHub Action **Update JP PSA10 index** 每晚跑刷新；PR 只跑 self-test。
 ```bash
 python3 tools/refresh_market_jp_psa10_bench.py --self-test
 python3 tools/refresh_market_jp_psa10_bench.py --rebuild-baskets --confirm REBUILD -v
+python3 tools/refresh_market_jp_psa10_bench.py --reselect -v
 python3 tools/refresh_market_jp_psa10_bench.py --from-cache
 python3 tools/refresh_market_jp_psa10_bench.py -v
 ```
@@ -291,6 +292,7 @@ GitHub Action **Update JP PSA10 broad benchmark** 每晚重算權重、季度重
 
 ## Changelog（摘要）
 
+- **v1.30.4**：JP PSA10 廣度基準扇區**唔再鎖 80 張**——N 跟刊價／90 日刊價日篩選浮動；綜合＝三區聯集（唔補／截到 500）。舊 60 張 chase 袖不變
 - **v1.30.3**：JP PSA10 chase／基準圖預設期間改 **1Y**（1D／5D／30D／YTD／All／自訂仍可撳）。基準頁六格指數 tile 顯示等權期間 %（跟圖表 tenor）；手機 2×3 格收密。指數數學／refresh 工具不變
 - **v1.30.2**：JP PSA10 籃子把 SNK `_’s Pikachu` 寫入空位顯示成 PSA `___'s Pikachu`（去掉 `: Old Back/PROMO` 噪音）。v1.30.1 的等權＋流動預設／廣度跟期間不變
 - **v1.30.1**：JP PSA10 chase／基準圖預設只開等權＋流動性；廣度跟圖表期間（各成分窗口起迄 LOCF）；籃子顯示 SNK EN 卡名。指數數學／籃子／refresh 工具不變

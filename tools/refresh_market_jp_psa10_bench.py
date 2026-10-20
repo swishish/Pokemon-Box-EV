@@ -4,8 +4,9 @@
 Sibling of the frozen 60-card SV chase sleeve (`market-jp-psa10.html`).
 This pipeline does **not** replace that page.
 
-Headline COMPOSITE = VINTAGE + MODERN + CURRENT (floor 80 each, leftover by
-√(sales×price)). Parallel sibling series: PROMO and MID/Tag Team.
+Headline COMPOSITE = union of VINTAGE + MODERN + CURRENT after liquidity /
+price screens. N floats — no per-sector floor, no pad-to-N, no truncate-to-N.
+Parallel sibling series: PROMO and MID/Tag Team (same screen rule).
 
 Four daily-rebalanced weight lines (Gary's order):
   1. equal
@@ -21,6 +22,7 @@ Public JSON only (view-only). No login, no buy/bid/list.
 
   python3 tools/refresh_market_jp_psa10_bench.py --self-test
   python3 tools/refresh_market_jp_psa10_bench.py --rebuild-baskets --confirm REBUILD -v
+  python3 tools/refresh_market_jp_psa10_bench.py --reselect -v
   python3 tools/refresh_market_jp_psa10_bench.py --from-cache
   python3 tools/refresh_market_jp_psa10_bench.py -v
 """
@@ -97,21 +99,52 @@ NAMES_ZH_PATH = os.path.join(ROOT, "data", "names_zh.json")
 CHASE_BASKETS = os.path.join(ROOT, "data", "market-jp-psa10", "baskets.json")
 TESTDATA = os.path.join(HERE, "testdata", "snkrdunk-jp-psa10-bench", "cards.json")
 
-SECTOR_FLOOR = 80
-TARGET_COMPOSITE = 500
-PROMO_TARGET = 80
-MIDERA_TARGET = 80
+# Quality screens — sector N is whatever passes. Not a floor, not a cap.
 MIN_LAST_PRICE_YEN = 2000.0
 MIN_PRINTS_90D = 6
 MIN_PRINTS_90D_VINTAGE = 5
+MIN_LAST_PRICE_PROMO = 2500.0
+MIN_PRINTS_90D_PROMO = 5
+MIN_PRINTS_90D_MIDERA = 5
+# If a primary screen yields fewer than this, loosen that sector only and
+# keep every card that then passes. This is not a membership floor: N may
+# still be below 20 after the relaxed screen.
+THIN_SCREEN_RELAX_BELOW = 20
 MIN_PRINTS_90D_RELAXED = 3
 MIN_LAST_PRICE_RELAXED = 1500.0
-MIN_CONSTITUENTS = 40
+MIN_CONSTITUENTS = 40  # index base-date threshold, not a basket-size target
 STALE_DAYS = 8
 SLEEP_S = 0.18
 SEARCH_PER_PAGE = 20
 SEARCH_PAGES_DEFAULT = 2
 SEARCH_PAGES_DEEP = 4
+
+# Peer sizes (documentation only — never enforced as N).
+PEER_SIZE_NOTES = {
+    "pokeca": (
+        "POKECA PSA INDEX (psa-index.com): Vintage/Modern/Current each floor 80 "
+        "historically; leftover to a 500 target by sales volume; live TOTAL ~489 "
+        "Jevons constituents (2026-10-20). Screens: Vintage ≥1 sale / ¥3,000; "
+        "Modern+Current ≥3 sales / ¥5,000."
+    ),
+    "grade10": (
+        "Grade10 PTCG100 = top 100 by trailing 90d pooled sales (min 5 sales); "
+        "PTCG500 = top 500 (same rule). EN+JP PSA10, quarterly. Fixed N."
+    ),
+    "renaiss": (
+        "Renaiss Pokémon index = monthly Top 50 most-traded PSA10 — chase-scale, "
+        "not a broad-market peer."
+    ),
+    "chaseSleeve": (
+        "This repo's market-jp-psa10.html remains the frozen ~60 SV chase sleeve. "
+        "Out of scope for this benchmark."
+    ),
+    "compositeRule": (
+        "Composite is the union of screened VINTAGE+MODERN+CURRENT. Soft peer "
+        "band ~300–500 (Pokeca ~489 / Grade10 500) is a reference only — we do "
+        "not pad or truncate to hit it."
+    ),
+}
 
 SERIES_META = {
     "composite": {"labelZh": "綜合", "labelEn": "Composite", "kind": "headline"},
@@ -462,16 +495,85 @@ def scan_universe(
     return cards, series
 
 
-def _threshold_for(era: str | None, *, relaxed: bool) -> tuple[float, int]:
+def _threshold_for(key: str, *, relaxed: bool) -> tuple[float, int]:
     if relaxed:
         return MIN_LAST_PRICE_RELAXED, MIN_PRINTS_90D_RELAXED
-    if era == "vintage":
+    if key == "vintage":
         return MIN_LAST_PRICE_YEN, MIN_PRINTS_90D_VINTAGE
+    if key == "promo":
+        return MIN_LAST_PRICE_PROMO, MIN_PRINTS_90D_PROMO
+    if key == "midera":
+        return MIN_LAST_PRICE_YEN, MIN_PRINTS_90D_MIDERA
     return MIN_LAST_PRICE_YEN, MIN_PRINTS_90D
 
 
-def select_baskets(candidates: list[dict], *, floor: int, composite_target: int, promo_target: int, midera_target: int) -> dict:
-    """Floor 80 per era, leftover by √(sales×price). Siblings selected separately."""
+def _passes_card(c: dict, min_price: float, min_prints: int) -> bool:
+    return passes_threshold(
+        {"lastPrice": c.get("lastPriceYen"), "prints90": c.get("prints90")},
+        min_price=min_price,
+        min_prints=min_prints,
+    )
+
+
+def _rank_cards(rows: list[dict]) -> list[dict]:
+    return sorted(
+        rows,
+        key=lambda r: (-float(r.get("score") or 0), -float(r.get("lastPriceYen") or 0)),
+    )
+
+
+def _screen_pool(candidates: list[dict], pred, min_price: float, min_prints: int) -> list[dict]:
+    return _rank_cards(
+        [c for c in candidates if pred(c) and _passes_card(c, min_price, min_prints)]
+    )
+
+
+def _maybe_loosen(
+    rows: list[dict],
+    candidates: list[dict],
+    pred,
+    key: str,
+    notes: dict[str, Any],
+    min_price: float,
+    min_prints: int,
+) -> list[dict]:
+    notes["screens"][key] = {
+        "minLastPriceYen": min_price,
+        "minPrints90d": min_prints,
+        "n": len(rows),
+    }
+    if len(rows) >= THIN_SCREEN_RELAX_BELOW:
+        return rows
+    relaxed = _screen_pool(candidates, pred, MIN_LAST_PRICE_RELAXED, MIN_PRINTS_90D_RELAXED)
+    notes["loosened"][key] = {
+        "reason": (
+            f"primary screen yielded {len(rows)} < {THIN_SCREEN_RELAX_BELOW}; "
+            "loosened yen/print-day threshold and kept every card that passed "
+            "(not a floor — N may still sit below 20)"
+        ),
+        "minLastPriceYen": MIN_LAST_PRICE_RELAXED,
+        "minPrints90d": MIN_PRINTS_90D_RELAXED,
+        "primaryN": len(rows),
+        "n": len(relaxed),
+    }
+    notes["screens"][key] = {
+        "minLastPriceYen": MIN_LAST_PRICE_RELAXED,
+        "minPrints90d": MIN_PRINTS_90D_RELAXED,
+        "n": len(relaxed),
+        "loosened": True,
+        "primaryN": len(rows),
+        "primaryMinLastPriceYen": min_price,
+        "primaryMinPrints90d": min_prints,
+    }
+    return relaxed
+
+
+def select_baskets(candidates: list[dict]) -> dict:
+    """Liquidity/price screens only. N floats. No floor, no pad, no truncate.
+
+    Composite is the union of screened VINTAGE + MODERN + CURRENT.
+    PROMO / MIDERA are sibling series with the same no-size-target rule.
+    """
     candidates = [
         c
         for c in candidates
@@ -479,117 +581,41 @@ def select_baskets(candidates: list[dict], *, floor: int, composite_target: int,
         and not looks_like_sealed(c.get("name"), c.get("localizedName"))
         and looks_like_pokemon(c.get("name"), c.get("localizedName"), c.get("productNumber"))
     ]
-    notes: dict[str, Any] = {"relaxed": {}, "shortfalls": {}}
-
-    def pool(era: str, relaxed: bool) -> list[dict]:
-        lo, pn = _threshold_for(era, relaxed=relaxed)
-        rows = [
-            c
-            for c in candidates
-            if c.get("era") == era
-            and not c.get("promo")
-            and passes_threshold(
-                {"lastPrice": c.get("lastPriceYen"), "prints90": c.get("prints90")},
-                min_price=lo,
-                min_prints=pn,
-            )
-        ]
-        rows.sort(key=lambda r: (-float(r.get("score") or 0), -float(r.get("lastPriceYen") or 0)))
-        return rows
+    notes: dict[str, Any] = {
+        "screens": {},
+        "loosened": {},
+        "compositeRule": "union of screened vintage + modern + current",
+        "peers": PEER_SIZE_NOTES,
+    }
 
     sectors: dict[str, list[dict]] = {}
     for era in ("vintage", "modern", "current"):
-        rows = pool(era, False)
-        if len(rows) < floor:
-            rows = pool(era, True)
-            notes["relaxed"][era] = {
-                "minLastPriceYen": MIN_LAST_PRICE_RELAXED,
-                "minPrints90d": MIN_PRINTS_90D_RELAXED,
-                "available": len(rows),
-            }
-        if len(rows) < floor:
-            extras = [
-                c
-                for c in candidates
-                if c.get("era") == era
-                and not c.get("promo")
-                and float(c.get("lastPriceYen") or 0) >= MIN_LAST_PRICE_RELAXED
-            ]
-            extras.sort(key=lambda r: (-float(r.get("score") or 0), -int(r.get("prints90") or 0)))
-            seen = {c["id"] for c in rows}
-            for c in extras:
-                if c["id"] in seen:
-                    continue
-                rows.append(c)
-                if len(rows) >= floor:
-                    break
-            notes["floorFill"] = notes.get("floorFill") or {}
-            notes["floorFill"][era] = {
-                "reason": "thin SNK PSA10 tape; filled remaining floor by score then prints90",
-                "got": len(rows),
-            }
-        if len(rows) < floor:
-            notes["shortfalls"][era] = {
-                "wanted": floor,
-                "got": len(rows),
-                "reason": "SNK PSA10 coverage after discovery + relaxed threshold + floor-fill",
-            }
-        sectors[era] = rows[:floor]
+        price, prints = _threshold_for(era, relaxed=False)
 
-    used = {c["id"] for era in sectors for c in sectors[era]}
-    leftover_pool = []
-    for c in candidates:
-        if c["id"] in used:
-            continue
-        if c.get("era") not in {"vintage", "modern", "current"}:
-            continue
-        if c.get("promo"):
-            continue
-        lo, pn = _threshold_for(c.get("era"), relaxed=True)
-        if passes_threshold(
-            {"lastPrice": c.get("lastPriceYen"), "prints90": c.get("prints90")},
-            min_price=lo,
-            min_prints=pn,
-        ):
-            leftover_pool.append(c)
-    leftover_pool.sort(key=lambda r: (-float(r.get("score") or 0), -float(r.get("lastPriceYen") or 0)))
-    # leftover_pool already excludes promo; foreign printings dropped below.
-    need = max(0, composite_target - len(used))
-    leftover = leftover_pool[:need]
-    composite = sectors["vintage"] + sectors["modern"] + sectors["current"] + leftover
+        def pred(c: dict, era=era) -> bool:
+            return c.get("era") == era and not c.get("promo")
 
-    def sibling(flag: str, target: int, min_price: float, min_prints: int) -> list[dict]:
-        rows = [
-            c
-            for c in candidates
-            if c.get(flag)
-            and passes_threshold(
-                {"lastPrice": c.get("lastPriceYen"), "prints90": c.get("prints90")},
-                min_price=min_price,
-                min_prints=min_prints,
-            )
-        ]
-        rows.sort(key=lambda r: (-float(r.get("score") or 0), -float(r.get("lastPriceYen") or 0)))
-        if len(rows) < target:
-            rows = [
-                c
-                for c in candidates
-                if c.get(flag)
-                and passes_threshold(
-                    {"lastPrice": c.get("lastPriceYen"), "prints90": c.get("prints90")},
-                    min_price=MIN_LAST_PRICE_RELAXED,
-                    min_prints=MIN_PRINTS_90D_RELAXED,
-                )
-            ]
-            rows.sort(key=lambda r: (-float(r.get("score") or 0), -float(r.get("lastPriceYen") or 0)))
-        return rows[:target]
+        rows = _screen_pool(candidates, pred, price, prints)
+        sectors[era] = _maybe_loosen(rows, candidates, pred, era, notes, price, prints)
 
-    promo = sibling("promo", promo_target, 2500.0, 5)
-    midera = sibling("midera", midera_target, MIN_LAST_PRICE_YEN, MIN_PRINTS_90D_VINTAGE)
-    if len(promo) < 20:
-        notes["shortfalls"]["promo"] = {"wanted": promo_target, "got": len(promo)}
-    if len(midera) < 20:
-        notes["shortfalls"]["midera"] = {"wanted": midera_target, "got": len(midera)}
+    composite = sectors["vintage"] + sectors["modern"] + sectors["current"]
+    notes["screens"]["composite"] = {
+        "rule": "union",
+        "n": len(composite),
+        "softPeerBand": "300-500 (Pokeca ~489 / Grade10 PTCG500); not enforced",
+    }
+
+    def sibling(flag: str, key: str) -> list[dict]:
+        price, prints = _threshold_for(key, relaxed=False)
+
+        def pred(c: dict, flag=flag) -> bool:
+            return bool(c.get(flag))
+
+        rows = _screen_pool(candidates, pred, price, prints)
+        return _maybe_loosen(rows, candidates, pred, key, notes, price, prints)
+
+    promo = sibling("promo", "promo")
+    midera = sibling("midera", "midera")
 
     return {
         "vintage": sectors["vintage"],
@@ -638,20 +664,27 @@ def baskets_doc(picks: dict, generated: str, scanned: int, reconstituted_on: str
         ),
         "rule": (
             "Japanese Pokémon TCG singles with public SNKRDUNK PSA10 trading-history. "
-            f"Era sectors VINTAGE (pre-SM, ~1996–2016) / MODERN (SM + S, incl. Tag Team in-sector) / "
-            f"CURRENT (SV + MEGA) each aim for a floor of {SECTOR_FLOOR}. Leftover composite slots "
-            f"fill by √(30d SNK yen × last PSA10 print) toward {TARGET_COMPOSITE}. "
-            "PROMO and MID/Tag Team are parallel sibling series, same weight math. "
+            "Era sectors VINTAGE (pre-SM, ~1996–2016) / MODERN (SM + S, incl. Tag Team in-sector) / "
+            "CURRENT (SV + MEGA) keep every card that clears the liquidity/price screen. "
+            "No per-sector floor, no pad-to-N, no truncate-to-N. "
+            "Composite is the union of the three screened sectors. "
+            "PROMO and MID/Tag Team are parallel sibling series, same screen rule and weight math. "
             "The live 60-card market-jp-psa10 page remains the SV chase sleeve."
         ),
         "selection": {
-            "sectorFloor": SECTOR_FLOOR,
-            "compositeTarget": TARGET_COMPOSITE,
-            "promoTarget": PROMO_TARGET,
-            "mideraTarget": MIDERA_TARGET,
+            "sectorFloor": None,
+            "sectorCap": None,
+            "compositeRule": "union of screened vintage + modern + current",
+            "softCompositePeerBand": "300-500 (not enforced)",
+            "thinScreenRelaxBelow": THIN_SCREEN_RELAX_BELOW,
             "minLastPriceYen": MIN_LAST_PRICE_YEN,
             "minPrints90d": MIN_PRINTS_90D,
             "minPrints90dVintage": MIN_PRINTS_90D_VINTAGE,
+            "minLastPricePromoYen": MIN_LAST_PRICE_PROMO,
+            "minPrints90dPromo": MIN_PRINTS_90D_PROMO,
+            "minPrints90dMidera": MIN_PRINTS_90D_MIDERA,
+            "minLastPriceRelaxedYen": MIN_LAST_PRICE_RELAXED,
+            "minPrints90dRelaxed": MIN_PRINTS_90D_RELAXED,
             "weightCap": WEIGHT_CAP,
             "liquidityWindowDays": LIQUIDITY_WINDOW_DAYS,
             "maxPrintGapDays": MAX_PRINT_GAP_DAYS,
@@ -659,6 +692,7 @@ def baskets_doc(picks: dict, generated: str, scanned: int, reconstituted_on: str
             "minConstituents": MIN_CONSTITUENTS,
             "scannedApparelIds": scanned,
             "conditionCode": CONDITION_PSA10,
+            "peers": PEER_SIZE_NOTES,
             "notes": picks.get("notes") or {},
         },
         "counts": counts,
@@ -828,7 +862,8 @@ def publish_all(
             "reconstitution": "Quarterly membership (Jan/Apr/Jul/Oct 1 JST); daily weight rebalance",
             "sectors": (
                 "VINTAGE pre-SM (~1996–2016: XY/BW/DP/…); MODERN SM+S (Tag Team lives here too); "
-                "CURRENT SV+MEGA. Floor 80 each. PROMO and MID/Tag Team are sibling series."
+                "CURRENT SV+MEGA. N floats from yen/print-day screens (no floor, no cap). "
+                "Composite = union of the three sectors. PROMO and MID/Tag Team are sibling series."
             ),
         },
     }
@@ -957,28 +992,75 @@ def self_test() -> None:
     fixture = load_json(TESTDATA, None)
     assert fixture and fixture.get("cards"), "missing testdata"
     cards, series = series_from_fixture_cards(fixture["cards"])
-    # Lower floors for the tiny fixture.
-    picks = select_baskets(
-        [
-            {
-                **c,
-                "lastPriceYen": (series[c["id"]]["prints"] or [[None, 0]])[-1][1],
-                "prints90": len(series[c["id"]]["prints"]),
-                "prints30": len(series[c["id"]]["prints"]),
-                "score": pokeca_score(10000, (series[c["id"]]["prints"] or [[None, 1]])[-1][1]),
-            }
-            for c in cards
-        ],
-        floor=3,
-        composite_target=10,
-        promo_target=3,
-        midera_target=3,
-    )
+    scored = [
+        {
+            **c,
+            "lastPriceYen": (series[c["id"]]["prints"] or [[None, 0]])[-1][1],
+            "prints90": len(series[c["id"]]["prints"]),
+            "prints30": len(series[c["id"]]["prints"]),
+            "score": pokeca_score(10000, (series[c["id"]]["prints"] or [[None, 1]])[-1][1]),
+        }
+        for c in cards
+    ]
+    picks = select_baskets(scored)
     assert len(picks["vintage"]) >= 3, {k: len(picks[k]) for k in SERIES_META}
     assert len(picks["modern"]) >= 3
     assert len(picks["current"]) >= 3
     assert picks["promo"], "expected promo sibling"
     assert picks["midera"], "expected midera sibling"
+    assert len(picks["composite"]) == (
+        len(picks["vintage"]) + len(picks["modern"]) + len(picks["current"])
+    )
+    assert "SECTOR_FLOOR" not in globals()
+    assert "PROMO_TARGET" not in globals()
+    assert "MIDERA_TARGET" not in globals()
+    assert "TARGET_COMPOSITE" not in globals()
+
+    def _jp(i: int, era: str, price: float, prints: int, **extra: Any) -> dict:
+        name = {
+            "vintage": 'Giratina EX SR :1ED [XY7 091/081](Expansion Pack "Bandit Ring")',
+            "modern": 'Vaporeon CHR[s8b 189/184](High Class Pack "VMAX Climax")',
+            "current": 'Charizard ex SAR [SV2a 201/165](Enhanced Expansion Pack "Pokemon Card 151")',
+        }[era]
+        return {
+            "id": f"{era}-{i}",
+            "name": name,
+            "localizedName": name.split()[0],
+            "era": era,
+            "promo": False,
+            "midera": False,
+            "lastPriceYen": price,
+            "prints90": prints,
+            "score": pokeca_score(10000, price),
+            **extra,
+        }
+
+    fat_modern = [_jp(i, "modern", 8000 + i, 8) for i in range(90)]
+    fat_picks = select_baskets(scored + fat_modern)
+    assert len(fat_picks["modern"]) == 90 + len(picks["modern"]), len(fat_picks["modern"])
+    assert len(fat_picks["modern"]) != 80
+
+    thin_v = [_jp(1, "vintage", 9000, 6), _jp(2, "vintage", 9000, 6)]
+    thin_picks = select_baskets(thin_v + scored)
+    # Fixture already has 3 vintage that pass; adding 2 more must keep all 5 — never pad to 80.
+    assert len(thin_picks["vintage"]) == len(picks["vintage"]) + 2
+    assert len(thin_picks["vintage"]) < 80
+
+    only_thin = [
+        _jp(1, "vintage", 5000, 6),
+        _jp(2, "vintage", 4000, 3),
+        _jp(3, "vintage", 4000, 3),
+        _jp(4, "vintage", 4000, 3),
+        _jp(5, "vintage", 4000, 3),
+        _jp(1, "modern", 8000, 8),
+        _jp(1, "current", 8000, 8),
+    ]
+    loosened = select_baskets(only_thin)
+    assert loosened["notes"]["loosened"].get("vintage"), loosened["notes"]
+    assert loosened["notes"]["screens"]["vintage"]["n"] == 5
+    assert len(loosened["vintage"]) == 5
+    assert len(loosened["composite"]) == 7
+
     sealed_promo = {
         "id": "202503",
         "name": "Pokemon Card Game YU NAGABA x Pokemon Card Game Eevees Promotional Pack Complete Set: PROMO [SV-P ]",
@@ -989,23 +1071,7 @@ def self_test() -> None:
         "prints90": 40,
         "score": 9e9,
     }
-    picks_sealed = select_baskets(
-        [
-            {
-                **c,
-                "lastPriceYen": (series[c["id"]]["prints"] or [[None, 0]])[-1][1],
-                "prints90": len(series[c["id"]]["prints"]),
-                "prints30": len(series[c["id"]]["prints"]),
-                "score": pokeca_score(10000, (series[c["id"]]["prints"] or [[None, 1]])[-1][1]),
-            }
-            for c in cards
-        ]
-        + [sealed_promo],
-        floor=3,
-        composite_target=10,
-        promo_target=3,
-        midera_target=3,
-    )
+    picks_sealed = select_baskets(scored + [sealed_promo])
     assert all(c["id"] != "202503" for c in picks_sealed["promo"]), "Complete Set must not enter PROMO"
     goku_promo = {
         "id": "892234",
@@ -1017,23 +1083,7 @@ def self_test() -> None:
         "prints90": 40,
         "score": 9e9,
     }
-    picks_goku = select_baskets(
-        [
-            {
-                **c,
-                "lastPriceYen": (series[c["id"]]["prints"] or [[None, 0]])[-1][1],
-                "prints90": len(series[c["id"]]["prints"]),
-                "prints30": len(series[c["id"]]["prints"]),
-                "score": pokeca_score(10000, (series[c["id"]]["prints"] or [[None, 1]])[-1][1]),
-            }
-            for c in cards
-        ]
-        + [goku_promo],
-        floor=3,
-        composite_target=10,
-        promo_target=3,
-        midera_target=3,
-    )
+    picks_goku = select_baskets(scored + [goku_promo])
     assert all(c["id"] != "892234" for c in picks_goku["promo"]), "non-Pokémon TCG must not enter PROMO"
     built = build_index(picks["composite"], series, cap=0.5, min_constituents=3, window_days=30)
     pts = built["points"]
@@ -1125,24 +1175,21 @@ def main(argv: list[str] | None = None) -> int:
         if not candidates or not series:
             print("ERROR: --reselect needs scan-cache.json and series-cache.json", file=sys.stderr)
             return 2
-        picks = select_baskets(
-            candidates,
-            floor=SECTOR_FLOOR,
-            composite_target=TARGET_COMPOSITE,
-            promo_target=PROMO_TARGET,
-            midera_target=MIDERA_TARGET,
-        )
+        picks = select_baskets(candidates)
         missing = [c for k in SERIES_META for c in picks[k] if str(c["id"]) not in series]
         if missing:
-            print(f"reselect fetching {len(missing)} missing series", file=sys.stderr)
-            _, fetched = scan_universe(
-                {int(c["apparelId"]): c for c in missing if c.get("apparelId")},
-                names_map=names_map,
-                sleep_s=args.sleep,
-                verbose=args.verbose,
-                existing_series=series,
+            uniq = {str(c["id"]): c for c in missing}
+            print(f"reselect fetching {len(uniq)} missing series", file=sys.stderr)
+            series = refresh_series(list(uniq.values()), series, sleep_s=args.sleep, verbose=args.verbose)
+        still_missing = {c["id"] for k in SERIES_META for c in picks[k] if str(c["id"]) not in series}
+        if still_missing:
+            print(
+                f"WARN: dropping {len(still_missing)} screened cards with no PSA10 series cache",
+                file=sys.stderr,
             )
-            series.update(fetched)
+            picks["notes"]["droppedMissingSeries"] = sorted(still_missing)
+            for key in SERIES_META:
+                picks[key] = [c for c in picks[key] if c["id"] not in still_missing]
         reconstituted = ymd(datetime.now(JST).date())
         uni = load_json(UNIVERSE_PATH, {})
         scanned = int(uni.get("count") or len(uni.get("ids") or []))
@@ -1163,7 +1210,7 @@ def main(argv: list[str] | None = None) -> int:
             c["prints90"] = len(prints)
             c["prints30"] = len(prints)
             c["score"] = pokeca_score(8000, float(c["lastPriceYen"] or 0))
-        picks = select_baskets(cards, floor=3, composite_target=12, promo_target=3, midera_target=3)
+        picks = select_baskets(cards)
         baskets = baskets_doc(picks, generated, scanned=len(cards), reconstituted_on=ymd(datetime.now(JST).date()))
         latest, history = publish_all(picks, series, generated=generated, source="fixture", min_constituents=3, baskets_meta=baskets)
         write_outputs(latest, history, baskets, series)
@@ -1214,18 +1261,13 @@ def main(argv: list[str] | None = None) -> int:
         if not candidates:
             print("ERROR: no PSA10 candidates", file=sys.stderr)
             return 2
-        picks = select_baskets(
-            candidates,
-            floor=SECTOR_FLOOR,
-            composite_target=TARGET_COMPOSITE,
-            promo_target=PROMO_TARGET,
-            midera_target=MIDERA_TARGET,
-        )
-        for era in ("vintage", "modern", "current"):
+        picks = select_baskets(candidates)
+        for era in ("vintage", "modern", "current", "promo", "midera"):
             n = len(picks[era])
-            if n < SECTOR_FLOOR:
+            if n < THIN_SCREEN_RELAX_BELOW:
                 print(
-                    f"WARN: {era} has {n} < floor {SECTOR_FLOOR} after discovery + relaxed threshold",
+                    f"WARN: {era} has {n} names after screens "
+                    f"(thin-relax threshold is {THIN_SCREEN_RELAX_BELOW}, not a floor)",
                     file=sys.stderr,
                 )
         keep_ids = {c["id"] for k in SERIES_META for c in picks[k]}
