@@ -1,8 +1,8 @@
 {
-  "generated": "2026-10-19T12:34:22.909388+00:00",
+  "generated": "2026-10-20T01:15:43.541076+00:00",
   "baseDate": "2024-09-28",
   "baseValue": 1000.0,
-  "source": "snkrdunk-cache",
+  "source": "snkrdunk",
   "sourceDocs": "https://snkrdunk.com/",
   "weightCap": 0.03,
   "returnClip": 0.25,
@@ -5891,7 +5891,7 @@
     {
       "date": "2026-10-03",
       "equal": 2598.61,
-      "liquidity": 2318.6,
+      "liquidity": 2318.01,
       "price": 456.03,
       "volume": 48,
       "count": 60
@@ -5899,7 +5899,7 @@
     {
       "date": "2026-10-04",
       "equal": 2603.23,
-      "liquidity": 2327.76,
+      "liquidity": 2327.17,
       "price": 458.68,
       "volume": 54,
       "count": 60
@@ -5907,7 +5907,7 @@
     {
       "date": "2026-10-05",
       "equal": 2631.25,
-      "liquidity": 2337.52,
+      "liquidity": 2336.91,
       "price": 461.05,
       "volume": 44,
       "count": 60
@@ -5915,7 +5915,7 @@
     {
       "date": "2026-10-06",
       "equal": 2653.52,
-      "liquidity": 2372.59,
+      "liquidity": 2372.0,
       "price": 470.11,
       "volume": 48,
       "count": 60
@@ -5923,7 +5923,7 @@
     {
       "date": "2026-10-07",
       "equal": 2736.23,
-      "liquidity": 2474.54,
+      "liquidity": 2474.6,
       "price": 488.73,
       "volume": 53,
       "count": 60
@@ -5931,7 +5931,7 @@
     {
       "date": "2026-10-08",
       "equal": 2905.38,
-      "liquidity": 2657.73,
+      "liquidity": 2655.16,
       "price": 523.23,
       "volume": 56,
       "count": 60
@@ -5939,7 +5939,7 @@
     {
       "date": "2026-10-09",
       "equal": 2934.63,
-      "liquidity": 2697.24,
+      "liquidity": 2693.87,
       "price": 530.71,
       "volume": 51,
       "count": 60
@@ -5947,7 +5947,7 @@
     {
       "date": "2026-10-10",
       "equal": 2970.65,
-      "liquidity": 2719.34,
+      "liquidity": 2715.19,
       "price": 535.54,
       "volume": 53,
       "count": 60
@@ -5955,7 +5955,7 @@
     {
       "date": "2026-10-11",
       "equal": 3017.22,
-      "liquidity": 2747.31,
+      "liquidity": 2741.94,
       "price": 540.37,
       "volume": 42,
       "count": 60
@@ -5963,7 +5963,7 @@
     {
       "date": "2026-10-12",
       "equal": 3037.46,
-      "liquidity": 2777.12,
+      "liquidity": 2769.51,
       "price": 546.78,
       "volume": 48,
       "count": 60
@@ -5971,7 +5971,7 @@
     {
       "date": "2026-10-13",
       "equal": 3049.42,
-      "liquidity": 2783.61,
+      "liquidity": 2776.81,
       "price": 546.73,
       "volume": 51,
       "count": 60
@@ -5979,7 +5979,7 @@
     {
       "date": "2026-10-14",
       "equal": 3024.2,
-      "liquidity": 2747.73,
+      "liquidity": 2739.14,
       "price": 540.01,
       "volume": 36,
       "count": 60
@@ -5987,7 +5987,7 @@
     {
       "date": "2026-10-15",
       "equal": 3027.19,
-      "liquidity": 2763.92,
+      "liquidity": 2754.71,
       "price": 541.08,
       "volume": 42,
       "count": 60
@@ -5995,7 +5995,7 @@
     {
       "date": "2026-10-16",
       "equal": 3017.31,
-      "liquidity": 2753.22,
+      "liquidity": 2744.64,
       "price": 539.05,
       "volume": 42,
       "count": 60
@@ -6003,7 +6003,7 @@
     {
       "date": "2026-10-17",
       "equal": 3031.48,
-      "liquidity": 2766.58,
+      "liquidity": 2758.3,
       "price": 541.32,
       "volume": 44,
       "count": 60
@@ -6011,162 +6011,170 @@
     {
       "date": "2026-10-18",
       "equal": 3030.15,
-      "liquidity": 2771.02,
+      "liquidity": 2762.15,
       "price": 542.08,
       "volume": 46,
       "count": 60
     },
     {
       "date": "2026-10-19",
-      "equal": 3021.17,
-      "liquidity": 2766.19,
-      "price": 540.77,
-      "volume": 28,
+      "equal": 3033.52,
+      "liquidity": 2764.9,
+      "price": 542.39,
+      "volume": 33,
+      "count": 60
+    },
+    {
+      "date": "2026-10-20",
+      "equal": 3011.07,
+      "liquidity": 2734.18,
+      "price": 536.34,
+      "volume": 26,
       "count": 60
     }
   ],
   "returns": {
     "equal": {
-      "asOf": "2026-10-19",
+      "asOf": "2026-10-20",
       "1D": {
         "available": true,
-        "pct": -0.3,
-        "from": "2026-10-18",
-        "to": "2026-10-19",
-        "fromIndex": 3030.15,
-        "toIndex": 3021.17,
+        "pct": -0.74,
+        "from": "2026-10-19",
+        "to": "2026-10-20",
+        "fromIndex": 3033.52,
+        "toIndex": 3011.07,
         "field": "equal"
       },
       "5D": {
         "available": true,
-        "pct": -0.1,
-        "from": "2026-10-14",
-        "to": "2026-10-19",
-        "fromIndex": 3024.2,
-        "toIndex": 3021.17,
+        "pct": -0.53,
+        "from": "2026-10-15",
+        "to": "2026-10-20",
+        "fromIndex": 3027.19,
+        "toIndex": 3011.07,
         "field": "equal"
       },
       "30D": {
         "available": true,
-        "pct": 13.49,
-        "from": "2026-09-19",
-        "to": "2026-10-19",
-        "fromIndex": 2662.11,
-        "toIndex": 3021.17,
+        "pct": 14.52,
+        "from": "2026-09-20",
+        "to": "2026-10-20",
+        "fromIndex": 2629.31,
+        "toIndex": 3011.07,
         "field": "equal"
       },
       "1Y": {
         "available": true,
-        "pct": 50.84,
-        "from": "2025-10-19",
-        "to": "2026-10-19",
-        "fromIndex": 2002.93,
-        "toIndex": 3021.17,
+        "pct": 51.78,
+        "from": "2025-10-20",
+        "to": "2026-10-20",
+        "fromIndex": 1983.86,
+        "toIndex": 3011.07,
         "field": "equal"
       },
       "YTD": {
         "available": true,
-        "pct": 52.07,
+        "pct": 51.56,
         "from": "2026-01-01",
-        "to": "2026-10-19",
+        "to": "2026-10-20",
         "fromIndex": 1986.72,
-        "toIndex": 3021.17,
+        "toIndex": 3011.07,
         "field": "equal"
       }
     },
     "liquidity": {
-      "asOf": "2026-10-19",
+      "asOf": "2026-10-20",
       "1D": {
         "available": true,
-        "pct": -0.17,
-        "from": "2026-10-18",
-        "to": "2026-10-19",
-        "fromIndex": 2771.02,
-        "toIndex": 2766.19,
+        "pct": -1.11,
+        "from": "2026-10-19",
+        "to": "2026-10-20",
+        "fromIndex": 2764.9,
+        "toIndex": 2734.18,
         "field": "liquidity"
       },
       "5D": {
         "available": true,
-        "pct": 0.67,
-        "from": "2026-10-14",
-        "to": "2026-10-19",
-        "fromIndex": 2747.73,
-        "toIndex": 2766.19,
+        "pct": -0.75,
+        "from": "2026-10-15",
+        "to": "2026-10-20",
+        "fromIndex": 2754.71,
+        "toIndex": 2734.18,
         "field": "liquidity"
       },
       "30D": {
         "available": true,
-        "pct": 15.45,
-        "from": "2026-09-19",
-        "to": "2026-10-19",
-        "fromIndex": 2396.0,
-        "toIndex": 2766.19,
+        "pct": 15.63,
+        "from": "2026-09-20",
+        "to": "2026-10-20",
+        "fromIndex": 2364.64,
+        "toIndex": 2734.18,
         "field": "liquidity"
       },
       "1Y": {
         "available": true,
-        "pct": 47.53,
-        "from": "2025-10-19",
-        "to": "2026-10-19",
-        "fromIndex": 1874.99,
-        "toIndex": 2766.19,
+        "pct": 47.17,
+        "from": "2025-10-20",
+        "to": "2026-10-20",
+        "fromIndex": 1857.84,
+        "toIndex": 2734.18,
         "field": "liquidity"
       },
       "YTD": {
         "available": true,
-        "pct": 47.03,
+        "pct": 45.33,
         "from": "2026-01-01",
-        "to": "2026-10-19",
+        "to": "2026-10-20",
         "fromIndex": 1881.39,
-        "toIndex": 2766.19,
+        "toIndex": 2734.18,
         "field": "liquidity"
       }
     },
     "price": {
-      "asOf": "2026-10-19",
+      "asOf": "2026-10-20",
       "1D": {
         "available": true,
-        "pct": -0.24,
-        "from": "2026-10-18",
-        "to": "2026-10-19",
-        "fromIndex": 542.08,
-        "toIndex": 540.77,
+        "pct": -1.12,
+        "from": "2026-10-19",
+        "to": "2026-10-20",
+        "fromIndex": 542.39,
+        "toIndex": 536.34,
         "field": "price"
       },
       "5D": {
         "available": true,
-        "pct": 0.14,
-        "from": "2026-10-14",
-        "to": "2026-10-19",
-        "fromIndex": 540.01,
-        "toIndex": 540.77,
+        "pct": -0.88,
+        "from": "2026-10-15",
+        "to": "2026-10-20",
+        "fromIndex": 541.08,
+        "toIndex": 536.34,
         "field": "price"
       },
       "30D": {
         "available": true,
-        "pct": 12.73,
-        "from": "2026-09-19",
-        "to": "2026-10-19",
-        "fromIndex": 479.71,
-        "toIndex": 540.77,
+        "pct": 13.33,
+        "from": "2026-09-20",
+        "to": "2026-10-20",
+        "fromIndex": 473.27,
+        "toIndex": 536.34,
         "field": "price"
       },
       "1Y": {
         "available": true,
-        "pct": -21.17,
-        "from": "2025-10-19",
-        "to": "2026-10-19",
-        "fromIndex": 686.03,
-        "toIndex": 540.77,
+        "pct": -21.06,
+        "from": "2025-10-20",
+        "to": "2026-10-20",
+        "fromIndex": 679.46,
+        "toIndex": 536.34,
         "field": "price"
       },
       "YTD": {
         "available": true,
-        "pct": -7.34,
+        "pct": -8.1,
         "from": "2026-01-01",
-        "to": "2026-10-19",
+        "to": "2026-10-20",
         "fromIndex": 583.6,
-        "toIndex": 540.77,
+        "toIndex": 536.34,
         "field": "price"
       }
     }
