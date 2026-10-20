@@ -12,6 +12,8 @@ Before marking **UI Ready** or merging any UI change:
 
 Preview: `python3 -m http.server 8765` then open `http://127.0.0.1:8765/` (or the GitHub Pages URL).
 
+Market pages: EN / vintage / mid-era via `.github/workflows/update-market-en.yml`; JP PSA10 chase 60 via `update-market-jp-psa10.yml`; JP PSA10 **broad benchmark** (`market-jp-psa10-bench.html`) via `update-market-jp-psa10-bench.yml` (daily weights, quarterly membership). Do not replace the chase-60 page with the benchmark.
+
 ## Weekly Chase_Fit snapshot
 
 Public page `chase-fit.html` is a **static** JSON snapshot. Market pages auto-update via `.github/workflows/update-market-en.yml`; **Chase 公允值 and Box EV do not.**
