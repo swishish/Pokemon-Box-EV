@@ -40,9 +40,33 @@
     return t.replace(/\s+/g, ' ').trim();
   }
 
+  /* SNK EN uses a lone "_" for the write-in trainer on ___'s Pikachu.
+     PSA / EN collectors write three underscores. Id keys = catalogId. */
+  var DISPLAY_OVERRIDES = {
+    '168294': "___'s Pikachu",
+    '169185': "___'s Pikachu"
+  };
+
+  function overrideKey(row) {
+    if (!row) return '';
+    return String(row.id || row.catalogId || row.apparelId || '');
+  }
+
+  function cleanMangledEn(s) {
+    var t = String(s || '').trim();
+    t = t.replace(/^[_＿]+[’']s\s+/i, "___'s ");
+    t = t.replace(/^[_＿]+の/, "___'s ");
+    t = t.replace(/\s*:\s*Old Back\s*\/\s*PROMO\s*$/i, '');
+    t = t.replace(/\s*:\s*旧裏\s*\/\s*プロモ\s*$/, '');
+    if (/^___'s Pikachu\s*:\s*PROMO$/i.test(t)) t = "___'s Pikachu";
+    return t.replace(/\s+/g, ' ').trim();
+  }
+
   function cardLabel(row, lookup) {
     var src = row || {};
     var extra = lookup && src.id != null ? lookup[String(src.id)] : null;
+    var override = DISPLAY_OVERRIDES[overrideKey(src)] || (extra && DISPLAY_OVERRIDES[overrideKey(extra)]);
+    if (override) return override;
     var candidates = [
       extra && extra.name,
       src.name,
@@ -67,7 +91,7 @@
         }
       }
     }
-    return stripDecor(chosen) || String((src && src.id) || '');
+    return cleanMangledEn(stripDecor(chosen)) || String((src && src.id) || '');
   }
 
   function defaultVisible(ids) {
@@ -181,6 +205,7 @@
   global.JpPsa10Ui = {
     looksLatinName: looksLatinName,
     stripDecor: stripDecor,
+    cleanMangledEn: cleanMangledEn,
     cardLabel: cardLabel,
     defaultVisible: defaultVisible,
     syncLegendButtons: syncLegendButtons,

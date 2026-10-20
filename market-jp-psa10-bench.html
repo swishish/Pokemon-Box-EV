@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>日版 PSA10 基準 · Box EV v1.30.1</title>
+<title>日版 PSA10 基準 · Box EV v1.30.2</title>
 <meta name="description" content="日版寶可夢 TCG PSA10 廣度基準：復古／中世代／現行每區 ≥80，另加特典與 Tag Team 姊妹籃子。等權／流動性／價格／無 cap 疊加。靜態快照，非正式投資建議。" />
 <meta property="og:site_name" content="日盒開盒值不值？" />
 <meta property="og:title" content="日版 PSA10 基準 · 復古／中世代／現行" />
@@ -436,7 +436,7 @@
 <header>
   <div class="header-inner">
     <div class="header-top">
-      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.30.1</span></h1>
+      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.30.2</span></h1>
       <nav class="header-nav" aria-label="站內導覽">
         <a class="nav-btn" href="./calc.html">開盒 EV</a>
         <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
@@ -564,7 +564,7 @@
       <li><b>平行姊妹籃子</b>：<b>特典 PROMO</b>（灰氈帽／Felt Hat、Munch／Picasso／長場、Mario／Luigi／poncho 皮卡丘、Extra Battle Day 等流動日版特典）；<b>Tag Team / MID</b>＝SM8b–SM12a／SMM 溫度計，即使 MODERN 已覆蓋 SM／S 都單獨顯示，避免中世代隱形。</li>
       <li><b>四條權重（Gary 順序）</b>：1 等權 1/n（算術，唔係 Pokeca Jevons）；2 流動性（前一日 30 日 SNK 成交日圓，3% cap）；3 價格（滯後市值，3% cap）；4 價格無 cap 只係疊加，<b>唔改</b>前三條。籃子細到 1/n ≥ 3% 時 cap 做唔到。圖預設只開等權＋流動性；價格／無 cap 可手動打開。</li>
       <li><b>廣度</b>：跟圖表期間（1D／5D／30D／1Y／YTD／All／自訂）。各成分用同一條 LOCF 刊價，比該段第一個指數日同最後一日（上漲／持平／下跌）。成交量柱仍只計當日有刊價張數。</li>
-      <li><b>英文卡名</b>：籃子／漲跌榜顯示 SNKRDUNK EN 產品名（資料裡的 <code>name</code>）。日文 <code>localizedName</code> 同繁中名只作後備，唔發明譯名。</li>
+      <li><b>英文卡名</b>：籃子／漲跌榜顯示 SNKRDUNK EN 產品名（資料裡的 <code>name</code>）。日文 <code>localizedName</code> 同繁中名只作後備。SNK 把寫入訓練家空白顯示成 <code>_’s</code> 時，畫面改成 PSA 寫法 <code>___'s Pikachu</code>，唔發明其他譯名。</li>
       <li><b>每日 vs 季度</b>：權重<b>每日</b>用前一日流動性／滯後價重算。成分<b>季度重組</b>（1 月／4 月／7 月／10 月 1 日 JST；GitHub Action ＋ <code>--rebuild-baskets --confirm REBUILD</code>）。每日 job 唔改名單。</li>
       <li><b>基準 1,000</b>：第一個有足夠成分（≥40 張有價，或籃子一半）的東京曆日。期間掣只放大圖，唔重設 1,000。缺日 LOCF、<b>唔補 ¥0</b>。刊價缺口 &gt; 14 日＝重入（當日報酬 0）；其餘 ±25% winsorize。</li>
       <li><b>來源</b>：公開 <a href="https://snkrdunk.com/" target="_blank" rel="noopener">SNKRDUNK</a> JP <code>trading-history?condition_code=trading_card_single_psa10</code>（只讀）。繁中名只用 <code>data/names_zh.json</code> official 種名，唔發明。EN／CN／KR 外文印刷同 Complete Set／全種套裝唔入單卡籃。Grey Felt Hat 常見 SNK 條目係 SVP EN，所以特典籃未必有佢；Mario／Munch／長場單卡按成交入選，唔人手塞名。</li>
@@ -578,13 +578,13 @@
 </main>
 <footer>日盒 EV 小算盤 · JP PSA10 基準 · Snapshot 靜態資料 · 非正式投資建議 · 來源 <a href="https://snkrdunk.com/" target="_blank" rel="noopener">SNKRDUNK</a> · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10.html">JP PSA10</a></footer>
 
-<script src="./js/spark-tip.js?v=1.30.1"></script>
-<script src="./js/jp-psa10-ui.js?v=1.30.1"></script>
-<script src="./data/market-jp-psa10-bench/latest.js?v=1.30.1"></script>
-<script src="./data/market-jp-psa10-bench/history.js?v=1.30.1"></script>
+<script src="./js/spark-tip.js?v=1.30.2"></script>
+<script src="./js/jp-psa10-ui.js?v=1.30.2"></script>
+<script src="./data/market-jp-psa10-bench/latest.js?v=1.30.2"></script>
+<script src="./data/market-jp-psa10-bench/history.js?v=1.30.2"></script>
 <script>
 (async function () {
-  const VERSION = '1.30.1';
+  const VERSION = '1.30.2';
   const ORDER = ['composite', 'vintage', 'modern', 'current', 'promo', 'midera'];
   const SERIES = {
     equal: { id: 'equal', name: '等權', color: '#141414' },
