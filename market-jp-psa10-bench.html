@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>日版 PSA10 基準 · Box EV v1.30.2</title>
+<title>日版 PSA10 基準 · Box EV v1.30.3</title>
 <meta name="description" content="日版寶可夢 TCG PSA10 廣度基準：復古／中世代／現行每區 ≥80，另加特典與 Tag Team 姊妹籃子。等權／流動性／價格／無 cap 疊加。靜態快照，非正式投資建議。" />
 <meta property="og:site_name" content="日盒開盒值不值？" />
 <meta property="og:title" content="日版 PSA10 基準 · 復古／中世代／現行" />
@@ -324,11 +324,19 @@
     padding: 10px 12px;
     cursor: pointer;
     min-width: 0;
+    min-height: 44px;
   }
   .series-tab:hover { background: var(--bg-2); }
   .series-tab.is-active {
     background: var(--accent-fill);
     box-shadow: var(--shadow-sm);
+  }
+  .series-tab .lvl-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 2px 8px;
+    margin-top: 1px;
   }
   .series-tab .lvl {
     font-size: 1.2rem;
@@ -337,6 +345,17 @@
     letter-spacing: -0.03em;
     line-height: 1.15;
   }
+  .series-tab .tab-chg {
+    font-size: .82rem;
+    font-weight: 750;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+    line-height: 1.2;
+  }
+  .series-tab .tab-chg.good { color: var(--good); }
+  .series-tab .tab-chg.bad { color: var(--bad); }
+  .series-tab .tab-chg.muted { color: var(--muted); font-weight: 650; }
   .series-tab .sub { font-size: .72rem; color: var(--muted); margin-top: 2px; }
   .kind-note {
     margin: 0 0 10px;
@@ -427,8 +446,12 @@
     .name-cell { min-width: 8rem; }
     .table-wrap table { min-width: 32rem; }
     .movers .table-wrap table { min-width: 18rem; }
-    .series-tabs { grid-template-columns: 1fr 1fr; }
-    .series-tab .lvl { font-size: 1.05rem; }
+    .series-tabs { grid-template-columns: 1fr 1fr; gap: 4px; margin-bottom: 8px; }
+    .series-tab { padding: 7px 8px; }
+    .series-tab .kicker { font-size: .68rem; }
+    .series-tab .lvl { font-size: 1rem; }
+    .series-tab .tab-chg { font-size: .72rem; }
+    .series-tab .sub { font-size: .65rem; margin-top: 1px; }
   }
 </style>
 </head>
@@ -436,7 +459,7 @@
 <header>
   <div class="header-inner">
     <div class="header-top">
-      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.30.2</span></h1>
+      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.30.3</span></h1>
       <nav class="header-nav" aria-label="站內導覽">
         <a class="nav-btn" href="./calc.html">開盒 EV</a>
         <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
@@ -469,10 +492,10 @@
         <button type="button" class="legend-btn is-off" data-series="priceNoCap" aria-pressed="false"><span class="swatch long" style="color:var(--pxn)"></span>價格·無 cap</button>
       </div>
       <div class="period-btns" role="tablist" aria-label="Return period">
-        <button type="button" class="period-btn is-active" data-period="1D" aria-selected="true">1D</button>
+        <button type="button" class="period-btn" data-period="1D" aria-selected="false">1D</button>
         <button type="button" class="period-btn" data-period="5D" disabled aria-selected="false">5D</button>
         <button type="button" class="period-btn" data-period="30D" disabled aria-selected="false">30D</button>
-        <button type="button" class="period-btn" data-period="1Y" disabled aria-selected="false">1Y</button>
+        <button type="button" class="period-btn is-active" data-period="1Y" aria-selected="true">1Y</button>
         <button type="button" class="period-btn" data-period="YTD" disabled aria-selected="false">YTD</button>
         <button type="button" class="period-btn" data-period="ALL" disabled aria-selected="false" title="全部已有日期">All</button>
       </div>
@@ -578,13 +601,13 @@
 </main>
 <footer>日盒 EV 小算盤 · JP PSA10 基準 · Snapshot 靜態資料 · 非正式投資建議 · 來源 <a href="https://snkrdunk.com/" target="_blank" rel="noopener">SNKRDUNK</a> · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10.html">JP PSA10</a></footer>
 
-<script src="./js/spark-tip.js?v=1.30.2"></script>
-<script src="./js/jp-psa10-ui.js?v=1.30.2"></script>
-<script src="./data/market-jp-psa10-bench/latest.js?v=1.30.2"></script>
-<script src="./data/market-jp-psa10-bench/history.js?v=1.30.2"></script>
+<script src="./js/spark-tip.js?v=1.30.3"></script>
+<script src="./js/jp-psa10-ui.js?v=1.30.3"></script>
+<script src="./data/market-jp-psa10-bench/latest.js?v=1.30.3"></script>
+<script src="./data/market-jp-psa10-bench/history.js?v=1.30.3"></script>
 <script>
 (async function () {
-  const VERSION = '1.30.2';
+  const VERSION = '1.30.3';
   const ORDER = ['composite', 'vintage', 'modern', 'current', 'promo', 'midera'];
   const SERIES = {
     equal: { id: 'equal', name: '等權', color: '#141414' },
@@ -709,7 +732,8 @@
     return (HIST.series && HIST.series[key]) || { points: [], returns: {} };
   }
 
-  const periodState = { period: '1D', customFrom: '', customTo: '' };
+  const DEFAULT_PERIOD = (window.JpPsa10Ui && JpPsa10Ui.DEFAULT_PERIOD) || '1Y';
+  const periodState = { period: DEFAULT_PERIOD, customFrom: '', customTo: '' };
   let printsById = null;
   let printsLoading = false;
   let printsFailed = false;
@@ -732,8 +756,8 @@
     dt.setDate(dt.getDate() + days);
     return ymdLocal(dt);
   }
-  function pointsOf() {
-    return ((histBlob(activeKey).points) || []).filter((p) => p && p.date).sort((a, b) => String(a.date).localeCompare(String(b.date)));
+  function pointsOf(key) {
+    return ((histBlob(key || activeKey).points) || []).filter((p) => p && p.date).sort((a, b) => String(a.date).localeCompare(String(b.date)));
   }
   function computePeriodReturns(field, pts) {
     const last = pts.length ? pts[pts.length - 1] : null;
@@ -756,15 +780,16 @@
       'YTD': vsCutoff(0, true)
     };
   }
-  function RETURNS() {
-    const pts = pointsOf();
-    const server = histBlob(activeKey).returns || {};
+  function RETURNS(key) {
+    const k = key || activeKey;
+    const pts = pointsOf(k);
+    const server = histBlob(k).returns || {};
     const out = {};
     WEIGHT_IDS.forEach((id) => { out[id] = server[id] || computePeriodReturns(id, pts); });
     return out;
   }
-  function returnFor(field, period) {
-    const pts = pointsOf();
+  function returnFor(field, period, key) {
+    const pts = pointsOf(key);
     if (period === 'ALL') {
       if (pts.length < 2) return { available: false, pct: null };
       return packReturn(pts[0], pts[pts.length - 1], field);
@@ -775,7 +800,7 @@
       if (windowPts.length < 2) return { available: false, pct: null, from: from, to: to };
       return packReturn(windowPts[0], windowPts[windowPts.length - 1], field);
     }
-    const R = RETURNS();
+    const R = RETURNS(key);
     return (R[field] && R[field][period]) || { available: false, pct: null };
   }
   function ensurePrints() {
@@ -998,23 +1023,50 @@
 
   function renderTabs() {
     const host = $('seriesTabs');
+    const period = periodState.period;
     host.innerHTML = ORDER.filter((k) => seriesBlob(k)).map((k) => {
       const b = seriesBlob(k);
       const eq = (b.indexes && b.indexes.equal) || {};
       const on = k === activeKey;
+      const ret = returnFor('equal', period, k);
+      const pct = (ret && ret.available) ? fmtPct(ret.pct, true) : '—';
+      const pctCls = (ret && ret.available) ? chgClass(ret.pct) : 'muted';
+      const name = b.labelZh || k;
       return '<button type="button" class="series-tab' + (on ? ' is-active' : '') +
-        '" data-key="' + k + '" role="tab" aria-selected="' + (on ? 'true' : 'false') + '">' +
-        '<div class="kicker">' + escapeHtml(b.labelZh || k) + '</div>' +
-        '<div class="lvl">' + fmtIdx(eq.index) + '</div>' +
+        '" data-key="' + k + '" role="tab" aria-selected="' + (on ? 'true' : 'false') +
+        '" aria-label="' + escapeHtml(name) + ' ' + fmtIdx(eq.index) + ' ' + pct + '">' +
+        '<div class="kicker">' + escapeHtml(name) + '</div>' +
+        '<div class="lvl-row"><span class="lvl">' + fmtIdx(eq.index) + '</span>' +
+        '<span class="tab-chg ' + pctCls + '">' + pct + '</span></div>' +
         '<div class="sub">' + (b.constituentCount || 0) + ' 張 · ' + escapeHtml(b.labelEn || k) + '</div></button>';
     }).join('');
+  }
+
+  function syncPeriodBtns() {
+    if (window.JpPsa10Ui && JpPsa10Ui.syncPeriodButtons) {
+      JpPsa10Ui.syncPeriodButtons(document, periodState.period);
+      return;
+    }
+    document.querySelectorAll('.period-btns .period-btn[data-period]').forEach((b) => {
+      const on = b.getAttribute('data-period') === periodState.period;
+      b.classList.toggle('is-active', on);
+      b.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
   }
 
   function paint() {
     renderTabs();
     enablePeriods();
+    syncPeriodBtns();
     renderHero();
     renderBasket();
+    drawChart();
+  }
+
+  function paintTenor() {
+    syncPeriodBtns();
+    renderTabs();
+    renderHero();
     drawChart();
   }
 
@@ -1035,13 +1087,7 @@
     btn.addEventListener('click', () => {
       if (btn.disabled) return;
       periodState.period = btn.getAttribute('data-period');
-      document.querySelectorAll('.period-btns .period-btn[data-period]').forEach((b) => {
-        const on = b === btn;
-        b.classList.toggle('is-active', on);
-        b.setAttribute('aria-selected', on ? 'true' : 'false');
-      });
-      renderHero();
-      drawChart();
+      paintTenor();
     });
   });
   $('rangeForm').addEventListener('submit', (e) => {
@@ -1049,12 +1095,7 @@
     periodState.customFrom = $('rangeFrom').value;
     periodState.customTo = $('rangeTo').value;
     periodState.period = 'CUSTOM';
-    document.querySelectorAll('.period-btns .period-btn[data-period]').forEach((b) => {
-      b.classList.remove('is-active');
-      b.setAttribute('aria-selected', 'false');
-    });
-    renderHero();
-    drawChart();
+    paintTenor();
   });
   document.querySelectorAll('.legend-btn').forEach((btn) => {
     btn.addEventListener('click', () => {

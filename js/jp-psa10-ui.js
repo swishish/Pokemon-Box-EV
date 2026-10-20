@@ -2,6 +2,8 @@
 (function (global) {
   'use strict';
 
+  var DEFAULT_PERIOD = '1Y';
+
   var CJK = /[\u3040-\u30ff\u3400-\u9fff]/g;
   var LATIN = /[A-Za-z]/g;
 
@@ -114,6 +116,16 @@
     });
   }
 
+  function syncPeriodButtons(root, period) {
+    var host = root || (typeof document !== 'undefined' ? document : null);
+    if (!host || !host.querySelectorAll) return;
+    host.querySelectorAll('.period-btns .period-btn[data-period]').forEach(function (btn) {
+      var on = btn.getAttribute('data-period') === period;
+      btn.classList.toggle('is-active', on);
+      btn.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+  }
+
   function printsFromCache(cache) {
     var out = {};
     if (!cache || typeof cache !== 'object') return out;
@@ -191,7 +203,7 @@
     if (period === 'ALL') {
       return from && to ? ('All · ' + from + ' → ' + to) : 'All';
     }
-    return period || '1D';
+    return period || DEFAULT_PERIOD;
   }
 
   function breadthNote(period, from, to, br) {
@@ -203,12 +215,14 @@
   }
 
   global.JpPsa10Ui = {
+    DEFAULT_PERIOD: DEFAULT_PERIOD,
     looksLatinName: looksLatinName,
     stripDecor: stripDecor,
     cleanMangledEn: cleanMangledEn,
     cardLabel: cardLabel,
     defaultVisible: defaultVisible,
     syncLegendButtons: syncLegendButtons,
+    syncPeriodButtons: syncPeriodButtons,
     printsFromCache: printsFromCache,
     locfAt: locfAt,
     breadthFromPrints: breadthFromPrints,

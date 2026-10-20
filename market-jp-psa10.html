@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>日版 PSA10 指數 · Box EV v1.30.2</title>
+<title>日版 PSA10 指數 · Box EV v1.30.3</title>
 <meta name="description" content="日版寶可夢 TCG PSA10 市況指數：等權、流動性加權、價格加權，另加 SNKRDUNK 成交量柱。靜態快照，非正式投資建議。" />
 <meta property="og:site_name" content="日盒開盒值不值？" />
 <meta property="og:title" content="日版 PSA10 指數 · 等權／流動性／市值" />
@@ -394,7 +394,7 @@
 <header>
   <div class="header-inner">
     <div class="header-top">
-      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.30.2</span></h1>
+      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.30.3</span></h1>
       <nav class="header-nav" aria-label="站內導覽">
         <a class="nav-btn" href="./calc.html">開盒 EV</a>
         <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
@@ -424,10 +424,10 @@
         <button type="button" class="legend-btn is-off" data-series="price" aria-pressed="false"><span class="swatch dash" style="color:var(--px)"></span>價格 Price</button>
       </div>
       <div class="period-btns" role="tablist" aria-label="Return period">
-        <button type="button" class="period-btn is-active" data-period="1D" aria-selected="true">1D</button>
+        <button type="button" class="period-btn" data-period="1D" aria-selected="false">1D</button>
         <button type="button" class="period-btn" data-period="5D" disabled aria-selected="false">5D</button>
         <button type="button" class="period-btn" data-period="30D" disabled aria-selected="false">30D</button>
-        <button type="button" class="period-btn" data-period="1Y" disabled aria-selected="false">1Y</button>
+        <button type="button" class="period-btn is-active" data-period="1Y" aria-selected="true">1Y</button>
         <button type="button" class="period-btn" data-period="YTD" disabled aria-selected="false">YTD</button>
         <button type="button" class="period-btn" data-period="ALL" disabled aria-selected="false" title="全部已有日期">All</button>
       </div>
@@ -532,13 +532,13 @@
 </main>
 <footer>日盒 EV 小算盤 · JP PSA10 chase 60 · Snapshot 靜態資料 · 非正式投資建議 · 來源 <a href="https://snkrdunk.com/" target="_blank" rel="noopener">SNKRDUNK</a> · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10-bench.html">JP 基準</a></footer>
 
-<script src="./js/spark-tip.js?v=1.30.2"></script>
-<script src="./js/jp-psa10-ui.js?v=1.30.2"></script>
-<script src="./data/market-jp-psa10/latest.js?v=1.30.2"></script>
-<script src="./data/market-jp-psa10/history.js?v=1.30.2"></script>
+<script src="./js/spark-tip.js?v=1.30.3"></script>
+<script src="./js/jp-psa10-ui.js?v=1.30.3"></script>
+<script src="./data/market-jp-psa10/latest.js?v=1.30.3"></script>
+<script src="./data/market-jp-psa10/history.js?v=1.30.3"></script>
 <script>
 (async function () {
-  const VERSION = '1.30.2';
+  const VERSION = '1.30.3';
   const SERIES = {
     equal: { id: 'equal', name: '等權', color: '#141414' },
     liquidity: { id: 'liquidity', name: '流動性', color: '#3d6fd9', dash: '6 4' },
@@ -708,7 +708,8 @@
     price: serverRets.price || computePeriodReturns('price')
   };
 
-  const periodState = { period: '1D', customFrom: '', customTo: '' };
+  const DEFAULT_PERIOD = (window.JpPsa10Ui && JpPsa10Ui.DEFAULT_PERIOD) || '1Y';
+  const periodState = { period: DEFAULT_PERIOD, customFrom: '', customTo: '' };
   let printsById = null;
   let printsLoading = false;
   let printsFailed = false;
@@ -887,15 +888,22 @@
     }
   }
 
+  function syncPeriodBtns() {
+    if (window.JpPsa10Ui && JpPsa10Ui.syncPeriodButtons) {
+      JpPsa10Ui.syncPeriodButtons(document, periodState.period);
+      return;
+    }
+    document.querySelectorAll('.period-btns .period-btn[data-period]').forEach((b) => {
+      const on = b.getAttribute('data-period') === periodState.period;
+      b.classList.toggle('is-active', on);
+      b.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+  }
   document.querySelectorAll('.period-btns .period-btn[data-period]').forEach((btn) => {
     btn.addEventListener('click', () => {
       if (btn.disabled) return;
       periodState.period = btn.getAttribute('data-period');
-      document.querySelectorAll('.period-btns .period-btn[data-period]').forEach((b) => {
-        const on = b === btn;
-        b.classList.toggle('is-active', on);
-        b.setAttribute('aria-selected', on ? 'true' : 'false');
-      });
+      syncPeriodBtns();
       renderHero();
       drawChart();
     });
@@ -905,10 +913,7 @@
     periodState.customFrom = $('rangeFrom').value;
     periodState.customTo = $('rangeTo').value;
     periodState.period = 'CUSTOM';
-    document.querySelectorAll('.period-btns .period-btn[data-period]').forEach((b) => {
-      b.classList.remove('is-active');
-      b.setAttribute('aria-selected', 'false');
-    });
+    syncPeriodBtns();
     renderHero();
     drawChart();
   });
@@ -967,6 +972,7 @@
 
   if (window.JpPsa10Ui && JpPsa10Ui.syncLegendButtons) JpPsa10Ui.syncLegendButtons(document, visible);
   enablePeriods();
+  syncPeriodBtns();
   renderHero();
   drawChart();
   ensurePrints();
