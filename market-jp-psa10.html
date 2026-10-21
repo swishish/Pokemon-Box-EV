@@ -6,14 +6,14 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>日版 PSA10 指數 · v1.30.6</title>
+<title>日版 PSA10 指數 · v1.31.6</title>
 <meta name="description" content="日版寶可夢 TCG PSA10 市況指數：等權、流動性加權、價格加權，另加 SNKRDUNK 成交量柱。靜態快照，非正式投資建議。" />
 <meta property="og:site_name" content="日版 PSA10 指數" />
 <meta property="og:title" content="日版 PSA10 指數 · 等權／流動性／市值" />
 <meta property="og:description" content="同一籃子三條 SNKRDUNK JP PSA10 指數，下方成交量柱。靜態快照，非正式投資建議。" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://swishish.github.io/Pokemon-Box-EV/market-jp-psa10.html" />
-<meta property="og:image" content="https://swishish.github.io/Pokemon-Box-EV/og-psa10.png?v=1.30.6" />
+<meta property="og:image" content="https://swishish.github.io/Pokemon-Box-EV/og-psa10.png?v=1.31.6" />
 <meta property="og:image:alt" content="日版 PSA10 指數 · 等權／流動性／市值" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
@@ -21,7 +21,7 @@
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="日版 PSA10 指數 · 等權／流動性／市值" />
 <meta name="twitter:description" content="等權／流動性／價格加權三條線 + 成交量。非正式投資建議。" />
-<meta name="twitter:image" content="https://swishish.github.io/Pokemon-Box-EV/og-psa10.png?v=1.30.6" />
+<meta name="twitter:image" content="https://swishish.github.io/Pokemon-Box-EV/og-psa10.png?v=1.31.6" />
 <meta name="twitter:image:alt" content="日版 PSA10 指數 · 等權／流動性／市值" />
 <link rel="canonical" href="https://swishish.github.io/Pokemon-Box-EV/market-jp-psa10.html" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
@@ -354,8 +354,7 @@
     overflow-x: auto;
     overflow-y: hidden;
     overscroll-behavior-x: contain;
-    -webkit-overflow-scrolling: touch;
-    touch-action: pan-x pinch-zoom;
+    touch-action: pan-x pan-y pinch-zoom;
   }
   .table-wrap table { width: 100%; min-width: 36rem; }
   .movers .table-wrap table { min-width: 22rem; }
@@ -396,7 +395,7 @@
 <header>
   <div class="header-inner">
     <div class="header-top">
-      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.30.6</span></h1>
+      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.31.6</span></h1>
       <nav class="header-nav" aria-label="站內導覽">
         <a class="nav-btn" href="./calc.html">開盒 EV</a>
         <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
@@ -494,14 +493,15 @@
   <div class="card">
     <h2>成分籃子 Basket <span class="pill" id="basketCountPill"></span></h2>
     <p class="tiny" style="margin:0 0 6px">凍結流動日版 PSA10（最低價＋最低刊價日數）。權重％已套 3% 上限。點名稱開啟 SNKRDUNK 產品頁（僅供瀏覽，請勿在此購買）。</p>
-    <div class="table-wrap">
+    <p class="tiny" id="basketFxNote" style="margin:0 0 6px">PSA10 刊價以港元顯示。資料仍為 SNKRDUNK 日圓成交圖價；換算 HK$＝¥÷20.3（與開盒 EV 同一固定顯示匯率，非正式即時牌價）。</p>
+    <div class="table-wrap basket-table-wrap">
       <table>
         <thead>
           <tr>
             <th>#</th>
             <th></th>
             <th>卡</th>
-            <th class="num">¥ PSA10</th>
+            <th class="num">HK$ PSA10</th>
             <th class="num">等權%</th>
             <th class="num">流動%</th>
             <th class="num">價格%</th>
@@ -535,13 +535,13 @@
 </main>
 <footer>日盒 EV 小算盤 · JP PSA10 chase 60 · Snapshot 靜態資料 · 非正式投資建議 · 來源 <a href="https://snkrdunk.com/" target="_blank" rel="noopener">SNKRDUNK</a> · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10-bench.html">JP 基準</a> · <a href="./market-base-psa-pop.html">Base POP</a></footer>
 
-<script src="./js/spark-tip.js?v=1.30.6"></script>
-<script src="./js/jp-psa10-ui.js?v=1.30.6"></script>
-<script src="./data/market-jp-psa10/latest.js?v=1.30.6"></script>
-<script src="./data/market-jp-psa10/history.js?v=1.30.6"></script>
+<script src="./js/spark-tip.js?v=1.31.6"></script>
+<script src="./js/jp-psa10-ui.js?v=1.31.6"></script>
+<script src="./data/market-jp-psa10/latest.js?v=1.31.6"></script>
+<script src="./data/market-jp-psa10/history.js?v=1.31.6"></script>
 <script>
 (async function () {
-  const VERSION = '1.30.6';
+  const VERSION = '1.31.6';
   const SERIES = {
     equal: { id: 'equal', name: '等權', color: '#141414' },
     liquidity: { id: 'liquidity', name: '流動性', color: '#3d6fd9', dash: '6 4' },
@@ -552,6 +552,9 @@
     ? JpPsa10Ui.defaultVisible(WEIGHT_IDS)
     : { equal: true, liquidity: true, price: false };
   const $ = (id) => document.getElementById(id);
+  if (window.JpPsa10Ui && typeof JpPsa10Ui.bindTablePageScroll === 'function') {
+    JpPsa10Ui.bindTablePageScroll(document);
+  }
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, (ch) => ({
       '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
@@ -627,6 +630,13 @@
   function fmtYen(n) {
     if (n == null || Number.isNaN(Number(n))) return '—';
     return '¥' + Math.round(Number(n)).toLocaleString('en-US');
+  }
+  function fmtHkdFromYen(n) {
+    if (window.JpPsa10Ui && typeof JpPsa10Ui.fmtHkdFromYen === 'function') {
+      return JpPsa10Ui.fmtHkdFromYen(n);
+    }
+    if (n == null || Number.isNaN(Number(n))) return '—';
+    return 'HK$' + Math.round(Number(n) / 20.3).toLocaleString('en-US');
   }
   function fmtIdx(n) {
     if (n == null || Number.isNaN(Number(n))) return '—';
@@ -966,7 +976,7 @@
     const href = row.url ? '<a href="' + escapeHtml(row.url) + '" target="_blank" rel="noopener">' + name + '</a>' : name;
     return '<tr><td class="num">' + (i + 1) + '</td><td>' + img + '</td><td class="name-cell">' + href +
       (row.setName ? '<div class="tiny">' + escapeHtml(row.setName) + '</div>' : '') +
-      '</td><td class="num">' + fmtYen(row.price) + '</td><td class="num">' +
+      '</td><td class="num">' + fmtHkdFromYen(row.price) + '</td><td class="num">' +
       (row.equalWeight != null ? Number(row.equalWeight).toFixed(2) : '—') +
       '</td><td class="num">' + (row.liquidityWeight != null ? Number(row.liquidityWeight).toFixed(2) : '—') +
       '</td><td class="num">' + (row.priceWeight != null ? Number(row.priceWeight).toFixed(2) : '—') +
