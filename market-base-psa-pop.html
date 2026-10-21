@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>Base Set PSA POP · 1st / Unlimited / Base Set 2 · Box EV v1.31.5</title>
+<title>Base Set PSA POP · 1st / Unlimited / Base Set 2 · Box EV v1.31.6</title>
 <meta name="description" content="英文 Base Set #1–102：比較 1st Edition、Unlimited、Base Set 2 的 PSA＋CGC POP。預設合計；可分開兩家公司。靜態快照，非正式投資建議。" />
 <meta property="og:site_name" content="日盒開盒值不值？" />
 <meta property="og:title" content="Base Set PSA POP · 1st / Unlimited / Base Set 2" />
@@ -321,8 +321,7 @@
     overflow-x: auto;
     overflow-y: hidden;
     overscroll-behavior-x: contain;
-    -webkit-overflow-scrolling: touch;
-    touch-action: pan-x pinch-zoom;
+    touch-action: pan-x pan-y pinch-zoom;
   }
   table { width: max-content; max-width: 100%; border-collapse: collapse; font-size: .86rem; overflow-wrap: break-word; }
   th, td { text-align: left; padding: 7px 6px; border-bottom: 1px solid var(--line); vertical-align: middle; }
@@ -336,6 +335,7 @@
   }
   .print-head { text-align: center; }
   .print-head a { color: inherit; font-weight: 800; }
+  .print-raw a { font-weight: 700; color: var(--muted); text-decoration: underline; text-underline-offset: 2px; }
   .grade-col { width: 3.4rem; font-weight: 800; }
   tr.is-gem td { background: #fff8d6; font-weight: 750; }
   tr.is-total td {
@@ -391,6 +391,21 @@
   }
   td.co-stack .co-pop { display: block; font-weight: 750; }
   td.co-stack .co-pct { display: block; color: var(--muted); font-size: .9em; }
+  .pc-px {
+    display: block;
+    font-size: .62rem;
+    font-weight: 700;
+    color: var(--muted);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+  .print-raw {
+    display: block;
+    font-size: .62rem;
+    font-weight: 700;
+    color: var(--muted);
+    margin-top: 2px;
+  }
   .data-freshness { margin: 0 0 8px; padding: 0; font-size: .72rem; line-height: 1.4; color: var(--muted); }
   .data-freshness.stale {
     margin: 0 0 8px; padding: 8px 12px; border-radius: 8px;
@@ -431,7 +446,7 @@
 <header>
   <div class="header-inner">
     <div class="header-top">
-      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.31.5</span></h1>
+      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.31.6</span></h1>
       <nav class="header-nav" aria-label="站內導覽">
         <a class="nav-btn" href="./calc.html">開盒 EV</a>
         <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
@@ -505,7 +520,8 @@
       <li><b>手機表</b>同一張表並列 <b>1st Edition</b> 與 <b>Unlimited</b>。桌面另列 Base Set 2（無對應則為「—」）。</li>
       <li><b>編號對照</b>：Base Set 2 重編部分卡號（例如 Venusaur Base #15 → Base Set 2 #18）。Machamp #8 僅有 1st Edition 頁，Unlimited／Base Set 2 為「—」。變體（error、Red Cheeks 等）不列入。</li>
       <li><b>來源厚薄不一</b>：部分 Unlimited 頁在 PriceCharting 上 POP 極少，本站照實顯示、不補數。請以各欄連到的 POP 頁為準。</li>
-      <li><b>來源</b>：公開 <a href="https://www.pricecharting.com/" target="_blank" rel="noopener">PriceCharting</a> POP 頁（PSA、CGC；對方約每月更新）。本站以 GitHub Actions 每週抓取並寫入靜態 JSON。解析失敗會讓週更作業失敗，<b>不會</b>填入臆造 POP。</li>
+      <li><b>PriceCharting 指示價</b>：同一印刷版的公開 game 頁欄位，不是 POP 表、也不是即時成交。對照：Ungraded（used）＝raw；Grade 7（complete）；Grade 8（new）；Grade 9（graded）；PSA 10（manual_only）。缺欄顯示「—」，不臆造。畫面以港元顯示（USD × 7.80，與開盒 EV／Chase 同一固定匯率）。</li>
+      <li><b>來源</b>：公開 <a href="https://www.pricecharting.com/" target="_blank" rel="noopener">PriceCharting</a> POP 頁（PSA、CGC；對方約每月更新）與同一 slug 的 game 頁指示價。本站以 GitHub Actions 每週抓取並寫入靜態 JSON。解析失敗會讓週更作業失敗，<b>不會</b>填入臆造 POP；指示價缺漏則保留上次或留空。</li>
     </ul>
   </section>
 
@@ -516,10 +532,12 @@
 </main>
 <footer>日盒 EV 小算盤 · Base Set PSA POP · Snapshot 靜態資料 · 非正式投資建議 · 來源 <a href="https://www.pricecharting.com/" target="_blank" rel="noopener">PriceCharting</a> · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10.html">JP PSA10</a> · <a href="./market-jp-psa10-bench.html">JP 基準</a></footer>
 
-<script src="./data/base-psa-pop/latest.js?v=1.31.5"></script>
+<script src="./js/jp-psa10-ui.js?v=1.31.6"></script>
+<script src="./data/base-psa-pop/latest.js?v=1.31.6"></script>
 <script>
 (async function () {
-  const VERSION = '1.31.5';
+  const VERSION = '1.31.6';
+  const FX_USD_HKD = 7.8;
   const PRINTS = [
     { id: '1st', label: '1st Edition' },
     { id: 'unlimited', label: 'Unlimited' },
@@ -529,6 +547,9 @@
   const PRINT_LABEL_SHORT = { '1st': '1st', unlimited: 'Unl.', base2: 'Base 2' };
   const narrowMq = window.matchMedia('(max-width: 720px)');
   const $ = (id) => document.getElementById(id);
+  if (window.JpPsa10Ui && typeof JpPsa10Ui.bindTablePageScroll === 'function') {
+    JpPsa10Ui.bindTablePageScroll(document);
+  }
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, (ch) => ({
       '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
@@ -727,6 +748,43 @@
     if (n == null || Number.isNaN(Number(n))) return '—';
     return (n * 100).toFixed(1) + '%';
   }
+  function usdToHkd(n) {
+    if (n == null || n === '' || Number.isNaN(Number(n))) return null;
+    return Number(n) * FX_USD_HKD;
+  }
+  function fmtHkdFull(usd) {
+    const hkd = usdToHkd(usd);
+    if (hkd == null) return '—';
+    return 'HK$' + Math.round(hkd).toLocaleString('en-US');
+  }
+  function fmtHkdCompact(usd) {
+    const hkd = usdToHkd(usd);
+    if (hkd == null) return '';
+    const abs = Math.abs(hkd);
+    let body;
+    if (abs >= 1e6) {
+      const n = hkd / 1e6;
+      body = n.toFixed(n >= 10 ? 1 : 2).replace(/\.0$/, '') + 'M';
+    } else if (abs >= 10000) {
+      body = Math.round(hkd / 1000) + 'k';
+    } else {
+      body = Math.round(hkd).toLocaleString('en-US');
+    }
+    return 'HK$' + body;
+  }
+  function printPriceUsd(rec, key) {
+    const prices = rec && rec.pc_prices;
+    if (!prices || prices[key] == null || prices[key] === '') return null;
+    const n = Number(prices[key]);
+    return Number.isFinite(n) ? n : null;
+  }
+  function priceMark(rec, grade, isTotal, show) {
+    if (!show || isTotal) return '';
+    const usd = printPriceUsd(rec, String(grade));
+    if (usd == null) return '';
+    return '<span class="pc-px" title="' + escapeHtml(fmtHkdFull(usd)) + '">' +
+      escapeHtml(fmtHkdCompact(usd)) + '</span>';
+  }
   function cellValues(grader, grade, isTotal) {
     if (!grader || !grader.available) {
       return { count: '—', pct: '—', pctCls: 'col-pct' };
@@ -762,10 +820,11 @@
     const splitCls = split ? ' print-split' : '';
     return '<th class="num col-pop' + splitCls + '">pop</th><th class="num col-pct">%</th>';
   }
-  function pairTds(grader, grade, isTotal, split) {
+  function pairTds(grader, grade, isTotal, split, rec, showPrice) {
     const cell = cellValues(grader, grade, isTotal);
     const splitCls = split ? ' print-split' : '';
-    return '<td class="num col-pop' + splitCls + '">' + escapeHtml(cell.count) + '</td>' +
+    return '<td class="num col-pop' + splitCls + '">' + escapeHtml(cell.count) +
+      priceMark(rec, grade, isTotal, showPrice) + '</td>' +
       '<td class="num ' + cell.pctCls + '">' + escapeHtml(cell.pct) + '</td>';
   }
   function writeParams() {
@@ -815,16 +874,18 @@
     if (state.cum) parts.push('百分比為「此級或以上」累積佔比。');
     else parts.push('百分比為該列數量 ÷ 該欄總量。');
     parts.push('半級已併入較低整數級。');
+    parts.push('7／8／9／PSA10 旁為 PriceCharting 指示價（港元，USD×7.80）；表頭 raw 為 Ungraded。');
     const srcDate = DATA.asOfDate ? ('快照 ' + DATA.asOfDate) : '快照日期未標';
     parts.push(srcDate + '。');
     $('tableNote').textContent = parts.join(' ');
     $('tableTitle').textContent = optionLabel(card) + ' · POP table';
   }
-  function stackTds(grader, grade, isTotal, split) {
+  function stackTds(grader, grade, isTotal, split, rec, showPrice) {
     const cell = cellValues(grader, grade, isTotal);
     const splitCls = split ? ' print-split' : '';
     return '<td class="co-stack' + splitCls + '"><span class="co-pop">' + escapeHtml(cell.count) +
-      '</span><span class="co-pct">' + escapeHtml(cell.pct) + '</span></td>';
+      '</span><span class="co-pct">' + escapeHtml(cell.pct) + '</span>' +
+      priceMark(rec, grade, isTotal, showPrice) + '</td>';
   }
   function renderDesk(card) {
     const prints = visiblePrints();
@@ -839,7 +900,14 @@
       const href = rec.pop_url
         ? '<a href="' + escapeHtml(rec.pop_url) + '" target="_blank" rel="noopener" title="' + escapeHtml(p.label) + '">' + escapeHtml(label) + '</a>'
         : escapeHtml(label);
-      head1 += '<th class="print-head print-split" colspan="' + (cols.length * colsPerCompany) + '">' + href + '</th>';
+      const rawUsd = printPriceUsd(rec, 'raw');
+      const gameHref = rec.game_url || (rec.slug ? ('https://www.pricecharting.com/game/' + rec.slug) : '');
+      const rawBit = rawUsd != null
+        ? '<span class="print-raw">' + (gameHref
+          ? '<a href="' + escapeHtml(gameHref) + '" target="_blank" rel="noopener" title="' + escapeHtml(fmtHkdFull(rawUsd)) + '">raw ' + escapeHtml(fmtHkdCompact(rawUsd)) + '</a>'
+          : 'raw ' + escapeHtml(fmtHkdCompact(rawUsd))) + '</span>'
+        : '';
+      head1 += '<th class="print-head print-split" colspan="' + (cols.length * colsPerCompany) + '">' + href + rawBit + '</th>';
     });
     let extraHeads = '';
     if (state.split) {
@@ -865,20 +933,23 @@
     const rows = keys.map((grade) => {
       let tds = '<th class="grade-col">' + escapeHtml(grade) + '</th>';
       prints.forEach((p) => {
-        printColumns((card.prints || {})[p.id] || {}).forEach((col, i) => {
+        const rec = (card.prints || {})[p.id] || {};
+        printColumns(rec).forEach((col, i) => {
+          const showPrice = i === 0;
           tds += stack
-            ? stackTds(col.grader, grade, false, i === 0)
-            : pairTds(col.grader, grade, false, i === 0);
+            ? stackTds(col.grader, grade, false, i === 0, rec, showPrice)
+            : pairTds(col.grader, grade, false, i === 0, rec, showPrice);
         });
       });
       return '<tr class="' + (grade === '10' ? 'is-gem' : '') + '">' + tds + '</tr>';
     });
     let total = '<th class="grade-col">合計</th>';
     prints.forEach((p) => {
-      printColumns((card.prints || {})[p.id] || {}).forEach((col, i) => {
+      const rec = (card.prints || {})[p.id] || {};
+      printColumns(rec).forEach((col, i) => {
         total += stack
-          ? stackTds(col.grader, 'total', true, i === 0)
-          : pairTds(col.grader, 'total', true, i === 0);
+          ? stackTds(col.grader, 'total', true, i === 0, rec, false)
+          : pairTds(col.grader, 'total', true, i === 0, rec, false);
       });
     });
     $('deskTableWrap').innerHTML =
