@@ -9,7 +9,8 @@
     "home": "https://www.pricecharting.com/",
     "cadence": "PriceCharting updates monthly; this site refreshes weekly.",
     "graders": "PSA and CGC columns as published. The page displays PSA+CGC combined per grade. Beckett/BGS is not collected.",
-    "half_grades": "PriceCharting already buckets *.5 into the lower whole grade (8.5→8, 9.5→9). Raw half-grade rows are stored only when the HTML lists them."
+    "half_grades": "PriceCharting already buckets *.5 into the lower whole grade (8.5→8, 9.5→9). Raw half-grade rows are stored only when the HTML lists them.",
+    "prices": "Indicative USD from the PriceCharting game page (not the POP table). used=raw, complete=Grade 7, new=Grade 8, graded=Grade 9, manual_only=PSA 10. Missing cells omitted, never invented. UI converts USD→HKD ×7.80."
   },
   "prints": [
     {
@@ -105,6 +106,14 @@
               "total": 370,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/alakazam-1st-edition-1",
+          "pc_prices": {
+            "raw": 770.0,
+            "7": 1411.24,
+            "8": 2665.23,
+            "9": 5062.97,
+            "10": 16740.0
           }
         },
         "unlimited": {
@@ -161,6 +170,14 @@
               "total": 7,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/alakazam-1",
+          "pc_prices": {
+            "raw": 32.97,
+            "7": 87.0,
+            "8": 148.75,
+            "9": 342.23,
+            "10": 2553.23
           }
         },
         "base2": {
@@ -217,6 +234,14 @@
               "total": 1474,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/alakazam-1",
+          "pc_prices": {
+            "raw": 30.0,
+            "7": 58.0,
+            "8": 97.89,
+            "9": 310.0,
+            "10": 4125.0
           }
         }
       },
@@ -286,6 +311,14 @@
               "total": 534,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/blastoise-1st-edition-2",
+          "pc_prices": {
+            "raw": 1025.0,
+            "7": 3797.47,
+            "8": 5688.99,
+            "9": 10296.14,
+            "10": 16242.42
           }
         },
         "unlimited": {
@@ -342,6 +375,14 @@
               "total": 7,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/blastoise-2",
+          "pc_prices": {
+            "raw": 91.38,
+            "7": 241.99,
+            "8": 387.92,
+            "9": 976.25,
+            "10": 9375.0
           }
         },
         "base2": {
@@ -398,6 +439,14 @@
               "total": 2506,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/blastoise-2",
+          "pc_prices": {
+            "raw": 77.48,
+            "7": 177.82,
+            "8": 273.51,
+            "9": 725.25,
+            "10": 7500.0
           }
         }
       },
@@ -467,6 +516,14 @@
               "total": 425,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/chansey-1st-edition-3",
+          "pc_prices": {
+            "raw": 387.65,
+            "7": 1100.0,
+            "8": 1574.5,
+            "9": 4075.0,
+            "10": 102500.0
           }
         },
         "unlimited": {
@@ -523,6 +580,14 @@
               "total": 7,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/chansey-3",
+          "pc_prices": {
+            "raw": 17.99,
+            "7": 57.5,
+            "8": 102.0,
+            "9": 311.99,
+            "10": 9300.0
           }
         },
         "base2": {
@@ -579,6 +644,14 @@
               "total": 1937,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/chansey-3",
+          "pc_prices": {
+            "raw": 12.59,
+            "7": 28.61,
+            "8": 58.63,
+            "9": 131.01,
+            "10": 12879.73
           }
         }
       },
@@ -648,6 +721,14 @@
               "total": 597,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/charizard-1st-edition-4",
+          "pc_prices": {
+            "raw": 7691.36,
+            "7": 22549.75,
+            "8": 29000.0,
+            "9": 31900.0,
+            "10": 334421.05
           }
         },
         "unlimited": {
@@ -704,6 +785,14 @@
               "total": 9,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/charizard-4",
+          "pc_prices": {
+            "raw": 391.09,
+            "7": 832.25,
+            "8": 1266.11,
+            "9": 3451.01,
+            "10": 27058.0
           }
         },
         "base2": {
@@ -760,6 +849,14 @@
               "total": 4047,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/charizard-4",
+          "pc_prices": {
+            "raw": 300.0,
+            "7": 456.39,
+            "8": 715.0,
+            "9": 2024.5,
+            "10": 9853.36
           }
         }
       },
@@ -829,6 +926,14 @@
               "total": 327,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/clefairy-1st-edition-5",
+          "pc_prices": {
+            "raw": 316.5,
+            "7": 800.0,
+            "8": 1572.63,
+            "9": 3650.0,
+            "10": 9126.25
           }
         },
         "unlimited": {
@@ -885,6 +990,14 @@
               "total": 23,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/clefairy-5",
+          "pc_prices": {
+            "raw": 19.66,
+            "7": 51.5,
+            "8": 75.03,
+            "9": 220.0,
+            "10": 5750.0
           }
         },
         "base2": {
@@ -941,6 +1054,14 @@
               "total": 1713,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/clefairy-6",
+          "pc_prices": {
+            "raw": 15.79,
+            "7": 30.48,
+            "8": 49.0,
+            "9": 175.22,
+            "10": 633.03
           }
         }
       },
@@ -1010,6 +1131,14 @@
               "total": 383,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/gyarados-1st-edition-6",
+          "pc_prices": {
+            "raw": 450.32,
+            "7": 1717.94,
+            "8": 2451.36,
+            "9": 5687.5,
+            "10": 23350.68
           }
         },
         "unlimited": {
@@ -1066,6 +1195,14 @@
               "total": 9,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/gyarados-6",
+          "pc_prices": {
+            "raw": 16.99,
+            "7": 75.5,
+            "8": 125.0,
+            "9": 272.5,
+            "10": 2875.76
           }
         },
         "base2": {
@@ -1122,6 +1259,14 @@
               "total": 1316,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/gyarados-7",
+          "pc_prices": {
+            "raw": 22.94,
+            "7": 62.49,
+            "8": 100.1,
+            "9": 209.5,
+            "10": 2324.88
           }
         }
       },
@@ -1191,6 +1336,14 @@
               "total": 338,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/hitmonchan-1st-edition-7",
+          "pc_prices": {
+            "raw": 312.06,
+            "7": 800.0,
+            "8": 1007.43,
+            "9": 3123.44,
+            "10": 16583.0
           }
         },
         "unlimited": {
@@ -1247,6 +1400,14 @@
               "total": 7,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/hitmonchan-7",
+          "pc_prices": {
+            "raw": 11.99,
+            "7": 45.0,
+            "8": 65.75,
+            "9": 176.93,
+            "10": 2527.52
           }
         },
         "base2": {
@@ -1303,6 +1464,14 @@
               "total": 865,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/hitmonchan-8",
+          "pc_prices": {
+            "raw": 17.03,
+            "7": 38.0,
+            "8": 57.5,
+            "9": 115.8,
+            "10": 12699.0
           }
         }
       },
@@ -1372,6 +1541,14 @@
               "total": 1883,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/machamp-1st-edition-8",
+          "pc_prices": {
+            "raw": 15.99,
+            "7": 75.0,
+            "8": 149.99,
+            "9": 299.0,
+            "10": 6000.0
           }
         }
       },
@@ -1441,6 +1618,14 @@
               "total": 350,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/magneton-1st-edition-9",
+          "pc_prices": {
+            "raw": 250.0,
+            "7": 549.82,
+            "8": 750.0,
+            "9": 2462.5,
+            "10": 10267.4
           }
         },
         "unlimited": {
@@ -1497,6 +1682,14 @@
               "total": 9,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/magneton-9",
+          "pc_prices": {
+            "raw": 19.58,
+            "7": 42.1,
+            "8": 68.0,
+            "9": 153.73,
+            "10": 2200.0
           }
         },
         "base2": {
@@ -1553,6 +1746,14 @@
               "total": 1174,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/magneton-9",
+          "pc_prices": {
+            "raw": 16.36,
+            "7": 30.45,
+            "8": 50.0,
+            "9": 99.99,
+            "10": 2508.19
           }
         }
       },
@@ -1622,6 +1823,14 @@
               "total": 381,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/mewtwo-1st-edition-10",
+          "pc_prices": {
+            "raw": 345.0,
+            "7": 2507.28,
+            "8": 3699.0,
+            "9": 6337.5,
+            "10": 43216.4
           }
         },
         "unlimited": {
@@ -1678,6 +1887,14 @@
               "total": 8,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/mewtwo-10",
+          "pc_prices": {
+            "raw": 31.49,
+            "7": 110.0,
+            "8": 198.34,
+            "9": 449.99,
+            "10": 5215.5
           }
         },
         "base2": {
@@ -1734,6 +1951,14 @@
               "total": 1209,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/mewtwo-10",
+          "pc_prices": {
+            "raw": 29.0,
+            "7": 92.93,
+            "8": 132.14,
+            "9": 262.04,
+            "10": 5089.71
           }
         }
       },
@@ -1803,6 +2028,14 @@
               "total": 371,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/nidoking-1st-edition-11",
+          "pc_prices": {
+            "raw": 408.45,
+            "7": 903.48,
+            "8": 1123.16,
+            "9": 3168.73,
+            "10": 25096.11
           }
         },
         "unlimited": {
@@ -1859,6 +2092,14 @@
               "total": 9,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/nidoking-11",
+          "pc_prices": {
+            "raw": 18.72,
+            "7": 57.58,
+            "8": 102.58,
+            "9": 190.25,
+            "10": 1470.78
           }
         },
         "base2": {
@@ -1915,6 +2156,14 @@
               "total": 1228,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/nidoking-11",
+          "pc_prices": {
+            "raw": 22.99,
+            "7": 49.49,
+            "8": 83.0,
+            "9": 112.5,
+            "10": 410.75
           }
         }
       },
@@ -1984,6 +2233,14 @@
               "total": 337,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/ninetales-1st-edition-12",
+          "pc_prices": {
+            "raw": 463.15,
+            "7": 903.31,
+            "8": 1620.03,
+            "9": 2154.04,
+            "10": 21987.32
           }
         },
         "unlimited": {
@@ -2040,6 +2297,14 @@
               "total": 7,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/ninetales-12",
+          "pc_prices": {
+            "raw": 16.61,
+            "7": 47.5,
+            "8": 112.5,
+            "9": 156.25,
+            "10": 2156.24
           }
         },
         "base2": {
@@ -2096,6 +2361,14 @@
               "total": 1231,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/ninetales-13",
+          "pc_prices": {
+            "raw": 17.25,
+            "7": 41.22,
+            "8": 75.99,
+            "9": 156.15,
+            "10": 2575.93
           }
         }
       },
@@ -2165,6 +2438,14 @@
               "total": 335,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/poliwrath-1st-edition-13",
+          "pc_prices": {
+            "raw": 360.0,
+            "7": 746.62,
+            "8": 1150.0,
+            "9": 2235.34,
+            "10": 17700.0
           }
         },
         "unlimited": {
@@ -2221,6 +2502,14 @@
               "total": 6,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/poliwrath-13",
+          "pc_prices": {
+            "raw": 15.04,
+            "7": 55.5,
+            "8": 86.71,
+            "9": 149.5,
+            "10": 1525.0
           }
         },
         "base2": {
@@ -2277,6 +2566,14 @@
               "total": 1831,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/poliwrath-15",
+          "pc_prices": {
+            "raw": 15.54,
+            "7": 37.66,
+            "8": 59.08,
+            "9": 129.95,
+            "10": 1242.2
           }
         }
       },
@@ -2346,6 +2643,14 @@
               "total": 444,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/raichu-1st-edition-14",
+          "pc_prices": {
+            "raw": 436.85,
+            "7": 956.8,
+            "8": 1650.5,
+            "9": 4107.82,
+            "10": 8935.35
           }
         },
         "unlimited": {
@@ -2402,6 +2707,14 @@
               "total": 7,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/raichu-14",
+          "pc_prices": {
+            "raw": 33.9,
+            "7": 73.0,
+            "8": 129.5,
+            "9": 370.0,
+            "10": 4200.0
           }
         },
         "base2": {
@@ -2458,6 +2771,14 @@
               "total": 1125,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/raichu-16",
+          "pc_prices": {
+            "raw": 34.25,
+            "7": 53.5,
+            "8": 103.21,
+            "9": 221.16,
+            "10": 3367.01
           }
         }
       },
@@ -2527,6 +2848,14 @@
               "total": 491,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/venusaur-1st-edition-15",
+          "pc_prices": {
+            "raw": 1150.0,
+            "7": 2918.6,
+            "8": 4350.0,
+            "9": 8127.99,
+            "10": 69999.99
           }
         },
         "unlimited": {
@@ -2583,6 +2912,14 @@
               "total": 8,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/venusaur-15",
+          "pc_prices": {
+            "raw": 62.61,
+            "7": 186.0,
+            "8": 285.0,
+            "9": 623.09,
+            "10": 5229.5
           }
         },
         "base2": {
@@ -2639,6 +2976,14 @@
               "total": 2260,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/venusaur-18",
+          "pc_prices": {
+            "raw": 69.99,
+            "7": 115.0,
+            "8": 189.08,
+            "9": 366.3,
+            "10": 4247.0
           }
         }
       },
@@ -2708,6 +3053,14 @@
               "total": 394,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/zapdos-1st-edition-16",
+          "pc_prices": {
+            "raw": 286.4,
+            "7": 985.0,
+            "8": 1286.74,
+            "9": 3213.93,
+            "10": 23466.91
           }
         },
         "unlimited": {
@@ -2764,6 +3117,14 @@
               "total": 8,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/zapdos-16",
+          "pc_prices": {
+            "raw": 23.47,
+            "7": 66.3,
+            "8": 106.99,
+            "9": 207.0,
+            "10": 2548.45
           }
         },
         "base2": {
@@ -2820,6 +3181,14 @@
               "total": 1152,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/zapdos-20",
+          "pc_prices": {
+            "raw": 25.43,
+            "7": 47.46,
+            "8": 90.0,
+            "9": 125.0,
+            "10": 2494.64
           }
         }
       },
@@ -2889,6 +3258,14 @@
               "total": 179,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/beedrill-1st-edition-17",
+          "pc_prices": {
+            "raw": 127.22,
+            "7": 225.0,
+            "8": 293.43,
+            "9": 610.53,
+            "10": 3451.57
           }
         },
         "unlimited": {
@@ -2945,6 +3322,14 @@
               "total": 663,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/beedrill-17",
+          "pc_prices": {
+            "raw": 3.42,
+            "7": 26.97,
+            "8": 43.5,
+            "9": 60.0,
+            "10": 183.79
           }
         },
         "base2": {
@@ -3001,6 +3386,14 @@
               "total": 198,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/beedrill-21",
+          "pc_prices": {
+            "raw": 2.95,
+            "7": 12.75,
+            "8": 14.2,
+            "9": 24.14,
+            "10": 65.12
           }
         }
       },
@@ -3070,6 +3463,14 @@
               "total": 240,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/dragonair-1st-edition-18",
+          "pc_prices": {
+            "raw": 120.0,
+            "7": 237.75,
+            "8": 325.89,
+            "9": 677.74,
+            "10": 5466.43
           }
         },
         "unlimited": {
@@ -3126,6 +3527,14 @@
               "total": 848,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/dragonair-18",
+          "pc_prices": {
+            "raw": 11.0,
+            "7": 34.13,
+            "8": 49.23,
+            "9": 86.0,
+            "10": 453.5
           }
         },
         "base2": {
@@ -3182,6 +3591,14 @@
               "total": 190,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/dragonair-22",
+          "pc_prices": {
+            "raw": 6.99,
+            "7": 19.0,
+            "8": 24.0,
+            "9": 50.27,
+            "10": 111.76
           }
         }
       },
@@ -3251,6 +3668,14 @@
               "total": 211,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/dugtrio-1st-edition-19",
+          "pc_prices": {
+            "raw": 101.68,
+            "7": 130.0,
+            "8": 150.0,
+            "9": 360.0,
+            "10": 2200.0
           }
         },
         "unlimited": {
@@ -3307,6 +3732,14 @@
               "total": 484,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/dugtrio-19",
+          "pc_prices": {
+            "raw": 4.75,
+            "7": 26.0,
+            "8": 31.88,
+            "9": 60.0,
+            "10": 210.0
           }
         },
         "base2": {
@@ -3363,6 +3796,14 @@
               "total": 124,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/dugtrio-23",
+          "pc_prices": {
+            "raw": 4.16,
+            "7": 9.0,
+            "8": 10.65,
+            "9": 22.3,
+            "10": 87.5
           }
         }
       },
@@ -3432,6 +3873,14 @@
               "total": 222,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/electabuzz-1st-edition-20",
+          "pc_prices": {
+            "raw": 107.5,
+            "7": 113.35,
+            "8": 176.74,
+            "9": 310.0,
+            "10": 3000.0
           }
         },
         "unlimited": {
@@ -3488,6 +3937,14 @@
               "total": 644,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/electabuzz-20",
+          "pc_prices": {
+            "raw": 7.98,
+            "7": 27.0,
+            "8": 30.0,
+            "9": 58.0,
+            "10": 300.47
           }
         },
         "base2": {
@@ -3544,6 +4001,14 @@
               "total": 190,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/electabuzz-24",
+          "pc_prices": {
+            "raw": 3.29,
+            "7": 11.0,
+            "8": 14.27,
+            "9": 48.47,
+            "10": 132.17
           }
         }
       },
@@ -3613,6 +4078,14 @@
               "total": 226,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/electrode-1st-edition-21",
+          "pc_prices": {
+            "raw": 59.92,
+            "7": 66.0,
+            "8": 109.25,
+            "9": 250.56,
+            "10": 2076.0
           }
         },
         "unlimited": {
@@ -3669,6 +4142,14 @@
               "total": 565,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/electrode-21",
+          "pc_prices": {
+            "raw": 5.45,
+            "7": 21.31,
+            "8": 22.0,
+            "9": 52.5,
+            "10": 270.39
           }
         },
         "base2": {
@@ -3725,6 +4206,14 @@
               "total": 147,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/electrode-25",
+          "pc_prices": {
+            "raw": 4.58,
+            "7": 13.13,
+            "8": 18.0,
+            "9": 32.0,
+            "10": 73.35
           }
         }
       },
@@ -3794,6 +4283,14 @@
               "total": 208,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/pidgeotto-1st-edition-22",
+          "pc_prices": {
+            "raw": 89.81,
+            "7": 91.56,
+            "8": 135.14,
+            "9": 262.55,
+            "10": 1993.5
           }
         },
         "unlimited": {
@@ -3850,6 +4347,14 @@
               "total": 529,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/pidgeotto-22",
+          "pc_prices": {
+            "raw": 8.98,
+            "7": 20.18,
+            "8": 22.74,
+            "9": 41.0,
+            "10": 269.44
           }
         },
         "base2": {
@@ -3906,6 +4411,14 @@
               "total": 148,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/pidgeotto-28",
+          "pc_prices": {
+            "raw": 4.69,
+            "7": 9.0,
+            "8": 17.5,
+            "9": 29.85,
+            "10": 153.39
           }
         }
       },
@@ -3975,6 +4488,14 @@
               "total": 307,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/arcanine-1st-edition-23",
+          "pc_prices": {
+            "raw": 79.99,
+            "7": 181.0,
+            "8": 237.5,
+            "9": 466.34,
+            "10": 2932.0
           }
         },
         "unlimited": {
@@ -4031,6 +4552,14 @@
               "total": 1243,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/arcanine-23",
+          "pc_prices": {
+            "raw": 3.17,
+            "7": 27.06,
+            "8": 34.76,
+            "9": 81.0,
+            "10": 399.99
           }
         },
         "base2": {
@@ -4087,6 +4616,14 @@
               "total": 199,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/arcanine-33",
+          "pc_prices": {
+            "raw": 2.0,
+            "7": 24.0,
+            "8": 24.75,
+            "9": 31.75,
+            "10": 110.0
           }
         }
       },
@@ -4156,6 +4693,14 @@
               "total": 398,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/charmeleon-1st-edition-24",
+          "pc_prices": {
+            "raw": 101.0,
+            "7": 190.0,
+            "8": 214.37,
+            "9": 437.5,
+            "10": 3325.0
           }
         },
         "unlimited": {
@@ -4212,6 +4757,14 @@
               "total": 3094,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/charmeleon-24",
+          "pc_prices": {
+            "raw": 2.6,
+            "7": 27.33,
+            "8": 33.35,
+            "9": 49.5,
+            "10": 245.27
           }
         },
         "base2": {
@@ -4268,6 +4821,14 @@
               "total": 345,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/charmeleon-35",
+          "pc_prices": {
+            "raw": 2.26,
+            "7": 25.0,
+            "8": 31.1,
+            "9": 35.0,
+            "10": 105.64
           }
         }
       },
@@ -4337,6 +4898,14 @@
               "total": 411,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/dewgong-1st-edition-25",
+          "pc_prices": {
+            "raw": 27.22,
+            "7": 34.5,
+            "8": 65.0,
+            "9": 130.0,
+            "10": 813.0
           }
         },
         "unlimited": {
@@ -4393,6 +4962,14 @@
               "total": 764,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/dewgong-25",
+          "pc_prices": {
+            "raw": 2.51,
+            "7": 9.0,
+            "8": 19.6,
+            "9": 37.01,
+            "10": 236.03
           }
         },
         "base2": {
@@ -4449,6 +5026,13 @@
               "total": 176,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/dewgong-36",
+          "pc_prices": {
+            "raw": 1.77,
+            "8": 11.06,
+            "9": 14.51,
+            "10": 85.0
           }
         }
       },
@@ -4518,6 +5102,14 @@
               "total": 282,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/dratini-1st-edition-26",
+          "pc_prices": {
+            "raw": 50.91,
+            "7": 96.75,
+            "8": 123.36,
+            "9": 268.78,
+            "10": 2476.04
           }
         },
         "unlimited": {
@@ -4574,6 +5166,14 @@
               "total": 3,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/dratini-26",
+          "pc_prices": {
+            "raw": 2.5,
+            "7": 17.63,
+            "8": 21.0,
+            "9": 48.11,
+            "10": 230.0
           }
         },
         "base2": {
@@ -4630,6 +5230,14 @@
               "total": 236,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/dratini-38",
+          "pc_prices": {
+            "raw": 1.91,
+            "7": 11.0,
+            "8": 13.41,
+            "9": 14.73,
+            "10": 73.01
           }
         }
       },
@@ -4699,6 +5307,14 @@
               "total": 246,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/farfetch%27d-1st-edition-27",
+          "pc_prices": {
+            "raw": 30.0,
+            "7": 57.0,
+            "8": 89.0,
+            "9": 235.4,
+            "10": 1161.52
           }
         },
         "unlimited": {
@@ -4755,6 +5371,14 @@
               "total": 1095,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/farfetch%27d-27",
+          "pc_prices": {
+            "raw": 1.76,
+            "7": 16.64,
+            "8": 33.5,
+            "9": 46.95,
+            "10": 193.81
           }
         },
         "base2": {
@@ -4811,6 +5435,13 @@
               "total": 306,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/farfetch%27d-40",
+          "pc_prices": {
+            "raw": 1.27,
+            "8": 12.0,
+            "9": 18.5,
+            "10": 59.5
           }
         }
       },
@@ -4880,6 +5511,14 @@
               "total": 277,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/growlithe-1st-edition-28",
+          "pc_prices": {
+            "raw": 49.5,
+            "7": 77.0,
+            "8": 108.17,
+            "9": 333.5,
+            "10": 3106.0
           }
         },
         "unlimited": {
@@ -4936,6 +5575,14 @@
               "total": 1306,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/growlithe-28",
+          "pc_prices": {
+            "raw": 2.08,
+            "7": 10.24,
+            "8": 21.98,
+            "9": 38.0,
+            "10": 183.95
           }
         },
         "base2": {
@@ -4992,6 +5639,14 @@
               "total": 167,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/growlithe-42",
+          "pc_prices": {
+            "raw": 1.68,
+            "7": 16.0,
+            "8": 19.59,
+            "9": 29.72,
+            "10": 52.0
           }
         }
       },
@@ -5061,6 +5716,14 @@
               "total": 289,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/haunter-1st-edition-29",
+          "pc_prices": {
+            "raw": 65.0,
+            "7": 71.0,
+            "8": 89.0,
+            "9": 267.43,
+            "10": 1929.43
           }
         },
         "unlimited": {
@@ -5117,6 +5780,14 @@
               "total": 1142,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/haunter-29",
+          "pc_prices": {
+            "raw": 3.74,
+            "7": 22.12,
+            "8": 54.78,
+            "9": 60.0,
+            "10": 281.28
           }
         },
         "base2": {
@@ -5173,6 +5844,14 @@
               "total": 236,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/haunter-43",
+          "pc_prices": {
+            "raw": 1.63,
+            "7": 15.0,
+            "8": 19.67,
+            "9": 23.23,
+            "10": 100.0
           }
         }
       },
@@ -5242,6 +5921,14 @@
               "total": 390,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/ivysaur-1st-edition-30",
+          "pc_prices": {
+            "raw": 86.83,
+            "7": 100.0,
+            "8": 189.75,
+            "9": 400.0,
+            "10": 2659.9
           }
         },
         "unlimited": {
@@ -5298,6 +5985,14 @@
               "total": 1975,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/ivysaur-30",
+          "pc_prices": {
+            "raw": 3.7,
+            "7": 30.98,
+            "8": 34.94,
+            "9": 65.0,
+            "10": 304.0
           }
         },
         "base2": {
@@ -5354,6 +6049,14 @@
               "total": 293,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/ivysaur-44",
+          "pc_prices": {
+            "raw": 3.03,
+            "7": 15.36,
+            "8": 19.0,
+            "9": 35.99,
+            "10": 101.81
           }
         }
       },
@@ -5423,6 +6126,14 @@
               "total": 259,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/jynx-1st-edition-31",
+          "pc_prices": {
+            "raw": 44.62,
+            "7": 47.0,
+            "8": 59.0,
+            "9": 207.5,
+            "10": 1342.33
           }
         },
         "unlimited": {
@@ -5479,6 +6190,14 @@
               "total": 1191,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/jynx-31",
+          "pc_prices": {
+            "raw": 1.94,
+            "7": 15.0,
+            "8": 19.01,
+            "9": 30.5,
+            "10": 148.15
           }
         },
         "base2": {
@@ -5535,6 +6254,14 @@
               "total": 231,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/jynx-45",
+          "pc_prices": {
+            "raw": 1.45,
+            "7": 20.38,
+            "8": 22.77,
+            "9": 25.0,
+            "10": 150.82
           }
         }
       },
@@ -5604,6 +6331,14 @@
               "total": 298,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/kadabra-1st-edition-32",
+          "pc_prices": {
+            "raw": 53.32,
+            "7": 100.85,
+            "8": 155.25,
+            "9": 288.88,
+            "10": 3750.0
           }
         },
         "unlimited": {
@@ -5660,6 +6395,14 @@
               "total": 1398,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/kadabra-32",
+          "pc_prices": {
+            "raw": 2.49,
+            "7": 25.28,
+            "8": 26.88,
+            "9": 50.16,
+            "10": 252.87
           }
         },
         "base2": {
@@ -5716,6 +6459,14 @@
               "total": 312,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/kadabra-46",
+          "pc_prices": {
+            "raw": 1.97,
+            "7": 10.74,
+            "8": 21.95,
+            "9": 23.78,
+            "10": 45.65
           }
         }
       },
@@ -5785,6 +6536,14 @@
               "total": 413,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/kakuna-1st-edition-33",
+          "pc_prices": {
+            "raw": 19.99,
+            "7": 30.15,
+            "8": 33.52,
+            "9": 90.16,
+            "10": 688.0
           }
         },
         "unlimited": {
@@ -5841,6 +6600,14 @@
               "total": 1020,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/kakuna-33",
+          "pc_prices": {
+            "raw": 1.69,
+            "7": 14.69,
+            "8": 22.67,
+            "9": 35.0,
+            "10": 97.37
           }
         },
         "base2": {
@@ -5897,6 +6664,14 @@
               "total": 233,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/kakuna-47",
+          "pc_prices": {
+            "raw": 1.4,
+            "7": 4.0,
+            "8": 5.38,
+            "9": 23.57,
+            "10": 73.53
           }
         }
       },
@@ -5966,6 +6741,14 @@
               "total": 278,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/machoke-1st-edition-34",
+          "pc_prices": {
+            "raw": 35.52,
+            "7": 65.0,
+            "8": 81.19,
+            "9": 188.7,
+            "10": 1245.09
           }
         },
         "unlimited": {
@@ -6022,6 +6805,14 @@
               "total": 1556,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/machoke-34",
+          "pc_prices": {
+            "raw": 1.78,
+            "7": 11.4,
+            "8": 24.5,
+            "9": 35.17,
+            "10": 141.0
           }
         },
         "base2": {
@@ -6078,6 +6869,14 @@
               "total": 269,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/machoke-49",
+          "pc_prices": {
+            "raw": 1.14,
+            "7": 9.32,
+            "8": 11.5,
+            "9": 35.46,
+            "10": 110.04
           }
         }
       },
@@ -6147,6 +6946,14 @@
               "total": 320,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/magikarp-1st-edition-35",
+          "pc_prices": {
+            "raw": 127.5,
+            "7": 175.5,
+            "8": 250.0,
+            "9": 425.0,
+            "10": 3252.92
           }
         },
         "unlimited": {
@@ -6203,6 +7010,14 @@
               "total": 1082,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/magikarp-35",
+          "pc_prices": {
+            "raw": 3.37,
+            "7": 26.5,
+            "8": 32.38,
+            "9": 58.5,
+            "10": 398.35
           }
         },
         "base2": {
@@ -6259,6 +7074,14 @@
               "total": 221,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/magikarp-50",
+          "pc_prices": {
+            "raw": 2.08,
+            "7": 14.99,
+            "8": 21.87,
+            "9": 60.0,
+            "10": 210.0
           }
         }
       },
@@ -6328,6 +7151,14 @@
               "total": 469,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/magmar-1st-edition-36",
+          "pc_prices": {
+            "raw": 29.49,
+            "7": 45.7,
+            "8": 65.75,
+            "9": 132.0,
+            "10": 1016.0
           }
         },
         "unlimited": {
@@ -6384,6 +7215,14 @@
               "total": 815,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/magmar-36",
+          "pc_prices": {
+            "raw": 2.78,
+            "7": 12.0,
+            "8": 14.37,
+            "9": 40.01,
+            "10": 230.0
           }
         },
         "base2": {
@@ -6440,6 +7279,14 @@
               "total": 212,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/magmar-51",
+          "pc_prices": {
+            "raw": 1.35,
+            "7": 9.0,
+            "8": 11.14,
+            "9": 26.49,
+            "10": 45.74
           }
         }
       },
@@ -6509,6 +7356,14 @@
               "total": 433,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/nidorino-1st-edition-37",
+          "pc_prices": {
+            "raw": 24.95,
+            "7": 39.12,
+            "8": 59.99,
+            "9": 118.82,
+            "10": 653.31
           }
         },
         "unlimited": {
@@ -6565,6 +7420,14 @@
               "total": 766,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/nidorino-37",
+          "pc_prices": {
+            "raw": 2.49,
+            "7": 15.0,
+            "8": 19.1,
+            "9": 37.0,
+            "10": 335.0
           }
         },
         "base2": {
@@ -6621,6 +7484,14 @@
               "total": 148,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/nidorino-54",
+          "pc_prices": {
+            "raw": 1.87,
+            "7": 5.5,
+            "8": 10.0,
+            "9": 29.42,
+            "10": 35.0
           }
         }
       },
@@ -6690,6 +7561,14 @@
               "total": 421,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/poliwhirl-1st-edition-38",
+          "pc_prices": {
+            "raw": 35.0,
+            "7": 62.44,
+            "8": 75.5,
+            "9": 143.75,
+            "10": 1220.76
           }
         },
         "unlimited": {
@@ -6746,6 +7625,14 @@
               "total": 1103,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/poliwhirl-38",
+          "pc_prices": {
+            "raw": 2.14,
+            "7": 14.75,
+            "8": 17.75,
+            "9": 45.0,
+            "10": 177.82
           }
         },
         "base2": {
@@ -6802,6 +7689,14 @@
               "total": 256,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/poliwhirl-57",
+          "pc_prices": {
+            "raw": 1.53,
+            "7": 14.0,
+            "8": 17.0,
+            "9": 19.0,
+            "10": 53.5
           }
         }
       },
@@ -6871,6 +7766,14 @@
               "total": 489,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/porygon-1st-edition-39",
+          "pc_prices": {
+            "raw": 27.65,
+            "7": 40.0,
+            "8": 60.5,
+            "9": 167.78,
+            "10": 1500.0
           }
         },
         "unlimited": {
@@ -6927,6 +7830,14 @@
               "total": 838,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/porygon-39",
+          "pc_prices": {
+            "raw": 2.33,
+            "7": 12.0,
+            "8": 15.0,
+            "9": 46.0,
+            "10": 192.75
           }
         }
       },
@@ -6996,6 +7907,14 @@
               "total": 413,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/raticate-1st-edition-40",
+          "pc_prices": {
+            "raw": 23.82,
+            "7": 28.0,
+            "8": 40.0,
+            "9": 104.75,
+            "10": 592.61
           }
         },
         "unlimited": {
@@ -7052,6 +7971,14 @@
               "total": 700,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/raticate-40",
+          "pc_prices": {
+            "raw": 2.49,
+            "7": 21.67,
+            "8": 30.01,
+            "9": 49.58,
+            "10": 184.69
           }
         },
         "base2": {
@@ -7108,6 +8035,13 @@
               "total": 173,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/raticate-58",
+          "pc_prices": {
+            "raw": 1.73,
+            "8": 17.5,
+            "9": 27.0,
+            "10": 43.84
           }
         }
       },
@@ -7177,6 +8111,14 @@
               "total": 430,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/seel-1st-edition-41",
+          "pc_prices": {
+            "raw": 21.13,
+            "7": 29.45,
+            "8": 47.5,
+            "9": 99.98,
+            "10": 683.0
           }
         },
         "unlimited": {
@@ -7233,6 +8175,14 @@
               "total": 822,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/seel-41",
+          "pc_prices": {
+            "raw": 1.46,
+            "7": 15.5,
+            "8": 18.5,
+            "9": 34.1,
+            "10": 103.05
           }
         },
         "base2": {
@@ -7289,6 +8239,14 @@
               "total": 222,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/seel-61",
+          "pc_prices": {
+            "raw": 0.99,
+            "7": 12.0,
+            "8": 15.0,
+            "9": 32.0,
+            "10": 33.1
           }
         }
       },
@@ -7358,6 +8316,14 @@
               "total": 397,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/wartortle-1st-edition-42",
+          "pc_prices": {
+            "raw": 104.34,
+            "7": 164.0,
+            "8": 204.5,
+            "9": 540.0,
+            "10": 12900.0
           }
         },
         "unlimited": {
@@ -7414,6 +8380,14 @@
               "total": 1933,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/wartortle-42",
+          "pc_prices": {
+            "raw": 3.35,
+            "7": 34.99,
+            "8": 41.63,
+            "9": 92.18,
+            "10": 309.47
           }
         },
         "base2": {
@@ -7470,6 +8444,14 @@
               "total": 430,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/wartortle-63",
+          "pc_prices": {
+            "raw": 2.02,
+            "7": 17.99,
+            "8": 30.0,
+            "9": 33.0,
+            "10": 122.01
           }
         }
       },
@@ -7539,6 +8521,14 @@
               "total": 554,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/abra-1st-edition-43",
+          "pc_prices": {
+            "raw": 37.94,
+            "7": 76.0,
+            "8": 78.68,
+            "9": 152.0,
+            "10": 766.0
           }
         },
         "unlimited": {
@@ -7595,6 +8585,14 @@
               "total": 2059,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/abra-43",
+          "pc_prices": {
+            "raw": 1.89,
+            "7": 15.25,
+            "8": 23.46,
+            "9": 40.0,
+            "10": 187.26
           }
         },
         "base2": {
@@ -7651,6 +8649,14 @@
               "total": 502,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/abra-65",
+          "pc_prices": {
+            "raw": 1.17,
+            "7": 12.0,
+            "8": 15.49,
+            "9": 24.19,
+            "10": 101.27
           }
         }
       },
@@ -7720,6 +8726,14 @@
               "total": 508,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/bulbasaur-1st-edition-44",
+          "pc_prices": {
+            "raw": 207.01,
+            "7": 242.5,
+            "8": 323.5,
+            "9": 763.33,
+            "10": 7225.0
           }
         },
         "unlimited": {
@@ -7776,6 +8790,14 @@
               "total": 4397,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/bulbasaur-44",
+          "pc_prices": {
+            "raw": 3.98,
+            "7": 26.0,
+            "8": 33.75,
+            "9": 46.01,
+            "10": 347.55
           }
         },
         "base2": {
@@ -7832,6 +8854,14 @@
               "total": 561,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/bulbasaur-67",
+          "pc_prices": {
+            "raw": 3.0,
+            "7": 15.25,
+            "8": 25.08,
+            "9": 46.68,
+            "10": 299.99
           }
         }
       },
@@ -7901,6 +8931,14 @@
               "total": 292,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/caterpie-1st-edition-45",
+          "pc_prices": {
+            "raw": 41.25,
+            "7": 47.0,
+            "8": 110.92,
+            "9": 182.06,
+            "10": 1149.19
           }
         },
         "unlimited": {
@@ -7957,6 +8995,14 @@
               "total": 1273,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/caterpie-45",
+          "pc_prices": {
+            "raw": 1.77,
+            "7": 9.64,
+            "8": 20.4,
+            "9": 41.25,
+            "10": 120.0
           }
         },
         "base2": {
@@ -8013,6 +9059,14 @@
               "total": 274,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/caterpie-68",
+          "pc_prices": {
+            "raw": 1.3,
+            "7": 18.0,
+            "8": 22.0,
+            "9": 24.0,
+            "10": 43.16
           }
         }
       },
@@ -8082,6 +9136,14 @@
               "total": 938,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/charmander-1st-edition-46",
+          "pc_prices": {
+            "raw": 129.89,
+            "7": 165.92,
+            "8": 292.09,
+            "9": 490.43,
+            "10": 3281.49
           }
         },
         "unlimited": {
@@ -8138,6 +9200,14 @@
               "total": 6550,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/charmander-46",
+          "pc_prices": {
+            "raw": 2.9,
+            "7": 29.99,
+            "8": 35.56,
+            "9": 57.7,
+            "10": 387.48
           }
         },
         "base2": {
@@ -8194,6 +9264,14 @@
               "total": 761,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/charmander-69",
+          "pc_prices": {
+            "raw": 1.81,
+            "7": 21.0,
+            "8": 26.53,
+            "9": 35.0,
+            "10": 188.63
           }
         }
       },
@@ -8263,6 +9341,14 @@
               "total": 536,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/diglett-1st-edition-47",
+          "pc_prices": {
+            "raw": 22.97,
+            "7": 31.0,
+            "8": 53.44,
+            "9": 91.19,
+            "10": 547.5
           }
         },
         "unlimited": {
@@ -8319,6 +9405,14 @@
               "total": 1822,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/diglett-47",
+          "pc_prices": {
+            "raw": 1.69,
+            "7": 7.49,
+            "8": 16.74,
+            "9": 36.0,
+            "10": 110.0
           }
         },
         "base2": {
@@ -8375,6 +9469,14 @@
               "total": 288,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/diglett-71",
+          "pc_prices": {
+            "raw": 1.06,
+            "7": 10.0,
+            "8": 12.0,
+            "9": 26.26,
+            "10": 64.77
           }
         }
       },
@@ -8444,6 +9546,14 @@
               "total": 492,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/doduo-1st-edition-48",
+          "pc_prices": {
+            "raw": 18.99,
+            "7": 21.0,
+            "8": 41.39,
+            "9": 92.47,
+            "10": 598.83
           }
         },
         "unlimited": {
@@ -8500,6 +9610,14 @@
               "total": 1306,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/doduo-48",
+          "pc_prices": {
+            "raw": 1.55,
+            "7": 9.72,
+            "8": 21.25,
+            "9": 60.0,
+            "10": 92.5
           }
         },
         "base2": {
@@ -8556,6 +9674,14 @@
               "total": 382,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/doduo-72",
+          "pc_prices": {
+            "raw": 0.99,
+            "7": 2.8,
+            "8": 13.89,
+            "9": 22.0,
+            "10": 41.0
           }
         }
       },
@@ -8625,6 +9751,14 @@
               "total": 520,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/drowzee-1st-edition-49",
+          "pc_prices": {
+            "raw": 22.07,
+            "7": 28.88,
+            "8": 52.27,
+            "9": 88.42,
+            "10": 644.04
           }
         },
         "unlimited": {
@@ -8681,6 +9815,14 @@
               "total": 1400,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/drowzee-49",
+          "pc_prices": {
+            "raw": 1.62,
+            "7": 15.55,
+            "8": 16.01,
+            "9": 35.5,
+            "10": 150.0
           }
         },
         "base2": {
@@ -8737,6 +9879,14 @@
               "total": 312,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/drowzee-73",
+          "pc_prices": {
+            "raw": 1.19,
+            "7": 9.0,
+            "8": 11.38,
+            "9": 23.23,
+            "10": 44.26
           }
         }
       },
@@ -8806,6 +9956,14 @@
               "total": 558,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/gastly-1st-edition-50",
+          "pc_prices": {
+            "raw": 36.51,
+            "7": 52.77,
+            "8": 70.86,
+            "9": 136.55,
+            "10": 862.85
           }
         },
         "unlimited": {
@@ -8862,6 +10020,14 @@
               "total": 1578,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/gastly-50",
+          "pc_prices": {
+            "raw": 2.39,
+            "7": 11.62,
+            "8": 17.83,
+            "9": 34.39,
+            "10": 215.75
           }
         },
         "base2": {
@@ -8918,6 +10084,14 @@
               "total": 350,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/gastly-75",
+          "pc_prices": {
+            "raw": 1.34,
+            "7": 14.0,
+            "8": 17.0,
+            "9": 19.0,
+            "10": 30.48
           }
         }
       },
@@ -8987,6 +10161,14 @@
               "total": 524,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/koffing-1st-edition-51",
+          "pc_prices": {
+            "raw": 21.54,
+            "7": 36.5,
+            "8": 50.0,
+            "9": 94.5,
+            "10": 705.0
           }
         },
         "unlimited": {
@@ -9043,6 +10225,14 @@
               "total": 1752,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/koffing-51",
+          "pc_prices": {
+            "raw": 1.55,
+            "7": 8.53,
+            "8": 21.36,
+            "9": 40.92,
+            "10": 129.99
           }
         }
       },
@@ -9112,6 +10302,14 @@
               "total": 557,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/machop-1st-edition-52",
+          "pc_prices": {
+            "raw": 21.08,
+            "7": 50.0,
+            "8": 59.7,
+            "9": 98.18,
+            "10": 502.0
           }
         },
         "unlimited": {
@@ -9168,6 +10366,14 @@
               "total": 2501,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/machop-52",
+          "pc_prices": {
+            "raw": 1.75,
+            "7": 10.0,
+            "8": 17.87,
+            "9": 31.57,
+            "10": 114.53
           }
         },
         "base2": {
@@ -9224,6 +10430,14 @@
               "total": 353,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/machop-78",
+          "pc_prices": {
+            "raw": 0.98,
+            "7": 15.0,
+            "8": 20.99,
+            "9": 22.09,
+            "10": 91.44
           }
         }
       },
@@ -9293,6 +10507,14 @@
               "total": 540,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/magnemite-1st-edition-53",
+          "pc_prices": {
+            "raw": 21.87,
+            "7": 36.89,
+            "8": 43.36,
+            "9": 86.09,
+            "10": 539.22
           }
         },
         "unlimited": {
@@ -9349,6 +10571,14 @@
               "total": 1386,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/magnemite-53",
+          "pc_prices": {
+            "raw": 1.51,
+            "7": 10.0,
+            "8": 12.5,
+            "9": 26.5,
+            "10": 108.89
           }
         },
         "base2": {
@@ -9405,6 +10635,14 @@
               "total": 362,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/magnemite-79",
+          "pc_prices": {
+            "raw": 1.09,
+            "7": 3.25,
+            "8": 21.78,
+            "9": 24.0,
+            "10": 35.41
           }
         }
       },
@@ -9474,6 +10712,14 @@
               "total": 560,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/metapod-1st-edition-54",
+          "pc_prices": {
+            "raw": 23.28,
+            "7": 37.14,
+            "8": 52.0,
+            "9": 86.79,
+            "10": 504.65
           }
         },
         "unlimited": {
@@ -9530,6 +10776,14 @@
               "total": 1146,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/metapod-54",
+          "pc_prices": {
+            "raw": 2.02,
+            "7": 16.17,
+            "8": 27.5,
+            "9": 29.5,
+            "10": 86.5
           }
         },
         "base2": {
@@ -9586,6 +10840,14 @@
               "total": 261,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/metapod-81",
+          "pc_prices": {
+            "raw": 1.05,
+            "7": 4.0,
+            "8": 5.0,
+            "9": 15.5,
+            "10": 76.0
           }
         }
       },
@@ -9655,6 +10917,14 @@
               "total": 527,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/nidoran-1st-edition-55",
+          "pc_prices": {
+            "raw": 17.93,
+            "7": 32.5,
+            "8": 46.41,
+            "9": 95.79,
+            "10": 580.5
           }
         },
         "unlimited": {
@@ -9711,6 +10981,14 @@
               "total": 1676,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/nidoran-55",
+          "pc_prices": {
+            "raw": 1.23,
+            "7": 7.5,
+            "8": 24.25,
+            "9": 27.0,
+            "10": 100.0
           }
         },
         "base2": {
@@ -9767,6 +11045,14 @@
               "total": 271,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/nidoran-83",
+          "pc_prices": {
+            "raw": 1.02,
+            "7": 7.88,
+            "8": 13.91,
+            "9": 15.0,
+            "10": 33.61
           }
         }
       },
@@ -9836,6 +11122,14 @@
               "total": 510,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/onix-1st-edition-56",
+          "pc_prices": {
+            "raw": 20.51,
+            "7": 43.0,
+            "8": 54.23,
+            "9": 132.41,
+            "10": 750.0
           }
         },
         "unlimited": {
@@ -9892,6 +11186,14 @@
               "total": 1602,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/onix-56",
+          "pc_prices": {
+            "raw": 1.99,
+            "7": 7.46,
+            "8": 16.98,
+            "9": 29.5,
+            "10": 144.38
           }
         },
         "base2": {
@@ -9948,6 +11250,14 @@
               "total": 165,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/onix-84",
+          "pc_prices": {
+            "raw": 1.15,
+            "7": 10.87,
+            "8": 17.0,
+            "9": 26.5,
+            "10": 63.51
           }
         }
       },
@@ -10017,6 +11327,14 @@
               "total": 601,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/pidgey-1st-edition-57",
+          "pc_prices": {
+            "raw": 24.84,
+            "7": 33.49,
+            "8": 48.9,
+            "9": 107.82,
+            "10": 810.0
           }
         },
         "unlimited": {
@@ -10073,6 +11391,14 @@
               "total": 1231,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/pidgey-57",
+          "pc_prices": {
+            "raw": 1.73,
+            "7": 9.5,
+            "8": 18.0,
+            "9": 35.5,
+            "10": 142.58
           }
         },
         "base2": {
@@ -10129,6 +11455,14 @@
               "total": 244,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/pidgey-86",
+          "pc_prices": {
+            "raw": 1.33,
+            "7": 9.5,
+            "8": 14.41,
+            "9": 27.77,
+            "10": 42.5
           }
         }
       },
@@ -10198,6 +11532,14 @@
               "total": 681,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/pikachu-1st-edition-58",
+          "pc_prices": {
+            "raw": 192.5,
+            "7": 290.5,
+            "8": 395.0,
+            "9": 967.0,
+            "10": 6427.0
           }
         },
         "unlimited": {
@@ -10254,6 +11596,14 @@
               "total": 5364,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/pikachu-58",
+          "pc_prices": {
+            "raw": 4.99,
+            "7": 34.99,
+            "8": 42.0,
+            "9": 81.0,
+            "10": 600.73
           }
         },
         "base2": {
@@ -10310,6 +11660,14 @@
               "total": 1067,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/pikachu-87",
+          "pc_prices": {
+            "raw": 3.0,
+            "7": 25.0,
+            "8": 29.35,
+            "9": 49.43,
+            "10": 397.11
           }
         }
       },
@@ -10379,6 +11737,14 @@
               "total": 528,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/poliwag-1st-edition-59",
+          "pc_prices": {
+            "raw": 24.95,
+            "7": 34.33,
+            "8": 59.16,
+            "9": 107.66,
+            "10": 666.0
           }
         },
         "unlimited": {
@@ -10435,6 +11801,14 @@
               "total": 1804,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/poliwag-59",
+          "pc_prices": {
+            "raw": 1.99,
+            "7": 14.99,
+            "8": 15.52,
+            "9": 40.42,
+            "10": 110.0
           }
         },
         "base2": {
@@ -10491,6 +11865,14 @@
               "total": 396,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/poliwag-88",
+          "pc_prices": {
+            "raw": 1.02,
+            "7": 5.91,
+            "8": 12.0,
+            "9": 28.5,
+            "10": 32.57
           }
         }
       },
@@ -10560,6 +11942,14 @@
               "total": 552,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/ponyta-1st-edition-60",
+          "pc_prices": {
+            "raw": 28.5,
+            "7": 41.81,
+            "8": 53.55,
+            "9": 124.0,
+            "10": 647.5
           }
         },
         "unlimited": {
@@ -10616,6 +12006,14 @@
               "total": 2516,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/ponyta-60",
+          "pc_prices": {
+            "raw": 1.33,
+            "7": 10.0,
+            "8": 21.25,
+            "9": 34.04,
+            "10": 150.0
           }
         }
       },
@@ -10685,6 +12083,14 @@
               "total": 538,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/rattata-1st-edition-61",
+          "pc_prices": {
+            "raw": 26.68,
+            "7": 38.0,
+            "8": 56.0,
+            "9": 87.46,
+            "10": 519.75
           }
         },
         "unlimited": {
@@ -10741,6 +12147,14 @@
               "total": 1776,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/rattata-61",
+          "pc_prices": {
+            "raw": 1.53,
+            "7": 10.13,
+            "8": 23.0,
+            "9": 35.46,
+            "10": 121.0
           }
         },
         "base2": {
@@ -10797,6 +12211,14 @@
               "total": 205,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/rattata-89",
+          "pc_prices": {
+            "raw": 0.87,
+            "7": 11.0,
+            "8": 13.32,
+            "9": 25.75,
+            "10": 100.0
           }
         }
       },
@@ -10866,6 +12288,14 @@
               "total": 518,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/sandshrew-1st-edition-62",
+          "pc_prices": {
+            "raw": 31.08,
+            "7": 43.93,
+            "8": 56.79,
+            "9": 94.9,
+            "10": 584.24
           }
         },
         "unlimited": {
@@ -10922,6 +12352,14 @@
               "total": 1518,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/sandshrew-62",
+          "pc_prices": {
+            "raw": 1.25,
+            "7": 19.99,
+            "8": 24.83,
+            "9": 38.46,
+            "10": 175.0
           }
         },
         "base2": {
@@ -10978,6 +12416,14 @@
               "total": 337,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/sandshrew-91",
+          "pc_prices": {
+            "raw": 0.99,
+            "7": 6.5,
+            "8": 18.5,
+            "9": 23.0,
+            "10": 57.76
           }
         }
       },
@@ -11047,6 +12493,14 @@
               "total": 937,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/squirtle-1st-edition-63",
+          "pc_prices": {
+            "raw": 109.99,
+            "7": 170.0,
+            "8": 223.75,
+            "9": 549.0,
+            "10": 3735.0
           }
         },
         "unlimited": {
@@ -11103,6 +12557,14 @@
               "total": 4104,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/squirtle-63",
+          "pc_prices": {
+            "raw": 4.1,
+            "7": 21.14,
+            "8": 45.37,
+            "9": 66.5,
+            "10": 429.0
           }
         },
         "base2": {
@@ -11159,6 +12621,14 @@
               "total": 1156,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/squirtle-93",
+          "pc_prices": {
+            "raw": 2.49,
+            "7": 22.5,
+            "8": 27.29,
+            "9": 39.16,
+            "10": 214.92
           }
         }
       },
@@ -11228,6 +12698,14 @@
               "total": 247,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/starmie-1st-edition-64",
+          "pc_prices": {
+            "raw": 43.28,
+            "7": 58.08,
+            "8": 102.0,
+            "9": 127.0,
+            "10": 866.87
           }
         },
         "unlimited": {
@@ -11284,6 +12762,14 @@
               "total": 1493,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/starmie-64",
+          "pc_prices": {
+            "raw": 1.73,
+            "7": 16.5,
+            "8": 19.25,
+            "9": 42.5,
+            "10": 135.0
           }
         },
         "base2": {
@@ -11340,6 +12826,14 @@
               "total": 263,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/starmie-94",
+          "pc_prices": {
+            "raw": 1.15,
+            "7": 10.0,
+            "8": 12.0,
+            "9": 22.34,
+            "10": 61.13
           }
         }
       },
@@ -11409,6 +12903,14 @@
               "total": 579,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/staryu-1st-edition-65",
+          "pc_prices": {
+            "raw": 19.99,
+            "7": 24.49,
+            "8": 48.0,
+            "9": 82.5,
+            "10": 508.96
           }
         },
         "unlimited": {
@@ -11465,6 +12967,14 @@
               "total": 1820,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/staryu-65",
+          "pc_prices": {
+            "raw": 1.39,
+            "7": 9.0,
+            "8": 15.0,
+            "9": 21.5,
+            "10": 98.4
           }
         },
         "base2": {
@@ -11521,6 +13031,14 @@
               "total": 333,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/staryu-95",
+          "pc_prices": {
+            "raw": 1.19,
+            "7": 10.0,
+            "8": 12.0,
+            "9": 15.81,
+            "10": 63.79
           }
         }
       },
@@ -11590,6 +13108,14 @@
               "total": 522,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/tangela-1st-edition-66",
+          "pc_prices": {
+            "raw": 19.99,
+            "7": 39.44,
+            "8": 45.09,
+            "9": 98.72,
+            "10": 480.0
           }
         },
         "unlimited": {
@@ -11646,6 +13172,14 @@
               "total": 1397,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/tangela-66",
+          "pc_prices": {
+            "raw": 1.56,
+            "7": 11.34,
+            "8": 30.75,
+            "9": 31.72,
+            "10": 120.0
           }
         },
         "base2": {
@@ -11702,6 +13236,14 @@
               "total": 238,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/tangela-96",
+          "pc_prices": {
+            "raw": 1.03,
+            "7": 4.8,
+            "8": 11.32,
+            "9": 26.0,
+            "10": 263.37
           }
         }
       },
@@ -11771,6 +13313,14 @@
               "total": 517,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/voltorb-1st-edition-67",
+          "pc_prices": {
+            "raw": 20.81,
+            "7": 44.42,
+            "8": 68.19,
+            "9": 107.5,
+            "10": 537.0
           }
         },
         "unlimited": {
@@ -11827,6 +13377,14 @@
               "total": 777,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/voltorb-67",
+          "pc_prices": {
+            "raw": 2.82,
+            "7": 18.0,
+            "8": 33.25,
+            "9": 52.0,
+            "10": 226.82
           }
         },
         "base2": {
@@ -11883,6 +13441,14 @@
               "total": 240,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/voltorb-98",
+          "pc_prices": {
+            "raw": 0.9,
+            "7": 3.75,
+            "8": 13.41,
+            "9": 36.0,
+            "10": 139.98
           }
         }
       },
@@ -11952,6 +13518,14 @@
               "total": 557,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/vulpix-1st-edition-68",
+          "pc_prices": {
+            "raw": 37.38,
+            "7": 48.37,
+            "8": 60.9,
+            "9": 133.66,
+            "10": 849.5
           }
         },
         "unlimited": {
@@ -12008,6 +13582,14 @@
               "total": 1963,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/vulpix-68",
+          "pc_prices": {
+            "raw": 1.52,
+            "7": 17.64,
+            "8": 25.09,
+            "9": 30.0,
+            "10": 141.58
           }
         },
         "base2": {
@@ -12064,6 +13646,14 @@
               "total": 262,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/vulpix-99",
+          "pc_prices": {
+            "raw": 1.88,
+            "7": 8.0,
+            "8": 10.0,
+            "9": 33.35,
+            "10": 112.5
           }
         }
       },
@@ -12133,6 +13723,14 @@
               "total": 250,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/weedle-1st-edition-69",
+          "pc_prices": {
+            "raw": 46.53,
+            "7": 62.25,
+            "8": 98.85,
+            "9": 150.0,
+            "10": 650.39
           }
         },
         "unlimited": {
@@ -12189,6 +13787,14 @@
               "total": 1435,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/weedle-69",
+          "pc_prices": {
+            "raw": 1.04,
+            "7": 8.38,
+            "8": 27.61,
+            "9": 30.0,
+            "10": 135.35
           }
         },
         "base2": {
@@ -12245,6 +13851,14 @@
               "total": 518,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/weedle-100",
+          "pc_prices": {
+            "raw": 1.23,
+            "7": 10.0,
+            "8": 13.0,
+            "9": 15.5,
+            "10": 66.01
           }
         }
       },
@@ -12314,6 +13928,14 @@
               "total": 157,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/clefairy-doll-1st-edition-70",
+          "pc_prices": {
+            "raw": 63.8,
+            "7": 75.0,
+            "8": 94.56,
+            "9": 204.76,
+            "10": 1900.0
           }
         },
         "unlimited": {
@@ -12370,6 +13992,14 @@
               "total": 324,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/clefairy-doll-70",
+          "pc_prices": {
+            "raw": 6.0,
+            "7": 18.0,
+            "8": 22.5,
+            "9": 64.5,
+            "10": 385.06
           }
         }
       },
@@ -12439,6 +14069,14 @@
               "total": 132,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/computer-search-1st-edition-71",
+          "pc_prices": {
+            "raw": 117.3,
+            "7": 115.84,
+            "8": 204.46,
+            "9": 360.5,
+            "10": 850.45
           }
         },
         "unlimited": {
@@ -12495,6 +14133,14 @@
               "total": 386,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/computer-search-71",
+          "pc_prices": {
+            "raw": 3.21,
+            "7": 14.66,
+            "8": 31.75,
+            "9": 58.16,
+            "10": 94.8
           }
         },
         "base2": {
@@ -12551,6 +14197,13 @@
               "total": 95,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/computer-search-101",
+          "pc_prices": {
+            "raw": 2.79,
+            "8": 22.76,
+            "9": 25.0,
+            "10": 42.54
           }
         }
       },
@@ -12620,6 +14273,14 @@
               "total": 159,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/devolution-spray-1st-edition-72",
+          "pc_prices": {
+            "raw": 44.75,
+            "7": 38.23,
+            "8": 56.17,
+            "9": 172.1,
+            "10": 1156.08
           }
         },
         "unlimited": {
@@ -12676,6 +14337,14 @@
               "total": 317,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/devolution-spray-72",
+          "pc_prices": {
+            "raw": 3.68,
+            "7": 24.0,
+            "8": 29.69,
+            "9": 45.47,
+            "10": 370.31
           }
         }
       },
@@ -12745,6 +14414,14 @@
               "total": 0,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/imposter-professor-oak-1st-edition-73",
+          "pc_prices": {
+            "raw": 52.0,
+            "7": 45.0,
+            "8": 55.92,
+            "9": 188.53,
+            "10": 943.75
           }
         },
         "unlimited": {
@@ -12801,6 +14478,14 @@
               "total": 336,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/imposter-professor-oak-73",
+          "pc_prices": {
+            "raw": 4.49,
+            "7": 32.86,
+            "8": 33.26,
+            "9": 74.85,
+            "10": 330.23
           }
         },
         "base2": {
@@ -12857,6 +14542,14 @@
               "total": 78,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/imposter-professor-oak-102",
+          "pc_prices": {
+            "raw": 3.4,
+            "7": 8.0,
+            "8": 10.0,
+            "9": 40.94,
+            "10": 122.1
           }
         }
       },
@@ -12926,6 +14619,14 @@
               "total": 154,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/item-finder-1st-edition-74",
+          "pc_prices": {
+            "raw": 49.49,
+            "7": 63.19,
+            "8": 102.49,
+            "9": 173.05,
+            "10": 1902.04
           }
         },
         "unlimited": {
@@ -12982,6 +14683,14 @@
               "total": 333,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/item-finder-74",
+          "pc_prices": {
+            "raw": 9.67,
+            "7": 13.0,
+            "8": 16.11,
+            "9": 49.99,
+            "10": 164.49
           }
         },
         "base2": {
@@ -13038,6 +14747,13 @@
               "total": 64,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/item-finder-103",
+          "pc_prices": {
+            "raw": 7.0,
+            "8": 19.1,
+            "9": 19.37,
+            "10": 32.96
           }
         }
       },
@@ -13107,6 +14823,14 @@
               "total": 158,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/lass-1st-edition-75",
+          "pc_prices": {
+            "raw": 68.65,
+            "7": 115.86,
+            "8": 166.8,
+            "9": 626.58,
+            "10": 3895.63
           }
         },
         "unlimited": {
@@ -13163,6 +14887,14 @@
               "total": 446,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/lass-75",
+          "pc_prices": {
+            "raw": 3.41,
+            "7": 16.0,
+            "8": 19.99,
+            "9": 52.0,
+            "10": 155.5
           }
         },
         "base2": {
@@ -13219,6 +14951,13 @@
               "total": 116,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/lass-104",
+          "pc_prices": {
+            "raw": 2.99,
+            "8": 7.13,
+            "9": 16.37,
+            "10": 113.5
           }
         }
       },
@@ -13288,6 +15027,14 @@
               "total": 150,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/pokemon-breeder-1st-edition-76",
+          "pc_prices": {
+            "raw": 44.0,
+            "7": 41.0,
+            "8": 108.6,
+            "9": 180.08,
+            "10": 1214.76
           }
         },
         "unlimited": {
@@ -13344,6 +15091,14 @@
               "total": 326,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/pokemon-breeder-76",
+          "pc_prices": {
+            "raw": 5.6,
+            "7": 17.95,
+            "8": 20.0,
+            "9": 74.59,
+            "10": 260.63
           }
         },
         "base2": {
@@ -13400,6 +15155,14 @@
               "total": 77,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/pokemon-breeder-105",
+          "pc_prices": {
+            "raw": 4.45,
+            "7": 8.0,
+            "8": 9.5,
+            "9": 23.98,
+            "10": 54.0
           }
         }
       },
@@ -13469,6 +15232,14 @@
               "total": 142,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/pokemon-trader-1st-edition-77",
+          "pc_prices": {
+            "raw": 49.45,
+            "7": 60.28,
+            "8": 63.33,
+            "9": 243.8,
+            "10": 1019.91
           }
         },
         "unlimited": {
@@ -13525,6 +15296,14 @@
               "total": 365,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/pokemon-trader-77",
+          "pc_prices": {
+            "raw": 5.35,
+            "7": 15.27,
+            "8": 26.0,
+            "9": 40.5,
+            "10": 292.1
           }
         },
         "base2": {
@@ -13581,6 +15360,14 @@
               "total": 125,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/pokemon-trader-106",
+          "pc_prices": {
+            "raw": 2.56,
+            "7": 8.0,
+            "8": 10.22,
+            "9": 11.5,
+            "10": 41.97
           }
         }
       },
@@ -13650,6 +15437,14 @@
               "total": 155,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/scoop-up-1st-edition-78",
+          "pc_prices": {
+            "raw": 65.0,
+            "7": 58.21,
+            "8": 79.22,
+            "9": 154.5,
+            "10": 850.0
           }
         },
         "unlimited": {
@@ -13706,6 +15501,14 @@
               "total": 259,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/scoop-up-78",
+          "pc_prices": {
+            "raw": 9.03,
+            "7": 14.2,
+            "8": 44.28,
+            "9": 91.81,
+            "10": 147.42
           }
         },
         "base2": {
@@ -13762,6 +15565,13 @@
               "total": 77,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/scoop-up-107",
+          "pc_prices": {
+            "raw": 4.79,
+            "8": 14.99,
+            "9": 20.87,
+            "10": 86.5
           }
         }
       },
@@ -13831,6 +15641,14 @@
               "total": 104,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/super-energy-removal-1st-edition-79",
+          "pc_prices": {
+            "raw": 108.87,
+            "7": 80.8,
+            "8": 103.98,
+            "9": 234.18,
+            "10": 1525.0
           }
         },
         "unlimited": {
@@ -13887,6 +15705,14 @@
               "total": 349,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/super-energy-removal-79",
+          "pc_prices": {
+            "raw": 3.0,
+            "7": 17.0,
+            "8": 79.99,
+            "9": 88.0,
+            "10": 115.0
           }
         },
         "base2": {
@@ -13943,6 +15769,14 @@
               "total": 118,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/super-energy-removal-108",
+          "pc_prices": {
+            "raw": 4.24,
+            "7": 7.26,
+            "8": 14.7,
+            "9": 18.29,
+            "10": 37.55
           }
         }
       },
@@ -14012,6 +15846,14 @@
               "total": 164,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/defender-1st-edition-80",
+          "pc_prices": {
+            "raw": 23.17,
+            "7": 34.6,
+            "8": 35.75,
+            "9": 87.73,
+            "10": 500.0
           }
         },
         "unlimited": {
@@ -14068,6 +15910,14 @@
               "total": 362,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/defender-80",
+          "pc_prices": {
+            "raw": 2.48,
+            "7": 5.0,
+            "8": 5.88,
+            "9": 35.86,
+            "10": 335.88
           }
         },
         "base2": {
@@ -14124,6 +15974,13 @@
               "total": 215,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/defender-109",
+          "pc_prices": {
+            "raw": 0.99,
+            "8": 9.55,
+            "9": 11.37,
+            "10": 33.0
           }
         }
       },
@@ -14193,6 +16050,14 @@
               "total": 192,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/energy-retrieval-1st-edition-81",
+          "pc_prices": {
+            "raw": 24.98,
+            "7": 25.1,
+            "8": 40.0,
+            "9": 103.67,
+            "10": 525.85
           }
         },
         "unlimited": {
@@ -14249,6 +16114,14 @@
               "total": 633,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/energy-retrieval-81",
+          "pc_prices": {
+            "raw": 0.99,
+            "7": 13.5,
+            "8": 18.59,
+            "9": 29.27,
+            "10": 149.99
           }
         },
         "base2": {
@@ -14305,6 +16178,14 @@
               "total": 235,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/energy-retrieval-110",
+          "pc_prices": {
+            "raw": 1.21,
+            "7": 11.0,
+            "8": 13.95,
+            "9": 15.0,
+            "10": 91.84
           }
         }
       },
@@ -14374,6 +16255,14 @@
               "total": 335,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/full-heal-1st-edition-82",
+          "pc_prices": {
+            "raw": 12.4,
+            "7": 15.34,
+            "8": 23.84,
+            "9": 72.94,
+            "10": 570.25
           }
         },
         "unlimited": {
@@ -14430,6 +16319,14 @@
               "total": 368,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/full-heal-82",
+          "pc_prices": {
+            "raw": 1.9,
+            "7": 12.0,
+            "8": 24.77,
+            "9": 46.01,
+            "10": 320.5
           }
         },
         "base2": {
@@ -14486,6 +16383,14 @@
               "total": 161,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/full-heal-111",
+          "pc_prices": {
+            "raw": 0.74,
+            "7": 4.0,
+            "8": 5.5,
+            "9": 16.46,
+            "10": 46.5
           }
         }
       },
@@ -14555,6 +16460,14 @@
               "total": 386,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/maintenance-1st-edition-83",
+          "pc_prices": {
+            "raw": 10.0,
+            "7": 25.07,
+            "8": 29.78,
+            "9": 67.1,
+            "10": 400.0
           }
         },
         "unlimited": {
@@ -14611,6 +16524,14 @@
               "total": 377,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/maintenance-83",
+          "pc_prices": {
+            "raw": 2.88,
+            "7": 18.77,
+            "8": 23.18,
+            "9": 43.39,
+            "10": 551.67
           }
         },
         "base2": {
@@ -14667,6 +16588,13 @@
               "total": 115,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/maintenance-112",
+          "pc_prices": {
+            "raw": 1.32,
+            "8": 9.99,
+            "9": 15.5,
+            "10": 65.68
           }
         }
       },
@@ -14736,6 +16664,14 @@
               "total": 176,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/pluspower-1st-edition-84",
+          "pc_prices": {
+            "raw": 15.43,
+            "7": 35.5,
+            "8": 37.75,
+            "9": 129.24,
+            "10": 705.0
           }
         },
         "unlimited": {
@@ -14792,6 +16728,14 @@
               "total": 579,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/pluspower-84",
+          "pc_prices": {
+            "raw": 1.6,
+            "7": 8.0,
+            "8": 9.53,
+            "9": 25.0,
+            "10": 86.26
           }
         },
         "base2": {
@@ -14848,6 +16792,14 @@
               "total": 165,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/pluspower-113",
+          "pc_prices": {
+            "raw": 0.57,
+            "7": 1.25,
+            "8": 10.45,
+            "9": 26.0,
+            "10": 260.0
           }
         }
       },
@@ -14917,6 +16869,14 @@
               "total": 339,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/pokemon-center-1st-edition-85",
+          "pc_prices": {
+            "raw": 10.99,
+            "7": 17.5,
+            "8": 26.73,
+            "9": 111.64,
+            "10": 528.17
           }
         },
         "unlimited": {
@@ -14973,6 +16933,14 @@
               "total": 426,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/pokemon-center-85",
+          "pc_prices": {
+            "raw": 2.04,
+            "7": 16.0,
+            "8": 19.49,
+            "9": 26.35,
+            "10": 600.0
           }
         },
         "base2": {
@@ -15029,6 +16997,14 @@
               "total": 101,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/pokemon-center-114",
+          "pc_prices": {
+            "raw": 1.37,
+            "7": 7.12,
+            "8": 7.5,
+            "9": 13.0,
+            "10": 152.17
           }
         }
       },
@@ -15098,6 +17074,14 @@
               "total": 207,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/pokemon-flute-1st-edition-86",
+          "pc_prices": {
+            "raw": 28.7,
+            "7": 31.39,
+            "8": 42.5,
+            "9": 141.26,
+            "10": 750.0
           }
         },
         "unlimited": {
@@ -15154,6 +17138,14 @@
               "total": 331,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/pokemon-flute-86",
+          "pc_prices": {
+            "raw": 3.49,
+            "7": 14.5,
+            "8": 24.55,
+            "9": 84.5,
+            "10": 427.5
           }
         }
       },
@@ -15223,6 +17215,14 @@
               "total": 0,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/pokedex-1st-edition-87",
+          "pc_prices": {
+            "raw": 26.71,
+            "7": 29.66,
+            "8": 32.21,
+            "9": 171.92,
+            "10": 970.69
           }
         },
         "unlimited": {
@@ -15279,6 +17279,14 @@
               "total": 0,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/pokedex-87",
+          "pc_prices": {
+            "raw": 1.2,
+            "7": 22.99,
+            "8": 26.23,
+            "9": 41.9,
+            "10": 129.74
           }
         },
         "base2": {
@@ -15335,6 +17343,13 @@
               "total": 0,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/pokedex-115",
+          "pc_prices": {
+            "raw": 0.89,
+            "8": 17.89,
+            "9": 20.0,
+            "10": 25.53
           }
         }
       },
@@ -15404,6 +17419,14 @@
               "total": 170,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/professor-oak-1st-edition-88",
+          "pc_prices": {
+            "raw": 35.13,
+            "7": 32.02,
+            "8": 73.83,
+            "9": 202.1,
+            "10": 1855.25
           }
         },
         "unlimited": {
@@ -15460,6 +17483,14 @@
               "total": 591,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/professor-oak-88",
+          "pc_prices": {
+            "raw": 1.99,
+            "7": 12.0,
+            "8": 20.2,
+            "9": 41.0,
+            "10": 156.77
           }
         },
         "base2": {
@@ -15516,6 +17547,14 @@
               "total": 109,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/professor-oak-116",
+          "pc_prices": {
+            "raw": 1.44,
+            "7": 13.5,
+            "8": 14.53,
+            "9": 17.91,
+            "10": 29.75
           }
         }
       },
@@ -15585,6 +17624,14 @@
               "total": 165,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/revive-1st-edition-89",
+          "pc_prices": {
+            "raw": 23.87,
+            "7": 36.0,
+            "8": 45.0,
+            "9": 177.25,
+            "10": 453.23
           }
         },
         "unlimited": {
@@ -15641,6 +17688,14 @@
               "total": 374,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/revive-89",
+          "pc_prices": {
+            "raw": 2.94,
+            "7": 14.0,
+            "8": 17.08,
+            "9": 67.34,
+            "10": 534.6
           }
         }
       },
@@ -15710,6 +17765,14 @@
               "total": 179,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/super-potion-1st-edition-90",
+          "pc_prices": {
+            "raw": 18.17,
+            "7": 39.6,
+            "8": 40.35,
+            "9": 138.92,
+            "10": 725.0
           }
         },
         "unlimited": {
@@ -15766,6 +17829,14 @@
               "total": 790,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/super-potion-90",
+          "pc_prices": {
+            "raw": 1.0,
+            "7": 19.0,
+            "8": 39.48,
+            "9": 43.0,
+            "10": 90.24
           }
         },
         "base2": {
@@ -15822,6 +17893,14 @@
               "total": 170,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/super-potion-117",
+          "pc_prices": {
+            "raw": 0.81,
+            "7": 8.0,
+            "8": 9.8,
+            "9": 11.0,
+            "10": 18.97
           }
         }
       },
@@ -15891,6 +17970,14 @@
               "total": 237,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/bill-1st-edition-91",
+          "pc_prices": {
+            "raw": 21.71,
+            "7": 34.0,
+            "8": 42.48,
+            "9": 151.25,
+            "10": 510.0
           }
         },
         "unlimited": {
@@ -15947,6 +18034,14 @@
               "total": 991,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/bill-91",
+          "pc_prices": {
+            "raw": 1.46,
+            "7": 13.0,
+            "8": 16.5,
+            "9": 33.0,
+            "10": 109.14
           }
         },
         "base2": {
@@ -16003,6 +18098,14 @@
               "total": 282,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/bill-118",
+          "pc_prices": {
+            "raw": 0.71,
+            "7": 3.0,
+            "8": 3.25,
+            "9": 9.8,
+            "10": 39.77
           }
         }
       },
@@ -16072,6 +18175,14 @@
               "total": 192,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/energy-removal-1st-edition-92",
+          "pc_prices": {
+            "raw": 19.89,
+            "7": 39.99,
+            "8": 43.73,
+            "9": 110.3,
+            "10": 880.0
           }
         },
         "unlimited": {
@@ -16128,6 +18239,14 @@
               "total": 703,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/energy-removal-92",
+          "pc_prices": {
+            "raw": 0.99,
+            "7": 16.09,
+            "8": 19.77,
+            "9": 25.03,
+            "10": 71.5
           }
         },
         "base2": {
@@ -16184,6 +18303,14 @@
               "total": 280,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/energy-removal-119",
+          "pc_prices": {
+            "raw": 0.99,
+            "7": 2.0,
+            "8": 3.08,
+            "9": 19.65,
+            "10": 38.0
           }
         }
       },
@@ -16253,6 +18380,14 @@
               "total": 220,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/gust-of-wind-1st-edition-93",
+          "pc_prices": {
+            "raw": 21.93,
+            "7": 27.07,
+            "8": 37.44,
+            "9": 98.38,
+            "10": 401.71
           }
         },
         "unlimited": {
@@ -16309,6 +18444,14 @@
               "total": 973,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/gust-of-wind-93",
+          "pc_prices": {
+            "raw": 1.26,
+            "7": 17.91,
+            "8": 24.49,
+            "9": 26.48,
+            "10": 72.0
           }
         },
         "base2": {
@@ -16365,6 +18508,14 @@
               "total": 409,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/gust-of-wind-120",
+          "pc_prices": {
+            "raw": 1.0,
+            "7": 12.0,
+            "8": 15.0,
+            "9": 17.0,
+            "10": 67.75
           }
         }
       },
@@ -16434,6 +18585,14 @@
               "total": 201,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/potion-1st-edition-94",
+          "pc_prices": {
+            "raw": 14.55,
+            "7": 16.84,
+            "8": 38.0,
+            "9": 99.87,
+            "10": 467.5
           }
         },
         "unlimited": {
@@ -16490,6 +18649,14 @@
               "total": 1391,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/potion-94",
+          "pc_prices": {
+            "raw": 0.99,
+            "7": 4.56,
+            "8": 13.95,
+            "9": 15.5,
+            "10": 97.5
           }
         },
         "base2": {
@@ -16546,6 +18713,14 @@
               "total": 452,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/potion-122",
+          "pc_prices": {
+            "raw": 0.98,
+            "7": 2.13,
+            "8": 6.47,
+            "9": 13.39,
+            "10": 44.06
           }
         }
       },
@@ -16615,6 +18790,14 @@
               "total": 211,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/switch-1st-edition-95",
+          "pc_prices": {
+            "raw": 21.2,
+            "7": 27.82,
+            "8": 40.88,
+            "9": 130.11,
+            "10": 435.35
           }
         },
         "unlimited": {
@@ -16671,6 +18854,14 @@
               "total": 1035,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/switch-95",
+          "pc_prices": {
+            "raw": 1.28,
+            "7": 10.0,
+            "8": 13.0,
+            "9": 19.26,
+            "10": 99.99
           }
         },
         "base2": {
@@ -16727,6 +18918,14 @@
               "total": 307,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/switch-123",
+          "pc_prices": {
+            "raw": 0.89,
+            "7": 8.0,
+            "8": 10.32,
+            "9": 19.73,
+            "10": 41.0
           }
         }
       },
@@ -16796,6 +18995,14 @@
               "total": 271,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/double-colorless-energy-1st-edition-96",
+          "pc_prices": {
+            "raw": 28.63,
+            "7": 44.93,
+            "8": 52.08,
+            "9": 170.67,
+            "10": 1281.5
           }
         },
         "unlimited": {
@@ -16852,6 +19059,14 @@
               "total": 315,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/double-colorless-energy-96",
+          "pc_prices": {
+            "raw": 3.65,
+            "7": 13.15,
+            "8": 19.0,
+            "9": 38.19,
+            "10": 724.5
           }
         },
         "base2": {
@@ -16908,6 +19123,13 @@
               "total": 84,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/double-colorless-energy-124",
+          "pc_prices": {
+            "raw": 2.76,
+            "8": 8.64,
+            "9": 10.0,
+            "10": 132.12
           }
         }
       },
@@ -16977,6 +19199,14 @@
               "total": 455,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/fighting-energy-1st-edition-97",
+          "pc_prices": {
+            "raw": 6.15,
+            "7": 23.67,
+            "8": 25.05,
+            "9": 47.47,
+            "10": 242.0
           }
         },
         "unlimited": {
@@ -17033,6 +19263,14 @@
               "total": 668,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/fighting-energy-97",
+          "pc_prices": {
+            "raw": 0.58,
+            "7": 10.19,
+            "8": 19.99,
+            "9": 29.46,
+            "10": 87.5
           }
         },
         "base2": {
@@ -17089,6 +19327,14 @@
               "total": 140,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/fighting-energy-125",
+          "pc_prices": {
+            "raw": 0.43,
+            "7": 8.0,
+            "8": 10.0,
+            "9": 15.83,
+            "10": 31.31
           }
         }
       },
@@ -17158,6 +19404,14 @@
               "total": 429,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/fire-energy-1st-edition-98",
+          "pc_prices": {
+            "raw": 6.99,
+            "7": 19.63,
+            "8": 24.75,
+            "9": 63.23,
+            "10": 357.5
           }
         },
         "unlimited": {
@@ -17214,6 +19468,14 @@
               "total": 575,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/fire-energy-98",
+          "pc_prices": {
+            "raw": 1.18,
+            "7": 5.0,
+            "8": 6.5,
+            "9": 25.0,
+            "10": 100.0
           }
         },
         "base2": {
@@ -17270,6 +19532,14 @@
               "total": 102,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/fire-energy-126",
+          "pc_prices": {
+            "raw": 1.32,
+            "7": 8.0,
+            "8": 10.5,
+            "9": 13.23,
+            "10": 20.0
           }
         }
       },
@@ -17339,6 +19609,14 @@
               "total": 363,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/grass-energy-1st-edition-99",
+          "pc_prices": {
+            "raw": 15.16,
+            "7": 16.0,
+            "8": 20.45,
+            "9": 46.48,
+            "10": 278.48
           }
         },
         "unlimited": {
@@ -17395,6 +19673,14 @@
               "total": 461,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/grass-energy-99",
+          "pc_prices": {
+            "raw": 0.5,
+            "7": 11.5,
+            "8": 13.68,
+            "9": 44.99,
+            "10": 106.0
           }
         },
         "base2": {
@@ -17451,6 +19737,14 @@
               "total": 390,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/grass-energy-127",
+          "pc_prices": {
+            "raw": 0.68,
+            "7": 6.0,
+            "8": 7.5,
+            "9": 11.48,
+            "10": 50.0
           }
         }
       },
@@ -17520,6 +19814,14 @@
               "total": 442,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/lightning-energy-1st-edition-100",
+          "pc_prices": {
+            "raw": 9.3,
+            "7": 20.25,
+            "8": 29.44,
+            "9": 44.0,
+            "10": 263.64
           }
         },
         "unlimited": {
@@ -17576,6 +19878,14 @@
               "total": 348,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/lightning-energy-100",
+          "pc_prices": {
+            "raw": 0.99,
+            "7": 14.5,
+            "8": 14.82,
+            "9": 29.98,
+            "10": 102.04
           }
         },
         "base2": {
@@ -17632,6 +19942,14 @@
               "total": 241,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/lightning-energy-128",
+          "pc_prices": {
+            "raw": 0.33,
+            "7": 8.0,
+            "8": 9.75,
+            "9": 16.92,
+            "10": 27.65
           }
         }
       },
@@ -17701,6 +20019,14 @@
               "total": 444,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/psychic-energy-1st-edition-101",
+          "pc_prices": {
+            "raw": 9.26,
+            "7": 14.78,
+            "8": 21.66,
+            "9": 43.03,
+            "10": 242.8
           }
         },
         "unlimited": {
@@ -17757,6 +20083,14 @@
               "total": 426,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/psychic-energy-101",
+          "pc_prices": {
+            "raw": 1.0,
+            "7": 19.96,
+            "8": 22.09,
+            "9": 24.0,
+            "10": 93.56
           }
         },
         "base2": {
@@ -17813,6 +20147,14 @@
               "total": 298,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/psychic-energy-129",
+          "pc_prices": {
+            "raw": 0.44,
+            "7": 9.0,
+            "8": 10.76,
+            "9": 18.36,
+            "10": 56.0
           }
         }
       },
@@ -17882,6 +20224,14 @@
               "total": 334,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/water-energy-1st-edition-102",
+          "pc_prices": {
+            "raw": 13.69,
+            "7": 28.96,
+            "8": 32.35,
+            "9": 66.7,
+            "10": 304.47
           }
         },
         "unlimited": {
@@ -17938,6 +20288,14 @@
               "total": 498,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set/water-energy-102",
+          "pc_prices": {
+            "raw": 1.17,
+            "7": 10.5,
+            "8": 12.75,
+            "9": 29.99,
+            "10": 99.0
           }
         },
         "base2": {
@@ -17994,6 +20352,14 @@
               "total": 262,
               "resolution": "whole"
             }
+          },
+          "game_url": "https://www.pricecharting.com/game/pokemon-base-set-2/water-energy-130",
+          "pc_prices": {
+            "raw": 0.4,
+            "7": 13.0,
+            "8": 16.55,
+            "9": 18.0,
+            "10": 56.44
           }
         }
       },

@@ -292,6 +292,7 @@ GitHub Action **Update JP PSA10 broad benchmark** 每晚重算權重、季度重
 
 ## Changelog（摘要）
 
+- **v1.31.6**：JP PSA10 chase／基準成分籃子刊價改以港元顯示（資料仍為 SNKRDUNK 日圓；HK$＝¥÷20.3，與開盒 EV 同一固定顯示匯率）。手機觸及表格時可繼續捲動頁面。Base PSA POP 表內嵌 PriceCharting 指示價（raw／G7／G8／G9／PSA10，USD×7.80），不另開大表。指數／POP 算法不變
 - **v1.31.5**：Base PSA POP——去掉半級選項（半級固定併入較低整數級）；新增「分開 PSA 與 CGC」開關（預設仍合計）；下拉改編號開頭（`#1 Alakazam`）；選卡後才載入一張卡圖。EV／Chase 算法不變
 - **v1.31.4**：Base PSA POP——下拉改為英文 Base Set #1–102；各欄 pop 為 PSA＋CGC 合計（不再分欄、不再提供 Beckett）；手機改為一張表並列 1st Edition 與 Unlimited。EV／Chase 算法不變
 - **v1.31.3**：Chase「便宜過模型」清單縮圖補齊——修好 `#146/S-P` 特典編號解析，並對上本站已有 SNKRDUNK／TCGPlayer 圖與核對過的公開卡圖；對不到才用淺色卡框。EV／Chase 算法不變

@@ -6,14 +6,14 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>日版 PSA10 基準 · v1.30.6</title>
+<title>日版 PSA10 基準 · v1.31.6</title>
 <meta name="description" content="日版寶可夢 TCG PSA10 廣度基準：復古／中世代／現行 N 隨流動性篩選浮動，另加特典與 Tag Team 姊妹籃子。等權／流動性／價格／無 cap 疊加。靜態快照，非正式投資建議。" />
 <meta property="og:site_name" content="日版 PSA10 基準" />
 <meta property="og:title" content="日版 PSA10 基準 · 復古／中世代／現行" />
 <meta property="og:description" content="Pokeca-style JP PSA10 廣度基準。舊 60 張是 SV chase 袖。靜態快照，非正式投資建議。" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://swishish.github.io/Pokemon-Box-EV/market-jp-psa10-bench.html" />
-<meta property="og:image" content="https://swishish.github.io/Pokemon-Box-EV/og-psa10-bench-v2.png?v=1.30.6" />
+<meta property="og:image" content="https://swishish.github.io/Pokemon-Box-EV/og-psa10-bench-v2.png?v=1.31.6" />
 <meta property="og:image:alt" content="日版 PSA10 基準 · 復古／中世代／現行" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
@@ -21,7 +21,7 @@
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="日版 PSA10 基準 · 復古／中世代／現行" />
 <meta name="twitter:description" content="復古／中世代／現行廣度基準 + 特典／Tag Team。非正式投資建議。" />
-<meta name="twitter:image" content="https://swishish.github.io/Pokemon-Box-EV/og-psa10-bench-v2.png?v=1.30.6" />
+<meta name="twitter:image" content="https://swishish.github.io/Pokemon-Box-EV/og-psa10-bench-v2.png?v=1.31.6" />
 <meta name="twitter:image:alt" content="日版 PSA10 基準 · 復古／中世代／現行" />
 <link rel="canonical" href="https://swishish.github.io/Pokemon-Box-EV/market-jp-psa10-bench.html" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
@@ -413,8 +413,7 @@
     overflow-x: auto;
     overflow-y: hidden;
     overscroll-behavior-x: contain;
-    -webkit-overflow-scrolling: touch;
-    touch-action: pan-x pinch-zoom;
+    touch-action: pan-x pan-y pinch-zoom;
   }
   .table-wrap table { width: 100%; min-width: 42rem; }
   .movers .table-wrap table { min-width: 22rem; }
@@ -461,7 +460,7 @@
 <header>
   <div class="header-inner">
     <div class="header-top">
-      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.30.6</span></h1>
+      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.31.6</span></h1>
       <nav class="header-nav" aria-label="站內導覽">
         <a class="nav-btn" href="./calc.html">開盒 EV</a>
         <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
@@ -562,14 +561,15 @@
   <div class="card">
     <h2>成分籃子 Basket <span class="pill" id="basketCountPill"></span></h2>
     <p class="tiny" style="margin:0 0 6px">季度凍結名單；權重每日用前一日流動性／滯後價重算。流動％與價格％已套 3% 上限；無 cap 欄是疊加、不改前三條。點名稱開啟 SNKRDUNK（僅供瀏覽，請勿在此購買）。</p>
-    <div class="table-wrap">
+    <p class="tiny" id="basketFxNote" style="margin:0 0 6px">PSA10 刊價以港元顯示。資料仍為 SNKRDUNK 日圓成交圖價；換算 HK$＝¥÷20.3（與開盒 EV 同一固定顯示匯率，非正式即時牌價）。</p>
+    <div class="table-wrap basket-table-wrap">
       <table>
         <thead>
           <tr>
             <th>#</th>
             <th></th>
             <th>卡</th>
-            <th class="num">¥ PSA10</th>
+            <th class="num">HK$ PSA10</th>
             <th class="num">等權%</th>
             <th class="num">流動%</th>
             <th class="num">價格%</th>
@@ -604,13 +604,13 @@
 </main>
 <footer>日盒 EV 小算盤 · JP PSA10 基準 · Snapshot 靜態資料 · 非正式投資建議 · 來源 <a href="https://snkrdunk.com/" target="_blank" rel="noopener">SNKRDUNK</a> · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10.html">JP PSA10</a> · <a href="./market-base-psa-pop.html">Base POP</a></footer>
 
-<script src="./js/spark-tip.js?v=1.30.6"></script>
-<script src="./js/jp-psa10-ui.js?v=1.30.6"></script>
-<script src="./data/market-jp-psa10-bench/latest.js?v=1.30.6"></script>
-<script src="./data/market-jp-psa10-bench/history.js?v=1.30.6"></script>
+<script src="./js/spark-tip.js?v=1.31.6"></script>
+<script src="./js/jp-psa10-ui.js?v=1.31.6"></script>
+<script src="./data/market-jp-psa10-bench/latest.js?v=1.31.6"></script>
+<script src="./data/market-jp-psa10-bench/history.js?v=1.31.6"></script>
 <script>
 (async function () {
-  const VERSION = '1.30.6';
+  const VERSION = '1.31.6';
   const ORDER = ['composite', 'vintage', 'modern', 'current', 'promo', 'midera'];
   const SERIES = {
     equal: { id: 'equal', name: '等權', color: '#141414' },
@@ -623,6 +623,9 @@
     ? JpPsa10Ui.defaultVisible(WEIGHT_IDS)
     : { equal: true, liquidity: true, price: false, priceNoCap: false };
   const $ = (id) => document.getElementById(id);
+  if (window.JpPsa10Ui && typeof JpPsa10Ui.bindTablePageScroll === 'function') {
+    JpPsa10Ui.bindTablePageScroll(document);
+  }
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, (ch) => ({
       '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
@@ -698,6 +701,13 @@
   function fmtYen(n) {
     if (n == null || Number.isNaN(Number(n))) return '—';
     return '¥' + Math.round(Number(n)).toLocaleString('en-US');
+  }
+  function fmtHkdFromYen(n) {
+    if (window.JpPsa10Ui && typeof JpPsa10Ui.fmtHkdFromYen === 'function') {
+      return JpPsa10Ui.fmtHkdFromYen(n);
+    }
+    if (n == null || Number.isNaN(Number(n))) return '—';
+    return 'HK$' + Math.round(Number(n) / 20.3).toLocaleString('en-US');
   }
   function fmtIdx(n) {
     if (n == null || Number.isNaN(Number(n))) return '—';
@@ -1015,7 +1025,7 @@
         .filter(Boolean).join(' · ');
       return '<tr><td class="num">' + (i + 1) + '</td><td>' + img + '</td><td class="name-cell">' + href +
         (setBits ? '<div class="tiny">' + escapeHtml(setBits) + '</div>' : '') +
-        '</td><td class="num">' + fmtYen(row.price) + '</td><td class="num">' +
+        '</td><td class="num">' + fmtHkdFromYen(row.price) + '</td><td class="num">' +
         (row.equalWeight != null ? Number(row.equalWeight).toFixed(2) : '—') +
         '</td><td class="num">' + (row.liquidityWeight != null ? Number(row.liquidityWeight).toFixed(2) : '—') +
         '</td><td class="num">' + (row.priceWeight != null ? Number(row.priceWeight).toFixed(2) : '—') +

@@ -214,8 +214,66 @@
     return label + ' 廣度需要兩個有 LOCF 價的日期。';
   }
 
+  /* Display-only. SNK feed stays yen. Same fixed rate as calc.html / data.json fx.jpy_per_hkd. */
+  var FX_JPY_PER_HKD = 20.3;
+  var FX_NOTE_ZH =
+    'PSA10 刊價以港元顯示。資料仍為 SNKRDUNK 日圓成交圖價；換算 HK$＝¥÷20.3（與開盒 EV 同一固定顯示匯率，非正式即時牌價）。';
+
+  function yenToHkd(n) {
+    if (n == null || n === '') return null;
+    var yen = Number(n);
+    if (!isFinite(yen)) return null;
+    return yen / FX_JPY_PER_HKD;
+  }
+
+  function fmtHkdFromYen(n) {
+    var hkd = yenToHkd(n);
+    if (hkd == null) return '—';
+    var sign = hkd < 0 ? '-' : '';
+    return sign + 'HK$' + Math.abs(Math.round(hkd)).toLocaleString('en-US');
+  }
+
+  /* Tall overflow-x tables become scrollports and can swallow vertical page pans on iOS. */
+  function bindTablePageScroll(root) {
+    var host = root || (typeof document !== 'undefined' ? document : null);
+    if (!host || !host.querySelectorAll) return;
+    host.querySelectorAll('.table-wrap').forEach(function (wrap) {
+      if (wrap.getAttribute('data-page-scroll') === '1') return;
+      wrap.setAttribute('data-page-scroll', '1');
+      var lastY = 0;
+      var lastX = 0;
+      var axis = '';
+      wrap.addEventListener('touchstart', function (e) {
+        if (!e.touches || !e.touches[0]) return;
+        lastY = e.touches[0].clientY;
+        lastX = e.touches[0].clientX;
+        axis = '';
+      }, { passive: true });
+      wrap.addEventListener('touchmove', function (e) {
+        if (!e.touches || !e.touches[0]) return;
+        var y = e.touches[0].clientY;
+        var x = e.touches[0].clientX;
+        var dy = y - lastY;
+        var dx = x - lastX;
+        if (!axis) {
+          if (Math.abs(dy) < 2 && Math.abs(dx) < 2) return;
+          axis = Math.abs(dy) > Math.abs(dx) ? 'y' : 'x';
+        }
+        lastY = y;
+        lastX = x;
+        if (axis !== 'y') return;
+        if (wrap.scrollHeight > wrap.clientHeight + 1) return;
+        var scroller = document.scrollingElement || document.documentElement;
+        if (scroller) scroller.scrollTop -= dy;
+        if (e.cancelable) e.preventDefault();
+      }, { passive: false });
+    });
+  }
+
   global.JpPsa10Ui = {
     DEFAULT_PERIOD: DEFAULT_PERIOD,
+    FX_JPY_PER_HKD: FX_JPY_PER_HKD,
+    FX_NOTE_ZH: FX_NOTE_ZH,
     looksLatinName: looksLatinName,
     stripDecor: stripDecor,
     cleanMangledEn: cleanMangledEn,
@@ -227,6 +285,9 @@
     locfAt: locfAt,
     breadthFromPrints: breadthFromPrints,
     periodBreadthLabel: periodBreadthLabel,
-    breadthNote: breadthNote
+    breadthNote: breadthNote,
+    yenToHkd: yenToHkd,
+    fmtHkdFromYen: fmtHkdFromYen,
+    bindTablePageScroll: bindTablePageScroll
   };
 })(typeof window !== 'undefined' ? window : globalThis);

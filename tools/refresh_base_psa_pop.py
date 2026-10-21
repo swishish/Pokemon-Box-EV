@@ -4,7 +4,7 @@
 Reads data/base-psa-pop/catalog.json (PriceCharting pop/item slugs) and writes
 data/base-psa-pop/latest.json + latest.js for market-base-psa-pop.html.
 
-Public PriceCharting HTML only. No API key. No invented pops.
+Public PriceCharting HTML only. No API key. No invented pops or prices.
 
   python3 tools/refresh_base_psa_pop.py --self-test
   python3 tools/refresh_base_psa_pop.py --root .
@@ -33,6 +33,15 @@ from zoneinfo import ZoneInfo
 ROOT_DEFAULT = Path(__file__).resolve().parents[1]
 TESTDATA = Path(__file__).resolve().parent / "testdata" / "base-psa-pop"
 POP_PREFIX = "https://www.pricecharting.com/pop/item/"
+GAME_PREFIX = "https://www.pricecharting.com/game/"
+# PriceCharting TCG columns reuse video-game condition IDs.
+PC_PRICE_MAP = {
+    "used": "raw",
+    "complete": "7",
+    "new": "8",
+    "graded": "9",
+    "manual_only": "10",
+}
 USER_AGENT = (
     "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
     "(KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36"
@@ -70,6 +79,16 @@ HALF_NOTE_RE = re.compile(
     r"Half grade populations are included in the nearest whole grade",
     re.I,
 )
+PRICE_TD_RE = re.compile(
+    r'<td[^>]*\bid=["\'](used|complete|new|graded|manual_only)_price["\'][^>]*>(.*?)</td>',
+    re.I | re.S,
+)
+PRICE_SPAN_RE = re.compile(
+    r'<span[^>]*\bprice\b[^>]*\bjs-price\b[^>]*>(.*?)</span>|'
+    r'<span[^>]*\bjs-price\b[^>]*\bprice\b[^>]*>(.*?)</span>',
+    re.I | re.S,
+)
+MONEY_RE = re.compile(r"\$\s*([0-9][0-9,]*(?:\.[0-9]+)?)")
 
 
 class ParseError(Exception):
@@ -291,6 +310,38 @@ def pop_url(slug: str) -> str:
     return POP_PREFIX + "/".join(quote(part, safe="-._~") for part in parts)
 
 
+def game_url(slug: str) -> str:
+    parts = str(slug).lstrip("/").split("/")
+    return GAME_PREFIX + "/".join(quote(part, safe="-._~") for part in parts)
+
+
+def parse_money_usd(raw: str) -> float | None:
+    text = strip_html(raw)
+    if not text or text in {"-", "—", "–", "n/a", "N/A"}:
+        return None
+    m = MONEY_RE.search(text)
+    if not m:
+        return None
+    return float(m.group(1).replace(",", ""))
+
+
+def parse_pc_prices(html: str) -> dict[str, float]:
+    """used=raw, complete=G7, new=G8, graded=G9, manual_only=PSA10. Missing → omit."""
+    out: dict[str, float] = {}
+    if not html:
+        return out
+    for match in PRICE_TD_RE.finditer(html):
+        key = PC_PRICE_MAP.get(match.group(1).lower())
+        if not key:
+            continue
+        span = PRICE_SPAN_RE.search(match.group(2) or "")
+        blob = (span.group(1) or span.group(2) or "") if span else match.group(2)
+        usd = parse_money_usd(blob)
+        if usd is not None:
+            out[key] = usd
+    return out
+
+
 def fetch_html(url: str, *, timeout: int = 30) -> str:
     req = urllib.request.Request(
         url,
@@ -325,7 +376,7 @@ def attach_print(card: dict, print_id: str, slug: str, parsed: dict, html: str) 
     hm = re.search(r"<h1[^>]*>(.*?)</h1>", html, re.I | re.S)
     if hm:
         title = strip_html(hm.group(1))
-    return {
+    rec = {
         "id": print_id,
         "label": {
             "1st": "1st Edition",
@@ -334,6 +385,7 @@ def attach_print(card: dict, print_id: str, slug: str, parsed: dict, html: str) 
         }[print_id],
         "slug": slug,
         "pop_url": pop_url(slug),
+        "game_url": game_url(slug),
         "page_title": title or None,
         "half_grades_bucketed_by_source": bool(parsed["half_grades_bucketed_by_source"]),
         "grades_reported": parsed["grades_reported"],
@@ -341,6 +393,55 @@ def attach_print(card: dict, print_id: str, slug: str, parsed: dict, html: str) 
             gid: dict(parsed["graders"].get(gid) or empty_grader()) for gid in GRADER_IDS
         },
     }
+    return rec
+
+
+def load_previous_prices(root: Path) -> dict[tuple[str, str], dict[str, float]]:
+    path = root / "data" / "base-psa-pop" / "latest.json"
+    try:
+        prev = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+    out: dict[tuple[str, str], dict[str, float]] = {}
+    for card in prev.get("cards") or []:
+        cid = card.get("id")
+        if not cid:
+            continue
+        for pid, rec in (card.get("prints") or {}).items():
+            prices = (rec or {}).get("pc_prices")
+            if isinstance(prices, dict) and prices:
+                out[(cid, pid)] = {
+                    str(k): float(v)
+                    for k, v in prices.items()
+                    if v is not None and str(k) in {"raw", "7", "8", "9", "10"}
+                }
+    return out
+
+
+def fetch_print_prices(
+    spec: dict,
+    pid: str,
+    slug: str,
+    *,
+    html_dir: Path | None,
+    fetch,
+    previous: dict[tuple[str, str], dict[str, float]],
+) -> dict[str, float] | None:
+    cid = spec["id"]
+    try:
+        if html_dir is not None:
+            local = html_dir / f"{cid}-{pid}-game.html"
+            if not local.is_file():
+                return previous.get((cid, pid))
+            html = local.read_text(encoding="utf-8")
+        else:
+            html = fetch(game_url(slug))
+        parsed = parse_pc_prices(html)
+        if parsed:
+            return parsed
+    except (ParseError, FetchError, OSError) as err:
+        print(f"keep previous prices {cid}/{pid}: {err}", file=sys.stderr)
+    return previous.get((cid, pid))
 
 
 def reference_print(prints: dict) -> str:
@@ -427,6 +528,11 @@ def build_payload(catalog: dict, fetched: dict[str, dict], *, names_zh: dict[str
             "cadence": "PriceCharting updates monthly; this site refreshes weekly.",
             "graders": "PSA and CGC columns as published. The page displays PSA+CGC combined per grade. Beckett/BGS is not collected.",
             "half_grades": "PriceCharting already buckets *.5 into the lower whole grade (8.5→8, 9.5→9). Raw half-grade rows are stored only when the HTML lists them.",
+            "prices": (
+                "Indicative USD from the PriceCharting game page (not the POP table). "
+                "used=raw, complete=Grade 7, new=Grade 8, graded=Grade 9, manual_only=PSA 10. "
+                "Missing cells omitted, never invented. UI converts USD→HKD ×7.80."
+            ),
         },
         "prints": catalog.get("prints") or [],
         "graders": [
@@ -459,6 +565,7 @@ def refresh(
 ) -> dict:
     catalog = load_catalog(root)
     names_zh = load_names_zh(root)
+    previous = load_previous_prices(root)
     fetched: dict[str, dict] = {}
     errors: list[str] = []
     for spec in catalog["cards"]:
@@ -477,7 +584,13 @@ def refresh(
                 else:
                     html = fetch(url)
                 parsed = parse_pop_table(html, url=url)
-                prints[pid] = attach_print(spec, pid, slug, parsed, html)
+                rec = attach_print(spec, pid, slug, parsed, html)
+                prices = fetch_print_prices(
+                    spec, pid, slug, html_dir=html_dir, fetch=fetch, previous=previous
+                )
+                if prices:
+                    rec["pc_prices"] = prices
+                prints[pid] = rec
             except (ParseError, FetchError) as err:
                 if spec.get("required") or pid != "base2":
                     errors.append(f"{spec['id']}/{pid}: {err}")
@@ -508,6 +621,49 @@ def refresh(
     )
     if not dry_run:
         write_outputs(root, payload)
+    return payload
+
+
+def refresh_prices_only(
+    root: Path,
+    *,
+    fetch=fetch_html,
+    sleeper=None,
+    dry_run: bool = False,
+) -> dict:
+    """Patch pc_prices onto the existing POP snapshot. Does not re-fetch pops."""
+    path = root / "data" / "base-psa-pop" / "latest.json"
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    previous = load_previous_prices(root)
+    catalog = {c["id"]: c for c in load_catalog(root)["cards"]}
+    updated = 0
+    kept = 0
+    for card in payload.get("cards") or []:
+        spec = catalog.get(card["id"]) or {"id": card["id"], "prints": {}}
+        for pid, rec in (card.get("prints") or {}).items():
+            slug = rec.get("slug") or (spec.get("prints") or {}).get(pid)
+            if not slug:
+                continue
+            rec["game_url"] = game_url(slug)
+            prices = fetch_print_prices(
+                {"id": card["id"]}, pid, slug, html_dir=None, fetch=fetch, previous=previous
+            )
+            if prices:
+                rec["pc_prices"] = prices
+                updated += 1
+            elif rec.get("pc_prices"):
+                kept += 1
+            if sleeper:
+                sleeper()
+    notes = payload.setdefault("source", {})
+    notes["prices"] = (
+        "Indicative USD from the PriceCharting game page (not the POP table). "
+        "used=raw, complete=Grade 7, new=Grade 8, graded=Grade 9, manual_only=PSA 10. "
+        "Missing cells omitted, never invented. UI converts USD→HKD ×7.80."
+    )
+    if not dry_run:
+        write_outputs(root, payload)
+    print(f"prices-only updated={updated} kept={kept} cards={len(payload.get('cards') or [])}")
     return payload
 
 
@@ -611,6 +767,17 @@ def self_test() -> None:
     invent = option_label({"name": "NotAPokemon", "prints": {}}, names)
     _assert("NotAPokemon" in invent and "噴" not in invent, invent)
 
+    prices = parse_pc_prices((TESTDATA / "charizard-1st-game.html").read_text(encoding="utf-8"))
+    _assert(prices.get("raw") == 7691.36, prices)
+    _assert(prices.get("7") == 22549.75, prices)
+    _assert(prices.get("8") == 29000.0, prices)
+    _assert(prices.get("9") == 31900.0, prices)
+    _assert(prices.get("10") == 334421.05, prices)
+    _assert("9.5" not in prices, prices)
+    _assert(parse_pc_prices("<html>no prices</html>") == {}, "empty prices")
+    _assert(parse_pc_prices("") == {}, "blank")
+    _assert(game_url("pokemon-base-set/charizard-4").endswith("/game/pokemon-base-set/charizard-4"), "game url")
+
     print("refresh_base_psa_pop self-test OK")
 
 
@@ -620,6 +787,11 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--self-test", action="store_true", help="No network. Fixture checks only.")
     ap.add_argument("--dry-run", action="store_true", help="Fetch and print; do not write JSON")
     ap.add_argument(
+        "--prices-only",
+        action="store_true",
+        help="Fetch PriceCharting game-page prices onto the existing latest.json; do not re-fetch POP",
+    )
+    ap.add_argument(
         "--from-html-dir",
         default="",
         help="Read {card}-{print}.html from this directory instead of the network",
@@ -627,6 +799,14 @@ def main(argv: list[str] | None = None) -> int:
     args = ap.parse_args(argv)
     if args.self_test:
         self_test()
+        return 0
+    if args.prices_only:
+        payload = refresh_prices_only(
+            Path(args.root),
+            sleeper=(lambda: time.sleep(SLEEP_S)),
+            dry_run=args.dry_run,
+        )
+        print("as_of", payload["asOf"], "cards", len(payload["cards"]))
         return 0
     html_dir = Path(args.from_html_dir) if args.from_html_dir else None
     payload = refresh(
