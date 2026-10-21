@@ -1,0 +1,518 @@
+{
+  "notes": "URL pointers only — no image bytes. English Base Set scans on pokemontcg.io (base1/{n}.png) after HTTP 200 HEAD for #1–102 on 2026-10-21. The page fetches thumbs.json and one image URL only after the user picks a card. Do not invent PriceCharting image hashes.",
+  "source": "https://images.pokemontcg.io/base1/{number}.png",
+  "kind": "pokemontcg",
+  "verified": "2026-10-21",
+  "by_id": {
+    "alakazam": {
+      "src": "https://images.pokemontcg.io/base1/1.png",
+      "kind": "pokemontcg",
+      "number": 1
+    },
+    "blastoise": {
+      "src": "https://images.pokemontcg.io/base1/2.png",
+      "kind": "pokemontcg",
+      "number": 2
+    },
+    "chansey": {
+      "src": "https://images.pokemontcg.io/base1/3.png",
+      "kind": "pokemontcg",
+      "number": 3
+    },
+    "charizard": {
+      "src": "https://images.pokemontcg.io/base1/4.png",
+      "kind": "pokemontcg",
+      "number": 4
+    },
+    "clefairy": {
+      "src": "https://images.pokemontcg.io/base1/5.png",
+      "kind": "pokemontcg",
+      "number": 5
+    },
+    "gyarados": {
+      "src": "https://images.pokemontcg.io/base1/6.png",
+      "kind": "pokemontcg",
+      "number": 6
+    },
+    "hitmonchan": {
+      "src": "https://images.pokemontcg.io/base1/7.png",
+      "kind": "pokemontcg",
+      "number": 7
+    },
+    "machamp": {
+      "src": "https://images.pokemontcg.io/base1/8.png",
+      "kind": "pokemontcg",
+      "number": 8
+    },
+    "magneton": {
+      "src": "https://images.pokemontcg.io/base1/9.png",
+      "kind": "pokemontcg",
+      "number": 9
+    },
+    "mewtwo": {
+      "src": "https://images.pokemontcg.io/base1/10.png",
+      "kind": "pokemontcg",
+      "number": 10
+    },
+    "nidoking": {
+      "src": "https://images.pokemontcg.io/base1/11.png",
+      "kind": "pokemontcg",
+      "number": 11
+    },
+    "ninetales": {
+      "src": "https://images.pokemontcg.io/base1/12.png",
+      "kind": "pokemontcg",
+      "number": 12
+    },
+    "poliwrath": {
+      "src": "https://images.pokemontcg.io/base1/13.png",
+      "kind": "pokemontcg",
+      "number": 13
+    },
+    "raichu": {
+      "src": "https://images.pokemontcg.io/base1/14.png",
+      "kind": "pokemontcg",
+      "number": 14
+    },
+    "venusaur": {
+      "src": "https://images.pokemontcg.io/base1/15.png",
+      "kind": "pokemontcg",
+      "number": 15
+    },
+    "zapdos": {
+      "src": "https://images.pokemontcg.io/base1/16.png",
+      "kind": "pokemontcg",
+      "number": 16
+    },
+    "beedrill": {
+      "src": "https://images.pokemontcg.io/base1/17.png",
+      "kind": "pokemontcg",
+      "number": 17
+    },
+    "dragonair": {
+      "src": "https://images.pokemontcg.io/base1/18.png",
+      "kind": "pokemontcg",
+      "number": 18
+    },
+    "dugtrio": {
+      "src": "https://images.pokemontcg.io/base1/19.png",
+      "kind": "pokemontcg",
+      "number": 19
+    },
+    "electabuzz": {
+      "src": "https://images.pokemontcg.io/base1/20.png",
+      "kind": "pokemontcg",
+      "number": 20
+    },
+    "electrode": {
+      "src": "https://images.pokemontcg.io/base1/21.png",
+      "kind": "pokemontcg",
+      "number": 21
+    },
+    "pidgeotto": {
+      "src": "https://images.pokemontcg.io/base1/22.png",
+      "kind": "pokemontcg",
+      "number": 22
+    },
+    "arcanine": {
+      "src": "https://images.pokemontcg.io/base1/23.png",
+      "kind": "pokemontcg",
+      "number": 23
+    },
+    "charmeleon": {
+      "src": "https://images.pokemontcg.io/base1/24.png",
+      "kind": "pokemontcg",
+      "number": 24
+    },
+    "dewgong": {
+      "src": "https://images.pokemontcg.io/base1/25.png",
+      "kind": "pokemontcg",
+      "number": 25
+    },
+    "dratini": {
+      "src": "https://images.pokemontcg.io/base1/26.png",
+      "kind": "pokemontcg",
+      "number": 26
+    },
+    "farfetchd": {
+      "src": "https://images.pokemontcg.io/base1/27.png",
+      "kind": "pokemontcg",
+      "number": 27
+    },
+    "growlithe": {
+      "src": "https://images.pokemontcg.io/base1/28.png",
+      "kind": "pokemontcg",
+      "number": 28
+    },
+    "haunter": {
+      "src": "https://images.pokemontcg.io/base1/29.png",
+      "kind": "pokemontcg",
+      "number": 29
+    },
+    "ivysaur": {
+      "src": "https://images.pokemontcg.io/base1/30.png",
+      "kind": "pokemontcg",
+      "number": 30
+    },
+    "jynx": {
+      "src": "https://images.pokemontcg.io/base1/31.png",
+      "kind": "pokemontcg",
+      "number": 31
+    },
+    "kadabra": {
+      "src": "https://images.pokemontcg.io/base1/32.png",
+      "kind": "pokemontcg",
+      "number": 32
+    },
+    "kakuna": {
+      "src": "https://images.pokemontcg.io/base1/33.png",
+      "kind": "pokemontcg",
+      "number": 33
+    },
+    "machoke": {
+      "src": "https://images.pokemontcg.io/base1/34.png",
+      "kind": "pokemontcg",
+      "number": 34
+    },
+    "magikarp": {
+      "src": "https://images.pokemontcg.io/base1/35.png",
+      "kind": "pokemontcg",
+      "number": 35
+    },
+    "magmar": {
+      "src": "https://images.pokemontcg.io/base1/36.png",
+      "kind": "pokemontcg",
+      "number": 36
+    },
+    "nidorino": {
+      "src": "https://images.pokemontcg.io/base1/37.png",
+      "kind": "pokemontcg",
+      "number": 37
+    },
+    "poliwhirl": {
+      "src": "https://images.pokemontcg.io/base1/38.png",
+      "kind": "pokemontcg",
+      "number": 38
+    },
+    "porygon": {
+      "src": "https://images.pokemontcg.io/base1/39.png",
+      "kind": "pokemontcg",
+      "number": 39
+    },
+    "raticate": {
+      "src": "https://images.pokemontcg.io/base1/40.png",
+      "kind": "pokemontcg",
+      "number": 40
+    },
+    "seel": {
+      "src": "https://images.pokemontcg.io/base1/41.png",
+      "kind": "pokemontcg",
+      "number": 41
+    },
+    "wartortle": {
+      "src": "https://images.pokemontcg.io/base1/42.png",
+      "kind": "pokemontcg",
+      "number": 42
+    },
+    "abra": {
+      "src": "https://images.pokemontcg.io/base1/43.png",
+      "kind": "pokemontcg",
+      "number": 43
+    },
+    "bulbasaur": {
+      "src": "https://images.pokemontcg.io/base1/44.png",
+      "kind": "pokemontcg",
+      "number": 44
+    },
+    "caterpie": {
+      "src": "https://images.pokemontcg.io/base1/45.png",
+      "kind": "pokemontcg",
+      "number": 45
+    },
+    "charmander": {
+      "src": "https://images.pokemontcg.io/base1/46.png",
+      "kind": "pokemontcg",
+      "number": 46
+    },
+    "diglett": {
+      "src": "https://images.pokemontcg.io/base1/47.png",
+      "kind": "pokemontcg",
+      "number": 47
+    },
+    "doduo": {
+      "src": "https://images.pokemontcg.io/base1/48.png",
+      "kind": "pokemontcg",
+      "number": 48
+    },
+    "drowzee": {
+      "src": "https://images.pokemontcg.io/base1/49.png",
+      "kind": "pokemontcg",
+      "number": 49
+    },
+    "gastly": {
+      "src": "https://images.pokemontcg.io/base1/50.png",
+      "kind": "pokemontcg",
+      "number": 50
+    },
+    "koffing": {
+      "src": "https://images.pokemontcg.io/base1/51.png",
+      "kind": "pokemontcg",
+      "number": 51
+    },
+    "machop": {
+      "src": "https://images.pokemontcg.io/base1/52.png",
+      "kind": "pokemontcg",
+      "number": 52
+    },
+    "magnemite": {
+      "src": "https://images.pokemontcg.io/base1/53.png",
+      "kind": "pokemontcg",
+      "number": 53
+    },
+    "metapod": {
+      "src": "https://images.pokemontcg.io/base1/54.png",
+      "kind": "pokemontcg",
+      "number": 54
+    },
+    "nidoran": {
+      "src": "https://images.pokemontcg.io/base1/55.png",
+      "kind": "pokemontcg",
+      "number": 55
+    },
+    "onix": {
+      "src": "https://images.pokemontcg.io/base1/56.png",
+      "kind": "pokemontcg",
+      "number": 56
+    },
+    "pidgey": {
+      "src": "https://images.pokemontcg.io/base1/57.png",
+      "kind": "pokemontcg",
+      "number": 57
+    },
+    "pikachu": {
+      "src": "https://images.pokemontcg.io/base1/58.png",
+      "kind": "pokemontcg",
+      "number": 58
+    },
+    "poliwag": {
+      "src": "https://images.pokemontcg.io/base1/59.png",
+      "kind": "pokemontcg",
+      "number": 59
+    },
+    "ponyta": {
+      "src": "https://images.pokemontcg.io/base1/60.png",
+      "kind": "pokemontcg",
+      "number": 60
+    },
+    "rattata": {
+      "src": "https://images.pokemontcg.io/base1/61.png",
+      "kind": "pokemontcg",
+      "number": 61
+    },
+    "sandshrew": {
+      "src": "https://images.pokemontcg.io/base1/62.png",
+      "kind": "pokemontcg",
+      "number": 62
+    },
+    "squirtle": {
+      "src": "https://images.pokemontcg.io/base1/63.png",
+      "kind": "pokemontcg",
+      "number": 63
+    },
+    "starmie": {
+      "src": "https://images.pokemontcg.io/base1/64.png",
+      "kind": "pokemontcg",
+      "number": 64
+    },
+    "staryu": {
+      "src": "https://images.pokemontcg.io/base1/65.png",
+      "kind": "pokemontcg",
+      "number": 65
+    },
+    "tangela": {
+      "src": "https://images.pokemontcg.io/base1/66.png",
+      "kind": "pokemontcg",
+      "number": 66
+    },
+    "voltorb": {
+      "src": "https://images.pokemontcg.io/base1/67.png",
+      "kind": "pokemontcg",
+      "number": 67
+    },
+    "vulpix": {
+      "src": "https://images.pokemontcg.io/base1/68.png",
+      "kind": "pokemontcg",
+      "number": 68
+    },
+    "weedle": {
+      "src": "https://images.pokemontcg.io/base1/69.png",
+      "kind": "pokemontcg",
+      "number": 69
+    },
+    "clefairy-doll": {
+      "src": "https://images.pokemontcg.io/base1/70.png",
+      "kind": "pokemontcg",
+      "number": 70
+    },
+    "computer-search": {
+      "src": "https://images.pokemontcg.io/base1/71.png",
+      "kind": "pokemontcg",
+      "number": 71
+    },
+    "devolution-spray": {
+      "src": "https://images.pokemontcg.io/base1/72.png",
+      "kind": "pokemontcg",
+      "number": 72
+    },
+    "imposter-professor-oak": {
+      "src": "https://images.pokemontcg.io/base1/73.png",
+      "kind": "pokemontcg",
+      "number": 73
+    },
+    "item-finder": {
+      "src": "https://images.pokemontcg.io/base1/74.png",
+      "kind": "pokemontcg",
+      "number": 74
+    },
+    "lass": {
+      "src": "https://images.pokemontcg.io/base1/75.png",
+      "kind": "pokemontcg",
+      "number": 75
+    },
+    "pokemon-breeder": {
+      "src": "https://images.pokemontcg.io/base1/76.png",
+      "kind": "pokemontcg",
+      "number": 76
+    },
+    "pokemon-trader": {
+      "src": "https://images.pokemontcg.io/base1/77.png",
+      "kind": "pokemontcg",
+      "number": 77
+    },
+    "scoop-up": {
+      "src": "https://images.pokemontcg.io/base1/78.png",
+      "kind": "pokemontcg",
+      "number": 78
+    },
+    "super-energy-removal": {
+      "src": "https://images.pokemontcg.io/base1/79.png",
+      "kind": "pokemontcg",
+      "number": 79
+    },
+    "defender": {
+      "src": "https://images.pokemontcg.io/base1/80.png",
+      "kind": "pokemontcg",
+      "number": 80
+    },
+    "energy-retrieval": {
+      "src": "https://images.pokemontcg.io/base1/81.png",
+      "kind": "pokemontcg",
+      "number": 81
+    },
+    "full-heal": {
+      "src": "https://images.pokemontcg.io/base1/82.png",
+      "kind": "pokemontcg",
+      "number": 82
+    },
+    "maintenance": {
+      "src": "https://images.pokemontcg.io/base1/83.png",
+      "kind": "pokemontcg",
+      "number": 83
+    },
+    "pluspower": {
+      "src": "https://images.pokemontcg.io/base1/84.png",
+      "kind": "pokemontcg",
+      "number": 84
+    },
+    "pokemon-center": {
+      "src": "https://images.pokemontcg.io/base1/85.png",
+      "kind": "pokemontcg",
+      "number": 85
+    },
+    "pokemon-flute": {
+      "src": "https://images.pokemontcg.io/base1/86.png",
+      "kind": "pokemontcg",
+      "number": 86
+    },
+    "pokedex": {
+      "src": "https://images.pokemontcg.io/base1/87.png",
+      "kind": "pokemontcg",
+      "number": 87
+    },
+    "professor-oak": {
+      "src": "https://images.pokemontcg.io/base1/88.png",
+      "kind": "pokemontcg",
+      "number": 88
+    },
+    "revive": {
+      "src": "https://images.pokemontcg.io/base1/89.png",
+      "kind": "pokemontcg",
+      "number": 89
+    },
+    "super-potion": {
+      "src": "https://images.pokemontcg.io/base1/90.png",
+      "kind": "pokemontcg",
+      "number": 90
+    },
+    "bill": {
+      "src": "https://images.pokemontcg.io/base1/91.png",
+      "kind": "pokemontcg",
+      "number": 91
+    },
+    "energy-removal": {
+      "src": "https://images.pokemontcg.io/base1/92.png",
+      "kind": "pokemontcg",
+      "number": 92
+    },
+    "gust-of-wind": {
+      "src": "https://images.pokemontcg.io/base1/93.png",
+      "kind": "pokemontcg",
+      "number": 93
+    },
+    "potion": {
+      "src": "https://images.pokemontcg.io/base1/94.png",
+      "kind": "pokemontcg",
+      "number": 94
+    },
+    "switch": {
+      "src": "https://images.pokemontcg.io/base1/95.png",
+      "kind": "pokemontcg",
+      "number": 95
+    },
+    "double-colorless-energy": {
+      "src": "https://images.pokemontcg.io/base1/96.png",
+      "kind": "pokemontcg",
+      "number": 96
+    },
+    "fighting-energy": {
+      "src": "https://images.pokemontcg.io/base1/97.png",
+      "kind": "pokemontcg",
+      "number": 97
+    },
+    "fire-energy": {
+      "src": "https://images.pokemontcg.io/base1/98.png",
+      "kind": "pokemontcg",
+      "number": 98
+    },
+    "grass-energy": {
+      "src": "https://images.pokemontcg.io/base1/99.png",
+      "kind": "pokemontcg",
+      "number": 99
+    },
+    "lightning-energy": {
+      "src": "https://images.pokemontcg.io/base1/100.png",
+      "kind": "pokemontcg",
+      "number": 100
+    },
+    "psychic-energy": {
+      "src": "https://images.pokemontcg.io/base1/101.png",
+      "kind": "pokemontcg",
+      "number": 101
+    },
+    "water-energy": {
+      "src": "https://images.pokemontcg.io/base1/102.png",
+      "kind": "pokemontcg",
+      "number": 102
+    }
+  }
+}
