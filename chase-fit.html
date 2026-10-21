@@ -1210,6 +1210,48 @@
     <div class="legend" id="legend" role="group" aria-label="標籤篩選"></div>
   </section>
 
+  <div class="plot-grid">
+    <div class="charts-stack">
+    <section class="card chart-card">
+      <h2><img class="mon mon-sm" src="./img/accents/ditto.svg" alt="" width="20" height="20" aria-hidden="true" />散點</h2>
+      <div class="chart-box" id="chartBox">
+        <svg id="chart" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="PSA10 預測對實際散點"></svg>
+        <div class="empty-plot" id="emptyPlot" hidden>
+          <img class="mon" src="./img/accents/ditto.svg" alt="" width="36" height="36" />
+          <h3>沒有符合的卡</h3>
+          <p id="emptyPlotHint">改搜尋或清篩選再試。</p>
+          <button type="button" class="legend-reset" id="showAllLabels" hidden>顯示全部</button>
+        </div>
+      </div>
+      <p class="hint" id="axisHint"></p>
+    </section>
+
+    <section class="card chart-card" aria-label="POP 對 PSA10/raw 倍數">
+      <h2><img class="mon mon-sm" src="./img/accents/eevee.svg" alt="" width="20" height="20" aria-hidden="true" />POP × 倍數</h2>
+      <div class="chart-box" id="popChartBox">
+        <svg id="popChart" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="PSA10 pop 對 PSA10/raw 倍數"></svg>
+        <div class="empty-plot" id="emptyPopPlot" hidden>
+          <img class="mon" src="./img/accents/eevee.svg" alt="" width="36" height="36" />
+          <h3>沒有符合的卡</h3>
+          <p>改搜尋或清篩選再試。</p>
+        </div>
+      </div>
+      <div class="legend gem-legend" aria-label="Gem% 色階">
+        <span class="legend-item"><span class="gem-ramp" aria-hidden="true"></span>Gem% 低→高（色＋點大細）</span>
+        <span class="legend-item"><span class="legend-line" aria-hidden="true"></span>趨勢（log-log）</span>
+      </div>
+      <p class="hint" id="popAxisHint">X＝PSA10 pop（對數）· Y＝PSA10／raw 倍數（對數）· 點色／大細＝gem%</p>
+    </section>
+    </div>
+
+    <aside class="card detail-card" id="detailCard" aria-live="polite">
+      <h2><img class="mon mon-sm" src="./img/accents/eevee.svg" alt="" width="20" height="20" aria-hidden="true" />卡片詳情</h2>
+      <div id="detailBody">
+        <p class="detail-empty">點選圖上的點，看卡名、卡相入口、公允值、殘差與公式組成。卡名保持英文（資料原文）。</p>
+      </div>
+    </aside>
+  </div>
+
   <section class="card buy-card" aria-label="便宜過模型">
     <h2><img class="mon mon-sm" src="./img/accents/sobble.svg" alt="" width="20" height="20" aria-hidden="true" />便宜過模型</h2>
     <p class="buy-note">預設最負殘差（最便宜過公允值）排前。淚眼蜥（Sobble）會釘在最上；只顯示 PSA10 模型價。尚無約 4 週封存時，「1 週變動」用 workbook 對上週 %，沒有就顯示 —。</p>
@@ -1260,48 +1302,6 @@
     <p class="tiny" id="lagNote" style="margin:0 0 8px" role="status" aria-live="polite"></p>
     <div class="lag-list" id="lagList"></div>
   </section>
-
-  <div class="plot-grid">
-    <div class="charts-stack">
-    <section class="card chart-card">
-      <h2><img class="mon mon-sm" src="./img/accents/ditto.svg" alt="" width="20" height="20" aria-hidden="true" />散點</h2>
-      <div class="chart-box" id="chartBox">
-        <svg id="chart" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="PSA10 預測對實際散點"></svg>
-        <div class="empty-plot" id="emptyPlot" hidden>
-          <img class="mon" src="./img/accents/ditto.svg" alt="" width="36" height="36" />
-          <h3>沒有符合的卡</h3>
-          <p id="emptyPlotHint">改搜尋或清篩選再試。</p>
-          <button type="button" class="legend-reset" id="showAllLabels" hidden>顯示全部</button>
-        </div>
-      </div>
-      <p class="hint" id="axisHint"></p>
-    </section>
-
-    <section class="card chart-card" aria-label="POP 對 PSA10/raw 倍數">
-      <h2><img class="mon mon-sm" src="./img/accents/eevee.svg" alt="" width="20" height="20" aria-hidden="true" />POP × 倍數</h2>
-      <div class="chart-box" id="popChartBox">
-        <svg id="popChart" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="PSA10 pop 對 PSA10/raw 倍數"></svg>
-        <div class="empty-plot" id="emptyPopPlot" hidden>
-          <img class="mon" src="./img/accents/eevee.svg" alt="" width="36" height="36" />
-          <h3>沒有符合的卡</h3>
-          <p>改搜尋或清篩選再試。</p>
-        </div>
-      </div>
-      <div class="legend gem-legend" aria-label="Gem% 色階">
-        <span class="legend-item"><span class="gem-ramp" aria-hidden="true"></span>Gem% 低→高（色＋點大細）</span>
-        <span class="legend-item"><span class="legend-line" aria-hidden="true"></span>趨勢（log-log）</span>
-      </div>
-      <p class="hint" id="popAxisHint">X＝PSA10 pop（對數）· Y＝PSA10／raw 倍數（對數）· 點色／大細＝gem%</p>
-    </section>
-    </div>
-
-    <aside class="card detail-card" id="detailCard" aria-live="polite">
-      <h2><img class="mon mon-sm" src="./img/accents/eevee.svg" alt="" width="20" height="20" aria-hidden="true" />卡片詳情</h2>
-      <div id="detailBody">
-        <p class="detail-empty">點選圖上的點，看卡名、卡相入口、公允值、殘差與公式組成。卡名保持英文（資料原文）。</p>
-      </div>
-    </aside>
-  </div>
 
   <section class="card method-card">
     <h2><img class="mon" src="./img/accents/starters.svg" alt="" width="72" height="24" aria-hidden="true" style="width:72px;height:24px" />這是什麼</h2>
