@@ -6,11 +6,11 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>Base Set PSA 人口 · 1st / Unlimited / Base Set 2 · Box EV v1.31.0</title>
-<meta name="description" content="英文 Base Set 噴火龍一系與同套閃卡：比較 1st Edition、Unlimited、Base Set 2 的 PSA 人口。可另外顯示 CGC／Beckett。靜態快照，非正式投資建議。" />
+<title>Base Set PSA POP · 1st / Unlimited / Base Set 2 · Box EV v1.31.1</title>
+<meta name="description" content="英文 Base Set 噴火龍一系與同套閃卡：比較 1st Edition、Unlimited、Base Set 2 的 PSA POP。可另外顯示 CGC／Beckett。靜態快照，非正式投資建議。" />
 <meta property="og:site_name" content="日盒開盒值不值？" />
-<meta property="og:title" content="Base Set PSA 人口 · 1st / Unlimited / Base Set 2" />
-<meta property="og:description" content="比較英文 Base Set 三個印刷版的 PSA 人口。預設僅 PSA；可另外顯示 CGC／Beckett。靜態快照，非正式投資建議。" />
+<meta property="og:title" content="Base Set PSA POP · 1st / Unlimited / Base Set 2" />
+<meta property="og:description" content="比較英文 Base Set 三個印刷版的 PSA POP。預設僅 PSA；可另外顯示 CGC／Beckett。靜態快照，非正式投資建議。" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://swishish.github.io/Pokemon-Box-EV/market-base-psa-pop.html" />
 <meta property="og:image" content="https://swishish.github.io/Pokemon-Box-EV/og.png" />
@@ -18,8 +18,8 @@
 <meta property="og:image:height" content="630" />
 <meta property="og:locale" content="zh_TW" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Base Set PSA 人口 · 1st / Unlimited / Base Set 2" />
-<meta name="twitter:description" content="比較英文 Base Set 三個印刷版的 PSA 人口。靜態快照，非正式投資建議。" />
+<meta name="twitter:title" content="Base Set PSA POP · 1st / Unlimited / Base Set 2" />
+<meta name="twitter:description" content="比較英文 Base Set 三個印刷版的 PSA POP。靜態快照，非正式投資建議。" />
 <meta name="twitter:image" content="https://swishish.github.io/Pokemon-Box-EV/og.png" />
 <link rel="canonical" href="https://swishish.github.io/Pokemon-Box-EV/market-base-psa-pop.html" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
@@ -237,39 +237,67 @@
     box-shadow: var(--shadow-xs);
     min-width: 0;
   }
-  .toggles {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    margin-top: 12px;
-    min-width: 0;
-  }
-  .toggle {
+  .opt-row {
     display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    border: var(--bw) solid var(--ink);
-    border-radius: 12px;
-    padding: 10px 12px;
-    background: var(--bg-2);
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 18px;
+    margin-top: 4px;
     min-width: 0;
+  }
+  .opt {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: .82rem;
+    font-weight: 700;
     cursor: pointer;
+    min-width: 0;
+    background: none;
+    border: none;
+    padding: 0;
+    box-shadow: none;
   }
-  .toggle.primary {
-    background: var(--accent-fill);
-    box-shadow: var(--shadow-xs);
-    grid-column: 1 / -1;
-  }
-  .toggle input {
-    width: 1.15rem;
-    height: 1.15rem;
-    margin: 3px 0 0;
+  .opt input {
+    width: 1rem;
+    height: 1rem;
+    margin: 0;
     accent-color: var(--ink);
     flex-shrink: 0;
   }
-  .toggle b { display: block; font-size: .92rem; }
-  .toggle small { display: block; color: var(--muted); font-size: .72rem; margin-top: 2px; font-weight: 600; }
-  .toggle.primary small { color: #3d382e; }
+  .table-toolbar {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 6px 16px;
+    flex-wrap: wrap;
+    margin: 0 0 8px;
+    min-width: 0;
+  }
+  .table-toolbar h2 { margin: 0; }
+  .cum-opt {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+    font-size: .68rem;
+    font-weight: 650;
+    color: var(--muted);
+    line-height: 1.35;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    box-shadow: none;
+    max-width: 100%;
+  }
+  .cum-opt input {
+    width: 0.9rem;
+    height: 0.9rem;
+    margin: 0;
+    accent-color: var(--ink);
+    flex-shrink: 0;
+  }
   .meta-row {
     display: flex;
     flex-wrap: wrap;
@@ -314,9 +342,7 @@
     border-top: var(--bw) solid var(--ink);
     background: var(--bg-2);
   }
-  .cell-count { display: block; }
-  .cell-pct { display: block; font-size: .72rem; color: var(--muted); font-weight: 700; }
-  .cell-pct.cum { color: #6a4a00; }
+  .cell-pop { font-variant-numeric: tabular-nums; white-space: nowrap; }
   .desk-table { display: block; }
   .print-stack { display: none; }
   .print-card h3 { margin: 0 0 8px; font-size: .95rem; }
@@ -345,7 +371,6 @@
     .header-nav { justify-content: flex-start; }
     .nav-btn { font-size: .68rem; padding: 5px 9px; }
     .wrap { padding: 10px 12px 48px; }
-    .toggles { grid-template-columns: 1fr; }
     .desk-table { display: none; }
     .print-stack { display: grid; gap: 10px; }
     table { font-size: .8rem; }
@@ -356,7 +381,7 @@
 <header>
   <div class="header-inner">
     <div class="header-top">
-      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.31.0</span></h1>
+      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.31.1</span></h1>
       <nav class="header-nav" aria-label="站內導覽">
         <a class="nav-btn" href="./calc.html">開盒 EV</a>
         <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
@@ -365,11 +390,11 @@
         <a class="nav-btn" href="./market-midera.html" title="DP → SM chase Top 50 raw index">中世代</a>
         <a class="nav-btn" href="./market-jp-psa10.html" title="Japanese PSA10 SNKRDUNK index">JP PSA10</a>
         <a class="nav-btn" href="./market-jp-psa10-bench.html" title="日版 PSA10 廣度基準（復古／中世代／現行）">JP 基準</a>
-        <a class="nav-btn" href="./market-base-psa-pop.html" title="英文 Base Set 1st / Unlimited / Base Set 2 PSA 人口">Base 人口</a>
+        <a class="nav-btn" href="./market-base-psa-pop.html" title="英文 Base Set 1st / Unlimited / Base Set 2 PSA POP">Base POP</a>
         <a class="nav-btn" href="https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/" title="Base Set Unlimited cheat sheet">Base Unlimited</a>
       </nav>
     </div>
-    <p>英文 Base Set PSA 人口 · 1st Edition／Unlimited／Base Set 2 · 靜態快照</p>
+    <p>英文 Base Set PSA POP · 1st Edition／Unlimited／Base Set 2 · 靜態快照</p>
   </div>
 </header>
 
@@ -378,8 +403,8 @@
 
   <section class="card">
     <div class="kicker">Box-EV Base PSA Pop · 預設僅 PSA</div>
-    <h2 class="hero-title">Base Set 人口比較</h2>
-    <p class="tiny" id="heroPitch">比較同一張英文卡在 <b>1st Edition</b>、<b>Unlimited</b>、<b>Base Set 2</b> 的評級人口。預設只讀 PSA；勾選後另外顯示 CGC 或 Beckett (BGS) 欄。各欄百分比以該公司、該印刷版總量計算，不會把不同評級公司在未標示的情況下加總。</p>
+    <h2 class="hero-title">Base Set POP 比較</h2>
+    <p class="tiny" id="heroPitch">比較同一張英文卡在 <b>1st Edition</b>、<b>Unlimited</b>、<b>Base Set 2</b> 的評級 POP。預設只讀 PSA；勾選後另外顯示 CGC 或 Beckett (BGS) 欄。各欄百分比以該公司、該印刷版總量計算，不會把不同評級公司在未標示的情況下加總。</p>
     <div class="field">
       <label class="head" for="cardSelect">選擇卡片</label>
       <select id="cardSelect"></select>
@@ -389,40 +414,30 @@
 
   <section class="card" aria-labelledby="viewControlsTitle">
     <h2 id="viewControlsTitle">顯示選項</h2>
-    <div class="toggles">
-      <label class="toggle primary">
-        <input type="checkbox" id="cumToggle" />
-        <span>
-          <b>累積百分比（此級或以上）</b>
-          <small>自 10 向下累加：9 ＝（9＋10）÷該欄總量；8 ＝（8＋9＋10）÷總量。分母為同一評級公司、同一印刷版。</small>
-        </span>
-      </label>
-      <label class="toggle">
+    <div class="opt-row">
+      <label class="opt">
         <input type="checkbox" id="halfToggle" />
-        <span>
-          <b>顯示半級（8.5、9.5 等獨立列）</b>
-          <small>關閉時依 PriceCharting 規則將 *.5 併入較低整數級（8.5→8）。來源若未列出半級，該列顯示「—」。</small>
-        </span>
+        半級
       </label>
-      <label class="toggle">
+      <label class="opt">
         <input type="checkbox" id="cgcToggle" />
-        <span>
-          <b>顯示 CGC 人口</b>
-          <small>獨立欄位，百分比用 CGC 總量，不與 PSA 合併。</small>
-        </span>
+        CGC
       </label>
-      <label class="toggle">
+      <label class="opt">
         <input type="checkbox" id="bgsToggle" />
-        <span>
-          <b>顯示 Beckett (BGS) 人口</b>
-          <small>獨立欄位。PriceCharting 公開頁目前通常無 BGS 欄，無資料時顯示「—」，不會臆造。</small>
-        </span>
+        Beckett (BGS)
       </label>
     </div>
   </section>
 
   <section class="card">
-    <h2 id="tableTitle">人口表</h2>
+    <div class="table-toolbar">
+      <h2 id="tableTitle">POP table</h2>
+      <label class="cum-opt">
+        <input type="checkbox" id="cumToggle" />
+        <span>累積百分比（此級或以上）</span>
+      </label>
+    </div>
     <p class="tiny" id="tableNote" style="margin:0 0 8px"></p>
     <div class="table-wrap desk-table" id="deskTableWrap"></div>
     <div class="print-stack" id="printStack"></div>
@@ -434,10 +449,10 @@
       <li><b>預設敘事是 PSA</b>。CGC 與 Beckett (BGS) 需手動開啟，且各有獨立欄與獨立百分比，不會在未標示的情況下加總成一個「全市場％」。</li>
       <li><b>累積百分比</b>回答「此級或以上佔多少」：自 10 向 1 累加。開啟半級時，9.5 列＝（10＋9.5）÷總量。</li>
       <li><b>半級</b>預設併入較低整數級，與 PriceCharting 公開說明一致（8.5 計入 8）。勾選後方分列；目前公開頁多半已先合併，無法還原的半級列為「—」。</li>
-      <li><b>下拉標籤</b>顯示卡名、參考印刷版（優先 Unlimited）的 PSA10 人口，以及該版 PSA10 ÷ PSA 總量。</li>
-      <li><b>編號對照</b>：Base Set 2 重編部分卡號（例如 Venusaur Base #15 → Base Set 2 #18；Gyarados #6 → #7）。Machamp #8 無 Base Set 2 對應，不列入。Base Set Clefable #5 因 PriceCharting 無正確命名的 Base Set 人口頁，亦不列入。</li>
-      <li><b>來源厚薄不一</b>：部分 Unlimited 頁在 PriceCharting 上人口極少（例如部分御三家閃卡的無標版條目），本站照實顯示、不補數。請以各欄連到的 POP 頁為準。</li>
-      <li><b>來源</b>：公開 <a href="https://www.pricecharting.com/" target="_blank" rel="noopener">PriceCharting</a> POP 頁（PSA、CGC；對方約每月更新）。本站以 GitHub Actions 每週抓取並寫入靜態 JSON。解析失敗會讓週更作業失敗，<b>不會</b>填入臆造人口。</li>
+      <li><b>下拉標籤</b>顯示卡名、參考印刷版（優先 Unlimited）的 PSA10 POP，以及該版 PSA10 ÷ PSA 總量。</li>
+      <li><b>編號對照</b>：Base Set 2 重編部分卡號（例如 Venusaur Base #15 → Base Set 2 #18；Gyarados #6 → #7）。Machamp #8 無 Base Set 2 對應，不列入。Base Set Clefable #5 因 PriceCharting 無正確命名的 Base Set POP 頁，亦不列入。</li>
+      <li><b>來源厚薄不一</b>：部分 Unlimited 頁在 PriceCharting 上 POP 極少（例如部分御三家閃卡的無標版條目），本站照實顯示、不補數。請以各欄連到的 POP 頁為準。</li>
+      <li><b>來源</b>：公開 <a href="https://www.pricecharting.com/" target="_blank" rel="noopener">PriceCharting</a> POP 頁（PSA、CGC；對方約每月更新）。本站以 GitHub Actions 每週抓取並寫入靜態 JSON。解析失敗會讓週更作業失敗，<b>不會</b>填入臆造 POP。</li>
     </ul>
   </section>
 
@@ -446,12 +461,12 @@
     <p>Pokémon 與相關名稱為其權利人商標。本頁為獨立粉絲工具，與 Nintendo／The Pokémon Company／PriceCharting／PSA／CGC／Beckett 無關。</p>
   </div>
 </main>
-<footer>日盒 EV 小算盤 · Base Set PSA 人口 · Snapshot 靜態資料 · 非正式投資建議 · 來源 <a href="https://www.pricecharting.com/" target="_blank" rel="noopener">PriceCharting</a> · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10.html">JP PSA10</a> · <a href="./market-jp-psa10-bench.html">JP 基準</a></footer>
+<footer>日盒 EV 小算盤 · Base Set PSA POP · Snapshot 靜態資料 · 非正式投資建議 · 來源 <a href="https://www.pricecharting.com/" target="_blank" rel="noopener">PriceCharting</a> · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10.html">JP PSA10</a> · <a href="./market-jp-psa10-bench.html">JP 基準</a></footer>
 
-<script src="./data/base-psa-pop/latest.js?v=1.31.0"></script>
+<script src="./data/base-psa-pop/latest.js?v=1.31.1"></script>
 <script>
 (async function () {
-  const VERSION = '1.31.0';
+  const VERSION = '1.31.1';
   const PRINTS = [
     { id: '1st', label: '1st Edition' },
     { id: 'unlimited', label: 'Unlimited' },
@@ -483,7 +498,7 @@
     const status = dataRes ? (dataRes.status ? ('HTTP ' + dataRes.status) : (dataRes.err || '沒有回應')) : '沒有回應';
     const where = dataRes && dataRes.url ? dataRes.url : ('./data/base-psa-pop/latest.json?v=' + VERSION);
     app.innerHTML =
-      '<p class="err"><b>載入失敗：找不到 Base Set 人口資料。</b>' +
+      '<p class="err"><b>載入失敗：找不到 Base Set POP 資料。</b>' +
       '<span class="err-hint">抓取 ' + escapeHtml(where) + ' → ' + escapeHtml(String(status)) + '。</span>' +
       '<span class="err-hint">請強制重新整理，或跑 <code>python3 tools/refresh_base_psa_pop.py --root .</code>。</span></p>';
   }
@@ -533,7 +548,7 @@
     const ymd = ymdLocal(asOfDate);
     if (age > (DATA.staleDays || 14)) {
       el.className = 'data-freshness stale';
-      el.textContent = '數字可能過期（人口快照：' + ymd + ' · 已過 ' + age + ' 日）— 引用前請核對現況';
+      el.textContent = '數字可能過期（POP 快照：' + ymd + ' · 已過 ' + age + ' 日）— 引用前請核對現況';
     } else {
       el.className = 'data-freshness';
       el.textContent = src + ' 快照 ' + ymd + ' · 週更 JSON · PSA／CGC 公開 POP';
@@ -580,8 +595,12 @@
     return Number(n).toLocaleString('en-US');
   }
   function fmtPct(n) {
-    if (n == null || Number.isNaN(Number(n))) return '—';
-    return (n * 100).toFixed(2) + '%';
+    if (n == null || Number.isNaN(Number(n))) return null;
+    return (n * 100).toFixed(1) + '%';
+  }
+  function popCell(countLabel, pct) {
+    if (pct == null) return '<span class="cell-pop">' + escapeHtml(countLabel) + '</span>';
+    return '<span class="cell-pop">' + escapeHtml(countLabel + ' (' + pct + ')') + '</span>';
   }
   function writeParams() {
     const next = new URLSearchParams();
@@ -595,17 +614,17 @@
   }
   function cellHtml(grader, grade, isTotal) {
     if (!grader || !grader.available) {
-      return '<span class="cell-count">—</span><span class="cell-pct">無資料</span>';
+      return popCell('—', null);
     }
     if (isTotal) {
-      return '<span class="cell-count">' + escapeHtml(fmtInt(grader.total)) + '</span><span class="cell-pct">100%</span>';
+      return popCell(fmtInt(grader.total), '100.0%');
     }
     const counts = displayCounts(grader);
     const keys = gradeKeys();
     const total = grader.total;
     const count = Object.prototype.hasOwnProperty.call(counts, grade) ? counts[grade] : null;
     if (count == null) {
-      return '<span class="cell-count">—</span><span class="cell-pct">—</span>';
+      return popCell('—', null);
     }
     let pct;
     if (state.cum) {
@@ -618,10 +637,7 @@
     } else {
       pct = (total > 0) ? count / total : null;
     }
-    const pctCls = state.cum ? 'cell-pct cum' : 'cell-pct';
-    const hint = state.cum ? '此級或以上 ' : '';
-    return '<span class="cell-count">' + escapeHtml(fmtInt(count)) + '</span>' +
-      '<span class="' + pctCls + '">' + hint + escapeHtml(fmtPct(pct)) + '</span>';
+    return popCell(fmtInt(count), fmtPct(pct));
   }
   function renderSelect() {
     const sel = $('cardSelect');
@@ -649,15 +665,15 @@
     const g = gradersOn();
     const parts = ['預設欄位為各印刷版的 ' + g.map((id) => GRADER_LABEL[id]).join('／') + '。'];
     if (state.cum) parts.push('百分比為「此級或以上」累積佔比。');
-    else parts.push('百分比為該列人口 ÷ 該欄總量。');
+    else parts.push('百分比為該列數量 ÷ 該欄總量。');
     if (state.half) parts.push('半級獨立成列；來源未列出者為「—」。');
     else parts.push('半級已併入較低整數級。');
-    if (state.bgs) parts.push('Beckett 無資料時維持「—」，不當作人口 0。');
+    if (state.bgs) parts.push('Beckett 無資料時維持「—」，不當作 POP 0。');
     const srcDate = DATA.asOfDate ? ('快照 ' + DATA.asOfDate) : '快照日期未標';
     parts.push(srcDate + '。');
     $('tableNote').textContent = parts.join(' ');
     const zh = card.name_zh ? (card.name_zh + ' ') : '';
-    $('tableTitle').textContent = zh + card.name + ' · 人口表';
+    $('tableTitle').textContent = zh + card.name + ' · POP table';
   }
   function renderDesk(card) {
     const gs = gradersOn();
