@@ -197,7 +197,7 @@ python3 -m http.server 8765
 
 ## Chase 公允值（PSA10 回歸）
 
-獨立頁 `chase-fit.html`：Gary 的 **Chase_Fit** 模型。**便宜過模型** 清單在散點上方（預設最負殘差、淚眼蜥可釘選；四關 ✓/✗ 對 workbook Strong Buy）。繁中名見 `data/names_zh.json`（official 名才翻譯）；SNKRDUNK 產品頁見 `data/snkrdunk_ids.json`（未知則搜尋）。清單縮圖見 `data/chase-fit/thumbs.json`（JP＝算盤本機 `img/cards/*.webp`，EN＝市況已存 TCGPlayer CDN；對唔到就 cream placeholder，唔發明 SNKR／PC 圖）。散點＝預測 PSA10 vs 實際 PSA10，下方另有 POP × PSA10/raw 倍數圖。公式／係數收入摺疊「方法」。資料是靜態 JSON（`data/chase-fit/latest.json`）。圖例標籤可點選篩選。篩選寫入網址；清單排序／淚眼蜥另存 localStorage。頂列有 **模型日期** chip 同 **本週變動**。
+獨立頁 `chase-fit.html`：Gary 的 **Chase_Fit** 模型。散點（預測 vs 實際）在篩選下方、**便宜過模型** 清單上方（預設最負殘差、淚眼蜥可釘選；四關 ✓/✗ 對 workbook Strong Buy）。繁中名見 `data/names_zh.json`（official 名才翻譯）；SNKRDUNK 產品頁見 `data/snkrdunk_ids.json`（未知則搜尋）。清單縮圖見 `data/chase-fit/thumbs.json`（JP＝算盤本機 `img/cards/*.webp`，EN＝市況已存 TCGPlayer CDN；對唔到就 cream placeholder，唔發明 SNKR／PC 圖）。散點＝預測 PSA10 vs 實際 PSA10，下方另有 POP × PSA10/raw 倍數圖。公式／係數收入摺疊「方法」。資料是靜態 JSON（`data/chase-fit/latest.json`）。圖例標籤可點選篩選。篩選寫入網址；清單排序／淚眼蜥另存 localStorage。頂列有 **模型日期** chip 同 **本週變動**。
 
 **沒有** GitHub Action 會自動匯出 Chase——每週要 Gary 的 dated workbook，然後本機／agent 跑：
 
