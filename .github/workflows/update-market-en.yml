@@ -50,6 +50,7 @@ jobs:
           python3 tools/refresh_sealed_boxes.py --self-test
           python3 tools/refresh_market_jp_psa10.py --self-test
           python3 tools/refresh_market_jp_psa10_bench.py --self-test
+          python3 tools/render_og.py --self-test
 
   build:
     if: github.event_name != 'pull_request'
@@ -81,6 +82,7 @@ jobs:
           python3 tools/refresh_sealed_boxes.py --self-test
           python3 tools/refresh_market_jp_psa10.py --self-test
           python3 tools/refresh_market_jp_psa10_bench.py --self-test
+          python3 tools/render_og.py --self-test
 
       - name: Fetch TCGCSV dumps and rebuild EN pulse
         run: python3 tools/refresh_market_en.py -v

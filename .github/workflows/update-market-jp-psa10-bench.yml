@@ -36,6 +36,8 @@ jobs:
         run: python3 tools/refresh_market_jp_psa10_bench.py --self-test
       - name: Chase 60 sleeve still self-tests
         run: python3 tools/refresh_market_jp_psa10.py --self-test
+      - name: PSA10 share cards stay off the Box EV OG image
+        run: python3 tools/render_og.py --self-test
 
   build:
     if: github.event_name != 'pull_request'
@@ -54,6 +56,7 @@ jobs:
         run: |
           python3 tools/refresh_market_jp_psa10_bench.py --self-test
           python3 tools/refresh_market_jp_psa10.py --self-test
+          python3 tools/render_og.py --self-test
       - name: Reconstitute or refresh
         env:
           REBUILD: ${{ github.event.inputs.rebuild || '' }}

@@ -25,7 +25,9 @@ jobs:
         with:
           python-version: "3.12"
       - name: Self-test JP PSA10 index math
-        run: python3 tools/refresh_market_jp_psa10.py --self-test
+        run: |
+          python3 tools/refresh_market_jp_psa10.py --self-test
+          python3 tools/render_og.py --self-test
 
   build:
     if: github.event_name != 'pull_request'
@@ -41,7 +43,9 @@ jobs:
         with:
           python-version: "3.12"
       - name: Self-test
-        run: python3 tools/refresh_market_jp_psa10.py --self-test
+        run: |
+          python3 tools/refresh_market_jp_psa10.py --self-test
+          python3 tools/render_og.py --self-test
       - name: Fetch SNKRDUNK PSA10 series and rebuild indexes
         run: python3 tools/refresh_market_jp_psa10.py -v
       - name: Commit updated data

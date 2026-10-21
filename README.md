@@ -1,6 +1,6 @@
 # Pokemon Box EV
 
-日盒 EV 小算盤（朋友向）· **v1.30.4**
+日盒 EV 小算盤（朋友向）· **v1.30.5**
 
 給「不太懂金融／AI」的買卡朋友看的工具：首頁介紹點樣用 → 開盒算盤選系列 → 看 **四個預期回報 %**（同一分母）→ 有膜／無膜切換 → 看主力 chase 卡與「買單卡 vs 開盒」粗略提示。
 
@@ -292,6 +292,7 @@ GitHub Action **Update JP PSA10 broad benchmark** 每晚重算權重、季度重
 
 ## Changelog（摘要）
 
+- **v1.30.5**：JP PSA10 基準／chase 指數用獨立 OG 圖與 `og:site_name`（不再共用首頁「日盒開盒值不值？」＋`og.png`）。WhatsApp／Facebook 要新 image URL 才會甩掉舊卡。基準／市況「這是什麼 · 方法」改為書面繁中（不使用粵語口語）。指數數學／refresh 工具不變
 - **v1.30.4**：JP PSA10 廣度基準扇區**唔再鎖 80 張**——N 跟刊價／90 日刊價日篩選浮動；綜合＝三區聯集（唔補／截到 500）。舊 60 張 chase 袖不變
 - **v1.30.3**：JP PSA10 chase／基準圖預設期間改 **1Y**（1D／5D／30D／YTD／All／自訂仍可撳）。基準頁六格指數 tile 顯示等權期間 %（跟圖表 tenor）；手機 2×3 格收密。指數數學／refresh 工具不變
 - **v1.30.2**：JP PSA10 籃子把 SNK `_’s Pikachu` 寫入空位顯示成 PSA `___'s Pikachu`（去掉 `: Old Back/PROMO` 噪音）。v1.30.1 的等權＋流動預設／廣度跟期間不變

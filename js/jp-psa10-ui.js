@@ -209,7 +209,7 @@
   function breadthNote(period, from, to, br) {
     var label = periodBreadthLabel(period, from, to);
     if (br && br.available) {
-      return label + ' 廣度（各成分窗口起迄 LOCF 價：上漲／下跌／持平；刊價日先算成交量柱）';
+      return label + ' 廣度（各成分窗口起迄 LOCF 價：上漲／下跌／持平；成交量柱只計當日有刊價張數）';
     }
     return label + ' 廣度需要兩個有 LOCF 價的日期。';
   }
