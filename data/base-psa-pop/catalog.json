@@ -1,0 +1,248 @@
+{
+  "notes": "English Base Set holos (plus the Charizard line) that have 1st Edition, Unlimited, and Base Set 2 analogs. Base Set 2 renumbers several cards — slugs below are PriceCharting pop/item paths, verified by HTTP 200 + #population-table. Machamp #8 has no Base Set 2 analog and is omitted. Base Set Clefable #5 is omitted: PriceCharting has no pokemon-base-set/clefable-* pop page (its #5 holo listing is titled Clefairy) and this catalog will not silently remap names. Do not invent slugs or pops.",
+  "source": "https://www.pricecharting.com/pop/item/{slug}",
+  "default_card_id": "charizard",
+  "prints": [
+    {
+      "id": "1st",
+      "label": "1st Edition",
+      "set": "Base Set"
+    },
+    {
+      "id": "unlimited",
+      "label": "Unlimited",
+      "set": "Base Set"
+    },
+    {
+      "id": "base2",
+      "label": "Base Set 2",
+      "set": "Base Set 2"
+    }
+  ],
+  "cards": [
+    {
+      "id": "charizard",
+      "name": "Charizard",
+      "number_base": 4,
+      "number_base2": 4,
+      "rarity": "holo",
+      "line": "charizard",
+      "required": true,
+      "prints": {
+        "1st": "pokemon-base-set/charizard-1st-edition-4",
+        "unlimited": "pokemon-base-set/charizard-4",
+        "base2": "pokemon-base-set-2/charizard-4"
+      }
+    },
+    {
+      "id": "charmeleon",
+      "name": "Charmeleon",
+      "number_base": 24,
+      "number_base2": 35,
+      "rarity": "uncommon",
+      "line": "charizard",
+      "required": true,
+      "prints": {
+        "1st": "pokemon-base-set/charmeleon-1st-edition-24",
+        "unlimited": "pokemon-base-set/charmeleon-24",
+        "base2": "pokemon-base-set-2/charmeleon-35"
+      }
+    },
+    {
+      "id": "charmander",
+      "name": "Charmander",
+      "number_base": 46,
+      "number_base2": 69,
+      "rarity": "common",
+      "line": "charizard",
+      "required": true,
+      "prints": {
+        "1st": "pokemon-base-set/charmander-1st-edition-46",
+        "unlimited": "pokemon-base-set/charmander-46",
+        "base2": "pokemon-base-set-2/charmander-69"
+      }
+    },
+    {
+      "id": "alakazam",
+      "name": "Alakazam",
+      "number_base": 1,
+      "number_base2": 1,
+      "rarity": "holo",
+      "line": null,
+      "required": true,
+      "prints": {
+        "1st": "pokemon-base-set/alakazam-1st-edition-1",
+        "unlimited": "pokemon-base-set/alakazam-1",
+        "base2": "pokemon-base-set-2/alakazam-1"
+      }
+    },
+    {
+      "id": "blastoise",
+      "name": "Blastoise",
+      "number_base": 2,
+      "number_base2": 2,
+      "rarity": "holo",
+      "line": null,
+      "required": true,
+      "prints": {
+        "1st": "pokemon-base-set/blastoise-1st-edition-2",
+        "unlimited": "pokemon-base-set/blastoise-2",
+        "base2": "pokemon-base-set-2/blastoise-2"
+      }
+    },
+    {
+      "id": "chansey",
+      "name": "Chansey",
+      "number_base": 3,
+      "number_base2": 3,
+      "rarity": "holo",
+      "line": null,
+      "required": true,
+      "prints": {
+        "1st": "pokemon-base-set/chansey-1st-edition-3",
+        "unlimited": "pokemon-base-set/chansey-3",
+        "base2": "pokemon-base-set-2/chansey-3"
+      }
+    },
+    {
+      "id": "gyarados",
+      "name": "Gyarados",
+      "number_base": 6,
+      "number_base2": 7,
+      "rarity": "holo",
+      "line": null,
+      "required": true,
+      "prints": {
+        "1st": "pokemon-base-set/gyarados-1st-edition-6",
+        "unlimited": "pokemon-base-set/gyarados-6",
+        "base2": "pokemon-base-set-2/gyarados-7"
+      }
+    },
+    {
+      "id": "hitmonchan",
+      "name": "Hitmonchan",
+      "number_base": 7,
+      "number_base2": 8,
+      "rarity": "holo",
+      "line": null,
+      "required": true,
+      "prints": {
+        "1st": "pokemon-base-set/hitmonchan-1st-edition-7",
+        "unlimited": "pokemon-base-set/hitmonchan-7",
+        "base2": "pokemon-base-set-2/hitmonchan-8"
+      }
+    },
+    {
+      "id": "magneton",
+      "name": "Magneton",
+      "number_base": 9,
+      "number_base2": 9,
+      "rarity": "holo",
+      "line": null,
+      "required": true,
+      "prints": {
+        "1st": "pokemon-base-set/magneton-1st-edition-9",
+        "unlimited": "pokemon-base-set/magneton-9",
+        "base2": "pokemon-base-set-2/magneton-9"
+      }
+    },
+    {
+      "id": "mewtwo",
+      "name": "Mewtwo",
+      "number_base": 10,
+      "number_base2": 10,
+      "rarity": "holo",
+      "line": null,
+      "required": true,
+      "prints": {
+        "1st": "pokemon-base-set/mewtwo-1st-edition-10",
+        "unlimited": "pokemon-base-set/mewtwo-10",
+        "base2": "pokemon-base-set-2/mewtwo-10"
+      }
+    },
+    {
+      "id": "nidoking",
+      "name": "Nidoking",
+      "number_base": 11,
+      "number_base2": 11,
+      "rarity": "holo",
+      "line": null,
+      "required": true,
+      "prints": {
+        "1st": "pokemon-base-set/nidoking-1st-edition-11",
+        "unlimited": "pokemon-base-set/nidoking-11",
+        "base2": "pokemon-base-set-2/nidoking-11"
+      }
+    },
+    {
+      "id": "ninetales",
+      "name": "Ninetales",
+      "number_base": 12,
+      "number_base2": 13,
+      "rarity": "holo",
+      "line": null,
+      "required": true,
+      "prints": {
+        "1st": "pokemon-base-set/ninetales-1st-edition-12",
+        "unlimited": "pokemon-base-set/ninetales-12",
+        "base2": "pokemon-base-set-2/ninetales-13"
+      }
+    },
+    {
+      "id": "poliwrath",
+      "name": "Poliwrath",
+      "number_base": 13,
+      "number_base2": 15,
+      "rarity": "holo",
+      "line": null,
+      "required": true,
+      "prints": {
+        "1st": "pokemon-base-set/poliwrath-1st-edition-13",
+        "unlimited": "pokemon-base-set/poliwrath-13",
+        "base2": "pokemon-base-set-2/poliwrath-15"
+      }
+    },
+    {
+      "id": "raichu",
+      "name": "Raichu",
+      "number_base": 14,
+      "number_base2": 16,
+      "rarity": "holo",
+      "line": null,
+      "required": true,
+      "prints": {
+        "1st": "pokemon-base-set/raichu-1st-edition-14",
+        "unlimited": "pokemon-base-set/raichu-14",
+        "base2": "pokemon-base-set-2/raichu-16"
+      }
+    },
+    {
+      "id": "venusaur",
+      "name": "Venusaur",
+      "number_base": 15,
+      "number_base2": 18,
+      "rarity": "holo",
+      "line": null,
+      "required": true,
+      "prints": {
+        "1st": "pokemon-base-set/venusaur-1st-edition-15",
+        "unlimited": "pokemon-base-set/venusaur-15",
+        "base2": "pokemon-base-set-2/venusaur-18"
+      }
+    },
+    {
+      "id": "zapdos",
+      "name": "Zapdos",
+      "number_base": 16,
+      "number_base2": 20,
+      "rarity": "holo",
+      "line": null,
+      "required": true,
+      "prints": {
+        "1st": "pokemon-base-set/zapdos-1st-edition-16",
+        "unlimited": "pokemon-base-set/zapdos-16",
+        "base2": "pokemon-base-set-2/zapdos-20"
+      }
+    }
+  ]
+}
