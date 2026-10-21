@@ -354,11 +354,7 @@
     width: 1%;
   }
   th.col-pop, td.col-pop { min-width: 3.1rem; padding-left: 12px; padding-right: 8px; }
-  th.col-pct, td.col-pct { min-width: 3.2rem; padding-left: 6px; padding-right: 12px; font-weight: 700; }
-  td.col-pct { color: var(--muted); }
-  td.col-pct.cum { color: #6a4a00; }
-  tr.is-gem td.col-pct { color: #6a4a00; }
-  tr.is-total td.col-pct { color: var(--ink); }
+  th.col-pct, td.col-pct { min-width: 3.2rem; padding-left: 6px; padding-right: 12px; }
   .print-split { border-left: 1px solid #d4c9b4; }
   .desk-table { display: block; }
   .print-stack { display: none; }
@@ -643,7 +639,7 @@
     return {
       count: fmtInt(count),
       pct: fmtPct(pct),
-      pctCls: state.cum ? 'col-pct cum' : 'col-pct'
+      pctCls: 'col-pct'
     };
   }
   function pairHeads(split) {
