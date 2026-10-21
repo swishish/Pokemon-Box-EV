@@ -7,7 +7,7 @@ Raw_Data URLs, then writes:
   data/chase-fit/latest.json
   data/chase-fit/latest.js          window.CHASE_FIT fallback
   data/chase-fit/archive/YYYY-MM-DD.json   previous latest, before overwrite
-  data/chase-fit/thumbs.json        JP local webp / EN TCGPlayer (after write)
+  data/chase-fit/thumbs.json        JP local/SNK / EN TCGPlayer / public card art (after write)
 
 Stdlib only (zipfile + xml) — no openpyxl / pandas. GitHub Actions can
 `--self-test` without the workbook. Publishing still needs the dated xlsx
@@ -613,7 +613,8 @@ def refresh_thumbs() -> str | None:
             "wrote",
             os.path.relpath(dest, ROOT),
             f"local={counts.get('local', 0)} tcgplayer={counts.get('tcgplayer', 0)} "
-            f"none={counts.get('none', 0)}",
+            f"snkrdunk={counts.get('snkrdunk', 0)} pokemontcg={counts.get('pokemontcg', 0)} "
+            f"tcgdex={counts.get('tcgdex', 0)} none={counts.get('none', 0)}",
         )
         return dest
     except Exception as err:
