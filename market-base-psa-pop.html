@@ -6,11 +6,11 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>Base Set PSA POP · 1st / Unlimited / Base Set 2 · Box EV v1.31.2</title>
-<meta name="description" content="英文 Base Set 噴火龍一系與同套閃卡：比較 1st Edition、Unlimited、Base Set 2 的 PSA POP。可另外顯示 CGC／Beckett。靜態快照，非正式投資建議。" />
+<title>Base Set PSA POP · 1st / Unlimited / Base Set 2 · Box EV v1.31.4</title>
+<meta name="description" content="英文 Base Set #1–102：比較 1st Edition、Unlimited、Base Set 2 的 PSA＋CGC 合計 POP。靜態快照，非正式投資建議。" />
 <meta property="og:site_name" content="日盒開盒值不值？" />
 <meta property="og:title" content="Base Set PSA POP · 1st / Unlimited / Base Set 2" />
-<meta property="og:description" content="比較英文 Base Set 三個印刷版的 PSA POP。預設僅 PSA；可另外顯示 CGC／Beckett。靜態快照，非正式投資建議。" />
+<meta property="og:description" content="比較英文 Base Set 三個印刷版的 PSA＋CGC 合計 POP。靜態快照，非正式投資建議。" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://swishish.github.io/Pokemon-Box-EV/market-base-psa-pop.html" />
 <meta property="og:image" content="https://swishish.github.io/Pokemon-Box-EV/og.png" />
@@ -223,7 +223,7 @@
     font-size: .78rem;
     font-weight: 800;
   }
-  select {
+  select, input[type="search"] {
     width: 100%;
     max-width: 100%;
     font: inherit;
@@ -237,6 +237,7 @@
     box-shadow: var(--shadow-xs);
     min-width: 0;
   }
+  input[type="search"] { font-weight: 600; }
   .opt-row {
     display: flex;
     flex-wrap: wrap;
@@ -335,7 +336,6 @@
   }
   .print-head { text-align: center; }
   .print-head a { color: inherit; font-weight: 800; }
-  .grader-head { text-align: center; }
   .grade-col { width: 3.4rem; font-weight: 800; }
   tr.is-gem td { background: #fff8d6; font-weight: 750; }
   tr.is-half td { color: var(--muted); }
@@ -357,8 +357,6 @@
   th.col-pct, td.col-pct { min-width: 3.2rem; padding-left: 6px; padding-right: 12px; }
   .print-split { border-left: 1px solid #d4c9b4; }
   .desk-table { display: block; }
-  .print-stack { display: none; }
-  .print-card h3 { margin: 0 0 8px; font-size: .95rem; }
   .data-freshness { margin: 0 0 8px; padding: 0; font-size: .72rem; line-height: 1.4; color: var(--muted); }
   .data-freshness.stale {
     margin: 0 0 8px; padding: 8px 12px; border-radius: 8px;
@@ -384,9 +382,11 @@
     .header-nav { justify-content: flex-start; }
     .nav-btn { font-size: .68rem; padding: 5px 9px; }
     .wrap { padding: 10px 12px 48px; }
-    .desk-table { display: none; }
-    .print-stack { display: grid; gap: 10px; }
-    table { font-size: .8rem; }
+    table { width: 100%; max-width: 100%; font-size: .72rem; }
+    th, td { padding: 6px 3px; }
+    .print-head { font-size: .66rem; line-height: 1.25; }
+    th.col-pop, td.col-pop { min-width: 0; padding-left: 6px; padding-right: 3px; }
+    th.col-pct, td.col-pct { min-width: 0; padding-left: 2px; padding-right: 6px; }
   }
 </style>
 </head>
@@ -394,7 +394,7 @@
 <header>
   <div class="header-inner">
     <div class="header-top">
-      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.31.2</span></h1>
+      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.31.4</span></h1>
       <nav class="header-nav" aria-label="站內導覽">
         <a class="nav-btn" href="./calc.html">開盒 EV</a>
         <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
@@ -407,7 +407,7 @@
         <a class="nav-btn" href="https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/" title="Base Set Unlimited cheat sheet">Base Unlimited</a>
       </nav>
     </div>
-    <p>英文 Base Set PSA POP · 1st Edition／Unlimited／Base Set 2 · 靜態快照</p>
+    <p>英文 Base Set #1–102 PSA＋CGC POP · 1st Edition／Unlimited／Base Set 2 · 靜態快照</p>
   </div>
 </header>
 
@@ -415,9 +415,13 @@
   <div id="dataFreshness" class="data-freshness" role="status" aria-live="polite"></div>
 
   <section class="card">
-    <div class="kicker">Box-EV Base PSA Pop · 預設僅 PSA</div>
+    <div class="kicker">Box-EV Base PSA Pop · PSA＋CGC 合計</div>
     <h2 class="hero-title">Base Set POP 比較</h2>
-    <p class="tiny" id="heroPitch">比較同一張英文卡在 <b>1st Edition</b>、<b>Unlimited</b>、<b>Base Set 2</b> 的評級 POP。預設只讀 PSA；勾選後另外顯示 CGC 或 Beckett (BGS) 欄。各欄百分比以該公司、該印刷版總量計算，不會把不同評級公司在未標示的情況下加總。</p>
+    <p class="tiny" id="heroPitch">比較同一張英文 Base Set 卡在 <b>1st Edition</b>、<b>Unlimited</b>、<b>Base Set 2</b> 的評級 POP。各欄 <b>pop</b> 為該印刷版的 <b>PSA＋CGC</b> 合計（來源無 CGC 則僅計 PSA）。百分比分母為同一合計。</p>
+    <div class="field">
+      <label class="head" for="cardFilter">搜尋卡片</label>
+      <input type="search" id="cardFilter" placeholder="卡名或編號，例如 Pikachu、#58" autocomplete="off" />
+    </div>
     <div class="field">
       <label class="head" for="cardSelect">選擇卡片</label>
       <select id="cardSelect"></select>
@@ -432,14 +436,6 @@
         <input type="checkbox" id="halfToggle" />
         半級
       </label>
-      <label class="opt">
-        <input type="checkbox" id="cgcToggle" />
-        CGC
-      </label>
-      <label class="opt">
-        <input type="checkbox" id="bgsToggle" />
-        Beckett (BGS)
-      </label>
     </div>
   </section>
 
@@ -453,33 +449,33 @@
     </div>
     <p class="tiny" id="tableNote" style="margin:0 0 8px"></p>
     <div class="table-wrap desk-table" id="deskTableWrap"></div>
-    <div class="print-stack" id="printStack"></div>
   </section>
 
   <section class="card method-card">
     <h2>這是什麼 · 方法</h2>
     <ul class="tiny">
-      <li><b>預設敘事是 PSA</b>。CGC 與 Beckett (BGS) 需手動開啟，且各有獨立欄與獨立百分比，不會在未標示的情況下加總成一個「全市場％」。</li>
+      <li><b>pop 為 PSA＋CGC 合計</b>。同一印刷版、同一級別的 PSA 與 CGC 相加；來源無 CGC 欄則僅計 PSA。百分比分母為該合計，各印刷版分開計算。</li>
       <li><b>累積百分比</b>回答「此級或以上佔多少」：自 10 向 1 累加。開啟半級時，9.5 列＝（10＋9.5）÷總量。</li>
       <li><b>半級</b>預設併入較低整數級，與 PriceCharting 公開說明一致（8.5 計入 8）。勾選後方分列；目前公開頁多半已先合併，無法還原的半級列為「—」。</li>
-      <li><b>下拉標籤</b>顯示卡名、參考印刷版（優先 Unlimited）的 PSA10 POP，以及該版 PSA10 ÷ PSA 總量。</li>
-      <li><b>編號對照</b>：Base Set 2 重編部分卡號（例如 Venusaur Base #15 → Base Set 2 #18；Gyarados #6 → #7）。Machamp #8 無 Base Set 2 對應，不列入。Base Set Clefable #5 因 PriceCharting 無正確命名的 Base Set POP 頁，亦不列入。</li>
-      <li><b>來源厚薄不一</b>：部分 Unlimited 頁在 PriceCharting 上 POP 極少（例如部分御三家閃卡的無標版條目），本站照實顯示、不補數。請以各欄連到的 POP 頁為準。</li>
+      <li><b>下拉</b>列出英文 Base Set #1–102（有 PriceCharting POP 頁者）。標籤顯示參考印刷版（優先 Unlimited）的 PSA＋CGC 10 人口，以及該數 ÷ 合計總量。可用搜尋框篩選。</li>
+      <li><b>手機表</b>同一張表並列 <b>1st Edition</b> 與 <b>Unlimited</b>。桌面另列 Base Set 2（無對應則為「—」）。</li>
+      <li><b>編號對照</b>：Base Set 2 重編部分卡號（例如 Venusaur Base #15 → Base Set 2 #18）。Machamp #8 僅有 1st Edition 頁，Unlimited／Base Set 2 為「—」。變體（error、Red Cheeks 等）不列入。</li>
+      <li><b>來源厚薄不一</b>：部分 Unlimited 頁在 PriceCharting 上 POP 極少，本站照實顯示、不補數。請以各欄連到的 POP 頁為準。</li>
       <li><b>來源</b>：公開 <a href="https://www.pricecharting.com/" target="_blank" rel="noopener">PriceCharting</a> POP 頁（PSA、CGC；對方約每月更新）。本站以 GitHub Actions 每週抓取並寫入靜態 JSON。解析失敗會讓週更作業失敗，<b>不會</b>填入臆造 POP。</li>
     </ul>
   </section>
 
   <div class="disclaimer" id="disclaimer">
     <p><b>資料來源：</b>PriceCharting 公開 POP 報告。這頁是 GitHub Pages 靜態 JSON，瀏覽器不會替你送評或下單。數字可能延遲或不準；<b>不是</b>投資建議。</p>
-    <p>Pokémon 與相關名稱為其權利人商標。本頁為獨立粉絲工具，與 Nintendo／The Pokémon Company／PriceCharting／PSA／CGC／Beckett 無關。</p>
+    <p>Pokémon 與相關名稱為其權利人商標。本頁為獨立粉絲工具，與 Nintendo／The Pokémon Company／PriceCharting／PSA／CGC 無關。</p>
   </div>
 </main>
 <footer>日盒 EV 小算盤 · Base Set PSA POP · Snapshot 靜態資料 · 非正式投資建議 · 來源 <a href="https://www.pricecharting.com/" target="_blank" rel="noopener">PriceCharting</a> · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10.html">JP PSA10</a> · <a href="./market-jp-psa10-bench.html">JP 基準</a></footer>
 
-<script src="./data/base-psa-pop/latest.js?v=1.31.2"></script>
+<script src="./data/base-psa-pop/latest.js?v=1.31.4"></script>
 <script>
 (async function () {
-  const VERSION = '1.31.2';
+  const VERSION = '1.31.4';
   const PRINTS = [
     { id: '1st', label: '1st Edition' },
     { id: 'unlimited', label: 'Unlimited' },
@@ -487,7 +483,8 @@
   ];
   const WHOLE = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
   const HALF = [10, 9.5, 9, 8.5, 8, 7.5, 7, 6.5, 6, 5.5, 5, 4.5, 4, 3.5, 3, 2.5, 2, 1.5, 1];
-  const GRADER_LABEL = { psa: 'PSA', cgc: 'CGC', bgs: 'Beckett (BGS)' };
+  const PRINT_LABEL_SHORT = { '1st': '1st', unlimited: 'Unl.', base2: 'Base 2' };
+  const narrowMq = window.matchMedia('(max-width: 720px)');
   const $ = (id) => document.getElementById(id);
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, (ch) => ({
@@ -527,8 +524,7 @@
     card: params.get('card') || DATA.defaultCardId || 'charizard',
     cum: params.get('cum') === '1',
     half: params.get('half') === '1',
-    cgc: params.get('cgc') === '1',
-    bgs: params.get('bgs') === '1'
+    filter: ''
   };
 
   function parseAsOfDate(raw) {
@@ -564,18 +560,40 @@
       el.textContent = '數字可能過期（POP 快照：' + ymd + ' · 已過 ' + age + ' 日）— 引用前請核對現況';
     } else {
       el.className = 'data-freshness';
-      el.textContent = src + ' 快照 ' + ymd + ' · 週更 JSON · PSA／CGC 公開 POP';
+      el.textContent = src + ' 快照 ' + ymd + ' · 週更 JSON · PSA＋CGC 合計 POP';
     }
   }
 
   function findCard(id) {
     return DATA.cards.find((c) => c.id === id) || DATA.cards[0];
   }
-  function gradersOn() {
-    const out = ['psa'];
-    if (state.cgc) out.push('cgc');
-    if (state.bgs) out.push('bgs');
-    return out;
+  function isNarrow() {
+    return narrowMq.matches;
+  }
+  function visiblePrints() {
+    return isNarrow() ? PRINTS.filter((p) => p.id !== 'base2') : PRINTS;
+  }
+  function printLabel(p) {
+    return (isNarrow() ? PRINT_LABEL_SHORT[p.id] : p.label) || p.label;
+  }
+  function combinePrint(rec) {
+    const psa = (rec && rec.graders && rec.graders.psa) || null;
+    const cgc = (rec && rec.graders && rec.graders.cgc) || null;
+    const parts = [psa, cgc].filter((g) => g && g.available);
+    if (!parts.length) {
+      return { available: false, counts: {}, total: null, pop_url: rec && rec.pop_url };
+    }
+    const counts = {};
+    let total = 0;
+    parts.forEach((g) => {
+      Object.keys(g.counts || {}).forEach((key) => {
+        const n = Number(g.counts[key]);
+        if (!Number.isFinite(n) || n < 0) return;
+        counts[key] = (counts[key] || 0) + n;
+      });
+      total += Number(g.total || 0);
+    });
+    return { available: true, counts: counts, total: total, pop_url: rec && rec.pop_url };
   }
   function gradeKeys() {
     return (state.half ? HALF : WHOLE).map(String);
@@ -657,18 +675,25 @@
     if (state.card && state.card !== (DATA.defaultCardId || 'charizard')) next.set('card', state.card);
     if (state.cum) next.set('cum', '1');
     if (state.half) next.set('half', '1');
-    if (state.cgc) next.set('cgc', '1');
-    if (state.bgs) next.set('bgs', '1');
     const q = next.toString();
     history.replaceState(null, '', q ? (location.pathname + '?' + q) : location.pathname);
   }
+  function cardHay(c) {
+    return [
+      c.id, c.name, c.name_zh, c.option_label, c.number_base, c.number_base2, '#' + c.number_base
+    ].map((x) => String(x == null ? '' : x).toLowerCase()).join(' ');
+  }
   function renderSelect() {
     const sel = $('cardSelect');
-    sel.innerHTML = DATA.cards.map((c) => {
-      const label = c.option_label || ((c.name_zh ? (c.name_zh + ' ') : '') + c.name);
+    const q = (state.filter || '').trim().toLowerCase();
+    const shown = DATA.cards.filter((c) => !q || cardHay(c).indexOf(q) >= 0);
+    const rows = shown.length ? shown : DATA.cards.filter((c) => c.id === state.card);
+    sel.innerHTML = rows.map((c) => {
+      const label = c.option_label || ((c.name_zh ? (c.name_zh + ' ') : '') + c.name + (c.number_base != null ? (' #' + c.number_base) : ''));
       return '<option value="' + escapeHtml(c.id) + '"' + (c.id === state.card ? ' selected' : '') + '>' +
         escapeHtml(label) + '</option>';
     }).join('');
+    if (rows.some((c) => c.id === state.card)) sel.value = state.card;
   }
   function renderMeta(card) {
     const bits = [];
@@ -681,17 +706,16 @@
     const ref = card.reference_print || 'unlimited';
     bits.push('<span class="chip">下拉參考：' + escapeHtml({
       '1st': '1st Edition', unlimited: 'Unlimited', base2: 'Base Set 2'
-    }[ref] || ref) + ' PSA</span>');
+    }[ref] || ref) + ' PSA＋CGC</span>');
     $('cardMeta').innerHTML = bits.join('');
   }
   function tableNote(card) {
-    const g = gradersOn();
-    const parts = ['預設欄位為各印刷版的 ' + g.map((id) => GRADER_LABEL[id]).join('／') + '。'];
+    const parts = ['各欄 pop 為該印刷版的 PSA＋CGC 合計。'];
+    if (isNarrow()) parts.push('手機表並列 1st Edition 與 Unlimited。');
     if (state.cum) parts.push('百分比為「此級或以上」累積佔比。');
     else parts.push('百分比為該列數量 ÷ 該欄總量。');
     if (state.half) parts.push('半級獨立成列；來源未列出者為「—」。');
     else parts.push('半級已併入較低整數級。');
-    if (state.bgs) parts.push('Beckett 無資料時維持「—」，不當作 POP 0。');
     const srcDate = DATA.asOfDate ? ('快照 ' + DATA.asOfDate) : '快照日期未標';
     parts.push(srcDate + '。');
     $('tableNote').textContent = parts.join(' ');
@@ -699,98 +723,43 @@
     $('tableTitle').textContent = zh + card.name + ' · POP table';
   }
   function renderDesk(card) {
-    const gs = gradersOn();
+    const prints = visiblePrints();
     const keys = gradeKeys();
-    const printSpan = gs.length * 2;
-    const multi = gs.length > 1;
     let head1 = '<th class="grade-col">級別</th>';
-    PRINTS.forEach((p) => {
+    prints.forEach((p) => {
       const rec = (card.prints || {})[p.id] || {};
-      const href = rec.pop_url ? '<a href="' + escapeHtml(rec.pop_url) + '" target="_blank" rel="noopener">' + escapeHtml(p.label) + '</a>' : escapeHtml(p.label);
-      head1 += '<th class="print-head print-split" colspan="' + printSpan + '">' + href + '</th>';
+      const label = printLabel(p);
+      const href = rec.pop_url
+        ? '<a href="' + escapeHtml(rec.pop_url) + '" target="_blank" rel="noopener" title="' + escapeHtml(p.label) + '">' + escapeHtml(label) + '</a>'
+        : escapeHtml(label);
+      head1 += '<th class="print-head print-split" colspan="2">' + href + '</th>';
     });
-    let headMid = '';
-    if (multi) {
-      headMid = '<tr><th class="grade-col"></th>';
-      PRINTS.forEach(() => {
-        gs.forEach((gid, i) => {
-          headMid += '<th class="grader-head' + (i === 0 ? ' print-split' : '') + '" colspan="2">' + escapeHtml(GRADER_LABEL[gid]) + '</th>';
-        });
-      });
-      headMid += '</tr>';
-    }
     let headPair = '<tr><th class="grade-col"></th>';
-    PRINTS.forEach(() => {
-      gs.forEach((_, i) => { headPair += pairHeads(i === 0); });
-    });
+    prints.forEach(() => { headPair += pairHeads(true); });
     headPair += '</tr>';
     const rows = keys.map((grade) => {
       const half = grade.indexOf('.') >= 0;
       let tds = '<th class="grade-col">' + escapeHtml(grade) + '</th>';
-      PRINTS.forEach((p) => {
-        const rec = (card.prints || {})[p.id] || {};
-        gs.forEach((gid, i) => {
-          tds += pairTds((rec.graders || {})[gid], grade, false, i === 0);
-        });
+      prints.forEach((p) => {
+        tds += pairTds(combinePrint((card.prints || {})[p.id] || {}), grade, false, true);
       });
       return '<tr class="' + (grade === '10' ? 'is-gem' : '') + (half ? ' is-half' : '') + '">' + tds + '</tr>';
     });
     let total = '<th class="grade-col">合計</th>';
-    PRINTS.forEach((p) => {
-      const rec = (card.prints || {})[p.id] || {};
-      gs.forEach((gid, i) => {
-        total += pairTds((rec.graders || {})[gid], 'total', true, i === 0);
-      });
+    prints.forEach((p) => {
+      total += pairTds(combinePrint((card.prints || {})[p.id] || {}), 'total', true, true);
     });
     $('deskTableWrap').innerHTML =
-      '<table><thead><tr>' + head1 + '</tr>' + headMid + headPair + '</thead><tbody>' +
+      '<table><thead><tr>' + head1 + '</tr>' + headPair + '</thead><tbody>' +
       rows.join('') + '<tr class="is-total">' + total + '</tr></tbody></table>';
-  }
-  function renderStack(card) {
-    const gs = gradersOn();
-    const keys = gradeKeys();
-    const multi = gs.length > 1;
-    $('printStack').innerHTML = PRINTS.map((p) => {
-      const rec = (card.prints || {})[p.id] || {};
-      const href = rec.pop_url
-        ? '<a href="' + escapeHtml(rec.pop_url) + '" target="_blank" rel="noopener">' + escapeHtml(p.label) + '</a>'
-        : escapeHtml(p.label);
-      const num = p.id === 'base2' ? card.number_base2 : card.number_base;
-      let head = '';
-      if (multi) {
-        head += '<tr><th class="grade-col"></th>';
-        gs.forEach((gid, i) => {
-          head += '<th class="grader-head' + (i === 0 ? ' print-split' : '') + '" colspan="2">' + escapeHtml(GRADER_LABEL[gid]) + '</th>';
-        });
-        head += '</tr>';
-      }
-      head += '<tr><th class="grade-col">級別</th>';
-      gs.forEach((_, i) => { head += pairHeads(i === 0); });
-      head += '</tr>';
-      const rows = keys.map((grade) => {
-        let tds = '<th class="grade-col">' + escapeHtml(grade) + '</th>';
-        gs.forEach((gid, i) => {
-          tds += pairTds((rec.graders || {})[gid], grade, false, i === 0);
-        });
-        return '<tr class="' + (grade === '10' ? 'is-gem' : '') + (String(grade).indexOf('.') >= 0 ? ' is-half' : '') + '">' + tds + '</tr>';
-      });
-      let total = '<th class="grade-col">合計</th>';
-      gs.forEach((gid, i) => {
-        total += pairTds((rec.graders || {})[gid], 'total', true, i === 0);
-      });
-      return '<article class="card print-card" style="margin:0;box-shadow:none">' +
-        '<h3>' + href + (num != null ? ' <span class="pill">#' + escapeHtml(String(num)) + '</span>' : '') + '</h3>' +
-        '<div class="table-wrap"><table><thead>' + head + '</thead><tbody>' +
-        rows.join('') + '<tr class="is-total">' + total + '</tr></tbody></table></div></article>';
-    }).join('');
   }
   function render() {
     const card = findCard(state.card);
     state.card = card.id;
     renderMeta(card);
     tableNote(card);
+    renderSelect();
     renderDesk(card);
-    renderStack(card);
     writeParams();
   }
 
@@ -799,13 +768,15 @@
   $('cardSelect').value = findCard(state.card).id;
   $('cumToggle').checked = state.cum;
   $('halfToggle').checked = state.half;
-  $('cgcToggle').checked = state.cgc;
-  $('bgsToggle').checked = state.bgs;
+  $('cardFilter').addEventListener('input', () => {
+    state.filter = $('cardFilter').value;
+    renderSelect();
+  });
   $('cardSelect').addEventListener('change', () => { state.card = $('cardSelect').value; render(); });
   $('cumToggle').addEventListener('change', () => { state.cum = $('cumToggle').checked; render(); });
   $('halfToggle').addEventListener('change', () => { state.half = $('halfToggle').checked; render(); });
-  $('cgcToggle').addEventListener('change', () => { state.cgc = $('cgcToggle').checked; render(); });
-  $('bgsToggle').addEventListener('change', () => { state.bgs = $('bgsToggle').checked; render(); });
+  if (narrowMq.addEventListener) narrowMq.addEventListener('change', render);
+  else if (narrowMq.addListener) narrowMq.addListener(render);
   render();
 })();
 </script>
