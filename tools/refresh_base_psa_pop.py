@@ -12,8 +12,9 @@ Public PriceCharting HTML only. No API key. No invented pops.
 
 Parse errors exit non-zero and do not write. Only PSA and CGC columns are
 stored. Beckett/BGS columns are ignored (not mixed into PSA). The page adds
-PSA+CGC per grade for display. Half grades are stored as reported; default
-display buckets *.5 into the lower whole grade (8.5→8, 9.5→9).
+PSA+CGC per grade by default and can split the two companies. Half grades
+are stored as reported; display always buckets *.5 into the lower whole
+grade (8.5→8, 9.5→9). There is no half-grade toggle.
 """
 from __future__ import annotations
 
@@ -388,9 +389,9 @@ def option_label(card: dict, names_zh: dict[str, str]) -> str:
         "unlimited": "Unlimited",
         "base2": "Base Set 2",
     }.get(ref_id, ref_id)
-    head = f"{zh} {name}" if zh else name
-    if number is not None:
-        head += f" #{number}"
+    name_bit = f"{zh} {name}" if zh else name
+    head = f"#{number} {name_bit}" if number is not None else name_bit
+    head = " ".join(head.split())
     if gem is None or total is None:
         return f"{head} · {ref_label} PSA+CGC 10 —"
     pct = f"{rate * 100:.2f}%" if rate is not None else "—"
@@ -604,7 +605,7 @@ def self_test() -> None:
         },
     }
     label = option_label(card, names)
-    _assert("噴火龍 Charizard #4" in label, label)
+    _assert("#4 噴火龍 Charizard" in label, label)
     _assert("Unlimited PSA+CGC 10 486" in label, label)
     _assert("0.49%" in label, label)
     invent = option_label({"name": "NotAPokemon", "prints": {}}, names)
