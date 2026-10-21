@@ -1,5 +1,5 @@
 {
-  "notes": "English Base Set holos (plus the Charizard line) that have 1st Edition, Unlimited, and Base Set 2 analogs. Base Set 2 renumbers several cards — slugs below are PriceCharting pop/item paths, verified by HTTP 200 + #population-table. Machamp #8 has no Base Set 2 analog and is omitted. Base Set Clefable #5 is omitted: PriceCharting has no pokemon-base-set/clefable-* pop page (its #5 holo listing is titled Clefairy) and this catalog will not silently remap names. Do not invent slugs or pops.",
+  "notes": "English Base Set #1–102. Slugs are PriceCharting console productUri values (HTTP-listed products, not invented). 1st Edition is required. Unlimited and Base Set 2 are included only when a same-name product exists. Variants (error / Red Cheeks / Ghost Stamp / sealed) are omitted. Machamp #8 has 1st only. Do not invent slugs or pops.",
   "source": "https://www.pricecharting.com/pop/item/{slug}",
   "default_card_id": "charizard",
   "prints": [
@@ -20,48 +20,6 @@
     }
   ],
   "cards": [
-    {
-      "id": "charizard",
-      "name": "Charizard",
-      "number_base": 4,
-      "number_base2": 4,
-      "rarity": "holo",
-      "line": "charizard",
-      "required": true,
-      "prints": {
-        "1st": "pokemon-base-set/charizard-1st-edition-4",
-        "unlimited": "pokemon-base-set/charizard-4",
-        "base2": "pokemon-base-set-2/charizard-4"
-      }
-    },
-    {
-      "id": "charmeleon",
-      "name": "Charmeleon",
-      "number_base": 24,
-      "number_base2": 35,
-      "rarity": "uncommon",
-      "line": "charizard",
-      "required": true,
-      "prints": {
-        "1st": "pokemon-base-set/charmeleon-1st-edition-24",
-        "unlimited": "pokemon-base-set/charmeleon-24",
-        "base2": "pokemon-base-set-2/charmeleon-35"
-      }
-    },
-    {
-      "id": "charmander",
-      "name": "Charmander",
-      "number_base": 46,
-      "number_base2": 69,
-      "rarity": "common",
-      "line": "charizard",
-      "required": true,
-      "prints": {
-        "1st": "pokemon-base-set/charmander-1st-edition-46",
-        "unlimited": "pokemon-base-set/charmander-46",
-        "base2": "pokemon-base-set-2/charmander-69"
-      }
-    },
     {
       "id": "alakazam",
       "name": "Alakazam",
@@ -105,6 +63,34 @@
       }
     },
     {
+      "id": "charizard",
+      "name": "Charizard",
+      "number_base": 4,
+      "number_base2": 4,
+      "rarity": "holo",
+      "line": "charizard",
+      "required": true,
+      "prints": {
+        "1st": "pokemon-base-set/charizard-1st-edition-4",
+        "unlimited": "pokemon-base-set/charizard-4",
+        "base2": "pokemon-base-set-2/charizard-4"
+      }
+    },
+    {
+      "id": "clefairy",
+      "name": "Clefairy",
+      "number_base": 5,
+      "number_base2": 6,
+      "rarity": "holo",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/clefairy-1st-edition-5",
+        "unlimited": "pokemon-base-set/clefairy-5",
+        "base2": "pokemon-base-set-2/clefairy-6"
+      }
+    },
+    {
       "id": "gyarados",
       "name": "Gyarados",
       "number_base": 6,
@@ -130,6 +116,18 @@
         "1st": "pokemon-base-set/hitmonchan-1st-edition-7",
         "unlimited": "pokemon-base-set/hitmonchan-7",
         "base2": "pokemon-base-set-2/hitmonchan-8"
+      }
+    },
+    {
+      "id": "machamp",
+      "name": "Machamp",
+      "number_base": 8,
+      "number_base2": null,
+      "rarity": "holo",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/machamp-1st-edition-8"
       }
     },
     {
@@ -242,6 +240,1203 @@
         "1st": "pokemon-base-set/zapdos-1st-edition-16",
         "unlimited": "pokemon-base-set/zapdos-16",
         "base2": "pokemon-base-set-2/zapdos-20"
+      }
+    },
+    {
+      "id": "beedrill",
+      "name": "Beedrill",
+      "number_base": 17,
+      "number_base2": 21,
+      "rarity": "rare",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/beedrill-1st-edition-17",
+        "unlimited": "pokemon-base-set/beedrill-17",
+        "base2": "pokemon-base-set-2/beedrill-21"
+      }
+    },
+    {
+      "id": "dragonair",
+      "name": "Dragonair",
+      "number_base": 18,
+      "number_base2": 22,
+      "rarity": "rare",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/dragonair-1st-edition-18",
+        "unlimited": "pokemon-base-set/dragonair-18",
+        "base2": "pokemon-base-set-2/dragonair-22"
+      }
+    },
+    {
+      "id": "dugtrio",
+      "name": "Dugtrio",
+      "number_base": 19,
+      "number_base2": 23,
+      "rarity": "rare",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/dugtrio-1st-edition-19",
+        "unlimited": "pokemon-base-set/dugtrio-19",
+        "base2": "pokemon-base-set-2/dugtrio-23"
+      }
+    },
+    {
+      "id": "electabuzz",
+      "name": "Electabuzz",
+      "number_base": 20,
+      "number_base2": 24,
+      "rarity": "rare",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/electabuzz-1st-edition-20",
+        "unlimited": "pokemon-base-set/electabuzz-20",
+        "base2": "pokemon-base-set-2/electabuzz-24"
+      }
+    },
+    {
+      "id": "electrode",
+      "name": "Electrode",
+      "number_base": 21,
+      "number_base2": 25,
+      "rarity": "rare",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/electrode-1st-edition-21",
+        "unlimited": "pokemon-base-set/electrode-21",
+        "base2": "pokemon-base-set-2/electrode-25"
+      }
+    },
+    {
+      "id": "pidgeotto",
+      "name": "Pidgeotto",
+      "number_base": 22,
+      "number_base2": 28,
+      "rarity": "rare",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/pidgeotto-1st-edition-22",
+        "unlimited": "pokemon-base-set/pidgeotto-22",
+        "base2": "pokemon-base-set-2/pidgeotto-28"
+      }
+    },
+    {
+      "id": "arcanine",
+      "name": "Arcanine",
+      "number_base": 23,
+      "number_base2": 33,
+      "rarity": "uncommon",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/arcanine-1st-edition-23",
+        "unlimited": "pokemon-base-set/arcanine-23",
+        "base2": "pokemon-base-set-2/arcanine-33"
+      }
+    },
+    {
+      "id": "charmeleon",
+      "name": "Charmeleon",
+      "number_base": 24,
+      "number_base2": 35,
+      "rarity": "uncommon",
+      "line": "charizard",
+      "required": true,
+      "prints": {
+        "1st": "pokemon-base-set/charmeleon-1st-edition-24",
+        "unlimited": "pokemon-base-set/charmeleon-24",
+        "base2": "pokemon-base-set-2/charmeleon-35"
+      }
+    },
+    {
+      "id": "dewgong",
+      "name": "Dewgong",
+      "number_base": 25,
+      "number_base2": 36,
+      "rarity": "uncommon",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/dewgong-1st-edition-25",
+        "unlimited": "pokemon-base-set/dewgong-25",
+        "base2": "pokemon-base-set-2/dewgong-36"
+      }
+    },
+    {
+      "id": "dratini",
+      "name": "Dratini",
+      "number_base": 26,
+      "number_base2": 38,
+      "rarity": "uncommon",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/dratini-1st-edition-26",
+        "unlimited": "pokemon-base-set/dratini-26",
+        "base2": "pokemon-base-set-2/dratini-38"
+      }
+    },
+    {
+      "id": "farfetchd",
+      "name": "Farfetch'd",
+      "number_base": 27,
+      "number_base2": 40,
+      "rarity": "uncommon",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/farfetch'd-1st-edition-27",
+        "unlimited": "pokemon-base-set/farfetch'd-27",
+        "base2": "pokemon-base-set-2/farfetch'd-40"
+      }
+    },
+    {
+      "id": "growlithe",
+      "name": "Growlithe",
+      "number_base": 28,
+      "number_base2": 42,
+      "rarity": "uncommon",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/growlithe-1st-edition-28",
+        "unlimited": "pokemon-base-set/growlithe-28",
+        "base2": "pokemon-base-set-2/growlithe-42"
+      }
+    },
+    {
+      "id": "haunter",
+      "name": "Haunter",
+      "number_base": 29,
+      "number_base2": 43,
+      "rarity": "uncommon",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/haunter-1st-edition-29",
+        "unlimited": "pokemon-base-set/haunter-29",
+        "base2": "pokemon-base-set-2/haunter-43"
+      }
+    },
+    {
+      "id": "ivysaur",
+      "name": "Ivysaur",
+      "number_base": 30,
+      "number_base2": 44,
+      "rarity": "uncommon",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/ivysaur-1st-edition-30",
+        "unlimited": "pokemon-base-set/ivysaur-30",
+        "base2": "pokemon-base-set-2/ivysaur-44"
+      }
+    },
+    {
+      "id": "jynx",
+      "name": "Jynx",
+      "number_base": 31,
+      "number_base2": 45,
+      "rarity": "uncommon",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/jynx-1st-edition-31",
+        "unlimited": "pokemon-base-set/jynx-31",
+        "base2": "pokemon-base-set-2/jynx-45"
+      }
+    },
+    {
+      "id": "kadabra",
+      "name": "Kadabra",
+      "number_base": 32,
+      "number_base2": 46,
+      "rarity": "uncommon",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/kadabra-1st-edition-32",
+        "unlimited": "pokemon-base-set/kadabra-32",
+        "base2": "pokemon-base-set-2/kadabra-46"
+      }
+    },
+    {
+      "id": "kakuna",
+      "name": "Kakuna",
+      "number_base": 33,
+      "number_base2": 47,
+      "rarity": "uncommon",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/kakuna-1st-edition-33",
+        "unlimited": "pokemon-base-set/kakuna-33",
+        "base2": "pokemon-base-set-2/kakuna-47"
+      }
+    },
+    {
+      "id": "machoke",
+      "name": "Machoke",
+      "number_base": 34,
+      "number_base2": 49,
+      "rarity": "uncommon",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/machoke-1st-edition-34",
+        "unlimited": "pokemon-base-set/machoke-34",
+        "base2": "pokemon-base-set-2/machoke-49"
+      }
+    },
+    {
+      "id": "magikarp",
+      "name": "Magikarp",
+      "number_base": 35,
+      "number_base2": 50,
+      "rarity": "uncommon",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/magikarp-1st-edition-35",
+        "unlimited": "pokemon-base-set/magikarp-35",
+        "base2": "pokemon-base-set-2/magikarp-50"
+      }
+    },
+    {
+      "id": "magmar",
+      "name": "Magmar",
+      "number_base": 36,
+      "number_base2": 51,
+      "rarity": "uncommon",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/magmar-1st-edition-36",
+        "unlimited": "pokemon-base-set/magmar-36",
+        "base2": "pokemon-base-set-2/magmar-51"
+      }
+    },
+    {
+      "id": "nidorino",
+      "name": "Nidorino",
+      "number_base": 37,
+      "number_base2": 54,
+      "rarity": "uncommon",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/nidorino-1st-edition-37",
+        "unlimited": "pokemon-base-set/nidorino-37",
+        "base2": "pokemon-base-set-2/nidorino-54"
+      }
+    },
+    {
+      "id": "poliwhirl",
+      "name": "Poliwhirl",
+      "number_base": 38,
+      "number_base2": 57,
+      "rarity": "uncommon",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/poliwhirl-1st-edition-38",
+        "unlimited": "pokemon-base-set/poliwhirl-38",
+        "base2": "pokemon-base-set-2/poliwhirl-57"
+      }
+    },
+    {
+      "id": "porygon",
+      "name": "Porygon",
+      "number_base": 39,
+      "number_base2": null,
+      "rarity": "uncommon",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/porygon-1st-edition-39",
+        "unlimited": "pokemon-base-set/porygon-39"
+      }
+    },
+    {
+      "id": "raticate",
+      "name": "Raticate",
+      "number_base": 40,
+      "number_base2": 58,
+      "rarity": "uncommon",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/raticate-1st-edition-40",
+        "unlimited": "pokemon-base-set/raticate-40",
+        "base2": "pokemon-base-set-2/raticate-58"
+      }
+    },
+    {
+      "id": "seel",
+      "name": "Seel",
+      "number_base": 41,
+      "number_base2": 61,
+      "rarity": "uncommon",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/seel-1st-edition-41",
+        "unlimited": "pokemon-base-set/seel-41",
+        "base2": "pokemon-base-set-2/seel-61"
+      }
+    },
+    {
+      "id": "wartortle",
+      "name": "Wartortle",
+      "number_base": 42,
+      "number_base2": 63,
+      "rarity": "uncommon",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/wartortle-1st-edition-42",
+        "unlimited": "pokemon-base-set/wartortle-42",
+        "base2": "pokemon-base-set-2/wartortle-63"
+      }
+    },
+    {
+      "id": "abra",
+      "name": "Abra",
+      "number_base": 43,
+      "number_base2": 65,
+      "rarity": "common",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/abra-1st-edition-43",
+        "unlimited": "pokemon-base-set/abra-43",
+        "base2": "pokemon-base-set-2/abra-65"
+      }
+    },
+    {
+      "id": "bulbasaur",
+      "name": "Bulbasaur",
+      "number_base": 44,
+      "number_base2": 67,
+      "rarity": "common",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/bulbasaur-1st-edition-44",
+        "unlimited": "pokemon-base-set/bulbasaur-44",
+        "base2": "pokemon-base-set-2/bulbasaur-67"
+      }
+    },
+    {
+      "id": "caterpie",
+      "name": "Caterpie",
+      "number_base": 45,
+      "number_base2": 68,
+      "rarity": "common",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/caterpie-1st-edition-45",
+        "unlimited": "pokemon-base-set/caterpie-45",
+        "base2": "pokemon-base-set-2/caterpie-68"
+      }
+    },
+    {
+      "id": "charmander",
+      "name": "Charmander",
+      "number_base": 46,
+      "number_base2": 69,
+      "rarity": "common",
+      "line": "charizard",
+      "required": true,
+      "prints": {
+        "1st": "pokemon-base-set/charmander-1st-edition-46",
+        "unlimited": "pokemon-base-set/charmander-46",
+        "base2": "pokemon-base-set-2/charmander-69"
+      }
+    },
+    {
+      "id": "diglett",
+      "name": "Diglett",
+      "number_base": 47,
+      "number_base2": 71,
+      "rarity": "common",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/diglett-1st-edition-47",
+        "unlimited": "pokemon-base-set/diglett-47",
+        "base2": "pokemon-base-set-2/diglett-71"
+      }
+    },
+    {
+      "id": "doduo",
+      "name": "Doduo",
+      "number_base": 48,
+      "number_base2": 72,
+      "rarity": "common",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/doduo-1st-edition-48",
+        "unlimited": "pokemon-base-set/doduo-48",
+        "base2": "pokemon-base-set-2/doduo-72"
+      }
+    },
+    {
+      "id": "drowzee",
+      "name": "Drowzee",
+      "number_base": 49,
+      "number_base2": 73,
+      "rarity": "common",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/drowzee-1st-edition-49",
+        "unlimited": "pokemon-base-set/drowzee-49",
+        "base2": "pokemon-base-set-2/drowzee-73"
+      }
+    },
+    {
+      "id": "gastly",
+      "name": "Gastly",
+      "number_base": 50,
+      "number_base2": 75,
+      "rarity": "common",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/gastly-1st-edition-50",
+        "unlimited": "pokemon-base-set/gastly-50",
+        "base2": "pokemon-base-set-2/gastly-75"
+      }
+    },
+    {
+      "id": "koffing",
+      "name": "Koffing",
+      "number_base": 51,
+      "number_base2": null,
+      "rarity": "common",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/koffing-1st-edition-51",
+        "unlimited": "pokemon-base-set/koffing-51"
+      }
+    },
+    {
+      "id": "machop",
+      "name": "Machop",
+      "number_base": 52,
+      "number_base2": 78,
+      "rarity": "common",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/machop-1st-edition-52",
+        "unlimited": "pokemon-base-set/machop-52",
+        "base2": "pokemon-base-set-2/machop-78"
+      }
+    },
+    {
+      "id": "magnemite",
+      "name": "Magnemite",
+      "number_base": 53,
+      "number_base2": 79,
+      "rarity": "common",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/magnemite-1st-edition-53",
+        "unlimited": "pokemon-base-set/magnemite-53",
+        "base2": "pokemon-base-set-2/magnemite-79"
+      }
+    },
+    {
+      "id": "metapod",
+      "name": "Metapod",
+      "number_base": 54,
+      "number_base2": 81,
+      "rarity": "common",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/metapod-1st-edition-54",
+        "unlimited": "pokemon-base-set/metapod-54",
+        "base2": "pokemon-base-set-2/metapod-81"
+      }
+    },
+    {
+      "id": "nidoran",
+      "name": "Nidoran",
+      "number_base": 55,
+      "number_base2": 83,
+      "rarity": "common",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/nidoran-1st-edition-55",
+        "unlimited": "pokemon-base-set/nidoran-55",
+        "base2": "pokemon-base-set-2/nidoran-83"
+      }
+    },
+    {
+      "id": "onix",
+      "name": "Onix",
+      "number_base": 56,
+      "number_base2": 84,
+      "rarity": "common",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/onix-1st-edition-56",
+        "unlimited": "pokemon-base-set/onix-56",
+        "base2": "pokemon-base-set-2/onix-84"
+      }
+    },
+    {
+      "id": "pidgey",
+      "name": "Pidgey",
+      "number_base": 57,
+      "number_base2": 86,
+      "rarity": "common",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/pidgey-1st-edition-57",
+        "unlimited": "pokemon-base-set/pidgey-57",
+        "base2": "pokemon-base-set-2/pidgey-86"
+      }
+    },
+    {
+      "id": "pikachu",
+      "name": "Pikachu",
+      "number_base": 58,
+      "number_base2": 87,
+      "rarity": "common",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/pikachu-1st-edition-58",
+        "unlimited": "pokemon-base-set/pikachu-58",
+        "base2": "pokemon-base-set-2/pikachu-87"
+      }
+    },
+    {
+      "id": "poliwag",
+      "name": "Poliwag",
+      "number_base": 59,
+      "number_base2": 88,
+      "rarity": "common",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/poliwag-1st-edition-59",
+        "unlimited": "pokemon-base-set/poliwag-59",
+        "base2": "pokemon-base-set-2/poliwag-88"
+      }
+    },
+    {
+      "id": "ponyta",
+      "name": "Ponyta",
+      "number_base": 60,
+      "number_base2": null,
+      "rarity": "common",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/ponyta-1st-edition-60",
+        "unlimited": "pokemon-base-set/ponyta-60"
+      }
+    },
+    {
+      "id": "rattata",
+      "name": "Rattata",
+      "number_base": 61,
+      "number_base2": 89,
+      "rarity": "common",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/rattata-1st-edition-61",
+        "unlimited": "pokemon-base-set/rattata-61",
+        "base2": "pokemon-base-set-2/rattata-89"
+      }
+    },
+    {
+      "id": "sandshrew",
+      "name": "Sandshrew",
+      "number_base": 62,
+      "number_base2": 91,
+      "rarity": "common",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/sandshrew-1st-edition-62",
+        "unlimited": "pokemon-base-set/sandshrew-62",
+        "base2": "pokemon-base-set-2/sandshrew-91"
+      }
+    },
+    {
+      "id": "squirtle",
+      "name": "Squirtle",
+      "number_base": 63,
+      "number_base2": 93,
+      "rarity": "common",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/squirtle-1st-edition-63",
+        "unlimited": "pokemon-base-set/squirtle-63",
+        "base2": "pokemon-base-set-2/squirtle-93"
+      }
+    },
+    {
+      "id": "starmie",
+      "name": "Starmie",
+      "number_base": 64,
+      "number_base2": 94,
+      "rarity": "common",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/starmie-1st-edition-64",
+        "unlimited": "pokemon-base-set/starmie-64",
+        "base2": "pokemon-base-set-2/starmie-94"
+      }
+    },
+    {
+      "id": "staryu",
+      "name": "Staryu",
+      "number_base": 65,
+      "number_base2": 95,
+      "rarity": "common",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/staryu-1st-edition-65",
+        "unlimited": "pokemon-base-set/staryu-65",
+        "base2": "pokemon-base-set-2/staryu-95"
+      }
+    },
+    {
+      "id": "tangela",
+      "name": "Tangela",
+      "number_base": 66,
+      "number_base2": 96,
+      "rarity": "common",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/tangela-1st-edition-66",
+        "unlimited": "pokemon-base-set/tangela-66",
+        "base2": "pokemon-base-set-2/tangela-96"
+      }
+    },
+    {
+      "id": "voltorb",
+      "name": "Voltorb",
+      "number_base": 67,
+      "number_base2": 98,
+      "rarity": "common",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/voltorb-1st-edition-67",
+        "unlimited": "pokemon-base-set/voltorb-67",
+        "base2": "pokemon-base-set-2/voltorb-98"
+      }
+    },
+    {
+      "id": "vulpix",
+      "name": "Vulpix",
+      "number_base": 68,
+      "number_base2": 99,
+      "rarity": "common",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/vulpix-1st-edition-68",
+        "unlimited": "pokemon-base-set/vulpix-68",
+        "base2": "pokemon-base-set-2/vulpix-99"
+      }
+    },
+    {
+      "id": "weedle",
+      "name": "Weedle",
+      "number_base": 69,
+      "number_base2": 100,
+      "rarity": "common",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/weedle-1st-edition-69",
+        "unlimited": "pokemon-base-set/weedle-69",
+        "base2": "pokemon-base-set-2/weedle-100"
+      }
+    },
+    {
+      "id": "clefairy-doll",
+      "name": "Clefairy Doll",
+      "number_base": 70,
+      "number_base2": null,
+      "rarity": "rare",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/clefairy-doll-1st-edition-70",
+        "unlimited": "pokemon-base-set/clefairy-doll-70"
+      }
+    },
+    {
+      "id": "computer-search",
+      "name": "Computer Search",
+      "number_base": 71,
+      "number_base2": 101,
+      "rarity": "rare",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/computer-search-1st-edition-71",
+        "unlimited": "pokemon-base-set/computer-search-71",
+        "base2": "pokemon-base-set-2/computer-search-101"
+      }
+    },
+    {
+      "id": "devolution-spray",
+      "name": "Devolution Spray",
+      "number_base": 72,
+      "number_base2": null,
+      "rarity": "rare",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/devolution-spray-1st-edition-72",
+        "unlimited": "pokemon-base-set/devolution-spray-72"
+      }
+    },
+    {
+      "id": "imposter-professor-oak",
+      "name": "Imposter Professor Oak",
+      "number_base": 73,
+      "number_base2": 102,
+      "rarity": "rare",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/imposter-professor-oak-1st-edition-73",
+        "unlimited": "pokemon-base-set/imposter-professor-oak-73",
+        "base2": "pokemon-base-set-2/imposter-professor-oak-102"
+      }
+    },
+    {
+      "id": "item-finder",
+      "name": "Item Finder",
+      "number_base": 74,
+      "number_base2": 103,
+      "rarity": "rare",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/item-finder-1st-edition-74",
+        "unlimited": "pokemon-base-set/item-finder-74",
+        "base2": "pokemon-base-set-2/item-finder-103"
+      }
+    },
+    {
+      "id": "lass",
+      "name": "Lass",
+      "number_base": 75,
+      "number_base2": 104,
+      "rarity": "rare",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/lass-1st-edition-75",
+        "unlimited": "pokemon-base-set/lass-75",
+        "base2": "pokemon-base-set-2/lass-104"
+      }
+    },
+    {
+      "id": "pokemon-breeder",
+      "name": "Pokemon Breeder",
+      "number_base": 76,
+      "number_base2": 105,
+      "rarity": "rare",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/pokemon-breeder-1st-edition-76",
+        "unlimited": "pokemon-base-set/pokemon-breeder-76",
+        "base2": "pokemon-base-set-2/pokemon-breeder-105"
+      }
+    },
+    {
+      "id": "pokemon-trader",
+      "name": "Pokemon Trader",
+      "number_base": 77,
+      "number_base2": 106,
+      "rarity": "rare",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/pokemon-trader-1st-edition-77",
+        "unlimited": "pokemon-base-set/pokemon-trader-77",
+        "base2": "pokemon-base-set-2/pokemon-trader-106"
+      }
+    },
+    {
+      "id": "scoop-up",
+      "name": "Scoop Up",
+      "number_base": 78,
+      "number_base2": 107,
+      "rarity": "rare",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/scoop-up-1st-edition-78",
+        "unlimited": "pokemon-base-set/scoop-up-78",
+        "base2": "pokemon-base-set-2/scoop-up-107"
+      }
+    },
+    {
+      "id": "super-energy-removal",
+      "name": "Super Energy Removal",
+      "number_base": 79,
+      "number_base2": 108,
+      "rarity": "rare",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/super-energy-removal-1st-edition-79",
+        "unlimited": "pokemon-base-set/super-energy-removal-79",
+        "base2": "pokemon-base-set-2/super-energy-removal-108"
+      }
+    },
+    {
+      "id": "defender",
+      "name": "Defender",
+      "number_base": 80,
+      "number_base2": 109,
+      "rarity": "uncommon",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/defender-1st-edition-80",
+        "unlimited": "pokemon-base-set/defender-80",
+        "base2": "pokemon-base-set-2/defender-109"
+      }
+    },
+    {
+      "id": "energy-retrieval",
+      "name": "Energy Retrieval",
+      "number_base": 81,
+      "number_base2": 110,
+      "rarity": "uncommon",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/energy-retrieval-1st-edition-81",
+        "unlimited": "pokemon-base-set/energy-retrieval-81",
+        "base2": "pokemon-base-set-2/energy-retrieval-110"
+      }
+    },
+    {
+      "id": "full-heal",
+      "name": "Full Heal",
+      "number_base": 82,
+      "number_base2": 111,
+      "rarity": "uncommon",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/full-heal-1st-edition-82",
+        "unlimited": "pokemon-base-set/full-heal-82",
+        "base2": "pokemon-base-set-2/full-heal-111"
+      }
+    },
+    {
+      "id": "maintenance",
+      "name": "Maintenance",
+      "number_base": 83,
+      "number_base2": 112,
+      "rarity": "uncommon",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/maintenance-1st-edition-83",
+        "unlimited": "pokemon-base-set/maintenance-83",
+        "base2": "pokemon-base-set-2/maintenance-112"
+      }
+    },
+    {
+      "id": "pluspower",
+      "name": "PlusPower",
+      "number_base": 84,
+      "number_base2": 113,
+      "rarity": "uncommon",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/pluspower-1st-edition-84",
+        "unlimited": "pokemon-base-set/pluspower-84",
+        "base2": "pokemon-base-set-2/pluspower-113"
+      }
+    },
+    {
+      "id": "pokemon-center",
+      "name": "Pokemon Center",
+      "number_base": 85,
+      "number_base2": 114,
+      "rarity": "uncommon",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/pokemon-center-1st-edition-85",
+        "unlimited": "pokemon-base-set/pokemon-center-85",
+        "base2": "pokemon-base-set-2/pokemon-center-114"
+      }
+    },
+    {
+      "id": "pokemon-flute",
+      "name": "Pokemon Flute",
+      "number_base": 86,
+      "number_base2": null,
+      "rarity": "uncommon",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/pokemon-flute-1st-edition-86",
+        "unlimited": "pokemon-base-set/pokemon-flute-86"
+      }
+    },
+    {
+      "id": "pokedex",
+      "name": "Pokedex",
+      "number_base": 87,
+      "number_base2": 115,
+      "rarity": "uncommon",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/pokedex-1st-edition-87",
+        "unlimited": "pokemon-base-set/pokedex-87",
+        "base2": "pokemon-base-set-2/pokedex-115"
+      }
+    },
+    {
+      "id": "professor-oak",
+      "name": "Professor Oak",
+      "number_base": 88,
+      "number_base2": 116,
+      "rarity": "uncommon",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/professor-oak-1st-edition-88",
+        "unlimited": "pokemon-base-set/professor-oak-88",
+        "base2": "pokemon-base-set-2/professor-oak-116"
+      }
+    },
+    {
+      "id": "revive",
+      "name": "Revive",
+      "number_base": 89,
+      "number_base2": null,
+      "rarity": "uncommon",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/revive-1st-edition-89",
+        "unlimited": "pokemon-base-set/revive-89"
+      }
+    },
+    {
+      "id": "super-potion",
+      "name": "Super Potion",
+      "number_base": 90,
+      "number_base2": 117,
+      "rarity": "uncommon",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/super-potion-1st-edition-90",
+        "unlimited": "pokemon-base-set/super-potion-90",
+        "base2": "pokemon-base-set-2/super-potion-117"
+      }
+    },
+    {
+      "id": "bill",
+      "name": "Bill",
+      "number_base": 91,
+      "number_base2": 118,
+      "rarity": "common",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/bill-1st-edition-91",
+        "unlimited": "pokemon-base-set/bill-91",
+        "base2": "pokemon-base-set-2/bill-118"
+      }
+    },
+    {
+      "id": "energy-removal",
+      "name": "Energy Removal",
+      "number_base": 92,
+      "number_base2": 119,
+      "rarity": "common",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/energy-removal-1st-edition-92",
+        "unlimited": "pokemon-base-set/energy-removal-92",
+        "base2": "pokemon-base-set-2/energy-removal-119"
+      }
+    },
+    {
+      "id": "gust-of-wind",
+      "name": "Gust of Wind",
+      "number_base": 93,
+      "number_base2": 120,
+      "rarity": "common",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/gust-of-wind-1st-edition-93",
+        "unlimited": "pokemon-base-set/gust-of-wind-93",
+        "base2": "pokemon-base-set-2/gust-of-wind-120"
+      }
+    },
+    {
+      "id": "potion",
+      "name": "Potion",
+      "number_base": 94,
+      "number_base2": 122,
+      "rarity": "common",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/potion-1st-edition-94",
+        "unlimited": "pokemon-base-set/potion-94",
+        "base2": "pokemon-base-set-2/potion-122"
+      }
+    },
+    {
+      "id": "switch",
+      "name": "Switch",
+      "number_base": 95,
+      "number_base2": 123,
+      "rarity": "common",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/switch-1st-edition-95",
+        "unlimited": "pokemon-base-set/switch-95",
+        "base2": "pokemon-base-set-2/switch-123"
+      }
+    },
+    {
+      "id": "double-colorless-energy",
+      "name": "Double Colorless Energy",
+      "number_base": 96,
+      "number_base2": 124,
+      "rarity": "rare",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/double-colorless-energy-1st-edition-96",
+        "unlimited": "pokemon-base-set/double-colorless-energy-96",
+        "base2": "pokemon-base-set-2/double-colorless-energy-124"
+      }
+    },
+    {
+      "id": "fighting-energy",
+      "name": "Fighting Energy",
+      "number_base": 97,
+      "number_base2": 125,
+      "rarity": "common",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/fighting-energy-1st-edition-97",
+        "unlimited": "pokemon-base-set/fighting-energy-97",
+        "base2": "pokemon-base-set-2/fighting-energy-125"
+      }
+    },
+    {
+      "id": "fire-energy",
+      "name": "Fire Energy",
+      "number_base": 98,
+      "number_base2": 126,
+      "rarity": "common",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/fire-energy-1st-edition-98",
+        "unlimited": "pokemon-base-set/fire-energy-98",
+        "base2": "pokemon-base-set-2/fire-energy-126"
+      }
+    },
+    {
+      "id": "grass-energy",
+      "name": "Grass Energy",
+      "number_base": 99,
+      "number_base2": 127,
+      "rarity": "common",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/grass-energy-1st-edition-99",
+        "unlimited": "pokemon-base-set/grass-energy-99",
+        "base2": "pokemon-base-set-2/grass-energy-127"
+      }
+    },
+    {
+      "id": "lightning-energy",
+      "name": "Lightning Energy",
+      "number_base": 100,
+      "number_base2": 128,
+      "rarity": "common",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/lightning-energy-1st-edition-100",
+        "unlimited": "pokemon-base-set/lightning-energy-100",
+        "base2": "pokemon-base-set-2/lightning-energy-128"
+      }
+    },
+    {
+      "id": "psychic-energy",
+      "name": "Psychic Energy",
+      "number_base": 101,
+      "number_base2": 129,
+      "rarity": "common",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/psychic-energy-1st-edition-101",
+        "unlimited": "pokemon-base-set/psychic-energy-101",
+        "base2": "pokemon-base-set-2/psychic-energy-129"
+      }
+    },
+    {
+      "id": "water-energy",
+      "name": "Water Energy",
+      "number_base": 102,
+      "number_base2": 130,
+      "rarity": "common",
+      "line": null,
+      "required": false,
+      "prints": {
+        "1st": "pokemon-base-set/water-energy-1st-edition-102",
+        "unlimited": "pokemon-base-set/water-energy-102",
+        "base2": "pokemon-base-set-2/water-energy-130"
       }
     }
   ]

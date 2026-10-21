@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Refresh English Base Set PSA / CGC / BGS population snapshots.
+"""Refresh English Base Set PSA / CGC population snapshots.
 
 Reads data/base-psa-pop/catalog.json (PriceCharting pop/item slugs) and writes
 data/base-psa-pop/latest.json + latest.js for market-base-psa-pop.html.
@@ -10,10 +10,10 @@ Public PriceCharting HTML only. No API key. No invented pops.
   python3 tools/refresh_base_psa_pop.py --root .
   python3 tools/refresh_base_psa_pop.py --from-html-dir /tmp/pc-pop
 
-Parse errors exit non-zero and do not write. Beckett/BGS is stored only when
-the HTML actually has a BGS/Beckett column (PriceCharting currently publishes
-PSA + CGC). Half grades are stored as reported; default display buckets *.5
-into the lower whole grade (8.5→8, 9.5→9).
+Parse errors exit non-zero and do not write. Only PSA and CGC columns are
+stored. Beckett/BGS columns are ignored (not mixed into PSA). The page adds
+PSA+CGC per grade for display. Half grades are stored as reported; default
+display buckets *.5 into the lower whole grade (8.5→8, 9.5→9).
 """
 from __future__ import annotations
 
@@ -26,6 +26,7 @@ import urllib.error
 import urllib.request
 from datetime import datetime
 from pathlib import Path
+from urllib.parse import quote
 from zoneinfo import ZoneInfo
 
 ROOT_DEFAULT = Path(__file__).resolve().parents[1]
@@ -40,14 +41,17 @@ SLEEP_S = 0.45
 WHOLE_GRADES = (10, 9, 8, 7, 6, 5, 4, 3, 2, 1)
 HALF_GRADES = (9.5, 8.5, 7.5, 6.5, 5.5, 4.5, 3.5, 2.5, 1.5)
 PRINT_IDS = ("1st", "unlimited", "base2")
-GRADER_IDS = ("psa", "cgc", "bgs")
+GRADER_IDS = ("psa", "cgc")
 GRADER_ALIASES = {
     "psa": "psa",
     "cgc": "cgc",
-    "bgs": "bgs",
-    "beckett": "bgs",
-    "beckett (bgs)": "bgs",
-    "bgs/beckett": "bgs",
+}
+SKIP_HEADERS = {
+    "bgs",
+    "beckett",
+    "beckett (bgs)",
+    "bgs/beckett",
+    "total",
 }
 
 TABLE_RE = re.compile(
@@ -114,6 +118,8 @@ def parse_grade_key(raw: str) -> str | None:
 
 def detect_grader(header: str) -> str | None:
     key = strip_html(header).lower()
+    if key in SKIP_HEADERS:
+        return None
     return GRADER_ALIASES.get(key)
 
 
@@ -263,10 +269,9 @@ def load_catalog(root: Path) -> dict:
     for card in cards:
         if not card.get("id") or not card.get("name") or not card.get("prints"):
             raise ParseError(f"catalog card missing id/name/prints: {card!r}")
-        for pid in PRINT_IDS:
-            slug = (card.get("prints") or {}).get(pid)
-            if not slug:
-                raise ParseError(f"catalog {card['id']} missing print {pid}")
+        prints = card.get("prints") or {}
+        if not prints.get("1st") and not prints.get("unlimited"):
+            raise ParseError(f"catalog {card['id']} needs a 1st or Unlimited slug")
     return data
 
 
@@ -281,7 +286,8 @@ def load_names_zh(root: Path) -> dict[str, str]:
 
 
 def pop_url(slug: str) -> str:
-    return POP_PREFIX + str(slug).lstrip("/")
+    parts = str(slug).lstrip("/").split("/")
+    return POP_PREFIX + "/".join(quote(part, safe="-._~") for part in parts)
 
 
 def fetch_html(url: str, *, timeout: int = 30) -> str:
@@ -345,18 +351,38 @@ def reference_print(prints: dict) -> str:
     return "unlimited"
 
 
+def combine_grader(print_rec: dict | None) -> dict:
+    """Sum PSA + CGC for labels. Missing company is omitted, not invented as 0."""
+    graders = (print_rec or {}).get("graders") or {}
+    counts: dict[str, int] = {}
+    total = 0
+    available = False
+    for gid in GRADER_IDS:
+        rec = graders.get(gid) or {}
+        if not rec.get("available"):
+            continue
+        available = True
+        for key, val in (rec.get("counts") or {}).items():
+            try:
+                counts[str(key)] = counts.get(str(key), 0) + int(val)
+            except (TypeError, ValueError):
+                continue
+        if rec.get("total") is not None:
+            total += int(rec["total"])
+    return {"available": available, "counts": counts, "total": total if available else None}
+
+
 def option_label(card: dict, names_zh: dict[str, str]) -> str:
     name = card["name"]
     zh = names_zh.get(name) or card.get("name_zh")
     number = card.get("number_base")
     prints = card.get("prints") or {}
     ref_id = card.get("reference_print") or reference_print(prints)
-    ref = prints.get(ref_id) or {}
-    psa = (ref.get("graders") or {}).get("psa") or {}
-    counts = psa.get("counts") or {}
-    total = psa.get("total")
-    psa10 = counts.get("10")
-    rate = grade_share(psa10, total)
+    combined = combine_grader(prints.get(ref_id) or {})
+    counts = combined.get("counts") or {}
+    total = combined.get("total")
+    gem = counts.get("10")
+    rate = grade_share(gem, total)
     ref_label = {
         "1st": "1st Edition",
         "unlimited": "Unlimited",
@@ -365,10 +391,10 @@ def option_label(card: dict, names_zh: dict[str, str]) -> str:
     head = f"{zh} {name}" if zh else name
     if number is not None:
         head += f" #{number}"
-    if psa10 is None or total is None:
-        return f"{head} · {ref_label} PSA10 —"
+    if gem is None or total is None:
+        return f"{head} · {ref_label} PSA+CGC 10 —"
     pct = f"{rate * 100:.2f}%" if rate is not None else "—"
-    return f"{head} · {ref_label} PSA10 {psa10:,} · {pct}"
+    return f"{head} · {ref_label} PSA+CGC 10 {gem:,} · {pct}"
 
 
 def build_payload(catalog: dict, fetched: dict[str, dict], *, names_zh: dict[str, str], as_of: str, as_of_date: str) -> dict:
@@ -398,14 +424,13 @@ def build_payload(catalog: dict, fetched: dict[str, dict], *, names_zh: dict[str
             "kind": "pricecharting_pop_html",
             "home": "https://www.pricecharting.com/",
             "cadence": "PriceCharting updates monthly; this site refreshes weekly.",
-            "graders": "PSA and CGC columns as published. Beckett/BGS is not on these pages and is left empty rather than invented.",
+            "graders": "PSA and CGC columns as published. The page displays PSA+CGC combined per grade. Beckett/BGS is not collected.",
             "half_grades": "PriceCharting already buckets *.5 into the lower whole grade (8.5→8, 9.5→9). Raw half-grade rows are stored only when the HTML lists them.",
         },
         "prints": catalog.get("prints") or [],
         "graders": [
             {"id": "psa", "label": "PSA", "default": True},
             {"id": "cgc", "label": "CGC", "default": False},
-            {"id": "bgs", "label": "Beckett (BGS)", "default": False},
         ],
         "cards": cards,
     }
@@ -438,7 +463,9 @@ def refresh(
     for spec in catalog["cards"]:
         prints: dict[str, dict] = {}
         for pid in PRINT_IDS:
-            slug = spec["prints"][pid]
+            slug = (spec.get("prints") or {}).get(pid)
+            if not slug:
+                continue
             url = pop_url(slug)
             try:
                 if html_dir is not None:
@@ -451,7 +478,10 @@ def refresh(
                 parsed = parse_pop_table(html, url=url)
                 prints[pid] = attach_print(spec, pid, slug, parsed, html)
             except (ParseError, FetchError) as err:
-                errors.append(f"{spec['id']}/{pid}: {err}")
+                if spec.get("required") or pid != "base2":
+                    errors.append(f"{spec['id']}/{pid}: {err}")
+                else:
+                    print(f"skip optional {spec['id']}/{pid}: {err}", file=sys.stderr)
             if sleeper and html_dir is None:
                 sleeper()
         fetched[spec["id"]] = prints
@@ -459,13 +489,14 @@ def refresh(
     if errors:
         raise SystemExit("PARSE/FETCH FAILED (no write, no invented pops):\n  " + "\n  ".join(errors))
 
-    required = [c["id"] for c in catalog["cards"] if c.get("required", True)]
     if "charizard" not in fetched or not fetched["charizard"].get("unlimited"):
         raise SystemExit("required card charizard/unlimited missing — no write")
-    for cid in required:
-        for pid in PRINT_IDS:
-            if pid not in fetched.get(cid, {}):
-                raise SystemExit(f"required {cid}/{pid} missing — no write")
+    for spec in catalog["cards"]:
+        if not spec.get("required"):
+            continue
+        for pid, slug in (spec.get("prints") or {}).items():
+            if slug and pid not in fetched.get(spec["id"], {}):
+                raise SystemExit(f"required {spec['id']}/{pid} missing — no write")
 
     payload = build_payload(
         catalog,
@@ -494,7 +525,7 @@ def self_test() -> None:
     _assert(psa["available"] and psa["counts"]["10"] == 486, psa)
     _assert(psa["total"] == 99246, psa["total"])
     _assert(cgc["available"] and cgc["counts"]["10"] == 4 and cgc["total"] == 9, cgc)
-    _assert(not unl["graders"]["bgs"]["available"], "BGS must stay unavailable when column absent")
+    _assert("bgs" not in unl["graders"], "Beckett/BGS is not stored")
     _assert(unl["half_grades_bucketed_by_source"], "PC note should mark bucketed source")
     _assert(grade_share(486, 99246) is not None, "rate")
     _assert(abs(grade_share(486, 99246) - 486 / 99246) < 1e-12, "rate math")
@@ -519,11 +550,11 @@ def self_test() -> None:
         (TESTDATA / "half-and-bgs.html").read_text(encoding="utf-8"),
         url="fixture:half",
     )
-    _assert(half["graders"]["bgs"]["available"], "BGS column must parse")
+    _assert("bgs" not in half["graders"], "BGS column must be ignored, not stored")
     _assert(half["graders"]["psa"]["resolution"] == "half", half["graders"]["psa"])
     _assert(half["graders"]["psa"]["counts"]["9.5"] == 3, half["graders"]["psa"]["counts"])
     _assert(half["graders"]["cgc"]["counts"]["8.5"] == 6, half["graders"]["cgc"]["counts"])
-    _assert(half["graders"]["bgs"]["total"] == 20, half["graders"]["bgs"])
+    _assert(half["graders"]["cgc"]["total"] == 23, half["graders"]["cgc"])
     bucketed = bucket_lower(half["graders"]["psa"]["counts"])
     _assert(bucketed["10"] == 5, bucketed)
     _assert(bucketed["9"] == 23, bucketed)  # 20 + 3
@@ -548,8 +579,12 @@ def self_test() -> None:
 
     catalog = load_catalog(ROOT_DEFAULT)
     ids = [c["id"] for c in catalog["cards"]]
-    _assert(ids[0] == "charizard", ids)
-    _assert("machamp" not in ids, "Machamp has no Base Set 2 analog")
+    _assert(len(ids) >= 100, f"full Base Set roster expected, got {len(ids)}")
+    _assert(ids[0] == "alakazam", ids[:3])
+    _assert("charizard" in ids and "machamp" in ids and "clefairy" in ids and "pikachu" in ids, ids)
+    machamp = next(c for c in catalog["cards"] if c["id"] == "machamp")
+    _assert(machamp["prints"].get("1st"), machamp)
+    _assert("unlimited" not in machamp["prints"], machamp)
     venusaur = next(c for c in catalog["cards"] if c["id"] == "venusaur")
     _assert(venusaur["number_base"] == 15 and venusaur["number_base2"] == 18, venusaur)
     _assert(venusaur["prints"]["base2"].endswith("venusaur-18"), venusaur["prints"])
@@ -570,7 +605,7 @@ def self_test() -> None:
     }
     label = option_label(card, names)
     _assert("噴火龍 Charizard #4" in label, label)
-    _assert("Unlimited PSA10 486" in label, label)
+    _assert("Unlimited PSA+CGC 10 486" in label, label)
     _assert("0.49%" in label, label)
     invent = option_label({"name": "NotAPokemon", "prints": {}}, names)
     _assert("NotAPokemon" in invent and "噴" not in invent, invent)

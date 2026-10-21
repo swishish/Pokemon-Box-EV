@@ -292,6 +292,7 @@ GitHub Action **Update JP PSA10 broad benchmark** 每晚重算權重、季度重
 
 ## Changelog（摘要）
 
+- **v1.31.4**：Base PSA POP——下拉改為英文 Base Set #1–102；各欄 pop 為 PSA＋CGC 合計（不再分欄、不再提供 Beckett）；手機改為一張表並列 1st Edition 與 Unlimited。EV／Chase 算法不變
 - **v1.31.3**：Chase「便宜過模型」清單縮圖補齊——修好 `#146/S-P` 特典編號解析，並對上本站已有 SNKRDUNK／TCGPlayer 圖與核對過的公開卡圖；對不到才用淺色卡框。EV／Chase 算法不變
 - **v1.30.6**：JP PSA10 基準分享圖改走新檔名 `og-psa10-bench-v2.png`（WhatsApp 會按路徑快取舊 `og.png`／`og-psa10-bench.png`，`?v=` 甩不掉）。`og:site_name`／title 仍是「日版 PSA10 基準」。首頁／Chase 公允值繼續用 EV `og.png`；chase 指數繼續用 `og-psa10.png`。指數數學／refresh 工具不變
 - **v1.30.5**：JP PSA10 基準／chase 指數用獨立 OG 圖與 `og:site_name`（不再共用首頁「日盒開盒值不值？」＋`og.png`）。WhatsApp／Facebook 要新 image URL 才會甩掉舊卡。基準／市況「這是什麼 · 方法」改為書面繁中（不使用粵語口語）。指數數學／refresh 工具不變
