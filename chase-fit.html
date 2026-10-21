@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>Chase 公允值 v1.30.6 · PSA10 回歸</title>
+<title>Chase 公允值 v1.31.3 · PSA10 回歸</title>
 <meta name="description" content="Chase PSA10 公允值：便宜過模型買入清單、殘差散點、Strong Buy 四關。靜態快照，非正式投資建議。" />
 <meta property="og:site_name" content="日盒開盒值不值？" />
 <meta property="og:title" content="Chase 公允值 · 便宜過模型" />
@@ -461,9 +461,15 @@
     object-fit: cover;
     object-position: center top;
   }
+  .buy-thumb.is-ph {
+    background:
+      linear-gradient(180deg, #f6f0e3 0 48%, #efe6d4 48%);
+  }
   .buy-thumb.is-ph .poke-mark {
-    width: 22px;
-    height: 22px;
+    width: 16px;
+    height: 16px;
+    opacity: 0.38;
+    box-shadow: none;
   }
   @media (min-width: 900px) {
     .buy-thumb, .buy-thumb img {
@@ -1160,7 +1166,7 @@
         <a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？">
           <span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？
         </a>
-        <span class="pill">v1.30.6</span>
+        <span class="pill">v1.31.3</span>
       </h1>
       <nav class="header-nav" aria-label="站內導覽">
         <a class="nav-btn" href="./calc.html">開盒 EV</a>
@@ -1316,6 +1322,7 @@
       <li><b>圖例標籤</b>可點選篩選散點（可多選）。關掉的標籤會淡化；全部關掉＝沒有點，按「顯示全部」還原。與搜尋／JP·EN／只看 Strong Buy 一齊 AND。</li>
       <li><b>POP × 倍數</b>：X＝PSA10 pop，Y＝PSA10／raw 倍數（皆對數軸）。點色同大細＝gem%。點擊行為同上面散點。</li>
       <li>篩選會寫入網址；清單排序／淚眼蜥篩選另存瀏覽器（private mode 會忽略）。</li>
+      <li><b>清單縮圖</b>：優先使用本站已有卡圖（算盤 <code>img/cards</code>、市況 TCGPlayer、日版基準已存 SNKRDUNK 圖）。其餘再對公開卡圖目錄；對不到則顯示淺色卡框，不使用損壞圖示。</li>
       <li>數字來自 <span id="methodSnapDate">模型日期</span> PriceCharting 快照。來源：<a href="https://www.pricecharting.com/category/pokemon-cards" target="_blank" rel="noopener">PriceCharting</a> 產品頁、已知卡的 <a href="https://snkrdunk.com/en" target="_blank" rel="noopener">SNKRDUNK</a> 產品頁（其餘用搜尋）。EN 另有 TCGPlayer 搜尋。</li>
       <li><b>非正式投資建議</b>；下單前請核對現場價。</li>
     </ul>
@@ -1333,14 +1340,14 @@
 
 <footer>
   <img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" />
-  <span>日盒 EV 小算盤 <b>v1.30.6</b> · Chase_Fit 靜態快照 · 非正式投資建議 · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10.html">JP PSA10</a> · <a href="./market-jp-psa10-bench.html">JP 基準</a> · <a href="./market-base-psa-pop.html">Base POP</a></span>
+  <span>日盒 EV 小算盤 <b>v1.31.3</b> · Chase_Fit 靜態快照 · 非正式投資建議 · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10.html">JP PSA10</a> · <a href="./market-jp-psa10-bench.html">JP 基準</a> · <a href="./market-base-psa-pop.html">Base POP</a></span>
 </footer>
 
 <script src="./js/movers-range.js?v=1.28.10"></script>
 <script src="./data/chase-fit/latest.js?v=1.28.10"></script>
 <script>
 (async function () {
-  const VERSION = '1.30.6';
+  const VERSION = '1.31.3';
   const $ = (id) => document.getElementById(id);
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, (ch) => ({
@@ -1386,6 +1393,9 @@
   const THUMBS = (thumbsRes && thumbsRes.data && thumbsRes.data.by_id) || {};
   const LOCAL_WEBP = /^img\/cards\/[A-Za-z0-9]+_\d+\.webp$/;
   const TCG_CDN = /^https:\/\/tcgplayer-cdn\.tcgplayer\.com\/product\/\d+_200w\.jpg$/;
+  const SNK_CDN = /^https:\/\/cdn\.snkrdunk\.com\/upload_bg_removed\/[0-9a-fA-F-]{36}\.webp$/;
+  const PTCG_IMG = /^https:\/\/images\.pokemontcg\.io\/[A-Za-z0-9]+\/[A-Za-z0-9]+\.png$/;
+  const TCGDEX_IMG = /^https:\/\/assets\.tcgdex\.net\/(?:en|ja)\/[A-Za-z0-9.]+\/[A-Za-z0-9.]+\/[A-Za-z0-9]+\/low\.webp$/;
   const TCG_ID_RE = /\/product\/(\d+)_/;
   const LAG_PERIODS = ['model', '30D'];
   let enPriceHist = null;
@@ -2229,6 +2239,15 @@
     }
     if (rec.kind === 'tcgplayer' && TCG_CDN.test(rec.src)) {
       return { href: rec.src, kind: 'tcgplayer' };
+    }
+    if (rec.kind === 'snkrdunk' && SNK_CDN.test(rec.src)) {
+      return { href: rec.src, kind: 'snkrdunk' };
+    }
+    if (rec.kind === 'pokemontcg' && PTCG_IMG.test(rec.src)) {
+      return { href: rec.src, kind: 'pokemontcg' };
+    }
+    if (rec.kind === 'tcgdex' && TCGDEX_IMG.test(rec.src)) {
+      return { href: rec.src, kind: 'tcgdex' };
     }
     return null;
   }

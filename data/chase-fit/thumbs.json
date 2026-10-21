@@ -1,34 +1,161 @@
 {
-  "notes": "JP local img/cards/*.webp via calc data.json PC URL overlap; EN TCGPlayer CDN from market-en/midera. Missing = page placeholder. Do not invent SNKR/PC image URLs.",
+  "notes": "JP local img/cards/*.webp via calc PC URL or set+number; EN TCGPlayer CDN from market-en/midera/vintage; JP SNK upload_bg_removed webp already on market-jp pages or public apparel JSON; EN public pokemontcg.io / tcgdex after HTTP 200. Missing = page placeholder. Do not invent SNKR/PC image hashes.",
   "counts": {
     "local": 17,
     "tcgplayer": 12,
-    "none": 88
+    "snkrdunk": 44,
+    "pokemontcg": 24,
+    "tcgdex": 2,
+    "none": 18
   },
   "by_id": {
+    "JP-KANAZAWA-SOBBLE": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/ff25e832-f367-4d8a-bc39-8dd57f8f04da.webp",
+      "kind": "snkrdunk"
+    },
+    "CHASE-EN-RAIHAN-202": {
+      "src": "https://images.pokemontcg.io/swsh7/202.png",
+      "kind": "pokemontcg"
+    },
+    "JP-DARKRAI-DP": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/d9471800-4f97-4627-9336-aea567cce5ed.webp",
+      "kind": "snkrdunk"
+    },
+    "JP-MEIJI-PIKACHU": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/a864e699-b530-4f99-80bb-47180254263e.webp",
+      "kind": "snkrdunk"
+    },
+    "CHASE-EN-ETHAN%27S-TYPHLOSION-STAFF-34": {
+      "src": "https://images.pokemontcg.io/sv10/34.png",
+      "kind": "pokemontcg"
+    },
+    "CHASE-EN-TEAM-ROCKET%27S-TYRANITAR-STAFF-96": {
+      "src": "https://images.pokemontcg.io/sv10/96.png",
+      "kind": "pokemontcg"
+    },
+    "CHASE-EN-MISTY%27S-GYARADOS-STAFF-49": {
+      "src": "https://images.pokemontcg.io/sv10/49.png",
+      "kind": "pokemontcg"
+    },
+    "JP-SV-P-289-FUKUOKA-PIKACHU": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/3fd6fec8-559f-4845-ba26-3f28bf9d803b.webp",
+      "kind": "snkrdunk"
+    },
+    "CHASE-EN-DRAGONITE-REVERSE-HOLO-131": {
+      "src": "https://images.pokemontcg.io/swsh12/131.png",
+      "kind": "pokemontcg"
+    },
+    "JP-TRADE-PLEASE": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/7fcf917a-d0fb-4e7d-af5a-e423598eafd7.webp",
+      "kind": "snkrdunk"
+    },
     "CL-JP-ETHAN%27S-HO-OH-EX-86": {
       "src": "img/cards/SV9a_86.webp",
       "kind": "local"
+    },
+    "CHASE-EN-PIKACHU-EX-179": {
+      "src": "https://images.pokemontcg.io/sv8pt5/179.png",
+      "kind": "pokemontcg"
+    },
+    "JP-SAPPORO-PIKACHU": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/1dc0962d-938b-4d82-bf9b-fb1ed97a5522.webp",
+      "kind": "snkrdunk"
     },
     "CL-JP-LATIAS-EX-87": {
       "src": "img/cards/SV7a_87.webp",
       "kind": "local"
     },
+    "CHASE-EN-EEVEE-REVERSE-HOLO-125": {
+      "src": "https://images.pokemontcg.io/swsh7/125.png",
+      "kind": "pokemontcg"
+    },
+    "JP-FLYING-PIKACHU": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/bbbcf701-6f93-431e-b288-0e4977e4ce3e.webp",
+      "kind": "snkrdunk"
+    },
+    "JP-TOHOKU-PIKACHU": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/6b91190b-fd85-450f-b7f7-b54a4c6fca7b.webp",
+      "kind": "snkrdunk"
+    },
+    "CHASE-JP-TEAM-JAPAN%27S-PIKACHU-50XY-P": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/c55e230a-9e83-4335-b1c3-a5e955da0fa9.webp",
+      "kind": "snkrdunk"
+    },
+    "JP-KANAZAWA-PIKACHU": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/24eea532-cfd5-4a04-97bc-26b4145928c2.webp",
+      "kind": "snkrdunk"
+    },
+    "JP-CRAMORANT-226": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/c585e862-1044-4727-848b-8c14512d0aef.webp",
+      "kind": "snkrdunk"
+    },
+    "CHASE-JP-PONCHO-WEARING-EEVEE-141SM-P": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/40ccbbc4-09f7-484a-b2a1-220919380f32.webp",
+      "kind": "snkrdunk"
+    },
     "CL-JP-CYNTHIA%27S-GARCHOMP-EX-87": {
       "src": "img/cards/SV9a_87.webp",
       "kind": "local"
+    },
+    "CL-JP-RAYQUAZA-VMAX-252": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/d5eabbf9-99be-47ef-ba38-07333b252f72.webp",
+      "kind": "snkrdunk"
+    },
+    "CHASE-EN-MIMIKYU-80": {
+      "src": "https://images.pokemontcg.io/swsh11/80.png",
+      "kind": "pokemontcg"
+    },
+    "JP-MUNCH-ROWLET": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/a28c22f1-388b-487b-acdb-611970cdfff6.webp",
+      "kind": "snkrdunk"
+    },
+    "JP-PIKACHU-V-CSR-222": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/4b947d82-02ca-4a8e-9aec-7eea59159954.webp",
+      "kind": "snkrdunk"
+    },
+    "CL-JP-GRENINJA-EX-90": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/f5941c92-741f-43c8-a292-ef1e8f876517.webp",
+      "kind": "snkrdunk"
     },
     "CHASE-EN-PIKACHU-EX-238": {
       "src": "https://tcgplayer-cdn.tcgplayer.com/product/590027_200w.jpg",
       "kind": "tcgplayer"
     },
+    "CHASE-JP-GLACEON-VMAX-91": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/65c4692e-42b6-4687-9627-2242d5c2bb5b.webp",
+      "kind": "snkrdunk"
+    },
     "CHASE-EN-GIRATINA-VSTAR-GG69": {
       "src": "https://tcgplayer-cdn.tcgplayer.com/product/478100_200w.jpg",
       "kind": "tcgplayer"
     },
+    "JP-MUNCH-MIMIKYU": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/5580ce4c-48ae-480e-9b3d-779ea548442f.webp",
+      "kind": "snkrdunk"
+    },
+    "JP-SHOPPING-PIKACHU": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/e15e644e-e31c-4c87-93c0-a6de0debaa6b.webp",
+      "kind": "snkrdunk"
+    },
+    "JP-PRETEND-COMEDIAN": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/8ff5eeed-893d-44c1-81d7-2d980afaf034.webp",
+      "kind": "snkrdunk"
+    },
+    "CL-JP-ESPEON-V-81": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/d60afc90-49aa-4cde-9b8b-104a49f2458b.webp",
+      "kind": "snkrdunk"
+    },
+    "CHASE-EN-PIKACHU-V-TG16": {
+      "src": "https://images.pokemontcg.io/swsh11tg/TG16.png",
+      "kind": "pokemontcg"
+    },
     "CHASE-EN-RAYQUAZA-V-194": {
       "src": "https://tcgplayer-cdn.tcgplayer.com/product/246728_200w.jpg",
       "kind": "tcgplayer"
+    },
+    "CL-JP-MISTY%27S-PSYDUCK-71": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/31094cce-a9d2-44a2-ac86-b516c7162a05.webp",
+      "kind": "snkrdunk"
     },
     "CHASE-JP-TEAM-ROCKET%27S-MEWTWO-EX-125": {
       "src": "img/cards/SV10_125.webp",
@@ -37,6 +164,18 @@
     "CHASE-EN-DRAGONITE-V-192": {
       "src": "https://tcgplayer-cdn.tcgplayer.com/product/246758_200w.jpg",
       "kind": "tcgplayer"
+    },
+    "CHASE-EN-MEWTWO-REVERSE-HOLO-56": {
+      "src": "https://images.pokemontcg.io/swsh9/56.png",
+      "kind": "pokemontcg"
+    },
+    "CHASE-JP-UMBREON-V-85": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/44b4958e-199b-402b-bdc4-4cadceda1dae.webp",
+      "kind": "snkrdunk"
+    },
+    "JP-SHIBUYA-PIKACHU": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/2388638e-2972-469c-9f0c-7894b0cfb84f.webp",
+      "kind": "snkrdunk"
     },
     "CL-JP-FLAREON-EX-202": {
       "src": "img/cards/SV8a_202.webp",
@@ -50,13 +189,33 @@
       "src": "https://tcgplayer-cdn.tcgplayer.com/product/633031_200w.jpg",
       "kind": "tcgplayer"
     },
+    "JP-MUNCH-PSYDUCK": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/8b99746d-18ef-4f4a-8b1b-e73a67f55884.webp",
+      "kind": "snkrdunk"
+    },
+    "CL-JP-ARCEUS-VSTAR-262": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/419eb759-7bb5-4288-8f8e-a911c6298cb5.webp",
+      "kind": "snkrdunk"
+    },
     "CL-JP-ROARING-MOON-EX-218": {
       "src": "img/cards/SV8a_218.webp",
       "kind": "local"
     },
+    "CHASE-EN-FLAREON-TG01": {
+      "src": "https://images.pokemontcg.io/swsh9tg/TG01.png",
+      "kind": "pokemontcg"
+    },
     "CHASE-EN-CHARIZARD-EX-234": {
       "src": "https://tcgplayer-cdn.tcgplayer.com/product/535090_200w.jpg",
       "kind": "tcgplayer"
+    },
+    "CHASE-EN-MIMIKYU-V-TG16": {
+      "src": "https://images.pokemontcg.io/swsh9tg/TG16.png",
+      "kind": "pokemontcg"
+    },
+    "CHASE-EN-MEWTWO-REVERSE-HOLO-59": {
+      "src": "https://images.pokemontcg.io/swsh12pt5/59.png",
+      "kind": "pokemontcg"
     },
     "CL-JP-LEAFEON-EX-200": {
       "src": "img/cards/SV8a_200.webp",
@@ -74,6 +233,10 @@
       "src": "https://tcgplayer-cdn.tcgplayer.com/product/263873_200w.jpg",
       "kind": "tcgplayer"
     },
+    "CHASE-EN-MEWTWO-VSTAR-GG44": {
+      "src": "https://images.pokemontcg.io/swsh12pt5gg/GG44.png",
+      "kind": "pokemontcg"
+    },
     "CL-JP-GLACEON-EX-206": {
       "src": "img/cards/SV8a_206.webp",
       "kind": "local"
@@ -82,21 +245,93 @@
       "src": "img/cards/SV8a_223.webp",
       "kind": "local"
     },
+    "JP-MUNCH-EEVEE": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/82937e3f-c524-45e0-a62e-7da064e85e49.webp",
+      "kind": "snkrdunk"
+    },
     "CL-JP-SYLVEON-EX-212": {
       "src": "img/cards/SV8a_212.webp",
       "kind": "local"
+    },
+    "CHASE-EN-DITTO-GG22": {
+      "src": "https://images.pokemontcg.io/swsh12pt5gg/GG22.png",
+      "kind": "pokemontcg"
+    },
+    "CHASE-JP-PIKACHU-BATTLE-FESTA-2015-175XY-P": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/f3148234-5495-4a4e-bf15-a8d386edaf41.webp",
+      "kind": "snkrdunk"
+    },
+    "CHASE-JP-POKEPARK%27S-PIKACHU-43PCG-P": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/b484f75b-4790-4d6f-bd67-6811a4f78277.webp",
+      "kind": "snkrdunk"
+    },
+    "CHASE-JP-LEAFEON-VMAX-89": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/4dd147bd-9425-4662-b2f6-eff9f6804614.webp",
+      "kind": "snkrdunk"
+    },
+    "CHASE-JP-PIKACHU-205": {
+      "src": "https://assets.tcgdex.net/ja/S/S12a/205/low.webp",
+      "kind": "tcgdex"
     },
     "CHASE-JP-CHARIZARD-EX-349": {
       "src": "img/cards/SV4a_349.webp",
       "kind": "local"
     },
+    "JP-MARIO-PIKACHU-293": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/5b418ed2-823f-43d3-92c2-e31214f82664.webp",
+      "kind": "snkrdunk"
+    },
+    "JP-RED-PIKACHU-270": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/b59a0785-08f4-4e1b-8876-0444b2db8bc0.webp",
+      "kind": "snkrdunk"
+    },
     "EN-SVP-085": {
       "src": "https://tcgplayer-cdn.tcgplayer.com/product/518861_200w.jpg",
       "kind": "tcgplayer"
     },
+    "CHASE-EN-PIKACHU-GG30": {
+      "src": "https://images.pokemontcg.io/swsh12pt5gg/GG30.png",
+      "kind": "pokemontcg"
+    },
+    "CHASE-EN-SNORLAX-TG10": {
+      "src": "https://images.pokemontcg.io/swsh11tg/TG10.png",
+      "kind": "pokemontcg"
+    },
+    "CHASE-JP-CHARIZARD-EX-276XY-P": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/ed88b655-a5ed-49c0-ac0e-a59baf6565e0.webp",
+      "kind": "snkrdunk"
+    },
+    "CHASE-JP-SYLVEON-VMAX-93": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/39f867b3-349a-4769-b6ee-43a367467824.webp",
+      "kind": "snkrdunk"
+    },
+    "EN-CELEB-UMBREON-17": {
+      "src": "https://images.pokemontcg.io/cel25/17.png",
+      "kind": "pokemontcg"
+    },
+    "JP-PONCHO-203": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/0bceecdb-b0bc-45d9-b295-08bba24b23ac.webp",
+      "kind": "snkrdunk"
+    },
+    "EN-EVO-M-CHARIZARD-101": {
+      "src": "https://images.pokemontcg.io/xy12/101.png",
+      "kind": "pokemontcg"
+    },
+    "JP-MUNCH-PIKACHU": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/bbe3b11a-e021-4caf-97a7-c0e92de7fceb.webp",
+      "kind": "snkrdunk"
+    },
+    "CHASE-EN-GENGAR-TG06": {
+      "src": "https://images.pokemontcg.io/swsh11tg/TG06.png",
+      "kind": "pokemontcg"
+    },
     "CHASE-EN-RAYQUAZA-VMAX-218": {
       "src": "https://tcgplayer-cdn.tcgplayer.com/product/246733_200w.jpg",
       "kind": "tcgplayer"
+    },
+    "JP-CHARMANDER-AR-168": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/8d54251b-deb2-4e56-8a09-7e8bc5568069.webp",
+      "kind": "snkrdunk"
     },
     "CHASE-EN-MEW-EX-232": {
       "src": "https://tcgplayer-cdn.tcgplayer.com/product/534919_200w.jpg",
@@ -106,6 +341,10 @@
       "src": "img/cards/SV3_134.webp",
       "kind": "local"
     },
+    "CHASE-EN-PIKACHU-TG05": {
+      "src": "https://images.pokemontcg.io/swsh11tg/TG05.png",
+      "kind": "pokemontcg"
+    },
     "CHASE-EN-LUGIA-V-186": {
       "src": "https://tcgplayer-cdn.tcgplayer.com/product/451834_200w.jpg",
       "kind": "tcgplayer"
@@ -114,6 +353,10 @@
       "src": "https://tcgplayer-cdn.tcgplayer.com/product/284137_200w.jpg",
       "kind": "tcgplayer"
     },
+    "CHASE-EN-PIKACHU-REVERSE-HOLO-49": {
+      "src": "https://images.pokemontcg.io/swsh7/49.png",
+      "kind": "pokemontcg"
+    },
     "CHASE-JP-MEW-EX-347": {
       "src": "img/cards/SV4a_347.webp",
       "kind": "local"
@@ -121,6 +364,46 @@
     "CHASE-JP-UMBREON-EX-217": {
       "src": "img/cards/SV8a_217.webp",
       "kind": "local"
+    },
+    "CHASE-JP-REGICE-25": {
+      "src": "https://assets.tcgdex.net/ja/S/S12a/025/low.webp",
+      "kind": "tcgdex"
+    },
+    "CHASE-JP-UMBREON-VMAX-95": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/21b89d51-7bfc-4f3c-abd4-0c9534c4cd86.webp",
+      "kind": "snkrdunk"
+    },
+    "CHASE-JP-LUIGI-PIKACHU-296XY-P": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/16f8672b-d56e-4e29-bb4c-b5ec3d82e473.webp",
+      "kind": "snkrdunk"
+    },
+    "CHASE-EN-MEW-GG10": {
+      "src": "https://images.pokemontcg.io/swsh12pt5gg/GG10.png",
+      "kind": "pokemontcg"
+    },
+    "CHASE-JP-LILLIE-397SM-P": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/1f23a276-068e-4d7c-b2fe-246ec724da23.webp",
+      "kind": "snkrdunk"
+    },
+    "CHASE-JP-JIGGLYPUFF-COROCORO-39": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/a584b967-3eea-4842-b50e-cda12f7fd8af.webp",
+      "kind": "snkrdunk"
+    },
+    "CHASE-EN-SNOM-29": {
+      "src": "https://images.pokemontcg.io/swsh45/29.png",
+      "kind": "pokemontcg"
+    },
+    "EN-EVO-CHARIZARD-11": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/b2bc8df3-99fa-4f81-8648-d2e127ca6e60.webp",
+      "kind": "snkrdunk"
+    },
+    "CHASE-JP-TEAM-ROCKET-SPECIAL-CASE-278XY-P": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/e5de16bc-d686-4f8a-a840-56061f1ba842.webp",
+      "kind": "snkrdunk"
+    },
+    "CHASE-JP-EEVEE-500-PT-FAN-CLUB-133": {
+      "src": "https://cdn.snkrdunk.com/upload_bg_removed/84f016db-3a2c-4a9e-a1a0-4a4ef7a09790.webp",
+      "kind": "snkrdunk"
     }
   }
 }

@@ -197,7 +197,7 @@ python3 -m http.server 8765
 
 ## Chase 公允值（PSA10 回歸）
 
-獨立頁 `chase-fit.html`：Gary 的 **Chase_Fit** 模型。散點（預測 vs 實際）在篩選下方、**便宜過模型** 清單上方（預設最負殘差、淚眼蜥可釘選；四關 ✓/✗ 對 workbook Strong Buy）。繁中名見 `data/names_zh.json`（official 名才翻譯）；SNKRDUNK 產品頁見 `data/snkrdunk_ids.json`（未知則搜尋）。清單縮圖見 `data/chase-fit/thumbs.json`（JP＝算盤本機 `img/cards/*.webp`，EN＝市況已存 TCGPlayer CDN；對唔到就 cream placeholder，唔發明 SNKR／PC 圖）。散點＝預測 PSA10 vs 實際 PSA10，下方另有 POP × PSA10/raw 倍數圖。公式／係數收入摺疊「方法」。資料是靜態 JSON（`data/chase-fit/latest.json`）。圖例標籤可點選篩選。篩選寫入網址；清單排序／淚眼蜥另存 localStorage。頂列有 **模型日期** chip 同 **本週變動**。
+獨立頁 `chase-fit.html`：Gary 的 **Chase_Fit** 模型。散點（預測 vs 實際）在篩選下方、**便宜過模型** 清單上方（預設最負殘差、淚眼蜥可釘選；四關 ✓/✗ 對 workbook Strong Buy）。繁中名見 `data/names_zh.json`（official 名才翻譯）；SNKRDUNK 產品頁見 `data/snkrdunk_ids.json`（未知則搜尋）。清單縮圖見 `data/chase-fit/thumbs.json`（JP＝算盤本機 `img/cards/*.webp` 或日版基準已存／公開 SNKRDUNK 圖；EN＝市況 TCGPlayer CDN，其餘核對過的 pokemontcg.io／TCGdex；對唔到就淺色卡框，唔發明 SNKR／PC hash）。散點＝預測 PSA10 vs 實際 PSA10，下方另有 POP × PSA10/raw 倍數圖。公式／係數收入摺疊「方法」。資料是靜態 JSON（`data/chase-fit/latest.json`）。圖例標籤可點選篩選。篩選寫入網址；清單排序／淚眼蜥另存 localStorage。頂列有 **模型日期** chip 同 **本週變動**。
 
 **沒有** GitHub Action 會自動匯出 Chase——每週要 Gary 的 dated workbook，然後本機／agent 跑：
 
@@ -292,6 +292,7 @@ GitHub Action **Update JP PSA10 broad benchmark** 每晚重算權重、季度重
 
 ## Changelog（摘要）
 
+- **v1.31.3**：Chase「便宜過模型」清單縮圖補齊——修好 `#146/S-P` 特典編號解析，並對上本站已有 SNKRDUNK／TCGPlayer 圖與核對過的公開卡圖；對不到才用淺色卡框。EV／Chase 算法不變
 - **v1.30.6**：JP PSA10 基準分享圖改走新檔名 `og-psa10-bench-v2.png`（WhatsApp 會按路徑快取舊 `og.png`／`og-psa10-bench.png`，`?v=` 甩不掉）。`og:site_name`／title 仍是「日版 PSA10 基準」。首頁／Chase 公允值繼續用 EV `og.png`；chase 指數繼續用 `og-psa10.png`。指數數學／refresh 工具不變
 - **v1.30.5**：JP PSA10 基準／chase 指數用獨立 OG 圖與 `og:site_name`（不再共用首頁「日盒開盒值不值？」＋`og.png`）。WhatsApp／Facebook 要新 image URL 才會甩掉舊卡。基準／市況「這是什麼 · 方法」改為書面繁中（不使用粵語口語）。指數數學／refresh 工具不變
 - **v1.30.4**：JP PSA10 廣度基準扇區**唔再鎖 80 張**——N 跟刊價／90 日刊價日篩選浮動；綜合＝三區聯集（唔補／截到 500）。舊 60 張 chase 袖不變
