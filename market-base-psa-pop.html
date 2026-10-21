@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>Base Set PSA POP · 1st / Unlimited / Base Set 2 · Box EV v1.31.1</title>
+<title>Base Set PSA POP · 1st / Unlimited / Base Set 2 · Box EV v1.31.2</title>
 <meta name="description" content="英文 Base Set 噴火龍一系與同套閃卡：比較 1st Edition、Unlimited、Base Set 2 的 PSA POP。可另外顯示 CGC／Beckett。靜態快照，非正式投資建議。" />
 <meta property="og:site_name" content="日盒開盒值不值？" />
 <meta property="og:title" content="Base Set PSA POP · 1st / Unlimited / Base Set 2" />
@@ -323,7 +323,7 @@
     -webkit-overflow-scrolling: touch;
     touch-action: pan-x pinch-zoom;
   }
-  table { width: 100%; border-collapse: collapse; font-size: .86rem; overflow-wrap: break-word; }
+  table { width: max-content; max-width: 100%; border-collapse: collapse; font-size: .86rem; overflow-wrap: break-word; }
   th, td { text-align: left; padding: 7px 6px; border-bottom: 1px solid var(--line); vertical-align: middle; }
   th { color: var(--muted); font-weight: 700; font-size: .72rem; }
   td.num, th.num {
@@ -333,8 +333,10 @@
     overflow-wrap: normal;
     word-break: keep-all;
   }
+  .print-head { text-align: center; }
   .print-head a { color: inherit; font-weight: 800; }
-  .grade-col { width: 4.2rem; font-weight: 800; }
+  .grader-head { text-align: center; }
+  .grade-col { width: 3.4rem; font-weight: 800; }
   tr.is-gem td { background: #fff8d6; font-weight: 750; }
   tr.is-half td { color: var(--muted); }
   tr.is-total td {
@@ -342,7 +344,18 @@
     border-top: var(--bw) solid var(--ink);
     background: var(--bg-2);
   }
-  .cell-pop { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  th.col-pop, td.col-pop,
+  th.col-pct, td.col-pct {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    overflow-wrap: normal;
+    word-break: keep-all;
+    width: 1%;
+  }
+  th.col-pop, td.col-pop { min-width: 3.1rem; padding-left: 12px; padding-right: 8px; }
+  th.col-pct, td.col-pct { min-width: 3.2rem; padding-left: 6px; padding-right: 12px; }
+  .print-split { border-left: 1px solid #d4c9b4; }
   .desk-table { display: block; }
   .print-stack { display: none; }
   .print-card h3 { margin: 0 0 8px; font-size: .95rem; }
@@ -381,7 +394,7 @@
 <header>
   <div class="header-inner">
     <div class="header-top">
-      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.31.1</span></h1>
+      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.31.2</span></h1>
       <nav class="header-nav" aria-label="站內導覽">
         <a class="nav-btn" href="./calc.html">開盒 EV</a>
         <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
@@ -463,10 +476,10 @@
 </main>
 <footer>日盒 EV 小算盤 · Base Set PSA POP · Snapshot 靜態資料 · 非正式投資建議 · 來源 <a href="https://www.pricecharting.com/" target="_blank" rel="noopener">PriceCharting</a> · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10.html">JP PSA10</a> · <a href="./market-jp-psa10-bench.html">JP 基準</a></footer>
 
-<script src="./data/base-psa-pop/latest.js?v=1.31.1"></script>
+<script src="./data/base-psa-pop/latest.js?v=1.31.2"></script>
 <script>
 (async function () {
-  const VERSION = '1.31.1';
+  const VERSION = '1.31.2';
   const PRINTS = [
     { id: '1st', label: '1st Edition' },
     { id: 'unlimited', label: 'Unlimited' },
@@ -595,36 +608,22 @@
     return Number(n).toLocaleString('en-US');
   }
   function fmtPct(n) {
-    if (n == null || Number.isNaN(Number(n))) return null;
+    if (n == null || Number.isNaN(Number(n))) return '—';
     return (n * 100).toFixed(1) + '%';
   }
-  function popCell(countLabel, pct) {
-    if (pct == null) return '<span class="cell-pop">' + escapeHtml(countLabel) + '</span>';
-    return '<span class="cell-pop">' + escapeHtml(countLabel + ' (' + pct + ')') + '</span>';
-  }
-  function writeParams() {
-    const next = new URLSearchParams();
-    if (state.card && state.card !== (DATA.defaultCardId || 'charizard')) next.set('card', state.card);
-    if (state.cum) next.set('cum', '1');
-    if (state.half) next.set('half', '1');
-    if (state.cgc) next.set('cgc', '1');
-    if (state.bgs) next.set('bgs', '1');
-    const q = next.toString();
-    history.replaceState(null, '', q ? (location.pathname + '?' + q) : location.pathname);
-  }
-  function cellHtml(grader, grade, isTotal) {
+  function cellValues(grader, grade, isTotal) {
     if (!grader || !grader.available) {
-      return popCell('—', null);
+      return { count: '—', pct: '—', pctCls: 'col-pct' };
     }
     if (isTotal) {
-      return popCell(fmtInt(grader.total), '100.0%');
+      return { count: fmtInt(grader.total), pct: '100.0%', pctCls: 'col-pct' };
     }
     const counts = displayCounts(grader);
     const keys = gradeKeys();
     const total = grader.total;
     const count = Object.prototype.hasOwnProperty.call(counts, grade) ? counts[grade] : null;
     if (count == null) {
-      return popCell('—', null);
+      return { count: '—', pct: '—', pctCls: 'col-pct' };
     }
     let pct;
     if (state.cum) {
@@ -637,7 +636,31 @@
     } else {
       pct = (total > 0) ? count / total : null;
     }
-    return popCell(fmtInt(count), fmtPct(pct));
+    return {
+      count: fmtInt(count),
+      pct: fmtPct(pct),
+      pctCls: 'col-pct'
+    };
+  }
+  function pairHeads(split) {
+    const splitCls = split ? ' print-split' : '';
+    return '<th class="num col-pop' + splitCls + '">pop</th><th class="num col-pct">%</th>';
+  }
+  function pairTds(grader, grade, isTotal, split) {
+    const cell = cellValues(grader, grade, isTotal);
+    const splitCls = split ? ' print-split' : '';
+    return '<td class="num col-pop' + splitCls + '">' + escapeHtml(cell.count) + '</td>' +
+      '<td class="num ' + cell.pctCls + '">' + escapeHtml(cell.pct) + '</td>';
+  }
+  function writeParams() {
+    const next = new URLSearchParams();
+    if (state.card && state.card !== (DATA.defaultCardId || 'charizard')) next.set('card', state.card);
+    if (state.cum) next.set('cum', '1');
+    if (state.half) next.set('half', '1');
+    if (state.cgc) next.set('cgc', '1');
+    if (state.bgs) next.set('bgs', '1');
+    const q = next.toString();
+    history.replaceState(null, '', q ? (location.pathname + '?' + q) : location.pathname);
   }
   function renderSelect() {
     const sel = $('cardSelect');
@@ -678,22 +701,36 @@
   function renderDesk(card) {
     const gs = gradersOn();
     const keys = gradeKeys();
+    const printSpan = gs.length * 2;
+    const multi = gs.length > 1;
     let head1 = '<th class="grade-col">級別</th>';
-    let head2 = '<th class="grade-col"></th>';
     PRINTS.forEach((p) => {
       const rec = (card.prints || {})[p.id] || {};
       const href = rec.pop_url ? '<a href="' + escapeHtml(rec.pop_url) + '" target="_blank" rel="noopener">' + escapeHtml(p.label) + '</a>' : escapeHtml(p.label);
-      head1 += '<th class="num print-head" colspan="' + gs.length + '">' + href + '</th>';
-      gs.forEach((gid) => { head2 += '<th class="num">' + escapeHtml(GRADER_LABEL[gid]) + '</th>'; });
+      head1 += '<th class="print-head print-split" colspan="' + printSpan + '">' + href + '</th>';
     });
+    let headMid = '';
+    if (multi) {
+      headMid = '<tr><th class="grade-col"></th>';
+      PRINTS.forEach(() => {
+        gs.forEach((gid, i) => {
+          headMid += '<th class="grader-head' + (i === 0 ? ' print-split' : '') + '" colspan="2">' + escapeHtml(GRADER_LABEL[gid]) + '</th>';
+        });
+      });
+      headMid += '</tr>';
+    }
+    let headPair = '<tr><th class="grade-col"></th>';
+    PRINTS.forEach(() => {
+      gs.forEach((_, i) => { headPair += pairHeads(i === 0); });
+    });
+    headPair += '</tr>';
     const rows = keys.map((grade) => {
       const half = grade.indexOf('.') >= 0;
       let tds = '<th class="grade-col">' + escapeHtml(grade) + '</th>';
       PRINTS.forEach((p) => {
         const rec = (card.prints || {})[p.id] || {};
-        gs.forEach((gid) => {
-          const grader = (rec.graders || {})[gid];
-          tds += '<td class="num">' + cellHtml(grader, grade, false) + '</td>';
+        gs.forEach((gid, i) => {
+          tds += pairTds((rec.graders || {})[gid], grade, false, i === 0);
         });
       });
       return '<tr class="' + (grade === '10' ? 'is-gem' : '') + (half ? ' is-half' : '') + '">' + tds + '</tr>';
@@ -701,39 +738,49 @@
     let total = '<th class="grade-col">合計</th>';
     PRINTS.forEach((p) => {
       const rec = (card.prints || {})[p.id] || {};
-      gs.forEach((gid) => {
-        total += '<td class="num">' + cellHtml((rec.graders || {})[gid], 'total', true) + '</td>';
+      gs.forEach((gid, i) => {
+        total += pairTds((rec.graders || {})[gid], 'total', true, i === 0);
       });
     });
     $('deskTableWrap').innerHTML =
-      '<table><thead><tr>' + head1 + '</tr><tr>' + head2 + '</tr></thead><tbody>' +
+      '<table><thead><tr>' + head1 + '</tr>' + headMid + headPair + '</thead><tbody>' +
       rows.join('') + '<tr class="is-total">' + total + '</tr></tbody></table>';
   }
   function renderStack(card) {
     const gs = gradersOn();
     const keys = gradeKeys();
+    const multi = gs.length > 1;
     $('printStack').innerHTML = PRINTS.map((p) => {
       const rec = (card.prints || {})[p.id] || {};
       const href = rec.pop_url
         ? '<a href="' + escapeHtml(rec.pop_url) + '" target="_blank" rel="noopener">' + escapeHtml(p.label) + '</a>'
         : escapeHtml(p.label);
       const num = p.id === 'base2' ? card.number_base2 : card.number_base;
-      let head = '<th class="grade-col">級別</th>';
-      gs.forEach((gid) => { head += '<th class="num">' + escapeHtml(GRADER_LABEL[gid]) + '</th>'; });
+      let head = '';
+      if (multi) {
+        head += '<tr><th class="grade-col"></th>';
+        gs.forEach((gid, i) => {
+          head += '<th class="grader-head' + (i === 0 ? ' print-split' : '') + '" colspan="2">' + escapeHtml(GRADER_LABEL[gid]) + '</th>';
+        });
+        head += '</tr>';
+      }
+      head += '<tr><th class="grade-col">級別</th>';
+      gs.forEach((_, i) => { head += pairHeads(i === 0); });
+      head += '</tr>';
       const rows = keys.map((grade) => {
         let tds = '<th class="grade-col">' + escapeHtml(grade) + '</th>';
-        gs.forEach((gid) => {
-          tds += '<td class="num">' + cellHtml((rec.graders || {})[gid], grade, false) + '</td>';
+        gs.forEach((gid, i) => {
+          tds += pairTds((rec.graders || {})[gid], grade, false, i === 0);
         });
         return '<tr class="' + (grade === '10' ? 'is-gem' : '') + (String(grade).indexOf('.') >= 0 ? ' is-half' : '') + '">' + tds + '</tr>';
       });
       let total = '<th class="grade-col">合計</th>';
-      gs.forEach((gid) => {
-        total += '<td class="num">' + cellHtml((rec.graders || {})[gid], 'total', true) + '</td>';
+      gs.forEach((gid, i) => {
+        total += pairTds((rec.graders || {})[gid], 'total', true, i === 0);
       });
       return '<article class="card print-card" style="margin:0;box-shadow:none">' +
         '<h3>' + href + (num != null ? ' <span class="pill">#' + escapeHtml(String(num)) + '</span>' : '') + '</h3>' +
-        '<div class="table-wrap"><table><thead><tr>' + head + '</tr></thead><tbody>' +
+        '<div class="table-wrap"><table><thead>' + head + '</thead><tbody>' +
         rows.join('') + '<tr class="is-total">' + total + '</tr></tbody></table></div></article>';
     }).join('');
   }
