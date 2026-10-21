@@ -2,8 +2,14 @@
 """Render page-specific Open Graph share cards (1200×630 PNG).
 
 Home Box EV keeps the committed ``og.png`` (「日盒開盒值不值？」).
+``index.html`` / ``calc.html`` / ``chase-fit.html`` stay on that EV card.
 JP PSA10 pages get their own files so WhatsApp / Facebook do not reuse
 the Box EV artwork or promote ``og:site_name`` as the EV home title.
+
+WhatsApp caches previews by image *path* and often ignores ``?v=``.
+When a live share card is stuck on old pixels, bump the PNG filename
+(not only the query string) so a re-share / debugger scrape cannot
+reuse the cached EV file.
 
   python3 tools/render_og.py --self-test   # stdlib: PNG IHDR + HTML meta
   python3 tools/render_og.py               # needs Pillow; rewrite PNGs
@@ -20,11 +26,13 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OG_W, OG_H = 1200, 630
 PAGES_PREFIX = "https://swishish.github.io/Pokemon-Box-EV/"
 
-# Page-specific cards. Home / calc keep og.png and are not listed here.
+# Page-specific cards. Home / calc / chase-fit keep og.png and are not listed here.
 CARDS = (
     {
         "key": "psa10-bench",
-        "png": "og-psa10-bench.png",
+        # v2 path: WhatsApp still served cached EV art for og-psa10-bench.png
+        # even after ?v=1.30.5. Filename change is the real cache bust.
+        "png": "og-psa10-bench-v2.png",
         "pages": ("market-jp-psa10-bench.html",),
         "site_name": "日版 PSA10 基準",
         "title": "日版 PSA10 基準",
@@ -46,7 +54,7 @@ CARDS = (
     },
 )
 
-HOME_PAGES = ("index.html", "calc.html")
+HOME_PAGES = ("index.html", "calc.html", "chase-fit.html")
 HOME_SITE_NAME = "日盒開盒值不值？"
 HOME_OG = "og.png"
 
@@ -349,7 +357,15 @@ def self_test() -> None:
             expect = PAGES_PREFIX + card["png"]
             _assert(image.startswith(expect), f"{page}: og:image {image}")
             _assert(tw.startswith(expect), f"{page}: twitter:image {tw}")
+            _assert(image.startswith("https://"), f"{page}: og:image must be absolute https")
             _assert(HOME_OG + "?" not in image and not image.endswith(HOME_OG), page)
+            # WhatsApp ignores ?v= and keys cache on the path. A recache
+            # must not point at the previously shared EV / bench filenames.
+            image_path = image.split("?", 1)[0]
+            _assert(not image_path.endswith("/og.png"), f"{page}: still home og.png")
+            if card["key"] == "psa10-bench":
+                _assert(image_path.endswith("/og-psa10-bench-v2.png"), f"{page}: need new bench path, got {image}")
+                _assert("/og-psa10-bench.png" not in image_path, f"{page}: old bench path still cached by WhatsApp")
             site = _meta_content(page, "og:site_name")
             _assert(site != HOME_SITE_NAME, f"{page}: still home site_name")
             for word in card["forbidden"]:
