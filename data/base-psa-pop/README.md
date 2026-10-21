@@ -19,6 +19,7 @@ GET https://www.pricecharting.com/pop/item/{slug}
 ```bash
 python3 tools/refresh_base_psa_pop.py --self-test
 python3 tools/refresh_base_psa_pop.py --root .
+python3 tools/refresh_base_psa_pop.py --root . --prices-only   # game-page indicative prices only
 ```
 
 Parse errors **exit non-zero and do not write**. Totals must equal the sum of grade rows. Only PSA and CGC columns are stored; Beckett columns are ignored. The page adds PSA+CGC per grade (missing CGC is omitted, not invented as zero).
