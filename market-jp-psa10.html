@@ -454,7 +454,7 @@
     </div>
   </div>
 
-  <p class="tiny" style="margin:0 0 8px">漲跌榜＝當日有 PSA10 刊價嘅原價變動（未 clip）；指數本身已對缺口重入同 ±25% 封頂。</p>
+  <p class="tiny" style="margin:0 0 8px">漲跌榜＝當日有 PSA10 刊價的原價變動（未 clip）；指數本身已對缺口重入與 ±25% 封頂。</p>
   <div class="movers">
     <div class="card">
       <h2>漲幅榜 Top gainers <span class="pill">1D</span></h2>
@@ -492,7 +492,7 @@
 
   <div class="card">
     <h2>成分籃子 Basket <span class="pill" id="basketCountPill"></span></h2>
-    <p class="tiny" style="margin:0 0 6px">凍結流動日版 PSA10（最低價＋最低刊價日數）。權重％已套 3% 上限。點名開 SNKRDUNK 產品頁（只睇、唔好喺度買）。</p>
+    <p class="tiny" style="margin:0 0 6px">凍結流動日版 PSA10（最低價＋最低刊價日數）。權重％已套 3% 上限。點名稱開啟 SNKRDUNK 產品頁（僅供瀏覽，請勿在此購買）。</p>
     <div class="table-wrap">
       <table>
         <thead>
@@ -515,21 +515,21 @@
   <div class="card method-card">
     <h2>這是什麼 · 方法</h2>
     <ul class="tiny">
-      <li><b>三條線、同一個籃子</b>：日版寶可夢 TCG <b>PSA10</b>（唔係 Grade A 裸卡）。<b>實線等權</b>＝每張同等權（廣度）；<b>虛線流動性</b>＝近 30 日 SNK 成交日圓（先用最近 20 筆 PSA10 成交，冇就用刊價日×價）；<b>點線／虛線價格</b>＝市值權重（該張價／籃子總價）。圖預設只開等權＋流動性；價格線可手動打開。</li>
-      <li><b>廣度</b>：跟圖表期間（1D／5D／30D／1Y／YTD／All／自訂）。各成分用同一條 LOCF 刊價，比該段第一個指數日同最後一日（上漲／持平／下跌）。成交量柱仍只計當日有刊價張數。</li>
-      <li><b>英文卡名</b>：籃子／漲跌榜顯示 SNKRDUNK EN 產品名（資料裡的 <code>name</code>）。日文 <code>localizedName</code> 同繁中名只作後備。SNK 把寫入訓練家空白顯示成 <code>_’s</code> 時，畫面改成 PSA 寫法 <code>___'s Pikachu</code>，唔發明其他譯名。</li>
-      <li><b>3% 上限</b>：流動性同價格權重每張最多 3%，再 renormalize。等權本身就係 1/n（約 1.7% @ 60 張），唔使再 cap。籃子細到 1/n ≥ 3% 時 cap 做唔到，就維持原權重。</li>
-      <li><b>基準 1,000</b>：第一個有足夠成分（≥40 張有價）的東京曆日。之後用<b>每日報酬鏈</b>接（唔係平均日圓水平）。期間掣只放大圖，<b>唔會</b>把該段重設成 1,000。</li>
-      <li><b>缺日</b>：單卡用上一次 SNK PSA10 圖價延續（LOCF），<b>唔補 ¥0</b>。成交量柱只計<b>當日有刊價</b>的張數（SNK 唔公開完整筆數歷史，最近 20 筆成交唔夠畫長圖）。</li>
-      <li><b>稀疏／異常刊價</b>：距上一次實際刊價超過 14 個曆日＝重入籃子（當日報酬 0，只更新價）。其餘單卡日報酬 winsorize 喺 ±25%，避免 SNK 圖上偶發 8× 跳價把等權指數炸穿。漲跌榜仍顯示<b>當日刊價的原價％</b>（未 clip）。</li>
-      <li><b>籃子點嚟</b>：本站 <code>data.json</code> 已有嘅 SNKRDUNK apparel ID（開盒 EV 日版 chase），再篩「最近 PSA10 圖價 ≥ ¥3,000」同「90 日內 ≥ 12 個刊價日」，按 30 日活躍度凍結約 60 張。每日 job <b>唔重排</b>名單。呢頁係 <b>SV chase 袖</b>；廣度基準（復古／中世代／現行，N 跟篩選浮動）喺 <a href="./market-jp-psa10-bench.html">JP 基準</a>。</li>
-      <li><b>來源</b>：公開 <a href="https://snkrdunk.com/" target="_blank" rel="noopener">SNKRDUNK</a> <code>/v3/products/&lt;id&gt;/trading-history?condition_code=trading_card_single_psa10</code>（JP 站、只讀）。圖價係站方成交序列，唔係 listing 最低賣。</li>
+      <li><b>三條線、同一個籃子</b>：日版寶可夢 TCG <b>PSA10</b>（不是 Grade A 裸卡）。<b>實線等權</b>＝每張同等權（廣度）；<b>虛線流動性</b>＝近 30 日 SNK 成交日圓（優先用最近 20 筆 PSA10 成交，沒有則用刊價日×價）；<b>點線／虛線價格</b>＝市值權重（該張價／籃子總價）。圖預設只開等權＋流動性；價格線可手動打開。</li>
+      <li><b>廣度</b>：跟隨圖表期間（1D／5D／30D／1Y／YTD／All／自訂）。各成分用同一條 LOCF 刊價，比較該段第一個指數日與最後一日（上漲／持平／下跌）。成交量柱仍只計當日有刊價張數。</li>
+      <li><b>英文卡名</b>：籃子／漲跌榜顯示 SNKRDUNK EN 產品名（資料裡的 <code>name</code>）。日文 <code>localizedName</code> 與繁中名只作後備。SNK 把寫入訓練家空白顯示成 <code>_’s</code> 時，畫面改成 PSA 寫法 <code>___'s Pikachu</code>，不發明其他譯名。</li>
+      <li><b>3% 上限</b>：流動性與價格權重每張最多 3%，再 renormalize。等權本身就是 1/n（約 1.7% @ 60 張），不必再 cap。籃子小到 1/n ≥ 3% 時 cap 無法施行，就維持原權重。</li>
+      <li><b>基準 1,000</b>：第一個有足夠成分（≥40 張有價）的東京曆日。之後用<b>每日報酬鏈</b>接（不是平均日圓水平）。期間按鈕只放大圖，<b>不會</b>把該段重設成 1,000。</li>
+      <li><b>缺日</b>：單卡用上一次 SNK PSA10 圖價延續（LOCF），<b>不補 ¥0</b>。成交量柱只計<b>當日有刊價</b>的張數（SNK 不公開完整筆數歷史，最近 20 筆成交不足以畫長圖）。</li>
+      <li><b>稀疏／異常刊價</b>：距上一次實際刊價超過 14 個曆日＝重入籃子（當日報酬 0，只更新價）。其餘單卡日報酬 winsorize 在 ±25%，避免 SNK 圖上偶發 8× 跳價把等權指數衝破。漲跌榜仍顯示<b>當日刊價的原價％</b>（未 clip）。</li>
+      <li><b>籃子來源</b>：本站 <code>data.json</code> 已有的 SNKRDUNK apparel ID（開盒 EV 日版 chase），再篩「最近 PSA10 圖價 ≥ ¥3,000」與「90 日內 ≥ 12 個刊價日」，按 30 日活躍度凍結約 60 張。每日 job <b>不重排</b>名單。這頁是 <b>SV chase 袖</b>；廣度基準（復古／中世代／現行，N 隨篩選浮動）在 <a href="./market-jp-psa10-bench.html">JP 基準</a>。</li>
+      <li><b>來源</b>：公開 <a href="https://snkrdunk.com/" target="_blank" rel="noopener">SNKRDUNK</a> <code>/v3/products/&lt;id&gt;/trading-history?condition_code=trading_card_single_psa10</code>（JP 站、只讀）。圖價是站方成交序列，不是 listing 最低賣。</li>
     </ul>
   </div>
 
   <div class="disclaimer" id="disclaimer">
-    <p><b>資料來源：</b>SNKRDUNK 日站公開 PSA10 成交圖價。本頁係 GitHub Pages 靜態 JSON，瀏覽器<b>唔會</b>替你落單／出價。數字可能延遲或不準；<b>不是</b>投資建議。</p>
-    <p>Pokémon 與相關名稱為其權利人商標。本頁為獨立粉絲工具，與 Nintendo／The Pokémon Company／SNKRDUNK／PSA 無關。請只瀏覽行情，唔好用自動化去買／Bid／留言。</p>
+    <p><b>資料來源：</b>SNKRDUNK 日站公開 PSA10 成交圖價。這頁是 GitHub Pages 靜態 JSON，瀏覽器<b>不會</b>替你下單／出價。數字可能延遲或不準；<b>不是</b>投資建議。</p>
+    <p>Pokémon 與相關名稱為其權利人商標。本頁為獨立粉絲工具，與 Nintendo／The Pokémon Company／SNKRDUNK／PSA 無關。請只瀏覽行情，不要用自動化去買／Bid／留言。</p>
   </div>
 </main>
 <footer>日盒 EV 小算盤 · JP PSA10 chase 60 · Snapshot 靜態資料 · 非正式投資建議 · 來源 <a href="https://snkrdunk.com/" target="_blank" rel="noopener">SNKRDUNK</a> · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10-bench.html">JP 基準</a></footer>
@@ -755,7 +755,7 @@
     if (printsLoading) return { br: { available: false }, note: '載入廣度（LOCF 刊價）…' };
     if (printsFailed) return { br: { available: false }, note: '廣度需要 series-cache 刊價；載入失敗。' };
     if (!(ret && ret.from && ret.to)) {
-      return { br: { available: false }, note: '要有兩個日期先有廣度。' };
+      return { br: { available: false }, note: '須有兩個日期才有廣度。' };
     }
     ensurePrints();
     return { br: { available: false }, note: '載入廣度（LOCF 刊價）…' };
@@ -777,7 +777,7 @@
     } else {
       bm.innerHTML = '<div class="metric"><div class="k">廣度</div><div class="v">N/A</div></div>';
       if (bar) bar.innerHTML = '';
-      $('breadthNote').textContent = note || '要有兩個日期先有廣度。';
+      $('breadthNote').textContent = note || '須有兩個日期才有廣度。';
     }
   }
 

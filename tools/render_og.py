@@ -50,6 +50,28 @@ HOME_PAGES = ("index.html", "calc.html")
 HOME_SITE_NAME = "日盒開盒值不值？"
 HOME_OG = "og.png"
 
+# Written-TC methodology: ban HK colloquial particles on PSA10 pages.
+CANTONESE_PARTICLES = (
+    "唔",
+    "呢頁",
+    "嘅",
+    "咗",
+    "嚟",
+    "啲",
+    "冇",
+    "咪",
+    "啦",
+    "喺",
+    "佢",
+    "只睇",
+    "唔好",
+    "做唔到",
+    "唔係",
+    "唔會",
+    "唔再",
+    "唔發明",
+)
+
 # Same pokéball mark as favicon.svg (scaled in the card).
 POKE_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true">
   <circle cx="16" cy="16" r="14" fill="#fff"/>
@@ -333,6 +355,10 @@ def self_test() -> None:
             for word in card["forbidden"]:
                 _assert(word not in site, f"{page} site_name has {word!r}")
                 _assert(word not in _meta_content(page, "og:title"), f"{page} og:title has {word!r}")
+            with open(os.path.join(ROOT, page), encoding="utf-8") as fh:
+                page_text = fh.read()
+            for particle in CANTONESE_PARTICLES:
+                _assert(particle not in page_text, f"{page}: colloquial {particle!r}")
 
     print("render_og self-test ok")
 

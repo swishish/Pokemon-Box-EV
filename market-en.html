@@ -617,8 +617,8 @@
       <li><b>指數是什麼</b>：英文 <a href="https://www.tcgplayer.com/search/pokemon/product?productLineName=pokemon&amp;view=grid" target="_blank" rel="noopener">TCGPlayer</a> 裸卡（raw / ungraded）市價最高的 500 張，<b>價格加權</b>。成分輪替時用 divisor 保持連續（與 S&amp;P 500 同一思路）。基準＝<b>1,000</b>（最早有資料的日子，2024-02-08）。</li>
       <li><b>固定籃子精神</b>：每天重看誰進 Top 500，但指數用 divisor 接起來，不會因為換卡就跳一截。</li>
       <li><b>每日漲跌</b>：相對上一份已公布的快照。第一份快照只會看到 1,000，% 與廣度要等下一份才有。</li>
-      <li><b>5D／30D／1Y／YTD／自訂</b>：用<strong>真實歷史點</strong>放大圖表，<b>缺日就跳過、不補價、不發明點</b>。指數水平維持系列起點的固定基準 1,000，<b>唔會</b>喺視窗開頭重設。沒有夠早的點就不顯示該期間。每日現況來自 <a href="https://tcgcsv.com" target="_blank" rel="noopener">TCGCSV</a>；往回的歷史來自 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a>。</li>
-      <li><b>漲跌榜</b>：1D＝上一份快照；5D／30D／1Y／YTD／自訂＝當日籃子相對該期間基準日（自訂用區間內第一同最後一個真實快照，<b>唔重設</b>指數基準）。沒有對應快照就顯示 N/A。</li>
+      <li><b>5D／30D／1Y／YTD／自訂</b>：用<strong>真實歷史點</strong>放大圖表，<b>缺日就跳過、不補價、不發明點</b>。指數水平維持系列起點的固定基準 1,000，<b>不會</b>在視窗開頭重設。沒有夠早的點就不顯示該期間。每日現況來自 <a href="https://tcgcsv.com" target="_blank" rel="noopener">TCGCSV</a>；往回的歷史來自 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a>。</li>
+      <li><b>漲跌榜</b>：1D＝上一份快照；5D／30D／1Y／YTD／自訂＝當日籃子相對該期間基準日（自訂用區間內第一與最後一個真實快照，<b>不重設</b>指數基準）。沒有對應快照就顯示 N/A。</li>
       <li><b>代表價</b>：同一張卡取一般印刷（Holofoil / Reverse 等）裡最高的 TCGPlayer <b>Market Price</b>；1st Edition 預設不計入（成交太薄）。</li>
       <li><b>不含</b>：密封盒、Jumbo／oversized、日版 promo、日版行情、評級價。</li>
     </ul>
@@ -893,7 +893,7 @@
       extra = ' · ' + (DATA.change > 0 ? '+' : '') + DATA.change.toFixed(2);
     }
     chgEl.textContent = fmtPct(ret.pct, true) + extra + '（' + (PERIOD_LABEL[period] || period) + '）';
-    note.textContent = ret.from + ' → ' + ret.to + ' · ' + pointsForPeriod(period).length + ' 個快照（缺日不補價 · 唔重設基準）';
+    note.textContent = ret.from + ' → ' + ret.to + ' · ' + pointsForPeriod(period).length + ' 個快照（缺日不補價 · 不重設基準）';
     drawSpark(period);
   }
   document.querySelectorAll('.period-btns .period-btn').forEach((btn) => {
@@ -1009,7 +1009,7 @@
   function periodNoteText(period, info) {
     if (info.available) {
       if (period === 'CUSTOM') {
-        return (info.baselineDate || '') + ' → ' + (info.endDate || '') + ' · 缺日不補價 · 唔重設基準';
+        return (info.baselineDate || '') + ' → ' + (info.endDate || '') + ' · 缺日不補價 · 不重設基準';
       }
       if (period === '1D') {
         return '相對上一份已提交快照' + (info.baselineDate ? '（' + info.baselineDate + '）' : '');
