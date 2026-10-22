@@ -114,6 +114,13 @@ def collect_print(products: list[dict], *, edition: str) -> dict[int, tuple[str,
                 continue
             if "[" in name and "1st edition]" not in name.lower():
                 continue
+        elif edition == "shadowless":
+            if "shadowless" not in blob:
+                continue
+            if "1st edition" in blob:
+                continue
+            if "[" in name and "shadowless]" not in name.lower():
+                continue
         elif edition == "unlimited":
             if "[" in name or "1st" in blob or "shadowless" in blob:
                 continue
@@ -130,6 +137,7 @@ def main() -> int:
     base = fetch_console("pokemon-base-set")
     base2 = fetch_console("pokemon-base-set-2")
     first = collect_print(base, edition="1st")
+    shadowless = collect_print(base, edition="shadowless")
     unlimited = collect_print(base, edition="unlimited")
     base2_by_name = {
         name.lower(): (number, uri) for number, (name, uri) in collect_print(base2, edition="base2").items()
@@ -145,6 +153,12 @@ def main() -> int:
         prints = {
             "1st": f"pokemon-base-set/{first_uri}",
         }
+        if number in shadowless:
+            sh_name, sh_uri = shadowless[number]
+            if sh_name.lower() != name.lower():
+                print(f"skip shadowless #{number}: 1st {name!r} vs {sh_name!r}", file=sys.stderr)
+            else:
+                prints["shadowless"] = f"pokemon-base-set/{sh_uri}"
         if number in unlimited:
             unl_name, unl_uri = unlimited[number]
             if unl_name.lower() != name.lower():
@@ -174,15 +188,16 @@ def main() -> int:
     payload = {
         "notes": (
             "English Base Set #1–102. Slugs are PriceCharting console productUri values "
-            "(HTTP-listed products, not invented). 1st Edition is required. Unlimited and "
-            "Base Set 2 are included only when a same-name product exists. Variants "
-            "(error / Red Cheeks / Ghost Stamp / sealed) are omitted. Machamp #8 has 1st "
-            "only. Do not invent slugs or pops."
+            "(HTTP-listed products, not invented). 1st Edition is required. Shadowless, "
+            "Unlimited, and Base Set 2 are included only when a same-name product exists. "
+            "Variants (error / Red Cheeks / Ghost Stamp / sealed) are omitted. Machamp #8 "
+            "has 1st and Shadowless (no Unlimited). Do not invent slugs or pops."
         ),
         "source": "https://www.pricecharting.com/pop/item/{slug}",
         "default_card_id": "charizard",
         "prints": [
             {"id": "1st", "label": "1st Edition", "set": "Base Set"},
+            {"id": "shadowless", "label": "Shadowless", "set": "Base Set"},
             {"id": "unlimited", "label": "Unlimited", "set": "Base Set"},
             {"id": "base2", "label": "Base Set 2", "set": "Base Set 2"},
         ],
@@ -192,6 +207,8 @@ def main() -> int:
     out.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"wrote {out} cards={len(cards)}")
     print(
+        "with shadowless",
+        sum(1 for c in cards if "shadowless" in c["prints"]),
         "with unlimited",
         sum(1 for c in cards if "unlimited" in c["prints"]),
         "with base2",
@@ -200,5 +217,36 @@ def main() -> int:
     return 0
 
 
+def self_test() -> None:
+    products = [
+        {"productName": "Charizard [1st Edition] #4", "productUri": "charizard-1st-edition-4"},
+        {"productName": "Charizard [Shadowless] #4", "productUri": "charizard-shadowless-4"},
+        {"productName": "Charizard #4", "productUri": "charizard-4"},
+        {"productName": "Pikachu [Shadowless Red Cheeks] #58", "productUri": "pikachu-shadowless-red-cheeks-58"},
+        {"productName": "Pikachu [Shadowless] #58", "productUri": "pikachu-shadowless-58"},
+        {"productName": "Pikachu #58", "productUri": "pikachu-58"},
+        {"productName": "Booster Pack [Shadowless]", "productUri": "booster-pack-shadowless"},
+        {"productName": "Machamp [1st Edition] #8", "productUri": "machamp-1st-edition-8"},
+        {"productName": "Machamp [Shadowless] #8", "productUri": "machamp-shadowless-8"},
+    ]
+    first = collect_print(products, edition="1st")
+    shadowless = collect_print(products, edition="shadowless")
+    unlimited = collect_print(products, edition="unlimited")
+    if first[4][1] != "charizard-1st-edition-4":
+        raise AssertionError(first)
+    if shadowless[4][1] != "charizard-shadowless-4":
+        raise AssertionError(shadowless)
+    if shadowless[58][1] != "pikachu-shadowless-58":
+        raise AssertionError(shadowless)
+    if 8 not in shadowless:
+        raise AssertionError(shadowless)
+    if unlimited[4][1] != "charizard-4" or 8 in unlimited:
+        raise AssertionError(unlimited)
+    print("build_base_psa_pop_catalog self-test OK")
+
+
 if __name__ == "__main__":
+    if "--self-test" in sys.argv:
+        self_test()
+        raise SystemExit(0)
     raise SystemExit(main())

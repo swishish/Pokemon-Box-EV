@@ -1,11 +1,16 @@
 {
-  "notes": "English Base Set #1–102. Slugs are PriceCharting console productUri values (HTTP-listed products, not invented). 1st Edition is required. Unlimited and Base Set 2 are included only when a same-name product exists. Variants (error / Red Cheeks / Ghost Stamp / sealed) are omitted. Machamp #8 has 1st only. Do not invent slugs or pops.",
+  "notes": "English Base Set #1–102. Slugs are PriceCharting console productUri values (HTTP-listed products, not invented). 1st Edition is required. Shadowless, Unlimited, and Base Set 2 are included only when a same-name product exists. Variants (error / Red Cheeks / Ghost Stamp / sealed) are omitted. Machamp #8 has 1st and Shadowless (no Unlimited). Do not invent slugs or pops.",
   "source": "https://www.pricecharting.com/pop/item/{slug}",
   "default_card_id": "charizard",
   "prints": [
     {
       "id": "1st",
       "label": "1st Edition",
+      "set": "Base Set"
+    },
+    {
+      "id": "shadowless",
+      "label": "Shadowless",
       "set": "Base Set"
     },
     {
@@ -30,6 +35,7 @@
       "required": true,
       "prints": {
         "1st": "pokemon-base-set/alakazam-1st-edition-1",
+        "shadowless": "pokemon-base-set/alakazam-shadowless-1",
         "unlimited": "pokemon-base-set/alakazam-1",
         "base2": "pokemon-base-set-2/alakazam-1"
       }
@@ -44,6 +50,7 @@
       "required": true,
       "prints": {
         "1st": "pokemon-base-set/blastoise-1st-edition-2",
+        "shadowless": "pokemon-base-set/blastoise-shadowless-2",
         "unlimited": "pokemon-base-set/blastoise-2",
         "base2": "pokemon-base-set-2/blastoise-2"
       }
@@ -58,6 +65,7 @@
       "required": true,
       "prints": {
         "1st": "pokemon-base-set/chansey-1st-edition-3",
+        "shadowless": "pokemon-base-set/chansey-shadowless-3",
         "unlimited": "pokemon-base-set/chansey-3",
         "base2": "pokemon-base-set-2/chansey-3"
       }
@@ -72,6 +80,7 @@
       "required": true,
       "prints": {
         "1st": "pokemon-base-set/charizard-1st-edition-4",
+        "shadowless": "pokemon-base-set/charizard-shadowless-4",
         "unlimited": "pokemon-base-set/charizard-4",
         "base2": "pokemon-base-set-2/charizard-4"
       }
@@ -86,6 +95,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/clefairy-1st-edition-5",
+        "shadowless": "pokemon-base-set/clefairy-shadowless-5",
         "unlimited": "pokemon-base-set/clefairy-5",
         "base2": "pokemon-base-set-2/clefairy-6"
       }
@@ -100,6 +110,7 @@
       "required": true,
       "prints": {
         "1st": "pokemon-base-set/gyarados-1st-edition-6",
+        "shadowless": "pokemon-base-set/gyarados-shadowless-6",
         "unlimited": "pokemon-base-set/gyarados-6",
         "base2": "pokemon-base-set-2/gyarados-7"
       }
@@ -114,6 +125,7 @@
       "required": true,
       "prints": {
         "1st": "pokemon-base-set/hitmonchan-1st-edition-7",
+        "shadowless": "pokemon-base-set/hitmonchan-shadowless-7",
         "unlimited": "pokemon-base-set/hitmonchan-7",
         "base2": "pokemon-base-set-2/hitmonchan-8"
       }
@@ -127,7 +139,8 @@
       "line": null,
       "required": false,
       "prints": {
-        "1st": "pokemon-base-set/machamp-1st-edition-8"
+        "1st": "pokemon-base-set/machamp-1st-edition-8",
+        "shadowless": "pokemon-base-set/machamp-shadowless-8"
       }
     },
     {
@@ -140,6 +153,7 @@
       "required": true,
       "prints": {
         "1st": "pokemon-base-set/magneton-1st-edition-9",
+        "shadowless": "pokemon-base-set/magneton-shadowless-9",
         "unlimited": "pokemon-base-set/magneton-9",
         "base2": "pokemon-base-set-2/magneton-9"
       }
@@ -154,6 +168,7 @@
       "required": true,
       "prints": {
         "1st": "pokemon-base-set/mewtwo-1st-edition-10",
+        "shadowless": "pokemon-base-set/mewtwo-shadowless-10",
         "unlimited": "pokemon-base-set/mewtwo-10",
         "base2": "pokemon-base-set-2/mewtwo-10"
       }
@@ -168,6 +183,7 @@
       "required": true,
       "prints": {
         "1st": "pokemon-base-set/nidoking-1st-edition-11",
+        "shadowless": "pokemon-base-set/nidoking-shadowless-11",
         "unlimited": "pokemon-base-set/nidoking-11",
         "base2": "pokemon-base-set-2/nidoking-11"
       }
@@ -182,6 +198,7 @@
       "required": true,
       "prints": {
         "1st": "pokemon-base-set/ninetales-1st-edition-12",
+        "shadowless": "pokemon-base-set/ninetales-shadowless-12",
         "unlimited": "pokemon-base-set/ninetales-12",
         "base2": "pokemon-base-set-2/ninetales-13"
       }
@@ -196,6 +213,7 @@
       "required": true,
       "prints": {
         "1st": "pokemon-base-set/poliwrath-1st-edition-13",
+        "shadowless": "pokemon-base-set/poliwrath-shadowless-13",
         "unlimited": "pokemon-base-set/poliwrath-13",
         "base2": "pokemon-base-set-2/poliwrath-15"
       }
@@ -210,6 +228,7 @@
       "required": true,
       "prints": {
         "1st": "pokemon-base-set/raichu-1st-edition-14",
+        "shadowless": "pokemon-base-set/raichu-shadowless-14",
         "unlimited": "pokemon-base-set/raichu-14",
         "base2": "pokemon-base-set-2/raichu-16"
       }
@@ -224,6 +243,7 @@
       "required": true,
       "prints": {
         "1st": "pokemon-base-set/venusaur-1st-edition-15",
+        "shadowless": "pokemon-base-set/venusaur-shadowless-15",
         "unlimited": "pokemon-base-set/venusaur-15",
         "base2": "pokemon-base-set-2/venusaur-18"
       }
@@ -238,6 +258,7 @@
       "required": true,
       "prints": {
         "1st": "pokemon-base-set/zapdos-1st-edition-16",
+        "shadowless": "pokemon-base-set/zapdos-shadowless-16",
         "unlimited": "pokemon-base-set/zapdos-16",
         "base2": "pokemon-base-set-2/zapdos-20"
       }
@@ -252,6 +273,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/beedrill-1st-edition-17",
+        "shadowless": "pokemon-base-set/beedrill-shadowless-17",
         "unlimited": "pokemon-base-set/beedrill-17",
         "base2": "pokemon-base-set-2/beedrill-21"
       }
@@ -266,6 +288,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/dragonair-1st-edition-18",
+        "shadowless": "pokemon-base-set/dragonair-shadowless-18",
         "unlimited": "pokemon-base-set/dragonair-18",
         "base2": "pokemon-base-set-2/dragonair-22"
       }
@@ -280,6 +303,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/dugtrio-1st-edition-19",
+        "shadowless": "pokemon-base-set/dugtrio-shadowless-19",
         "unlimited": "pokemon-base-set/dugtrio-19",
         "base2": "pokemon-base-set-2/dugtrio-23"
       }
@@ -294,6 +318,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/electabuzz-1st-edition-20",
+        "shadowless": "pokemon-base-set/electabuzz-shadowless-20",
         "unlimited": "pokemon-base-set/electabuzz-20",
         "base2": "pokemon-base-set-2/electabuzz-24"
       }
@@ -308,6 +333,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/electrode-1st-edition-21",
+        "shadowless": "pokemon-base-set/electrode-shadowless-21",
         "unlimited": "pokemon-base-set/electrode-21",
         "base2": "pokemon-base-set-2/electrode-25"
       }
@@ -322,6 +348,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/pidgeotto-1st-edition-22",
+        "shadowless": "pokemon-base-set/pidgeotto-shadowless-22",
         "unlimited": "pokemon-base-set/pidgeotto-22",
         "base2": "pokemon-base-set-2/pidgeotto-28"
       }
@@ -336,6 +363,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/arcanine-1st-edition-23",
+        "shadowless": "pokemon-base-set/arcanine-shadowless-23",
         "unlimited": "pokemon-base-set/arcanine-23",
         "base2": "pokemon-base-set-2/arcanine-33"
       }
@@ -350,6 +378,7 @@
       "required": true,
       "prints": {
         "1st": "pokemon-base-set/charmeleon-1st-edition-24",
+        "shadowless": "pokemon-base-set/charmeleon-shadowless-24",
         "unlimited": "pokemon-base-set/charmeleon-24",
         "base2": "pokemon-base-set-2/charmeleon-35"
       }
@@ -364,6 +393,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/dewgong-1st-edition-25",
+        "shadowless": "pokemon-base-set/dewgong-shadowless-25",
         "unlimited": "pokemon-base-set/dewgong-25",
         "base2": "pokemon-base-set-2/dewgong-36"
       }
@@ -378,6 +408,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/dratini-1st-edition-26",
+        "shadowless": "pokemon-base-set/dratini-shadowless-26",
         "unlimited": "pokemon-base-set/dratini-26",
         "base2": "pokemon-base-set-2/dratini-38"
       }
@@ -392,6 +423,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/farfetch'd-1st-edition-27",
+        "shadowless": "pokemon-base-set/farfetch'd-shadowless-27",
         "unlimited": "pokemon-base-set/farfetch'd-27",
         "base2": "pokemon-base-set-2/farfetch'd-40"
       }
@@ -406,6 +438,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/growlithe-1st-edition-28",
+        "shadowless": "pokemon-base-set/growlithe-shadowless-28",
         "unlimited": "pokemon-base-set/growlithe-28",
         "base2": "pokemon-base-set-2/growlithe-42"
       }
@@ -420,6 +453,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/haunter-1st-edition-29",
+        "shadowless": "pokemon-base-set/haunter-shadowless-29",
         "unlimited": "pokemon-base-set/haunter-29",
         "base2": "pokemon-base-set-2/haunter-43"
       }
@@ -434,6 +468,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/ivysaur-1st-edition-30",
+        "shadowless": "pokemon-base-set/ivysaur-shadowless-30",
         "unlimited": "pokemon-base-set/ivysaur-30",
         "base2": "pokemon-base-set-2/ivysaur-44"
       }
@@ -448,6 +483,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/jynx-1st-edition-31",
+        "shadowless": "pokemon-base-set/jynx-shadowless-31",
         "unlimited": "pokemon-base-set/jynx-31",
         "base2": "pokemon-base-set-2/jynx-45"
       }
@@ -462,6 +498,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/kadabra-1st-edition-32",
+        "shadowless": "pokemon-base-set/kadabra-shadowless-32",
         "unlimited": "pokemon-base-set/kadabra-32",
         "base2": "pokemon-base-set-2/kadabra-46"
       }
@@ -476,6 +513,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/kakuna-1st-edition-33",
+        "shadowless": "pokemon-base-set/kakuna-shadowless-33",
         "unlimited": "pokemon-base-set/kakuna-33",
         "base2": "pokemon-base-set-2/kakuna-47"
       }
@@ -490,6 +528,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/machoke-1st-edition-34",
+        "shadowless": "pokemon-base-set/machoke-shadowless-34",
         "unlimited": "pokemon-base-set/machoke-34",
         "base2": "pokemon-base-set-2/machoke-49"
       }
@@ -504,6 +543,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/magikarp-1st-edition-35",
+        "shadowless": "pokemon-base-set/magikarp-shadowless-35",
         "unlimited": "pokemon-base-set/magikarp-35",
         "base2": "pokemon-base-set-2/magikarp-50"
       }
@@ -518,6 +558,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/magmar-1st-edition-36",
+        "shadowless": "pokemon-base-set/magmar-shadowless-36",
         "unlimited": "pokemon-base-set/magmar-36",
         "base2": "pokemon-base-set-2/magmar-51"
       }
@@ -532,6 +573,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/nidorino-1st-edition-37",
+        "shadowless": "pokemon-base-set/nidorino-shadowless-37",
         "unlimited": "pokemon-base-set/nidorino-37",
         "base2": "pokemon-base-set-2/nidorino-54"
       }
@@ -546,6 +588,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/poliwhirl-1st-edition-38",
+        "shadowless": "pokemon-base-set/poliwhirl-shadowless-38",
         "unlimited": "pokemon-base-set/poliwhirl-38",
         "base2": "pokemon-base-set-2/poliwhirl-57"
       }
@@ -560,6 +603,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/porygon-1st-edition-39",
+        "shadowless": "pokemon-base-set/porygon-shadowless-39",
         "unlimited": "pokemon-base-set/porygon-39"
       }
     },
@@ -573,6 +617,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/raticate-1st-edition-40",
+        "shadowless": "pokemon-base-set/raticate-shadowless-40",
         "unlimited": "pokemon-base-set/raticate-40",
         "base2": "pokemon-base-set-2/raticate-58"
       }
@@ -587,6 +632,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/seel-1st-edition-41",
+        "shadowless": "pokemon-base-set/seel-shadowless-41",
         "unlimited": "pokemon-base-set/seel-41",
         "base2": "pokemon-base-set-2/seel-61"
       }
@@ -601,6 +647,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/wartortle-1st-edition-42",
+        "shadowless": "pokemon-base-set/wartortle-shadowless-42",
         "unlimited": "pokemon-base-set/wartortle-42",
         "base2": "pokemon-base-set-2/wartortle-63"
       }
@@ -615,6 +662,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/abra-1st-edition-43",
+        "shadowless": "pokemon-base-set/abra-shadowless-43",
         "unlimited": "pokemon-base-set/abra-43",
         "base2": "pokemon-base-set-2/abra-65"
       }
@@ -629,6 +677,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/bulbasaur-1st-edition-44",
+        "shadowless": "pokemon-base-set/bulbasaur-shadowless-44",
         "unlimited": "pokemon-base-set/bulbasaur-44",
         "base2": "pokemon-base-set-2/bulbasaur-67"
       }
@@ -643,6 +692,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/caterpie-1st-edition-45",
+        "shadowless": "pokemon-base-set/caterpie-shadowless-45",
         "unlimited": "pokemon-base-set/caterpie-45",
         "base2": "pokemon-base-set-2/caterpie-68"
       }
@@ -657,6 +707,7 @@
       "required": true,
       "prints": {
         "1st": "pokemon-base-set/charmander-1st-edition-46",
+        "shadowless": "pokemon-base-set/charmander-shadowless-46",
         "unlimited": "pokemon-base-set/charmander-46",
         "base2": "pokemon-base-set-2/charmander-69"
       }
@@ -671,6 +722,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/diglett-1st-edition-47",
+        "shadowless": "pokemon-base-set/diglett-shadowless-47",
         "unlimited": "pokemon-base-set/diglett-47",
         "base2": "pokemon-base-set-2/diglett-71"
       }
@@ -685,6 +737,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/doduo-1st-edition-48",
+        "shadowless": "pokemon-base-set/doduo-shadowless-48",
         "unlimited": "pokemon-base-set/doduo-48",
         "base2": "pokemon-base-set-2/doduo-72"
       }
@@ -699,6 +752,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/drowzee-1st-edition-49",
+        "shadowless": "pokemon-base-set/drowzee-shadowless-49",
         "unlimited": "pokemon-base-set/drowzee-49",
         "base2": "pokemon-base-set-2/drowzee-73"
       }
@@ -713,6 +767,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/gastly-1st-edition-50",
+        "shadowless": "pokemon-base-set/gastly-shadowless-50",
         "unlimited": "pokemon-base-set/gastly-50",
         "base2": "pokemon-base-set-2/gastly-75"
       }
@@ -727,6 +782,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/koffing-1st-edition-51",
+        "shadowless": "pokemon-base-set/koffing-shadowless-51",
         "unlimited": "pokemon-base-set/koffing-51"
       }
     },
@@ -740,6 +796,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/machop-1st-edition-52",
+        "shadowless": "pokemon-base-set/machop-shadowless-52",
         "unlimited": "pokemon-base-set/machop-52",
         "base2": "pokemon-base-set-2/machop-78"
       }
@@ -754,6 +811,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/magnemite-1st-edition-53",
+        "shadowless": "pokemon-base-set/magnemite-shadowless-53",
         "unlimited": "pokemon-base-set/magnemite-53",
         "base2": "pokemon-base-set-2/magnemite-79"
       }
@@ -768,6 +826,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/metapod-1st-edition-54",
+        "shadowless": "pokemon-base-set/metapod-shadowless-54",
         "unlimited": "pokemon-base-set/metapod-54",
         "base2": "pokemon-base-set-2/metapod-81"
       }
@@ -782,6 +841,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/nidoran-1st-edition-55",
+        "shadowless": "pokemon-base-set/nidoran-shadowless-55",
         "unlimited": "pokemon-base-set/nidoran-55",
         "base2": "pokemon-base-set-2/nidoran-83"
       }
@@ -796,6 +856,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/onix-1st-edition-56",
+        "shadowless": "pokemon-base-set/onix-shadowless-56",
         "unlimited": "pokemon-base-set/onix-56",
         "base2": "pokemon-base-set-2/onix-84"
       }
@@ -810,6 +871,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/pidgey-1st-edition-57",
+        "shadowless": "pokemon-base-set/pidgey-shadowless-57",
         "unlimited": "pokemon-base-set/pidgey-57",
         "base2": "pokemon-base-set-2/pidgey-86"
       }
@@ -824,6 +886,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/pikachu-1st-edition-58",
+        "shadowless": "pokemon-base-set/pikachu-shadowless-58",
         "unlimited": "pokemon-base-set/pikachu-58",
         "base2": "pokemon-base-set-2/pikachu-87"
       }
@@ -838,6 +901,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/poliwag-1st-edition-59",
+        "shadowless": "pokemon-base-set/poliwag-shadowless-59",
         "unlimited": "pokemon-base-set/poliwag-59",
         "base2": "pokemon-base-set-2/poliwag-88"
       }
@@ -852,6 +916,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/ponyta-1st-edition-60",
+        "shadowless": "pokemon-base-set/ponyta-shadowless-60",
         "unlimited": "pokemon-base-set/ponyta-60"
       }
     },
@@ -865,6 +930,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/rattata-1st-edition-61",
+        "shadowless": "pokemon-base-set/rattata-shadowless-61",
         "unlimited": "pokemon-base-set/rattata-61",
         "base2": "pokemon-base-set-2/rattata-89"
       }
@@ -879,6 +945,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/sandshrew-1st-edition-62",
+        "shadowless": "pokemon-base-set/sandshrew-shadowless-62",
         "unlimited": "pokemon-base-set/sandshrew-62",
         "base2": "pokemon-base-set-2/sandshrew-91"
       }
@@ -893,6 +960,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/squirtle-1st-edition-63",
+        "shadowless": "pokemon-base-set/squirtle-shadowless-63",
         "unlimited": "pokemon-base-set/squirtle-63",
         "base2": "pokemon-base-set-2/squirtle-93"
       }
@@ -907,6 +975,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/starmie-1st-edition-64",
+        "shadowless": "pokemon-base-set/starmie-shadowless-64",
         "unlimited": "pokemon-base-set/starmie-64",
         "base2": "pokemon-base-set-2/starmie-94"
       }
@@ -921,6 +990,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/staryu-1st-edition-65",
+        "shadowless": "pokemon-base-set/staryu-shadowless-65",
         "unlimited": "pokemon-base-set/staryu-65",
         "base2": "pokemon-base-set-2/staryu-95"
       }
@@ -935,6 +1005,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/tangela-1st-edition-66",
+        "shadowless": "pokemon-base-set/tangela-shadowless-66",
         "unlimited": "pokemon-base-set/tangela-66",
         "base2": "pokemon-base-set-2/tangela-96"
       }
@@ -949,6 +1020,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/voltorb-1st-edition-67",
+        "shadowless": "pokemon-base-set/voltorb-shadowless-67",
         "unlimited": "pokemon-base-set/voltorb-67",
         "base2": "pokemon-base-set-2/voltorb-98"
       }
@@ -963,6 +1035,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/vulpix-1st-edition-68",
+        "shadowless": "pokemon-base-set/vulpix-shadowless-68",
         "unlimited": "pokemon-base-set/vulpix-68",
         "base2": "pokemon-base-set-2/vulpix-99"
       }
@@ -977,6 +1050,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/weedle-1st-edition-69",
+        "shadowless": "pokemon-base-set/weedle-shadowless-69",
         "unlimited": "pokemon-base-set/weedle-69",
         "base2": "pokemon-base-set-2/weedle-100"
       }
@@ -991,6 +1065,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/clefairy-doll-1st-edition-70",
+        "shadowless": "pokemon-base-set/clefairy-doll-shadowless-70",
         "unlimited": "pokemon-base-set/clefairy-doll-70"
       }
     },
@@ -1004,6 +1079,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/computer-search-1st-edition-71",
+        "shadowless": "pokemon-base-set/computer-search-shadowless-71",
         "unlimited": "pokemon-base-set/computer-search-71",
         "base2": "pokemon-base-set-2/computer-search-101"
       }
@@ -1018,6 +1094,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/devolution-spray-1st-edition-72",
+        "shadowless": "pokemon-base-set/devolution-spray-shadowless-72",
         "unlimited": "pokemon-base-set/devolution-spray-72"
       }
     },
@@ -1031,6 +1108,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/imposter-professor-oak-1st-edition-73",
+        "shadowless": "pokemon-base-set/imposter-professor-oak-shadowless-73",
         "unlimited": "pokemon-base-set/imposter-professor-oak-73",
         "base2": "pokemon-base-set-2/imposter-professor-oak-102"
       }
@@ -1045,6 +1123,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/item-finder-1st-edition-74",
+        "shadowless": "pokemon-base-set/item-finder-shadowless-74",
         "unlimited": "pokemon-base-set/item-finder-74",
         "base2": "pokemon-base-set-2/item-finder-103"
       }
@@ -1059,6 +1138,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/lass-1st-edition-75",
+        "shadowless": "pokemon-base-set/lass-shadowless-75",
         "unlimited": "pokemon-base-set/lass-75",
         "base2": "pokemon-base-set-2/lass-104"
       }
@@ -1073,6 +1153,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/pokemon-breeder-1st-edition-76",
+        "shadowless": "pokemon-base-set/pokemon-breeder-shadowless-76",
         "unlimited": "pokemon-base-set/pokemon-breeder-76",
         "base2": "pokemon-base-set-2/pokemon-breeder-105"
       }
@@ -1087,6 +1168,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/pokemon-trader-1st-edition-77",
+        "shadowless": "pokemon-base-set/pokemon-trader-shadowless-77",
         "unlimited": "pokemon-base-set/pokemon-trader-77",
         "base2": "pokemon-base-set-2/pokemon-trader-106"
       }
@@ -1101,6 +1183,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/scoop-up-1st-edition-78",
+        "shadowless": "pokemon-base-set/scoop-up-shadowless-78",
         "unlimited": "pokemon-base-set/scoop-up-78",
         "base2": "pokemon-base-set-2/scoop-up-107"
       }
@@ -1115,6 +1198,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/super-energy-removal-1st-edition-79",
+        "shadowless": "pokemon-base-set/super-energy-removal-shadowless-79",
         "unlimited": "pokemon-base-set/super-energy-removal-79",
         "base2": "pokemon-base-set-2/super-energy-removal-108"
       }
@@ -1129,6 +1213,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/defender-1st-edition-80",
+        "shadowless": "pokemon-base-set/defender-shadowless-80",
         "unlimited": "pokemon-base-set/defender-80",
         "base2": "pokemon-base-set-2/defender-109"
       }
@@ -1143,6 +1228,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/energy-retrieval-1st-edition-81",
+        "shadowless": "pokemon-base-set/energy-retrieval-shadowless-81",
         "unlimited": "pokemon-base-set/energy-retrieval-81",
         "base2": "pokemon-base-set-2/energy-retrieval-110"
       }
@@ -1157,6 +1243,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/full-heal-1st-edition-82",
+        "shadowless": "pokemon-base-set/full-heal-shadowless-82",
         "unlimited": "pokemon-base-set/full-heal-82",
         "base2": "pokemon-base-set-2/full-heal-111"
       }
@@ -1171,6 +1258,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/maintenance-1st-edition-83",
+        "shadowless": "pokemon-base-set/maintenance-shadowless-83",
         "unlimited": "pokemon-base-set/maintenance-83",
         "base2": "pokemon-base-set-2/maintenance-112"
       }
@@ -1185,6 +1273,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/pluspower-1st-edition-84",
+        "shadowless": "pokemon-base-set/pluspower-shadowless-84",
         "unlimited": "pokemon-base-set/pluspower-84",
         "base2": "pokemon-base-set-2/pluspower-113"
       }
@@ -1199,6 +1288,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/pokemon-center-1st-edition-85",
+        "shadowless": "pokemon-base-set/pokemon-center-shadowless-85",
         "unlimited": "pokemon-base-set/pokemon-center-85",
         "base2": "pokemon-base-set-2/pokemon-center-114"
       }
@@ -1213,6 +1303,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/pokemon-flute-1st-edition-86",
+        "shadowless": "pokemon-base-set/pokemon-flute-shadowless-86",
         "unlimited": "pokemon-base-set/pokemon-flute-86"
       }
     },
@@ -1226,6 +1317,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/pokedex-1st-edition-87",
+        "shadowless": "pokemon-base-set/pokedex-shadowless-87",
         "unlimited": "pokemon-base-set/pokedex-87",
         "base2": "pokemon-base-set-2/pokedex-115"
       }
@@ -1240,6 +1332,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/professor-oak-1st-edition-88",
+        "shadowless": "pokemon-base-set/professor-oak-shadowless-88",
         "unlimited": "pokemon-base-set/professor-oak-88",
         "base2": "pokemon-base-set-2/professor-oak-116"
       }
@@ -1254,6 +1347,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/revive-1st-edition-89",
+        "shadowless": "pokemon-base-set/revive-shadowless-89",
         "unlimited": "pokemon-base-set/revive-89"
       }
     },
@@ -1267,6 +1361,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/super-potion-1st-edition-90",
+        "shadowless": "pokemon-base-set/super-potion-shadowless-90",
         "unlimited": "pokemon-base-set/super-potion-90",
         "base2": "pokemon-base-set-2/super-potion-117"
       }
@@ -1281,6 +1376,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/bill-1st-edition-91",
+        "shadowless": "pokemon-base-set/bill-shadowless-91",
         "unlimited": "pokemon-base-set/bill-91",
         "base2": "pokemon-base-set-2/bill-118"
       }
@@ -1295,6 +1391,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/energy-removal-1st-edition-92",
+        "shadowless": "pokemon-base-set/energy-removal-shadowless-92",
         "unlimited": "pokemon-base-set/energy-removal-92",
         "base2": "pokemon-base-set-2/energy-removal-119"
       }
@@ -1309,6 +1406,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/gust-of-wind-1st-edition-93",
+        "shadowless": "pokemon-base-set/gust-of-wind-shadowless-93",
         "unlimited": "pokemon-base-set/gust-of-wind-93",
         "base2": "pokemon-base-set-2/gust-of-wind-120"
       }
@@ -1323,6 +1421,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/potion-1st-edition-94",
+        "shadowless": "pokemon-base-set/potion-shadowless-94",
         "unlimited": "pokemon-base-set/potion-94",
         "base2": "pokemon-base-set-2/potion-122"
       }
@@ -1337,6 +1436,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/switch-1st-edition-95",
+        "shadowless": "pokemon-base-set/switch-shadowless-95",
         "unlimited": "pokemon-base-set/switch-95",
         "base2": "pokemon-base-set-2/switch-123"
       }
@@ -1351,6 +1451,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/double-colorless-energy-1st-edition-96",
+        "shadowless": "pokemon-base-set/double-colorless-energy-shadowless-96",
         "unlimited": "pokemon-base-set/double-colorless-energy-96",
         "base2": "pokemon-base-set-2/double-colorless-energy-124"
       }
@@ -1365,6 +1466,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/fighting-energy-1st-edition-97",
+        "shadowless": "pokemon-base-set/fighting-energy-shadowless-97",
         "unlimited": "pokemon-base-set/fighting-energy-97",
         "base2": "pokemon-base-set-2/fighting-energy-125"
       }
@@ -1379,6 +1481,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/fire-energy-1st-edition-98",
+        "shadowless": "pokemon-base-set/fire-energy-shadowless-98",
         "unlimited": "pokemon-base-set/fire-energy-98",
         "base2": "pokemon-base-set-2/fire-energy-126"
       }
@@ -1393,6 +1496,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/grass-energy-1st-edition-99",
+        "shadowless": "pokemon-base-set/grass-energy-shadowless-99",
         "unlimited": "pokemon-base-set/grass-energy-99",
         "base2": "pokemon-base-set-2/grass-energy-127"
       }
@@ -1407,6 +1511,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/lightning-energy-1st-edition-100",
+        "shadowless": "pokemon-base-set/lightning-energy-shadowless-100",
         "unlimited": "pokemon-base-set/lightning-energy-100",
         "base2": "pokemon-base-set-2/lightning-energy-128"
       }
@@ -1421,6 +1526,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/psychic-energy-1st-edition-101",
+        "shadowless": "pokemon-base-set/psychic-energy-shadowless-101",
         "unlimited": "pokemon-base-set/psychic-energy-101",
         "base2": "pokemon-base-set-2/psychic-energy-129"
       }
@@ -1435,6 +1541,7 @@
       "required": false,
       "prints": {
         "1st": "pokemon-base-set/water-energy-1st-edition-102",
+        "shadowless": "pokemon-base-set/water-energy-shadowless-102",
         "unlimited": "pokemon-base-set/water-energy-102",
         "base2": "pokemon-base-set-2/water-energy-130"
       }

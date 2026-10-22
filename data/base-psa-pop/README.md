@@ -1,6 +1,6 @@
 # Base Set PSA / CGC population
 
-Static JSON for `market-base-psa-pop.html`. Compares English **1st Edition**, **Unlimited**, and **Base Set 2** populations for Base Set **#1–102**. The page defaults to **PSA＋CGC combined** per grade and can split the two companies. Beckett/BGS is not collected. Half grades are always bucketed into the lower whole grade (no toggle).
+Static JSON for `market-base-psa-pop.html`. Compares English **1st Edition**, **Shadowless**, **Unlimited**, and **Base Set 2** populations for Base Set **#1–102**. The page defaults to **PSA＋CGC combined** per grade and can split the two companies. Beckett/BGS is not collected. Half grades are always bucketed into the lower whole grade (no toggle).
 
 | File | Role |
 | --- | --- |
@@ -17,8 +17,10 @@ GET https://www.pricecharting.com/pop/item/{slug}
 ```
 
 ```bash
+python3 tools/build_base_psa_pop_catalog.py --self-test
 python3 tools/refresh_base_psa_pop.py --self-test
 python3 tools/refresh_base_psa_pop.py --root .
+python3 tools/refresh_base_psa_pop.py --root . --prints shadowless   # merge one printing into latest.json
 python3 tools/refresh_base_psa_pop.py --root . --prices-only   # game-page indicative prices only
 ```
 
