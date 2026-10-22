@@ -50,7 +50,13 @@ APP_UA = "Pokemon-Box-EV/1.31 (+https://github.com/swishish/Pokemon-Box-EV)"
 SLEEP_S = 0.45
 WHOLE_GRADES = (10, 9, 8, 7, 6, 5, 4, 3, 2, 1)
 HALF_GRADES = (9.5, 8.5, 7.5, 6.5, 5.5, 4.5, 3.5, 2.5, 1.5)
-PRINT_IDS = ("1st", "unlimited", "base2")
+PRINT_IDS = ("1st", "shadowless", "unlimited", "base2")
+PRINT_LABELS = {
+    "1st": "1st Edition",
+    "shadowless": "Shadowless",
+    "unlimited": "Unlimited",
+    "base2": "Base Set 2",
+}
 GRADER_IDS = ("psa", "cgc")
 GRADER_ALIASES = {
     "psa": "psa",
@@ -378,11 +384,7 @@ def attach_print(card: dict, print_id: str, slug: str, parsed: dict, html: str) 
         title = strip_html(hm.group(1))
     rec = {
         "id": print_id,
-        "label": {
-            "1st": "1st Edition",
-            "unlimited": "Unlimited",
-            "base2": "Base Set 2",
-        }[print_id],
+        "label": PRINT_LABELS[print_id],
         "slug": slug,
         "pop_url": pop_url(slug),
         "game_url": game_url(slug),
@@ -444,8 +446,23 @@ def fetch_print_prices(
     return previous.get((cid, pid))
 
 
+def load_previous_prints(root: Path) -> dict[str, dict]:
+    path = root / "data" / "base-psa-pop" / "latest.json"
+    try:
+        prev = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+    out: dict[str, dict] = {}
+    for card in prev.get("cards") or []:
+        cid = card.get("id")
+        prints = card.get("prints")
+        if cid and isinstance(prints, dict) and prints:
+            out[cid] = prints
+    return out
+
+
 def reference_print(prints: dict) -> str:
-    for pid in ("unlimited", "1st", "base2"):
+    for pid in ("unlimited", "1st", "shadowless", "base2"):
         rec = prints.get(pid) or {}
         psa = (rec.get("graders") or {}).get("psa") or {}
         if psa.get("available") and psa.get("total"):
@@ -485,11 +502,7 @@ def option_label(card: dict, names_zh: dict[str, str]) -> str:
     total = combined.get("total")
     gem = counts.get("10")
     rate = grade_share(gem, total)
-    ref_label = {
-        "1st": "1st Edition",
-        "unlimited": "Unlimited",
-        "base2": "Base Set 2",
-    }.get(ref_id, ref_id)
+    ref_label = PRINT_LABELS.get(ref_id, ref_id)
     name_bit = f"{zh} {name}" if zh else name
     head = f"#{number} {name_bit}" if number is not None else name_bit
     head = " ".join(head.split())
@@ -562,15 +575,23 @@ def refresh(
     fetch=fetch_html,
     sleeper=None,
     dry_run: bool = False,
+    print_ids: tuple[str, ...] | None = None,
 ) -> dict:
+    wanted = print_ids or PRINT_IDS
+    unknown = [pid for pid in wanted if pid not in PRINT_IDS]
+    if unknown:
+        raise SystemExit(f"unknown print id(s): {unknown}")
     catalog = load_catalog(root)
     names_zh = load_names_zh(root)
     previous = load_previous_prices(root)
+    previous_prints = load_previous_prints(root) if print_ids else {}
     fetched: dict[str, dict] = {}
     errors: list[str] = []
     for spec in catalog["cards"]:
         prints: dict[str, dict] = {}
-        for pid in PRINT_IDS:
+        if print_ids:
+            prints.update(previous_prints.get(spec["id"]) or {})
+        for pid in wanted:
             slug = (spec.get("prints") or {}).get(pid)
             if not slug:
                 continue
@@ -603,12 +624,16 @@ def refresh(
     if errors:
         raise SystemExit("PARSE/FETCH FAILED (no write, no invented pops):\n  " + "\n  ".join(errors))
 
-    if "charizard" not in fetched or not fetched["charizard"].get("unlimited"):
+    if not print_ids and (
+        "charizard" not in fetched or not fetched["charizard"].get("unlimited")
+    ):
         raise SystemExit("required card charizard/unlimited missing — no write")
     for spec in catalog["cards"]:
         if not spec.get("required"):
             continue
         for pid, slug in (spec.get("prints") or {}).items():
+            if print_ids and pid not in wanted:
+                continue
             if slug and pid not in fetched.get(spec["id"], {}):
                 raise SystemExit(f"required {spec['id']}/{pid} missing — no write")
 
@@ -695,6 +720,15 @@ def self_test() -> None:
     _assert(first["graders"]["psa"]["total"] == 5383, first["graders"]["psa"]["total"])
     _assert(first["graders"]["cgc"]["total"] == 597, first["graders"]["cgc"]["total"])
 
+    shadowless = parse_pop_table(
+        (TESTDATA / "charizard-shadowless.html").read_text(encoding="utf-8"),
+        url="fixture:shadowless",
+    )
+    _assert(shadowless["graders"]["psa"]["counts"]["10"] == 58, shadowless["graders"]["psa"])
+    _assert(shadowless["graders"]["psa"]["total"] == 13006, shadowless["graders"]["psa"]["total"])
+    _assert(shadowless["graders"]["cgc"]["counts"]["10"] == 38, shadowless["graders"]["cgc"])
+    _assert(shadowless["graders"]["cgc"]["total"] == 1855, shadowless["graders"]["cgc"]["total"])
+
     base2 = parse_pop_table(
         (TESTDATA / "charizard-base2.html").read_text(encoding="utf-8"),
         url="fixture:base2",
@@ -739,9 +773,17 @@ def self_test() -> None:
     _assert(len(ids) >= 100, f"full Base Set roster expected, got {len(ids)}")
     _assert(ids[0] == "alakazam", ids[:3])
     _assert("charizard" in ids and "machamp" in ids and "clefairy" in ids and "pikachu" in ids, ids)
+    print_ids = [p["id"] for p in catalog.get("prints") or []]
+    _assert(print_ids == ["1st", "shadowless", "unlimited", "base2"], print_ids)
+    charizard = next(c for c in catalog["cards"] if c["id"] == "charizard")
+    _assert(charizard["prints"].get("shadowless", "").endswith("charizard-shadowless-4"), charizard)
+    pikachu = next(c for c in catalog["cards"] if c["id"] == "pikachu")
+    _assert(pikachu["prints"].get("shadowless", "").endswith("pikachu-shadowless-58"), pikachu)
+    _assert("red-cheeks" not in (pikachu["prints"].get("shadowless") or ""), pikachu)
     machamp = next(c for c in catalog["cards"] if c["id"] == "machamp")
     _assert(machamp["prints"].get("1st"), machamp)
     _assert("unlimited" not in machamp["prints"], machamp)
+    _assert(machamp["prints"].get("shadowless", "").endswith("machamp-shadowless-8"), machamp)
     venusaur = next(c for c in catalog["cards"] if c["id"] == "venusaur")
     _assert(venusaur["number_base"] == 15 and venusaur["number_base2"] == 18, venusaur)
     _assert(venusaur["prints"]["base2"].endswith("venusaur-18"), venusaur["prints"])
@@ -766,6 +808,13 @@ def self_test() -> None:
     _assert("0.49%" in label, label)
     invent = option_label({"name": "NotAPokemon", "prints": {}}, names)
     _assert("NotAPokemon" in invent and "噴" not in invent, invent)
+
+    sh_prices = parse_pc_prices(
+        (TESTDATA / "charizard-shadowless-game.html").read_text(encoding="utf-8")
+    )
+    _assert(sh_prices.get("raw") == 983.44, sh_prices)
+    _assert(sh_prices.get("10") == 24808.28, sh_prices)
+    _assert("9.5" not in sh_prices, sh_prices)
 
     prices = parse_pc_prices((TESTDATA / "charizard-1st-game.html").read_text(encoding="utf-8"))
     _assert(prices.get("raw") == 7691.36, prices)
@@ -796,10 +845,16 @@ def main(argv: list[str] | None = None) -> int:
         default="",
         help="Read {card}-{print}.html from this directory instead of the network",
     )
+    ap.add_argument(
+        "--prints",
+        default="",
+        help="Comma-separated print ids to fetch (e.g. shadowless). Merges into existing latest.json.",
+    )
     args = ap.parse_args(argv)
     if args.self_test:
         self_test()
         return 0
+    print_ids = tuple(p.strip() for p in args.prints.split(",") if p.strip()) or None
     if args.prices_only:
         payload = refresh_prices_only(
             Path(args.root),
@@ -814,6 +869,7 @@ def main(argv: list[str] | None = None) -> int:
         html_dir=html_dir,
         sleeper=(lambda: time.sleep(SLEEP_S)),
         dry_run=args.dry_run,
+        print_ids=print_ids,
     )
     print("as_of", payload["asOf"], "cards", len(payload["cards"]))
     for card in payload["cards"]:

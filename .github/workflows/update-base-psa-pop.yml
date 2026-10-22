@@ -1,8 +1,8 @@
 name: Update Base PSA pop
 
-# Public PriceCharting POP HTML for English Base Set 1st / Unlimited /
-# Base Set 2. View-only. No API key. PR runs self-test only (no network write).
-# Parse errors fail the job and do not invent pops.
+# Public PriceCharting POP HTML for English Base Set 1st / Shadowless /
+# Unlimited / Base Set 2. View-only. No API key. PR runs self-test only
+# (no network write). Parse errors fail the job and do not invent pops.
 on:
   schedule:
     - cron: "17 11 * * 1"   # Monday 11:17 UTC — weekly
@@ -26,7 +26,9 @@ jobs:
         with:
           python-version: "3.12"
       - name: Self-test Base PSA pop parser
-        run: python3 tools/refresh_base_psa_pop.py --self-test
+        run: |
+          python3 tools/build_base_psa_pop_catalog.py --self-test
+          python3 tools/refresh_base_psa_pop.py --self-test
 
   build:
     if: github.event_name != 'pull_request'
@@ -42,7 +44,9 @@ jobs:
         with:
           python-version: "3.12"
       - name: Self-test
-        run: python3 tools/refresh_base_psa_pop.py --self-test
+        run: |
+          python3 tools/build_base_psa_pop_catalog.py --self-test
+          python3 tools/refresh_base_psa_pop.py --self-test
       - name: Fetch PriceCharting POP pages
         run: python3 tools/refresh_base_psa_pop.py --root .
       - name: Commit updated data
