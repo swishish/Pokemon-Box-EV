@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>日盒 EV 小算盤 v1.31.8 · JP Mega Sealed</title>
+<title>日盒 EV 小算盤 v1.31.9 · JP Mega Sealed</title>
 <meta name="description" content="日盒開盒 EV 小算盤：選系列睇四個預期回報 %、有膜／無膜落地、chase 單卡。靜態快照，非正式投資建議。" />
 <meta property="og:site_name" content="日盒開盒值不值？" />
 <meta property="og:title" content="日盒 EV 小算盤 · JP Mega Sealed" />
@@ -213,18 +213,77 @@
     margin: 0 auto;
     align-items: start;
   }
-  .toc-col { min-width: 0; }
-  .set-picker-toggle { display: none; }
-  .mon.set-picker-idle, .set-picker-idle { display: none; }
-  .toc {
+  .toc-col {
+    min-width: 0;
     position: sticky;
     top: 0;
     align-self: start;
     max-height: 100vh;
-    overflow-y: auto;
-    padding: 12px 10px 24px;
-    border-right: var(--bw) solid var(--ink);
+    display: flex;
+    flex-direction: column;
     background: var(--bg-2);
+    border-right: var(--bw) solid var(--ink);
+  }
+  .toc-tools {
+    flex: 0 0 auto;
+    padding: 10px 10px 8px;
+  }
+  .all-ev-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    min-width: 0;
+    text-align: left;
+    border: var(--bw) solid var(--ink);
+    background: var(--accent-fill);
+    color: var(--ink);
+    font: inherit;
+    border-radius: 10px;
+    padding: 8px 10px;
+    cursor: pointer;
+    box-shadow: var(--shadow-xs);
+    transition: box-shadow .1s ease, transform .1s ease, background .15s;
+    touch-action: manipulation;
+  }
+  .all-ev-toggle:hover { background: var(--accent-hover); }
+  .all-ev-toggle:active {
+    box-shadow: var(--shadow-pressed);
+    transform: translate(1px, 1px);
+  }
+  .all-ev-toggle[aria-expanded="true"] {
+    background: var(--card);
+  }
+  .all-ev-toggle .mon {
+    width: 22px;
+    height: 22px;
+  }
+  .all-ev-copy {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    gap: 1px;
+  }
+  .all-ev-kicker {
+    font-size: .68rem;
+    font-weight: 650;
+    color: var(--muted);
+    letter-spacing: .02em;
+  }
+  .all-ev-label {
+    font-size: .82rem;
+    font-weight: 800;
+    line-height: 1.25;
+  }
+  .set-picker-toggle { display: none; }
+  .mon.set-picker-idle, .set-picker-idle { display: none; }
+  .toc {
+    position: relative;
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 0 10px 24px;
+    background: transparent;
   }
   .toc h2 {
     margin: 0 0 6px;
@@ -629,6 +688,185 @@
     cursor: zoom-out;
   }
   .lightbox[hidden] { display: none !important; }
+
+  /* All-sets EV comparison (opens from left rail / mobile set picker) */
+  .all-ev-panel {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    background: rgba(16, 24, 40, .48);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 20px 16px;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .all-ev-panel[hidden] { display: none !important; }
+  .all-ev-sheet {
+    width: min(1080px, 100%);
+    max-height: min(90vh, 860px);
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    background: var(--card);
+    border: var(--bw) solid var(--ink);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+  .all-ev-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 12px 14px;
+    border-bottom: var(--bw) solid var(--ink);
+    background: var(--bg-2);
+    flex-shrink: 0;
+  }
+  .all-ev-head-text { min-width: 0; }
+  .all-ev-head h2 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  .all-ev-head .tiny { margin: 4px 0 0; }
+  .all-ev-head-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  .all-ev-back,
+  .all-ev-close {
+    border: var(--bw) solid var(--ink);
+    background: var(--card);
+    color: var(--ink);
+    font: inherit;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: var(--shadow-xs);
+    transition: box-shadow .1s ease, transform .1s ease;
+    touch-action: manipulation;
+  }
+  .all-ev-back {
+    font-size: .72rem;
+    padding: 5px 10px;
+    border-radius: 999px;
+  }
+  .all-ev-close {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .all-ev-back:hover,
+  .all-ev-close:hover { background: var(--accent-fill); }
+  .all-ev-back:active,
+  .all-ev-close:active {
+    box-shadow: var(--shadow-pressed);
+    transform: translate(1px, 1px);
+  }
+  .all-ev-table-wrap {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+  .all-ev-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-variant-numeric: tabular-nums;
+  }
+  .all-ev-table th,
+  .all-ev-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--line);
+    text-align: right;
+    white-space: nowrap;
+    vertical-align: middle;
+  }
+  .all-ev-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: var(--bg-2);
+    font-size: .68rem;
+    font-weight: 750;
+    color: var(--muted);
+    letter-spacing: .01em;
+    border-bottom: var(--bw) solid var(--ink);
+  }
+  .all-ev-table th:first-child,
+  .all-ev-table td:first-child {
+    text-align: left;
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    background: var(--card);
+  }
+  .all-ev-table thead th:first-child {
+    z-index: 3;
+    background: var(--bg-2);
+  }
+  .all-ev-set {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+  }
+  .all-ev-art {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    border: var(--bw) solid var(--ink);
+    border-radius: 8px;
+    background: #fff;
+    flex-shrink: 0;
+    pointer-events: none;
+  }
+  .all-ev-set-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    gap: 1px;
+  }
+  .all-ev-code { font-weight: 800; font-size: .82rem; }
+  .all-ev-zh {
+    font-size: .72rem;
+    color: var(--muted);
+    font-weight: 500;
+    max-width: 12rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .all-ev-table td.ev { font-weight: 750; font-size: .86rem; }
+  .all-ev-table td.ev.good { color: var(--good); }
+  .all-ev-table td.ev.ok { color: var(--ok); }
+  .all-ev-table td.ev.bad { color: var(--bad); }
+  .all-ev-table td.ev.na { color: var(--muted); font-weight: 600; }
+  .all-ev-table tbody tr {
+    cursor: pointer;
+    background: var(--card);
+  }
+  .all-ev-table tbody tr:hover td { background: var(--bg-2); }
+  .all-ev-table tbody tr:hover td:first-child { background: var(--bg-2); }
+  .all-ev-table tbody tr.active td { background: var(--accent-fill); }
+  .all-ev-table tbody tr.active td:first-child { background: var(--accent-fill); }
+  .all-ev-table tbody tr.is-na td { color: var(--muted); }
+  .all-ev-table tbody tr.is-na td:first-child { background: #f7f3ea; }
+  .all-ev-table tbody tr:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: -2px;
+  }
   .lightbox img {
     display: block;
     width: auto;
@@ -1056,8 +1294,32 @@
       padding: 8px 12px;
       background: var(--bg-2);
       border-bottom: var(--bw) solid var(--ink);
+      border-right: none;
       max-width: 100%;
+      max-height: none;
     }
+    .toc-tools {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 0;
+    }
+    .all-ev-toggle {
+      padding: 8px 10px;
+    }
+    .all-ev-panel {
+      padding: 10px 8px;
+      align-items: stretch;
+    }
+    .all-ev-sheet {
+      max-height: min(92vh, 100%);
+      border-radius: 12px;
+    }
+    .all-ev-head { padding: 10px 10px; }
+    .all-ev-table th,
+    .all-ev-table td { padding: 7px 8px; }
+    .all-ev-art { width: 28px; height: 28px; }
+    .all-ev-zh { max-width: 8.5rem; }
     .set-picker-toggle {
       display: flex;
       align-items: center;
@@ -1362,7 +1624,7 @@
 <header>
   <div class="header-inner">
     <div class="header-top">
-      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.31.8</span></h1>
+      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.31.9</span></h1>
       <nav class="header-nav" aria-label="站內導覽">
         <a class="nav-btn" href="./calc.html">開盒 EV</a>
         <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
@@ -1381,11 +1643,20 @@
 
 <div class="layout" id="app">
   <aside class="toc-col" id="tocCol">
-    <button type="button" class="set-picker-toggle" id="setPickerToggle" aria-expanded="false" aria-controls="toc" aria-haspopup="listbox">
-      <img class="mon set-picker-idle" src="./img/accents/ditto.svg" alt="" width="22" height="22" aria-hidden="true" />
-      <span class="set-picker-kicker">系列</span>
-      <span class="set-picker-current" id="setPickerCurrent"></span>
-    </button>
+    <div class="toc-tools">
+      <button type="button" class="all-ev-toggle" id="allEvToggle" aria-expanded="false" aria-controls="allEvPanel" aria-haspopup="dialog">
+        <img class="mon" src="./img/accents/ditto.svg" alt="" width="22" height="22" aria-hidden="true" />
+        <span class="all-ev-copy">
+          <span class="all-ev-kicker">全系列</span>
+          <span class="all-ev-label">四欄 EV 比較</span>
+        </span>
+      </button>
+      <button type="button" class="set-picker-toggle" id="setPickerToggle" aria-expanded="false" aria-controls="toc" aria-haspopup="listbox">
+        <img class="mon set-picker-idle" src="./img/accents/ditto.svg" alt="" width="22" height="22" aria-hidden="true" />
+        <span class="set-picker-kicker">系列</span>
+        <span class="set-picker-current" id="setPickerCurrent"></span>
+      </button>
+    </div>
     <nav class="toc" id="toc" aria-label="系列目錄"></nav>
   </aside>
 
@@ -1515,13 +1786,41 @@
 <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="放大圖">
   <img id="lightboxImg" alt="" />
 </div>
-<footer><img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" /><span>日盒 EV 小算盤 <b>v1.31.8</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期 · <a href="./index.html">首頁</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10.html">JP PSA10</a> · <a href="./market-jp-psa10-bench.html">JP 基準</a> · <a href="./market-base-psa-pop.html">Base POP</a></span></footer>
+<div class="all-ev-panel" id="allEvPanel" hidden role="dialog" aria-modal="true" aria-labelledby="allEvTitle">
+  <div class="all-ev-sheet" role="document">
+    <div class="all-ev-head">
+      <div class="all-ev-head-text">
+        <h2 id="allEvTitle">全系列預期回報</h2>
+        <p class="tiny" id="allEvNote">分母與頂欄相同。點選列可切換系列。</p>
+      </div>
+      <div class="all-ev-head-actions">
+        <button type="button" class="all-ev-back" id="allEvBack">返回系列</button>
+        <button type="button" class="all-ev-close" id="allEvClose" aria-label="關閉">×</button>
+      </div>
+    </div>
+    <div class="all-ev-table-wrap table-wrap">
+      <table class="all-ev-table" id="allEvTable">
+        <thead>
+          <tr>
+            <th scope="col">系列</th>
+            <th scope="col">100% Grade A（買入價）</th>
+            <th scope="col">Grade A（打折）</th>
+            <th scope="col">A+PSA（打折）</th>
+            <th scope="col">A+CGC（打折）</th>
+          </tr>
+        </thead>
+        <tbody id="allEvBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<footer><img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" /><span>日盒 EV 小算盤 <b>v1.31.9</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期 · <a href="./index.html">首頁</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10.html">JP PSA10</a> · <a href="./market-jp-psa10-bench.html">JP 基準</a> · <a href="./market-base-psa-pop.html">Base POP</a></span></footer>
 
-<script src="./data.js?v=1.31.8"></script>
+<script src="./data.js?v=1.31.9"></script>
 <script>
 (async function () {
   // Keep in sync with the data.js?v= query above.
-  const VERSION = '1.31.8';
+  const VERSION = '1.31.9';
   async function loadJson(rel) {
     const url = new URL(rel, document.baseURI || window.location.href);
     url.searchParams.set('v', VERSION);
@@ -2122,6 +2421,99 @@
     return { ratios: r.ratiosS, land: r.landS, label: '有膜' };
   }
 
+  /** Table denom follows the sticky 有膜／無膜 choice. Missing 無膜 → — (do not fall back to 有膜). */
+  function tableRatios(r) {
+    if (landDenom === 'ns') {
+      if (!r.ratiosNS) return { ratios: null, land: null, label: '無膜', missing: true };
+      return { ratios: r.ratiosNS, land: r.landNS, label: '無膜', missing: false };
+    }
+    return { ratios: r.ratiosS, land: r.landS, label: '有膜', missing: !r.ratiosS };
+  }
+
+  function evTableCell(ratio, missing) {
+    if (missing || ratio == null || Number.isNaN(ratio)) {
+      return '<td class="ev na">—</td>';
+    }
+    const b = band(ratio);
+    return '<td class="ev ' + b.cls + '">' + fmtPct(ratio) + '</td>';
+  }
+
+  function renderAllEvTable() {
+    const body = $('allEvBody');
+    const note = $('allEvNote');
+    if (!body) return;
+    const denomLabel = landDenom === 'ns' ? '無膜' : '有膜';
+    if (note) {
+      note.textContent = '分母與頂欄相同，目前為「' + denomLabel +
+        '」。此分母無落地價的系列顯示 —。點選列可切換系列。';
+    }
+    const rows = setList.map((s) => {
+      const r = calcSet(s.code, true);
+      const active = tableRatios(r);
+      const ratios = active.ratios || {};
+      const missing = !!active.missing;
+      const psaMissing = missing || !r.hasPsa || ratios.PSA == null;
+      const cgcMissing = missing || !r.hasCgc || ratios.CGC == null;
+      const art = boxThumb(s.code);
+      const zh = s.zh || s.ja || '';
+      const activeCls = s.code === currentSet ? ' active' : '';
+      const naCls = missing ? ' is-na' : '';
+      return '<tr class="all-ev-row' + activeCls + naCls + '" data-set="' + escapeHtml(s.code) +
+        '" tabindex="0" role="button">' +
+        '<td><span class="all-ev-set">' +
+        '<img class="all-ev-art" src="' + art + '" alt="" width="36" height="36" decoding="async" />' +
+        '<span class="all-ev-set-text">' +
+        '<span class="all-ev-code">' + escapeHtml(s.code) + '</span>' +
+        '<span class="all-ev-zh">' + escapeHtml(zh) + '</span>' +
+        '</span></span></td>' +
+        evTableCell(ratios.GA, missing) +
+        evTableCell(ratios.HC, missing) +
+        evTableCell(ratios.PSA, psaMissing) +
+        evTableCell(ratios.CGC, cgcMissing) +
+        '</tr>';
+    });
+    body.innerHTML = rows.join('');
+  }
+
+  function isAllEvOpen() {
+    const panel = $('allEvPanel');
+    return !!(panel && !panel.hidden);
+  }
+
+  let allEvLastFocus = null;
+  function setAllEvOpen(open) {
+    const panel = $('allEvPanel');
+    const btn = $('allEvToggle');
+    if (!panel) return;
+    const want = !!open;
+    if (want) {
+      allEvLastFocus = document.activeElement;
+      setPickerOpen(false);
+      renderAllEvTable();
+    }
+    panel.hidden = !want;
+    if (btn) btn.setAttribute('aria-expanded', want ? 'true' : 'false');
+    document.documentElement.style.overflow = want ? 'hidden' : '';
+    document.body.style.overflow = want ? 'hidden' : '';
+    if (want) {
+      const closeBtn = $('allEvClose');
+      if (closeBtn) closeBtn.focus();
+    } else if (allEvLastFocus && typeof allEvLastFocus.focus === 'function') {
+      try { allEvLastFocus.focus(); } catch (e) {}
+    }
+  }
+
+  function selectSetFromAllEv(code) {
+    if (!code || !DATA.sets[code]) return;
+    currentSet = code;
+    applyPreferredDenom();
+    syncPcOverrideInput();
+    updateSetUrl(currentSet);
+    setAllEvOpen(false);
+    setPickerOpen(false);
+    render();
+  }
+
   function renderMain() {
     applyPreferredDenom();
     const r = calcSet(currentSet, true);
@@ -2271,6 +2663,7 @@
     applyPreferredDenom();
     renderToc();
     renderMain();
+    if (isAllEvOpen()) renderAllEvTable();
   }
 
   ['gemDisc', 'askDisc'].forEach((id) => {
@@ -2469,7 +2862,14 @@
   });
   document.addEventListener('keydown', (e) => {
     if (e.key !== 'Escape') return;
-    if (!lb.hidden) closeLightbox();
+    if (!lb.hidden) {
+      closeLightbox();
+      return;
+    }
+    if (isAllEvOpen()) {
+      setAllEvOpen(false);
+      return;
+    }
     if ($('tocCol') && $('tocCol').classList.contains('is-open')) setPickerOpen(false);
   });
 
@@ -2532,9 +2932,43 @@
       setPickerOpen(!(col && col.classList.contains('is-open')));
     });
   }
+  const allEvBtn = $('allEvToggle');
+  if (allEvBtn) {
+    allEvBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      setAllEvOpen(!isAllEvOpen());
+    });
+  }
+  ['allEvBack', 'allEvClose'].forEach((id) => {
+    const el = $(id);
+    if (el) el.addEventListener('click', () => setAllEvOpen(false));
+  });
+  const allEvPanel = $('allEvPanel');
+  if (allEvPanel) {
+    allEvPanel.addEventListener('click', (e) => {
+      if (e.target === allEvPanel) setAllEvOpen(false);
+    });
+  }
+  const allEvBody = $('allEvBody');
+  if (allEvBody) {
+    allEvBody.addEventListener('click', (e) => {
+      const row = e.target.closest('tr[data-set]');
+      if (!row) return;
+      selectSetFromAllEv(row.getAttribute('data-set'));
+    });
+    allEvBody.addEventListener('keydown', (e) => {
+      const row = e.target.closest('tr[data-set]');
+      if (!row) return;
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        selectSetFromAllEv(row.getAttribute('data-set'));
+      }
+    });
+  }
   document.addEventListener('pointerdown', (e) => {
     const col = $('tocCol');
     if (!mqMobile.matches || !col || !col.classList.contains('is-open')) return;
+    if (isAllEvOpen()) return;
     if (!col.contains(e.target)) setPickerOpen(false);
   });
   const moreBtn = $('stickyMore');
