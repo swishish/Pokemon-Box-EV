@@ -6,12 +6,16 @@ View-only public fetches only:
     "[No shrink]" sibling). No login, buy, bid, or messages.
   * PriceCharting booster-box HTML already linked from each set (ungraded avg).
 
-Writes the landed.shrink / landed.ns fields calc.html already uses:
-  landed_yen = unit_yen × 1.035 + (HK$173 / 4) × 20.3
-  unit_yen   = lot ask ÷ qty  (prefer 4 then 3 then 2 then 1 box)
+Writes landed.shrink / landed.ns (EV denom = cheapest qty-aware landed
+per side) and sealed_box.*.lots[] for every usable 1/2/3/4-box tier:
 
-Never invents apparel IDs or prices. A failed fetch keeps the previous
-snapshot. Does not refresh card Grade A / pity rates (those still need
+    landed_yen = unit_yen × 1.035 + (HK$173 × 20.3) / qty
+    unit_yen   = lot ask ÷ qty
+
+Shipping is amortized over that order's box count (qty=4 matches the
+old HK$173/4 formula; qty=1 is ~4× heavier per box). Never invents
+apparel IDs or prices. A failed fetch keeps the previous snapshot.
+Does not refresh card Grade A / pity rates (those still need
 tools/refresh_box_ev.py + hand-saved PriceCharting card HTML).
 Does not bump data.as_of (that date is the card snapshot).
 """
@@ -32,7 +36,7 @@ from zoneinfo import ZoneInfo
 ROOT_DEFAULT = Path(__file__).resolve().parents[1]
 TESTDATA = Path(__file__).resolve().parent / "testdata" / "sealed-boxes"
 
-USER_AGENT = "Pokemon-Box-EV/1.28.11 (+https://github.com/swishish/Pokemon-Box-EV)"
+USER_AGENT = "Pokemon-Box-EV/1.31.8 (+https://github.com/swishish/Pokemon-Box-EV)"
 PC_USER_AGENT = (
     "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
     "(KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36"
@@ -40,9 +44,9 @@ PC_USER_AGENT = (
 
 USD_HKD = 7.80
 JPY_PER_HKD = 20.3
-SHIP_HKD_PER_CARTON = 173.0  # HK$173 / 4 boxes
+SHIP_HKD_PER_CARTON = 173.0  # HK$173 per carton; amortized over this order's qty
 FEE_MULT = 1.035
-PREFERRED_QTY = (4, 3, 2, 1)
+ALLOWED_QTY = (1, 2, 3, 4)
 MIN_UNIT_YEN = 1000.0
 MAX_UNIT_YEN = 200000.0
 UNIT_VS_SINGLE_LO = 0.55
@@ -74,8 +78,15 @@ def now_shanghai() -> str:
     return datetime.now(ZoneInfo("Asia/Shanghai")).strftime("%Y-%m-%d %H:%M Asia/Shanghai")
 
 
-def landed_yen(unit_yen: float) -> float:
-    ship = (SHIP_HKD_PER_CARTON / 4.0) * JPY_PER_HKD
+def landed_yen(unit_yen: float, qty: int = 4) -> float:
+    """HK-landed yen per box; shipping is split across this order's qty."""
+    try:
+        q = int(qty)
+    except (TypeError, ValueError):
+        q = 4
+    if q < 1:
+        q = 1
+    ship = (SHIP_HKD_PER_CARTON * JPY_PER_HKD) / q
     return round(float(unit_yen) * FEE_MULT + ship, 2)
 
 
@@ -98,8 +109,7 @@ def _positive_price(row: dict) -> float | None:
     return None
 
 
-def pick_lot(size_prices: list[dict]) -> dict | None:
-    """Prefer a 4/3/2/1-box new-listing lot. Reject empty or garbage asks."""
+def _scan_size_prices(size_prices: list[dict]) -> dict[int, dict]:
     by_qty: dict[int, dict] = {}
     for row in size_prices or []:
         size = row.get("size") or {}
@@ -109,7 +119,7 @@ def pick_lot(size_prices: list[dict]) -> dict | None:
             count = int(row.get("listingItemCount") or 0)
         except (TypeError, ValueError):
             count = 0
-        if qty is None or price is None or count <= 0:
+        if qty is None or qty not in ALLOWED_QTY or price is None or count <= 0:
             continue
         if qty in by_qty and by_qty[qty]["lot_yen"] <= price:
             continue
@@ -120,33 +130,60 @@ def pick_lot(size_prices: list[dict]) -> dict | None:
             "unit_yen": price / qty,
             "listing_count": count,
         }
+    return by_qty
 
+
+def _usable_lot(rec: dict, *, single: float | None, need_depth: bool) -> bool:
+    unit = rec["unit_yen"]
+    if unit < MIN_UNIT_YEN or unit > MAX_UNIT_YEN:
+        return False
+    if rec["qty"] > 1 and rec["listing_count"] < MIN_MULTI_LISTINGS and need_depth:
+        return False
+    if single is not None and rec["qty"] > 1:
+        if unit < single * UNIT_VS_SINGLE_LO or unit > single * UNIT_VS_SINGLE_HI:
+            return False
+    return True
+
+
+def _finish_lot(rec: dict) -> dict:
+    unit = round(rec["unit_yen"], 2)
+    return {
+        "qty": rec["qty"],
+        "qty_label": rec["qty_label"],
+        "lot_yen": rec["lot_yen"],
+        "unit_yen": unit,
+        "listing_count": rec["listing_count"],
+        "landed_yen": landed_yen(unit, rec["qty"]),
+    }
+
+
+def collect_lots(size_prices: list[dict]) -> list[dict]:
+    """All usable 1/2/3/4-box lots with qty-aware landed_yen (qty ascending)."""
+    by_qty = _scan_size_prices(size_prices)
     single = by_qty.get(1, {}).get("unit_yen")
-
-    def usable(rec: dict, *, need_depth: bool) -> bool:
-        unit = rec["unit_yen"]
-        if unit < MIN_UNIT_YEN or unit > MAX_UNIT_YEN:
-            return False
-        if rec["qty"] > 1 and rec["listing_count"] < MIN_MULTI_LISTINGS and need_depth:
-            return False
-        if single is not None and rec["qty"] > 1:
-            if unit < single * UNIT_VS_SINGLE_LO or unit > single * UNIT_VS_SINGLE_HI:
-                return False
-        return True
-
-    def finish(rec: dict) -> dict:
-        out = dict(rec)
-        out["unit_yen"] = round(out["unit_yen"], 2)
-        out["landed_yen"] = landed_yen(out["unit_yen"])
-        return out
-
-    # Prefer a real 4/3/2-box book, then any remaining 4/3/2, then 1-box.
+    chosen: list[dict] = []
     for need_depth in (True, False):
-        for qty in PREFERRED_QTY:
-            rec = by_qty.get(qty)
-            if rec and usable(rec, need_depth=need_depth and qty > 1):
-                return finish(rec)
-    return None
+        chosen = [
+            _finish_lot(rec)
+            for qty in ALLOWED_QTY
+            if (rec := by_qty.get(qty))
+            and _usable_lot(rec, single=single, need_depth=need_depth and qty > 1)
+        ]
+        if chosen:
+            break
+    return chosen
+
+
+def pick_cheapest_lot(lots: list[dict]) -> dict | None:
+    """Min landed_yen_per_box; ties keep the larger qty (more ship amortization)."""
+    if not lots:
+        return None
+    return min(lots, key=lambda rec: (rec["landed_yen"], -rec["qty"]))
+
+
+def pick_lot(size_prices: list[dict]) -> dict | None:
+    """Cheapest qty-aware landed 1–4 box lot after sanity filters."""
+    return pick_cheapest_lot(collect_lots(size_prices))
 
 
 def parse_pc_ungraded(html: str) -> float | None:
@@ -265,9 +302,12 @@ def shrink_page_url(apparel_id: int) -> str:
 
 
 def lot_from_apparel(apparel: dict, sizes: dict) -> dict | None:
-    lot = pick_lot(sizes.get("sizePrices") or [])
+    lots = collect_lots(sizes.get("sizePrices") or [])
+    lot = pick_cheapest_lot(lots)
     if not lot:
         return None
+    lot = dict(lot)
+    lot["lots"] = lots
     lot["apparel_id"] = int(apparel["id"])
     lot["name"] = apparel.get("name") or ""
     lot["localized_name"] = apparel.get("localizedName") or ""
@@ -295,11 +335,29 @@ def discover_no_shrink_id(
     return None, ""
 
 
+def _public_lots(lot: dict) -> list[dict]:
+    raw = lot.get("lots") or [lot]
+    out = []
+    for rec in raw:
+        out.append(
+            {
+                "qty": rec["qty"],
+                "qty_label": rec["qty_label"],
+                "lot_yen": rec["lot_yen"],
+                "unit_yen": rec["unit_yen"],
+                "listing_count": rec["listing_count"],
+                "landed_yen": rec["landed_yen"],
+            }
+        )
+    return out
+
+
 def apply_lot(set_obj: dict, kind: str, lot: dict, as_of: str) -> None:
     landed = set_obj.setdefault("landed", {})
     landed[kind] = {
         "landed_yen": lot["landed_yen"],
         "unit_yen": lot["unit_yen"],
+        "qty": lot["qty"],
         "qty_label": lot["qty_label"],
     }
     rec = {
@@ -311,6 +369,7 @@ def apply_lot(set_obj: dict, kind: str, lot: dict, as_of: str) -> None:
         "qty_label": lot["qty_label"],
         "unit_yen": lot["unit_yen"],
         "listing_count": lot["listing_count"],
+        "lots": _public_lots(lot),
     }
     sealed = set_obj.setdefault("sealed_box", {})
     sealed[kind] = rec
@@ -346,7 +405,15 @@ def _assert(cond: bool, msg: str) -> None:
 
 
 def self_test() -> None:
-    _assert(abs(landed_yen(10625.0) - 11874.85) < 0.02, "landed formula vs M6 snapshot")
+    _assert(abs(landed_yen(10625.0) - 11874.85) < 0.02, "qty=4 default matches old M6 snapshot")
+    _assert(abs(landed_yen(10625.0, 4) - 11874.85) < 0.02, "explicit qty=4")
+    one_ship = SHIP_HKD_PER_CARTON * JPY_PER_HKD
+    four_ship = one_ship / 4.0
+    _assert(abs(landed_yen(10000.0, 1) - (10000.0 * FEE_MULT + one_ship)) < 0.02, "qty=1 ship")
+    _assert(
+        abs((landed_yen(10000.0, 1) - landed_yen(10000.0, 4)) - (one_ship - four_ship)) < 0.02,
+        "1-box ship is 4× the 4-box ship",
+    )
     _assert(parse_qty("4個") == 4, "qty 4")
     _assert(parse_qty("pack") is None, "qty reject")
 
@@ -354,9 +421,15 @@ def self_test() -> None:
     apparel = json.loads((TESTDATA / "apparel-846048.json").read_text(encoding="utf-8"))
     lot = lot_from_apparel(apparel, sizes)
     _assert(lot is not None, "M6 shrink lot")
-    _assert(lot["qty"] == 4, f"prefer 4個, got {lot}")
+    _assert(lot["qty"] == 4, f"cheapest landed is 4個, got {lot}")
     _assert(abs(lot["unit_yen"] - 10875.0) < 0.01, lot)
-    _assert(abs(lot["landed_yen"] - landed_yen(10875.0)) < 0.01, lot)
+    _assert(abs(lot["landed_yen"] - landed_yen(10875.0, 4)) < 0.01, lot)
+    m6_lots = lot.get("lots") or []
+    _assert([x["qty"] for x in m6_lots] == [1, 2, 3, 4], m6_lots)
+    m6_one = next(x for x in m6_lots if x["qty"] == 1)
+    m6_four = next(x for x in m6_lots if x["qty"] == 4)
+    _assert(m6_one["landed_yen"] > m6_four["landed_yen"], (m6_one, m6_four))
+    _assert("apparel_id" not in m6_one, "lots[] stay lean")
 
     # garbage 36個 888888 and empty 19個 must not win
     garbage_sizes = {
@@ -396,6 +469,42 @@ def self_test() -> None:
         ]
     )
     _assert(thin is not None and thin["qty"] == 1, f"thin 4-box premium → 1個, got {thin}")
+    thin_lots = collect_lots(
+        [
+            {
+                "size": {"localizedName": "1個"},
+                "minNewListingPrice": 22499,
+                "listingItemCount": 20,
+            },
+            {
+                "size": {"localizedName": "4個"},
+                "minNewListingPrice": 119999,
+                "listingItemCount": 1,
+            },
+        ]
+    )
+    _assert([x["qty"] for x in thin_lots] == [1], thin_lots)
+
+    # Gary's case: 1-box 無膜 unit looks cheap; 3-box 有膜 wins after qty-aware freight.
+    shrink_book = [
+        {"size": {"localizedName": "1個"}, "minNewListingPrice": 10000, "listingItemCount": 12},
+        {"size": {"localizedName": "3個"}, "minNewListingPrice": 27000, "listingItemCount": 5},
+        {"size": {"localizedName": "4個"}, "minNewListingPrice": 44000, "listingItemCount": 4},
+    ]
+    ns_book = [
+        {"size": {"localizedName": "1個"}, "minNewListingPrice": 7800, "listingItemCount": 20},
+    ]
+    sh_lots = collect_lots(shrink_book)
+    ns_lots = collect_lots(ns_book)
+    sh_best = pick_cheapest_lot(sh_lots)
+    ns_best = pick_cheapest_lot(ns_lots)
+    _assert([x["qty"] for x in sh_lots] == [1, 3, 4], sh_lots)
+    _assert(sh_best is not None and sh_best["qty"] == 3, sh_best)
+    _assert(ns_best is not None and ns_best["qty"] == 1, ns_best)
+    _assert(abs(sh_best["unit_yen"] - 9000.0) < 0.01, sh_best)
+    _assert(abs(ns_best["unit_yen"] - 7800.0) < 0.01, ns_best)
+    _assert(sh_best["landed_yen"] < ns_best["landed_yen"], (sh_best, ns_best))
+    _assert(ns_best["unit_yen"] < sh_best["unit_yen"], "ns 1-box unit cheaper before freight")
 
     ns_sizes = json.loads((TESTDATA / "sizes-846050.json").read_text(encoding="utf-8"))
     ns_app = json.loads((TESTDATA / "apparel-846050.json").read_text(encoding="utf-8"))
@@ -443,6 +552,10 @@ def self_test() -> None:
     _assert(sample["as_of"] == "2026-10-07 18:54 Asia/Shanghai", "must not bump card as_of")
     _assert(sample["sets"]["M6"]["snkrdunk_ns_id"] == 846050, "store fetched ns id")
     _assert(sample["sets"]["M6"]["landed"]["shrink"]["qty_label"] == "4個", sample)
+    _assert(sample["sets"]["M6"]["landed"]["shrink"]["qty"] == 4, sample)
+    sealed_sh = sample["sets"]["M6"]["sealed_box"]["shrink"]
+    _assert([x["qty"] for x in sealed_sh["lots"]] == [1, 2, 3, 4], sealed_sh["lots"])
+    _assert(all("landed_yen" in x for x in sealed_sh["lots"]), sealed_sh["lots"])
 
     write_data_files(TESTDATA, {"as_of": "x", "sets": {}})
     stray_json = TESTDATA / "data.json"
@@ -582,12 +695,22 @@ def refresh(
 
     notes = data.setdefault("notes", {})
     notes["sealed_box_as_of"] = as_of
+    notes["denominator"] = "landed_yen = unit_yen×1.035 + (HK$173 × 20.3) / qty"
+    notes["method_denom"] = (
+        "HK-landed sealed box = SNKR unit ×1.035 + ship (HK$173 × ¥20.3 / qty of that order). "
+        "EV denom is the cheapest landed_yen among usable 1–4 box lots on each side "
+        "(shrink / no-shrink). Not SNKR single-pack floor. Duties/taxes excluded. "
+        "UI HKD override still beats denom. Calc tip shows snapshot cheapest lot size, not live."
+    )
     notes["method_sealed_box"] = (
         "HK-landed shrink / no-shrink from public SNKRDUNK new-listing lot asks "
-        "(prefer 4 then 3 then 2 then 1 box). unit_yen = lot ÷ qty. "
-        "landed_yen = unit×1.035 + (HK$173/4)×20.3. View-only public JSON; "
-        "no login / buy / bid. Missing fetch keeps the previous snapshot; "
-        "never invent IDs or prices. PriceCharting booster-box ungraded avg is display-only."
+        "(keep usable 1/2/3/4-box tiers after unit bounds, multi-listing depth, "
+        "and vs-single band). unit_yen = lot ÷ qty. "
+        "landed_yen = unit×1.035 + (HK$173 × 20.3) / qty "
+        "(shipping amortized over that order's box count). "
+        "EV denom = min landed_yen per side; winning qty stored on landed.*. "
+        "View-only public JSON; no login / buy / bid. Missing fetch keeps the previous "
+        "snapshot; never invent IDs or prices. PriceCharting booster-box ungraded avg is display-only."
     )
     data.setdefault("fx", {})
     data["fx"]["jpy_per_hkd"] = JPY_PER_HKD
@@ -646,13 +769,15 @@ def print_report(stats: dict) -> None:
     for row in stats["rows"]:
         sh = row["shrink"]
         ns = row["ns"]
+        sh_n = len(sh.get("lots") or []) if sh else 0
+        ns_n = len(ns.get("lots") or []) if ns else 0
         sh_s = (
-            f"¥{sh['unit_yen']:.0f}/{sh['qty_label']} → landed ¥{sh['landed_yen']:.0f}"
+            f"¥{sh['unit_yen']:.0f}/{sh['qty_label']} → landed ¥{sh['landed_yen']:.0f} ({sh_n} tiers)"
             if sh
             else "kept"
         )
         ns_s = (
-            f"¥{ns['unit_yen']:.0f}/{ns['qty_label']}"
+            f"¥{ns['unit_yen']:.0f}/{ns['qty_label']} ({ns_n} tiers)"
             if ns
             else "kept"
         )

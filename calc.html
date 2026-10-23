@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>日盒 EV 小算盤 v1.30.6 · JP Mega Sealed</title>
+<title>日盒 EV 小算盤 v1.31.8 · JP Mega Sealed</title>
 <meta name="description" content="日盒開盒 EV 小算盤：選系列睇四個預期回報 %、有膜／無膜落地、chase 單卡。靜態快照，非正式投資建議。" />
 <meta property="og:site_name" content="日盒開盒值不值？" />
 <meta property="og:title" content="日盒 EV 小算盤 · JP Mega Sealed" />
@@ -508,6 +508,60 @@
     opacity: .45;
     cursor: not-allowed;
   }
+  .lot-tip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 8px;
+    margin: 0 0 8px;
+    padding: 6px 10px;
+    font-size: .72rem;
+    line-height: 1.45;
+    font-weight: 600;
+    color: var(--text);
+    background: var(--bg-2);
+    border: var(--bw) solid var(--ink);
+    border-radius: 10px;
+    box-shadow: var(--shadow-xs);
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+  .lot-tip[hidden] { display: none !important; }
+  .lot-tip-lead { font-weight: 800; white-space: nowrap; }
+  .lot-tip-side {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 4px;
+    white-space: nowrap;
+    flex-wrap: nowrap;
+  }
+  .lot-tip-sep { color: var(--muted); font-weight: 600; }
+  .lot-tip-price {
+    font-variant-numeric: tabular-nums;
+    font-weight: 800;
+    color: var(--text);
+  }
+  .lot-tip a.lot-tip-link {
+    color: var(--text);
+    text-decoration: none;
+    border-bottom: 2px solid var(--accent-fill);
+    font-weight: 800;
+  }
+  .lot-tip a.lot-tip-link:hover { border-bottom-style: solid; color: var(--ink); }
+  .lot-tip-flag {
+    display: inline-block;
+    font-weight: 850;
+    font-size: .66rem;
+    line-height: 1.2;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: var(--accent-fill);
+    color: var(--ink);
+    border: 1.5px solid var(--ink);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
   .sticky-row {
     display: flex;
     align-items: stretch;
@@ -991,7 +1045,7 @@
       min-width: 0;
       max-width: 100%;
     }
-    .card, .verdict, .sticky-ev, .sticky-card, .sticky-drawer, .sticky-row, .sticky-metrics {
+    .card, .verdict, .sticky-ev, .sticky-card, .sticky-drawer, .sticky-row, .sticky-metrics, .lot-tip {
       max-width: 100%;
       min-width: 0;
     }
@@ -1164,6 +1218,16 @@
       max-height: 52px;
       max-width: 100%;
     }
+    .lot-tip {
+      margin: 6px 0 8px;
+      padding: 6px 8px;
+      font-size: .68rem;
+      gap: 4px 6px;
+    }
+    .lot-tip-flag {
+      white-space: nowrap;
+      max-width: 100%;
+    }
     .sticky-head h2 {
       flex: 1 1 auto;
       min-width: 0;
@@ -1298,7 +1362,7 @@
 <header>
   <div class="header-inner">
     <div class="header-top">
-      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.30.6</span></h1>
+      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.31.8</span></h1>
       <nav class="header-nav" aria-label="站內導覽">
         <a class="nav-btn" href="./calc.html">開盒 EV</a>
         <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
@@ -1356,6 +1420,7 @@
             <button type="button" class="sticky-more" id="stickyMore" aria-expanded="false" aria-controls="stickyDrawer">設定</button>
           </div>
         </div>
+        <p class="lot-tip" id="lotTip" hidden></p>
         <div class="sticky-drawer" id="stickyDrawer">
           <div class="sticky-row">
             <img class="sticky-box" id="stickyBox" alt="" width="64" height="64" loading="lazy" decoding="async" />
@@ -1428,7 +1493,7 @@
         <li><b>有膜／無膜</b>只改分母（落地盒價），分子不變。</li>
         <li><b>紅綠燈</b>：值得考慮 ≥ 55% · 普通 40%–55% · 偏貴 &lt; 40%（睇打折分數）。</li>
         <li><b>匯率</b>：日圓 → <b>HK$ = ¥ ÷ 20.3</b>；美元 → <b>HK$ = USD × 7.80</b>。頁面以 HK$ 為主；PSA／CGC 費用用 USD 編輯。</li>
-        <li><b>落地分母</b>：盒價（有膜／無膜）× 1.035 + 運費分攤；未含稅／關稅。盒價係 <a href="https://snkrdunk.com/en" target="_blank" rel="noopener">SNKRDUNK</a> 公開掛牌快照（通常 2–4 盒一組），唔係即時。可用頂部「盒價」改成你實際入手嘅 HK$。</li>
+        <li><b>落地分母</b>：各系列依 <a href="https://snkrdunk.com/en" target="_blank" rel="noopener">SNKRDUNK</a> 公開掛牌快照，分別計算有膜／無膜 1–4 盒各檔的落地單盒成本＝單盒價 × 1.035 +（運費 HK$173 × 20.3）÷ 該次購買盒數。運費按該筆訂單盒數攤提（買 1 盒時，單盒運費約為買 4 盒的四倍），再取該側最低落地單盒作為 EV 分母。頂欄「落地最優」顯示此快照下最便宜的購買盒數，並非即時行情。未含稅／關稅。可用頂部「盒價」改為你實際入手的 HK$。</li>
         <li><b>來源連結</b>：系列名旁可開 <a href="https://www.pricecharting.com/category/pokemon-cards" target="_blank" rel="noopener">PriceCharting</a> 盒頁同 <a href="https://snkrdunk.com/en" target="_blank" rel="noopener">SNKRDUNK</a> 有膜產品頁。「回到默認」還原折扣、費用同盒價。</li>
         <li><b>Gem 折扣</b>（進階，預設 <b>20%</b>）：送評路徑嘅有效 gem = 公佈 gem × (1 − 折扣)，留少少挑選偏差。</li>
         <li><b>抽出率</b>（社群估計，非正式）：每盒先計保底張數，再加「多一格 chase」（額外 SR <i>或</i> SAR，唔加兩次）。MEGA 盒大致 AR×3 + 道具 SR×1 + 1 格 chase；SV 盒大致 AR×3 + 1 格 SR／SAR／UR。同一稀有度用均價（好貴嘅一張會拉高）。來源：<a href="https://pokemon-infomation.com/" target="_blank" rel="noopener">Pokegto</a>、<a href="https://pokeka-atari.jp/" target="_blank" rel="noopener">pokeka-atari</a>、<a href="https://axstex01.com/" target="_blank" rel="noopener">axstex</a>。</li>
@@ -1450,13 +1515,13 @@
 <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="放大圖">
   <img id="lightboxImg" alt="" />
 </div>
-<footer><img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" /><span>日盒 EV 小算盤 <b>v1.30.6</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期 · <a href="./index.html">首頁</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10.html">JP PSA10</a> · <a href="./market-jp-psa10-bench.html">JP 基準</a> · <a href="./market-base-psa-pop.html">Base POP</a></span></footer>
+<footer><img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" /><span>日盒 EV 小算盤 <b>v1.31.8</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期 · <a href="./index.html">首頁</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10.html">JP PSA10</a> · <a href="./market-jp-psa10-bench.html">JP 基準</a> · <a href="./market-base-psa-pop.html">Base POP</a></span></footer>
 
-<script src="./data.js?v=1.30.6"></script>
+<script src="./data.js?v=1.31.8"></script>
 <script>
 (async function () {
   // Keep in sync with the data.js?v= query above.
-  const VERSION = '1.30.6';
+  const VERSION = '1.31.8';
   async function loadJson(rel) {
     const url = new URL(rel, document.baseURI || window.location.href);
     url.searchParams.set('v', VERSION);
@@ -1721,6 +1786,52 @@
     const hkd = n / FX_JPY_PER_HKD;
     const sign = hkd < 0 ? '-' : '';
     return sign + 'HK$' + Math.abs(Math.round(hkd)).toLocaleString('en-US');
+  }
+  function bestLotSide(set, kind) {
+    const sealed = set && set.sealed_box && set.sealed_box[kind];
+    const rawLots = sealed && Array.isArray(sealed.lots) ? sealed.lots : [];
+    const lots = rawLots.filter((x) => {
+      return x && x.landed_yen != null && Number(x.landed_yen) > 0 && Number(x.qty) >= 1;
+    });
+    if (!lots.length) return null;
+    return lots.reduce((a, b) => {
+      const al = Number(a.landed_yen);
+      const bl = Number(b.landed_yen);
+      if (bl < al) return b;
+      if (bl === al && Number(b.qty) > Number(a.qty)) return b;
+      return a;
+    });
+  }
+  function lotTipSideHtml(label, lot, url) {
+    const qtyTxt = label + ' ' + lot.qty + ' 盒';
+    const price = fmtHkdFromYen(lot.landed_yen);
+    const title = fmtYen(lot.landed_yen) + '／盒';
+    const inner = url
+      ? ('<a class="lot-tip-link" href="' + escapeHtml(url) + '" target="_blank" rel="noopener" title="' +
+        escapeHtml(title) + '">' + qtyTxt + '</a>')
+      : ('<span title="' + escapeHtml(title) + '">' + qtyTxt + '</span>');
+    return '<span class="lot-tip-side">' + inner + ' <span class="lot-tip-price">' + price + '</span></span>';
+  }
+  function renderLotTip(set) {
+    const el = $('lotTip');
+    if (!el) return;
+    const ns = bestLotSide(set, 'ns');
+    const sh = bestLotSide(set, 'shrink');
+    const parts = [];
+    if (ns) parts.push(lotTipSideHtml('無膜', ns, set.snkrdunk_ns_url || ''));
+    if (sh) parts.push(lotTipSideHtml('有膜', sh, set.snkrdunk_shrink_url || ''));
+    if (!parts.length) {
+      el.hidden = true;
+      el.innerHTML = '';
+      return;
+    }
+    let html = '<span class="lot-tip-lead">SNKRDUNK 落地最優：</span>' +
+      parts.join('<span class="lot-tip-sep"> · </span>');
+    if (sh && ns && Number(sh.landed_yen) < Number(ns.landed_yen) && Number(sh.qty) > 1) {
+      html += '<span class="lot-tip-flag">有膜多盒更便宜</span>';
+    }
+    el.innerHTML = html;
+    el.hidden = false;
   }
   function fmtHkdFromUsd(n) {
     if (n == null || Number.isNaN(n)) return '—';
@@ -2053,6 +2164,7 @@
     togN.classList.toggle('active', landDenom === 'ns');
     const hasNS = setHasNsLanded(r.set);
     togN.disabled = !hasNS;
+    renderLotTip(r.set);
 
     function metricHTML(label, ratio, yen, missingNote) {
       if (missingNote) {
