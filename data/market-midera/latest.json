@@ -1,7 +1,7 @@
 {
-  "generated": "2026-10-23T00:03:08.140709+00:00",
-  "sourceStamp": "2026-10-22T20:06:32+0000",
-  "asOfDate": "2026-10-22",
+  "generated": "2026-10-23T23:53:51.228886+00:00",
+  "sourceStamp": "2026-10-23T20:06:07+0000",
+  "asOfDate": "2026-10-23",
   "priceSource": "TCGplayer Market Price (TickerMint history + TCGCSV daily snap)",
   "universe": "English DP→SM raw / ungraded chase singles (TCGPlayer Market, NM)",
   "staleDays": 70,
@@ -9,19 +9,26 @@
   "name": "Mid-era Top 50",
   "nameZh": "中世代 Top 50",
   "era": "DP-SM",
-  "index": 4806.27,
-  "prevIndex": 4835.81,
-  "change": -29.54,
-  "changePct": -0.61,
+  "index": 4799.92,
+  "prevIndex": 4806.27,
+  "change": -6.35,
+  "changePct": -0.13,
   "changeLabel": "vs previous snapshot",
   "divisor": 8.79424742687378,
   "baseValue": 1000.0,
   "baseDate": "2024-02-08",
   "listedCount": 50,
   "constituentCount": 50,
-  "totalValue": 42267.49,
-  "pricedToday": 49,
+  "totalValue": 42211.67,
+  "pricedToday": 48,
   "listedUnpriced": [
+    {
+      "id": "88096",
+      "name": "Pikachu",
+      "number": "7",
+      "rarity": "Promo",
+      "setName": "Rumble"
+    },
     {
       "id": "87423",
       "name": "Mewtwo",
@@ -32,42 +39,30 @@
   ],
   "breadth": {
     "available": true,
-    "advancing": 2,
-    "declining": 3,
-    "unchanged": 44
+    "advancing": 3,
+    "declining": 4,
+    "unchanged": 41
   },
   "gainers": [
     {
-      "id": "87406",
-      "name": "Mew - BW98",
-      "number": "BW98",
-      "image": "https://tcgplayer-cdn.tcgplayer.com/product/87406_200w.jpg",
-      "setName": "Black and White Promos",
-      "price": 497.49,
-      "prevPrice": 489.99,
-      "changePct": 1.53
+      "id": "85926",
+      "name": "Groudon (Shiny)",
+      "number": "SL4",
+      "image": "https://tcgplayer-cdn.tcgplayer.com/product/85926_200w.jpg",
+      "setName": "Call of Legends",
+      "price": 521.25,
+      "prevPrice": 514.16,
+      "changePct": 1.38
     },
     {
-      "id": "90146",
-      "name": "Umbreon (Prime)",
-      "number": "86/90",
-      "image": "https://tcgplayer-cdn.tcgplayer.com/product/90146_200w.jpg",
-      "setName": "Undaunted",
-      "price": 676.85,
-      "prevPrice": 667.7,
-      "changePct": 1.37
-    }
-  ],
-  "losers": [
-    {
-      "id": "183830",
-      "name": "Gengar & Mimikyu GX (Alternate Full Art)",
-      "number": "165/181",
-      "image": "https://tcgplayer-cdn.tcgplayer.com/product/183830_200w.jpg",
-      "setName": "SM - Team Up",
-      "price": 1894.91,
-      "prevPrice": 2155.56,
-      "changePct": -12.09
+      "id": "94683",
+      "name": "Gengar EX (114 Full Art)",
+      "number": "114/119",
+      "image": "https://tcgplayer-cdn.tcgplayer.com/product/94683_200w.jpg",
+      "setName": "XY - Phantom Forces",
+      "price": 763.24,
+      "prevPrice": 753.67,
+      "changePct": 1.27
     },
     {
       "id": "197780",
@@ -75,19 +70,51 @@
       "number": "SV49/SV94",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/197780_200w.jpg",
       "setName": "Hidden Fates: Shiny Vault",
-      "price": 753.18,
-      "prevPrice": 768.1,
-      "changePct": -1.94
+      "price": 757.1,
+      "prevPrice": 753.18,
+      "changePct": 0.52
+    }
+  ],
+  "losers": [
+    {
+      "id": "85679",
+      "name": "Gengar (Prime)",
+      "number": "94/102",
+      "image": "https://tcgplayer-cdn.tcgplayer.com/product/85679_200w.jpg",
+      "setName": "Triumphant",
+      "price": 623.74,
+      "prevPrice": 665.32,
+      "changePct": -6.25
     },
     {
-      "id": "87916",
-      "name": "Palkia EX (Team Plasma) (100 Full Art)",
-      "number": "100/101",
-      "image": "https://tcgplayer-cdn.tcgplayer.com/product/87916_200w.jpg",
-      "setName": "Plasma Blast",
-      "price": 525.64,
-      "prevPrice": 526.5,
-      "changePct": -0.16
+      "id": "83897",
+      "name": "Blastoise",
+      "number": "137/135",
+      "image": "https://tcgplayer-cdn.tcgplayer.com/product/83897_200w.jpg",
+      "setName": "Plasma Storm",
+      "price": 476.97,
+      "prevPrice": 500.0,
+      "changePct": -4.61
+    },
+    {
+      "id": "146698",
+      "name": "Mewtwo GX (Secret Shining)",
+      "number": "78/73",
+      "image": "https://tcgplayer-cdn.tcgplayer.com/product/146698_200w.jpg",
+      "setName": "Shining Legends",
+      "price": 823.04,
+      "prevPrice": 830.72,
+      "changePct": -0.92
+    },
+    {
+      "id": "94689",
+      "name": "Dialga EX (122 Secret Rare)",
+      "number": "122/119",
+      "image": "https://tcgplayer-cdn.tcgplayer.com/product/94689_200w.jpg",
+      "setName": "XY - Phantom Forces",
+      "price": 1018.2,
+      "prevPrice": 1022.31,
+      "changePct": -0.4
     }
   ],
   "top": [
@@ -158,7 +185,7 @@
       "number": "122/119",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/94689_200w.jpg",
       "setName": "XY - Phantom Forces",
-      "price": 1022.31,
+      "price": 1018.2,
       "rarity": "Secret Rare"
     },
     {
@@ -211,7 +238,7 @@
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/88096_200w.jpg",
       "price": 899.99,
       "printing": "Holofoil",
-      "carried": false
+      "carried": true
     },
     {
       "id": "87423",
@@ -259,7 +286,7 @@
       "number": "78/73",
       "rarity": "Shiny Holo Rare",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/146698_200w.jpg",
-      "price": 830.72,
+      "price": 823.04,
       "printing": "Holofoil",
       "carried": false
     },
@@ -299,7 +326,7 @@
       "number": "94/102",
       "rarity": "Ultra Rare",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/85679_200w.jpg",
-      "price": 665.32,
+      "price": 623.74,
       "printing": "Holofoil",
       "carried": false
     },
@@ -409,7 +436,7 @@
       "number": "114/119",
       "rarity": "Ultra Rare",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/94683_200w.jpg",
-      "price": 753.67,
+      "price": 763.24,
       "printing": "Holofoil",
       "carried": false
     },
@@ -429,7 +456,7 @@
       "number": "122/119",
       "rarity": "Secret Rare",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/94689_200w.jpg",
-      "price": 1022.31,
+      "price": 1018.2,
       "printing": "Holofoil",
       "carried": false
     },
@@ -489,7 +516,7 @@
       "number": "137/135",
       "rarity": "Secret Rare",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/83897_200w.jpg",
-      "price": 500.0,
+      "price": 476.97,
       "printing": "Holofoil",
       "carried": false
     },
@@ -609,7 +636,7 @@
       "number": "SV49/SV94",
       "rarity": "Shiny Holo Rare",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/197780_200w.jpg",
-      "price": 753.18,
+      "price": 757.1,
       "printing": "Holofoil",
       "carried": false
     },
@@ -629,7 +656,7 @@
       "number": "SL4",
       "rarity": "Shiny Holo Rare",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/85926_200w.jpg",
-      "price": 514.16,
+      "price": 521.25,
       "printing": "Holofoil",
       "carried": false
     },
@@ -708,7 +735,7 @@
       "prevPrice": 4499.66,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
@@ -724,7 +751,7 @@
       "prevPrice": 2219.24,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
@@ -737,10 +764,10 @@
       "setId": "2377",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/183830_200w.jpg",
       "price": 1894.91,
-      "prevPrice": 2155.56,
-      "changePct": -12.09,
+      "prevPrice": 1894.91,
+      "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
@@ -756,7 +783,7 @@
       "prevPrice": 1501.23,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
@@ -772,7 +799,7 @@
       "prevPrice": 1199.51,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
@@ -788,7 +815,7 @@
       "prevPrice": 1172.0,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
@@ -800,11 +827,11 @@
       "setName": "XY - Phantom Forces",
       "setId": "1494",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/94689_200w.jpg",
-      "price": 1022.31,
+      "price": 1018.2,
       "prevPrice": 1022.31,
-      "changePct": 0.0,
+      "changePct": -0.4,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
@@ -820,7 +847,7 @@
       "prevPrice": 1013.27,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
@@ -836,7 +863,7 @@
       "prevPrice": 999.99,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
@@ -852,7 +879,7 @@
       "prevPrice": 946.33,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
@@ -868,7 +895,7 @@
       "prevPrice": 904.13,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
@@ -882,10 +909,10 @@
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/88096_200w.jpg",
       "price": 899.99,
       "prevPrice": 899.99,
-      "changePct": 0.0,
+      "changePct": null,
       "printing": "Holofoil",
       "pricedAsOf": "2026-10-22",
-      "carried": false
+      "carried": true
     },
     {
       "rank": 13,
@@ -900,7 +927,7 @@
       "prevPrice": 840.75,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
@@ -916,7 +943,7 @@
       "prevPrice": 833.32,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
@@ -928,11 +955,11 @@
       "setName": "Shining Legends",
       "setId": "2054",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/146698_200w.jpg",
-      "price": 830.72,
+      "price": 823.04,
       "prevPrice": 830.72,
-      "changePct": 0.0,
+      "changePct": -0.92,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
@@ -948,7 +975,7 @@
       "prevPrice": 822.1,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
@@ -964,7 +991,7 @@
       "prevPrice": 803.25,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
@@ -976,11 +1003,11 @@
       "setName": "XY - Phantom Forces",
       "setId": "1494",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/94683_200w.jpg",
-      "price": 753.67,
+      "price": 763.24,
       "prevPrice": 753.67,
-      "changePct": 0.0,
+      "changePct": 1.27,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
@@ -992,11 +1019,11 @@
       "setName": "Hidden Fates: Shiny Vault",
       "setId": "2594",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/197780_200w.jpg",
-      "price": 753.18,
-      "prevPrice": 768.1,
-      "changePct": -1.94,
+      "price": 757.1,
+      "prevPrice": 753.18,
+      "changePct": 0.52,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
@@ -1012,7 +1039,7 @@
       "prevPrice": 750.0,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
@@ -1028,7 +1055,7 @@
       "prevPrice": 708.55,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
@@ -1044,7 +1071,7 @@
       "prevPrice": 699.99,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
@@ -1060,7 +1087,7 @@
       "prevPrice": 698.99,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
@@ -1076,7 +1103,7 @@
       "prevPrice": 698.88,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
@@ -1092,7 +1119,7 @@
       "prevPrice": 697.99,
       "changePct": 0.0,
       "printing": "Normal",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
@@ -1105,30 +1132,14 @@
       "setId": "1403",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/90146_200w.jpg",
       "price": 676.85,
-      "prevPrice": 667.7,
-      "changePct": 1.37,
+      "prevPrice": 676.85,
+      "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
       "rank": 27,
-      "id": "85679",
-      "name": "Gengar (Prime)",
-      "number": "94/102",
-      "rarity": "Ultra Rare",
-      "setName": "Triumphant",
-      "setId": "1381",
-      "image": "https://tcgplayer-cdn.tcgplayer.com/product/85679_200w.jpg",
-      "price": 665.32,
-      "prevPrice": 665.32,
-      "changePct": 0.0,
-      "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
-      "carried": false
-    },
-    {
-      "rank": 28,
       "id": "83857",
       "name": "Black Kyurem EX (145 Full Art)",
       "number": "145/149",
@@ -1140,11 +1151,11 @@
       "prevPrice": 650.48,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
-      "rank": 29,
+      "rank": 28,
       "id": "84193",
       "name": "Charizard",
       "number": "136/135",
@@ -1156,11 +1167,11 @@
       "prevPrice": 649.98,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
-      "rank": 30,
+      "rank": 29,
       "id": "97052",
       "name": "Team Aqua's Kyogre EX",
       "number": "6/34",
@@ -1172,11 +1183,11 @@
       "prevPrice": 645.09,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
-      "rank": 31,
+      "rank": 30,
       "id": "88641",
       "name": "Rayquaza C LV.X - DP47",
       "number": "DP47",
@@ -1188,7 +1199,23 @@
       "prevPrice": 628.77,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
+      "carried": false
+    },
+    {
+      "rank": 31,
+      "id": "85679",
+      "name": "Gengar (Prime)",
+      "number": "94/102",
+      "rarity": "Ultra Rare",
+      "setName": "Triumphant",
+      "setId": "1381",
+      "image": "https://tcgplayer-cdn.tcgplayer.com/product/85679_200w.jpg",
+      "price": 623.74,
+      "prevPrice": 665.32,
+      "changePct": -6.25,
+      "printing": "Holofoil",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
@@ -1204,7 +1231,7 @@
       "prevPrice": 618.98,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
@@ -1220,7 +1247,7 @@
       "prevPrice": 599.99,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
@@ -1236,7 +1263,7 @@
       "prevPrice": 599.14,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
@@ -1252,7 +1279,7 @@
       "prevPrice": 595.06,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
@@ -1268,7 +1295,7 @@
       "prevPrice": 561.22,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
@@ -1284,7 +1311,7 @@
       "prevPrice": 557.5,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
@@ -1300,7 +1327,7 @@
       "prevPrice": 550.7,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
@@ -1332,7 +1359,7 @@
       "prevPrice": 543.39,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
@@ -1345,10 +1372,10 @@
       "setId": "1370",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/87916_200w.jpg",
       "price": 525.64,
-      "prevPrice": 526.5,
-      "changePct": -0.16,
+      "prevPrice": 525.64,
+      "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
@@ -1360,11 +1387,11 @@
       "setName": "Call of Legends",
       "setId": "1415",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/85926_200w.jpg",
-      "price": 514.16,
+      "price": 521.25,
       "prevPrice": 514.16,
-      "changePct": 0.0,
+      "changePct": 1.38,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
@@ -1380,27 +1407,11 @@
       "prevPrice": 503.58,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
       "rank": 44,
-      "id": "83897",
-      "name": "Blastoise",
-      "number": "137/135",
-      "rarity": "Secret Rare",
-      "setName": "Plasma Storm",
-      "setId": "1413",
-      "image": "https://tcgplayer-cdn.tcgplayer.com/product/83897_200w.jpg",
-      "price": 500.0,
-      "prevPrice": 500.0,
-      "changePct": 0.0,
-      "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
-      "carried": false
-    },
-    {
-      "rank": 45,
       "id": "84758",
       "name": "Deoxys (Shiny)",
       "number": "SL1",
@@ -1412,11 +1423,11 @@
       "prevPrice": 500.0,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
-      "rank": 46,
+      "rank": 45,
       "id": "85995",
       "name": "Gyarados (Red)",
       "number": "123/123",
@@ -1428,11 +1439,11 @@
       "prevPrice": 499.99,
       "changePct": 0.0,
       "printing": "Reverse Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
-      "rank": 47,
+      "rank": 46,
       "id": "123436",
       "name": "Pikachu EX - XY124",
       "number": "XY124",
@@ -1444,11 +1455,11 @@
       "prevPrice": 499.82,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
-      "rank": 48,
+      "rank": 47,
       "id": "87406",
       "name": "Mew - BW98",
       "number": "BW98",
@@ -1457,14 +1468,14 @@
       "setId": "1407",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/87406_200w.jpg",
       "price": 497.49,
-      "prevPrice": 489.99,
-      "changePct": 1.53,
+      "prevPrice": 497.49,
+      "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
-      "rank": 49,
+      "rank": 48,
       "id": "201334",
       "name": "Blastoise & Piplup GX (Alternate Full Art)",
       "number": "215/236",
@@ -1476,11 +1487,11 @@
       "prevPrice": 490.39,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     },
     {
-      "rank": 50,
+      "rank": 49,
       "id": "126022",
       "name": "Charizard (XY Evolutions Prerelease)",
       "number": "11/108",
@@ -1492,48 +1503,52 @@
       "prevPrice": 479.99,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-10-22",
+      "pricedAsOf": "2026-10-23",
+      "carried": false
+    },
+    {
+      "rank": 50,
+      "id": "83897",
+      "name": "Blastoise",
+      "number": "137/135",
+      "rarity": "Secret Rare",
+      "setName": "Plasma Storm",
+      "setId": "1413",
+      "image": "https://tcgplayer-cdn.tcgplayer.com/product/83897_200w.jpg",
+      "price": 476.97,
+      "prevPrice": 500.0,
+      "changePct": -4.61,
+      "printing": "Holofoil",
+      "pricedAsOf": "2026-10-23",
       "carried": false
     }
   ],
   "movers": {
     "1D": {
       "available": true,
-      "baselineDate": "2026-10-21",
+      "baselineDate": "2026-10-22",
       "neededBy": null,
       "label": "vs previous snapshot",
       "gainers": [
         {
-          "id": "87406",
-          "name": "Mew - BW98",
-          "number": "BW98",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/87406_200w.jpg",
-          "setName": "Black and White Promos",
-          "price": 497.49,
-          "prevPrice": 489.99,
-          "changePct": 1.53
+          "id": "85926",
+          "name": "Groudon (Shiny)",
+          "number": "SL4",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/85926_200w.jpg",
+          "setName": "Call of Legends",
+          "price": 521.25,
+          "prevPrice": 514.16,
+          "changePct": 1.38
         },
         {
-          "id": "90146",
-          "name": "Umbreon (Prime)",
-          "number": "86/90",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/90146_200w.jpg",
-          "setName": "Undaunted",
-          "price": 676.85,
-          "prevPrice": 667.7,
-          "changePct": 1.37
-        }
-      ],
-      "losers": [
-        {
-          "id": "183830",
-          "name": "Gengar & Mimikyu GX (Alternate Full Art)",
-          "number": "165/181",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/183830_200w.jpg",
-          "setName": "SM - Team Up",
-          "price": 1894.91,
-          "prevPrice": 2155.56,
-          "changePct": -12.09
+          "id": "94683",
+          "name": "Gengar EX (114 Full Art)",
+          "number": "114/119",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/94683_200w.jpg",
+          "setName": "XY - Phantom Forces",
+          "price": 763.24,
+          "prevPrice": 753.67,
+          "changePct": 1.27
         },
         {
           "id": "197780",
@@ -1541,33 +1556,65 @@
           "number": "SV49/SV94",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/197780_200w.jpg",
           "setName": "Hidden Fates: Shiny Vault",
-          "price": 753.18,
-          "prevPrice": 768.1,
-          "changePct": -1.94
+          "price": 757.1,
+          "prevPrice": 753.18,
+          "changePct": 0.52
+        }
+      ],
+      "losers": [
+        {
+          "id": "85679",
+          "name": "Gengar (Prime)",
+          "number": "94/102",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/85679_200w.jpg",
+          "setName": "Triumphant",
+          "price": 623.74,
+          "prevPrice": 665.32,
+          "changePct": -6.25
         },
         {
-          "id": "87916",
-          "name": "Palkia EX (Team Plasma) (100 Full Art)",
-          "number": "100/101",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/87916_200w.jpg",
-          "setName": "Plasma Blast",
-          "price": 525.64,
-          "prevPrice": 526.5,
-          "changePct": -0.16
+          "id": "83897",
+          "name": "Blastoise",
+          "number": "137/135",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/83897_200w.jpg",
+          "setName": "Plasma Storm",
+          "price": 476.97,
+          "prevPrice": 500.0,
+          "changePct": -4.61
+        },
+        {
+          "id": "146698",
+          "name": "Mewtwo GX (Secret Shining)",
+          "number": "78/73",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/146698_200w.jpg",
+          "setName": "Shining Legends",
+          "price": 823.04,
+          "prevPrice": 830.72,
+          "changePct": -0.92
+        },
+        {
+          "id": "94689",
+          "name": "Dialga EX (122 Secret Rare)",
+          "number": "122/119",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/94689_200w.jpg",
+          "setName": "XY - Phantom Forces",
+          "price": 1018.2,
+          "prevPrice": 1022.31,
+          "changePct": -0.4
         }
       ],
       "breadth": {
         "available": true,
-        "advancing": 2,
-        "declining": 3,
-        "unchanged": 44
+        "advancing": 3,
+        "declining": 4,
+        "unchanged": 41
       }
     },
     "5D": {
       "available": true,
-      "baselineDate": "2026-10-17",
-      "neededBy": "2026-10-17",
-      "label": "vs 2026-10-17",
+      "baselineDate": "2026-10-18",
+      "neededBy": "2026-10-18",
+      "label": "vs 2026-10-18",
       "gainers": [
         {
           "id": "91246",
@@ -1610,26 +1657,6 @@
           "changePct": 8.99
         },
         {
-          "id": "85679",
-          "name": "Gengar (Prime)",
-          "number": "94/102",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/85679_200w.jpg",
-          "setName": "Triumphant",
-          "price": 665.32,
-          "prevPrice": 623.74,
-          "changePct": 6.67
-        },
-        {
-          "id": "87916",
-          "name": "Palkia EX (Team Plasma) (100 Full Art)",
-          "number": "100/101",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/87916_200w.jpg",
-          "setName": "Plasma Blast",
-          "price": 525.64,
-          "prevPrice": 508.12,
-          "changePct": 3.45
-        },
-        {
           "id": "123436",
           "name": "Pikachu EX - XY124",
           "number": "XY124",
@@ -1668,6 +1695,26 @@
           "price": 497.49,
           "prevPrice": 489.99,
           "changePct": 1.53
+        },
+        {
+          "id": "85926",
+          "name": "Groudon (Shiny)",
+          "number": "SL4",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/85926_200w.jpg",
+          "setName": "Call of Legends",
+          "price": 521.25,
+          "prevPrice": 514.16,
+          "changePct": 1.38
+        },
+        {
+          "id": "90146",
+          "name": "Umbreon (Prime)",
+          "number": "86/90",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/90146_200w.jpg",
+          "setName": "Undaunted",
+          "price": 676.85,
+          "prevPrice": 667.7,
+          "changePct": 1.37
         }
       ],
       "losers": [
@@ -1692,6 +1739,16 @@
           "changePct": -12.09
         },
         {
+          "id": "89397",
+          "name": "Snorlax Lv.X",
+          "number": "111/111",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/89397_200w.jpg",
+          "setName": "Rising Rivals",
+          "price": 999.99,
+          "prevPrice": 1099.99,
+          "changePct": -9.09
+        },
+        {
           "id": "84190",
           "name": "Charizard",
           "number": "103/100",
@@ -1700,6 +1757,16 @@
           "price": 699.99,
           "prevPrice": 737.5,
           "changePct": -5.09
+        },
+        {
+          "id": "83897",
+          "name": "Blastoise",
+          "number": "137/135",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/83897_200w.jpg",
+          "setName": "Plasma Storm",
+          "price": 476.97,
+          "prevPrice": 500.0,
+          "changePct": -4.61
         },
         {
           "id": "85682",
@@ -1717,19 +1784,19 @@
           "number": "SV49/SV94",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/197780_200w.jpg",
           "setName": "Hidden Fates: Shiny Vault",
-          "price": 753.18,
+          "price": 757.1,
           "prevPrice": 768.1,
-          "changePct": -1.94
+          "changePct": -1.43
         },
         {
-          "id": "94683",
-          "name": "Gengar EX (114 Full Art)",
-          "number": "114/119",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/94683_200w.jpg",
-          "setName": "XY - Phantom Forces",
-          "price": 753.67,
-          "prevPrice": 761.04,
-          "changePct": -0.97
+          "id": "146698",
+          "name": "Mewtwo GX (Secret Shining)",
+          "number": "78/73",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/146698_200w.jpg",
+          "setName": "Shining Legends",
+          "price": 823.04,
+          "prevPrice": 830.72,
+          "changePct": -0.92
         },
         {
           "id": "90592",
@@ -1740,19 +1807,29 @@
           "price": 543.39,
           "prevPrice": 545.71,
           "changePct": -0.43
+        },
+        {
+          "id": "94689",
+          "name": "Dialga EX (122 Secret Rare)",
+          "number": "122/119",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/94689_200w.jpg",
+          "setName": "XY - Phantom Forces",
+          "price": 1018.2,
+          "prevPrice": 1022.31,
+          "changePct": -0.4
         }
       ],
       "breadth": {
         "available": true,
-        "advancing": 14,
-        "declining": 7,
-        "unchanged": 28
+        "advancing": 13,
+        "declining": 11,
+        "unchanged": 24
       }
     },
     "30D": {
       "available": true,
       "baselineDate": "2026-09-17",
-      "neededBy": "2026-09-22",
+      "neededBy": "2026-09-23",
       "label": "vs 2026-09-17",
       "gainers": [
         {
@@ -1908,26 +1985,6 @@
           "changePct": -2.49
         },
         {
-          "id": "94683",
-          "name": "Gengar EX (114 Full Art)",
-          "number": "114/119",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/94683_200w.jpg",
-          "setName": "XY - Phantom Forces",
-          "price": 753.67,
-          "prevPrice": 768.15,
-          "changePct": -1.89
-        },
-        {
-          "id": "197780",
-          "name": "Charizard GX",
-          "number": "SV49/SV94",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/197780_200w.jpg",
-          "setName": "Hidden Fates: Shiny Vault",
-          "price": 753.18,
-          "prevPrice": 764.12,
-          "changePct": -1.43
-        },
-        {
           "id": "201334",
           "name": "Blastoise & Piplup GX (Alternate Full Art)",
           "number": "215/236",
@@ -1943,9 +2000,29 @@
           "number": "122/119",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/94689_200w.jpg",
           "setName": "XY - Phantom Forces",
-          "price": 1022.31,
+          "price": 1018.2,
           "prevPrice": 1029.48,
-          "changePct": -0.7
+          "changePct": -1.1
+        },
+        {
+          "id": "197780",
+          "name": "Charizard GX",
+          "number": "SV49/SV94",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/197780_200w.jpg",
+          "setName": "Hidden Fates: Shiny Vault",
+          "price": 757.1,
+          "prevPrice": 764.12,
+          "changePct": -0.92
+        },
+        {
+          "id": "94683",
+          "name": "Gengar EX (114 Full Art)",
+          "number": "114/119",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/94683_200w.jpg",
+          "setName": "XY - Phantom Forces",
+          "price": 763.24,
+          "prevPrice": 768.15,
+          "changePct": -0.64
         },
         {
           "id": "87406",
@@ -1962,14 +2039,14 @@
         "available": true,
         "advancing": 29,
         "declining": 12,
-        "unchanged": 8
+        "unchanged": 7
       }
     },
     "1Y": {
       "available": true,
-      "baselineDate": "2025-10-16",
-      "neededBy": "2025-10-22",
-      "label": "vs 2025-10-16",
+      "baselineDate": "2025-10-23",
+      "neededBy": "2025-10-23",
+      "label": "vs 2025-10-23",
       "gainers": [
         {
           "id": "83605",
@@ -1978,8 +2055,8 @@
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/83605_200w.jpg",
           "setName": "Diamond and Pearl Promos",
           "price": 557.5,
-          "prevPrice": 26.86,
-          "changePct": 1975.58
+          "prevPrice": 28.35,
+          "changePct": 1866.49
         },
         {
           "id": "88628",
@@ -1988,8 +2065,8 @@
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/88628_200w.jpg",
           "setName": "Call of Legends",
           "price": 1013.27,
-          "prevPrice": 52.66,
-          "changePct": 1824.17
+          "prevPrice": 53.57,
+          "changePct": 1791.49
         },
         {
           "id": "88641",
@@ -2068,8 +2145,8 @@
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/88637_200w.jpg",
           "setName": "Undaunted",
           "price": 599.99,
-          "prevPrice": 149.91,
-          "changePct": 300.23
+          "prevPrice": 149.78,
+          "changePct": 300.58
         }
       ],
       "losers": [],
@@ -2137,16 +2214,6 @@
           "changePct": 373.09
         },
         {
-          "id": "88096",
-          "name": "Pikachu",
-          "number": "7",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/88096_200w.jpg",
-          "setName": "Rumble",
-          "price": 899.99,
-          "prevPrice": 199.43,
-          "changePct": 351.28
-        },
-        {
           "id": "88641",
           "name": "Rayquaza C LV.X - DP47",
           "number": "DP47",
@@ -2185,6 +2252,16 @@
           "price": 599.99,
           "prevPrice": 179.32,
           "changePct": 234.59
+        },
+        {
+          "id": "88638",
+          "name": "Rayquaza & Deoxys Legend (Top)",
+          "number": "89/90",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/88638_200w.jpg",
+          "setName": "Undaunted",
+          "price": 599.14,
+          "prevPrice": 179.89,
+          "changePct": 233.06
         }
       ],
       "losers": [
@@ -2214,9 +2291,9 @@
           "number": "122/119",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/94689_200w.jpg",
           "setName": "XY - Phantom Forces",
-          "price": 1022.31,
+          "price": 1018.2,
           "prevPrice": 1083.33,
-          "changePct": -5.63
+          "changePct": -6.01
         },
         {
           "id": "94688",
@@ -2234,14 +2311,14 @@
           "number": "114/119",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/94683_200w.jpg",
           "setName": "XY - Phantom Forces",
-          "price": 753.67,
+          "price": 763.24,
           "prevPrice": 764.64,
-          "changePct": -1.43
+          "changePct": -0.18
         }
       ],
       "breadth": {
         "available": true,
-        "advancing": 44,
+        "advancing": 43,
         "declining": 5,
         "unchanged": 0
       }
@@ -2249,8 +2326,8 @@
   },
   "snapshotRange": {
     "earliest": "2024-12-26",
-    "latest": "2026-10-22",
-    "count": 68
+    "latest": "2026-10-23",
+    "count": 69
   },
   "backfill": {
     "source": "tickermint",
