@@ -11,8 +11,8 @@ name: Refresh sealed box prices
 
 on:
   schedule:
-    # Monday 00:17 UTC = Monday 08:17 Asia/Hong_Kong (before 09:00 HKT brief)
-    - cron: "17 0 * * 1"
+    # Sunday 20:00 UTC = Monday ~04:00 HKT (same window as Grok Bot hygiene)
+    - cron: "0 20 * * 0"
   workflow_dispatch: {}
   pull_request:
 

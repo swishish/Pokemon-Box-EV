@@ -217,7 +217,7 @@ python3 tools/export_chase_fit.py /path/to/pokemon_psa10_regression_YYYY-MM-DD.x
 
 算盤頂欄「盒價」嘅預設分母（有膜／無膜落地）而家可以用公開頁自動更新，**唔使逐個盒抄價**。只讀 SNKRDUNK／PriceCharting 公開資料，**唔會登入、下單、出價或傳訊息**。
 
-**每週一自動刷新**（GitHub Action cron：週一 00:17 UTC ≈ 香港時間 08:17；亦可 Actions 頁手動 **Run workflow**）。盒價唔使日日睇。
+**每週一自動刷新**（GitHub Action cron：週日 20:00 UTC ≈ 香港時間週一 ~04:00；亦可 Actions 頁手動 **Run workflow**）。盒價唔使日日睇。
 
 1. 預設等週一 cron；或打開 GitHub → **Actions** → **Refresh sealed box prices** → **Run workflow**
 2. 等佢跑完。成功就會自動把新盒價 commit 回 `data.json`／`data.js`。
