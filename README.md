@@ -217,11 +217,11 @@ python3 tools/export_chase_fit.py /path/to/pokemon_psa10_regression_YYYY-MM-DD.x
 
 算盤頂欄「盒價」嘅預設分母（有膜／無膜落地）而家可以用公開頁自動更新，**唔使逐個盒抄價**。只讀 SNKRDUNK／PriceCharting 公開資料，**唔會登入、下單、出價或傳訊息**。
 
-**一週刷新一次就夠**（盒價會變，但唔使日日睇）。
+**每週一自動刷新**（GitHub Action cron：週一 00:17 UTC ≈ 香港時間 08:17；亦可 Actions 頁手動 **Run workflow**）。盒價唔使日日睇。
 
-1. 打開 GitHub → **Actions** → 左邊揀 **Refresh sealed box prices** → **Run workflow** → 再按一次綠色 **Run workflow**
-2. 等佢跑完。成功就會自動把新盒價寫入網站資料。
-3. 若 Actions 失敗（有時 SNKRDUNK 會擋伺服器 IP），用本機（只要有 Python，唔使安裝套件）：
+1. 預設等週一 cron；或打開 GitHub → **Actions** → **Refresh sealed box prices** → **Run workflow**
+2. 等佢跑完。成功就會自動把新盒價 commit 回 `data.json`／`data.js`。
+3. 若 Actions 失敗（有時 SNKRDUNK 會擋伺服器 IP），用本機／Grok Bot（只要有 Python，唔使安裝套件）：
 
 ```bash
 python3 tools/refresh_sealed_boxes.py --self-test
@@ -236,9 +236,9 @@ python3 tools/refresh_sealed_boxes.py --root .
 
 唔會發明未見過嘅 SNKRDUNK 產品編號或價格；某系列抓唔到就留舊數。
 
-## Box EV 週更（單卡 · 仍然手動）
+## Box EV 週更（單卡 · 仍然手動 — 無 GitHub cron）
 
-開盒算盤 `calc.html` 用 `data.json`／`data.js`。`tools/refresh_box_ev.py` 要先有手存的 PriceCharting **單卡** console HTML（`/tmp/pc-sets/{SET}.html`，例如 `M6.html`）。**沒有這些檔就唔好跑**——腳本會拒絕寫入，避免虛構價格或把 `as_of` 推到今天。SNKRDUNK Grade A **單卡**亦唔會自動爬。市場頁先由 `update-market-en.yml` 每日更新；Chase 同單卡 Box EV 仍然係人手。`calc.html` 資料超過 **8 日**會用橙色過期橫幅。
+開盒算盤 `calc.html` 用 `data.json`／`data.js`。`tools/refresh_box_ev.py` 要先有手存的 PriceCharting **單卡** console HTML（`/tmp/pc-sets/{SET}.html`，例如 `M6.html`）。**沒有這些檔就唔好跑**——腳本會拒絕寫入，避免虛構價格或把 `as_of` 推到今天。**不要**為此加 Actions scrape（會寫壞／虛構）。SNKRDUNK Grade A **單卡**亦唔會自動爬。市場頁先由 `update-market-en.yml` 每日更新；Chase 同單卡 Box EV 仍然係人手／Grok Bot 週一檢查 `as_of`（過 **8 日**橙色橫幅）後再救。`calc.html` 資料超過 **8 日**會用橙色過期橫幅。
 
 ```bash
 python3 tools/refresh_box_ev.py --root . --pc-dir /tmp/pc-sets
