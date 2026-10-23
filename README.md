@@ -1,6 +1,6 @@
 # Pokemon Box EV
 
-日盒 EV 小算盤（朋友向）· **v1.31.8**
+日盒 EV 小算盤（朋友向）· **v1.31.9**
 
 給「不太懂金融／AI」的買卡朋友看的工具：首頁介紹點樣用 → 開盒算盤選系列 → 看 **四個預期回報 %**（同一分母）→ 有膜／無膜切換 → 看主力 chase 卡與「買單卡 vs 開盒」粗略提示。
 
@@ -294,6 +294,7 @@ GitHub Action **Update JP PSA10 broad benchmark** 每晚重算權重、季度重
 
 ## Changelog（摘要）
 
+- **v1.31.9**：開盒 EV 左欄「系列」上方新增**全系列四欄 EV 比較**（100% Grade A／Grade A 打折／A+PSA／A+CGC），沿用同一 `calcSet` 與有膜／無膜分母；無落地或 grade 池不足仍顯示 —。EV 算法不變
 - **v1.31.8**：開盒 EV 顯示 SNKRDUNK **落地最優盒數**（有膜／無膜分開；有膜多盒比最優無膜更便宜時加旗標）。盒價刷新改為保留 1–4 盒各檔，運費按該筆訂單盒數攤提（買 1 盒單盒運費約為 4 盒的四倍），EV 分母取該側最低落地單盒。抽出率／haircut 不變
 - **v1.31.7**：Base PSA POP 補上英文 Base Set **Shadowless**，與 1st Edition／Unlimited／Base Set 2 並列（同一 #1–102 順序；手機一張表並列 1st／Shadowless／Unlimited）。PSA／CGC 合計預設、分開開關、無 Beckett、pop／% 兩欄、半級併入較低整數級不變。PriceCharting slug 由既有 catalog 管線列出，週更 Actions 一併抓 Shadowless POP 與指示價
 - **v1.31.6**：JP PSA10 chase／基準成分籃子刊價改以港元顯示（資料仍為 SNKRDUNK 日圓；HK$＝¥÷20.3，與開盒 EV 同一固定顯示匯率）。手機觸及表格時可繼續捲動頁面。Base PSA POP 表內嵌 PriceCharting 指示價（raw／G7／G8／G9／PSA10，USD×7.80），不另開大表。指數／POP 算法不變
