@@ -1,7 +1,7 @@
 {
-  "generated": "2026-10-24T23:23:25.643154+00:00",
-  "sourceStamp": "2026-10-24T20:05:44+0000",
-  "asOfDate": "2026-10-24",
+  "generated": "2026-10-25T23:22:00.442028+00:00",
+  "sourceStamp": "2026-10-25T20:05:50+0000",
+  "asOfDate": "2026-10-25",
   "priceSource": "TCGplayer Market Price (TickerMint history + TCGCSV daily snap)",
   "universe": "English Base Set raw / ungraded singles — 1st Edition / Shadowless / Unlimited",
   "staleDays": 70,
@@ -46,20 +46,20 @@
       "printing": "1st Edition",
       "groupId": "1663",
       "groupName": "Base Set (Shadowless)",
-      "asOfDate": "2026-10-24",
+      "asOfDate": "2026-10-25",
       "universe": "English Base Set 1st Edition raw / ungraded (TCGPlayer Market, NM)",
       "staleDays": 70,
-      "index": 1254.25,
+      "index": 1253.46,
       "prevIndex": 1254.25,
-      "change": 0.0,
-      "changePct": 0.0,
+      "change": -0.79,
+      "changePct": -0.06,
       "changeLabel": "vs previous snapshot",
       "divisor": 14.534399443144787,
       "baseValue": 1000.0,
       "baseDate": "2024-02-08",
       "listedCount": 31,
       "constituentCount": 31,
-      "totalValue": 18229.78,
+      "totalValue": 18218.25,
       "pricedToday": 28,
       "listedUnpriced": [
         {
@@ -84,11 +84,32 @@
       "breadth": {
         "available": true,
         "advancing": 0,
-        "declining": 0,
-        "unchanged": 28
+        "declining": 2,
+        "unchanged": 26
       },
       "gainers": [],
-      "losers": [],
+      "losers": [
+        {
+          "id": "107076",
+          "name": "Super Energy Removal",
+          "number": "079/102",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107076_200w.jpg",
+          "setName": "Base Set (Shadowless)",
+          "price": 148.4,
+          "prevPrice": 156.8,
+          "changePct": -5.36
+        },
+        {
+          "id": "107074",
+          "name": "Pokemon Breeder",
+          "number": "076/102",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107074_200w.jpg",
+          "setName": "Base Set (Shadowless)",
+          "price": 73.13,
+          "prevPrice": 76.26,
+          "changePct": -4.1
+        }
+      ],
       "top": [
         {
           "rank": 1,
@@ -468,7 +489,7 @@
           "number": "076/102",
           "rarity": "Rare",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/107074_200w.jpg",
-          "price": 76.26,
+          "price": 73.13,
           "printing": "1st Edition",
           "carried": false
         },
@@ -498,7 +519,7 @@
           "number": "079/102",
           "rarity": "Rare",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/107076_200w.jpg",
-          "price": 156.8,
+          "price": 148.4,
           "printing": "1st Edition",
           "carried": false
         }
@@ -549,7 +570,7 @@
           "prevPrice": 981.25,
           "changePct": 0.0,
           "printing": "1st Edition Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -565,7 +586,7 @@
           "prevPrice": 800.0,
           "changePct": 0.0,
           "printing": "1st Edition Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -581,7 +602,7 @@
           "prevPrice": 550.0,
           "changePct": 0.0,
           "printing": "1st Edition Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -597,7 +618,7 @@
           "prevPrice": 407.5,
           "changePct": 0.0,
           "printing": "1st Edition Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -613,7 +634,7 @@
           "prevPrice": 349.96,
           "changePct": 0.0,
           "printing": "1st Edition Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -629,7 +650,7 @@
           "prevPrice": 349.0,
           "changePct": 0.0,
           "printing": "1st Edition Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -645,7 +666,7 @@
           "prevPrice": 335.47,
           "changePct": 0.0,
           "printing": "1st Edition Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -661,7 +682,7 @@
           "prevPrice": 323.42,
           "changePct": 0.0,
           "printing": "1st Edition Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -677,7 +698,7 @@
           "prevPrice": 300.0,
           "changePct": 0.0,
           "printing": "1st Edition Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -693,7 +714,7 @@
           "prevPrice": 300.0,
           "changePct": 0.0,
           "printing": "1st Edition Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -709,7 +730,7 @@
           "prevPrice": 299.99,
           "changePct": 0.0,
           "printing": "1st Edition Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -741,7 +762,7 @@
           "prevPrice": 162.35,
           "changePct": 0.0,
           "printing": "1st Edition",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -757,7 +778,7 @@
           "prevPrice": 160.4,
           "changePct": 0.0,
           "printing": "1st Edition",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -769,11 +790,11 @@
           "setName": "Base Set (Shadowless)",
           "setId": "1663",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/107076_200w.jpg",
-          "price": 156.8,
+          "price": 148.4,
           "prevPrice": 156.8,
-          "changePct": 0.0,
+          "changePct": -5.36,
           "printing": "1st Edition",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -789,7 +810,7 @@
           "prevPrice": 145.66,
           "changePct": 0.0,
           "printing": "1st Edition",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -805,7 +826,7 @@
           "prevPrice": 141.07,
           "changePct": 0.0,
           "printing": "1st Edition Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -821,7 +842,7 @@
           "prevPrice": 127.36,
           "changePct": 0.0,
           "printing": "1st Edition",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -837,7 +858,7 @@
           "prevPrice": 101.1,
           "changePct": 0.0,
           "printing": "1st Edition",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -853,7 +874,7 @@
           "prevPrice": 100.46,
           "changePct": 0.0,
           "printing": "1st Edition",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -869,7 +890,7 @@
           "prevPrice": 88.85,
           "changePct": 0.0,
           "printing": "1st Edition",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -885,7 +906,7 @@
           "prevPrice": 82.62,
           "changePct": 0.0,
           "printing": "1st Edition",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -897,11 +918,11 @@
           "setName": "Base Set (Shadowless)",
           "setId": "1663",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/107074_200w.jpg",
-          "price": 76.26,
+          "price": 73.13,
           "prevPrice": 76.26,
-          "changePct": 0.0,
+          "changePct": -4.1,
           "printing": "1st Edition",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -917,7 +938,7 @@
           "prevPrice": 72.65,
           "changePct": 0.0,
           "printing": "1st Edition",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -933,7 +954,7 @@
           "prevPrice": 69.99,
           "changePct": 0.0,
           "printing": "1st Edition",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -949,7 +970,7 @@
           "prevPrice": 67.8,
           "changePct": 0.0,
           "printing": "1st Edition",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -965,7 +986,7 @@
           "prevPrice": 66.69,
           "changePct": 0.0,
           "printing": "1st Edition",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -981,7 +1002,7 @@
           "prevPrice": 59.14,
           "changePct": 0.0,
           "printing": "1st Edition",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -997,46 +1018,57 @@
           "prevPrice": 50.49,
           "changePct": 0.0,
           "printing": "1st Edition",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         }
       ],
       "snapshotRange": {
         "earliest": "2024-12-26",
-        "latest": "2026-10-24",
-        "count": 70
+        "latest": "2026-10-25",
+        "count": 71
       },
       "movers": {
         "1D": {
           "available": true,
-          "baselineDate": "2026-10-23",
+          "baselineDate": "2026-10-24",
           "neededBy": null,
           "label": "vs previous snapshot",
           "gainers": [],
-          "losers": [],
+          "losers": [
+            {
+              "id": "107076",
+              "name": "Super Energy Removal",
+              "number": "079/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107076_200w.jpg",
+              "setName": "Base Set (Shadowless)",
+              "price": 148.4,
+              "prevPrice": 156.8,
+              "changePct": -5.36
+            },
+            {
+              "id": "107074",
+              "name": "Pokemon Breeder",
+              "number": "076/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107074_200w.jpg",
+              "setName": "Base Set (Shadowless)",
+              "price": 73.13,
+              "prevPrice": 76.26,
+              "changePct": -4.1
+            }
+          ],
           "breadth": {
             "available": true,
             "advancing": 0,
-            "declining": 0,
-            "unchanged": 28
+            "declining": 2,
+            "unchanged": 26
           }
         },
         "5D": {
           "available": true,
-          "baselineDate": "2026-10-19",
-          "neededBy": "2026-10-19",
-          "label": "vs 2026-10-19",
+          "baselineDate": "2026-10-20",
+          "neededBy": "2026-10-20",
+          "label": "vs 2026-10-20",
           "gainers": [
-            {
-              "id": "107000",
-              "name": "Gyarados",
-              "number": "006/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107000_200w.jpg",
-              "setName": "Base Set (Shadowless)",
-              "price": 141.07,
-              "prevPrice": 111.61,
-              "changePct": 26.4
-            },
             {
               "id": "107015",
               "name": "Electabuzz",
@@ -1046,36 +1078,6 @@
               "price": 160.4,
               "prevPrice": 150.6,
               "changePct": 6.51
-            },
-            {
-              "id": "107067",
-              "name": "Clefairy Doll",
-              "number": "070/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107067_200w.jpg",
-              "setName": "Base Set (Shadowless)",
-              "price": 88.85,
-              "prevPrice": 83.57,
-              "changePct": 6.32
-            },
-            {
-              "id": "107016",
-              "name": "Electrode",
-              "number": "021/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107016_200w.jpg",
-              "setName": "Base Set (Shadowless)",
-              "price": 72.65,
-              "prevPrice": 72.22,
-              "changePct": 0.6
-            },
-            {
-              "id": "107075",
-              "name": "Scoop Up",
-              "number": "078/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107075_200w.jpg",
-              "setName": "Base Set (Shadowless)",
-              "price": 66.69,
-              "prevPrice": 66.57,
-              "changePct": 0.18
             }
           ],
           "losers": [
@@ -1088,6 +1090,26 @@
               "price": 59.14,
               "prevPrice": 67.57,
               "changePct": -12.48
+            },
+            {
+              "id": "107076",
+              "name": "Super Energy Removal",
+              "number": "079/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107076_200w.jpg",
+              "setName": "Base Set (Shadowless)",
+              "price": 148.4,
+              "prevPrice": 156.8,
+              "changePct": -5.36
+            },
+            {
+              "id": "107074",
+              "name": "Pokemon Breeder",
+              "number": "076/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107074_200w.jpg",
+              "setName": "Base Set (Shadowless)",
+              "price": 73.13,
+              "prevPrice": 76.26,
+              "changePct": -4.1
             },
             {
               "id": "107073",
@@ -1112,15 +1134,15 @@
           ],
           "breadth": {
             "available": true,
-            "advancing": 5,
-            "declining": 3,
-            "unchanged": 20
+            "advancing": 1,
+            "declining": 5,
+            "unchanged": 22
           }
         },
         "30D": {
           "available": true,
           "baselineDate": "2026-09-24",
-          "neededBy": "2026-09-24",
+          "neededBy": "2026-09-25",
           "label": "vs 2026-09-24",
           "gainers": [
             {
@@ -1246,6 +1268,26 @@
               "changePct": -6.89
             },
             {
+              "id": "107076",
+              "name": "Super Energy Removal",
+              "number": "079/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107076_200w.jpg",
+              "setName": "Base Set (Shadowless)",
+              "price": 148.4,
+              "prevPrice": 158.4,
+              "changePct": -6.31
+            },
+            {
+              "id": "107074",
+              "name": "Pokemon Breeder",
+              "number": "076/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107074_200w.jpg",
+              "setName": "Base Set (Shadowless)",
+              "price": 73.13,
+              "prevPrice": 76.26,
+              "changePct": -4.1
+            },
+            {
               "id": "107073",
               "name": "Pokemon Trader",
               "number": "077/102",
@@ -1264,39 +1306,19 @@
               "price": 82.62,
               "prevPrice": 84.38,
               "changePct": -2.09
-            },
-            {
-              "id": "107071",
-              "name": "Lass",
-              "number": "075/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107071_200w.jpg",
-              "setName": "Base Set (Shadowless)",
-              "price": 100.46,
-              "prevPrice": 102.42,
-              "changePct": -1.91
-            },
-            {
-              "id": "107070",
-              "name": "Impostor Professor Oak",
-              "number": "073/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107070_200w.jpg",
-              "setName": "Base Set (Shadowless)",
-              "price": 69.99,
-              "prevPrice": 71.28,
-              "changePct": -1.81
             }
           ],
           "breadth": {
             "available": true,
             "advancing": 6,
-            "declining": 15,
-            "unchanged": 7
+            "declining": 16,
+            "unchanged": 6
           }
         },
         "1Y": {
           "available": true,
           "baselineDate": "2025-10-23",
-          "neededBy": "2025-10-24",
+          "neededBy": "2025-10-25",
           "label": "vs 2025-10-23",
           "gainers": [
             {
@@ -1365,9 +1387,9 @@
               "number": "076/102",
               "image": "https://tcgplayer-cdn.tcgplayer.com/product/107074_200w.jpg",
               "setName": "Base Set (Shadowless)",
-              "price": 76.26,
+              "price": 73.13,
               "prevPrice": 48.03,
-              "changePct": 58.78
+              "changePct": 52.26
             },
             {
               "id": "107006",
@@ -1442,6 +1464,16 @@
               "changePct": -19.0
             },
             {
+              "id": "107076",
+              "name": "Super Energy Removal",
+              "number": "079/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107076_200w.jpg",
+              "setName": "Base Set (Shadowless)",
+              "price": 148.4,
+              "prevPrice": 180.09,
+              "changePct": -17.6
+            },
+            {
               "id": "107075",
               "name": "Scoop Up",
               "number": "078/102",
@@ -1450,16 +1482,6 @@
               "price": 66.69,
               "prevPrice": 80.52,
               "changePct": -17.18
-            },
-            {
-              "id": "107076",
-              "name": "Super Energy Removal",
-              "number": "079/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107076_200w.jpg",
-              "setName": "Base Set (Shadowless)",
-              "price": 156.8,
-              "prevPrice": 180.09,
-              "changePct": -12.93
             },
             {
               "id": "107017",
@@ -1561,9 +1583,9 @@
               "number": "076/102",
               "image": "https://tcgplayer-cdn.tcgplayer.com/product/107074_200w.jpg",
               "setName": "Base Set (Shadowless)",
-              "price": 76.26,
+              "price": 73.13,
               "prevPrice": 53.45,
-              "changePct": 42.68
+              "changePct": 36.82
             },
             {
               "id": "107003",
@@ -1678,6 +1700,16 @@
               "changePct": -25.87
             },
             {
+              "id": "107076",
+              "name": "Super Energy Removal",
+              "number": "079/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107076_200w.jpg",
+              "setName": "Base Set (Shadowless)",
+              "price": 148.4,
+              "prevPrice": 196.32,
+              "changePct": -24.41
+            },
+            {
               "id": "107011",
               "name": "Zapdos",
               "number": "016/102",
@@ -1686,16 +1718,6 @@
               "price": 300.0,
               "prevPrice": 385.0,
               "changePct": -22.08
-            },
-            {
-              "id": "107076",
-              "name": "Super Energy Removal",
-              "number": "079/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107076_200w.jpg",
-              "setName": "Base Set (Shadowless)",
-              "price": 156.8,
-              "prevPrice": 196.32,
-              "changePct": -20.13
             },
             {
               "id": "107075",
@@ -1734,60 +1756,120 @@
       "printing": "Unlimited Shadowless",
       "groupId": "1663",
       "groupName": "Base Set (Shadowless)",
-      "asOfDate": "2026-10-24",
+      "asOfDate": "2026-10-25",
       "universe": "English Base Set Shadowless (Unlimited) raw / ungraded (TCGPlayer Market, NM)",
       "staleDays": 70,
-      "index": 2176.33,
-      "prevIndex": 2177.08,
-      "change": -0.75,
-      "changePct": -0.03,
+      "index": 2176.45,
+      "prevIndex": 2176.33,
+      "change": 0.12,
+      "changePct": 0.01,
       "changeLabel": "vs previous snapshot",
       "divisor": 2.82436,
       "baseValue": 1000.0,
       "baseDate": "2024-02-08",
       "listedCount": 31,
       "constituentCount": 31,
-      "totalValue": 6146.75,
+      "totalValue": 6147.07,
       "pricedToday": 31,
       "listedUnpriced": [],
       "breadth": {
         "available": true,
-        "advancing": 1,
-        "declining": 2,
-        "unchanged": 28
+        "advancing": 6,
+        "declining": 3,
+        "unchanged": 22
       },
       "gainers": [
+        {
+          "id": "107016",
+          "name": "Electrode",
+          "number": "021/102",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107016_200w.jpg",
+          "setName": "Base Set (Shadowless)",
+          "price": 25.45,
+          "prevPrice": 25.0,
+          "changePct": 1.8
+        },
+        {
+          "id": "107013",
+          "name": "Dragonair",
+          "number": "018/102",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107013_200w.jpg",
+          "setName": "Base Set (Shadowless)",
+          "price": 58.54,
+          "prevPrice": 57.68,
+          "changePct": 1.49
+        },
+        {
+          "id": "107067",
+          "name": "Clefairy Doll",
+          "number": "070/102",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107067_200w.jpg",
+          "setName": "Base Set (Shadowless)",
+          "price": 12.85,
+          "prevPrice": 12.7,
+          "changePct": 1.18
+        },
         {
           "id": "107074",
           "name": "Pokemon Breeder",
           "number": "076/102",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/107074_200w.jpg",
           "setName": "Base Set (Shadowless)",
-          "price": 16.82,
-          "prevPrice": 16.67,
-          "changePct": 0.9
-        }
-      ],
-      "losers": [
+          "price": 17.01,
+          "prevPrice": 16.82,
+          "changePct": 1.13
+        },
+        {
+          "id": "107070",
+          "name": "Impostor Professor Oak",
+          "number": "073/102",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107070_200w.jpg",
+          "setName": "Base Set (Shadowless)",
+          "price": 28.51,
+          "prevPrice": 28.26,
+          "changePct": 0.88
+        },
         {
           "id": "107069",
           "name": "Devolution Spray",
           "number": "072/102",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/107069_200w.jpg",
           "setName": "Base Set (Shadowless)",
-          "price": 14.59,
-          "prevPrice": 15.08,
-          "changePct": -3.25
+          "price": 14.62,
+          "prevPrice": 14.59,
+          "changePct": 0.21
+        }
+      ],
+      "losers": [
+        {
+          "id": "107002",
+          "name": "Hitmonchan",
+          "number": "007/102",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107002_200w.jpg",
+          "setName": "Base Set (Shadowless)",
+          "price": 101.25,
+          "prevPrice": 102.82,
+          "changePct": -1.53
         },
         {
-          "id": "107000",
-          "name": "Gyarados",
-          "number": "006/102",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107000_200w.jpg",
+          "id": "107071",
+          "name": "Lass",
+          "number": "075/102",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107071_200w.jpg",
           "setName": "Base Set (Shadowless)",
-          "price": 118.8,
-          "prevPrice": 120.56,
-          "changePct": -1.46
+          "price": 9.03,
+          "prevPrice": 9.05,
+          "changePct": -0.22
+        },
+        {
+          "id": "107075",
+          "name": "Scoop Up",
+          "number": "078/102",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107075_200w.jpg",
+          "setName": "Base Set (Shadowless)",
+          "price": 16.44,
+          "prevPrice": 16.46,
+          "changePct": -0.12
         }
       ],
       "top": [
@@ -1959,7 +2041,7 @@
           "number": "007/102",
           "rarity": "Holo Rare",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/107002_200w.jpg",
-          "price": 102.82,
+          "price": 101.25,
           "printing": "Unlimited Holofoil",
           "carried": false
         },
@@ -2059,7 +2141,7 @@
           "number": "018/102",
           "rarity": "Rare",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/107013_200w.jpg",
-          "price": 57.68,
+          "price": 58.54,
           "printing": "Unlimited",
           "carried": false
         },
@@ -2089,7 +2171,7 @@
           "number": "021/102",
           "rarity": "Rare",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/107016_200w.jpg",
-          "price": 25.0,
+          "price": 25.45,
           "printing": "Unlimited",
           "carried": false
         },
@@ -2109,7 +2191,7 @@
           "number": "070/102",
           "rarity": "Rare",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/107067_200w.jpg",
-          "price": 12.7,
+          "price": 12.85,
           "printing": "Unlimited",
           "carried": false
         },
@@ -2129,7 +2211,7 @@
           "number": "072/102",
           "rarity": "Rare",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/107069_200w.jpg",
-          "price": 14.59,
+          "price": 14.62,
           "printing": "Unlimited",
           "carried": false
         },
@@ -2139,7 +2221,7 @@
           "number": "073/102",
           "rarity": "Rare",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/107070_200w.jpg",
-          "price": 28.26,
+          "price": 28.51,
           "printing": "Unlimited",
           "carried": false
         },
@@ -2159,7 +2241,7 @@
           "number": "075/102",
           "rarity": "Rare",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/107071_200w.jpg",
-          "price": 9.05,
+          "price": 9.03,
           "printing": "Unlimited",
           "carried": false
         },
@@ -2169,7 +2251,7 @@
           "number": "076/102",
           "rarity": "Rare",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/107074_200w.jpg",
-          "price": 16.82,
+          "price": 17.01,
           "printing": "Unlimited",
           "carried": false
         },
@@ -2189,7 +2271,7 @@
           "number": "078/102",
           "rarity": "Rare",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/107075_200w.jpg",
-          "price": 16.46,
+          "price": 16.44,
           "printing": "Unlimited",
           "carried": false
         },
@@ -2218,7 +2300,7 @@
           "prevPrice": 2172.24,
           "changePct": 0.0,
           "printing": "Unlimited Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -2234,7 +2316,7 @@
           "prevPrice": 896.06,
           "changePct": 0.0,
           "printing": "Unlimited Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -2250,7 +2332,7 @@
           "prevPrice": 494.19,
           "changePct": 0.0,
           "printing": "Unlimited Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -2266,7 +2348,7 @@
           "prevPrice": 490.98,
           "changePct": 0.0,
           "printing": "Unlimited Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -2282,7 +2364,7 @@
           "prevPrice": 295.08,
           "changePct": 0.0,
           "printing": "Unlimited Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -2298,7 +2380,7 @@
           "prevPrice": 244.83,
           "changePct": 0.0,
           "printing": "Unlimited Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -2314,7 +2396,7 @@
           "prevPrice": 172.83,
           "changePct": 0.0,
           "printing": "Unlimited Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -2330,7 +2412,7 @@
           "prevPrice": 172.19,
           "changePct": 0.0,
           "printing": "Unlimited Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -2346,7 +2428,7 @@
           "prevPrice": 169.66,
           "changePct": 0.0,
           "printing": "Unlimited Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -2362,7 +2444,7 @@
           "prevPrice": 158.64,
           "changePct": 0.0,
           "printing": "Unlimited Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -2378,7 +2460,7 @@
           "prevPrice": 136.74,
           "changePct": 0.0,
           "printing": "Unlimited Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -2391,10 +2473,10 @@
           "setId": "1663",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/107000_200w.jpg",
           "price": 118.8,
-          "prevPrice": 120.56,
-          "changePct": -1.46,
+          "prevPrice": 118.8,
+          "changePct": 0.0,
           "printing": "Unlimited Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -2406,11 +2488,11 @@
           "setName": "Base Set (Shadowless)",
           "setId": "1663",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/107002_200w.jpg",
-          "price": 102.82,
+          "price": 101.25,
           "prevPrice": 102.82,
-          "changePct": 0.0,
+          "changePct": -1.53,
           "printing": "Unlimited Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -2426,7 +2508,7 @@
           "prevPrice": 95.75,
           "changePct": 0.0,
           "printing": "Unlimited Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -2442,7 +2524,7 @@
           "prevPrice": 83.12,
           "changePct": 0.0,
           "printing": "Unlimited Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -2454,11 +2536,11 @@
           "setName": "Base Set (Shadowless)",
           "setId": "1663",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/107013_200w.jpg",
-          "price": 57.68,
+          "price": 58.54,
           "prevPrice": 57.68,
-          "changePct": 0.0,
+          "changePct": 1.49,
           "printing": "Unlimited",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -2474,7 +2556,7 @@
           "prevPrice": 30.02,
           "changePct": 0.0,
           "printing": "Unlimited",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -2490,11 +2572,27 @@
           "prevPrice": 29.43,
           "changePct": 0.0,
           "printing": "Unlimited",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
           "rank": 19,
+          "id": "107070",
+          "name": "Impostor Professor Oak",
+          "number": "073/102",
+          "rarity": "Rare",
+          "setName": "Base Set (Shadowless)",
+          "setId": "1663",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107070_200w.jpg",
+          "price": 28.51,
+          "prevPrice": 28.26,
+          "changePct": 0.88,
+          "printing": "Unlimited",
+          "pricedAsOf": "2026-10-25",
+          "carried": false
+        },
+        {
+          "rank": 20,
           "id": "107017",
           "name": "Pidgeotto",
           "number": "022/102",
@@ -2506,23 +2604,7 @@
           "prevPrice": 28.45,
           "changePct": 0.0,
           "printing": "Unlimited",
-          "pricedAsOf": "2026-10-24",
-          "carried": false
-        },
-        {
-          "rank": 20,
-          "id": "107070",
-          "name": "Impostor Professor Oak",
-          "number": "073/102",
-          "rarity": "Rare",
-          "setName": "Base Set (Shadowless)",
-          "setId": "1663",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/107070_200w.jpg",
-          "price": 28.26,
-          "prevPrice": 28.26,
-          "changePct": 0.0,
-          "printing": "Unlimited",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -2534,11 +2616,11 @@
           "setName": "Base Set (Shadowless)",
           "setId": "1663",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/107016_200w.jpg",
-          "price": 25.0,
+          "price": 25.45,
           "prevPrice": 25.0,
-          "changePct": 0.0,
+          "changePct": 1.8,
           "printing": "Unlimited",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -2554,7 +2636,7 @@
           "prevPrice": 21.62,
           "changePct": 0.0,
           "printing": "Unlimited",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -2570,7 +2652,7 @@
           "prevPrice": 19.04,
           "changePct": 0.0,
           "printing": "Unlimited",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -2582,11 +2664,11 @@
           "setName": "Base Set (Shadowless)",
           "setId": "1663",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/107074_200w.jpg",
-          "price": 16.82,
-          "prevPrice": 16.67,
-          "changePct": 0.9,
+          "price": 17.01,
+          "prevPrice": 16.82,
+          "changePct": 1.13,
           "printing": "Unlimited",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -2598,11 +2680,11 @@
           "setName": "Base Set (Shadowless)",
           "setId": "1663",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/107075_200w.jpg",
-          "price": 16.46,
+          "price": 16.44,
           "prevPrice": 16.46,
-          "changePct": 0.0,
+          "changePct": -0.12,
           "printing": "Unlimited",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -2618,7 +2700,7 @@
           "prevPrice": 14.72,
           "changePct": 0.0,
           "printing": "Unlimited",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -2630,11 +2712,11 @@
           "setName": "Base Set (Shadowless)",
           "setId": "1663",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/107069_200w.jpg",
-          "price": 14.59,
-          "prevPrice": 15.08,
-          "changePct": -3.25,
+          "price": 14.62,
+          "prevPrice": 14.59,
+          "changePct": 0.21,
           "printing": "Unlimited",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -2646,11 +2728,11 @@
           "setName": "Base Set (Shadowless)",
           "setId": "1663",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/107067_200w.jpg",
-          "price": 12.7,
+          "price": 12.85,
           "prevPrice": 12.7,
-          "changePct": 0.0,
+          "changePct": 1.18,
           "printing": "Unlimited",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -2666,7 +2748,7 @@
           "prevPrice": 10.03,
           "changePct": 0.0,
           "printing": "Unlimited",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -2678,11 +2760,11 @@
           "setName": "Base Set (Shadowless)",
           "setId": "1663",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/107071_200w.jpg",
-          "price": 9.05,
+          "price": 9.03,
           "prevPrice": 9.05,
-          "changePct": 0.0,
+          "changePct": -0.22,
           "printing": "Unlimited",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -2698,87 +2780,41 @@
           "prevPrice": 8.95,
           "changePct": 0.0,
           "printing": "Unlimited",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         }
       ],
       "snapshotRange": {
         "earliest": "2024-12-26",
-        "latest": "2026-10-24",
-        "count": 70
+        "latest": "2026-10-25",
+        "count": 71
       },
       "movers": {
         "1D": {
           "available": true,
-          "baselineDate": "2026-10-23",
+          "baselineDate": "2026-10-24",
           "neededBy": null,
           "label": "vs previous snapshot",
           "gainers": [
             {
-              "id": "107074",
-              "name": "Pokemon Breeder",
-              "number": "076/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107074_200w.jpg",
+              "id": "107016",
+              "name": "Electrode",
+              "number": "021/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107016_200w.jpg",
               "setName": "Base Set (Shadowless)",
-              "price": 16.82,
-              "prevPrice": 16.67,
-              "changePct": 0.9
-            }
-          ],
-          "losers": [
-            {
-              "id": "107069",
-              "name": "Devolution Spray",
-              "number": "072/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107069_200w.jpg",
-              "setName": "Base Set (Shadowless)",
-              "price": 14.59,
-              "prevPrice": 15.08,
-              "changePct": -3.25
+              "price": 25.45,
+              "prevPrice": 25.0,
+              "changePct": 1.8
             },
             {
-              "id": "107000",
-              "name": "Gyarados",
-              "number": "006/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107000_200w.jpg",
+              "id": "107013",
+              "name": "Dragonair",
+              "number": "018/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107013_200w.jpg",
               "setName": "Base Set (Shadowless)",
-              "price": 118.8,
-              "prevPrice": 120.56,
-              "changePct": -1.46
-            }
-          ],
-          "breadth": {
-            "available": true,
-            "advancing": 1,
-            "declining": 2,
-            "unchanged": 28
-          }
-        },
-        "5D": {
-          "available": true,
-          "baselineDate": "2026-10-19",
-          "neededBy": "2026-10-19",
-          "label": "vs 2026-10-19",
-          "gainers": [
-            {
-              "id": "106996",
-              "name": "Alakazam",
-              "number": "001/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/106996_200w.jpg",
-              "setName": "Base Set (Shadowless)",
-              "price": 490.98,
-              "prevPrice": 370.98,
-              "changePct": 32.35
-            },
-            {
-              "id": "107073",
-              "name": "Pokemon Trader",
-              "number": "077/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107073_200w.jpg",
-              "setName": "Base Set (Shadowless)",
-              "price": 19.04,
-              "prevPrice": 18.51,
-              "changePct": 2.86
+              "price": 58.54,
+              "prevPrice": 57.68,
+              "changePct": 1.49
             },
             {
               "id": "107067",
@@ -2786,9 +2822,9 @@
               "number": "070/102",
               "image": "https://tcgplayer-cdn.tcgplayer.com/product/107067_200w.jpg",
               "setName": "Base Set (Shadowless)",
-              "price": 12.7,
-              "prevPrice": 12.57,
-              "changePct": 1.03
+              "price": 12.85,
+              "prevPrice": 12.7,
+              "changePct": 1.18
             },
             {
               "id": "107074",
@@ -2796,9 +2832,125 @@
               "number": "076/102",
               "image": "https://tcgplayer-cdn.tcgplayer.com/product/107074_200w.jpg",
               "setName": "Base Set (Shadowless)",
-              "price": 16.82,
+              "price": 17.01,
+              "prevPrice": 16.82,
+              "changePct": 1.13
+            },
+            {
+              "id": "107070",
+              "name": "Impostor Professor Oak",
+              "number": "073/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107070_200w.jpg",
+              "setName": "Base Set (Shadowless)",
+              "price": 28.51,
+              "prevPrice": 28.26,
+              "changePct": 0.88
+            },
+            {
+              "id": "107069",
+              "name": "Devolution Spray",
+              "number": "072/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107069_200w.jpg",
+              "setName": "Base Set (Shadowless)",
+              "price": 14.62,
+              "prevPrice": 14.59,
+              "changePct": 0.21
+            }
+          ],
+          "losers": [
+            {
+              "id": "107002",
+              "name": "Hitmonchan",
+              "number": "007/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107002_200w.jpg",
+              "setName": "Base Set (Shadowless)",
+              "price": 101.25,
+              "prevPrice": 102.82,
+              "changePct": -1.53
+            },
+            {
+              "id": "107071",
+              "name": "Lass",
+              "number": "075/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107071_200w.jpg",
+              "setName": "Base Set (Shadowless)",
+              "price": 9.03,
+              "prevPrice": 9.05,
+              "changePct": -0.22
+            },
+            {
+              "id": "107075",
+              "name": "Scoop Up",
+              "number": "078/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107075_200w.jpg",
+              "setName": "Base Set (Shadowless)",
+              "price": 16.44,
+              "prevPrice": 16.46,
+              "changePct": -0.12
+            }
+          ],
+          "breadth": {
+            "available": true,
+            "advancing": 6,
+            "declining": 3,
+            "unchanged": 22
+          }
+        },
+        "5D": {
+          "available": true,
+          "baselineDate": "2026-10-20",
+          "neededBy": "2026-10-20",
+          "label": "vs 2026-10-20",
+          "gainers": [
+            {
+              "id": "107016",
+              "name": "Electrode",
+              "number": "021/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107016_200w.jpg",
+              "setName": "Base Set (Shadowless)",
+              "price": 25.45,
+              "prevPrice": 25.0,
+              "changePct": 1.8
+            },
+            {
+              "id": "107074",
+              "name": "Pokemon Breeder",
+              "number": "076/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107074_200w.jpg",
+              "setName": "Base Set (Shadowless)",
+              "price": 17.01,
               "prevPrice": 16.73,
-              "changePct": 0.54
+              "changePct": 1.67
+            },
+            {
+              "id": "107013",
+              "name": "Dragonair",
+              "number": "018/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107013_200w.jpg",
+              "setName": "Base Set (Shadowless)",
+              "price": 58.54,
+              "prevPrice": 57.68,
+              "changePct": 1.49
+            },
+            {
+              "id": "107067",
+              "name": "Clefairy Doll",
+              "number": "070/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107067_200w.jpg",
+              "setName": "Base Set (Shadowless)",
+              "price": 12.85,
+              "prevPrice": 12.7,
+              "changePct": 1.18
+            },
+            {
+              "id": "107070",
+              "name": "Impostor Professor Oak",
+              "number": "073/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107070_200w.jpg",
+              "setName": "Base Set (Shadowless)",
+              "price": 28.51,
+              "prevPrice": 28.26,
+              "changePct": 0.88
             }
           ],
           "losers": [
@@ -2813,24 +2965,24 @@
               "changePct": -38.43
             },
             {
-              "id": "106999",
-              "name": "Charizard",
-              "number": "004/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/106999_200w.jpg",
-              "setName": "Base Set (Shadowless)",
-              "price": 2172.24,
-              "prevPrice": 2257.87,
-              "changePct": -3.79
-            },
-            {
               "id": "107069",
               "name": "Devolution Spray",
               "number": "072/102",
               "image": "https://tcgplayer-cdn.tcgplayer.com/product/107069_200w.jpg",
               "setName": "Base Set (Shadowless)",
-              "price": 14.59,
+              "price": 14.62,
               "prevPrice": 15.01,
-              "changePct": -2.8
+              "changePct": -2.6
+            },
+            {
+              "id": "107002",
+              "name": "Hitmonchan",
+              "number": "007/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107002_200w.jpg",
+              "setName": "Base Set (Shadowless)",
+              "price": 101.25,
+              "prevPrice": 102.82,
+              "changePct": -1.53
             },
             {
               "id": "107000",
@@ -2841,6 +2993,26 @@
               "price": 118.8,
               "prevPrice": 120.56,
               "changePct": -1.46
+            },
+            {
+              "id": "107071",
+              "name": "Lass",
+              "number": "075/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107071_200w.jpg",
+              "setName": "Base Set (Shadowless)",
+              "price": 9.03,
+              "prevPrice": 9.05,
+              "changePct": -0.22
+            },
+            {
+              "id": "107075",
+              "name": "Scoop Up",
+              "number": "078/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107075_200w.jpg",
+              "setName": "Base Set (Shadowless)",
+              "price": 16.44,
+              "prevPrice": 16.46,
+              "changePct": -0.12
             },
             {
               "id": "107068",
@@ -2855,15 +3027,15 @@
           ],
           "breadth": {
             "available": true,
-            "advancing": 4,
-            "declining": 5,
-            "unchanged": 22
+            "advancing": 5,
+            "declining": 7,
+            "unchanged": 19
           }
         },
         "30D": {
           "available": true,
           "baselineDate": "2026-09-24",
-          "neededBy": "2026-09-24",
+          "neededBy": "2026-09-25",
           "label": "vs 2026-09-24",
           "gainers": [
             {
@@ -2912,19 +3084,19 @@
               "number": "073/102",
               "image": "https://tcgplayer-cdn.tcgplayer.com/product/107070_200w.jpg",
               "setName": "Base Set (Shadowless)",
-              "price": 28.26,
+              "price": 28.51,
               "prevPrice": 26.08,
-              "changePct": 8.36
+              "changePct": 9.32
             },
             {
-              "id": "107002",
-              "name": "Hitmonchan",
-              "number": "007/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107002_200w.jpg",
+              "id": "107013",
+              "name": "Dragonair",
+              "number": "018/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107013_200w.jpg",
               "setName": "Base Set (Shadowless)",
-              "price": 102.82,
-              "prevPrice": 97.09,
-              "changePct": 5.9
+              "price": 58.54,
+              "prevPrice": 55.32,
+              "changePct": 5.82
             },
             {
               "id": "107005",
@@ -2937,14 +3109,14 @@
               "changePct": 5.35
             },
             {
-              "id": "107013",
-              "name": "Dragonair",
-              "number": "018/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107013_200w.jpg",
+              "id": "107002",
+              "name": "Hitmonchan",
+              "number": "007/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107002_200w.jpg",
               "setName": "Base Set (Shadowless)",
-              "price": 57.68,
-              "prevPrice": 55.32,
-              "changePct": 4.27
+              "price": 101.25,
+              "prevPrice": 97.09,
+              "changePct": 4.28
             },
             {
               "id": "107068",
@@ -2957,14 +3129,14 @@
               "changePct": 3.94
             },
             {
-              "id": "107006",
-              "name": "Nidoking",
-              "number": "011/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107006_200w.jpg",
+              "id": "107067",
+              "name": "Clefairy Doll",
+              "number": "070/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107067_200w.jpg",
               "setName": "Base Set (Shadowless)",
-              "price": 172.19,
-              "prevPrice": 166.19,
-              "changePct": 3.61
+              "price": 12.85,
+              "prevPrice": 12.38,
+              "changePct": 3.8
             }
           ],
           "losers": [
@@ -2999,16 +3171,6 @@
               "changePct": -8.56
             },
             {
-              "id": "107016",
-              "name": "Electrode",
-              "number": "021/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107016_200w.jpg",
-              "setName": "Base Set (Shadowless)",
-              "price": 25.0,
-              "prevPrice": 26.3,
-              "changePct": -4.94
-            },
-            {
               "id": "107000",
               "name": "Gyarados",
               "number": "006/102",
@@ -3039,14 +3201,24 @@
               "changePct": -3.42
             },
             {
+              "id": "107016",
+              "name": "Electrode",
+              "number": "021/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107016_200w.jpg",
+              "setName": "Base Set (Shadowless)",
+              "price": 25.45,
+              "prevPrice": 26.3,
+              "changePct": -3.23
+            },
+            {
               "id": "107069",
               "name": "Devolution Spray",
               "number": "072/102",
               "image": "https://tcgplayer-cdn.tcgplayer.com/product/107069_200w.jpg",
               "setName": "Base Set (Shadowless)",
-              "price": 14.59,
+              "price": 14.62,
               "prevPrice": 14.88,
-              "changePct": -1.95
+              "changePct": -1.75
             },
             {
               "id": "107010",
@@ -3071,15 +3243,15 @@
           ],
           "breadth": {
             "available": true,
-            "advancing": 15,
-            "declining": 13,
+            "advancing": 16,
+            "declining": 12,
             "unchanged": 3
           }
         },
         "1Y": {
           "available": true,
           "baselineDate": "2025-10-23",
-          "neededBy": "2025-10-24",
+          "neededBy": "2025-10-25",
           "label": "vs 2025-10-23",
           "gainers": [
             {
@@ -3088,9 +3260,9 @@
               "number": "073/102",
               "image": "https://tcgplayer-cdn.tcgplayer.com/product/107070_200w.jpg",
               "setName": "Base Set (Shadowless)",
-              "price": 28.26,
+              "price": 28.51,
               "prevPrice": 10.38,
-              "changePct": 172.25
+              "changePct": 174.66
             },
             {
               "id": "107073",
@@ -3108,9 +3280,9 @@
               "number": "072/102",
               "image": "https://tcgplayer-cdn.tcgplayer.com/product/107069_200w.jpg",
               "setName": "Base Set (Shadowless)",
-              "price": 14.59,
+              "price": 14.62,
               "prevPrice": 6.15,
-              "changePct": 137.24
+              "changePct": 137.72
             },
             {
               "id": "107007",
@@ -3133,16 +3305,6 @@
               "changePct": 114.43
             },
             {
-              "id": "107002",
-              "name": "Hitmonchan",
-              "number": "007/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107002_200w.jpg",
-              "setName": "Base Set (Shadowless)",
-              "price": 102.82,
-              "prevPrice": 51.3,
-              "changePct": 100.43
-            },
-            {
               "id": "106996",
               "name": "Alakazam",
               "number": "001/102",
@@ -3151,6 +3313,16 @@
               "price": 490.98,
               "prevPrice": 245.04,
               "changePct": 100.37
+            },
+            {
+              "id": "107002",
+              "name": "Hitmonchan",
+              "number": "007/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/107002_200w.jpg",
+              "setName": "Base Set (Shadowless)",
+              "price": 101.25,
+              "prevPrice": 51.3,
+              "changePct": 97.37
             },
             {
               "id": "107009",
@@ -3168,9 +3340,9 @@
               "number": "075/102",
               "image": "https://tcgplayer-cdn.tcgplayer.com/product/107071_200w.jpg",
               "setName": "Base Set (Shadowless)",
-              "price": 9.05,
+              "price": 9.03,
               "prevPrice": 5.06,
-              "changePct": 78.85
+              "changePct": 78.46
             },
             {
               "id": "107016",
@@ -3178,9 +3350,9 @@
               "number": "021/102",
               "image": "https://tcgplayer-cdn.tcgplayer.com/product/107016_200w.jpg",
               "setName": "Base Set (Shadowless)",
-              "price": 25.0,
+              "price": 25.45,
               "prevPrice": 14.52,
-              "changePct": 72.18
+              "changePct": 75.28
             }
           ],
           "losers": [
@@ -3254,9 +3426,9 @@
               "number": "072/102",
               "image": "https://tcgplayer-cdn.tcgplayer.com/product/107069_200w.jpg",
               "setName": "Base Set (Shadowless)",
-              "price": 14.59,
+              "price": 14.62,
               "prevPrice": 7.01,
-              "changePct": 108.13
+              "changePct": 108.56
             },
             {
               "id": "107007",
@@ -3284,9 +3456,9 @@
               "number": "073/102",
               "image": "https://tcgplayer-cdn.tcgplayer.com/product/107070_200w.jpg",
               "setName": "Base Set (Shadowless)",
-              "price": 28.26,
+              "price": 28.51,
               "prevPrice": 14.43,
-              "changePct": 95.84
+              "changePct": 97.57
             },
             {
               "id": "107009",
@@ -3314,9 +3486,9 @@
               "number": "007/102",
               "image": "https://tcgplayer-cdn.tcgplayer.com/product/107002_200w.jpg",
               "setName": "Base Set (Shadowless)",
-              "price": 102.82,
+              "price": 101.25,
               "prevPrice": 61.15,
-              "changePct": 68.14
+              "changePct": 65.58
             },
             {
               "id": "107071",
@@ -3324,9 +3496,9 @@
               "number": "075/102",
               "image": "https://tcgplayer-cdn.tcgplayer.com/product/107071_200w.jpg",
               "setName": "Base Set (Shadowless)",
-              "price": 9.05,
+              "price": 9.03,
               "prevPrice": 5.46,
-              "changePct": 65.75
+              "changePct": 65.38
             },
             {
               "id": "107014",
@@ -3397,108 +3569,38 @@
       "printing": "Unlimited (with shadow)",
       "groupId": "604",
       "groupName": "Base Set",
-      "asOfDate": "2026-10-24",
+      "asOfDate": "2026-10-25",
       "universe": "English Base Set Unlimited (shadowed) raw / ungraded (TCGPlayer Market, NM)",
       "staleDays": 70,
-      "index": 2134.34,
-      "prevIndex": 2133.35,
-      "change": 0.99,
-      "changePct": 0.05,
+      "index": 2130.61,
+      "prevIndex": 2134.34,
+      "change": -3.73,
+      "changePct": -0.17,
       "changeLabel": "vs previous snapshot",
       "divisor": 0.96597,
       "baseValue": 1000.0,
       "baseDate": "2024-02-08",
       "listedCount": 31,
       "constituentCount": 31,
-      "totalValue": 2061.71,
+      "totalValue": 2058.11,
       "pricedToday": 31,
       "listedUnpriced": [],
       "breadth": {
         "available": true,
-        "advancing": 11,
-        "declining": 8,
-        "unchanged": 12
+        "advancing": 5,
+        "declining": 5,
+        "unchanged": 21
       },
       "gainers": [
         {
-          "id": "42347",
-          "name": "Mewtwo",
-          "number": "010/102",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42347_200w.jpg",
+          "id": "42415",
+          "name": "Hitmonchan",
+          "number": "007/102",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42415_200w.jpg",
           "setName": "Base Set",
-          "price": 84.59,
-          "prevPrice": 78.55,
-          "changePct": 7.69
-        },
-        {
-          "id": "42417",
-          "name": "Computer Search",
-          "number": "071/102",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42417_200w.jpg",
-          "setName": "Base Set",
-          "price": 3.29,
-          "prevPrice": 3.17,
-          "changePct": 3.79
-        },
-        {
-          "id": "42423",
-          "name": "Scoop Up",
-          "number": "078/102",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42423_200w.jpg",
-          "setName": "Base Set",
-          "price": 9.51,
-          "prevPrice": 9.29,
-          "changePct": 2.37
-        },
-        {
-          "id": "42357",
-          "name": "Beedrill",
-          "number": "017/102",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42357_200w.jpg",
-          "setName": "Base Set",
-          "price": 6.19,
-          "prevPrice": 6.05,
-          "changePct": 2.31
-        },
-        {
-          "id": "42416",
-          "name": "Clefairy Doll",
-          "number": "070/102",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42416_200w.jpg",
-          "setName": "Base Set",
-          "price": 8.19,
-          "prevPrice": 8.06,
-          "changePct": 1.61
-        },
-        {
-          "id": "108648",
-          "name": "Pokemon Trader",
-          "number": "077/102",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/108648_200w.jpg",
-          "setName": "Base Set",
-          "price": 5.3,
-          "prevPrice": 5.27,
-          "changePct": 0.57
-        },
-        {
-          "id": "42433",
-          "name": "Magneton",
-          "number": "009/102",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42433_200w.jpg",
-          "setName": "Base Set",
-          "price": 32.53,
-          "prevPrice": 32.37,
-          "changePct": 0.49
-        },
-        {
-          "id": "42362",
-          "name": "Electrode",
-          "number": "021/102",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42362_200w.jpg",
-          "setName": "Base Set",
-          "price": 9.2,
-          "prevPrice": 9.16,
-          "changePct": 0.44
+          "price": 18.66,
+          "prevPrice": 18.3,
+          "changePct": 1.97
         },
         {
           "id": "42363",
@@ -3506,91 +3608,29 @@
           "number": "022/102",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/42363_200w.jpg",
           "setName": "Base Set",
-          "price": 8.8,
-          "prevPrice": 8.77,
-          "changePct": 0.34
+          "price": 8.89,
+          "prevPrice": 8.8,
+          "changePct": 1.02
         },
         {
-          "id": "42346",
-          "name": "Alakazam",
-          "number": "001/102",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42346_200w.jpg",
+          "id": "42352",
+          "name": "Ninetales",
+          "number": "012/102",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42352_200w.jpg",
           "setName": "Base Set",
-          "price": 72.46,
-          "prevPrice": 72.42,
-          "changePct": 0.06
-        }
-      ],
-      "losers": [
-        {
-          "id": "42424",
-          "name": "Super Energy Removal",
-          "number": "079/102",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42424_200w.jpg",
-          "setName": "Base Set",
-          "price": 3.5,
-          "prevPrice": 3.65,
-          "changePct": -4.11
+          "price": 40.09,
+          "prevPrice": 39.97,
+          "changePct": 0.3
         },
         {
-          "id": "42355",
-          "name": "Venusaur",
-          "number": "015/102",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42355_200w.jpg",
+          "id": "42358",
+          "name": "Dragonair",
+          "number": "018/102",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42358_200w.jpg",
           "setName": "Base Set",
-          "price": 156.02,
-          "prevPrice": 161.06,
-          "changePct": -3.13
-        },
-        {
-          "id": "42421",
-          "name": "Lass",
-          "number": "075/102",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42421_200w.jpg",
-          "setName": "Base Set",
-          "price": 3.48,
-          "prevPrice": 3.55,
-          "changePct": -1.97
-        },
-        {
-          "id": "42415",
-          "name": "Hitmonchan",
-          "number": "007/102",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42415_200w.jpg",
-          "setName": "Base Set",
-          "price": 18.3,
-          "prevPrice": 18.48,
-          "changePct": -0.97
-        },
-        {
-          "id": "42371",
-          "name": "Chansey",
-          "number": "003/102",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42371_200w.jpg",
-          "setName": "Base Set",
-          "price": 55.42,
-          "prevPrice": 55.83,
-          "changePct": -0.73
-        },
-        {
-          "id": "42353",
-          "name": "Poliwrath",
-          "number": "013/102",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42353_200w.jpg",
-          "setName": "Base Set",
-          "price": 35.17,
-          "prevPrice": 35.31,
-          "changePct": -0.4
-        },
-        {
-          "id": "42418",
-          "name": "Devolution Spray",
-          "number": "072/102",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42418_200w.jpg",
-          "setName": "Base Set",
-          "price": 7.53,
-          "prevPrice": 7.54,
-          "changePct": -0.13
+          "price": 19.42,
+          "prevPrice": 19.39,
+          "changePct": 0.15
         },
         {
           "id": "42361",
@@ -3598,9 +3638,61 @@
           "number": "020/102",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/42361_200w.jpg",
           "setName": "Base Set",
-          "price": 10.36,
-          "prevPrice": 10.37,
-          "changePct": -0.1
+          "price": 10.37,
+          "prevPrice": 10.36,
+          "changePct": 0.1
+        }
+      ],
+      "losers": [
+        {
+          "id": "42362",
+          "name": "Electrode",
+          "number": "021/102",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42362_200w.jpg",
+          "setName": "Base Set",
+          "price": 8.78,
+          "prevPrice": 9.2,
+          "changePct": -4.57
+        },
+        {
+          "id": "42355",
+          "name": "Venusaur",
+          "number": "015/102",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42355_200w.jpg",
+          "setName": "Base Set",
+          "price": 152.86,
+          "prevPrice": 156.02,
+          "changePct": -2.03
+        },
+        {
+          "id": "42404",
+          "name": "Gyarados",
+          "number": "006/102",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42404_200w.jpg",
+          "setName": "Base Set",
+          "price": 56.33,
+          "prevPrice": 56.78,
+          "changePct": -0.79
+        },
+        {
+          "id": "42433",
+          "name": "Magneton",
+          "number": "009/102",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42433_200w.jpg",
+          "setName": "Base Set",
+          "price": 32.39,
+          "prevPrice": 32.53,
+          "changePct": -0.43
+        },
+        {
+          "id": "42359",
+          "name": "Dugtrio",
+          "number": "019/102",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42359_200w.jpg",
+          "setName": "Base Set",
+          "price": 11.09,
+          "prevPrice": 11.13,
+          "changePct": -0.36
         }
       ],
       "top": [
@@ -3631,7 +3723,7 @@
           "number": "015/102",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/42355_200w.jpg",
           "setName": "Base Set",
-          "price": 156.02,
+          "price": 152.86,
           "rarity": "Holo Rare"
         },
         {
@@ -3671,7 +3763,7 @@
           "number": "006/102",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/42404_200w.jpg",
           "setName": "Base Set",
-          "price": 56.78,
+          "price": 56.33,
           "rarity": "Holo Rare"
         },
         {
@@ -3762,7 +3854,7 @@
           "number": "006/102",
           "rarity": "Holo Rare",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/42404_200w.jpg",
-          "price": 56.78,
+          "price": 56.33,
           "printing": "Holofoil",
           "carried": false
         },
@@ -3772,7 +3864,7 @@
           "number": "007/102",
           "rarity": "Holo Rare",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/42415_200w.jpg",
-          "price": 18.3,
+          "price": 18.66,
           "printing": "Holofoil",
           "carried": false
         },
@@ -3782,7 +3874,7 @@
           "number": "009/102",
           "rarity": "Holo Rare",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/42433_200w.jpg",
-          "price": 32.53,
+          "price": 32.39,
           "printing": "Holofoil",
           "carried": false
         },
@@ -3812,7 +3904,7 @@
           "number": "012/102",
           "rarity": "Holo Rare",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/42352_200w.jpg",
-          "price": 39.97,
+          "price": 40.09,
           "printing": "Holofoil",
           "carried": false
         },
@@ -3842,7 +3934,7 @@
           "number": "015/102",
           "rarity": "Holo Rare",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/42355_200w.jpg",
-          "price": 156.02,
+          "price": 152.86,
           "printing": "Holofoil",
           "carried": false
         },
@@ -3872,7 +3964,7 @@
           "number": "018/102",
           "rarity": "Rare",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/42358_200w.jpg",
-          "price": 19.39,
+          "price": 19.42,
           "printing": "Normal",
           "carried": false
         },
@@ -3882,7 +3974,7 @@
           "number": "019/102",
           "rarity": "Rare",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/42359_200w.jpg",
-          "price": 11.13,
+          "price": 11.09,
           "printing": "Normal",
           "carried": false
         },
@@ -3892,7 +3984,7 @@
           "number": "020/102",
           "rarity": "Rare",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/42361_200w.jpg",
-          "price": 10.36,
+          "price": 10.37,
           "printing": "Normal",
           "carried": false
         },
@@ -3902,7 +3994,7 @@
           "number": "021/102",
           "rarity": "Rare",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/42362_200w.jpg",
-          "price": 9.2,
+          "price": 8.78,
           "printing": "Normal",
           "carried": false
         },
@@ -3912,7 +4004,7 @@
           "number": "022/102",
           "rarity": "Rare",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/42363_200w.jpg",
-          "price": 8.8,
+          "price": 8.89,
           "printing": "Normal",
           "carried": false
         },
@@ -4031,7 +4123,7 @@
           "prevPrice": 954.65,
           "changePct": 0.0,
           "printing": "Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -4047,7 +4139,7 @@
           "prevPrice": 227.27,
           "changePct": 0.0,
           "printing": "Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -4059,11 +4151,11 @@
           "setName": "Base Set",
           "setId": "604",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/42355_200w.jpg",
-          "price": 156.02,
-          "prevPrice": 161.06,
-          "changePct": -3.13,
+          "price": 152.86,
+          "prevPrice": 156.02,
+          "changePct": -2.03,
           "printing": "Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -4076,10 +4168,10 @@
           "setId": "604",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/42347_200w.jpg",
           "price": 84.59,
-          "prevPrice": 78.55,
-          "changePct": 7.69,
+          "prevPrice": 84.59,
+          "changePct": 0.0,
           "printing": "Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -4092,10 +4184,10 @@
           "setId": "604",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/42346_200w.jpg",
           "price": 72.46,
-          "prevPrice": 72.42,
-          "changePct": 0.06,
+          "prevPrice": 72.46,
+          "changePct": 0.0,
           "printing": "Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -4111,7 +4203,7 @@
           "prevPrice": 62.71,
           "changePct": 0.0,
           "printing": "Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -4123,11 +4215,11 @@
           "setName": "Base Set",
           "setId": "604",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/42404_200w.jpg",
-          "price": 56.78,
+          "price": 56.33,
           "prevPrice": 56.78,
-          "changePct": 0.0,
+          "changePct": -0.79,
           "printing": "Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -4140,10 +4232,10 @@
           "setId": "604",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/42371_200w.jpg",
           "price": 55.42,
-          "prevPrice": 55.83,
-          "changePct": -0.73,
+          "prevPrice": 55.42,
+          "changePct": 0.0,
           "printing": "Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -4159,7 +4251,7 @@
           "prevPrice": 50.27,
           "changePct": 0.0,
           "printing": "Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -4175,7 +4267,7 @@
           "prevPrice": 46.26,
           "changePct": 0.0,
           "printing": "Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -4191,7 +4283,7 @@
           "prevPrice": 41.26,
           "changePct": 0.0,
           "printing": "Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -4203,11 +4295,11 @@
           "setName": "Base Set",
           "setId": "604",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/42352_200w.jpg",
-          "price": 39.97,
-          "prevPrice": 39.95,
-          "changePct": 0.05,
+          "price": 40.09,
+          "prevPrice": 39.97,
+          "changePct": 0.3,
           "printing": "Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -4220,10 +4312,10 @@
           "setId": "604",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/42353_200w.jpg",
           "price": 35.17,
-          "prevPrice": 35.31,
-          "changePct": -0.4,
+          "prevPrice": 35.17,
+          "changePct": 0.0,
           "printing": "Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -4235,11 +4327,11 @@
           "setName": "Base Set",
           "setId": "604",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/42433_200w.jpg",
-          "price": 32.53,
-          "prevPrice": 32.37,
-          "changePct": 0.49,
+          "price": 32.39,
+          "prevPrice": 32.53,
+          "changePct": -0.43,
           "printing": "Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -4251,11 +4343,11 @@
           "setName": "Base Set",
           "setId": "604",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/42358_200w.jpg",
-          "price": 19.39,
+          "price": 19.42,
           "prevPrice": 19.39,
-          "changePct": 0.0,
+          "changePct": 0.15,
           "printing": "Normal",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -4267,11 +4359,11 @@
           "setName": "Base Set",
           "setId": "604",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/42415_200w.jpg",
-          "price": 18.3,
-          "prevPrice": 18.48,
-          "changePct": -0.97,
+          "price": 18.66,
+          "prevPrice": 18.3,
+          "changePct": 1.97,
           "printing": "Holofoil",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -4283,11 +4375,11 @@
           "setName": "Base Set",
           "setId": "604",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/42359_200w.jpg",
-          "price": 11.13,
+          "price": 11.09,
           "prevPrice": 11.13,
-          "changePct": 0.0,
+          "changePct": -0.36,
           "printing": "Normal",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -4299,11 +4391,11 @@
           "setName": "Base Set",
           "setId": "604",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/42361_200w.jpg",
-          "price": 10.36,
-          "prevPrice": 10.37,
-          "changePct": -0.1,
+          "price": 10.37,
+          "prevPrice": 10.36,
+          "changePct": 0.1,
           "printing": "Normal",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -4316,30 +4408,14 @@
           "setId": "604",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/42423_200w.jpg",
           "price": 9.51,
-          "prevPrice": 9.29,
-          "changePct": 2.37,
+          "prevPrice": 9.51,
+          "changePct": 0.0,
           "printing": "Normal",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
           "rank": 20,
-          "id": "42362",
-          "name": "Electrode",
-          "number": "021/102",
-          "rarity": "Rare",
-          "setName": "Base Set",
-          "setId": "604",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42362_200w.jpg",
-          "price": 9.2,
-          "prevPrice": 9.16,
-          "changePct": 0.44,
-          "printing": "Normal",
-          "pricedAsOf": "2026-10-24",
-          "carried": false
-        },
-        {
-          "rank": 21,
           "id": "42420",
           "name": "Item Finder",
           "number": "074/102",
@@ -4351,11 +4427,11 @@
           "prevPrice": 9.1,
           "changePct": 0.0,
           "printing": "Normal",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
-          "rank": 22,
+          "rank": 21,
           "id": "42363",
           "name": "Pidgeotto",
           "number": "022/102",
@@ -4363,11 +4439,27 @@
           "setName": "Base Set",
           "setId": "604",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/42363_200w.jpg",
-          "price": 8.8,
-          "prevPrice": 8.77,
-          "changePct": 0.34,
+          "price": 8.89,
+          "prevPrice": 8.8,
+          "changePct": 1.02,
           "printing": "Normal",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
+          "carried": false
+        },
+        {
+          "rank": 22,
+          "id": "42362",
+          "name": "Electrode",
+          "number": "021/102",
+          "rarity": "Rare",
+          "setName": "Base Set",
+          "setId": "604",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42362_200w.jpg",
+          "price": 8.78,
+          "prevPrice": 9.2,
+          "changePct": -4.57,
+          "printing": "Normal",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -4380,10 +4472,10 @@
           "setId": "604",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/42416_200w.jpg",
           "price": 8.19,
-          "prevPrice": 8.06,
-          "changePct": 1.61,
+          "prevPrice": 8.19,
+          "changePct": 0.0,
           "printing": "Normal",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -4396,10 +4488,10 @@
           "setId": "604",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/42418_200w.jpg",
           "price": 7.53,
-          "prevPrice": 7.54,
-          "changePct": -0.13,
+          "prevPrice": 7.53,
+          "changePct": 0.0,
           "printing": "Normal",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -4415,7 +4507,7 @@
           "prevPrice": 6.62,
           "changePct": 0.0,
           "printing": "Normal",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -4431,7 +4523,7 @@
           "prevPrice": 6.46,
           "changePct": 0.0,
           "printing": "Normal",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -4444,10 +4536,10 @@
           "setId": "604",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/42357_200w.jpg",
           "price": 6.19,
-          "prevPrice": 6.05,
-          "changePct": 2.31,
+          "prevPrice": 6.19,
+          "changePct": 0.0,
           "printing": "Normal",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -4460,10 +4552,10 @@
           "setId": "604",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/108648_200w.jpg",
           "price": 5.3,
-          "prevPrice": 5.27,
-          "changePct": 0.57,
+          "prevPrice": 5.3,
+          "changePct": 0.0,
           "printing": "Normal",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -4476,10 +4568,10 @@
           "setId": "604",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/42424_200w.jpg",
           "price": 3.5,
-          "prevPrice": 3.65,
-          "changePct": -4.11,
+          "prevPrice": 3.5,
+          "changePct": 0.0,
           "printing": "Normal",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -4492,10 +4584,10 @@
           "setId": "604",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/42421_200w.jpg",
           "price": 3.48,
-          "prevPrice": 3.55,
-          "changePct": -1.97,
+          "prevPrice": 3.48,
+          "changePct": 0.0,
           "printing": "Normal",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         },
         {
@@ -4508,64 +4600,160 @@
           "setId": "604",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/42417_200w.jpg",
           "price": 3.29,
-          "prevPrice": 3.17,
-          "changePct": 3.79,
+          "prevPrice": 3.29,
+          "changePct": 0.0,
           "printing": "Normal",
-          "pricedAsOf": "2026-10-24",
+          "pricedAsOf": "2026-10-25",
           "carried": false
         }
       ],
       "snapshotRange": {
         "earliest": "2024-12-26",
-        "latest": "2026-10-24",
-        "count": 70
+        "latest": "2026-10-25",
+        "count": 71
       },
       "movers": {
         "1D": {
           "available": true,
-          "baselineDate": "2026-10-23",
+          "baselineDate": "2026-10-24",
           "neededBy": null,
           "label": "vs previous snapshot",
           "gainers": [
             {
-              "id": "42347",
-              "name": "Mewtwo",
-              "number": "010/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42347_200w.jpg",
+              "id": "42415",
+              "name": "Hitmonchan",
+              "number": "007/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42415_200w.jpg",
               "setName": "Base Set",
-              "price": 84.59,
-              "prevPrice": 78.55,
-              "changePct": 7.69
+              "price": 18.66,
+              "prevPrice": 18.3,
+              "changePct": 1.97
             },
             {
-              "id": "42417",
-              "name": "Computer Search",
-              "number": "071/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42417_200w.jpg",
+              "id": "42363",
+              "name": "Pidgeotto",
+              "number": "022/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42363_200w.jpg",
               "setName": "Base Set",
-              "price": 3.29,
-              "prevPrice": 3.17,
-              "changePct": 3.79
+              "price": 8.89,
+              "prevPrice": 8.8,
+              "changePct": 1.02
             },
             {
-              "id": "42423",
-              "name": "Scoop Up",
-              "number": "078/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42423_200w.jpg",
+              "id": "42352",
+              "name": "Ninetales",
+              "number": "012/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42352_200w.jpg",
               "setName": "Base Set",
-              "price": 9.51,
-              "prevPrice": 9.29,
-              "changePct": 2.37
+              "price": 40.09,
+              "prevPrice": 39.97,
+              "changePct": 0.3
             },
             {
-              "id": "42357",
-              "name": "Beedrill",
-              "number": "017/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42357_200w.jpg",
+              "id": "42358",
+              "name": "Dragonair",
+              "number": "018/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42358_200w.jpg",
               "setName": "Base Set",
-              "price": 6.19,
-              "prevPrice": 6.05,
-              "changePct": 2.31
+              "price": 19.42,
+              "prevPrice": 19.39,
+              "changePct": 0.15
+            },
+            {
+              "id": "42361",
+              "name": "Electabuzz",
+              "number": "020/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42361_200w.jpg",
+              "setName": "Base Set",
+              "price": 10.37,
+              "prevPrice": 10.36,
+              "changePct": 0.1
+            }
+          ],
+          "losers": [
+            {
+              "id": "42362",
+              "name": "Electrode",
+              "number": "021/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42362_200w.jpg",
+              "setName": "Base Set",
+              "price": 8.78,
+              "prevPrice": 9.2,
+              "changePct": -4.57
+            },
+            {
+              "id": "42355",
+              "name": "Venusaur",
+              "number": "015/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42355_200w.jpg",
+              "setName": "Base Set",
+              "price": 152.86,
+              "prevPrice": 156.02,
+              "changePct": -2.03
+            },
+            {
+              "id": "42404",
+              "name": "Gyarados",
+              "number": "006/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42404_200w.jpg",
+              "setName": "Base Set",
+              "price": 56.33,
+              "prevPrice": 56.78,
+              "changePct": -0.79
+            },
+            {
+              "id": "42433",
+              "name": "Magneton",
+              "number": "009/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42433_200w.jpg",
+              "setName": "Base Set",
+              "price": 32.39,
+              "prevPrice": 32.53,
+              "changePct": -0.43
+            },
+            {
+              "id": "42359",
+              "name": "Dugtrio",
+              "number": "019/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42359_200w.jpg",
+              "setName": "Base Set",
+              "price": 11.09,
+              "prevPrice": 11.13,
+              "changePct": -0.36
+            }
+          ],
+          "breadth": {
+            "available": true,
+            "advancing": 5,
+            "declining": 5,
+            "unchanged": 21
+          }
+        },
+        "5D": {
+          "available": true,
+          "baselineDate": "2026-10-20",
+          "neededBy": "2026-10-20",
+          "label": "vs 2026-10-20",
+          "gainers": [
+            {
+              "id": "42418",
+              "name": "Devolution Spray",
+              "number": "072/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42418_200w.jpg",
+              "setName": "Base Set",
+              "price": 7.53,
+              "prevPrice": 6.36,
+              "changePct": 18.4
+            },
+            {
+              "id": "42424",
+              "name": "Super Energy Removal",
+              "number": "079/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42424_200w.jpg",
+              "setName": "Base Set",
+              "price": 3.5,
+              "prevPrice": 3.13,
+              "changePct": 11.82
             },
             {
               "id": "42416",
@@ -4574,8 +4762,58 @@
               "image": "https://tcgplayer-cdn.tcgplayer.com/product/42416_200w.jpg",
               "setName": "Base Set",
               "price": 8.19,
-              "prevPrice": 8.06,
-              "changePct": 1.61
+              "prevPrice": 7.44,
+              "changePct": 10.08
+            },
+            {
+              "id": "42347",
+              "name": "Mewtwo",
+              "number": "010/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42347_200w.jpg",
+              "setName": "Base Set",
+              "price": 84.59,
+              "prevPrice": 78.8,
+              "changePct": 7.35
+            },
+            {
+              "id": "42358",
+              "name": "Dragonair",
+              "number": "018/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42358_200w.jpg",
+              "setName": "Base Set",
+              "price": 19.42,
+              "prevPrice": 18.21,
+              "changePct": 6.64
+            },
+            {
+              "id": "42357",
+              "name": "Beedrill",
+              "number": "017/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42357_200w.jpg",
+              "setName": "Base Set",
+              "price": 6.19,
+              "prevPrice": 5.93,
+              "changePct": 4.38
+            },
+            {
+              "id": "42423",
+              "name": "Scoop Up",
+              "number": "078/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42423_200w.jpg",
+              "setName": "Base Set",
+              "price": 9.51,
+              "prevPrice": 9.16,
+              "changePct": 3.82
+            },
+            {
+              "id": "42404",
+              "name": "Gyarados",
+              "number": "006/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42404_200w.jpg",
+              "setName": "Base Set",
+              "price": 56.33,
+              "prevPrice": 54.35,
+              "changePct": 3.64
             },
             {
               "id": "108648",
@@ -4584,71 +4822,21 @@
               "image": "https://tcgplayer-cdn.tcgplayer.com/product/108648_200w.jpg",
               "setName": "Base Set",
               "price": 5.3,
-              "prevPrice": 5.27,
-              "changePct": 0.57
+              "prevPrice": 5.16,
+              "changePct": 2.71
             },
             {
-              "id": "42433",
-              "name": "Magneton",
-              "number": "009/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42433_200w.jpg",
+              "id": "42352",
+              "name": "Ninetales",
+              "number": "012/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42352_200w.jpg",
               "setName": "Base Set",
-              "price": 32.53,
-              "prevPrice": 32.37,
-              "changePct": 0.49
-            },
-            {
-              "id": "42362",
-              "name": "Electrode",
-              "number": "021/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42362_200w.jpg",
-              "setName": "Base Set",
-              "price": 9.2,
-              "prevPrice": 9.16,
-              "changePct": 0.44
-            },
-            {
-              "id": "42363",
-              "name": "Pidgeotto",
-              "number": "022/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42363_200w.jpg",
-              "setName": "Base Set",
-              "price": 8.8,
-              "prevPrice": 8.77,
-              "changePct": 0.34
-            },
-            {
-              "id": "42346",
-              "name": "Alakazam",
-              "number": "001/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42346_200w.jpg",
-              "setName": "Base Set",
-              "price": 72.46,
-              "prevPrice": 72.42,
-              "changePct": 0.06
+              "price": 40.09,
+              "prevPrice": 39.04,
+              "changePct": 2.69
             }
           ],
           "losers": [
-            {
-              "id": "42424",
-              "name": "Super Energy Removal",
-              "number": "079/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42424_200w.jpg",
-              "setName": "Base Set",
-              "price": 3.5,
-              "prevPrice": 3.65,
-              "changePct": -4.11
-            },
-            {
-              "id": "42355",
-              "name": "Venusaur",
-              "number": "015/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42355_200w.jpg",
-              "setName": "Base Set",
-              "price": 156.02,
-              "prevPrice": 161.06,
-              "changePct": -3.13
-            },
             {
               "id": "42421",
               "name": "Lass",
@@ -4656,28 +4844,68 @@
               "image": "https://tcgplayer-cdn.tcgplayer.com/product/42421_200w.jpg",
               "setName": "Base Set",
               "price": 3.48,
-              "prevPrice": 3.55,
-              "changePct": -1.97
+              "prevPrice": 3.86,
+              "changePct": -9.84
             },
             {
-              "id": "42415",
-              "name": "Hitmonchan",
-              "number": "007/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42415_200w.jpg",
+              "id": "42355",
+              "name": "Venusaur",
+              "number": "015/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42355_200w.jpg",
               "setName": "Base Set",
-              "price": 18.3,
-              "prevPrice": 18.48,
-              "changePct": -0.97
+              "price": 152.86,
+              "prevPrice": 167.66,
+              "changePct": -8.83
             },
             {
-              "id": "42371",
-              "name": "Chansey",
-              "number": "003/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42371_200w.jpg",
+              "id": "42362",
+              "name": "Electrode",
+              "number": "021/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42362_200w.jpg",
               "setName": "Base Set",
-              "price": 55.42,
-              "prevPrice": 55.83,
-              "changePct": -0.73
+              "price": 8.78,
+              "prevPrice": 9.44,
+              "changePct": -6.99
+            },
+            {
+              "id": "42363",
+              "name": "Pidgeotto",
+              "number": "022/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42363_200w.jpg",
+              "setName": "Base Set",
+              "price": 8.89,
+              "prevPrice": 9.14,
+              "changePct": -2.74
+            },
+            {
+              "id": "42433",
+              "name": "Magneton",
+              "number": "009/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42433_200w.jpg",
+              "setName": "Base Set",
+              "price": 32.39,
+              "prevPrice": 33.11,
+              "changePct": -2.17
+            },
+            {
+              "id": "42359",
+              "name": "Dugtrio",
+              "number": "019/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42359_200w.jpg",
+              "setName": "Base Set",
+              "price": 11.09,
+              "prevPrice": 11.21,
+              "changePct": -1.07
+            },
+            {
+              "id": "42360",
+              "name": "Blastoise",
+              "number": "002/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42360_200w.jpg",
+              "setName": "Base Set",
+              "price": 227.27,
+              "prevPrice": 228.59,
+              "changePct": -0.58
             },
             {
               "id": "42353",
@@ -4686,224 +4914,8 @@
               "image": "https://tcgplayer-cdn.tcgplayer.com/product/42353_200w.jpg",
               "setName": "Base Set",
               "price": 35.17,
-              "prevPrice": 35.31,
-              "changePct": -0.4
-            },
-            {
-              "id": "42418",
-              "name": "Devolution Spray",
-              "number": "072/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42418_200w.jpg",
-              "setName": "Base Set",
-              "price": 7.53,
-              "prevPrice": 7.54,
-              "changePct": -0.13
-            },
-            {
-              "id": "42361",
-              "name": "Electabuzz",
-              "number": "020/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42361_200w.jpg",
-              "setName": "Base Set",
-              "price": 10.36,
-              "prevPrice": 10.37,
-              "changePct": -0.1
-            }
-          ],
-          "breadth": {
-            "available": true,
-            "advancing": 11,
-            "declining": 8,
-            "unchanged": 12
-          }
-        },
-        "5D": {
-          "available": true,
-          "baselineDate": "2026-10-19",
-          "neededBy": "2026-10-19",
-          "label": "vs 2026-10-19",
-          "gainers": [
-            {
-              "id": "42418",
-              "name": "Devolution Spray",
-              "number": "072/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42418_200w.jpg",
-              "setName": "Base Set",
-              "price": 7.53,
-              "prevPrice": 6.38,
-              "changePct": 18.03
-            },
-            {
-              "id": "42424",
-              "name": "Super Energy Removal",
-              "number": "079/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42424_200w.jpg",
-              "setName": "Base Set",
-              "price": 3.5,
-              "prevPrice": 3.18,
-              "changePct": 10.06
-            },
-            {
-              "id": "42358",
-              "name": "Dragonair",
-              "number": "018/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42358_200w.jpg",
-              "setName": "Base Set",
-              "price": 19.39,
-              "prevPrice": 17.78,
-              "changePct": 9.06
-            },
-            {
-              "id": "42416",
-              "name": "Clefairy Doll",
-              "number": "070/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42416_200w.jpg",
-              "setName": "Base Set",
-              "price": 8.19,
-              "prevPrice": 7.56,
-              "changePct": 8.33
-            },
-            {
-              "id": "42347",
-              "name": "Mewtwo",
-              "number": "010/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42347_200w.jpg",
-              "setName": "Base Set",
-              "price": 84.59,
-              "prevPrice": 78.81,
-              "changePct": 7.33
-            },
-            {
-              "id": "42423",
-              "name": "Scoop Up",
-              "number": "078/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42423_200w.jpg",
-              "setName": "Base Set",
-              "price": 9.51,
-              "prevPrice": 9.13,
-              "changePct": 4.16
-            },
-            {
-              "id": "42417",
-              "name": "Computer Search",
-              "number": "071/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42417_200w.jpg",
-              "setName": "Base Set",
-              "price": 3.29,
-              "prevPrice": 3.16,
-              "changePct": 4.11
-            },
-            {
-              "id": "42404",
-              "name": "Gyarados",
-              "number": "006/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42404_200w.jpg",
-              "setName": "Base Set",
-              "price": 56.78,
-              "prevPrice": 54.85,
-              "changePct": 3.52
-            },
-            {
-              "id": "42361",
-              "name": "Electabuzz",
-              "number": "020/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42361_200w.jpg",
-              "setName": "Base Set",
-              "price": 10.36,
-              "prevPrice": 10.02,
-              "changePct": 3.39
-            },
-            {
-              "id": "42352",
-              "name": "Ninetales",
-              "number": "012/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42352_200w.jpg",
-              "setName": "Base Set",
-              "price": 39.97,
-              "prevPrice": 38.8,
-              "changePct": 3.02
-            }
-          ],
-          "losers": [
-            {
-              "id": "42421",
-              "name": "Lass",
-              "number": "075/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42421_200w.jpg",
-              "setName": "Base Set",
-              "price": 3.48,
-              "prevPrice": 3.87,
-              "changePct": -10.08
-            },
-            {
-              "id": "42357",
-              "name": "Beedrill",
-              "number": "017/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42357_200w.jpg",
-              "setName": "Base Set",
-              "price": 6.19,
-              "prevPrice": 6.88,
-              "changePct": -10.03
-            },
-            {
-              "id": "42355",
-              "name": "Venusaur",
-              "number": "015/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42355_200w.jpg",
-              "setName": "Base Set",
-              "price": 156.02,
-              "prevPrice": 167.66,
-              "changePct": -6.94
-            },
-            {
-              "id": "42362",
-              "name": "Electrode",
-              "number": "021/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42362_200w.jpg",
-              "setName": "Base Set",
-              "price": 9.2,
-              "prevPrice": 9.73,
-              "changePct": -5.45
-            },
-            {
-              "id": "42420",
-              "name": "Item Finder",
-              "number": "074/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42420_200w.jpg",
-              "setName": "Base Set",
-              "price": 9.1,
-              "prevPrice": 9.34,
-              "changePct": -2.57
-            },
-            {
-              "id": "42415",
-              "name": "Hitmonchan",
-              "number": "007/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42415_200w.jpg",
-              "setName": "Base Set",
-              "price": 18.3,
-              "prevPrice": 18.7,
-              "changePct": -2.14
-            },
-            {
-              "id": "42363",
-              "name": "Pidgeotto",
-              "number": "022/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42363_200w.jpg",
-              "setName": "Base Set",
-              "price": 8.8,
-              "prevPrice": 8.96,
-              "changePct": -1.79
-            },
-            {
-              "id": "42433",
-              "name": "Magneton",
-              "number": "009/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42433_200w.jpg",
-              "setName": "Base Set",
-              "price": 32.53,
-              "prevPrice": 33.11,
-              "changePct": -1.75
+              "prevPrice": 35.33,
+              "changePct": -0.45
             },
             {
               "id": "42371",
@@ -4912,31 +4924,31 @@
               "image": "https://tcgplayer-cdn.tcgplayer.com/product/42371_200w.jpg",
               "setName": "Base Set",
               "price": 55.42,
-              "prevPrice": 56.21,
-              "changePct": -1.41
+              "prevPrice": 55.65,
+              "changePct": -0.41
             },
             {
-              "id": "42422",
-              "name": "Pokemon Breeder",
-              "number": "076/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42422_200w.jpg",
+              "id": "42415",
+              "name": "Hitmonchan",
+              "number": "007/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42415_200w.jpg",
               "setName": "Base Set",
-              "price": 6.46,
-              "prevPrice": 6.52,
-              "changePct": -0.92
+              "price": 18.66,
+              "prevPrice": 18.7,
+              "changePct": -0.21
             }
           ],
           "breadth": {
             "available": true,
-            "advancing": 18,
-            "declining": 12,
+            "advancing": 20,
+            "declining": 10,
             "unchanged": 1
           }
         },
         "30D": {
           "available": true,
           "baselineDate": "2026-09-24",
-          "neededBy": "2026-09-24",
+          "neededBy": "2026-09-25",
           "label": "vs 2026-09-24",
           "gainers": [
             {
@@ -4945,9 +4957,9 @@
               "number": "006/102",
               "image": "https://tcgplayer-cdn.tcgplayer.com/product/42404_200w.jpg",
               "setName": "Base Set",
-              "price": 56.78,
+              "price": 56.33,
               "prevPrice": 44.37,
-              "changePct": 27.97
+              "changePct": 26.96
             },
             {
               "id": "42418",
@@ -4958,16 +4970,6 @@
               "price": 7.53,
               "prevPrice": 6.31,
               "changePct": 19.33
-            },
-            {
-              "id": "42362",
-              "name": "Electrode",
-              "number": "021/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42362_200w.jpg",
-              "setName": "Base Set",
-              "price": 9.2,
-              "prevPrice": 7.81,
-              "changePct": 17.8
             },
             {
               "id": "42423",
@@ -4990,14 +4992,24 @@
               "changePct": 14.93
             },
             {
+              "id": "42362",
+              "name": "Electrode",
+              "number": "021/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42362_200w.jpg",
+              "setName": "Base Set",
+              "price": 8.78,
+              "prevPrice": 7.81,
+              "changePct": 12.42
+            },
+            {
               "id": "42352",
               "name": "Ninetales",
               "number": "012/102",
               "image": "https://tcgplayer-cdn.tcgplayer.com/product/42352_200w.jpg",
               "setName": "Base Set",
-              "price": 39.97,
+              "price": 40.09,
               "prevPrice": 36.97,
-              "changePct": 8.11
+              "changePct": 8.44
             },
             {
               "id": "42417",
@@ -5052,6 +5064,16 @@
               "changePct": -14.84
             },
             {
+              "id": "42355",
+              "name": "Venusaur",
+              "number": "015/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42355_200w.jpg",
+              "setName": "Base Set",
+              "price": 152.86,
+              "prevPrice": 179.48,
+              "changePct": -14.83
+            },
+            {
               "id": "42393",
               "name": "Clefairy",
               "number": "005/102",
@@ -5062,14 +5084,14 @@
               "changePct": -13.16
             },
             {
-              "id": "42355",
-              "name": "Venusaur",
-              "number": "015/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42355_200w.jpg",
+              "id": "42433",
+              "name": "Magneton",
+              "number": "009/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42433_200w.jpg",
               "setName": "Base Set",
-              "price": 156.02,
-              "prevPrice": 179.48,
-              "changePct": -13.07
+              "price": 32.39,
+              "prevPrice": 36.43,
+              "changePct": -11.09
             },
             {
               "id": "42363",
@@ -5077,29 +5099,9 @@
               "number": "022/102",
               "image": "https://tcgplayer-cdn.tcgplayer.com/product/42363_200w.jpg",
               "setName": "Base Set",
-              "price": 8.8,
+              "price": 8.89,
               "prevPrice": 9.9,
-              "changePct": -11.11
-            },
-            {
-              "id": "42433",
-              "name": "Magneton",
-              "number": "009/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42433_200w.jpg",
-              "setName": "Base Set",
-              "price": 32.53,
-              "prevPrice": 36.43,
-              "changePct": -10.71
-            },
-            {
-              "id": "42415",
-              "name": "Hitmonchan",
-              "number": "007/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42415_200w.jpg",
-              "setName": "Base Set",
-              "price": 18.3,
-              "prevPrice": 20.33,
-              "changePct": -9.99
+              "changePct": -10.2
             },
             {
               "id": "42416",
@@ -5132,6 +5134,16 @@
               "changePct": -8.9
             },
             {
+              "id": "42415",
+              "name": "Hitmonchan",
+              "number": "007/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42415_200w.jpg",
+              "setName": "Base Set",
+              "price": 18.66,
+              "prevPrice": 20.33,
+              "changePct": -8.21
+            },
+            {
               "id": "42347",
               "name": "Mewtwo",
               "number": "010/102",
@@ -5152,7 +5164,7 @@
         "1Y": {
           "available": true,
           "baselineDate": "2025-10-23",
-          "neededBy": "2025-10-24",
+          "neededBy": "2025-10-25",
           "label": "vs 2025-10-23",
           "gainers": [
             {
@@ -5201,9 +5213,9 @@
               "number": "012/102",
               "image": "https://tcgplayer-cdn.tcgplayer.com/product/42352_200w.jpg",
               "setName": "Base Set",
-              "price": 39.97,
+              "price": 40.09,
               "prevPrice": 22.81,
-              "changePct": 75.23
+              "changePct": 75.76
             },
             {
               "id": "42353",
@@ -5221,9 +5233,9 @@
               "number": "019/102",
               "image": "https://tcgplayer-cdn.tcgplayer.com/product/42359_200w.jpg",
               "setName": "Base Set",
-              "price": 11.13,
+              "price": 11.09,
               "prevPrice": 6.67,
-              "changePct": 66.87
+              "changePct": 66.27
             },
             {
               "id": "42418",
@@ -5241,9 +5253,9 @@
               "number": "006/102",
               "image": "https://tcgplayer-cdn.tcgplayer.com/product/42404_200w.jpg",
               "setName": "Base Set",
-              "price": 56.78,
+              "price": 56.33,
               "prevPrice": 34.98,
-              "changePct": 62.32
+              "changePct": 61.03
             },
             {
               "id": "42433",
@@ -5251,9 +5263,9 @@
               "number": "009/102",
               "image": "https://tcgplayer-cdn.tcgplayer.com/product/42433_200w.jpg",
               "setName": "Base Set",
-              "price": 32.53,
+              "price": 32.39,
               "prevPrice": 20.19,
-              "changePct": 61.12
+              "changePct": 60.43
             }
           ],
           "losers": [
@@ -5263,9 +5275,9 @@
               "number": "022/102",
               "image": "https://tcgplayer-cdn.tcgplayer.com/product/42363_200w.jpg",
               "setName": "Base Set",
-              "price": 8.8,
+              "price": 8.89,
               "prevPrice": 9.46,
-              "changePct": -6.98
+              "changePct": -6.03
             },
             {
               "id": "42422",
@@ -5276,22 +5288,12 @@
               "price": 6.46,
               "prevPrice": 6.65,
               "changePct": -2.86
-            },
-            {
-              "id": "42415",
-              "name": "Hitmonchan",
-              "number": "007/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42415_200w.jpg",
-              "setName": "Base Set",
-              "price": 18.3,
-              "prevPrice": 18.53,
-              "changePct": -1.24
             }
           ],
           "breadth": {
             "available": true,
-            "advancing": 28,
-            "declining": 3,
+            "advancing": 29,
+            "declining": 2,
             "unchanged": 0
           }
         },
@@ -5337,9 +5339,9 @@
               "number": "009/102",
               "image": "https://tcgplayer-cdn.tcgplayer.com/product/42433_200w.jpg",
               "setName": "Base Set",
-              "price": 32.53,
+              "price": 32.39,
               "prevPrice": 17.35,
-              "changePct": 87.49
+              "changePct": 86.69
             },
             {
               "id": "42393",
@@ -5377,19 +5379,9 @@
               "number": "019/102",
               "image": "https://tcgplayer-cdn.tcgplayer.com/product/42359_200w.jpg",
               "setName": "Base Set",
-              "price": 11.13,
+              "price": 11.09,
               "prevPrice": 6.59,
-              "changePct": 68.89
-            },
-            {
-              "id": "42404",
-              "name": "Gyarados",
-              "number": "006/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42404_200w.jpg",
-              "setName": "Base Set",
-              "price": 56.78,
-              "prevPrice": 35.22,
-              "changePct": 61.22
+              "changePct": 68.29
             },
             {
               "id": "42358",
@@ -5397,9 +5389,19 @@
               "number": "018/102",
               "image": "https://tcgplayer-cdn.tcgplayer.com/product/42358_200w.jpg",
               "setName": "Base Set",
-              "price": 19.39,
+              "price": 19.42,
               "prevPrice": 12.09,
-              "changePct": 60.38
+              "changePct": 60.63
+            },
+            {
+              "id": "42352",
+              "name": "Ninetales",
+              "number": "012/102",
+              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42352_200w.jpg",
+              "setName": "Base Set",
+              "price": 40.09,
+              "prevPrice": 25.01,
+              "changePct": 60.3
             }
           ],
           "losers": [
@@ -5439,9 +5441,9 @@
               "number": "022/102",
               "image": "https://tcgplayer-cdn.tcgplayer.com/product/42363_200w.jpg",
               "setName": "Base Set",
-              "price": 8.8,
+              "price": 8.89,
               "prevPrice": 9.41,
-              "changePct": -6.48
+              "changePct": -5.53
             },
             {
               "id": "42424",
@@ -5452,22 +5454,12 @@
               "price": 3.5,
               "prevPrice": 3.58,
               "changePct": -2.23
-            },
-            {
-              "id": "42415",
-              "name": "Hitmonchan",
-              "number": "007/102",
-              "image": "https://tcgplayer-cdn.tcgplayer.com/product/42415_200w.jpg",
-              "setName": "Base Set",
-              "price": 18.3,
-              "prevPrice": 18.63,
-              "changePct": -1.77
             }
           ],
           "breadth": {
             "available": true,
-            "advancing": 25,
-            "declining": 6,
+            "advancing": 26,
+            "declining": 5,
             "unchanged": 0
           }
         }
