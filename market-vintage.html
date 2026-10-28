@@ -538,8 +538,11 @@
   }
   .spark-tip.is-multi {
     white-space: normal;
-    min-width: 0;
+    width: max-content;
+    min-width: max-content;
     max-width: min(16rem, calc(100% - 8px));
+    overflow-wrap: normal;
+    word-break: normal;
   }
   .spark-tip .tt-row {
     display: flex;
@@ -555,9 +558,11 @@
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    min-width: 0;
+    min-width: auto;
     color: var(--muted);
     font-weight: 700;
+    overflow-wrap: normal;
+    word-break: keep-all;
   }
   .spark-tip .tt-swatch {
     width: 8px;
@@ -566,13 +571,14 @@
     border: 1px solid var(--ink);
     flex-shrink: 0;
   }
-  .spark-tip .tt-num { font-weight: 800; }
+  .spark-tip .tt-num { font-weight: 800; white-space: nowrap; flex: 0 0 auto; }
   .spark-wrap { overflow: visible; }
   .spark-tip {
     position: absolute;
     z-index: 5;
     pointer-events: none;
-    transform: translate(-50%, calc(-100% - 8px));
+    left: 0;
+    top: 0;
     background: var(--card);
     border: var(--bw) solid var(--ink);
     border-radius: 8px;

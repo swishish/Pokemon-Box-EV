@@ -23,24 +23,32 @@
       '.spark-wrap .spark{width:100%;height:100px;display:block;cursor:crosshair;touch-action:none;}',
       '.spark-wrap .spark.has-vol{height:148px;}',
       '.spark-wrap .spark:focus{outline:2px solid var(--ink,#141414);outline-offset:2px;}',
-      '.spark-tip{position:absolute;z-index:5;pointer-events:none;',
-      'transform:translate(-50%,calc(-100% - 8px));background:var(--card,#fff);',
+      '.spark-tip{position:absolute;z-index:5;left:0;top:0;pointer-events:none;',
+      'background:var(--card,#fff);',
       'border:var(--bw,2px) solid var(--ink,#141414);border-radius:8px;padding:6px 10px;',
       'box-shadow:var(--shadow-xs,2px 2px 0 #141414);',
-      'white-space:nowrap;}',
+      'white-space:nowrap;overflow-wrap:normal;word-break:normal;}',
       '.spark-tip[hidden]{display:none !important;}',
       '.spark-tip .tt-value{font-weight:800;font-variant-numeric:tabular-nums;',
-      'font-size:.95rem;color:var(--text,#141414);line-height:1.2;}',
-      '.spark-tip .tt-date{color:var(--muted,#5f5a51);font-size:.72rem;margin-top:2px;}',
-      '.spark-tip.is-multi{white-space:normal;min-width:0;max-width:min(16rem,calc(100% - 8px));}',
+      'font-size:.95rem;color:var(--text,#141414);line-height:1.2;white-space:nowrap;}',
+      '.spark-tip .tt-date{color:var(--muted,#5f5a51);font-size:.72rem;margin-top:2px;',
+      'white-space:nowrap;}',
+      /* Width is the content's max-content size, capped by the plot — not the
+         space remaining to the right of `left`. An auto width shrink-fits into
+         (containing block − left), so a crosshair near the right edge crushed
+         the tip into a one-character column. Visual position is a translate. */
+      '.spark-tip.is-multi{white-space:normal;width:max-content;min-width:max-content;',
+      'max-width:min(16rem,calc(100% - 8px));overflow-wrap:normal;word-break:normal;}',
       '.spark-tip .tt-row{display:flex;align-items:baseline;justify-content:space-between;',
-      'gap:8px 12px;font-variant-numeric:tabular-nums;font-size:.78rem;line-height:1.25;}',
+      'flex-wrap:nowrap;gap:8px 12px;font-variant-numeric:tabular-nums;',
+      'font-size:.78rem;line-height:1.25;}',
       '.spark-tip .tt-row + .tt-row{margin-top:3px;}',
-      '.spark-tip .tt-name{display:inline-flex;align-items:center;gap:5px;min-width:0;',
-      'color:var(--muted,#5f5a51);font-weight:700;}',
+      '.spark-tip .tt-name{display:inline-flex;align-items:center;gap:5px;min-width:auto;',
+      'color:var(--muted,#5f5a51);font-weight:700;overflow-wrap:normal;word-break:keep-all;}',
       '.spark-tip .tt-swatch{width:8px;height:8px;border-radius:50%;border:1px solid #141414;',
       'flex-shrink:0;}',
-      '.spark-tip .tt-num{font-weight:800;color:var(--text,#141414);}'
+      '.spark-tip .tt-num{font-weight:800;color:var(--text,#141414);white-space:nowrap;',
+      'flex:0 0 auto;}'
     ].join('');
     document.head.appendChild(s);
   }
@@ -73,6 +81,26 @@
 
   function canHover() {
     return !(window.matchMedia && window.matchMedia('(hover: none)').matches);
+  }
+
+  /* Lay the tip out at the left of the plot, then translate it. Setting `left`
+     to the anchor would shrink an auto-width tip into the leftover strip. */
+  function placeTip(tip, wrap, anchorX, anchorY) {
+    tip.style.left = '0px';
+    tip.style.top = '0px';
+    var w = tip.offsetWidth || 80;
+    var h = tip.offsetHeight || 36;
+    var pad = 4;
+    var wrapW = wrap.clientWidth || 0;
+    var x = anchorX - w / 2;
+    if (wrapW > 0) {
+      var minX = pad;
+      var maxX = wrapW - w - pad;
+      if (maxX < minX) x = minX;
+      else x = Math.max(minX, Math.min(maxX, x));
+    }
+    var y = Math.max(10, anchorY) - h - 8;
+    tip.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px)';
   }
 
   /* Map a client X through the SVG's screen CTM so letterboxing / CSS stretch
@@ -369,12 +397,7 @@
         '<div class="tt-date">' + slot.date + '</div>' + rows;
       tip.hidden = false;
       var pos = viewBoxToWrap(svg, wrap, slot.x, tipY === chartH ? PAD : tipY);
-      var half = tip.offsetWidth / 2 || 40;
-      var maxLeft = Math.max(half + 4, wrap.clientWidth - half - 4);
-      var left = Math.max(half + 4, Math.min(maxLeft, pos.x));
-      var top = Math.max(10, pos.y);
-      tip.style.left = left + 'px';
-      tip.style.top = top + 'px';
+      placeTip(tip, wrap, pos.x, pos.y);
     }
 
     function clientToIndex(clientX) {
@@ -578,12 +601,7 @@
         '<div class="tt-date">' + p.date + '</div>';
       tip.hidden = false;
       var pos = viewBoxToWrap(svg, wrap, p.x, p.y);
-      var half = tip.offsetWidth / 2 || 40;
-      var maxLeft = Math.max(half + 4, wrap.clientWidth - half - 4);
-      var left = Math.max(half + 4, Math.min(maxLeft, pos.x));
-      var top = Math.max(10, pos.y);
-      tip.style.left = left + 'px';
-      tip.style.top = top + 'px';
+      placeTip(tip, wrap, pos.x, pos.y);
     }
 
     function clientToIndex(clientX) {
