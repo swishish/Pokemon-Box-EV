@@ -6,14 +6,14 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>日版 PSA10 基準 · v1.32.1</title>
+<title>日版 PSA10 基準 · v1.32.2</title>
 <meta name="description" content="日版寶可夢 TCG PSA10 廣度基準：復古／中世代／現行 N 隨流動性篩選浮動，另加特典與 Tag Team 姊妹籃子。等權／流動性／價格／無 cap 疊加。靜態快照，非正式投資建議。" />
 <meta property="og:site_name" content="日版 PSA10 基準" />
 <meta property="og:title" content="日版 PSA10 基準 · 復古／中世代／現行" />
 <meta property="og:description" content="Pokeca-style JP PSA10 廣度基準。舊 60 張是 SV chase 袖。靜態快照，非正式投資建議。" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://swishish.github.io/Pokemon-Box-EV/market-jp-psa10-bench.html" />
-<meta property="og:image" content="https://swishish.github.io/Pokemon-Box-EV/og-psa10-bench-v2.png?v=1.32.1" />
+<meta property="og:image" content="https://swishish.github.io/Pokemon-Box-EV/og-psa10-bench-v2.png?v=1.32.2" />
 <meta property="og:image:alt" content="日版 PSA10 基準 · 復古／中世代／現行" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
@@ -21,7 +21,7 @@
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="日版 PSA10 基準 · 復古／中世代／現行" />
 <meta name="twitter:description" content="復古／中世代／現行廣度基準 + 特典／Tag Team。非正式投資建議。" />
-<meta name="twitter:image" content="https://swishish.github.io/Pokemon-Box-EV/og-psa10-bench-v2.png?v=1.32.1" />
+<meta name="twitter:image" content="https://swishish.github.io/Pokemon-Box-EV/og-psa10-bench-v2.png?v=1.32.2" />
 <meta name="twitter:image:alt" content="日版 PSA10 基準 · 復古／中世代／現行" />
 <link rel="canonical" href="https://swishish.github.io/Pokemon-Box-EV/market-jp-psa10-bench.html" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
@@ -333,6 +333,8 @@
   }
   .en-base-wrap .series-tab.is-active { background: #fff3c4; }
   body.is-en-base .legend-row { display: none; }
+  .en-overlay-row { display: none; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
+  body.is-en-base .en-overlay-row { display: flex; }
   body.is-en-base .jp-mover-note { display: none; }
   body.is-en-base .en-mover-note { display: block; }
   .series-tab {
@@ -543,7 +545,7 @@
       flex: 0 0 auto;
     }
     body.is-en-base .en-basket-row .en-usd::before { content: "USD"; }
-    body.is-en-base .en-basket-row .en-chg::before { content: "1M"; }
+    body.is-en-base .en-basket-row .en-chg::before { content: "1D"; }
     body.is-en-base .en-basket-row .en-val {
       white-space: nowrap;
       margin-left: auto;
@@ -563,7 +565,7 @@
 <header>
   <div class="header-inner">
     <div class="header-top">
-      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.32.1</span></h1>
+      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.32.2</span></h1>
       <nav class="header-nav" aria-label="站內導覽">
         <a class="nav-btn" href="./calc.html">開盒 EV</a>
         <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
@@ -585,9 +587,9 @@
   <p class="kind-note">舊 <a href="./market-jp-psa10.html">JP PSA10</a> 60 張是 SV chase 袖，這頁不取代該頁。綜合＝復古＋中世代＋現行的流動性篩選聯集（N 隨篩選浮動，不再每區鎖定 80）；特典／Tag Team 是平行姊妹籃子。</p>
   <div class="series-tabs" id="seriesTabs" role="tablist" aria-label="Benchmark series"></div>
   <div class="en-base-wrap" id="enBaseWrap">
-    <p class="en-kicker">EN Base · PriceCharting <span class="tiny">英文裸卡 ungraded · 非日版 · 非 SNKRDUNK · 月線 · 2023-01-01＝1000</span></p>
-    <div class="series-tabs" id="enBaseTabs" role="tablist" aria-label="English Base PriceCharting indexes"></div>
-    <p class="tiny" id="enBaseHint" style="margin:4px 0 0">與上面日版 PSA10 基準分開。點一條就在這張圖看 PriceCharting 月線；完整籃子也在 <a href="./market-vintage.html#pc/1st">Base 復古 · PC 月線</a>。</p>
+    <p class="en-kicker">EN Base · TCGPlayer <span class="tiny">英文裸卡 ungraded · TickerMint 日線 · 2024-02-08＝1000 · 非日版 · 非 SNKRDUNK</span></p>
+    <div class="series-tabs" id="enBaseTabs" role="tablist" aria-label="English Base TCGPlayer daily indexes"></div>
+    <p class="tiny" id="enBaseHint" style="margin:4px 0 0">與上面日版 PSA10 基準分開。主圖是 TCGPlayer Market／TickerMint 日線（2024-02-08＝1000）。PriceCharting 月線（2023-01-01＝1000）可疊上去，兩條鏈不能相減。完整籃子在 <a href="./market-vintage.html#unlimited">Base 復古 · 日線</a>。</p>
   </div>
 
   <div class="hero">
@@ -600,6 +602,10 @@
         <button type="button" class="legend-btn is-on" data-series="liquidity" aria-pressed="true"><span class="swatch dash" style="color:var(--liq)"></span>流動性 Liq</button>
         <button type="button" class="legend-btn is-off" data-series="price" aria-pressed="false"><span class="swatch dash" style="color:var(--px)"></span>價格 Price</button>
         <button type="button" class="legend-btn is-off" data-series="priceNoCap" aria-pressed="false"><span class="swatch long" style="color:var(--pxn)"></span>價格·無 cap</button>
+      </div>
+      <div class="en-overlay-row" id="enOverlayRow" role="group" aria-label="English Base chart series">
+        <button type="button" class="legend-btn is-on" id="enDailyLegend" aria-pressed="true" disabled><span class="swatch" id="enDailySwatch"></span>TCG 日線</button>
+        <button type="button" class="legend-btn is-off" id="enPcToggle" aria-pressed="false"><span class="swatch dash" style="color:#8a6914"></span>PC 月線</button>
       </div>
       <div class="period-btns" role="tablist" aria-label="Return period">
         <button type="button" class="period-btn" data-period="1D" aria-selected="false">1D</button>
@@ -631,7 +637,7 @@
   </div>
 
   <p class="tiny jp-mover-note" style="margin:0 0 8px">漲跌榜＝當日有 PSA10 刊價的原價變動（未 clip）；指數本身已對缺口重入與 ±25% 封頂。</p>
-  <p class="tiny en-mover-note" style="margin:0 0 8px" hidden>漲跌榜＝對上一個 PriceCharting 月份的 ungraded（used）價。不是 PSA10，也不是日圓。</p>
+  <p class="tiny en-mover-note" style="margin:0 0 8px" hidden>漲跌榜＝上一筆 TCGPlayer Market 日線（TickerMint）。不是 PSA10，也不是日圓。圖表期間可以更長，榜仍是 1D。</p>
   <div class="movers">
     <div class="card">
       <h2>漲幅榜 Top gainers <span class="pill">1D</span></h2>
@@ -694,7 +700,7 @@
   <div class="card method-card">
     <h2>這是什麼 · 方法</h2>
     <ul class="tiny">
-      <li><b>EN Base · PriceCharting</b>：上方第二排是四條<b>英文</b>籃子（Base 1st Edition、Shadowless、Unlimited、Base Set 2）。價格只來自 PriceCharting <b>used</b>（裸卡），每月一點，<b>2023-01-01＝1,000</b>。不是這頁的日版 SNK PSA10，也不改上面六條基準的算法。深連結 <code>#en-1st</code>／<code>#en-shadowless</code>／<code>#en-unlimited</code>／<code>#en-base2</code>，或 <a href="./market-vintage.html#pc/1st">復古頁 PC 月線</a>。</li>
+      <li><b>EN Base · TCGPlayer 日線</b>：上方第二排是四條<b>英文</b>籃子（Base 1st Edition、Shadowless、Unlimited、Base Set 2）。主圖是 TCGPlayer <b>Market</b>（裸卡 NM），歷史來自 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a>，<b>每日一點</b>，<b>2024-02-08＝1,000</b>（那天夠厚就當錨）。這不是 PriceCharting 的 <b>2023-01-01＝1,000</b> 月線，兩條水平不能相減。圖上的「PC 月線」是同一張卡的長期對照，預設關掉。1st Edition 最薄（Charizard／Mewtwo／Blastoise 有些日子沒有市價，沿用既有 70 日 carry，不補 $0）。不是這頁的日版 SNK PSA10，也不改上面六條基準。深連結 <code>#en-1st</code>／<code>#en-shadowless</code>／<code>#en-unlimited</code>／<code>#en-base2</code>。月線原頁仍在 <a href="./market-vintage.html#pc/1st">復古頁 PC 月線</a>。</li>
       <li><b>與 chase 60 並存</b>：<a href="./market-jp-psa10.html">JP PSA10</a> 仍然是凍結約 60 張 SV chase 袖（<code>data.json</code> apparel ID、¥3,000／90 日 12 刊價）。這頁是廣度基準，宇宙來自 SNK 公開搜尋＋本站已有 ID，<b>不發明</b>產品編號。</li>
       <li><b>三個時代扇區，N 隨篩選浮動</b>：<b>復古 VINTAGE</b>＝SM 之前（約 1996–2016，XY／BW／DP…，依 Pokeca Vintage）；<b>中世代 MODERN</b>＝SM＋劍盾 S（Tag Team 亦計入此區）；<b>現行 CURRENT</b>＝SV＋MEGA，不限 Box EV chase 657 個 ID。通過篩選即入選——<b>不再</b>設地板 80／補到 80／截到 80。綜合＝三區聯集。篩選：最近 PSA10 刊價 ≥ ¥2,000；90 日刊價日復古 ≥5、中世代／現行 ≥6。某區通過少於 20 張才放寬到 ¥1,500／3 日（仍然收取全部通過者，不是地板）。</li>
       <li><b>平行姊妹籃子</b>：<b>特典 PROMO</b>（Grey Felt Hat／灰氈帽、Munch／Picasso／長場、Mario／Luigi／poncho 皮卡丘、Extra Battle Day 等流動日版特典；篩選 ¥2,500／90 日 5 刊價日）；<b>Tag Team / MID</b>＝SM8b–SM12a／SMM 溫度計（篩選與復古相同：¥2,000／5 日），即使 MODERN 已覆蓋 SM／S 仍單獨顯示，避免中世代被隱藏。兩條皆為篩選全收，不截 80。</li>
@@ -708,21 +714,23 @@
   </div>
 
   <div class="disclaimer" id="disclaimer">
-    <p><b>資料來源：</b>SNKRDUNK 日站公開 PSA10 成交圖價。這頁是 GitHub Pages 靜態 JSON，瀏覽器<b>不會</b>替你下單／出價。數字可能延遲或不準；<b>不是</b>投資建議。</p>
+    <p><b>資料來源：</b>日版六條是 SNKRDUNK 日站公開 PSA10 成交圖價。EN Base 四條是 TCGPlayer Market（每日 TCGCSV，歷史 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a>），可另疊 PriceCharting 月線。這頁是 GitHub Pages 靜態 JSON，瀏覽器<b>不會</b>替你下單／出價。數字可能延遲或不準；<b>不是</b>投資建議。</p>
     <p>Pokémon 與相關名稱為其權利人商標。本頁為獨立粉絲工具，與 Nintendo／The Pokémon Company／SNKRDUNK／PSA 無關。請只瀏覽行情，不要用自動化去買／Bid／留言。</p>
   </div>
 </main>
-<footer>日盒 EV 小算盤 · JP PSA10 基準 · Snapshot 靜態資料 · 非正式投資建議 · 來源 <a href="https://snkrdunk.com/" target="_blank" rel="noopener">SNKRDUNK</a> · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10.html">JP PSA10</a> · <a href="./market-base-psa-pop.html">Base POP</a></footer>
+<footer>日盒 EV 小算盤 · JP PSA10 基準 · Snapshot 靜態資料 · 非正式投資建議 · 來源 <a href="https://snkrdunk.com/" target="_blank" rel="noopener">SNKRDUNK</a> · EN Base 歷史 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a> · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10.html">JP PSA10</a> · <a href="./market-base-psa-pop.html">Base POP</a></footer>
 
-<script src="./js/spark-tip.js?v=1.32.1"></script>
-<script src="./js/jp-psa10-ui.js?v=1.32.1"></script>
-<script src="./data/market-jp-psa10-bench/latest.js?v=1.32.1"></script>
-<script src="./data/market-jp-psa10-bench/history.js?v=1.32.1"></script>
-<script src="./data/market-vintage-pc/latest.js?v=1.32.1"></script>
-<script src="./data/market-vintage-pc/history.js?v=1.32.1"></script>
+<script src="./js/spark-tip.js?v=1.32.2"></script>
+<script src="./js/jp-psa10-ui.js?v=1.32.2"></script>
+<script src="./data/market-jp-psa10-bench/latest.js?v=1.32.2"></script>
+<script src="./data/market-jp-psa10-bench/history.js?v=1.32.2"></script>
+<script src="./data/market-vintage/latest.js?v=1.32.2"></script>
+<script src="./data/market-vintage/history.js?v=1.32.2"></script>
+<script src="./data/market-vintage-pc/latest.js?v=1.32.2"></script>
+<script src="./data/market-vintage-pc/history.js?v=1.32.2"></script>
 <script>
 (async function () {
-  const VERSION = '1.32.1';
+  const VERSION = '1.32.2';
   const ORDER = ['composite', 'vintage', 'modern', 'current', 'promo', 'midera'];
   const SERIES = {
     equal: { id: 'equal', name: '等權', color: '#141414' },
@@ -766,10 +774,14 @@
   }
   const dataRes = await loadJson('./data/market-jp-psa10-bench/latest.json');
   const histRes = await loadJson('./data/market-jp-psa10-bench/history.json');
+  const vinRes = await loadJson('./data/market-vintage/latest.json');
+  const vinHistRes = await loadJson('./data/market-vintage/history.json');
   const pcRes = await loadJson('./data/market-vintage-pc/latest.json');
   const pcHistRes = await loadJson('./data/market-vintage-pc/history.json');
   const DATA = (dataRes && dataRes.data) || window.MARKET_JP_PSA10_BENCH;
   const HIST = (histRes && histRes.data) || window.MARKET_JP_PSA10_BENCH_HISTORY || { series: {} };
+  const VIN = (vinRes && vinRes.data) || window.MARKET_VINTAGE || null;
+  const VIN_HIST = (vinHistRes && vinHistRes.data) || window.MARKET_VINTAGE_HISTORY || null;
   const PC = (pcRes && pcRes.data) || window.MARKET_VINTAGE_PC || null;
   const PC_HIST = (pcHistRes && pcHistRes.data) || window.MARKET_VINTAGE_PC_HISTORY || null;
   const EN_ORDER = ['base-1st', 'base-shadowless', 'base-unlimited', 'base-set-2'];
@@ -882,8 +894,9 @@
   let activeKey = 'composite';
   let mode = 'jp';
   let enKey = 'base-1st';
+  let showPc = false;
   const hash = (location.hash || '').replace('#', '');
-  if (EN_FROM_HASH[hash] && PC && PC.indexes && PC.indexes[EN_FROM_HASH[hash]]) {
+  if (EN_FROM_HASH[hash] && VIN && VIN.indexes && VIN.indexes[EN_FROM_HASH[hash]]) {
     mode = 'en';
     enKey = EN_FROM_HASH[hash];
   } else if (ORDER.indexOf(hash) >= 0 && seriesBlob(hash)) activeKey = hash;
@@ -1203,14 +1216,14 @@
     });
   }
 
-  function pcPts(id) {
-    const block = ((PC_HIST && PC_HIST.indexes) || {})[id] || {};
+  function seriesPts(blob, id) {
+    const block = ((blob && blob.indexes) || {})[id] || {};
     return (block.points || []).filter((p) => p && p.date).sort((a, b) => String(a.date).localeCompare(String(b.date)));
   }
-  function pcRet(id, period) {
-    const block = ((PC_HIST && PC_HIST.indexes) || {})[id] || {};
+  function seriesRet(blob, id, period) {
+    const block = ((blob && blob.indexes) || {})[id] || {};
     const server = block.returns || {};
-    const pts = pcPts(id);
+    const pts = seriesPts(blob, id);
     if (period === 'ALL') {
       if (pts.length < 2) return { available: false, pct: null };
       return packReturn(pts[0], pts[pts.length - 1], 'index');
@@ -1221,28 +1234,49 @@
       if (windowPts.length < 2) return { available: false, pct: null, from: from, to: to };
       return packReturn(windowPts[0], windowPts[windowPts.length - 1], 'index');
     }
+    if (period === '1D' && pts.length >= 2) {
+      const packed = server['1D'] && server['1D'].available ? server['1D'] : packReturn(pts[pts.length - 2], pts[pts.length - 1], 'index');
+      return packed;
+    }
     return server[period] || { available: false, pct: null };
+  }
+  function enWindow(pts, ret, period) {
+    if (!pts.length) return [];
+    if (period === 'ALL' || !ret || !ret.from) return pts;
+    const to = ret.to || pts[pts.length - 1].date;
+    return pts.filter((p) => p.date >= ret.from && p.date <= to);
+  }
+  function syncEnOverlay() {
+    const btn = $('enPcToggle');
+    const sw = $('enDailySwatch');
+    if (sw) sw.style.color = EN_COLOR[enKey] || '#3d6fd9';
+    if (!btn) return;
+    btn.classList.toggle('is-on', showPc);
+    btn.classList.toggle('is-off', !showPc);
+    btn.setAttribute('aria-pressed', showPc ? 'true' : 'false');
   }
   function renderEnTabs() {
     const host = $('enBaseTabs');
     if (!host) return;
-    if (!PC || !PC.indexes) {
-      host.innerHTML = '<p class="tiny">PriceCharting 指數尚未載入。</p>';
+    if (!VIN || !VIN.indexes) {
+      host.innerHTML = '<p class="tiny">TCGPlayer 日線尚未載入。</p>';
       return;
     }
-    const period = periodState.period === '1D' || periodState.period === '5D' ? '30D' : periodState.period;
-    host.innerHTML = EN_ORDER.filter((id) => PC.indexes[id]).map((id) => {
-      const row = PC.indexes[id];
+    const period = periodState.period;
+    host.innerHTML = EN_ORDER.filter((id) => VIN.indexes[id]).map((id) => {
+      const row = VIN.indexes[id];
       const on = mode === 'en' && id === enKey;
-      const ret = pcRet(id, period === 'CUSTOM' ? 'ALL' : period);
-      const pct = ret && ret.available ? fmtPct(ret.pct, true) : (row.changePct != null && period === '30D' ? fmtPct(row.changePct, true) : '—');
+      const ret = seriesRet(VIN_HIST, id, period);
+      const pct = ret && ret.available ? fmtPct(ret.pct, true) : '—';
       const pctCls = ret && ret.available ? chgClass(ret.pct) : 'muted';
+      const label = period === 'CUSTOM' ? '自訂' : (period === 'ALL' ? 'All' : period);
       return '<button type="button" class="series-tab' + (on ? ' is-active' : '') +
         '" data-en="' + id + '" role="tab" aria-selected="' + (on ? 'true' : 'false') + '">' +
         '<div class="kicker">' + escapeHtml(row.nameZh || row.name || id) + '</div>' +
         '<div class="lvl-row"><span class="lvl">' + fmtIdx(row.index) + '</span>' +
         '<span class="tab-chg ' + pctCls + '">' + pct + '</span></div>' +
-        '<div class="sub">' + (row.pricedToday || row.constituentCount || 0) + ' 張 · PC used</div></button>';
+        '<div class="sub">' + (row.pricedToday != null ? row.pricedToday : (row.constituentCount || 0)) +
+        ' 張 · TCG 日線 · ' + label + '</div></button>';
     }).join('');
   }
   const basketTable = document.getElementById('basketBody') && document.getElementById('basketBody').closest('table');
@@ -1251,94 +1285,125 @@
     ? document.querySelector('#basketBody').closest('.card').querySelector('p.tiny')
     : null;
   const basketBlurbHtml = basketBlurb ? basketBlurb.innerHTML : '';
+  function enName(c) {
+    const name = escapeHtml((c && c.name) || '');
+    const id = c && c.id ? String(c.id) : '';
+    if (!id) return name;
+    return '<a href="https://www.tcgplayer.com/product/' + encodeURIComponent(id) +
+      '" target="_blank" rel="noopener">' + name + '</a> <a class="tiny" href="https://tickermint.cards/card/' +
+      encodeURIComponent(id) + '" target="_blank" rel="noopener">TM</a>';
+  }
   function renderEn() {
     document.body.classList.add('is-en-base');
-    const row = (PC && PC.indexes && PC.indexes[enKey]) || {};
-    const pts = pcPts(enKey);
-    const period = (periodState.period === '1D' || periodState.period === '5D') ? '30D' : periodState.period;
-    if (period !== periodState.period && periodState.period !== 'CUSTOM') periodState.period = period;
-    $('heroKicker').textContent = 'EN Base · PriceCharting · ' + (row.nameZh || enKey) + ' · ungraded';
+    syncEnOverlay();
+    const row = (VIN && VIN.indexes && VIN.indexes[enKey]) || {};
+    const pcRow = (PC && PC.indexes && PC.indexes[enKey]) || {};
+    const pts = seriesPts(VIN_HIST, enKey);
+    const pcPoints = seriesPts(PC_HIST, enKey);
+    const period = periodState.period;
+    const ret = seriesRet(VIN_HIST, enKey, period);
+    const label = period === 'CUSTOM' ? '自訂' : period;
+    $('heroKicker').textContent = 'EN Base · TCGPlayer · TickerMint 日線 · ' + (row.nameZh || enKey);
     $('indexLevel').textContent = fmtIdx(row.index);
-    const ret = pcRet(enKey, periodState.period);
     const el = $('indexChg');
-    const label = periodState.period === 'CUSTOM' ? '自訂' : (periodState.period === '30D' ? '1M' : periodState.period);
     if (ret.available) {
       el.className = 'index-chg ' + chgClass(ret.pct);
       el.textContent = fmtPct(ret.pct, true) + ' · ' + label + (ret.from ? ' · ' + ret.from + ' → ' + ret.to : '');
     } else {
       el.className = 'index-chg muted';
-      el.textContent = label + ' 不足兩個 PriceCharting 月點';
+      el.textContent = label + ' 不足兩個日線點';
     }
     $('indexNote').textContent =
       '英文 ' + (row.printing || '') + ' · 籃子 ' + (row.listedCount || 0) +
-      ' · 本月有價 ' + (row.pricedToday != null ? row.pricedToday : '—') +
-      ' · 基準 1000' + (row.baseDate ? ' @ ' + row.baseDate : '') +
-      ' · PriceCharting used · 不是 SNK';
+      ' · 當日有市價 ' + (row.pricedToday != null ? row.pricedToday : '—') +
+      ' · 日線基準 1000' + (row.baseDate ? ' @ ' + row.baseDate : '') +
+      ' · TCGPlayer Market / TickerMint · 不是 PC 2023-01-01＝1000 · 不是 SNK';
     const heading = $('levelHeading');
-    if (heading) heading.textContent = '本月水平 + 廣度';
+    if (heading) heading.textContent = '日線水平 + 1D 廣度';
+    const pcRetNow = seriesRet(PC_HIST, enKey, 'ALL');
     $('levelMetrics').innerHTML =
-      '<div class="metric"><div class="k">PC ungraded</div><div class="v">' + fmtIdx(row.index) + '</div>' +
+      '<div class="metric"><div class="k">TCG 日線</div><div class="v">' + fmtIdx(row.index) + '</div>' +
       '<div class="tiny ' + chgClass(ret.pct) + '">' + (ret.available ? fmtPct(ret.pct, true) : '—') + '</div></div>' +
       '<div class="metric"><div class="k">合計 USD</div><div class="v">' +
-      (row.totalValue != null ? ('$' + Math.round(row.totalValue).toLocaleString('en-US')) : '—') + '</div></div>';
+      (row.totalValue != null ? ('$' + Math.round(row.totalValue).toLocaleString('en-US')) : '—') + '</div></div>' +
+      (showPc
+        ? '<div class="metric"><div class="k">PC 月線</div><div class="v">' + fmtIdx(pcRow.index) + '</div>' +
+          '<div class="tiny">另一條鏈 · ' + escapeHtml(pcRow.baseDate || '2023-01-01') + '＝1000</div></div>'
+        : '');
     const br = row.breadth || {};
-    paintBreadth(br, br.label || '廣度＝對上一個 PriceCharting 月份（不是日版 1D）');
-    const w = (function () {
-      if (periodState.period === 'ALL' || !ret.from) return pts;
-      return pts.filter((p) => p.date >= ret.from && p.date <= (ret.to || p.date));
-    })();
-    $('indexPeriodNote').textContent = w.length
-      ? ('圖 ' + w[0].date + ' → ' + w[w.length - 1].date + ' · ' + w.length + ' 個月 · PriceCharting used · 無成交量柱')
+    paintBreadth(br, '廣度＝上一筆日線裡有確認漲跌的卡（不是圖表期間，也不是日版 1D）');
+    const w = enWindow(pts, ret, period);
+    let pcW = [];
+    if (showPc) {
+      if (period === 'ALL') pcW = pcPoints;
+      else if (w.length) {
+        pcW = pcPoints.filter((p) => p.date >= w[0].date && p.date <= w[w.length - 1].date);
+      }
+    }
+    const dayLabel = w.length ? (w[0].date + ' → ' + w[w.length - 1].date + ' · ' + w.length + ' 個日線點') : '';
+    const pcLabel = showPc
+      ? (pcW.length >= 2
+        ? (' · PC 月線 ' + pcW.length + ' 點（' + (pcRow.baseDate || '2023-01-01') + '＝1000，不能與日線相減）')
+        : ' · 這段沒有兩個 PC 月點')
       : '';
-    ['1D', '5D'].forEach((p) => {
-      const btn = document.querySelector('.period-btns [data-period="' + p + '"]');
-      if (btn) { btn.disabled = true; btn.setAttribute('title', 'PC 公開圖是每月一點，沒有 1D／5D'); }
-    });
-    ['30D', '1Y', 'YTD', 'ALL'].forEach((p) => {
+    $('indexPeriodNote').textContent = dayLabel
+      ? ('圖 ' + dayLabel + ' · TCGPlayer Market / TickerMint' + pcLabel)
+      : '';
+    ['1D', '5D', '30D', '1Y', 'YTD', 'ALL'].forEach((p) => {
       const btn = document.querySelector('.period-btns [data-period="' + p + '"]');
       if (!btn) return;
-      const ok = p === 'ALL' ? pts.length >= 2 : pcRet(enKey, p).available;
+      const ok = p === 'ALL' ? pts.length >= 2 : seriesRet(VIN_HIST, enKey, p).available;
       btn.disabled = !ok;
-      if (p === '30D') btn.textContent = '1M';
+      if (p === '30D') btn.textContent = '30D';
+      if (!ok) btn.setAttribute('title', '沒有夠早的日線點');
+      else btn.removeAttribute('title');
     });
     if (pts.length) {
       $('rangeFrom').min = pts[0].date; $('rangeFrom').max = pts[pts.length - 1].date;
       $('rangeTo').min = pts[0].date; $('rangeTo').max = pts[pts.length - 1].date;
     }
     if (window.SparkTip && typeof SparkTip.draw === 'function') {
-      SparkTip.draw($('spark'), w.map((p) => ({ date: p.date, index: p.index })), {
-        color: EN_COLOR[enKey] || '#3d6fd9',
-        ariaLabel: '英文 Base PriceCharting 指數'
-      });
+      const color = EN_COLOR[enKey] || '#3d6fd9';
+      const daily = w.map((p) => ({ date: p.date, index: p.index }));
+      if (showPc && pcW.length >= 2) {
+        SparkTip.draw($('spark'), daily, {
+          ariaLabel: '英文 Base TCGPlayer 日線，疊 PriceCharting 月線',
+          series: [
+            { id: 'tcg', name: 'TCG 日線', color: color, points: daily },
+            { id: 'pc', name: 'PC 月線', color: '#8a6914', dash: '6 4', points: pcW.map((p) => ({ date: p.date, index: p.index })) }
+          ]
+        });
+      } else {
+        SparkTip.draw($('spark'), daily, {
+          color: color,
+          ariaLabel: '英文 Base TCGPlayer 日線'
+        });
+      }
     }
-    $('gainerBody').innerHTML = (row.gainers || []).map((c) => {
-      const name = c.url ? '<a href="' + escapeHtml(c.url) + '" target="_blank" rel="noopener">' + escapeHtml(c.name || '') + '</a>' : escapeHtml(c.name || '');
-      return '<tr><td></td><td class="name-cell">' + name + '</td><td class="num">$' +
-        Number(c.price).toLocaleString('en-US', { maximumFractionDigits: 0 }) +
-        '</td><td class="num chg ' + chgClass(c.changePct) + '">' + fmtPct(c.changePct, true) + '</td></tr>';
-    }).join('') || '<tr><td colspan="4" class="tiny">沒有上月對照</td></tr>';
-    $('loserBody').innerHTML = (row.losers || []).map((c) => {
-      const name = c.url ? '<a href="' + escapeHtml(c.url) + '" target="_blank" rel="noopener">' + escapeHtml(c.name || '') + '</a>' : escapeHtml(c.name || '');
-      return '<tr><td></td><td class="name-cell">' + name + '</td><td class="num">$' +
-        Number(c.price).toLocaleString('en-US', { maximumFractionDigits: 0 }) +
-        '</td><td class="num chg ' + chgClass(c.changePct) + '">' + fmtPct(c.changePct, true) + '</td></tr>';
-    }).join('') || '<tr><td colspan="4" class="tiny">沒有上月對照</td></tr>';
+    function moverTable(list, empty) {
+      return (list || []).map((c) => {
+        return '<tr><td></td><td class="name-cell">' + enName(c) + '</td><td class="num">$' +
+          Number(c.price).toLocaleString('en-US', { maximumFractionDigits: 0 }) +
+          '</td><td class="num chg ' + chgClass(c.changePct) + '">' + fmtPct(c.changePct, true) + '</td></tr>';
+      }).join('') || '<tr><td colspan="4" class="tiny">' + empty + '</td></tr>';
+    }
+    $('gainerBody').innerHTML = moverTable(row.gainers, '沒有上一筆日線');
+    $('loserBody').innerHTML = moverTable(row.losers, '沒有上一筆日線');
     if (basketTable) {
-      basketTable.tHead.innerHTML = '<tr><th>#</th><th></th><th>卡</th><th class="num">USD ungraded</th><th class="num">1M %</th></tr>';
+      basketTable.tHead.innerHTML = '<tr><th>#</th><th></th><th>卡</th><th class="num">USD market</th><th class="num">1D %</th></tr>';
     }
     if (basketBlurb) {
-      basketBlurb.innerHTML = '英文 Base 追逐名單（Holo＋Rare）。USD 是 PriceCharting used。點名稱打開 PriceCharting。這不是日版 PSA10 權重表。';
+      basketBlurb.innerHTML = '英文 Base 追逐名單（Holo＋Rare，與另三條同一刀）。USD 是 TCGPlayer Market。點名稱打開 TCGPlayer，TM 打開 TickerMint。這不是日版 PSA10 權重表。';
     }
     const fx = $('basketFxNote');
-    if (fx) fx.textContent = '不換算日圓。1M% 是對上一個有價月份，不是日報酬。';
+    if (fx) fx.textContent = '不換算日圓。1D% 是對上一筆有市價的日子。缺市價沿用既有 carry，不補 $0。';
     const basket = row.basket || [];
     $('basketCountPill').textContent = String(basket.length);
     $('basketBody').innerHTML = basket.map((c, i) => {
       const img = c.image ? '<img class="card-thumb" src="' + escapeHtml(c.image) + '" alt="" width="32" height="44" loading="lazy" decoding="async" />' : '';
-      const name = c.url ? '<a href="' + escapeHtml(c.url) + '" target="_blank" rel="noopener">' + escapeHtml(c.name || '') + '</a>' : escapeHtml(c.name || '');
       const usd = c.price == null ? '—' : ('$' + Number(c.price).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
       return '<tr class="en-basket-row"><td class="num en-rank">' + (i + 1) + '</td><td class="en-art">' + img +
-        '</td><td class="name-cell">' + name +
+        '</td><td class="name-cell">' + enName(c) +
         '<div class="tiny">' + escapeHtml(c.number || '') + ' · ' + escapeHtml(c.rarity || '') + '</div></td>' +
         '<td class="num en-usd"><span class="en-val">' + usd + '</span></td><td class="num en-chg chg ' +
         chgClass(c.changePct) + '"><span class="en-val">' + fmtPct(c.changePct, true) + '</span></td></tr>';
@@ -1346,19 +1411,21 @@
     document.querySelectorAll('.movers thead th.num').forEach((th, i) => {
       if (i % 2 === 0) th.textContent = 'USD';
     });
-    document.querySelectorAll('.movers h2 .pill').forEach((el) => { el.textContent = '1M'; });
+    document.querySelectorAll('.movers h2 .pill').forEach((pill) => { pill.textContent = '1D'; });
     const fresh = $('dataFreshness');
     if (fresh) {
       fresh.className = 'data-freshness';
-      fresh.textContent = 'EN Base · PriceCharting 月圖 ' + (row.asOfDate || '') +
-        ' · ungraded used · 2023-01-01＝1000 · 日版六條仍是 SNK，沒有被換掉';
+      fresh.textContent = 'EN Base · TCGPlayer / TickerMint 日線 ' + (row.asOfDate || '') +
+        ' · ' + (row.baseDate || '2024-02-08') + '＝1000 · PC 月線是另一條鏈（2023-01-01＝1000）· 日版六條仍是 SNK';
     }
     const hint = $('enBaseHint');
     if (hint) {
-      const slug = row.hash || '1st';
-      hint.innerHTML = '正在看 <b>EN Base · PriceCharting</b>（' + escapeHtml(row.nameZh || enKey) +
-        '）。日版六條仍在上面；點回去即回到 SNK 基準。完整頁：<a href="./market-vintage.html#pc/' +
-        escapeHtml(slug) + '">Base 復古 · PC 月線</a>。';
+      const slug = EN_TO_HASH[enKey] === 'en-base2' ? 'base2' : (EN_TO_HASH[enKey] || '1st').replace(/^en-/, '');
+      const dailyHash = slug === '1st' || slug === 'shadowless' || slug === 'unlimited' || slug === 'base2' ? slug : 'unlimited';
+      hint.innerHTML = '正在看 <b>EN Base · TCGPlayer 日線</b>（' + escapeHtml(row.nameZh || enKey) +
+        '）。日版六條仍在上面。' + (showPc && pcRetNow.available ? '虛線是 PriceCharting 月線。' : 'PC 月線按鈕可疊上長期對照。') +
+        ' 完整日線：<a href="./market-vintage.html#' + escapeHtml(dailyHash) +
+        '">Base 復古</a> · 月線：<a href="./market-vintage.html#pc/' + escapeHtml(dailyHash) + '">PC</a>。';
     }
   }
   function restoreJpChrome() {
@@ -1432,15 +1499,23 @@
   if (enTabs) {
     enTabs.addEventListener('click', (e) => {
       const btn = e.target.closest('[data-en]');
-      if (!btn || !PC || !PC.indexes) return;
+      if (!btn || !VIN || !VIN.indexes) return;
       const id = btn.getAttribute('data-en');
-      if (!PC.indexes[id]) return;
+      if (!VIN.indexes[id]) return;
       mode = 'en';
       enKey = id;
       const next = '#' + (EN_TO_HASH[id] || 'en-1st');
       if (history.replaceState) history.replaceState(null, '', next);
       else location.hash = next;
       paint();
+    });
+  }
+  const enPcToggle = $('enPcToggle');
+  if (enPcToggle) {
+    enPcToggle.addEventListener('click', () => {
+      showPc = !showPc;
+      syncEnOverlay();
+      if (mode === 'en') paintTenor();
     });
   }
   document.querySelectorAll('.period-btns .period-btn[data-period]').forEach((btn) => {
@@ -1460,6 +1535,7 @@
   document.querySelectorAll('.legend-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
       const id = btn.getAttribute('data-series');
+      if (!id || mode === 'en') return;
       visible[id] = !visible[id];
       if (!WEIGHT_IDS.some((k) => visible[k])) {
         visible[id] = true;
@@ -1476,7 +1552,7 @@
   });
   window.addEventListener('hashchange', () => {
     const h = (location.hash || '').replace('#', '');
-    if (EN_FROM_HASH[h] && PC && PC.indexes && PC.indexes[EN_FROM_HASH[h]]) {
+    if (EN_FROM_HASH[h] && VIN && VIN.indexes && VIN.indexes[EN_FROM_HASH[h]]) {
       mode = 'en';
       enKey = EN_FROM_HASH[h];
       paint();

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Daily EN Base Set vintage indexes (1st Edition / Shadowless / Unlimited).
+"""Daily EN Base indexes (1st Edition / Shadowless / Unlimited / Base Set 2).
 
-Three *fixed* chase baskets of English Base Set raw singles (TCGCSV category 3).
+Four *fixed* chase baskets of English raw singles (TCGCSV category 3).
 Pipeline = log one snapshot per day. Longer history is backfilled from the
 TickerMint free API via tools/backfill_tickermint_vintage.py (printing-aware;
 do **not** reuse tools/backfill_tickermint.py, which skips 1st Edition).
@@ -13,7 +13,7 @@ do **not** reuse tools/backfill_tickermint.py, which skips 1st Edition).
 
 Writes (stdlib only):
   data/market-vintage/baskets.json       frozen ID lists + gaps (source of truth)
-  data/market-vintage/latest.json        three indexes + constituents
+  data/market-vintage/latest.json        four indexes + constituents
   data/market-vintage/history.json       one point per index per day (append/upsert)
   data/market-vintage/price-history.json per-index basket prices by date
   data/market-vintage/cheatsheet.json    slim Base Set prices for the sister cheatsheet
@@ -50,7 +50,7 @@ PRICE_HISTORY_PATH = os.path.join(DATA_DIR, "price-history.json")
 CHEATSHEET_PATH = os.path.join(DATA_DIR, "cheatsheet.json")
 
 USER_AGENT = "Pokemon-Box-EV/1.25 (+https://github.com/swishish/Pokemon-Box-EV)"
-INDEX_ORDER = ("base-1st", "base-shadowless", "base-unlimited")
+INDEX_ORDER = ("base-1st", "base-shadowless", "base-unlimited", "base-set-2")
 CHASE_RARITY = {"Holo Rare", "Rare Holo", "Rare"}
 _BAD_NAME = (
     "error",
@@ -477,9 +477,14 @@ def write_latest_js(latest: dict) -> None:
 
 
 def cheatsheet_payload(latest: dict) -> dict:
-    """Slim Base Set prices the sister Unlimited cheatsheet can fetch. No invented prices."""
+    """Slim Base Set prices the sister Unlimited cheatsheet can fetch. No invented prices.
+
+    Base Set 2 stays out of this file. The sister page is the Base Set
+    cheatsheet (#1–102). BS2 prices live on the vintage indexes.
+    """
     printings = {}
-    for iid in latest.get("indexOrder") or (latest.get("indexes") or {}):
+    order = [i for i in ("base-1st", "base-shadowless", "base-unlimited") if i in ((latest.get("indexes") or {}))]
+    for iid in order:
         spec = (latest.get("indexes") or {}).get(iid) or {}
         by_id = {c.get("id"): c for c in (spec.get("constituents") or []) if c.get("id")}
         cards = []
@@ -512,7 +517,11 @@ def cheatsheet_payload(latest: dict) -> dict:
         "sourceStamp": latest.get("sourceStamp"),
         "priceSource": latest.get("priceSource"),
         "page": "https://swishish.github.io/Pokemon-Box-EV/market-vintage.html",
-        "notes": "Holo Rare + Rare only (cheatsheet #1–102 where TCGCSV IDs exist). Missing usd = no market print that day — do not invent. Machamp 008 is a documented gap.",
+        "notes": (
+            "Holo Rare + Rare only (Base Set #1–102 and the same names on Base Set 2 "
+            "/130). Missing usd = no market print that day — do not invent. "
+            "Machamp 008 is a documented gap. base-set-2 is a separate printing."
+        ),
         "gaps": latest.get("gaps") or [],
         "printings": printings,
     }
@@ -544,7 +553,14 @@ def build_payload(indexes: dict, baskets: dict, stamp: str | None, now: datetime
         "sourceStamp": stamp,
         "asOfDate": first.get("asOfDate"),
         "priceSource": price_source,
-        "universe": "English Base Set raw / ungraded singles — 1st Edition / Shadowless / Unlimited",
+        "universe": (
+            "English Base raw / ungraded singles — 1st Edition / Shadowless / "
+            "Unlimited / Base Set 2"
+        ),
+        "anchorNote": (
+            "1000 on each index's first retained TickerMint day (2024-02-08 when "
+            "that day is kept). Not the PriceCharting chain (2023-01-01 = 1000)."
+        ),
         "staleDays": en.STALE_DAYS,
         "baseValue": en.BASE_INDEX_VALUE,
         "backfill": backfill,
@@ -634,11 +650,18 @@ def _num_sort_key(number: str) -> int:
     return _num_key(number)
 
 
+def _norm_card_name(name: str) -> str:
+    """Match Base Set and Base Set 2 printings of the same card."""
+    text = " ".join((name or "").lower().split())
+    return text.replace("impostor", "imposter")
+
+
 def rebuild_baskets(verbose: bool = False) -> dict:
     """Regenerate baskets.json from live TCGCSV (does not append history)."""
     groups = {
         "604": "Base Set",
         "1663": "Base Set (Shadowless)",
+        "605": "Base Set 2",
     }
     products_by_group: dict[str, dict] = {}
     for gid, name in groups.items():
@@ -685,8 +708,16 @@ def rebuild_baskets(verbose: bool = False) -> dict:
 
     sh_chase = chase_list(products_by_group["1663"])
     un_chase = chase_list(products_by_group["604"])
+    bs2_all = chase_list(products_by_group["605"])
     sh_ids = [c["id"] for c in sh_chase]
     un_ids = [c["id"] for c in un_chase]
+    # Same card identities as Base #1–22 and #70–79. Group 605 also has
+    # BS2-only holos (Clefable, Nidoqueen, …) that are not in that cut.
+    base_names = {_norm_card_name(c["name"]) for c in sh_chase + un_chase}
+    bs2_chase = [c for c in bs2_all if _norm_card_name(c["name"]) in base_names]
+    bs2_outside = [c for c in bs2_all if _norm_card_name(c["name"]) not in base_names]
+    bs2_ids = [c["id"] for c in bs2_chase]
+    bs2_have = {_norm_card_name(c["name"]) for c in bs2_chase}
 
     sh_numbers = {_num_key(c["number"]) for c in sh_chase}
     un_numbers = {_num_key(c["number"]) for c in un_chase}
@@ -697,33 +728,75 @@ def rebuild_baskets(verbose: bool = False) -> dict:
                 "number": "008/102",
                 "name": "Machamp",
                 "reason": (
-                    "No numbered TCGCSV product in Base Set (group 604) or "
-                    "Base Set (Shadowless) (group 1663). Classic 1st Edition-only "
-                    "holo; omitted until a product ID exists."
+                    "No numbered TCGCSV product in Base Set (group 604), "
+                    "Base Set (Shadowless) (group 1663), or Base Set 2 (group 605). "
+                    "Classic 1st Edition-only holo; omitted until a product ID exists."
                 ),
             }
         )
+    seen_missing = set()
+    for card in sh_chase + un_chase:
+        key = _norm_card_name(card["name"])
+        if key in bs2_have or key in seen_missing:
+            continue
+        seen_missing.add(key)
+        gaps.append(
+            {
+                "index": "base-set-2",
+                "number": card.get("number") or "",
+                "name": card.get("name") or "",
+                "reason": (
+                    "In the Base Set chase but not printed in Base Set 2 "
+                    "(TCGCSV group 605). Omitted from base-set-2 only."
+                ),
+            }
+        )
+    if bs2_outside:
+        gaps.append(
+            {
+                "index": "base-set-2",
+                "name": ", ".join(c["name"] for c in bs2_outside),
+                "reason": (
+                    "Holo Rare or Rare in TCGCSV group 605, outside the shared "
+                    "Base Set chase (numbers 1–22 and 70–79). Left out so Base Set 2 "
+                    "matches the other three TCG indexes and the PriceCharting overlay."
+                ),
+            }
+        )
+    prev = en.load_json(BASKETS_PATH, {})
+    for gap in prev.get("gaps") or []:
+        if gap.get("id"):
+            gaps.append(gap)
 
     now = datetime.now(timezone.utc)
     baskets = {
         "version": 1,
         "generated": now.isoformat(),
-        "source": "TCGCSV category 3 ProductsAndPrices (groups 604 + 1663)",
+        "source": "TCGCSV category 3 ProductsAndPrices (groups 604 + 1663 + 605)",
         "rule": (
-            "Fixed chase baskets: Base Set EN raw singles, Holo Rare + Rare only "
-            "(cheatsheet #1–102 where IDs exist). Split by printing. Sealed / jumbo "
-            "/ JP / error variants excluded. Not mid-era (Jungle/Fossil/Rocket)."
+            "Fixed chase baskets: Base Set and Base Set 2 EN raw singles, Holo Rare + "
+            "Rare only (Base Set numbers 1–22 and 70–79 where IDs exist). Base Set 2 "
+            "keeps that same card list, not every group-605 holo. Split by printing. "
+            "Sealed / jumbo / JP / error variants excluded. Not mid-era (Jungle/Fossil/Rocket)."
         ),
         "sizeNote": (
-            "Practical holo+rare-heavy start (~31 IDs). Commons / uncommons / Energy "
-            "omitted so breadth is not dominated by $1 cards. Full 102 can be added "
-            "later without changing index math (divisor)."
+            "Practical holo+rare chase (~31 IDs on Base, fewer on Base Set 2 where a "
+            "card was not printed). Commons / uncommons / Energy omitted so breadth is "
+            "not dominated by $1 cards."
         ),
+        "anchor": (
+            "Each TCG/TickerMint index is 1000 on its first retained day "
+            "(2024-02-08 when that day has a positive market). A later day is the "
+            "anchor only if 2024-02-08 was skipped. This is not the PriceCharting "
+            "chain (2023-01-01 = 1000 in data/market-vintage-pc/)."
+        ),
+        "cadence": "daily",
         "backfill": (
             "TickerMint free API via tools/backfill_tickermint_vintage.py "
-            "(printing-aware; 1st vs Shadowless vs Unlimited). Do not reuse "
-            "tools/backfill_tickermint.py — that skips 1st Edition. Daily job "
-            "appends on the rebased divisor after --backfill --confirm BACKFILL."
+            "(printing-aware; 1st vs Shadowless vs Unlimited vs Base Set 2). "
+            "Do not reuse tools/backfill_tickermint.py — that skips 1st Edition. "
+            "Committed history is daily (--step-days 1). The daily job appends on "
+            "the rebased divisor after --backfill --confirm BACKFILL."
         ),
         "gaps": gaps,
         "indexes": {
@@ -790,6 +863,28 @@ def rebuild_baskets(verbose: bool = False) -> dict:
                     products_by_group["604"], un_ids, ["1st edition"], "exclude"
                 ),
                 "constituents": un_chase,
+            },
+            "base-set-2": {
+                "id": "base-set-2",
+                "name": "Base Set 2",
+                "nameZh": "Base Set 2",
+                "printing": "Base Set 2",
+                "groupId": "605",
+                "groupName": "Base Set 2",
+                "abbreviation": "BS2",
+                "subtypeNeedles": [],
+                "subtypeMode": "include",
+                "subtypeNote": (
+                    "TCGCSV group 605 is Base Set 2 only (Holofoil on holos, Normal on "
+                    "rares). No 1st Edition and no Shadowless subtype. One printing per "
+                    "product; an empty needle list keeps every positive market."
+                ),
+                "universe": "English Base Set 2 raw / ungraded (TCGPlayer Market, NM)",
+                "constituentCount": len(bs2_chase),
+                "unpricedAtBasketBuild": unpriced(
+                    products_by_group["605"], bs2_ids, [], "include"
+                ),
+                "constituents": bs2_chase,
             },
         },
     }
@@ -968,7 +1063,7 @@ def self_test() -> None:
     )
     assert snap1b["changePct"] is None and snap1b["prevIndex"] is None
 
-    # Frozen baskets on disk list three indexes and document Machamp.
+    # Frozen baskets on disk list four indexes and document Machamp.
     live_baskets = load_baskets()
     for iid in INDEX_ORDER:
         assert iid in live_baskets["indexes"]
@@ -980,9 +1075,17 @@ def self_test() -> None:
     assert "Machamp" in gap_names
     assert "tickermint" in (live_baskets.get("backfill") or "").lower()
     assert "backfill_tickermint.py" in (live_baskets.get("backfill") or "")
+    assert "2024-02-08" in (live_baskets.get("anchor") or "")
+    assert "2023-01-01" in (live_baskets.get("anchor") or "")
     assert live_baskets["indexes"]["base-1st"]["subtypeMode"] == "include"
     assert live_baskets["indexes"]["base-shadowless"]["subtypeNeedles"] == ["unlimited"]
     assert live_baskets["indexes"]["base-unlimited"]["subtypeMode"] == "exclude"
+    bs2 = live_baskets["indexes"]["base-set-2"]
+    assert bs2["groupId"] == "605"
+    assert bs2["subtypeNeedles"] == []
+    bs2_names = {_norm_card_name(c["name"]) for c in bs2["constituents"]}
+    assert "charizard" in bs2_names and "clefable" not in bs2_names
+    assert "clefairy doll" not in bs2_names
 
     # After rebase, pairwise % can be recovered from the last two priced snaps.
     ph = {

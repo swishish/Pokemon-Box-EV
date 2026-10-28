@@ -122,19 +122,20 @@ Phase 1 **不做**日版熱度頁、eBay、PriceCharting 付費 API、TickerMint
 
 ## Base Set vintage indexes（EN raw）
 
-獨立頁 `market-vintage.html`：三條 **固定** chase 籃子（Holo Rare + Rare），各自基準 1,000。同一頁可切 **指數 Pulse**／**卡冊 Binder**（格狀縮圖＋USD；`#1st/binder` 深連結）。
+獨立頁 `market-vintage.html`：四條 **固定** chase 籃子（Holo Rare + Rare），日線各自基準 **1,000 @ 2024-02-08**。同一頁可切 **指數 Pulse**／**卡冊 Binder**（格狀縮圖＋USD；`#1st/binder` 深連結）。`#base2` 是 Base Set 2。JP 基準頁的 EN Base 列（`#en-1st` 等）用這條日線當主圖；PriceCharting 月線（2023-01-01＝1000）留在 `#pc/1st`，也可在基準頁疊成虛線。兩條鏈不能相減。
 
 | 指數 | 印刷 | TCGCSV |
 | --- | --- | --- |
 | Base 1st Edition | 第一版 stamp | group 1663，subtype `1st Edition` / `1st Edition Holofoil` |
 | Base Shadowless | 無限版、無右緣陰影 | group 1663，subtype `Unlimited` / `Unlimited Holofoil` |
 | Base Unlimited | 後來有陰影的無限版 | group 604，Holofoil / Normal |
+| Base Set 2 | Base Set 2 | group 605，Holofoil / Normal。同一追逐卡名，沒印的（Machamp、Clefairy Doll、Devolution Spray）留空 |
 
-TCGPlayer 沒有獨立的「1st Edition set」：1st 與 Shadowless 共用 Shadowless group 的同一個 product ID，用 subtype 分開。詳細 ID／缺口見 `data/market-vintage/baskets.json`（Machamp 008/102 暫無單卡 ID；1st Edition Charizard／Blastoise／Mewtwo 常常沒有 Market Price，當天不進指數）。
+TCGPlayer 沒有獨立的「1st Edition set」：1st 與 Shadowless 共用 Shadowless group 的同一個 product ID，用 subtype 分開。詳細 ID／缺口見 `data/market-vintage/baskets.json`（Machamp 008/102 暫無單卡 ID；1st Edition Charizard／Blastoise／Mewtwo 常常沒有 Market Price，當天不進指數，上一筆最多沿用 70 日，不補 $0）。
 
 ### 每日 log
 
-同一個 GitHub Action **Update EN market pulse** 在 EN Top 500 之後跑 `python3 tools/refresh_market_vintage.py`：stamp 沒變就結束；有新 dump 才抓 group 604 + 1663，append／upsert 當天（`latest.json` / `history.json` / `price-history.json` 與 `.js` 備援）。缺日不補價。
+同一個 GitHub Action **Update EN market pulse** 在 EN Top 500 之後跑 `python3 tools/refresh_market_vintage.py`：stamp 沒變就結束；有新 dump 才抓 group 604 + 1663 + 605，append／upsert 當天（`latest.json` / `history.json` / `price-history.json` 與 `.js` 備援）。缺日不補價。
 
 本機：
 
@@ -147,7 +148,7 @@ python3 tools/refresh_market_vintage.py -v --force
 
 ### TickerMint 回填歷史（複製貼上）
 
-免費、非商業、每分鐘最多 120 次。**不要**用 `tools/backfill_tickermint.py`（EN Top 500）——那支會跳過 1st Edition，1st 會誤用 Shadowless 價。Vintage 必須按印刷篩：1st＝`1st Edition`／`1st Edition Holofoil`；Shadowless＝同一 BSS id 的 `Unlimited`／`Unlimited Holofoil`；Unlimited＝group 604 自己的 Holofoil／Normal。1st 與 Shadowless 共用 31 個 product id，加上 Unlimited 31 個，**約 62 次 API（約 1 分鐘）**，不是 93。
+免費、非商業、每分鐘最多 120 次。**不要**用 `tools/backfill_tickermint.py`（EN Top 500）——那支會跳過 1st Edition，1st 會誤用 Shadowless 價。Vintage 必須按印刷篩：1st＝`1st Edition`／`1st Edition Holofoil`；Shadowless＝同一 BSS id 的 `Unlimited`／`Unlimited Holofoil`；Unlimited＝group 604 自己的 Holofoil／Normal；Base Set 2＝group 605。1st 與 Shadowless 共用 31 個 product id，Unlimited 31 個，Base Set 2 29 個，**約 91 次 API**。
 
 ```bash
 python3 tools/backfill_tickermint_vintage.py --self-test
@@ -155,14 +156,14 @@ python3 tools/backfill_tickermint_vintage.py --sample
 python3 tools/backfill_tickermint_vintage.py --backfill --confirm BACKFILL
 ```
 
-1. `--self-test`：不連網。確認印刷篩選、unique id＝62、缺價不補 0、沒有 `--confirm BACKFILL` 就拒寫。
+1. `--self-test`：不連網。確認印刷篩選、1st+Unlimited unique id＝62、Base Set 2 另計、缺價不補 0、沒有 `--confirm BACKFILL` 就拒寫。
 2. `--sample`：只抓幾張 BSS + Unlimited，**不改**網站上的 JSON。
-3. `--backfill --confirm BACKFILL`：回填 2024-02-08 起、預設**每週一點**（`--step-days 7`，每指數約 140 點），每條指數第一個有資料的日子 rebase 成 **1,000**（固定歷史基準，不是每個期間重設）。會重寫 `history.json`、`latest.json` 的 divisor，以及 `price-history.json`（成分週線市價），所以 Top 10／Bottom 10／廣度在 rebase 當天就能用，不必等下一份每日 dump。**今天的指數水平會離開暫時的 Oct-2026＝1,000 序列**。必須打 `BACKFILL`，不要把舊鏈混進去。
-4. `--rebuild-movers`：只從 TickerMint 週線重算漲跌榜，**不改**指數水平。舊回填若把 `prevPrice` 清成空，用這條。
+3. `--backfill --confirm BACKFILL`：回填 2024-02-08 起、預設**每日一點**（`--step-days 1`）。每條指數第一個保留日 rebase 成 **1,000**。這不是 PriceCharting 的 2023-01-01＝1000。會重寫 `history.json`、`latest.json` 的 divisor，以及 `price-history.json`。週線仍可用 `--step-days 7`。必須打 `BACKFILL`。
+4. `--rebuild-movers`：只從 TickerMint 重算漲跌榜，**不改**指數水平。
 
-可選較晚切點：`--start 2024-02-28`。每日一點：`--step-days 1`。頁尾／卡名有 TickerMint linkback（ToS）。快取在 `data/tickermint-cache/`（gitignore）。History 與 EN 一樣由 Gary 本機或手動 Action 跑完再 commit——本 PR **不**塞進已回填的 140 點檔。
+可選較晚切點：`--start 2024-02-28`。頁尾／卡名有 TickerMint linkback（ToS）。快取在 `data/tickermint-cache/`（gitignore）。
 
-風險：1st Edition 在 Charizard／Mewtwo／Blastoise 上常常沒有 Market Price（籃子較薄）；rebase 後今日指數不再是 1,000。
+風險：1st Edition 在 Charizard／Mewtwo／Blastoise／Ninetales 上常常沒有當日 Market Price（整籃仍多半 ≥25 張有價）。Unlimited 與 Base Set 2 最厚。2026-09-15 四條都沒有市價，那天整段跳過，不補點。
 
 ## Mid-era Top 50（EN raw, DP → SM）
 
