@@ -6,14 +6,14 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>日版 PSA10 基準 · v1.32.0</title>
+<title>日版 PSA10 基準 · v1.32.1</title>
 <meta name="description" content="日版寶可夢 TCG PSA10 廣度基準：復古／中世代／現行 N 隨流動性篩選浮動，另加特典與 Tag Team 姊妹籃子。等權／流動性／價格／無 cap 疊加。靜態快照，非正式投資建議。" />
 <meta property="og:site_name" content="日版 PSA10 基準" />
 <meta property="og:title" content="日版 PSA10 基準 · 復古／中世代／現行" />
 <meta property="og:description" content="Pokeca-style JP PSA10 廣度基準。舊 60 張是 SV chase 袖。靜態快照，非正式投資建議。" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://swishish.github.io/Pokemon-Box-EV/market-jp-psa10-bench.html" />
-<meta property="og:image" content="https://swishish.github.io/Pokemon-Box-EV/og-psa10-bench-v2.png?v=1.32.0" />
+<meta property="og:image" content="https://swishish.github.io/Pokemon-Box-EV/og-psa10-bench-v2.png?v=1.32.1" />
 <meta property="og:image:alt" content="日版 PSA10 基準 · 復古／中世代／現行" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
@@ -21,7 +21,7 @@
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="日版 PSA10 基準 · 復古／中世代／現行" />
 <meta name="twitter:description" content="復古／中世代／現行廣度基準 + 特典／Tag Team。非正式投資建議。" />
-<meta name="twitter:image" content="https://swishish.github.io/Pokemon-Box-EV/og-psa10-bench-v2.png?v=1.32.0" />
+<meta name="twitter:image" content="https://swishish.github.io/Pokemon-Box-EV/og-psa10-bench-v2.png?v=1.32.1" />
 <meta name="twitter:image:alt" content="日版 PSA10 基準 · 復古／中世代／現行" />
 <link rel="canonical" href="https://swishish.github.io/Pokemon-Box-EV/market-jp-psa10-bench.html" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
@@ -468,6 +468,87 @@
     .name-cell { min-width: 8rem; }
     .table-wrap table { min-width: 32rem; }
     .movers .table-wrap table { min-width: 18rem; }
+    /* EN Base basket is five columns. The shared 32rem min-width forces a
+       512px scroller that hides USD/1M or clips the name. Stack instead. */
+    body.is-en-base .basket-table-wrap {
+      overflow: visible;
+    }
+    body.is-en-base .basket-table-wrap table,
+    body.is-en-base .basket-table-wrap tbody {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+    }
+    body.is-en-base .basket-table-wrap thead {
+      display: none;
+    }
+    body.is-en-base .basket-table-wrap tr {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+    }
+    body.is-en-base .basket-table-wrap tr.en-basket-row {
+      display: grid;
+      grid-template-columns: 1.6rem 40px minmax(0, 1fr);
+      column-gap: 8px;
+      row-gap: 2px;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    body.is-en-base .en-basket-row > td {
+      display: block;
+      border: 0;
+      padding: 0;
+      min-width: 0;
+      width: auto;
+      max-width: 100%;
+      text-align: left;
+      white-space: normal;
+      overflow-wrap: break-word;
+      word-break: normal;
+    }
+    body.is-en-base .en-basket-row .en-rank {
+      grid-column: 1;
+      grid-row: 1;
+      color: var(--muted);
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    body.is-en-base .en-basket-row .en-art { grid-column: 2; grid-row: 1; }
+    body.is-en-base .en-basket-row .name-cell {
+      grid-column: 3;
+      grid-row: 1;
+      min-width: 0;
+      font-weight: 750;
+      line-height: 1.25;
+    }
+    body.is-en-base .en-basket-row .name-cell .tiny { font-weight: 500; }
+    body.is-en-base .en-basket-row .en-usd,
+    body.is-en-base .en-basket-row .en-chg {
+      grid-column: 1 / -1;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      min-width: 0;
+      font-variant-numeric: tabular-nums;
+    }
+    body.is-en-base .en-basket-row .en-usd::before,
+    body.is-en-base .en-basket-row .en-chg::before {
+      color: var(--muted);
+      font-weight: 650;
+      font-size: .72rem;
+      flex: 0 0 auto;
+    }
+    body.is-en-base .en-basket-row .en-usd::before { content: "USD"; }
+    body.is-en-base .en-basket-row .en-chg::before { content: "1M"; }
+    body.is-en-base .en-basket-row .en-val {
+      white-space: nowrap;
+      margin-left: auto;
+      flex: 0 0 auto;
+    }
     .series-tabs { grid-template-columns: 1fr 1fr; gap: 4px; margin-bottom: 8px; }
     .en-base-wrap .series-tabs { grid-template-columns: 1fr 1fr; }
     .series-tab { padding: 7px 8px; }
@@ -482,7 +563,7 @@
 <header>
   <div class="header-inner">
     <div class="header-top">
-      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.32.0</span></h1>
+      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.32.1</span></h1>
       <nav class="header-nav" aria-label="站內導覽">
         <a class="nav-btn" href="./calc.html">開盒 EV</a>
         <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
@@ -633,15 +714,15 @@
 </main>
 <footer>日盒 EV 小算盤 · JP PSA10 基準 · Snapshot 靜態資料 · 非正式投資建議 · 來源 <a href="https://snkrdunk.com/" target="_blank" rel="noopener">SNKRDUNK</a> · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10.html">JP PSA10</a> · <a href="./market-base-psa-pop.html">Base POP</a></footer>
 
-<script src="./js/spark-tip.js?v=1.32.0"></script>
-<script src="./js/jp-psa10-ui.js?v=1.32.0"></script>
-<script src="./data/market-jp-psa10-bench/latest.js?v=1.32.0"></script>
-<script src="./data/market-jp-psa10-bench/history.js?v=1.32.0"></script>
-<script src="./data/market-vintage-pc/latest.js?v=1.32.0"></script>
-<script src="./data/market-vintage-pc/history.js?v=1.32.0"></script>
+<script src="./js/spark-tip.js?v=1.32.1"></script>
+<script src="./js/jp-psa10-ui.js?v=1.32.1"></script>
+<script src="./data/market-jp-psa10-bench/latest.js?v=1.32.1"></script>
+<script src="./data/market-jp-psa10-bench/history.js?v=1.32.1"></script>
+<script src="./data/market-vintage-pc/latest.js?v=1.32.1"></script>
+<script src="./data/market-vintage-pc/history.js?v=1.32.1"></script>
 <script>
 (async function () {
-  const VERSION = '1.32.0';
+  const VERSION = '1.32.1';
   const ORDER = ['composite', 'vintage', 'modern', 'current', 'promo', 'midera'];
   const SERIES = {
     equal: { id: 'equal', name: '等權', color: '#141414' },
@@ -1256,10 +1337,11 @@
       const img = c.image ? '<img class="card-thumb" src="' + escapeHtml(c.image) + '" alt="" width="32" height="44" loading="lazy" decoding="async" />' : '';
       const name = c.url ? '<a href="' + escapeHtml(c.url) + '" target="_blank" rel="noopener">' + escapeHtml(c.name || '') + '</a>' : escapeHtml(c.name || '');
       const usd = c.price == null ? '—' : ('$' + Number(c.price).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
-      return '<tr><td class="num">' + (i + 1) + '</td><td>' + img + '</td><td class="name-cell">' + name +
+      return '<tr class="en-basket-row"><td class="num en-rank">' + (i + 1) + '</td><td class="en-art">' + img +
+        '</td><td class="name-cell">' + name +
         '<div class="tiny">' + escapeHtml(c.number || '') + ' · ' + escapeHtml(c.rarity || '') + '</div></td>' +
-        '<td class="num">' + usd + '</td><td class="num chg ' + chgClass(c.changePct) + '">' +
-        fmtPct(c.changePct, true) + '</td></tr>';
+        '<td class="num en-usd"><span class="en-val">' + usd + '</span></td><td class="num en-chg chg ' +
+        chgClass(c.changePct) + '"><span class="en-val">' + fmtPct(c.changePct, true) + '</span></td></tr>';
     }).join('') || '<tr><td colspan="5" class="tiny">籃子尚未建立</td></tr>';
     document.querySelectorAll('.movers thead th.num').forEach((th, i) => {
       if (i % 2 === 0) th.textContent = 'USD';
