@@ -1,6 +1,6 @@
 # Pokemon Box EV
 
-日盒 EV 小算盤（朋友向）· **v1.31.9**
+日盒 EV 小算盤（朋友向）· **v1.31.11**
 
 給「不太懂金融／AI」的買卡朋友看的工具：首頁介紹點樣用 → 開盒算盤選系列 → 看 **四個預期回報 %**（同一分母）→ 有膜／無膜切換 → 看主力 chase 卡與「買單卡 vs 開盒」粗略提示。
 
@@ -294,6 +294,8 @@ GitHub Action **Update JP PSA10 broad benchmark** 每晚重算權重、季度重
 
 ## Changelog（摘要）
 
+- **v1.31.11**：13 個新 SV 盒補上單卡 EV。SR／AR 用 PriceCharting 未評級與 SNKRDUNK Grade A 叫價較低者；SAR／UR／ACE 只用 Grade A 叫價。有膜／無膜回報 % 改為數字。沒有 Grade A 掛牌的高稀有度不填價。盒價與抽出率沿用 v1.31.10。A+PSA／A+CGC 仍為 —（沒有 gem）
+- **v1.31.10**：開盒 EV 補上尚未收錄的日版 SV 補充盒（SV1V、SV2D、SV2P、SV3a、SV4K、SV4M、SV5K、SV5M、SV5a、SV6、SV6a、SV7、SV9）。有膜／無膜落地價來自公開 SNKRDUNK，抽出率來自 Pokegto。單卡 Grade A 未入庫，回報 % 顯示 —，不把缺卡當成 0%
 - **v1.31.9**：開盒 EV 左欄「系列」上方新增**全系列四欄 EV 比較**（100% Grade A／Grade A 打折／A+PSA／A+CGC），沿用同一 `calcSet` 與有膜／無膜分母；無落地或 grade 池不足仍顯示 —。EV 算法不變
 - **v1.31.8**：開盒 EV 顯示 SNKRDUNK **落地最優盒數**（有膜／無膜分開；有膜多盒比最優無膜更便宜時加旗標）。盒價刷新改為保留 1–4 盒各檔，運費按該筆訂單盒數攤提（買 1 盒單盒運費約為 4 盒的四倍），EV 分母取該側最低落地單盒。抽出率／haircut 不變
 - **v1.31.7**：Base PSA POP 補上英文 Base Set **Shadowless**，與 1st Edition／Unlimited／Base Set 2 並列（同一 #1–102 順序；手機一張表並列 1st／Shadowless／Unlimited）。PSA／CGC 合計預設、分開開關、無 Beckett、pop／% 兩欄、半級併入較低整數級不變。PriceCharting slug 由既有 catalog 管線列出，週更 Actions 一併抓 Shadowless POP 與指示價
