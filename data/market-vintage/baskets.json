@@ -1,15 +1,34 @@
 {
   "version": 1,
-  "generated": "2026-10-12T10:38:03.879683+00:00",
-  "source": "TCGCSV category 3 ProductsAndPrices (groups 604 + 1663)",
-  "rule": "Fixed chase baskets: Base Set EN raw singles, Holo Rare + Rare only (cheatsheet #1–102 where IDs exist). Split by printing. Sealed / jumbo / JP / error variants excluded. Not mid-era (Jungle/Fossil/Rocket).",
-  "sizeNote": "Practical holo+rare-heavy start (~31 IDs). Commons / uncommons / Energy omitted so breadth is not dominated by $1 cards. Full 102 can be added later without changing index math (divisor).",
-  "backfill": "TickerMint free API via tools/backfill_tickermint_vintage.py (printing-aware; 1st vs Shadowless vs Unlimited). Do not reuse tools/backfill_tickermint.py — that skips 1st Edition. Daily job appends on the rebased divisor after --backfill --confirm BACKFILL.",
+  "generated": "2026-10-28T14:57:28.654134+00:00",
+  "source": "TCGCSV category 3 ProductsAndPrices (groups 604 + 1663 + 605)",
+  "rule": "Fixed chase baskets: Base Set and Base Set 2 EN raw singles, Holo Rare + Rare only (Base Set numbers 1–22 and 70–79 where IDs exist). Base Set 2 keeps that same card list, not every group-605 holo. Split by printing. Sealed / jumbo / JP / error variants excluded. Not mid-era (Jungle/Fossil/Rocket).",
+  "sizeNote": "Practical holo+rare chase (~31 IDs on Base, fewer on Base Set 2 where a card was not printed). Commons / uncommons / Energy omitted so breadth is not dominated by $1 cards.",
+  "anchor": "Each TCG/TickerMint index is 1000 on its first retained day (2024-02-08 when that day has a positive market). A later day is the anchor only if 2024-02-08 was skipped. This is not the PriceCharting chain (2023-01-01 = 1000 in data/market-vintage-pc/).",
+  "cadence": "daily",
+  "backfill": "TickerMint free API via tools/backfill_tickermint_vintage.py (printing-aware; 1st vs Shadowless vs Unlimited vs Base Set 2). Do not reuse tools/backfill_tickermint.py — that skips 1st Edition. Committed history is daily (--step-days 1). The daily job appends on the rebased divisor after --backfill --confirm BACKFILL.",
   "gaps": [
     {
       "number": "008/102",
       "name": "Machamp",
-      "reason": "No numbered TCGCSV product in Base Set (group 604) or Base Set (Shadowless) (group 1663). Classic 1st Edition-only holo; omitted until a product ID exists."
+      "reason": "No numbered TCGCSV product in Base Set (group 604), Base Set (Shadowless) (group 1663), or Base Set 2 (group 605). Classic 1st Edition-only holo; omitted until a product ID exists."
+    },
+    {
+      "index": "base-set-2",
+      "number": "070/102",
+      "name": "Clefairy Doll",
+      "reason": "In the Base Set chase but not printed in Base Set 2 (TCGCSV group 605). Omitted from base-set-2 only."
+    },
+    {
+      "index": "base-set-2",
+      "number": "072/102",
+      "name": "Devolution Spray",
+      "reason": "In the Base Set chase but not printed in Base Set 2 (TCGCSV group 605). Omitted from base-set-2 only."
+    },
+    {
+      "index": "base-set-2",
+      "name": "Clefable, Nidoqueen, Pidgeot, Scyther, Wigglytuff, Kangaskhan, Mr. Mime, Pinsir, Snorlax, Venomoth, Victreebel",
+      "reason": "Holo Rare or Rare in TCGCSV group 605, outside the shared Base Set chase (numbers 1–22 and 70–79). Left out so Base Set 2 matches the other three TCG indexes and the PriceCharting overlay."
     },
     {
       "id": "657516",
@@ -57,6 +76,12 @@
           "id": "107005",
           "number": "010/102",
           "name": "Mewtwo",
+          "rarity": "Holo Rare"
+        },
+        {
+          "id": "107008",
+          "number": "012/102",
+          "name": "Ninetales",
           "rarity": "Holo Rare"
         }
       ],
@@ -749,6 +774,226 @@
           "name": "Super Energy Removal",
           "rarity": "Rare",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/42424_200w.jpg"
+        }
+      ]
+    },
+    "base-set-2": {
+      "id": "base-set-2",
+      "name": "Base Set 2",
+      "nameZh": "Base Set 2",
+      "printing": "Base Set 2",
+      "groupId": "605",
+      "groupName": "Base Set 2",
+      "abbreviation": "BS2",
+      "subtypeNeedles": [],
+      "subtypeMode": "include",
+      "subtypeNote": "TCGCSV group 605 is Base Set 2 only (Holofoil on holos, Normal on rares). No 1st Edition and no Shadowless subtype. One printing per product; an empty needle list keeps every positive market.",
+      "universe": "English Base Set 2 raw / ungraded (TCGPlayer Market, NM)",
+      "constituentCount": 29,
+      "unpricedAtBasketBuild": [],
+      "constituents": [
+        {
+          "id": "42444",
+          "number": "001/130",
+          "name": "Alakazam",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42444_200w.jpg"
+        },
+        {
+          "id": "42464",
+          "number": "002/130",
+          "name": "Blastoise",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42464_200w.jpg"
+        },
+        {
+          "id": "42471",
+          "number": "003/130",
+          "name": "Chansey",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42471_200w.jpg"
+        },
+        {
+          "id": "42479",
+          "number": "004/130",
+          "name": "Charizard",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42479_200w.jpg"
+        },
+        {
+          "id": "42483",
+          "number": "006/130",
+          "name": "Clefairy",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42483_200w.jpg"
+        },
+        {
+          "id": "42489",
+          "number": "007/130",
+          "name": "Gyarados",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42489_200w.jpg"
+        },
+        {
+          "id": "42496",
+          "number": "008/130",
+          "name": "Hitmonchan",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42496_200w.jpg"
+        },
+        {
+          "id": "42497",
+          "number": "009/130",
+          "name": "Magneton",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42497_200w.jpg"
+        },
+        {
+          "id": "42445",
+          "number": "010/130",
+          "name": "Mewtwo",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42445_200w.jpg"
+        },
+        {
+          "id": "42448",
+          "number": "011/130",
+          "name": "Nidoking",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42448_200w.jpg"
+        },
+        {
+          "id": "42457",
+          "number": "013/130",
+          "name": "Ninetales",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42457_200w.jpg"
+        },
+        {
+          "id": "42459",
+          "number": "015/130",
+          "name": "Poliwrath",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42459_200w.jpg"
+        },
+        {
+          "id": "42460",
+          "number": "016/130",
+          "name": "Raichu",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42460_200w.jpg"
+        },
+        {
+          "id": "42462",
+          "number": "018/130",
+          "name": "Venusaur",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42462_200w.jpg"
+        },
+        {
+          "id": "42465",
+          "number": "020/130",
+          "name": "Zapdos",
+          "rarity": "Holo Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42465_200w.jpg"
+        },
+        {
+          "id": "42466",
+          "number": "021/130",
+          "name": "Beedrill",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42466_200w.jpg"
+        },
+        {
+          "id": "42467",
+          "number": "022/130",
+          "name": "Dragonair",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42467_200w.jpg"
+        },
+        {
+          "id": "42468",
+          "number": "023/130",
+          "name": "Dugtrio",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42468_200w.jpg"
+        },
+        {
+          "id": "42469",
+          "number": "024/130",
+          "name": "Electabuzz",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42469_200w.jpg"
+        },
+        {
+          "id": "42470",
+          "number": "025/130",
+          "name": "Electrode",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42470_200w.jpg"
+        },
+        {
+          "id": "42500",
+          "number": "028/130",
+          "name": "Pidgeotto",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42500_200w.jpg"
+        },
+        {
+          "id": "42446",
+          "number": "101/130",
+          "name": "Computer Search",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42446_200w.jpg"
+        },
+        {
+          "id": "42552",
+          "number": "102/130",
+          "name": "Imposter Professor Oak",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42552_200w.jpg"
+        },
+        {
+          "id": "42553",
+          "number": "103/130",
+          "name": "Item Finder",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42553_200w.jpg"
+        },
+        {
+          "id": "42554",
+          "number": "104/130",
+          "name": "Lass",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42554_200w.jpg"
+        },
+        {
+          "id": "42555",
+          "number": "105/130",
+          "name": "Pokemon Breeder",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42555_200w.jpg"
+        },
+        {
+          "id": "106358",
+          "number": "106/130",
+          "name": "Pokemon Trader",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/106358_200w.jpg"
+        },
+        {
+          "id": "42556",
+          "number": "107/130",
+          "name": "Scoop Up",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42556_200w.jpg"
+        },
+        {
+          "id": "42557",
+          "number": "108/130",
+          "name": "Super Energy Removal",
+          "rarity": "Rare",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/42557_200w.jpg"
         }
       ]
     }

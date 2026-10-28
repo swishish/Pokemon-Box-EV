@@ -7,7 +7,7 @@ TickerMint product ids are TCGplayer `productId`s — the same ids TCGCSV uses.
 Shared by:
 
 - EN Top 500 — `tools/backfill_tickermint.py` (representative printing; **skips 1st Edition**)
-- Base Set vintage — `tools/backfill_tickermint_vintage.py` (exact printing per index; 1st + Shadowless share BSS ids)
+- Base Set vintage — `tools/backfill_tickermint_vintage.py` (exact printing per index; 1st + Shadowless share BSS ids; Base Set 2 is group 605)
 - Mid-era Top 50 — `tools/backfill_tickermint_midera.py` (EN representative printing; DP→SM frozen IDs)
 
 This folder is **gitignored except this README**. Do not commit the JSON dumps.

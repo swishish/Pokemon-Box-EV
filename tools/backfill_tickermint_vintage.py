@@ -19,19 +19,21 @@ Printing map (from data/market-vintage/baskets.json — verify there):
   base-1st         BSS group 1663  include “1st edition”
   base-shadowless  same BSS ids    include “unlimited”  (TickerMint label for Shadowless)
   base-unlimited   group 604 ids   exclude “1st edition”  (Holofoil / Normal)
+  base-set-2       group 605 ids   every positive market (no 1st / Shadowless)
 
-1st and Shadowless share product IDs, so unique API calls are ~62 not 93.
+1st and Shadowless share product IDs. Base Set 2 is its own id list.
 Same cache dir as market-en (data/tickermint-cache/, gitignored).
 
 Default start = 2024-02-08 (TickerMint free TCGplayer history begin).
 Optional later cut: --start 2024-02-28.
-Default sampling is weekly (--step-days 7, ~140 points/index).
+Default sampling is daily (--step-days 1). Weekly is still --step-days 7.
 Never fills missing days with $0. A card enters its index on the first
 day that *this printing* has a positive market. S&P-style divisor.
-Rebase each index to 1,000 on the first retained day (fixed historical
-rebase, not per-period). --backfill --confirm BACKFILL is required to
-rewrite live history.json + latest.json divisors so today's level moves
-off the temporary Oct-2026 = 1,000 series.
+Last price may carry up to the existing stale window (70 days). A day
+with no positive market is skipped. Rebase each index to 1,000 on the
+first retained day (fixed historical rebase, not per-period). That chain
+is not PriceCharting 2023-01-01 = 1000. --backfill --confirm BACKFILL
+is required to rewrite live history.json + latest.json divisors.
 
 --sample fetches a few BSS + Unlimited IDs (live) and writes nothing.
 First full run is ~62 HTTP calls (~1 min at 120 req/min).
@@ -373,7 +375,14 @@ def compose_payload(indexes: dict, baskets: dict, history: dict, now: datetime) 
         "sourceStamp": None,
         "asOfDate": first.get("asOfDate"),
         "priceSource": "TCGplayer Market Price (TickerMint history + TCGCSV daily snap)",
-        "universe": "English Base Set raw / ungraded singles — 1st Edition / Shadowless / Unlimited",
+        "universe": (
+            "English Base raw / ungraded singles — 1st Edition / Shadowless / "
+            "Unlimited / Base Set 2"
+        ),
+        "anchorNote": (
+            (baskets.get("anchor") if isinstance(baskets, dict) else None)
+            or "1000 on each index's first retained day. Not PriceCharting 2023-01-01 = 1000."
+        ),
         "staleDays": en.STALE_DAYS,
         "baseValue": en.BASE_INDEX_VALUE,
         "backfill": history.get("backfill"),
@@ -390,7 +399,7 @@ def compose_payload(indexes: dict, baskets: dict, history: dict, now: datetime) 
 
 
 def compose_price_history(results: dict, now: datetime) -> dict:
-    """Keep every retained weekly print — same dates as history.json points."""
+    """Keep every retained print — same dates as history.json points."""
     indexes = {}
     for iid, result in results.items():
         indexes[iid] = {
@@ -431,6 +440,10 @@ def wrap_history(index_results: dict, baskets: dict, *, start: date, end: date, 
         "optionalStart": cfg.get("optionalStart") or en.OPTIONAL_START,
         "source": "tickermint",
         "sourceDocs": cfg.get("docsUrl"),
+        "anchorNote": (
+            "1000 on each index's first retained day (2024-02-08 when that day is "
+            "kept). Not the PriceCharting monthly chain (2023-01-01 = 1000)."
+        ),
         "sampling": {
             "stepDays": step_days,
             "start": start.isoformat(),
@@ -588,6 +601,7 @@ def run_backfill(
     en.write_json(vin.LATEST_PATH, latest_out)
     vin.write_latest_js(latest_out)
     en.write_json(vin.PRICE_HISTORY_PATH, price_history)
+    vin.write_cheatsheet_prices(latest_out)
     print(
         f"Wrote vintage history.json and latest.json asOf {latest_out['asOfDate']} "
         f"(rebased; first retained day of each index = 1,000).",
@@ -772,20 +786,28 @@ def self_test() -> None:
     except RuntimeError as err:
         assert "Refusing to rebase" in str(err)
 
-    # Live baskets: printing map + unique-ID count (~62, not 93).
+    # Live baskets: printing map. 1st+Shadowless share BSS ids; Unlimited and
+    # Base Set 2 are their own groups. Original three stay at 62 unique ids.
     live = vin.load_baskets()
     live_ids = unique_product_ids(live)
     first_ids = unique_product_ids(live, index_filter=["base-1st"])
     sh_ids = unique_product_ids(live, index_filter=["base-shadowless"])
     un_ids = unique_product_ids(live, index_filter=["base-unlimited"])
+    bs2_ids = unique_product_ids(live, index_filter=["base-set-2"])
     assert first_ids == sh_ids and first_ids
     assert not (set(first_ids) & set(un_ids))
-    assert len(live_ids) == len(first_ids) + len(un_ids) == 62
+    assert not (set(bs2_ids) & set(first_ids))
+    assert not (set(bs2_ids) & set(un_ids))
+    assert len(first_ids) + len(un_ids) == 62
+    assert bs2_ids and len(bs2_ids) >= 15
+    assert len(live_ids) == 62 + len(bs2_ids)
     assert live["indexes"]["base-1st"]["subtypeMode"] == "include"
     assert "1st edition" in [n.lower() for n in live["indexes"]["base-1st"]["subtypeNeedles"]]
     assert live["indexes"]["base-shadowless"]["subtypeMode"] == "include"
     assert "unlimited" in [n.lower() for n in live["indexes"]["base-shadowless"]["subtypeNeedles"]]
     assert live["indexes"]["base-unlimited"]["subtypeMode"] == "exclude"
+    assert live["indexes"]["base-set-2"]["groupId"] == "605"
+    assert live["indexes"]["base-set-2"]["subtypeNeedles"] == []
     assert "tickermint" in (live.get("backfill") or "").lower()
 
     print("self-test ok")
@@ -810,8 +832,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--step-days",
         type=int,
-        default=int(cfg.get("defaultStepDays") or 7),
-        help="7 = weekly (default, ~140 points/index). 1 = daily ~980 points",
+        default=1,
+        help="1 = daily (default, live tape). 7 = weekly.",
     )
     parser.add_argument("--max-ids", type=int, default=None, help="Cap unique product IDs (debug / smoke)")
     parser.add_argument(
