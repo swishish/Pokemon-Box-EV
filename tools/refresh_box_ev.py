@@ -188,6 +188,127 @@ PITY = {
         "rates": {"AR": 3.0, "poke_sr": 0.55, "goods_sr": 0.25, "SAR": 0.20, "UR": 0.10},
         "source": "SV enhanced-regular pattern (Pokegto family + existing snapshot); Heat Wave Arena Pokegto linked from family index",
     },
+    # SV booster boxes added 2026-10-28. Percents are the set-specific Pokegto
+    # table (not the boilerplate SV default). Chase means already include the
+    # 2枚箱 extra; over_alloc is that extra, not added again. ACE ×1 is a floor
+    # when the page says 1BOXに1枚確定. No card rows yet — do not invent Grade A.
+    "SV1V": {
+        "family": "sv_regular",
+        "floors": {"AR": 3.0},
+        "chase_exclusive": {"poke_sr": 0.45, "goods_sr": 0.30, "SAR": 0.20, "UR": 0.10},
+        "over_alloc": 0.05,
+        "over_alloc_note": "Pokegto set table sums to 1.05 exclusive hits. Extra is already inside the means.",
+        "rates": {"AR": 3.0, "poke_sr": 0.45, "goods_sr": 0.30, "SAR": 0.20, "UR": 0.10},
+        "source": "Pokegto 500 BOX https://pokemon-infomation.com/pull-rates-violetex/",
+    },
+    "SV2D": {
+        "family": "sv_regular",
+        "floors": {"AR": 3.0},
+        "chase_exclusive": {"poke_sr": 0.60, "goods_sr": 0.20, "SAR": 0.20, "UR": 0.10},
+        "over_alloc": 0.10,
+        "over_alloc_note": "Pokegto set table sums to 1.10 exclusive hits. Extra is already inside the means.",
+        "rates": {"AR": 3.0, "poke_sr": 0.60, "goods_sr": 0.20, "SAR": 0.20, "UR": 0.10},
+        "source": "Pokegto 1,000 BOX https://pokemon-infomation.com/pull-rates-clayburst/",
+    },
+    "SV2P": {
+        "family": "sv_regular",
+        "floors": {"AR": 3.0},
+        "chase_exclusive": {"poke_sr": 0.60, "goods_sr": 0.20, "SAR": 0.20, "UR": 0.10},
+        "over_alloc": 0.10,
+        "over_alloc_note": "Pokegto set table sums to 1.10 exclusive hits. Extra is already inside the means.",
+        "rates": {"AR": 3.0, "poke_sr": 0.60, "goods_sr": 0.20, "SAR": 0.20, "UR": 0.10},
+        "source": "Pokegto 1,000 BOX https://pokemon-infomation.com/pull-rates-snowhazard/",
+    },
+    "SV3a": {
+        "family": "sv_regular",
+        "floors": {"AR": 3.0},
+        "chase_exclusive": {"poke_sr": 0.45, "goods_sr": 0.30, "SAR": 0.20, "UR": 0.10},
+        "over_alloc": 0.05,
+        "over_alloc_note": "Pokegto set table sums to 1.05 exclusive hits. Extra is already inside the means.",
+        "rates": {"AR": 3.0, "poke_sr": 0.45, "goods_sr": 0.30, "SAR": 0.20, "UR": 0.10},
+        "source": "Pokegto 600 BOX https://pokemon-infomation.com/pull-rates-ragingsurf/",
+    },
+    "SV4K": {
+        "family": "sv_regular",
+        "floors": {"AR": 3.0},
+        "chase_exclusive": {"poke_sr": 0.55, "goods_sr": 0.25, "SAR": 0.20, "UR": 0.10},
+        "over_alloc": 0.10,
+        "over_alloc_note": "Pokegto set table sums to 1.10 exclusive hits. Carton table ~1 extra box / 12. Extra is already inside the means.",
+        "rates": {"AR": 3.0, "poke_sr": 0.55, "goods_sr": 0.25, "SAR": 0.20, "UR": 0.10},
+        "source": "Pokegto https://pokemon-infomation.com/pull-rates-kodainohoko/",
+    },
+    "SV4M": {
+        "family": "sv_regular",
+        "floors": {"AR": 3.0},
+        "chase_exclusive": {"poke_sr": 0.55, "goods_sr": 0.25, "SAR": 0.20, "UR": 0.10},
+        "over_alloc": 0.10,
+        "over_alloc_note": "Pokegto set table sums to 1.10 exclusive hits. Carton table ~1 extra box / 12. Extra is already inside the means.",
+        "rates": {"AR": 3.0, "poke_sr": 0.55, "goods_sr": 0.25, "SAR": 0.20, "UR": 0.10},
+        "source": "Pokegto https://pokemon-infomation.com/pull-rates-mirainoissen/",
+    },
+    "SV5K": {
+        "family": "sv_regular",
+        "floors": {"AR": 3.0, "ACE": 1.0},
+        "chase_exclusive": {"poke_sr": 0.55, "goods_sr": 0.25, "SAR": 0.20, "UR": 0.10},
+        "over_alloc": 0.10,
+        "over_alloc_note": "Pokegto set table sums to 1.10 exclusive hits. Extra is already inside the means.",
+        "rates": {"AR": 3.0, "ACE": 1.0, "poke_sr": 0.55, "goods_sr": 0.25, "SAR": 0.20, "UR": 0.10},
+        "source": "Pokegto 1,000 BOX https://pokemon-infomation.com/pull-rates-wildforce/",
+    },
+    "SV5M": {
+        "family": "sv_regular",
+        "floors": {"AR": 3.0, "ACE": 1.0},
+        "chase_exclusive": {"poke_sr": 0.55, "goods_sr": 0.25, "SAR": 0.20, "UR": 0.10},
+        "over_alloc": 0.10,
+        "over_alloc_note": "Pokegto set table sums to 1.10 exclusive hits. Extra is already inside the means.",
+        "rates": {"AR": 3.0, "ACE": 1.0, "poke_sr": 0.55, "goods_sr": 0.25, "SAR": 0.20, "UR": 0.10},
+        "source": "Pokegto 1,000 BOX https://pokemon-infomation.com/pull-rates-cyberjudge/",
+    },
+    "SV5a": {
+        "family": "sv_regular",
+        "floors": {"AR": 3.0, "ACE": 1.0},
+        "chase_exclusive": {"poke_sr": 0.50, "goods_sr": 0.30, "SAR": 0.20, "UR": 0.10},
+        "over_alloc": 0.10,
+        "over_alloc_note": "Pokegto set table sums to 1.10 exclusive hits. Extra is already inside the means.",
+        "rates": {"AR": 3.0, "ACE": 1.0, "poke_sr": 0.50, "goods_sr": 0.30, "SAR": 0.20, "UR": 0.10},
+        "source": "Pokegto 1,000 BOX https://pokemon-infomation.com/pull-rates-crimsonhaze/",
+    },
+    "SV6": {
+        "family": "sv_regular",
+        "floors": {"AR": 3.0, "ACE": 1.0},
+        "chase_exclusive": {"poke_sr": 0.55, "goods_sr": 0.25, "SAR": 0.20, "UR": 0.10},
+        "over_alloc": 0.10,
+        "over_alloc_note": "Pokegto set table sums to 1.10 exclusive hits. Extra is already inside the means.",
+        "rates": {"AR": 3.0, "ACE": 1.0, "poke_sr": 0.55, "goods_sr": 0.25, "SAR": 0.20, "UR": 0.10},
+        "source": "Pokegto https://pokemon-infomation.com/pull-rates-hengennokamen/",
+    },
+    "SV6a": {
+        "family": "sv_regular",
+        "floors": {"AR": 3.0, "ACE": 1.0},
+        "chase_exclusive": {"poke_sr": 0.50, "goods_sr": 0.30, "SAR": 0.20, "UR": 0.10},
+        "over_alloc": 0.10,
+        "over_alloc_note": "Pokegto set table sums to 1.10 exclusive hits. Extra is already inside the means.",
+        "rates": {"AR": 3.0, "ACE": 1.0, "poke_sr": 0.50, "goods_sr": 0.30, "SAR": 0.20, "UR": 0.10},
+        "source": "Pokegto 1,000 BOX https://pokemon-infomation.com/pull-rates-nightwanderer/",
+    },
+    "SV7": {
+        "family": "sv_regular",
+        "floors": {"AR": 3.0, "ACE": 1.0},
+        "chase_exclusive": {"poke_sr": 0.50, "goods_sr": 0.30, "SAR": 0.20, "UR": 0.10},
+        "over_alloc": 0.10,
+        "over_alloc_note": "Pokegto set table sums to 1.10 exclusive hits. Extra is already inside the means.",
+        "rates": {"AR": 3.0, "ACE": 1.0, "poke_sr": 0.50, "goods_sr": 0.30, "SAR": 0.20, "UR": 0.10},
+        "source": "Pokegto 1,000 BOX https://pokemon-infomation.com/pull-rates-stellamiracle/",
+    },
+    "SV9": {
+        "family": "sv_regular",
+        "floors": {"AR": 3.0},
+        "chase_exclusive": {"poke_sr": 0.55, "goods_sr": 0.25, "SAR": 0.20, "UR": 0.10},
+        "over_alloc": 0.10,
+        "over_alloc_note": "Pokegto set table sums to 1.10 exclusive hits. Extra is already inside the means.",
+        "rates": {"AR": 3.0, "poke_sr": 0.55, "goods_sr": 0.25, "SAR": 0.20, "UR": 0.10},
+        "source": "Pokegto ~1,000 BOX https://pokemon-infomation.com/pull-rates-battlepartner/",
+    },
 }
 
 
@@ -318,6 +439,8 @@ def snapshot_for(set_obj, cards, haircuts, grade_pools, fees):
     has_psa = psa_n >= 3
     has_cgc = cgc_n >= 3
 
+    if not priced:
+        return {"GA": None, "HC": None, "PSA": None, "CGC": None}
     ga = hc_v = psa_v = cgc_v = 0.0
     for pool, rate in rates.items():
         pcards = [c for c in priced if c["pool"] == pool]

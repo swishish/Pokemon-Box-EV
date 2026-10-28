@@ -54,8 +54,9 @@
     "pc_sr_ar_fx": "PC USD → ¥ via HKD: ×7.8×20.3 = ×158.34",
     "sar_pc_gap": "SAR/MUR/MA/FUR not auto-minned. Large PC vs SNKR Grade A (ratio >2 or <0.5) count=12; see tools output / PR. Policy remains SNKR Grade A.",
     "pc_sr_ar_coverage": "SR/AR min applied on 571 cards; PC-only 10; SNKR-only (no PC) 12; rejected SNKR typos [].",
-    "sealed_box_as_of": "2026-10-26 06:11 Asia/Shanghai",
-    "method_sealed_box": "HK-landed shrink / no-shrink from public SNKRDUNK new-listing lot asks (keep usable 1/2/3/4-box tiers after unit bounds, multi-listing depth, and vs-single band). unit_yen = lot ÷ qty. landed_yen = unit×1.035 + (HK$173 × 20.3) / qty (shipping amortized over that order's box count). EV denom = min landed_yen per side; winning qty stored on landed.*. View-only public JSON; no login / buy / bid. Missing fetch keeps the previous snapshot; never invent IDs or prices. PriceCharting booster-box ungraded avg is display-only."
+    "sealed_box_as_of": "2026-10-28 14:15 Asia/Shanghai",
+    "method_sealed_box": "HK-landed shrink / no-shrink from public SNKRDUNK new-listing lot asks (keep usable 1/2/3/4-box tiers after unit bounds, multi-listing depth, and vs-single band). unit_yen = lot ÷ qty. landed_yen = unit×1.035 + (HK$173 × 20.3) / qty (shipping amortized over that order's box count). EV denom = min landed_yen per side; winning qty stored on landed.*. View-only public JSON; no login / buy / bid. Missing fetch keeps the previous snapshot; never invent IDs or prices. PriceCharting booster-box ungraded avg is display-only.",
+    "sv_sealed_scaffold": "2026-10-28 added JP SV booster boxes missing from the curated list: SV1V SV2D SV2P SV3a SV4K SV4M SV5K SV5M SV5a SV6 SV6a SV7 SV9. Sealed shrink/no-shrink apparel IDs are public SNKRDUNK product numbers (pkmn-tcg-<code>). Pokegto pull rates are stored. Card Grade A rows were not added and data.as_of (card snapshot) was not bumped: tools/refresh_box_ev.py exits without writing when /tmp/pc-sets is empty, and SAR/UR stay SNKR Grade A (PC ungraded is not used for those pools). Deck Build Box / starter products are not modeled. Mega M* sets were already present."
   },
   "sets": {
     "M1L": {
@@ -2825,6 +2826,1781 @@
           "source": "pricecharting_public_html"
         }
       }
+    },
+    "SV1V": {
+      "code": "SV1V",
+      "ja": "バイオレットex",
+      "en": "Violet ex",
+      "zh": "紫ex",
+      "kind": "擴充包",
+      "order": 31,
+      "rates": {
+        "AR": 3.0,
+        "poke_sr": 0.45,
+        "goods_sr": 0.3,
+        "SAR": 0.2,
+        "UR": 0.1
+      },
+      "otachu_ev": null,
+      "snapshot": {
+        "GA": null,
+        "HC": null,
+        "PSA": null,
+        "CGC": null
+      },
+      "pc_url": "https://www.pricecharting.com/game/pokemon-japanese-violet-ex/booster-box",
+      "release_date": "2023-01-20",
+      "method_note": "Scaffold 2026-10-28: Pokegto rates stored. Sealed 有膜／無膜 filled from public SNKRDUNK when the refresh fetch succeeds. Card Grade A rows are not in this snapshot (refresh_box_ev.py needs hand-saved PriceCharting console HTML; SAR/UR are not filled from PC ungraded). EV % stays — until cards exist.",
+      "pricecharting_box_url": "https://www.pricecharting.com/game/pokemon-japanese-violet-ex/booster-box",
+      "snkrdunk_shrink_id": 106864,
+      "snkrdunk_shrink_url": "https://snkrdunk.com/en/trading-cards/106864",
+      "snkrdunk_ns_id": 567429,
+      "snkrdunk_ns_url": "https://snkrdunk.com/en/trading-cards/567429",
+      "pity": {
+        "family": "sv_regular",
+        "floors": {
+          "AR": 3.0
+        },
+        "chase_exclusive": {
+          "poke_sr": 0.45,
+          "goods_sr": 0.3,
+          "SAR": 0.2,
+          "UR": 0.1
+        },
+        "over_alloc": 0.05,
+        "over_alloc_note": "Pokegto set table sums above one exclusive chase slot. Extra is already inside the means.",
+        "source": "Pokegto 500 BOX https://pokemon-infomation.com/pull-rates-violetex/"
+      },
+      "rate_notes": "Pokegto 500 BOX https://pokemon-infomation.com/pull-rates-violetex/",
+      "landed": {
+        "shrink": {
+          "landed_yen": 12377.86,
+          "unit_yen": 11111.0,
+          "qty": 4,
+          "qty_label": "4個"
+        },
+        "ns": {
+          "landed_yen": 13654.9,
+          "unit_yen": 9800.0,
+          "qty": 1,
+          "qty_label": "1個"
+        }
+      },
+      "sealed_box": {
+        "shrink": {
+          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "source": "snkrdunk_public_new_listing",
+          "apparel_id": 106864,
+          "lot_yen": 44444.0,
+          "qty": 4,
+          "qty_label": "4個",
+          "unit_yen": 11111.0,
+          "listing_count": 11,
+          "lots": [
+            {
+              "qty": 1,
+              "qty_label": "1個",
+              "lot_yen": 10499.0,
+              "unit_yen": 10499.0,
+              "listing_count": 100,
+              "landed_yen": 14378.36
+            },
+            {
+              "qty": 2,
+              "qty_label": "2個",
+              "lot_yen": 21599.0,
+              "unit_yen": 10799.5,
+              "listing_count": 23,
+              "landed_yen": 12933.43
+            },
+            {
+              "qty": 3,
+              "qty_label": "3個",
+              "lot_yen": 33333.0,
+              "unit_yen": 11111.0,
+              "listing_count": 28,
+              "landed_yen": 12670.52
+            },
+            {
+              "qty": 4,
+              "qty_label": "4個",
+              "lot_yen": 44444.0,
+              "unit_yen": 11111.0,
+              "listing_count": 11,
+              "landed_yen": 12377.86
+            }
+          ]
+        },
+        "ns": {
+          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "source": "snkrdunk_public_new_listing",
+          "apparel_id": 567429,
+          "lot_yen": 9800.0,
+          "qty": 1,
+          "qty_label": "1個",
+          "unit_yen": 9800.0,
+          "listing_count": 7,
+          "lots": [
+            {
+              "qty": 1,
+              "qty_label": "1個",
+              "lot_yen": 9800.0,
+              "unit_yen": 9800.0,
+              "listing_count": 7,
+              "landed_yen": 13654.9
+            }
+          ]
+        },
+        "pc": {
+          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "usd": 94.25,
+          "source": "pricecharting_public_html"
+        }
+      },
+      "pc_avg_usd": 94.25,
+      "pc_avg_hkd": 735.15,
+      "pc_avg_as_of": "2026-10-28 14:15 Asia/Shanghai",
+      "pc_avg_source": "pricecharting_ungraded_loose"
+    },
+    "SV2D": {
+      "code": "SV2D",
+      "ja": "クレイバースト",
+      "en": "Clay Burst",
+      "zh": "碟旋暴擊",
+      "kind": "擴充包",
+      "order": 27,
+      "rates": {
+        "AR": 3.0,
+        "poke_sr": 0.6,
+        "goods_sr": 0.2,
+        "SAR": 0.2,
+        "UR": 0.1
+      },
+      "otachu_ev": null,
+      "snapshot": {
+        "GA": null,
+        "HC": null,
+        "PSA": null,
+        "CGC": null
+      },
+      "pc_url": "https://www.pricecharting.com/game/pokemon-japanese-clay-burst/booster-box",
+      "release_date": "2023-04-14",
+      "method_note": "Scaffold 2026-10-28: Pokegto rates stored. Sealed 有膜／無膜 filled from public SNKRDUNK when the refresh fetch succeeds. Card Grade A rows are not in this snapshot (refresh_box_ev.py needs hand-saved PriceCharting console HTML; SAR/UR are not filled from PC ungraded). EV % stays — until cards exist.",
+      "pricecharting_box_url": "https://www.pricecharting.com/game/pokemon-japanese-clay-burst/booster-box",
+      "snkrdunk_shrink_id": 116901,
+      "snkrdunk_shrink_url": "https://snkrdunk.com/en/trading-cards/116901",
+      "snkrdunk_ns_id": 567432,
+      "snkrdunk_ns_url": "https://snkrdunk.com/en/trading-cards/567432",
+      "pity": {
+        "family": "sv_regular",
+        "floors": {
+          "AR": 3.0
+        },
+        "chase_exclusive": {
+          "poke_sr": 0.6,
+          "goods_sr": 0.2,
+          "SAR": 0.2,
+          "UR": 0.1
+        },
+        "over_alloc": 0.1,
+        "over_alloc_note": "Pokegto set table sums above one exclusive chase slot. Extra is already inside the means.",
+        "source": "Pokegto 1,000 BOX https://pokemon-infomation.com/pull-rates-clayburst/"
+      },
+      "rate_notes": "Pokegto 1,000 BOX https://pokemon-infomation.com/pull-rates-clayburst/",
+      "landed": {
+        "shrink": {
+          "landed_yen": 14108.13,
+          "unit_yen": 12500.0,
+          "qty": 3,
+          "qty_label": "3個"
+        },
+        "ns": {
+          "landed_yen": 16965.86,
+          "unit_yen": 12999.0,
+          "qty": 1,
+          "qty_label": "1個"
+        }
+      },
+      "sealed_box": {
+        "shrink": {
+          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "source": "snkrdunk_public_new_listing",
+          "apparel_id": 116901,
+          "lot_yen": 37500.0,
+          "qty": 3,
+          "qty_label": "3個",
+          "unit_yen": 12500.0,
+          "listing_count": 18,
+          "lots": [
+            {
+              "qty": 1,
+              "qty_label": "1個",
+              "lot_yen": 11450.0,
+              "unit_yen": 11450.0,
+              "listing_count": 100,
+              "landed_yen": 15362.65
+            },
+            {
+              "qty": 2,
+              "qty_label": "2個",
+              "lot_yen": 23999.0,
+              "unit_yen": 11999.5,
+              "listing_count": 38,
+              "landed_yen": 14175.43
+            },
+            {
+              "qty": 3,
+              "qty_label": "3個",
+              "lot_yen": 37500.0,
+              "unit_yen": 12500.0,
+              "listing_count": 18,
+              "landed_yen": 14108.13
+            },
+            {
+              "qty": 4,
+              "qty_label": "4個",
+              "lot_yen": 52000.0,
+              "unit_yen": 13000.0,
+              "listing_count": 9,
+              "landed_yen": 14332.97
+            }
+          ]
+        },
+        "ns": {
+          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "source": "snkrdunk_public_new_listing",
+          "apparel_id": 567432,
+          "lot_yen": 12999.0,
+          "qty": 1,
+          "qty_label": "1個",
+          "unit_yen": 12999.0,
+          "listing_count": 8,
+          "lots": [
+            {
+              "qty": 1,
+              "qty_label": "1個",
+              "lot_yen": 12999.0,
+              "unit_yen": 12999.0,
+              "listing_count": 8,
+              "landed_yen": 16965.86
+            }
+          ]
+        },
+        "pc": {
+          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "usd": 94.75,
+          "source": "pricecharting_public_html"
+        }
+      },
+      "pc_avg_usd": 94.75,
+      "pc_avg_hkd": 739.05,
+      "pc_avg_as_of": "2026-10-28 14:15 Asia/Shanghai",
+      "pc_avg_source": "pricecharting_ungraded_loose"
+    },
+    "SV2P": {
+      "code": "SV2P",
+      "ja": "スノーハザード",
+      "en": "Snow Hazard",
+      "zh": "冰雪險境",
+      "kind": "擴充包",
+      "order": 26,
+      "rates": {
+        "AR": 3.0,
+        "poke_sr": 0.6,
+        "goods_sr": 0.2,
+        "SAR": 0.2,
+        "UR": 0.1
+      },
+      "otachu_ev": null,
+      "snapshot": {
+        "GA": null,
+        "HC": null,
+        "PSA": null,
+        "CGC": null
+      },
+      "pc_url": "https://www.pricecharting.com/game/pokemon-japanese-snow-hazard/booster-box",
+      "release_date": "2023-04-14",
+      "method_note": "Scaffold 2026-10-28: Pokegto rates stored. Sealed 有膜／無膜 filled from public SNKRDUNK when the refresh fetch succeeds. Card Grade A rows are not in this snapshot (refresh_box_ev.py needs hand-saved PriceCharting console HTML; SAR/UR are not filled from PC ungraded). EV % stays — until cards exist.",
+      "pricecharting_box_url": "https://www.pricecharting.com/game/pokemon-japanese-snow-hazard/booster-box",
+      "snkrdunk_shrink_id": 116897,
+      "snkrdunk_shrink_url": "https://snkrdunk.com/en/trading-cards/116897",
+      "snkrdunk_ns_id": 567431,
+      "snkrdunk_ns_url": "https://snkrdunk.com/en/trading-cards/567431",
+      "pity": {
+        "family": "sv_regular",
+        "floors": {
+          "AR": 3.0
+        },
+        "chase_exclusive": {
+          "poke_sr": 0.6,
+          "goods_sr": 0.2,
+          "SAR": 0.2,
+          "UR": 0.1
+        },
+        "over_alloc": 0.1,
+        "over_alloc_note": "Pokegto set table sums above one exclusive chase slot. Extra is already inside the means.",
+        "source": "Pokegto 1,000 BOX https://pokemon-infomation.com/pull-rates-snowhazard/"
+      },
+      "rate_notes": "Pokegto 1,000 BOX https://pokemon-infomation.com/pull-rates-snowhazard/",
+      "landed": {
+        "shrink": {
+          "landed_yen": 15517.9,
+          "unit_yen": 11600.0,
+          "qty": 1,
+          "qty_label": "1個"
+        },
+        "ns": {
+          "landed_yen": 13861.9,
+          "unit_yen": 10000.0,
+          "qty": 1,
+          "qty_label": "1個"
+        }
+      },
+      "sealed_box": {
+        "shrink": {
+          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "source": "snkrdunk_public_new_listing",
+          "apparel_id": 116897,
+          "lot_yen": 11600.0,
+          "qty": 1,
+          "qty_label": "1個",
+          "unit_yen": 11600.0,
+          "listing_count": 66,
+          "lots": [
+            {
+              "qty": 1,
+              "qty_label": "1個",
+              "lot_yen": 11600.0,
+              "unit_yen": 11600.0,
+              "listing_count": 66,
+              "landed_yen": 15517.9
+            },
+            {
+              "qty": 3,
+              "qty_label": "3個",
+              "lot_yen": 44800.0,
+              "unit_yen": 14933.33,
+              "listing_count": 6,
+              "landed_yen": 16626.63
+            }
+          ]
+        },
+        "ns": {
+          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "source": "snkrdunk_public_new_listing",
+          "apparel_id": 567431,
+          "lot_yen": 10000.0,
+          "qty": 1,
+          "qty_label": "1個",
+          "unit_yen": 10000.0,
+          "listing_count": 13,
+          "lots": [
+            {
+              "qty": 1,
+              "qty_label": "1個",
+              "lot_yen": 10000.0,
+              "unit_yen": 10000.0,
+              "listing_count": 13,
+              "landed_yen": 13861.9
+            }
+          ]
+        },
+        "pc": {
+          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "usd": 77.9,
+          "source": "pricecharting_public_html"
+        }
+      },
+      "pc_avg_usd": 77.9,
+      "pc_avg_hkd": 607.62,
+      "pc_avg_as_of": "2026-10-28 14:15 Asia/Shanghai",
+      "pc_avg_source": "pricecharting_ungraded_loose"
+    },
+    "SV3a": {
+      "code": "SV3a",
+      "ja": "レイジングサーフ",
+      "en": "Raging Surf",
+      "zh": "激狂駭浪",
+      "kind": "強化擴充包",
+      "order": 40,
+      "rates": {
+        "AR": 3.0,
+        "poke_sr": 0.45,
+        "goods_sr": 0.3,
+        "SAR": 0.2,
+        "UR": 0.1
+      },
+      "otachu_ev": null,
+      "snapshot": {
+        "GA": null,
+        "HC": null,
+        "PSA": null,
+        "CGC": null
+      },
+      "pc_url": "https://www.pricecharting.com/game/pokemon-japanese-raging-surf/booster-box",
+      "release_date": "2023-09-22",
+      "method_note": "Scaffold 2026-10-28: Pokegto rates stored. Sealed 有膜／無膜 filled from public SNKRDUNK when the refresh fetch succeeds. Card Grade A rows are not in this snapshot (refresh_box_ev.py needs hand-saved PriceCharting console HTML; SAR/UR are not filled from PC ungraded). EV % stays — until cards exist.",
+      "pricecharting_box_url": "https://www.pricecharting.com/game/pokemon-japanese-raging-surf/booster-box",
+      "snkrdunk_shrink_id": 134104,
+      "snkrdunk_shrink_url": "https://snkrdunk.com/en/trading-cards/134104",
+      "snkrdunk_ns_id": 567435,
+      "snkrdunk_ns_url": "https://snkrdunk.com/en/trading-cards/567435",
+      "pity": {
+        "family": "sv_regular",
+        "floors": {
+          "AR": 3.0
+        },
+        "chase_exclusive": {
+          "poke_sr": 0.45,
+          "goods_sr": 0.3,
+          "SAR": 0.2,
+          "UR": 0.1
+        },
+        "over_alloc": 0.05,
+        "over_alloc_note": "Pokegto set table sums above one exclusive chase slot. Extra is already inside the means.",
+        "source": "Pokegto 600 BOX https://pokemon-infomation.com/pull-rates-ragingsurf/"
+      },
+      "rate_notes": "Pokegto 600 BOX https://pokemon-infomation.com/pull-rates-ragingsurf/",
+      "landed": {
+        "shrink": {
+          "landed_yen": 18315.95,
+          "unit_yen": 16000.0,
+          "qty": 2,
+          "qty_label": "2個"
+        },
+        "ns": {
+          "landed_yen": 15828.4,
+          "unit_yen": 11900.0,
+          "qty": 1,
+          "qty_label": "1個"
+        }
+      },
+      "sealed_box": {
+        "shrink": {
+          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "source": "snkrdunk_public_new_listing",
+          "apparel_id": 134104,
+          "lot_yen": 32000.0,
+          "qty": 2,
+          "qty_label": "2個",
+          "unit_yen": 16000.0,
+          "listing_count": 16,
+          "lots": [
+            {
+              "qty": 1,
+              "qty_label": "1個",
+              "lot_yen": 15499.0,
+              "unit_yen": 15499.0,
+              "listing_count": 87,
+              "landed_yen": 19553.36
+            },
+            {
+              "qty": 2,
+              "qty_label": "2個",
+              "lot_yen": 32000.0,
+              "unit_yen": 16000.0,
+              "listing_count": 16,
+              "landed_yen": 18315.95
+            },
+            {
+              "qty": 3,
+              "qty_label": "3個",
+              "lot_yen": 54000.0,
+              "unit_yen": 18000.0,
+              "listing_count": 9,
+              "landed_yen": 19800.63
+            },
+            {
+              "qty": 4,
+              "qty_label": "4個",
+              "lot_yen": 68000.0,
+              "unit_yen": 17000.0,
+              "listing_count": 2,
+              "landed_yen": 18472.97
+            }
+          ]
+        },
+        "ns": {
+          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "source": "snkrdunk_public_new_listing",
+          "apparel_id": 567435,
+          "lot_yen": 11900.0,
+          "qty": 1,
+          "qty_label": "1個",
+          "unit_yen": 11900.0,
+          "listing_count": 15,
+          "lots": [
+            {
+              "qty": 1,
+              "qty_label": "1個",
+              "lot_yen": 11900.0,
+              "unit_yen": 11900.0,
+              "listing_count": 15,
+              "landed_yen": 15828.4
+            }
+          ]
+        },
+        "pc": {
+          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "usd": 95.0,
+          "source": "pricecharting_public_html"
+        }
+      },
+      "pc_avg_usd": 95.0,
+      "pc_avg_hkd": 741.0,
+      "pc_avg_as_of": "2026-10-28 14:15 Asia/Shanghai",
+      "pc_avg_source": "pricecharting_ungraded_loose"
+    },
+    "SV4K": {
+      "code": "SV4K",
+      "ja": "古代の咆哮",
+      "en": "Ancient Roar",
+      "zh": "古代咆哮",
+      "kind": "擴充包",
+      "order": 41,
+      "rates": {
+        "AR": 3.0,
+        "poke_sr": 0.55,
+        "goods_sr": 0.25,
+        "SAR": 0.2,
+        "UR": 0.1
+      },
+      "otachu_ev": null,
+      "snapshot": {
+        "GA": null,
+        "HC": null,
+        "PSA": null,
+        "CGC": null
+      },
+      "pc_url": "https://www.pricecharting.com/game/pokemon-japanese-ancient-roar/booster-box",
+      "release_date": "2023-10-27",
+      "method_note": "Scaffold 2026-10-28: Pokegto rates stored. Sealed 有膜／無膜 filled from public SNKRDUNK when the refresh fetch succeeds. Card Grade A rows are not in this snapshot (refresh_box_ev.py needs hand-saved PriceCharting console HTML; SAR/UR are not filled from PC ungraded). EV % stays — until cards exist.",
+      "pricecharting_box_url": "https://www.pricecharting.com/game/pokemon-japanese-ancient-roar/booster-box",
+      "snkrdunk_shrink_id": 140591,
+      "snkrdunk_shrink_url": "https://snkrdunk.com/en/trading-cards/140591",
+      "snkrdunk_ns_id": 567436,
+      "snkrdunk_ns_url": "https://snkrdunk.com/en/trading-cards/567436",
+      "pity": {
+        "family": "sv_regular",
+        "floors": {
+          "AR": 3.0
+        },
+        "chase_exclusive": {
+          "poke_sr": 0.55,
+          "goods_sr": 0.25,
+          "SAR": 0.2,
+          "UR": 0.1
+        },
+        "over_alloc": 0.1,
+        "over_alloc_note": "Pokegto set table sums above one exclusive chase slot. Extra is already inside the means.",
+        "source": "Pokegto https://pokemon-infomation.com/pull-rates-kodainohoko/"
+      },
+      "rate_notes": "Pokegto https://pokemon-infomation.com/pull-rates-kodainohoko/",
+      "landed": {
+        "shrink": {
+          "landed_yen": 14556.63,
+          "unit_yen": 12933.33,
+          "qty": 3,
+          "qty_label": "3個"
+        },
+        "ns": {
+          "landed_yen": 14896.9,
+          "unit_yen": 11000.0,
+          "qty": 1,
+          "qty_label": "1個"
+        }
+      },
+      "sealed_box": {
+        "shrink": {
+          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "source": "snkrdunk_public_new_listing",
+          "apparel_id": 140591,
+          "lot_yen": 38800.0,
+          "qty": 3,
+          "qty_label": "3個",
+          "unit_yen": 12933.33,
+          "listing_count": 14,
+          "lots": [
+            {
+              "qty": 1,
+              "qty_label": "1個",
+              "lot_yen": 11000.0,
+              "unit_yen": 11000.0,
+              "listing_count": 92,
+              "landed_yen": 14896.9
+            },
+            {
+              "qty": 2,
+              "qty_label": "2個",
+              "lot_yen": 25600.0,
+              "unit_yen": 12800.0,
+              "listing_count": 12,
+              "landed_yen": 15003.95
+            },
+            {
+              "qty": 3,
+              "qty_label": "3個",
+              "lot_yen": 38800.0,
+              "unit_yen": 12933.33,
+              "listing_count": 14,
+              "landed_yen": 14556.63
+            },
+            {
+              "qty": 4,
+              "qty_label": "4個",
+              "lot_yen": 62800.0,
+              "unit_yen": 15700.0,
+              "listing_count": 5,
+              "landed_yen": 17127.47
+            }
+          ]
+        },
+        "ns": {
+          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "source": "snkrdunk_public_new_listing",
+          "apparel_id": 567436,
+          "lot_yen": 11000.0,
+          "qty": 1,
+          "qty_label": "1個",
+          "unit_yen": 11000.0,
+          "listing_count": 8,
+          "lots": [
+            {
+              "qty": 1,
+              "qty_label": "1個",
+              "lot_yen": 11000.0,
+              "unit_yen": 11000.0,
+              "listing_count": 8,
+              "landed_yen": 14896.9
+            }
+          ]
+        },
+        "pc": {
+          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "usd": 85.0,
+          "source": "pricecharting_public_html"
+        }
+      },
+      "pc_avg_usd": 85.0,
+      "pc_avg_hkd": 663.0,
+      "pc_avg_as_of": "2026-10-28 14:15 Asia/Shanghai",
+      "pc_avg_source": "pricecharting_ungraded_loose"
+    },
+    "SV4M": {
+      "code": "SV4M",
+      "ja": "未来の一閃",
+      "en": "Future Flash",
+      "zh": "未來閃光",
+      "kind": "擴充包",
+      "order": 42,
+      "rates": {
+        "AR": 3.0,
+        "poke_sr": 0.55,
+        "goods_sr": 0.25,
+        "SAR": 0.2,
+        "UR": 0.1
+      },
+      "otachu_ev": null,
+      "snapshot": {
+        "GA": null,
+        "HC": null,
+        "PSA": null,
+        "CGC": null
+      },
+      "pc_url": "https://www.pricecharting.com/game/pokemon-japanese-future-flash/booster-box",
+      "release_date": "2023-10-27",
+      "method_note": "Scaffold 2026-10-28: Pokegto rates stored. Sealed 有膜／無膜 filled from public SNKRDUNK when the refresh fetch succeeds. Card Grade A rows are not in this snapshot (refresh_box_ev.py needs hand-saved PriceCharting console HTML; SAR/UR are not filled from PC ungraded). EV % stays — until cards exist.",
+      "pricecharting_box_url": "https://www.pricecharting.com/game/pokemon-japanese-future-flash/booster-box",
+      "snkrdunk_shrink_id": 140593,
+      "snkrdunk_shrink_url": "https://snkrdunk.com/en/trading-cards/140593",
+      "snkrdunk_ns_id": 567437,
+      "snkrdunk_ns_url": "https://snkrdunk.com/en/trading-cards/567437",
+      "pity": {
+        "family": "sv_regular",
+        "floors": {
+          "AR": 3.0
+        },
+        "chase_exclusive": {
+          "poke_sr": 0.55,
+          "goods_sr": 0.25,
+          "SAR": 0.2,
+          "UR": 0.1
+        },
+        "over_alloc": 0.1,
+        "over_alloc_note": "Pokegto set table sums above one exclusive chase slot. Extra is already inside the means.",
+        "source": "Pokegto https://pokemon-infomation.com/pull-rates-mirainoissen/"
+      },
+      "rate_notes": "Pokegto https://pokemon-infomation.com/pull-rates-mirainoissen/",
+      "landed": {
+        "shrink": {
+          "landed_yen": 13658.45,
+          "unit_yen": 11500.0,
+          "qty": 2,
+          "qty_label": "2個"
+        },
+        "ns": {
+          "landed_yen": 13033.9,
+          "unit_yen": 9200.0,
+          "qty": 1,
+          "qty_label": "1個"
+        }
+      },
+      "sealed_box": {
+        "shrink": {
+          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "source": "snkrdunk_public_new_listing",
+          "apparel_id": 140593,
+          "lot_yen": 23000.0,
+          "qty": 2,
+          "qty_label": "2個",
+          "unit_yen": 11500.0,
+          "listing_count": 12,
+          "lots": [
+            {
+              "qty": 1,
+              "qty_label": "1個",
+              "lot_yen": 11000.0,
+              "unit_yen": 11000.0,
+              "listing_count": 90,
+              "landed_yen": 14896.9
+            },
+            {
+              "qty": 2,
+              "qty_label": "2個",
+              "lot_yen": 23000.0,
+              "unit_yen": 11500.0,
+              "listing_count": 12,
+              "landed_yen": 13658.45
+            },
+            {
+              "qty": 3,
+              "qty_label": "3個",
+              "lot_yen": 38888.0,
+              "unit_yen": 12962.67,
+              "listing_count": 14,
+              "landed_yen": 14587.0
+            },
+            {
+              "qty": 4,
+              "qty_label": "4個",
+              "lot_yen": 59999.0,
+              "unit_yen": 14999.75,
+              "listing_count": 2,
+              "landed_yen": 16402.72
+            }
+          ]
+        },
+        "ns": {
+          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "source": "snkrdunk_public_new_listing",
+          "apparel_id": 567437,
+          "lot_yen": 9200.0,
+          "qty": 1,
+          "qty_label": "1個",
+          "unit_yen": 9200.0,
+          "listing_count": 11,
+          "lots": [
+            {
+              "qty": 1,
+              "qty_label": "1個",
+              "lot_yen": 9200.0,
+              "unit_yen": 9200.0,
+              "listing_count": 11,
+              "landed_yen": 13033.9
+            }
+          ]
+        },
+        "pc": {
+          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "usd": 95.06,
+          "source": "pricecharting_public_html"
+        }
+      },
+      "pc_avg_usd": 95.06,
+      "pc_avg_hkd": 741.47,
+      "pc_avg_as_of": "2026-10-28 14:15 Asia/Shanghai",
+      "pc_avg_source": "pricecharting_ungraded_loose"
+    },
+    "SV5K": {
+      "code": "SV5K",
+      "ja": "ワイルドフォース",
+      "en": "Wild Force",
+      "zh": "狂野之力",
+      "kind": "擴充包",
+      "order": 43,
+      "rates": {
+        "AR": 3.0,
+        "ACE": 1.0,
+        "poke_sr": 0.55,
+        "goods_sr": 0.25,
+        "SAR": 0.2,
+        "UR": 0.1
+      },
+      "otachu_ev": null,
+      "snapshot": {
+        "GA": null,
+        "HC": null,
+        "PSA": null,
+        "CGC": null
+      },
+      "pc_url": "https://www.pricecharting.com/game/pokemon-japanese-wild-force/booster-box",
+      "release_date": "2024-01-26",
+      "method_note": "Scaffold 2026-10-28: Pokegto rates stored. Sealed 有膜／無膜 filled from public SNKRDUNK when the refresh fetch succeeds. Card Grade A rows are not in this snapshot (refresh_box_ev.py needs hand-saved PriceCharting console HTML; SAR/UR are not filled from PC ungraded). EV % stays — until cards exist.",
+      "pricecharting_box_url": "https://www.pricecharting.com/game/pokemon-japanese-wild-force/booster-box",
+      "snkrdunk_shrink_id": 171882,
+      "snkrdunk_shrink_url": "https://snkrdunk.com/en/trading-cards/171882",
+      "snkrdunk_ns_id": 567439,
+      "snkrdunk_ns_url": "https://snkrdunk.com/en/trading-cards/567439",
+      "pity": {
+        "family": "sv_regular",
+        "floors": {
+          "AR": 3.0,
+          "ACE": 1.0
+        },
+        "chase_exclusive": {
+          "poke_sr": 0.55,
+          "goods_sr": 0.25,
+          "SAR": 0.2,
+          "UR": 0.1
+        },
+        "over_alloc": 0.1,
+        "over_alloc_note": "Pokegto set table sums above one exclusive chase slot. Extra is already inside the means.",
+        "source": "Pokegto 1,000 BOX https://pokemon-infomation.com/pull-rates-wildforce/"
+      },
+      "rate_notes": "Pokegto 1,000 BOX https://pokemon-infomation.com/pull-rates-wildforce/",
+      "landed": {
+        "shrink": {
+          "landed_yen": 14175.95,
+          "unit_yen": 12000.0,
+          "qty": 2,
+          "qty_label": "2個"
+        },
+        "ns": {
+          "landed_yen": 14895.86,
+          "unit_yen": 10999.0,
+          "qty": 1,
+          "qty_label": "1個"
+        }
+      },
+      "sealed_box": {
+        "shrink": {
+          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "source": "snkrdunk_public_new_listing",
+          "apparel_id": 171882,
+          "lot_yen": 24000.0,
+          "qty": 2,
+          "qty_label": "2個",
+          "unit_yen": 12000.0,
+          "listing_count": 10,
+          "lots": [
+            {
+              "qty": 1,
+              "qty_label": "1個",
+              "lot_yen": 11900.0,
+              "unit_yen": 11900.0,
+              "listing_count": 71,
+              "landed_yen": 15828.4
+            },
+            {
+              "qty": 2,
+              "qty_label": "2個",
+              "lot_yen": 24000.0,
+              "unit_yen": 12000.0,
+              "listing_count": 10,
+              "landed_yen": 14175.95
+            },
+            {
+              "qty": 3,
+              "qty_label": "3個",
+              "lot_yen": 41000.0,
+              "unit_yen": 13666.67,
+              "listing_count": 6,
+              "landed_yen": 15315.64
+            },
+            {
+              "qty": 4,
+              "qty_label": "4個",
+              "lot_yen": 59999.0,
+              "unit_yen": 14999.75,
+              "listing_count": 4,
+              "landed_yen": 16402.72
+            }
+          ]
+        },
+        "ns": {
+          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "source": "snkrdunk_public_new_listing",
+          "apparel_id": 567439,
+          "lot_yen": 10999.0,
+          "qty": 1,
+          "qty_label": "1個",
+          "unit_yen": 10999.0,
+          "listing_count": 13,
+          "lots": [
+            {
+              "qty": 1,
+              "qty_label": "1個",
+              "lot_yen": 10999.0,
+              "unit_yen": 10999.0,
+              "listing_count": 13,
+              "landed_yen": 14895.86
+            }
+          ]
+        },
+        "pc": {
+          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "usd": 94.58,
+          "source": "pricecharting_public_html"
+        }
+      },
+      "pc_avg_usd": 94.58,
+      "pc_avg_hkd": 737.72,
+      "pc_avg_as_of": "2026-10-28 14:15 Asia/Shanghai",
+      "pc_avg_source": "pricecharting_ungraded_loose"
+    },
+    "SV5M": {
+      "code": "SV5M",
+      "ja": "サイバージャッジ",
+      "en": "Cyber Judge",
+      "zh": "異度審判",
+      "kind": "擴充包",
+      "order": 44,
+      "rates": {
+        "AR": 3.0,
+        "ACE": 1.0,
+        "poke_sr": 0.55,
+        "goods_sr": 0.25,
+        "SAR": 0.2,
+        "UR": 0.1
+      },
+      "otachu_ev": null,
+      "snapshot": {
+        "GA": null,
+        "HC": null,
+        "PSA": null,
+        "CGC": null
+      },
+      "pc_url": "https://www.pricecharting.com/game/pokemon-japanese-cyber-judge/booster-box",
+      "release_date": "2024-01-26",
+      "method_note": "Scaffold 2026-10-28: Pokegto rates stored. Sealed 有膜／無膜 filled from public SNKRDUNK when the refresh fetch succeeds. Card Grade A rows are not in this snapshot (refresh_box_ev.py needs hand-saved PriceCharting console HTML; SAR/UR are not filled from PC ungraded). EV % stays — until cards exist.",
+      "pricecharting_box_url": "https://www.pricecharting.com/game/pokemon-japanese-cyber-judge/booster-box",
+      "snkrdunk_shrink_id": 171884,
+      "snkrdunk_shrink_url": "https://snkrdunk.com/en/trading-cards/171884",
+      "snkrdunk_ns_id": 567440,
+      "snkrdunk_ns_url": "https://snkrdunk.com/en/trading-cards/567440",
+      "pity": {
+        "family": "sv_regular",
+        "floors": {
+          "AR": 3.0,
+          "ACE": 1.0
+        },
+        "chase_exclusive": {
+          "poke_sr": 0.55,
+          "goods_sr": 0.25,
+          "SAR": 0.2,
+          "UR": 0.1
+        },
+        "over_alloc": 0.1,
+        "over_alloc_note": "Pokegto set table sums above one exclusive chase slot. Extra is already inside the means.",
+        "source": "Pokegto 1,000 BOX https://pokemon-infomation.com/pull-rates-cyberjudge/"
+      },
+      "rate_notes": "Pokegto 1,000 BOX https://pokemon-infomation.com/pull-rates-cyberjudge/",
+      "landed": {
+        "shrink": {
+          "landed_yen": 13658.45,
+          "unit_yen": 11500.0,
+          "qty": 2,
+          "qty_label": "2個"
+        },
+        "ns": {
+          "landed_yen": 12882.2,
+          "unit_yen": 10750.0,
+          "qty": 2,
+          "qty_label": "2個"
+        }
+      },
+      "sealed_box": {
+        "shrink": {
+          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "source": "snkrdunk_public_new_listing",
+          "apparel_id": 171884,
+          "lot_yen": 23000.0,
+          "qty": 2,
+          "qty_label": "2個",
+          "unit_yen": 11500.0,
+          "listing_count": 16,
+          "lots": [
+            {
+              "qty": 1,
+              "qty_label": "1個",
+              "lot_yen": 10399.0,
+              "unit_yen": 10399.0,
+              "listing_count": 86,
+              "landed_yen": 14274.86
+            },
+            {
+              "qty": 2,
+              "qty_label": "2個",
+              "lot_yen": 23000.0,
+              "unit_yen": 11500.0,
+              "listing_count": 16,
+              "landed_yen": 13658.45
+            },
+            {
+              "qty": 3,
+              "qty_label": "3個",
+              "lot_yen": 42888.0,
+              "unit_yen": 14296.0,
+              "listing_count": 14,
+              "landed_yen": 15966.99
+            },
+            {
+              "qty": 4,
+              "qty_label": "4個",
+              "lot_yen": 56666.0,
+              "unit_yen": 14166.5,
+              "listing_count": 7,
+              "landed_yen": 15540.3
+            }
+          ]
+        },
+        "ns": {
+          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "source": "snkrdunk_public_new_listing",
+          "apparel_id": 567440,
+          "lot_yen": 21500.0,
+          "qty": 2,
+          "qty_label": "2個",
+          "unit_yen": 10750.0,
+          "listing_count": 3,
+          "lots": [
+            {
+              "qty": 1,
+              "qty_label": "1個",
+              "lot_yen": 10000.0,
+              "unit_yen": 10000.0,
+              "listing_count": 14,
+              "landed_yen": 13861.9
+            },
+            {
+              "qty": 2,
+              "qty_label": "2個",
+              "lot_yen": 21500.0,
+              "unit_yen": 10750.0,
+              "listing_count": 3,
+              "landed_yen": 12882.2
+            }
+          ]
+        },
+        "pc": {
+          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "usd": 95.75,
+          "source": "pricecharting_public_html"
+        }
+      },
+      "pc_avg_usd": 95.75,
+      "pc_avg_hkd": 746.85,
+      "pc_avg_as_of": "2026-10-28 14:15 Asia/Shanghai",
+      "pc_avg_source": "pricecharting_ungraded_loose"
+    },
+    "SV5a": {
+      "code": "SV5a",
+      "ja": "クリムゾンヘイズ",
+      "en": "Crimson Haze",
+      "zh": "緋紅薄霧",
+      "kind": "強化擴充包",
+      "order": 45,
+      "rates": {
+        "AR": 3.0,
+        "ACE": 1.0,
+        "poke_sr": 0.5,
+        "goods_sr": 0.3,
+        "SAR": 0.2,
+        "UR": 0.1
+      },
+      "otachu_ev": null,
+      "snapshot": {
+        "GA": null,
+        "HC": null,
+        "PSA": null,
+        "CGC": null
+      },
+      "pc_url": "https://www.pricecharting.com/game/pokemon-japanese-crimson-haze/booster-box",
+      "release_date": "2024-03-22",
+      "method_note": "Scaffold 2026-10-28: Pokegto rates stored. Sealed 有膜／無膜 filled from public SNKRDUNK when the refresh fetch succeeds. Card Grade A rows are not in this snapshot (refresh_box_ev.py needs hand-saved PriceCharting console HTML; SAR/UR are not filled from PC ungraded). EV % stays — until cards exist.",
+      "pricecharting_box_url": "https://www.pricecharting.com/game/pokemon-japanese-crimson-haze/booster-box",
+      "snkrdunk_shrink_id": 204134,
+      "snkrdunk_shrink_url": "https://snkrdunk.com/en/trading-cards/204134",
+      "snkrdunk_ns_id": 567441,
+      "snkrdunk_ns_url": "https://snkrdunk.com/en/trading-cards/567441",
+      "pity": {
+        "family": "sv_regular",
+        "floors": {
+          "AR": 3.0,
+          "ACE": 1.0
+        },
+        "chase_exclusive": {
+          "poke_sr": 0.5,
+          "goods_sr": 0.3,
+          "SAR": 0.2,
+          "UR": 0.1
+        },
+        "over_alloc": 0.1,
+        "over_alloc_note": "Pokegto set table sums above one exclusive chase slot. Extra is already inside the means.",
+        "source": "Pokegto 1,000 BOX https://pokemon-infomation.com/pull-rates-crimsonhaze/"
+      },
+      "rate_notes": "Pokegto 1,000 BOX https://pokemon-infomation.com/pull-rates-crimsonhaze/",
+      "landed": {
+        "shrink": {
+          "landed_yen": 17421.26,
+          "unit_yen": 13439.0,
+          "qty": 1,
+          "qty_label": "1個"
+        },
+        "ns": {
+          "landed_yen": 19036.9,
+          "unit_yen": 15000.0,
+          "qty": 1,
+          "qty_label": "1個"
+        }
+      },
+      "sealed_box": {
+        "shrink": {
+          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "source": "snkrdunk_public_new_listing",
+          "apparel_id": 204134,
+          "lot_yen": 13439.0,
+          "qty": 1,
+          "qty_label": "1個",
+          "unit_yen": 13439.0,
+          "listing_count": 100,
+          "lots": [
+            {
+              "qty": 1,
+              "qty_label": "1個",
+              "lot_yen": 13439.0,
+              "unit_yen": 13439.0,
+              "listing_count": 100,
+              "landed_yen": 17421.26
+            },
+            {
+              "qty": 2,
+              "qty_label": "2個",
+              "lot_yen": 31000.0,
+              "unit_yen": 15500.0,
+              "listing_count": 17,
+              "landed_yen": 17798.45
+            },
+            {
+              "qty": 3,
+              "qty_label": "3個",
+              "lot_yen": 47800.0,
+              "unit_yen": 15933.33,
+              "listing_count": 7,
+              "landed_yen": 17661.63
+            },
+            {
+              "qty": 4,
+              "qty_label": "4個",
+              "lot_yen": 66000.0,
+              "unit_yen": 16500.0,
+              "listing_count": 5,
+              "landed_yen": 17955.47
+            }
+          ]
+        },
+        "ns": {
+          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "source": "snkrdunk_public_new_listing",
+          "apparel_id": 567441,
+          "lot_yen": 15000.0,
+          "qty": 1,
+          "qty_label": "1個",
+          "unit_yen": 15000.0,
+          "listing_count": 8,
+          "lots": [
+            {
+              "qty": 1,
+              "qty_label": "1個",
+              "lot_yen": 15000.0,
+              "unit_yen": 15000.0,
+              "listing_count": 8,
+              "landed_yen": 19036.9
+            }
+          ]
+        },
+        "pc": {
+          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "usd": 109.95,
+          "source": "pricecharting_public_html"
+        }
+      },
+      "pc_avg_usd": 109.95,
+      "pc_avg_hkd": 857.61,
+      "pc_avg_as_of": "2026-10-28 14:15 Asia/Shanghai",
+      "pc_avg_source": "pricecharting_ungraded_loose"
+    },
+    "SV6": {
+      "code": "SV6",
+      "ja": "変幻の仮面",
+      "en": "Mask of Change",
+      "zh": "變幻假面",
+      "kind": "擴充包",
+      "order": 46,
+      "rates": {
+        "AR": 3.0,
+        "ACE": 1.0,
+        "poke_sr": 0.55,
+        "goods_sr": 0.25,
+        "SAR": 0.2,
+        "UR": 0.1
+      },
+      "otachu_ev": null,
+      "snapshot": {
+        "GA": null,
+        "HC": null,
+        "PSA": null,
+        "CGC": null
+      },
+      "pc_url": "https://www.pricecharting.com/game/pokemon-japanese-mask-of-change/booster-box",
+      "release_date": "2024-04-26",
+      "method_note": "Scaffold 2026-10-28: Pokegto rates stored. Sealed 有膜／無膜 filled from public SNKRDUNK when the refresh fetch succeeds. Card Grade A rows are not in this snapshot (refresh_box_ev.py needs hand-saved PriceCharting console HTML; SAR/UR are not filled from PC ungraded). EV % stays — until cards exist.",
+      "pricecharting_box_url": "https://www.pricecharting.com/game/pokemon-japanese-mask-of-change/booster-box",
+      "snkrdunk_shrink_id": 224649,
+      "snkrdunk_shrink_url": "https://snkrdunk.com/en/trading-cards/224649",
+      "snkrdunk_ns_id": 567442,
+      "snkrdunk_ns_url": "https://snkrdunk.com/en/trading-cards/567442",
+      "pity": {
+        "family": "sv_regular",
+        "floors": {
+          "AR": 3.0,
+          "ACE": 1.0
+        },
+        "chase_exclusive": {
+          "poke_sr": 0.55,
+          "goods_sr": 0.25,
+          "SAR": 0.2,
+          "UR": 0.1
+        },
+        "over_alloc": 0.1,
+        "over_alloc_note": "Pokegto set table sums above one exclusive chase slot. Extra is already inside the means.",
+        "source": "Pokegto https://pokemon-infomation.com/pull-rates-hengennokamen/"
+      },
+      "rate_notes": "Pokegto https://pokemon-infomation.com/pull-rates-hengennokamen/",
+      "landed": {
+        "shrink": {
+          "landed_yen": 14462.35,
+          "unit_yen": 13125.0,
+          "qty": 4,
+          "qty_label": "4個"
+        },
+        "ns": {
+          "landed_yen": 14379.4,
+          "unit_yen": 10500.0,
+          "qty": 1,
+          "qty_label": "1個"
+        }
+      },
+      "sealed_box": {
+        "shrink": {
+          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "source": "snkrdunk_public_new_listing",
+          "apparel_id": 224649,
+          "lot_yen": 52500.0,
+          "qty": 4,
+          "qty_label": "4個",
+          "unit_yen": 13125.0,
+          "listing_count": 2,
+          "lots": [
+            {
+              "qty": 1,
+              "qty_label": "1個",
+              "lot_yen": 12900.0,
+              "unit_yen": 12900.0,
+              "listing_count": 75,
+              "landed_yen": 16863.4
+            },
+            {
+              "qty": 2,
+              "qty_label": "2個",
+              "lot_yen": 28500.0,
+              "unit_yen": 14250.0,
+              "listing_count": 10,
+              "landed_yen": 16504.7
+            },
+            {
+              "qty": 3,
+              "qty_label": "3個",
+              "lot_yen": 39000.0,
+              "unit_yen": 13000.0,
+              "listing_count": 6,
+              "landed_yen": 14625.63
+            },
+            {
+              "qty": 4,
+              "qty_label": "4個",
+              "lot_yen": 52500.0,
+              "unit_yen": 13125.0,
+              "listing_count": 2,
+              "landed_yen": 14462.35
+            }
+          ]
+        },
+        "ns": {
+          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "source": "snkrdunk_public_new_listing",
+          "apparel_id": 567442,
+          "lot_yen": 10500.0,
+          "qty": 1,
+          "qty_label": "1個",
+          "unit_yen": 10500.0,
+          "listing_count": 12,
+          "lots": [
+            {
+              "qty": 1,
+              "qty_label": "1個",
+              "lot_yen": 10500.0,
+              "unit_yen": 10500.0,
+              "listing_count": 12,
+              "landed_yen": 14379.4
+            }
+          ]
+        },
+        "pc": {
+          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "usd": 98.2,
+          "source": "pricecharting_public_html"
+        }
+      },
+      "pc_avg_usd": 98.2,
+      "pc_avg_hkd": 765.96,
+      "pc_avg_as_of": "2026-10-28 14:15 Asia/Shanghai",
+      "pc_avg_source": "pricecharting_ungraded_loose"
+    },
+    "SV6a": {
+      "code": "SV6a",
+      "ja": "ナイトワンダラー",
+      "en": "Night Wanderer",
+      "zh": "黑夜漫遊者",
+      "kind": "強化擴充包",
+      "order": 47,
+      "rates": {
+        "AR": 3.0,
+        "ACE": 1.0,
+        "poke_sr": 0.5,
+        "goods_sr": 0.3,
+        "SAR": 0.2,
+        "UR": 0.1
+      },
+      "otachu_ev": null,
+      "snapshot": {
+        "GA": null,
+        "HC": null,
+        "PSA": null,
+        "CGC": null
+      },
+      "pc_url": "https://www.pricecharting.com/game/pokemon-japanese-night-wanderer/booster-box",
+      "release_date": "2024-06-07",
+      "method_note": "Scaffold 2026-10-28: Pokegto rates stored. Sealed 有膜／無膜 filled from public SNKRDUNK when the refresh fetch succeeds. Card Grade A rows are not in this snapshot (refresh_box_ev.py needs hand-saved PriceCharting console HTML; SAR/UR are not filled from PC ungraded). EV % stays — until cards exist.",
+      "pricecharting_box_url": "https://www.pricecharting.com/game/pokemon-japanese-night-wanderer/booster-box",
+      "snkrdunk_shrink_id": 261657,
+      "snkrdunk_shrink_url": "https://snkrdunk.com/en/trading-cards/261657",
+      "snkrdunk_ns_id": 567443,
+      "snkrdunk_ns_url": "https://snkrdunk.com/en/trading-cards/567443",
+      "pity": {
+        "family": "sv_regular",
+        "floors": {
+          "AR": 3.0,
+          "ACE": 1.0
+        },
+        "chase_exclusive": {
+          "poke_sr": 0.5,
+          "goods_sr": 0.3,
+          "SAR": 0.2,
+          "UR": 0.1
+        },
+        "over_alloc": 0.1,
+        "over_alloc_note": "Pokegto set table sums above one exclusive chase slot. Extra is already inside the means.",
+        "source": "Pokegto 1,000 BOX https://pokemon-infomation.com/pull-rates-nightwanderer/"
+      },
+      "rate_notes": "Pokegto 1,000 BOX https://pokemon-infomation.com/pull-rates-nightwanderer/",
+      "landed": {
+        "shrink": {
+          "landed_yen": 16695.63,
+          "unit_yen": 15000.0,
+          "qty": 3,
+          "qty_label": "3個"
+        },
+        "ns": {
+          "landed_yen": 14896.9,
+          "unit_yen": 11000.0,
+          "qty": 1,
+          "qty_label": "1個"
+        }
+      },
+      "sealed_box": {
+        "shrink": {
+          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "source": "snkrdunk_public_new_listing",
+          "apparel_id": 261657,
+          "lot_yen": 45000.0,
+          "qty": 3,
+          "qty_label": "3個",
+          "unit_yen": 15000.0,
+          "listing_count": 7,
+          "lots": [
+            {
+              "qty": 1,
+              "qty_label": "1個",
+              "lot_yen": 12999.0,
+              "unit_yen": 12999.0,
+              "listing_count": 48,
+              "landed_yen": 16965.86
+            },
+            {
+              "qty": 3,
+              "qty_label": "3個",
+              "lot_yen": 45000.0,
+              "unit_yen": 15000.0,
+              "listing_count": 7,
+              "landed_yen": 16695.63
+            }
+          ]
+        },
+        "ns": {
+          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "source": "snkrdunk_public_new_listing",
+          "apparel_id": 567443,
+          "lot_yen": 11000.0,
+          "qty": 1,
+          "qty_label": "1個",
+          "unit_yen": 11000.0,
+          "listing_count": 3,
+          "lots": [
+            {
+              "qty": 1,
+              "qty_label": "1個",
+              "lot_yen": 11000.0,
+              "unit_yen": 11000.0,
+              "listing_count": 3,
+              "landed_yen": 14896.9
+            }
+          ]
+        },
+        "pc": {
+          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "usd": 87.5,
+          "source": "pricecharting_public_html"
+        }
+      },
+      "pc_avg_usd": 87.5,
+      "pc_avg_hkd": 682.5,
+      "pc_avg_as_of": "2026-10-28 14:15 Asia/Shanghai",
+      "pc_avg_source": "pricecharting_ungraded_loose"
+    },
+    "SV7": {
+      "code": "SV7",
+      "ja": "ステラミラクル",
+      "en": "Stellar Miracle",
+      "zh": "星晶奇跡",
+      "kind": "擴充包",
+      "order": 48,
+      "rates": {
+        "AR": 3.0,
+        "ACE": 1.0,
+        "poke_sr": 0.5,
+        "goods_sr": 0.3,
+        "SAR": 0.2,
+        "UR": 0.1
+      },
+      "otachu_ev": null,
+      "snapshot": {
+        "GA": null,
+        "HC": null,
+        "PSA": null,
+        "CGC": null
+      },
+      "pc_url": "https://www.pricecharting.com/game/pokemon-japanese-stellar-miracle/booster-box",
+      "release_date": "2024-07-19",
+      "method_note": "Scaffold 2026-10-28: Pokegto rates stored. Sealed 有膜／無膜 filled from public SNKRDUNK when the refresh fetch succeeds. Card Grade A rows are not in this snapshot (refresh_box_ev.py needs hand-saved PriceCharting console HTML; SAR/UR are not filled from PC ungraded). EV % stays — until cards exist.",
+      "pricecharting_box_url": "https://www.pricecharting.com/game/pokemon-japanese-stellar-miracle/booster-box",
+      "snkrdunk_shrink_id": 283206,
+      "snkrdunk_shrink_url": "https://snkrdunk.com/en/trading-cards/283206",
+      "snkrdunk_ns_id": 567444,
+      "snkrdunk_ns_url": "https://snkrdunk.com/en/trading-cards/567444",
+      "pity": {
+        "family": "sv_regular",
+        "floors": {
+          "AR": 3.0,
+          "ACE": 1.0
+        },
+        "chase_exclusive": {
+          "poke_sr": 0.5,
+          "goods_sr": 0.3,
+          "SAR": 0.2,
+          "UR": 0.1
+        },
+        "over_alloc": 0.1,
+        "over_alloc_note": "Pokegto set table sums above one exclusive chase slot. Extra is already inside the means.",
+        "source": "Pokegto 1,000 BOX https://pokemon-infomation.com/pull-rates-stellamiracle/"
+      },
+      "rate_notes": "Pokegto 1,000 BOX https://pokemon-infomation.com/pull-rates-stellamiracle/",
+      "landed": {
+        "shrink": {
+          "landed_yen": 12900.29,
+          "unit_yen": 11333.0,
+          "qty": 3,
+          "qty_label": "3個"
+        },
+        "ns": {
+          "landed_yen": 10812.2,
+          "unit_yen": 8750.0,
+          "qty": 2,
+          "qty_label": "2個"
+        }
+      },
+      "sealed_box": {
+        "shrink": {
+          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "source": "snkrdunk_public_new_listing",
+          "apparel_id": 283206,
+          "lot_yen": 33999.0,
+          "qty": 3,
+          "qty_label": "3個",
+          "unit_yen": 11333.0,
+          "listing_count": 10,
+          "lots": [
+            {
+              "qty": 1,
+              "qty_label": "1個",
+              "lot_yen": 11500.0,
+              "unit_yen": 11500.0,
+              "listing_count": 58,
+              "landed_yen": 15414.4
+            },
+            {
+              "qty": 2,
+              "qty_label": "2個",
+              "lot_yen": 24999.0,
+              "unit_yen": 12499.5,
+              "listing_count": 7,
+              "landed_yen": 14692.93
+            },
+            {
+              "qty": 3,
+              "qty_label": "3個",
+              "lot_yen": 33999.0,
+              "unit_yen": 11333.0,
+              "listing_count": 10,
+              "landed_yen": 12900.29
+            },
+            {
+              "qty": 4,
+              "qty_label": "4個",
+              "lot_yen": 51999.0,
+              "unit_yen": 12999.75,
+              "listing_count": 5,
+              "landed_yen": 14332.72
+            }
+          ]
+        },
+        "ns": {
+          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "source": "snkrdunk_public_new_listing",
+          "apparel_id": 567444,
+          "lot_yen": 17500.0,
+          "qty": 2,
+          "qty_label": "2個",
+          "unit_yen": 8750.0,
+          "listing_count": 8,
+          "lots": [
+            {
+              "qty": 1,
+              "qty_label": "1個",
+              "lot_yen": 9000.0,
+              "unit_yen": 9000.0,
+              "listing_count": 15,
+              "landed_yen": 12826.9
+            },
+            {
+              "qty": 2,
+              "qty_label": "2個",
+              "lot_yen": 17500.0,
+              "unit_yen": 8750.0,
+              "listing_count": 8,
+              "landed_yen": 10812.2
+            },
+            {
+              "qty": 3,
+              "qty_label": "3個",
+              "lot_yen": 31000.0,
+              "unit_yen": 10333.33,
+              "listing_count": 2,
+              "landed_yen": 11865.63
+            }
+          ]
+        },
+        "pc": {
+          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "usd": 89.81,
+          "source": "pricecharting_public_html"
+        }
+      },
+      "pc_avg_usd": 89.81,
+      "pc_avg_hkd": 700.52,
+      "pc_avg_as_of": "2026-10-28 14:15 Asia/Shanghai",
+      "pc_avg_source": "pricecharting_ungraded_loose"
+    },
+    "SV9": {
+      "code": "SV9",
+      "ja": "バトルパートナーズ",
+      "en": "Battle Partners",
+      "zh": "對戰搭檔",
+      "kind": "擴充包",
+      "order": 49,
+      "rates": {
+        "AR": 3.0,
+        "poke_sr": 0.55,
+        "goods_sr": 0.25,
+        "SAR": 0.2,
+        "UR": 0.1
+      },
+      "otachu_ev": null,
+      "snapshot": {
+        "GA": null,
+        "HC": null,
+        "PSA": null,
+        "CGC": null
+      },
+      "pc_url": "https://www.pricecharting.com/game/pokemon-japanese-battle-partners/booster-box",
+      "release_date": "2025-01-24",
+      "method_note": "Scaffold 2026-10-28: Pokegto rates stored. Sealed 有膜／無膜 filled from public SNKRDUNK when the refresh fetch succeeds. Card Grade A rows are not in this snapshot (refresh_box_ev.py needs hand-saved PriceCharting console HTML; SAR/UR are not filled from PC ungraded). EV % stays — until cards exist.",
+      "pricecharting_box_url": "https://www.pricecharting.com/game/pokemon-japanese-battle-partners/booster-box",
+      "snkrdunk_shrink_id": 484952,
+      "snkrdunk_shrink_url": "https://snkrdunk.com/en/trading-cards/484952",
+      "snkrdunk_ns_id": 567448,
+      "snkrdunk_ns_url": "https://snkrdunk.com/en/trading-cards/567448",
+      "pity": {
+        "family": "sv_regular",
+        "floors": {
+          "AR": 3.0
+        },
+        "chase_exclusive": {
+          "poke_sr": 0.55,
+          "goods_sr": 0.25,
+          "SAR": 0.2,
+          "UR": 0.1
+        },
+        "over_alloc": 0.1,
+        "over_alloc_note": "Pokegto set table sums above one exclusive chase slot. Extra is already inside the means.",
+        "source": "Pokegto ~1,000 BOX https://pokemon-infomation.com/pull-rates-battlepartner/"
+      },
+      "rate_notes": "Pokegto ~1,000 BOX https://pokemon-infomation.com/pull-rates-battlepartner/",
+      "landed": {
+        "shrink": {
+          "landed_yen": 11865.63,
+          "unit_yen": 10333.33,
+          "qty": 3,
+          "qty_label": "3個"
+        },
+        "ns": {
+          "landed_yen": 12882.2,
+          "unit_yen": 10750.0,
+          "qty": 2,
+          "qty_label": "2個"
+        }
+      },
+      "sealed_box": {
+        "shrink": {
+          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "source": "snkrdunk_public_new_listing",
+          "apparel_id": 484952,
+          "lot_yen": 31000.0,
+          "qty": 3,
+          "qty_label": "3個",
+          "unit_yen": 10333.33,
+          "listing_count": 24,
+          "lots": [
+            {
+              "qty": 1,
+              "qty_label": "1個",
+              "lot_yen": 9990.0,
+              "unit_yen": 9990.0,
+              "listing_count": 100,
+              "landed_yen": 13851.55
+            },
+            {
+              "qty": 2,
+              "qty_label": "2個",
+              "lot_yen": 20999.0,
+              "unit_yen": 10499.5,
+              "listing_count": 43,
+              "landed_yen": 12622.93
+            },
+            {
+              "qty": 3,
+              "qty_label": "3個",
+              "lot_yen": 31000.0,
+              "unit_yen": 10333.33,
+              "listing_count": 24,
+              "landed_yen": 11865.63
+            },
+            {
+              "qty": 4,
+              "qty_label": "4個",
+              "lot_yen": 46666.0,
+              "unit_yen": 11666.5,
+              "listing_count": 16,
+              "landed_yen": 12952.8
+            }
+          ]
+        },
+        "ns": {
+          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "source": "snkrdunk_public_new_listing",
+          "apparel_id": 567448,
+          "lot_yen": 21500.0,
+          "qty": 2,
+          "qty_label": "2個",
+          "unit_yen": 10750.0,
+          "listing_count": 5,
+          "lots": [
+            {
+              "qty": 1,
+              "qty_label": "1個",
+              "lot_yen": 10500.0,
+              "unit_yen": 10500.0,
+              "listing_count": 16,
+              "landed_yen": 14379.4
+            },
+            {
+              "qty": 2,
+              "qty_label": "2個",
+              "lot_yen": 21500.0,
+              "unit_yen": 10750.0,
+              "listing_count": 5,
+              "landed_yen": 12882.2
+            },
+            {
+              "qty": 3,
+              "qty_label": "3個",
+              "lot_yen": 36000.0,
+              "unit_yen": 12000.0,
+              "listing_count": 2,
+              "landed_yen": 13590.63
+            }
+          ]
+        },
+        "pc": {
+          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "usd": 85.66,
+          "source": "pricecharting_public_html"
+        }
+      },
+      "pc_avg_usd": 85.66,
+      "pc_avg_hkd": 668.15,
+      "pc_avg_as_of": "2026-10-28 14:15 Asia/Shanghai",
+      "pc_avg_source": "pricecharting_ungraded_loose"
     }
   },
   "cards": [
