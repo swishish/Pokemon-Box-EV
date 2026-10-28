@@ -13,6 +13,18 @@ The trades array is the last 20 lots the API returns. `snk_*_trades_capped_at_20
 Chart-print columns count sampled chart days, not every lot.
 Raw B is an ask only. Raw B solds were not requested as a separate tape.
 
+Raw A is `liquid` only when a live Grade A ask exists and at least one raw-A trade or chart print falls in that 30-day window.
+`snk_raw_a_for_desk_jpy` is the ask in that case and blank when `snk_raw_a_liquidity=illiquid`.
+The posted ask, if any, stays in `snk_raw_a_ask_jpy`. Illiquid reasons: `no_live_ask`, `ask_without_30d_print`, `card_not_identified`.
+Parent desk rule for a blank desk raw: PriceCharting ungraded × 0.95. This file does not apply that haircut.
+
+## Residuals (parent)
+
+This CSV does not contain model residuals or a best-model pick.
+Score (Live−FV)/FV on the regression workbook against Chase_Fit, Large, CharFit, CharFitL, BandAge, and SetHeat.
+Skip Vintage. Pick the best model per card on the box.
+Live inputs to use: `snk_raw_a_for_desk_jpy` when liquid, else PC ungraded × 0.95; `pc_psa10_usd`; `pc_psa10_volume`; `pc_ungraded_usd`; `pc_ungraded_volume`; `psa10_pop`; `psa_total_graded`; `psa_gem_rate`.
+
 ## FX
 
 Frankfurter 2026-10-28: 1 JPY = 0.049664 HKD; 1 USD = 7.845100 HKD.
@@ -69,7 +81,6 @@ GemRate not used (HTTP 403 https://www.gemrate.com/ HTTP Error 403: Forbidden)
   rejected PC URL: https://www.pricecharting.com/game/pokemon-japanese-eevee-heroes-special/jolteon-vmax-3
 - charizard-vmax-csr-s8b | not_found | - | PC search did not resolve to one card | skipped; card not identified
   No Charizard VMAX CSR on SNK. Closest S8b Charizard is CHR #187, not priced as a substitute.
-  PriceCharting search stayed on a multi-result page. No single URL was accepted.
 
 ## Gaps
 
@@ -85,4 +96,6 @@ Giratina VSTAR #261 PriceCharting PSA population on this pull is 30,781 PSA 10 o
 No SNKRDUNK request returned 403. GemRate returned 403 on the first request, so population is the PriceCharting PSA column only.
 
 Raw asks with no live listing: Sobble S-P #146 has no raw A or B ask (PSA10 ask is present). Starmie V #083, Zacian V #250, Flareon V #073, and Kanazawa Pikachu #147 have a raw A ask and no raw B ask.
+
+Illiquid raw A (desk field blank): garchomp-v-s9a-84 (ask_without_30d_print); umbreon-v-csr-s8b-244 (ask_without_30d_print); zacian-v-csr-s8b-250 (ask_without_30d_print); zamazenta-v-csr-s8b-251 (ask_without_30d_print); blaziken-vmax-csr-s8b-217 (ask_without_30d_print); flareon-v-sr-s6a-73 (ask_without_30d_print); hisuian-zoroark-vstar-s10a-97 (ask_without_30d_print); sobble-kanazawa-sp-146 (no_live_ask); kanazawa-pikachu-sp-147 (ask_without_30d_print); shibuya-pikachu-sp-2 (ask_without_30d_print); rayquaza-s3a-56 (ask_without_30d_print)
 

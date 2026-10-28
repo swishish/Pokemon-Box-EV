@@ -392,6 +392,9 @@ COLUMNS = [
     "snk_raw_b_ask_jpy",
     "snk_psa10_ask_jpy",
     "snk_raw_a_listed",
+    "snk_raw_a_liquidity",
+    "snk_raw_a_liquidity_reason",
+    "snk_raw_a_for_desk_jpy",
     "snk_raw_b_listed",
     "snk_psa10_listed",
     "snk_psa10_sold_30d_trade_n",
@@ -689,6 +692,26 @@ def _yen(price: float) -> str:
     if float(price) == int(price):
         return str(int(price))
     return f"{price:.2f}"
+
+
+def raw_a_desk(listed: str, ask: str, trade_n: str, prints: str, identified: bool) -> tuple[str, str, str]:
+    """Live Grade A ask is desk-usable only when it also traded in the 30-day window.
+
+    Otherwise the card is illiquid and the desk raw is left blank (parent uses
+    PriceCharting ungraded × 0.95). The posted ask stays in snk_raw_a_ask_jpy.
+    """
+    if not identified:
+        return "illiquid", "card_not_identified", ""
+    has_ask = listed == "Y" and str(ask or "") not in {"", "0"}
+    try:
+        traded = int(trade_n or 0) > 0 or int(prints or 0) > 0
+    except ValueError:
+        traded = False
+    if has_ask and traded:
+        return "liquid", "live_ask_and_30d_print", str(ask)
+    if not has_ask:
+        return "illiquid", "no_live_ask", ""
+    return "illiquid", "ask_without_30d_print", ""
 
 
 def hkd(amount: str, rate: float | None) -> str:
@@ -1067,6 +1090,17 @@ def build_row(card: dict, fx: dict, gem_note: str, as_of: str, cutoff: str) -> d
     else:
         row["pop_error"] = "skipped; no confirmed PriceCharting slug"
 
+    identified = bool(row.get("snk_apparel_id"))
+    liquidity, reason, desk = raw_a_desk(
+        row["snk_raw_a_listed"],
+        row["snk_raw_a_ask_jpy"],
+        row["snk_raw_a_sold_30d_trade_n"],
+        row["snk_raw_a_chart_prints_30d"],
+        identified,
+    )
+    row["snk_raw_a_liquidity"] = liquidity
+    row["snk_raw_a_liquidity_reason"] = reason
+    row["snk_raw_a_for_desk_jpy"] = desk
     rate_j = fx.get("jpy_hkd")
     rate_u = fx.get("usd_hkd")
     row["snk_raw_a_ask_hkd"] = hkd(row["snk_raw_a_ask_jpy"], rate_j)
@@ -1100,6 +1134,18 @@ def write_readme(path: Path, rows: list[dict], fx: dict, gem_note: str, as_of: s
         "The trades array is the last 20 lots the API returns. `snk_*_trades_capped_at_20=Y` means every returned lot is inside the window, so the count is a floor.",
         "Chart-print columns count sampled chart days, not every lot.",
         "Raw B is an ask only. Raw B solds were not requested as a separate tape.",
+        "",
+        "Raw A is `liquid` only when a live Grade A ask exists and at least one raw-A trade or chart print falls in that 30-day window.",
+        "`snk_raw_a_for_desk_jpy` is the ask in that case and blank when `snk_raw_a_liquidity=illiquid`.",
+        "The posted ask, if any, stays in `snk_raw_a_ask_jpy`. Illiquid reasons: `no_live_ask`, `ask_without_30d_print`, `card_not_identified`.",
+        "Parent desk rule for a blank desk raw: PriceCharting ungraded × 0.95. This file does not apply that haircut.",
+        "",
+        "## Residuals (parent)",
+        "",
+        "This CSV does not contain model residuals or a best-model pick.",
+        "Score (Live−FV)/FV on the regression workbook against Chase_Fit, Large, CharFit, CharFitL, BandAge, and SetHeat.",
+        "Skip Vintage. Pick the best model per card on the box.",
+        "Live inputs to use: `snk_raw_a_for_desk_jpy` when liquid, else PC ungraded × 0.95; `pc_psa10_usd`; `pc_psa10_volume`; `pc_ungraded_usd`; `pc_ungraded_volume`; `psa10_pop`; `psa_total_graded`; `psa_gem_rate`.",
         "",
         "## FX",
         "",
@@ -1138,7 +1184,20 @@ def write_readme(path: Path, rows: list[dict], fx: dict, gem_note: str, as_of: s
         "Lugia VSTAR #123 is UR. The HR is #118. Hisuian Zoroark VSTAR #097 is UR. The HR is #092.",
         "Garchomp V #084 and Starmie V #083 are CSR on SNK. The shortlist guessed SR.",
         "",
+        "Giratina VSTAR #261 PriceCharting PSA population on this pull is 30,781 PSA 10 out of 33,390 PSA (gem 0.9219). The page title is this card. The October shortlist pilot had pop_psa10 67. The live table was kept.",
+        "",
+        "No SNKRDUNK request returned 403. GemRate returned 403 on the first request, so population is the PriceCharting PSA column only.",
+        "",
+        "Raw asks with no live listing: Sobble S-P #146 has no raw A or B ask (PSA10 ask is present). Starmie V #083, Zacian V #250, Flareon V #073, and Kanazawa Pikachu #147 have a raw A ask and no raw B ask.",
+        "",
     ]
+    illiquid = [
+        f"{row['card_key']} ({row.get('snk_raw_a_liquidity_reason') or 'n/a'})"
+        for row in rows
+        if row.get("bucket") == "shortlist" and row.get("snk_raw_a_liquidity") == "illiquid"
+    ]
+    if illiquid:
+        lines += ["Illiquid raw A (desk field blank): " + "; ".join(illiquid), ""]
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
@@ -1184,6 +1243,10 @@ def self_test() -> None:
     assert summary["n"] == "2"
     assert summary["median"] == "150"
     assert summary["min"] == "100"
+    assert raw_a_desk("Y", "11800", "9", "6", True) == ("liquid", "live_ask_and_30d_print", "11800")
+    assert raw_a_desk("N", "", "0", "0", True) == ("illiquid", "no_live_ask", "")
+    assert raw_a_desk("Y", "7900", "0", "0", True) == ("illiquid", "ask_without_30d_print", "")
+    assert raw_a_desk("", "", "", "", False)[0] == "illiquid"
     sample = (ROOT / "tools/testdata/base-psa-pop/charizard-unlimited.html").read_text(encoding="utf-8")
     table = pc_pop.parse_pop_table(sample, url="fixture")
     assert table["graders"]["psa"]["counts"]["10"] > 0
