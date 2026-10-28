@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>Base 復古指數 · Box EV v1.32.0</title>
+<title>Base 復古指數 · Box EV v1.32.1</title>
 <meta name="description" content="Base Set 1st / Shadowless / Unlimited 英文裸卡指數與卡冊，另有 PriceCharting 月線（含 Base Set 2，2023-01-01＝1000）。靜態快照，非正式投資建議。" />
 <meta property="og:site_name" content="日盒開盒值不值？" />
 <meta property="og:title" content="Base 復古指數 · 1st / Shadowless / Unlimited" />
@@ -527,8 +527,11 @@
   }
   .spark-tip.is-multi {
     white-space: normal;
-    min-width: 0;
+    width: max-content;
+    min-width: max-content;
     max-width: min(16rem, calc(100% - 8px));
+    overflow-wrap: normal;
+    word-break: normal;
   }
   .spark-tip .tt-row {
     display: flex;
@@ -544,9 +547,11 @@
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    min-width: 0;
+    min-width: auto;
     color: var(--muted);
     font-weight: 700;
+    overflow-wrap: normal;
+    word-break: keep-all;
   }
   .spark-tip .tt-swatch {
     width: 8px;
@@ -555,13 +560,14 @@
     border: 1px solid var(--ink);
     flex-shrink: 0;
   }
-  .spark-tip .tt-num { font-weight: 800; }
+  .spark-tip .tt-num { font-weight: 800; white-space: nowrap; flex: 0 0 auto; }
   .spark-wrap { overflow: visible; }
   .spark-tip {
     position: absolute;
     z-index: 5;
     pointer-events: none;
-    transform: translate(-50%, calc(-100% - 8px));
+    left: 0;
+    top: 0;
     background: var(--card);
     border: var(--bw) solid var(--ink);
     border-radius: 8px;
@@ -815,7 +821,7 @@
 <header>
   <div class="header-inner">
     <div class="header-top">
-      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.32.0</span></h1>
+      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.32.1</span></h1>
       <nav class="header-nav" aria-label="站內導覽">
         <a class="nav-btn" href="./calc.html">開盒 EV</a>
         <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
@@ -1076,15 +1082,15 @@
 </main>
 <footer>日盒 EV 小算盤 · Base vintage pulse · Snapshot 靜態資料 · 非正式投資建議 · 歷史價 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a> · <a href="./index.html">首頁</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10.html">JP PSA10</a> · <a href="./market-jp-psa10-bench.html">JP 基準</a> · <a href="./market-base-psa-pop.html">Base POP</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/">Base Unlimited</a></footer>
 
-<script src="./js/spark-tip.js?v=1.32.0"></script>
-<script src="./js/movers-range.js?v=1.32.0"></script>
-<script src="./data/market-vintage/latest.js?v=1.32.0"></script>
-<script src="./data/market-vintage/history.js?v=1.32.0"></script>
-<script src="./data/market-vintage-pc/latest.js?v=1.32.0"></script>
-<script src="./data/market-vintage-pc/history.js?v=1.32.0"></script>
+<script src="./js/spark-tip.js?v=1.32.1"></script>
+<script src="./js/movers-range.js?v=1.32.1"></script>
+<script src="./data/market-vintage/latest.js?v=1.32.1"></script>
+<script src="./data/market-vintage/history.js?v=1.32.1"></script>
+<script src="./data/market-vintage-pc/latest.js?v=1.32.1"></script>
+<script src="./data/market-vintage-pc/history.js?v=1.32.1"></script>
 <script>
 (async function () {
-  const VERSION = '1.32.0';
+  const VERSION = '1.32.1';
   const PERIODS = ['1D', '5D', '30D', '1Y', 'YTD'];
   const INDEX_PERIODS = ['1D', '5D', '30D', '1Y', 'YTD', 'ALL'];
   const LAG_PERIODS = ['30D', 'YTD'];
