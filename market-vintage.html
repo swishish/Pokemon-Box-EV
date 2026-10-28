@@ -6,8 +6,8 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>Base 復古指數 · Box EV v1.28.9</title>
-<meta name="description" content="Base Set 1st / Shadowless / Unlimited 英文裸卡指數與卡冊。靜態快照，非正式投資建議。" />
+<title>Base 復古指數 · Box EV v1.32.0</title>
+<meta name="description" content="Base Set 1st / Shadowless / Unlimited 英文裸卡指數與卡冊，另有 PriceCharting 月線（含 Base Set 2，2023-01-01＝1000）。靜態快照，非正式投資建議。" />
 <meta property="og:site_name" content="日盒開盒值不值？" />
 <meta property="og:title" content="Base 復古指數 · 1st / Shadowless / Unlimited" />
 <meta property="og:description" content="Base Set 英文裸卡指數與卡冊。靜態快照，非正式投資建議。" />
@@ -215,6 +215,9 @@
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 8px;
     margin-bottom: 12px;
+  }
+  .index-tabs.is-pc {
+    grid-template-columns: repeat(auto-fit, minmax(148px, 1fr));
   }
   .index-tab.is-overlay .lvl {
     font-size: 1.15rem;
@@ -812,7 +815,7 @@
 <header>
   <div class="header-inner">
     <div class="header-top">
-      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.28.9</span></h1>
+      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.32.0</span></h1>
       <nav class="header-nav" aria-label="站內導覽">
         <a class="nav-btn" href="./calc.html">開盒 EV</a>
         <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
@@ -825,7 +828,7 @@
         <a class="nav-btn" href="https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/" title="Base Set Unlimited cheat sheet">Base Unlimited</a>
       </nav>
     </div>
-    <p>Base 復古指數 · Base Set 1st Edition / Shadowless / Unlimited · TCGPlayer Market via TCGCSV · 每日一點</p>
+    <p>Base 復古指數 · TCGPlayer 日脈（1st / Shadowless / Unlimited）· PriceCharting 月線（四條，含 Base Set 2）</p>
   </div>
 </header>
 
@@ -835,6 +838,7 @@
   <div class="view-switch" id="viewSwitch" role="tablist" aria-label="Pulse or binder">
     <button type="button" class="view-btn is-active" data-view="pulse" aria-selected="true">指數 Pulse</button>
     <button type="button" class="view-btn" data-view="binder" aria-selected="false">卡冊 Binder</button>
+    <button type="button" class="view-btn" data-view="pc" aria-selected="false">PC 月線</button>
   </div>
 
   <div class="index-tabs" id="indexTabs" role="tablist" aria-label="Vintage index"></div>
@@ -1000,10 +1004,59 @@
     </div>
   </div>
 
+  <div id="pcView" hidden>
+    <p class="tiny" id="pcLead" style="margin:0 0 8px">EN Base · PriceCharting。英文裸卡 ungraded（PC 欄位 <b>used</b>）。不是日版、不是 SNKRDUNK、也不是上方 TCGPlayer 日脈。公開圖是<b>每月一點</b>（沒有週線，不補點）。基準 <b>2023-01-01＝1,000</b>；更早的月份留在同一條除數鏈上。</p>
+    <div class="index-tabs is-pc" id="pcTabs" role="tablist" aria-label="PriceCharting Base indexes"></div>
+    <div class="hero">
+      <div class="card">
+        <div class="kicker" id="pcKicker">EN Base · PriceCharting</div>
+        <div class="index-level" id="pcLevel">—</div>
+        <div class="index-chg muted" id="pcChg">載入中…</div>
+        <div class="period-btns" id="pcPeriods" role="tablist" aria-label="PriceCharting return period">
+          <button type="button" class="period-btn" data-pc-period="30D">1M</button>
+          <button type="button" class="period-btn" data-pc-period="1Y">1Y</button>
+          <button type="button" class="period-btn" data-pc-period="YTD">YTD</button>
+          <button type="button" class="period-btn is-active" data-pc-period="ALL" aria-selected="true">All</button>
+        </div>
+        <form class="range-form" id="pcRangeForm">
+          <label>由 <input type="date" id="pcFrom" name="from" /></label>
+          <label>至 <input type="date" id="pcTo" name="to" /></label>
+          <button type="submit" class="period-btn">自訂</button>
+        </form>
+        <div class="spark-wrap" id="pcSparkWrap">
+          <svg class="spark" id="pcSpark" viewBox="0 0 320 100" role="img" aria-label="PriceCharting index"></svg>
+          <div class="spark-tip" id="pcSparkTip" hidden></div>
+        </div>
+        <p class="tiny" id="pcNote" style="margin:8px 0 0"></p>
+      </div>
+    </div>
+    <div class="card">
+      <h2>成分 Basket <span class="pill" id="pcCount"></span></h2>
+      <p class="tiny" style="margin:0 0 8px">價格加權。當月 used 價 &gt; 0 才進指數；缺月不記 0。點名稱打開 PriceCharting（只瀏覽）。</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>編號</th>
+              <th></th>
+              <th>卡</th>
+              <th>稀有</th>
+              <th class="num">USD</th>
+              <th class="num">1M</th>
+            </tr>
+          </thead>
+          <tbody id="pcBody"></tbody>
+        </table>
+      </div>
+      <p class="tiny" id="pcGaps" style="margin:8px 0 0"></p>
+    </div>
+  </div>
+
   <div class="card method-card">
     <h2>這是什麼 Method</h2>
     <ul class="tiny">
-      <li><b>三條獨立指數</b>：Base Set 英文裸卡（raw / ungraded）——<b>1st Edition</b>（第一版）、<b>Shadowless</b>（無限版、無右緣陰影）、<b>Unlimited</b>（後來有陰影的無限版）。不是 Jungle / Fossil，也不是 DP→SM（那條在 <a href="./market-midera.html">中世代指數</a>）。</li>
+      <li><b>PC 月線（這頁「PC 月線」／<a href="./market-vintage.html#pc/1st">#pc/1st</a>）</b>：四條獨立籃子——Base <b>1st Edition</b>、<b>Shadowless</b>、<b>Unlimited</b>、<b>Base Set 2</b>。價格只來自 <a href="https://www.pricecharting.com/" target="_blank" rel="noopener">PriceCharting</a> 遊戲頁 <code>VGPC.chart_data</code> 的 <b>used</b>（裸卡／ungraded），美分換美元。每月一點，約在每月 1 日。<b>2023-01-01＝1,000</b>（該月夠厚才當錨；更早的厚月份留在同一條鏈）。Holo Rare＋Rare，與下面 TCG 追逐名單同一刀（#1–22、#70–79）。Machamp 只在有 slug 的印刷版（1st、Shadowless）。Base Set 2 沒有 Machamp、Clefairy Doll、Devolution Spray 的 PC 產品，不補。不是 SNKRDUNK。</li>
+      <li><b>三條獨立指數</b>：Base Set 英文裸卡（raw / ungraded）——<b>1st Edition</b>（第一版）、<b>Shadowless</b>（無限版、無右緣陰影）、<b>Unlimited</b>（後來有陰影的無限版）。不是 Jungle / Fossil，也不是 DP→SM（那條在 <a href="./market-midera.html">中世代指數</a>）。TCGPlayer 日脈與此頁 PC 月線是兩條鏈，水平不能直接相減。</li>
       <li><b>固定籃子</b>：Holo Rare + Rare（對照 <a href="https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/">Base Unlimited 速查</a> #1–102）。<b>價格加權</b>；有卡加入／退出時用 divisor 保持連續。每條指數基準＝<b>1,000</b>（該條第一個有資料的日子）。</li>
       <li><b>5D／30D／1Y／YTD／All／自訂</b>：用<strong>真實歷史點</strong>放大圖表，<b>缺日就跳過、不補價、不發明點</b>。<b>All</b>＝該條所有已有日期（全部歷史），只放大、不會重設 1,000。指數水平維持該條第一個有資料日子的固定基準 1,000，<b>不會</b>在視窗開頭重設。沒有夠早的點就不顯示該期間。每日現況來自 <a href="https://tcgcsv.com" target="_blank" rel="noopener">TCGCSV</a>；往回的歷史來自 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a>。</li>
       <li><b>三條 Overlay</b>：同一張圖重疊第一版／無陰影／無限。期間按鈕（含 All）只放大視窗，不重設 1,000。下方廣度／漲跌榜／籃子仍是你選中的那一條。</li>
@@ -1023,13 +1076,15 @@
 </main>
 <footer>日盒 EV 小算盤 · Base vintage pulse · Snapshot 靜態資料 · 非正式投資建議 · 歷史價 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a> · <a href="./index.html">首頁</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10.html">JP PSA10</a> · <a href="./market-jp-psa10-bench.html">JP 基準</a> · <a href="./market-base-psa-pop.html">Base POP</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/">Base Unlimited</a></footer>
 
-<script src="./js/spark-tip.js?v=1.28.9"></script>
-<script src="./js/movers-range.js?v=1.28.9"></script>
-<script src="./data/market-vintage/latest.js?v=1.28.9"></script>
-<script src="./data/market-vintage/history.js?v=1.28.9"></script>
+<script src="./js/spark-tip.js?v=1.32.0"></script>
+<script src="./js/movers-range.js?v=1.32.0"></script>
+<script src="./data/market-vintage/latest.js?v=1.32.0"></script>
+<script src="./data/market-vintage/history.js?v=1.32.0"></script>
+<script src="./data/market-vintage-pc/latest.js?v=1.32.0"></script>
+<script src="./data/market-vintage-pc/history.js?v=1.32.0"></script>
 <script>
 (async function () {
-  const VERSION = '1.28.9';
+  const VERSION = '1.32.0';
   const PERIODS = ['1D', '5D', '30D', '1Y', 'YTD'];
   const INDEX_PERIODS = ['1D', '5D', '30D', '1Y', 'YTD', 'ALL'];
   const LAG_PERIODS = ['30D', 'YTD'];
@@ -1086,8 +1141,12 @@
   }
   const dataRes = await loadJson('./data/market-vintage/latest.json');
   const histRes = await loadJson('./data/market-vintage/history.json');
+  const pcRes = await loadJson('./data/market-vintage-pc/latest.json');
+  const pcHistRes = await loadJson('./data/market-vintage-pc/history.json');
   const DATA = (dataRes && dataRes.data) || window.MARKET_VINTAGE;
   const HIST = (histRes && histRes.data) || window.MARKET_VINTAGE_HISTORY || {};
+  const PC = (pcRes && pcRes.data) || window.MARKET_VINTAGE_PC || null;
+  const PC_HIST = (pcHistRes && pcHistRes.data) || window.MARKET_VINTAGE_PC_HISTORY || null;
   if (!DATA || !DATA.indexes) {
     showLoadError(dataRes);
     return;
@@ -1228,10 +1287,23 @@
 
   const PERIOD_LABEL = { '1D': 'vs 上一快照', '5D': '5D', '30D': '30D', '1Y': '1Y', 'YTD': 'YTD', ALL: '全部 All', CUSTOM: '自訂' };
   const OVERLAY_HASHES = { overlay: true, compare: true, all: true };
+  const PC_COLOR = {
+    'base-1st': '#e4434f',
+    'base-shadowless': '#8a6914',
+    'base-unlimited': '#3d6fd9',
+    'base-set-2': '#1e9e5a'
+  };
+  const PC_HASH_TO_ID = {
+    '1st': 'base-1st', first: 'base-1st',
+    shadowless: 'base-shadowless', shadow: 'base-shadowless',
+    unlimited: 'base-unlimited', unl: 'base-unlimited',
+    base2: 'base-set-2', set2: 'base-set-2', 'base-set-2': 'base-set-2'
+  };
   const state = {
     id: DATA.indexes['base-unlimited'] ? 'base-unlimited' : ORDER[0],
     period: '1D', moverPeriod: '1D', lagPeriod: '30D', view: 'pulse', rarity: 'all', q: '',
-    customFrom: '', customTo: '', moverFrom: '', moverTo: '', overlay: false
+    customFrom: '', customTo: '', moverFrom: '', moverTo: '', overlay: false,
+    pcId: 'base-1st', pcPeriod: 'ALL', pcOverlay: false, pcFrom: '', pcTo: ''
   };
 
   function readLs(key) {
@@ -1285,28 +1357,47 @@
     let view = 'pulse';
     let id = null;
     let overlay = false;
+    let pc = parts[0] === 'pc';
+    if (pc) {
+      view = 'pc';
+      parts.shift();
+    }
     for (let i = 0; i < parts.length; i++) {
       const p = parts[i];
-      if (p === 'binder' || p === 'card' || p === 'cards') view = 'binder';
-      else if (p === 'pulse' || p === 'index') view = 'pulse';
-      else if (OVERLAY_HASHES[p]) overlay = true;
-      else if (HASH_TO_ID[p]) id = HASH_TO_ID[p];
+      if (p === 'binder' || p === 'card' || p === 'cards') {
+        if (!pc) view = 'binder';
+      } else if (p === 'pulse' || p === 'index') {
+        if (!pc) view = 'pulse';
+      } else if (OVERLAY_HASHES[p]) overlay = true;
+      else if (pc && PC_HASH_TO_ID[p]) id = PC_HASH_TO_ID[p];
+      else if (!pc && HASH_TO_ID[p]) id = HASH_TO_ID[p];
     }
-    return { id: id || ORDER[0], view, overlay, idSpecified: !!id };
+    return { id: id || (pc ? state.pcId : ORDER[0]), view, overlay, idSpecified: !!id, pc: pc };
   }
   function writeHash() {
-    const h = state.overlay ? 'overlay' : (ID_TO_HASH[state.id] || state.id);
-    const extra = state.view === 'binder' ? '/binder' : '';
-    const next = '#' + h + extra;
+    let next;
+    if (state.view === 'pc') {
+      const spec = (PC && PC.indexes && PC.indexes[state.pcId]) || {};
+      const slug = spec.hash || '1st';
+      next = '#pc/' + slug + (state.pcOverlay ? '/overlay' : '');
+    } else {
+      const h = state.overlay ? 'overlay' : (ID_TO_HASH[state.id] || state.id);
+      const extra = state.view === 'binder' ? '/binder' : '';
+      next = '#' + h + extra;
+    }
     if ((location.hash || '') === next) return;
     if (history.replaceState) history.replaceState(null, '', next);
-    else location.hash = h + extra;
+    else location.hash = next.replace(/^#/, '');
   }
   function applyView() {
     const pulse = $('pulseView');
     const binder = $('binderView');
+    const pc = $('pcView');
+    const tabs = $('indexTabs');
     if (pulse) pulse.hidden = state.view !== 'pulse';
     if (binder) binder.hidden = state.view !== 'binder';
+    if (pc) pc.hidden = state.view !== 'pc';
+    if (tabs) tabs.hidden = state.view === 'pc';
     document.querySelectorAll('#viewSwitch .view-btn').forEach((btn) => {
       const v = btn.getAttribute('data-view');
       const on = v === state.view;
@@ -1823,10 +1914,164 @@
     }).join('');
   }
 
+  function pcPoints(id) {
+    const block = ((PC_HIST && PC_HIST.indexes) || {})[id] || {};
+    return (block.points || []).filter((p) => p && p.date && p.index != null)
+      .sort((a, b) => String(a.date).localeCompare(String(b.date)));
+  }
+  function pcReturn(id, period) {
+    const pts = pcPoints(id);
+    const server = (((PC_HIST && PC_HIST.indexes) || {})[id] || {}).returns || {};
+    if (period === 'CUSTOM') {
+      if (!state.pcFrom || !state.pcTo || state.pcFrom > state.pcTo) {
+        return { available: false, pct: null, reason: '請輸入起迄' };
+      }
+      const windowPts = pts.filter((p) => p.date >= state.pcFrom && p.date <= state.pcTo);
+      if (windowPts.length < 2) return { available: false, pct: null, from: state.pcFrom, to: state.pcTo };
+      return packReturn(windowPts[0], windowPts[windowPts.length - 1], 'range');
+    }
+    if (period === 'ALL') {
+      if (pts.length < 2) return { available: false, pct: null };
+      return packReturn(pts[0], pts[pts.length - 1], 'all');
+    }
+    return server[period] || { available: false, pct: null };
+  }
+  function pcWindow(id, period) {
+    const pts = pcPoints(id);
+    const ret = pcReturn(id, period);
+    if (ret && ret.available && ret.from) {
+      return pts.filter((p) => p.date >= ret.from && p.date <= (ret.to || p.date));
+    }
+    if (period === 'ALL') return pts;
+    return pts;
+  }
+  function renderPcFreshness() {
+    const el = $('dataFreshness');
+    if (!el) return;
+    const asOf = PC && PC.asOfDate;
+    const asOfDate = parseAsOfDate(asOf);
+    if (!asOfDate) {
+      el.className = 'data-freshness stale';
+      el.textContent = 'PriceCharting 月線日期無法確認';
+      return;
+    }
+    const age = ageDays(asOfDate, new Date());
+    const ymd = ymdLocal(asOfDate);
+    if (age > 45) {
+      el.className = 'data-freshness stale';
+      el.textContent = 'PriceCharting 月圖可能過期（最後一點 ' + ymd + ' · 已過 ' + age + ' 日）— 下單前請核對現價';
+    } else {
+      el.className = 'data-freshness';
+      el.textContent = 'PriceCharting 月圖 ' + ymd + ' · ungraded used · 2023-01-01＝1000 · 非 SNK';
+    }
+  }
+  function renderPc() {
+    applyView();
+    renderPcFreshness();
+    const host = $('pcTabs');
+    if (!PC || !PC.indexes || !host) {
+      if ($('pcLead')) $('pcLead').textContent = 'PriceCharting 指數尚未載入。';
+      return;
+    }
+    const order = PC.indexOrder || Object.keys(PC.indexes);
+    if (!PC.indexes[state.pcId]) state.pcId = order[0];
+    host.innerHTML = order.map((id) => {
+      const row = PC.indexes[id] || {};
+      const active = id === state.pcId && !state.pcOverlay;
+      const pct = row.changePct;
+      return '<button type="button" class="index-tab' + (active ? ' is-active' : '') +
+        '" data-pc-id="' + escapeHtml(id) + '" role="tab" aria-selected="' + (active ? 'true' : 'false') + '">' +
+        '<div class="kicker">' + escapeHtml(row.nameZh || row.name || id) + '</div>' +
+        '<div class="lvl">' + Number(row.index).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '</div>' +
+        '<div class="sub">' + (pct == null ? '—' : fmtPct(pct, true) + ' 1M') +
+        ' · n=' + (row.pricedToday || row.constituentCount || 0) + '</div></button>';
+    }).join('') +
+      '<button type="button" class="index-tab is-overlay' + (state.pcOverlay ? ' is-active' : '') +
+      '" data-pc-id="overlay" role="tab" aria-selected="' + (state.pcOverlay ? 'true' : 'false') + '">' +
+      '<div class="kicker">四條 Overlay</div><div class="lvl">對照</div>' +
+      '<div class="sub">1st · 無陰影 · 無限 · Set 2</div></button>';
+    const row = PC.indexes[state.pcId] || {};
+    $('pcKicker').textContent = 'EN Base · PriceCharting · ' + (row.nameZh || row.name || '') +
+      (state.pcOverlay ? ' · 圖＝四條' : '');
+    $('pcLevel').textContent = Number(row.index).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const ret = pcReturn(state.pcId, state.pcPeriod);
+    const label = state.pcPeriod === '30D' ? '1M' : (state.pcPeriod === 'CUSTOM' ? '自訂' : state.pcPeriod);
+    const chg = $('pcChg');
+    if (ret.available) {
+      chg.className = 'index-chg ' + chgClass(ret.pct);
+      chg.textContent = fmtPct(ret.pct, true) + ' · ' + label + (ret.from ? ' · ' + ret.from + ' → ' + ret.to : '');
+    } else {
+      chg.className = 'index-chg muted';
+      chg.textContent = label + ' 不足兩個真實月點（不補價）';
+    }
+    document.querySelectorAll('#pcPeriods .period-btn').forEach((btn) => {
+      const p = btn.getAttribute('data-pc-period');
+      const on = p === state.pcPeriod;
+      btn.classList.toggle('is-active', on);
+      btn.setAttribute('aria-selected', on ? 'true' : 'false');
+      if (p && p !== 'ALL') btn.disabled = !pcReturn(state.pcId, p).available && p !== 'CUSTOM';
+    });
+    const pts = pcPoints(state.pcId);
+    if (pts.length && $('pcFrom')) {
+      $('pcFrom').min = pts[0].date;
+      $('pcFrom').max = pts[pts.length - 1].date;
+      $('pcTo').min = pts[0].date;
+      $('pcTo').max = pts[pts.length - 1].date;
+    }
+    const spark = $('pcSpark');
+    if (spark && typeof SparkTip !== 'undefined') {
+      if (state.pcOverlay) {
+        const series = order.map((id) => ({
+          id: id,
+          name: (PC.indexes[id] && (PC.indexes[id].nameZh || PC.indexes[id].name)) || id,
+          color: PC_COLOR[id] || '#3d6fd9',
+          points: pcWindow(id, state.pcPeriod)
+        }));
+        SparkTip.drawMulti(spark, series, { ariaLabel: '四條英文 Base PriceCharting 指數' });
+      } else {
+        SparkTip.draw(spark, pcWindow(state.pcId, state.pcPeriod), {
+          color: PC_COLOR[state.pcId] || '#3d6fd9',
+          ariaLabel: '英文 Base PriceCharting 指數'
+        });
+      }
+    }
+    const anchor = row.baseDate || '2023-01-01';
+    const hist = ((PC_HIST && PC_HIST.indexes) || {})[state.pcId] || {};
+    $('pcNote').textContent =
+      '列出 ' + (row.listedCount || 0) + ' · 本月有價 ' + (row.pricedToday || 0) +
+      ' · 合計 ' + fmtUsd(row.totalValue) +
+      ' · 基準 1000 @ ' + anchor +
+      ' · 圖由 ' + (hist.firstDate || (pts[0] && pts[0].date) || '—') +
+      ' 至 ' + (row.asOfDate || '—') +
+      ' · ' + (pts.length || 0) + ' 個月份 · used 裸卡';
+    const basket = row.basket || row.constituents || [];
+    if ($('pcCount')) $('pcCount').textContent = String(basket.length);
+    $('pcBody').innerHTML = basket.length ? basket.map((c) => {
+      const img = c.image
+        ? '<img class="card-thumb" src="' + escapeHtml(c.image) + '" alt="" width="32" height="44" loading="lazy" decoding="async" />'
+        : '';
+      const name = c.url
+        ? '<a href="' + escapeHtml(c.url) + '" target="_blank" rel="noopener">' + escapeHtml(c.name || '') + '</a>'
+        : escapeHtml(c.name || '');
+      const priceCell = c.price == null ? '<span class="tiny">無市價</span>' : fmtUsd(c.price);
+      return '<tr><td class="tiny">' + escapeHtml(c.number || '') + '</td><td>' + img + '</td><td>' + name +
+        '</td><td class="tiny">' + escapeHtml(c.rarity || '') + '</td><td class="num">' + priceCell +
+        '</td><td class="num chg ' + chgClass(c.changePct) + '">' + fmtPct(c.changePct, true) + '</td></tr>';
+    }).join('') : '<tr><td colspan="6" class="tiny">沒有籃子</td></tr>';
+    const gaps = (PC.gaps || []).filter((g) => !g.index || g.index === state.pcId);
+    $('pcGaps').textContent = gaps.length
+      ? ('名單缺口（PC 沒有此產品，不補價）：' + gaps.map((g) => (g.name || '') + ' ' + (g.number || '')).join('、'))
+      : '';
+  }
+
   function renderIndex() {
+    applyView();
+    if (state.view === 'pc') {
+      renderPc();
+      return;
+    }
     const DATA_ONE = DATA.indexes[state.id];
     if (!DATA_ONE) return;
-    applyView();
     renderTabs();
     renderBinder(DATA_ONE);
     const points = pointsOf(state.id);
@@ -2048,11 +2293,47 @@
       const btn = e.target.closest('.view-btn');
       if (!btn || !viewSwitch.contains(btn)) return;
       const view = btn.getAttribute('data-view');
-      if (view !== 'pulse' && view !== 'binder') return;
+      if (view !== 'pulse' && view !== 'binder' && view !== 'pc') return;
       if (view === state.view) return;
       state.view = view;
       writeHash();
       renderIndex();
+    });
+  }
+  const pcTabs = $('pcTabs');
+  if (pcTabs) {
+    pcTabs.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-pc-id]');
+      if (!btn) return;
+      const id = btn.getAttribute('data-pc-id');
+      if (id === 'overlay') {
+        state.pcOverlay = true;
+      } else if (id && PC && PC.indexes && PC.indexes[id]) {
+        state.pcId = id;
+        state.pcOverlay = false;
+      } else return;
+      state.view = 'pc';
+      writeHash();
+      renderPc();
+    });
+  }
+  const pcPeriods = $('pcPeriods');
+  if (pcPeriods) {
+    pcPeriods.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-pc-period]');
+      if (!btn || btn.disabled) return;
+      state.pcPeriod = btn.getAttribute('data-pc-period') || 'ALL';
+      renderPc();
+    });
+  }
+  const pcRange = $('pcRangeForm');
+  if (pcRange) {
+    pcRange.addEventListener('submit', (e) => {
+      e.preventDefault();
+      state.pcFrom = $('pcFrom') ? $('pcFrom').value : '';
+      state.pcTo = $('pcTo') ? $('pcTo').value : '';
+      state.pcPeriod = 'CUSTOM';
+      renderPc();
     });
   }
   const binderQ = $('binderQ');
@@ -2081,8 +2362,8 @@
   }
   document.querySelectorAll('.period-btns .period-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
-      const p = btn.getAttribute('data-period') || '1D';
-      if (btn.disabled) return;
+      const p = btn.getAttribute('data-period');
+      if (!p || btn.disabled) return;
       if (!INDEX_PERIODS.includes(p)) return;
       state.period = p;
       saveIndexPeriod();
@@ -2164,6 +2445,18 @@
   }
   window.addEventListener('hashchange', () => {
     const parsed = parseHash();
+    if (parsed.view === 'pc' || state.view === 'pc') {
+      state.view = parsed.view;
+      if (parsed.view === 'pc') {
+        if (parsed.idSpecified && PC && PC.indexes && PC.indexes[parsed.id]) state.pcId = parsed.id;
+        state.pcOverlay = !!parsed.overlay;
+      } else {
+        if (parsed.idSpecified && DATA.indexes[parsed.id]) state.id = parsed.id;
+        state.overlay = !!parsed.overlay;
+      }
+      renderIndex();
+      return;
+    }
     const nextId = (parsed.idSpecified && DATA.indexes[parsed.id]) ? parsed.id : state.id;
     if (nextId !== state.id || parsed.view !== state.view || parsed.overlay !== state.overlay) {
       state.id = nextId;
@@ -2177,9 +2470,15 @@
   const boot = parseHash();
   const hashRaw = (location.hash || '').replace(/^#/, '');
   if (hashRaw) {
-    if (boot.idSpecified && DATA.indexes[boot.id]) state.id = boot.id;
-    state.view = boot.view === 'binder' ? 'binder' : 'pulse';
-    state.overlay = !!boot.overlay;
+    if (boot.view === 'pc') {
+      state.view = 'pc';
+      if (boot.idSpecified && PC && PC.indexes && PC.indexes[boot.id]) state.pcId = boot.id;
+      state.pcOverlay = !!boot.overlay;
+    } else {
+      if (boot.idSpecified && DATA.indexes[boot.id]) state.id = boot.id;
+      state.view = boot.view === 'binder' ? 'binder' : 'pulse';
+      state.overlay = !!boot.overlay;
+    }
   }
   if (!DATA.indexes[state.id]) {
     state.id = ORDER[0];

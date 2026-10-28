@@ -6,14 +6,14 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>日版 PSA10 基準 · v1.31.6</title>
+<title>日版 PSA10 基準 · v1.32.0</title>
 <meta name="description" content="日版寶可夢 TCG PSA10 廣度基準：復古／中世代／現行 N 隨流動性篩選浮動，另加特典與 Tag Team 姊妹籃子。等權／流動性／價格／無 cap 疊加。靜態快照，非正式投資建議。" />
 <meta property="og:site_name" content="日版 PSA10 基準" />
 <meta property="og:title" content="日版 PSA10 基準 · 復古／中世代／現行" />
 <meta property="og:description" content="Pokeca-style JP PSA10 廣度基準。舊 60 張是 SV chase 袖。靜態快照，非正式投資建議。" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://swishish.github.io/Pokemon-Box-EV/market-jp-psa10-bench.html" />
-<meta property="og:image" content="https://swishish.github.io/Pokemon-Box-EV/og-psa10-bench-v2.png?v=1.31.6" />
+<meta property="og:image" content="https://swishish.github.io/Pokemon-Box-EV/og-psa10-bench-v2.png?v=1.32.0" />
 <meta property="og:image:alt" content="日版 PSA10 基準 · 復古／中世代／現行" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
@@ -21,7 +21,7 @@
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="日版 PSA10 基準 · 復古／中世代／現行" />
 <meta name="twitter:description" content="復古／中世代／現行廣度基準 + 特典／Tag Team。非正式投資建議。" />
-<meta name="twitter:image" content="https://swishish.github.io/Pokemon-Box-EV/og-psa10-bench-v2.png?v=1.31.6" />
+<meta name="twitter:image" content="https://swishish.github.io/Pokemon-Box-EV/og-psa10-bench-v2.png?v=1.32.0" />
 <meta name="twitter:image:alt" content="日版 PSA10 基準 · 復古／中世代／現行" />
 <link rel="canonical" href="https://swishish.github.io/Pokemon-Box-EV/market-jp-psa10-bench.html" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
@@ -314,6 +314,27 @@
     gap: 6px;
     margin-bottom: 12px;
   }
+  .en-base-wrap {
+    border: var(--bw) solid var(--ink);
+    border-radius: var(--radius);
+    background: #fff8e8;
+    padding: 8px 8px 6px;
+    margin: 0 0 12px;
+    min-width: 0;
+  }
+  .en-base-wrap .en-kicker {
+    font-size: .72rem;
+    font-weight: 800;
+    margin: 0 0 6px;
+  }
+  .en-base-wrap .series-tabs {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-bottom: 4px;
+  }
+  .en-base-wrap .series-tab.is-active { background: #fff3c4; }
+  body.is-en-base .legend-row { display: none; }
+  body.is-en-base .jp-mover-note { display: none; }
+  body.is-en-base .en-mover-note { display: block; }
   .series-tab {
     display: block;
     width: 100%;
@@ -448,6 +469,7 @@
     .table-wrap table { min-width: 32rem; }
     .movers .table-wrap table { min-width: 18rem; }
     .series-tabs { grid-template-columns: 1fr 1fr; gap: 4px; margin-bottom: 8px; }
+    .en-base-wrap .series-tabs { grid-template-columns: 1fr 1fr; }
     .series-tab { padding: 7px 8px; }
     .series-tab .kicker { font-size: .68rem; }
     .series-tab .lvl { font-size: 1rem; }
@@ -460,7 +482,7 @@
 <header>
   <div class="header-inner">
     <div class="header-top">
-      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.31.6</span></h1>
+      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.32.0</span></h1>
       <nav class="header-nav" aria-label="站內導覽">
         <a class="nav-btn" href="./calc.html">開盒 EV</a>
         <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
@@ -481,6 +503,11 @@
   <div id="dataFreshness" class="data-freshness" role="status" aria-live="polite"></div>
   <p class="kind-note">舊 <a href="./market-jp-psa10.html">JP PSA10</a> 60 張是 SV chase 袖，這頁不取代該頁。綜合＝復古＋中世代＋現行的流動性篩選聯集（N 隨篩選浮動，不再每區鎖定 80）；特典／Tag Team 是平行姊妹籃子。</p>
   <div class="series-tabs" id="seriesTabs" role="tablist" aria-label="Benchmark series"></div>
+  <div class="en-base-wrap" id="enBaseWrap">
+    <p class="en-kicker">EN Base · PriceCharting <span class="tiny">英文裸卡 ungraded · 非日版 · 非 SNKRDUNK · 月線 · 2023-01-01＝1000</span></p>
+    <div class="series-tabs" id="enBaseTabs" role="tablist" aria-label="English Base PriceCharting indexes"></div>
+    <p class="tiny" id="enBaseHint" style="margin:4px 0 0">與上面日版 PSA10 基準分開。點一條就在這張圖看 PriceCharting 月線；完整籃子也在 <a href="./market-vintage.html#pc/1st">Base 復古 · PC 月線</a>。</p>
+  </div>
 
   <div class="hero">
     <div class="card">
@@ -514,7 +541,7 @@
       <p class="tiny" id="indexPeriodNote" style="margin:4px 0 0"></p>
     </div>
     <div class="card">
-      <h2>四條水平 + 廣度</h2>
+      <h2 id="levelHeading">四條水平 + 廣度</h2>
       <div class="metrics" id="levelMetrics"></div>
       <div class="metrics" id="breadthMetrics" style="margin-top:8px"></div>
       <div class="breadth" id="breadthBar"></div>
@@ -522,7 +549,8 @@
     </div>
   </div>
 
-  <p class="tiny" style="margin:0 0 8px">漲跌榜＝當日有 PSA10 刊價的原價變動（未 clip）；指數本身已對缺口重入與 ±25% 封頂。</p>
+  <p class="tiny jp-mover-note" style="margin:0 0 8px">漲跌榜＝當日有 PSA10 刊價的原價變動（未 clip）；指數本身已對缺口重入與 ±25% 封頂。</p>
+  <p class="tiny en-mover-note" style="margin:0 0 8px" hidden>漲跌榜＝對上一個 PriceCharting 月份的 ungraded（used）價。不是 PSA10，也不是日圓。</p>
   <div class="movers">
     <div class="card">
       <h2>漲幅榜 Top gainers <span class="pill">1D</span></h2>
@@ -585,6 +613,7 @@
   <div class="card method-card">
     <h2>這是什麼 · 方法</h2>
     <ul class="tiny">
+      <li><b>EN Base · PriceCharting</b>：上方第二排是四條<b>英文</b>籃子（Base 1st Edition、Shadowless、Unlimited、Base Set 2）。價格只來自 PriceCharting <b>used</b>（裸卡），每月一點，<b>2023-01-01＝1,000</b>。不是這頁的日版 SNK PSA10，也不改上面六條基準的算法。深連結 <code>#en-1st</code>／<code>#en-shadowless</code>／<code>#en-unlimited</code>／<code>#en-base2</code>，或 <a href="./market-vintage.html#pc/1st">復古頁 PC 月線</a>。</li>
       <li><b>與 chase 60 並存</b>：<a href="./market-jp-psa10.html">JP PSA10</a> 仍然是凍結約 60 張 SV chase 袖（<code>data.json</code> apparel ID、¥3,000／90 日 12 刊價）。這頁是廣度基準，宇宙來自 SNK 公開搜尋＋本站已有 ID，<b>不發明</b>產品編號。</li>
       <li><b>三個時代扇區，N 隨篩選浮動</b>：<b>復古 VINTAGE</b>＝SM 之前（約 1996–2016，XY／BW／DP…，依 Pokeca Vintage）；<b>中世代 MODERN</b>＝SM＋劍盾 S（Tag Team 亦計入此區）；<b>現行 CURRENT</b>＝SV＋MEGA，不限 Box EV chase 657 個 ID。通過篩選即入選——<b>不再</b>設地板 80／補到 80／截到 80。綜合＝三區聯集。篩選：最近 PSA10 刊價 ≥ ¥2,000；90 日刊價日復古 ≥5、中世代／現行 ≥6。某區通過少於 20 張才放寬到 ¥1,500／3 日（仍然收取全部通過者，不是地板）。</li>
       <li><b>平行姊妹籃子</b>：<b>特典 PROMO</b>（Grey Felt Hat／灰氈帽、Munch／Picasso／長場、Mario／Luigi／poncho 皮卡丘、Extra Battle Day 等流動日版特典；篩選 ¥2,500／90 日 5 刊價日）；<b>Tag Team / MID</b>＝SM8b–SM12a／SMM 溫度計（篩選與復古相同：¥2,000／5 日），即使 MODERN 已覆蓋 SM／S 仍單獨顯示，避免中世代被隱藏。兩條皆為篩選全收，不截 80。</li>
@@ -604,13 +633,15 @@
 </main>
 <footer>日盒 EV 小算盤 · JP PSA10 基準 · Snapshot 靜態資料 · 非正式投資建議 · 來源 <a href="https://snkrdunk.com/" target="_blank" rel="noopener">SNKRDUNK</a> · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10.html">JP PSA10</a> · <a href="./market-base-psa-pop.html">Base POP</a></footer>
 
-<script src="./js/spark-tip.js?v=1.31.6"></script>
-<script src="./js/jp-psa10-ui.js?v=1.31.6"></script>
-<script src="./data/market-jp-psa10-bench/latest.js?v=1.31.6"></script>
-<script src="./data/market-jp-psa10-bench/history.js?v=1.31.6"></script>
+<script src="./js/spark-tip.js?v=1.32.0"></script>
+<script src="./js/jp-psa10-ui.js?v=1.32.0"></script>
+<script src="./data/market-jp-psa10-bench/latest.js?v=1.32.0"></script>
+<script src="./data/market-jp-psa10-bench/history.js?v=1.32.0"></script>
+<script src="./data/market-vintage-pc/latest.js?v=1.32.0"></script>
+<script src="./data/market-vintage-pc/history.js?v=1.32.0"></script>
 <script>
 (async function () {
-  const VERSION = '1.31.6';
+  const VERSION = '1.32.0';
   const ORDER = ['composite', 'vintage', 'modern', 'current', 'promo', 'midera'];
   const SERIES = {
     equal: { id: 'equal', name: '等權', color: '#141414' },
@@ -654,8 +685,25 @@
   }
   const dataRes = await loadJson('./data/market-jp-psa10-bench/latest.json');
   const histRes = await loadJson('./data/market-jp-psa10-bench/history.json');
+  const pcRes = await loadJson('./data/market-vintage-pc/latest.json');
+  const pcHistRes = await loadJson('./data/market-vintage-pc/history.json');
   const DATA = (dataRes && dataRes.data) || window.MARKET_JP_PSA10_BENCH;
   const HIST = (histRes && histRes.data) || window.MARKET_JP_PSA10_BENCH_HISTORY || { series: {} };
+  const PC = (pcRes && pcRes.data) || window.MARKET_VINTAGE_PC || null;
+  const PC_HIST = (pcHistRes && pcHistRes.data) || window.MARKET_VINTAGE_PC_HISTORY || null;
+  const EN_ORDER = ['base-1st', 'base-shadowless', 'base-unlimited', 'base-set-2'];
+  const EN_FROM_HASH = {
+    'en-1st': 'base-1st', 'en-shadowless': 'base-shadowless',
+    'en-unlimited': 'base-unlimited', 'en-base2': 'base-set-2'
+  };
+  const EN_TO_HASH = {
+    'base-1st': 'en-1st', 'base-shadowless': 'en-shadowless',
+    'base-unlimited': 'en-unlimited', 'base-set-2': 'en-base2'
+  };
+  const EN_COLOR = {
+    'base-1st': '#e4434f', 'base-shadowless': '#8a6914',
+    'base-unlimited': '#3d6fd9', 'base-set-2': '#1e9e5a'
+  };
   if (!DATA || !DATA.series || !DATA.series.composite) {
     showLoadError(dataRes);
     return;
@@ -751,8 +799,13 @@
   let printsLoading = false;
   let printsFailed = false;
   let activeKey = 'composite';
+  let mode = 'jp';
+  let enKey = 'base-1st';
   const hash = (location.hash || '').replace('#', '');
-  if (ORDER.indexOf(hash) >= 0 && seriesBlob(hash)) activeKey = hash;
+  if (EN_FROM_HASH[hash] && PC && PC.indexes && PC.indexes[EN_FROM_HASH[hash]]) {
+    mode = 'en';
+    enKey = EN_FROM_HASH[hash];
+  } else if (ORDER.indexOf(hash) >= 0 && seriesBlob(hash)) activeKey = hash;
 
   function packReturn(baseline, last, field) {
     if (!baseline || !last || last[field] == null || baseline[field] == null) {
@@ -904,6 +957,7 @@
   }
 
   function drawChart() {
+    if (mode === 'en') return;
     const wpts = windowPoints(periodState.period);
     const series = [];
     WEIGHT_IDS.forEach((id) => {
@@ -932,6 +986,7 @@
   function cur() { return seriesBlob(activeKey) || {}; }
 
   function renderHero() {
+    if (mode === 'en') return;
     const blob = cur();
     const eq = (blob.indexes && blob.indexes.equal) || {};
     $('indexLevel').textContent = fmtIdx(eq.index);
@@ -1040,7 +1095,7 @@
     host.innerHTML = ORDER.filter((k) => seriesBlob(k)).map((k) => {
       const b = seriesBlob(k);
       const eq = (b.indexes && b.indexes.equal) || {};
-      const on = k === activeKey;
+      const on = mode === 'jp' && k === activeKey;
       const ret = returnFor('equal', period, k);
       const pct = (ret && ret.available) ? fmtPct(ret.pct, true) : '—';
       const pctCls = (ret && ret.available) ? chgClass(ret.pct) : 'muted';
@@ -1067,7 +1122,195 @@
     });
   }
 
+  function pcPts(id) {
+    const block = ((PC_HIST && PC_HIST.indexes) || {})[id] || {};
+    return (block.points || []).filter((p) => p && p.date).sort((a, b) => String(a.date).localeCompare(String(b.date)));
+  }
+  function pcRet(id, period) {
+    const block = ((PC_HIST && PC_HIST.indexes) || {})[id] || {};
+    const server = block.returns || {};
+    const pts = pcPts(id);
+    if (period === 'ALL') {
+      if (pts.length < 2) return { available: false, pct: null };
+      return packReturn(pts[0], pts[pts.length - 1], 'index');
+    }
+    if (period === 'CUSTOM') {
+      const from = periodState.customFrom, to = periodState.customTo;
+      const windowPts = pts.filter((p) => p.date >= from && p.date <= to);
+      if (windowPts.length < 2) return { available: false, pct: null, from: from, to: to };
+      return packReturn(windowPts[0], windowPts[windowPts.length - 1], 'index');
+    }
+    return server[period] || { available: false, pct: null };
+  }
+  function renderEnTabs() {
+    const host = $('enBaseTabs');
+    if (!host) return;
+    if (!PC || !PC.indexes) {
+      host.innerHTML = '<p class="tiny">PriceCharting 指數尚未載入。</p>';
+      return;
+    }
+    const period = periodState.period === '1D' || periodState.period === '5D' ? '30D' : periodState.period;
+    host.innerHTML = EN_ORDER.filter((id) => PC.indexes[id]).map((id) => {
+      const row = PC.indexes[id];
+      const on = mode === 'en' && id === enKey;
+      const ret = pcRet(id, period === 'CUSTOM' ? 'ALL' : period);
+      const pct = ret && ret.available ? fmtPct(ret.pct, true) : (row.changePct != null && period === '30D' ? fmtPct(row.changePct, true) : '—');
+      const pctCls = ret && ret.available ? chgClass(ret.pct) : 'muted';
+      return '<button type="button" class="series-tab' + (on ? ' is-active' : '') +
+        '" data-en="' + id + '" role="tab" aria-selected="' + (on ? 'true' : 'false') + '">' +
+        '<div class="kicker">' + escapeHtml(row.nameZh || row.name || id) + '</div>' +
+        '<div class="lvl-row"><span class="lvl">' + fmtIdx(row.index) + '</span>' +
+        '<span class="tab-chg ' + pctCls + '">' + pct + '</span></div>' +
+        '<div class="sub">' + (row.pricedToday || row.constituentCount || 0) + ' 張 · PC used</div></button>';
+    }).join('');
+  }
+  const basketTable = document.getElementById('basketBody') && document.getElementById('basketBody').closest('table');
+  const basketHeadHtml = basketTable ? basketTable.tHead.innerHTML : '';
+  const basketBlurb = document.querySelector('#basketBody')
+    ? document.querySelector('#basketBody').closest('.card').querySelector('p.tiny')
+    : null;
+  const basketBlurbHtml = basketBlurb ? basketBlurb.innerHTML : '';
+  function renderEn() {
+    document.body.classList.add('is-en-base');
+    const row = (PC && PC.indexes && PC.indexes[enKey]) || {};
+    const pts = pcPts(enKey);
+    const period = (periodState.period === '1D' || periodState.period === '5D') ? '30D' : periodState.period;
+    if (period !== periodState.period && periodState.period !== 'CUSTOM') periodState.period = period;
+    $('heroKicker').textContent = 'EN Base · PriceCharting · ' + (row.nameZh || enKey) + ' · ungraded';
+    $('indexLevel').textContent = fmtIdx(row.index);
+    const ret = pcRet(enKey, periodState.period);
+    const el = $('indexChg');
+    const label = periodState.period === 'CUSTOM' ? '自訂' : (periodState.period === '30D' ? '1M' : periodState.period);
+    if (ret.available) {
+      el.className = 'index-chg ' + chgClass(ret.pct);
+      el.textContent = fmtPct(ret.pct, true) + ' · ' + label + (ret.from ? ' · ' + ret.from + ' → ' + ret.to : '');
+    } else {
+      el.className = 'index-chg muted';
+      el.textContent = label + ' 不足兩個 PriceCharting 月點';
+    }
+    $('indexNote').textContent =
+      '英文 ' + (row.printing || '') + ' · 籃子 ' + (row.listedCount || 0) +
+      ' · 本月有價 ' + (row.pricedToday != null ? row.pricedToday : '—') +
+      ' · 基準 1000' + (row.baseDate ? ' @ ' + row.baseDate : '') +
+      ' · PriceCharting used · 不是 SNK';
+    const heading = $('levelHeading');
+    if (heading) heading.textContent = '本月水平 + 廣度';
+    $('levelMetrics').innerHTML =
+      '<div class="metric"><div class="k">PC ungraded</div><div class="v">' + fmtIdx(row.index) + '</div>' +
+      '<div class="tiny ' + chgClass(ret.pct) + '">' + (ret.available ? fmtPct(ret.pct, true) : '—') + '</div></div>' +
+      '<div class="metric"><div class="k">合計 USD</div><div class="v">' +
+      (row.totalValue != null ? ('$' + Math.round(row.totalValue).toLocaleString('en-US')) : '—') + '</div></div>';
+    const br = row.breadth || {};
+    paintBreadth(br, br.label || '廣度＝對上一個 PriceCharting 月份（不是日版 1D）');
+    const w = (function () {
+      if (periodState.period === 'ALL' || !ret.from) return pts;
+      return pts.filter((p) => p.date >= ret.from && p.date <= (ret.to || p.date));
+    })();
+    $('indexPeriodNote').textContent = w.length
+      ? ('圖 ' + w[0].date + ' → ' + w[w.length - 1].date + ' · ' + w.length + ' 個月 · PriceCharting used · 無成交量柱')
+      : '';
+    ['1D', '5D'].forEach((p) => {
+      const btn = document.querySelector('.period-btns [data-period="' + p + '"]');
+      if (btn) { btn.disabled = true; btn.setAttribute('title', 'PC 公開圖是每月一點，沒有 1D／5D'); }
+    });
+    ['30D', '1Y', 'YTD', 'ALL'].forEach((p) => {
+      const btn = document.querySelector('.period-btns [data-period="' + p + '"]');
+      if (!btn) return;
+      const ok = p === 'ALL' ? pts.length >= 2 : pcRet(enKey, p).available;
+      btn.disabled = !ok;
+      if (p === '30D') btn.textContent = '1M';
+    });
+    if (pts.length) {
+      $('rangeFrom').min = pts[0].date; $('rangeFrom').max = pts[pts.length - 1].date;
+      $('rangeTo').min = pts[0].date; $('rangeTo').max = pts[pts.length - 1].date;
+    }
+    if (window.SparkTip && typeof SparkTip.draw === 'function') {
+      SparkTip.draw($('spark'), w.map((p) => ({ date: p.date, index: p.index })), {
+        color: EN_COLOR[enKey] || '#3d6fd9',
+        ariaLabel: '英文 Base PriceCharting 指數'
+      });
+    }
+    $('gainerBody').innerHTML = (row.gainers || []).map((c) => {
+      const name = c.url ? '<a href="' + escapeHtml(c.url) + '" target="_blank" rel="noopener">' + escapeHtml(c.name || '') + '</a>' : escapeHtml(c.name || '');
+      return '<tr><td></td><td class="name-cell">' + name + '</td><td class="num">$' +
+        Number(c.price).toLocaleString('en-US', { maximumFractionDigits: 0 }) +
+        '</td><td class="num chg ' + chgClass(c.changePct) + '">' + fmtPct(c.changePct, true) + '</td></tr>';
+    }).join('') || '<tr><td colspan="4" class="tiny">沒有上月對照</td></tr>';
+    $('loserBody').innerHTML = (row.losers || []).map((c) => {
+      const name = c.url ? '<a href="' + escapeHtml(c.url) + '" target="_blank" rel="noopener">' + escapeHtml(c.name || '') + '</a>' : escapeHtml(c.name || '');
+      return '<tr><td></td><td class="name-cell">' + name + '</td><td class="num">$' +
+        Number(c.price).toLocaleString('en-US', { maximumFractionDigits: 0 }) +
+        '</td><td class="num chg ' + chgClass(c.changePct) + '">' + fmtPct(c.changePct, true) + '</td></tr>';
+    }).join('') || '<tr><td colspan="4" class="tiny">沒有上月對照</td></tr>';
+    if (basketTable) {
+      basketTable.tHead.innerHTML = '<tr><th>#</th><th></th><th>卡</th><th class="num">USD ungraded</th><th class="num">1M %</th></tr>';
+    }
+    if (basketBlurb) {
+      basketBlurb.innerHTML = '英文 Base 追逐名單（Holo＋Rare）。USD 是 PriceCharting used。點名稱打開 PriceCharting。這不是日版 PSA10 權重表。';
+    }
+    const fx = $('basketFxNote');
+    if (fx) fx.textContent = '不換算日圓。1M% 是對上一個有價月份，不是日報酬。';
+    const basket = row.basket || [];
+    $('basketCountPill').textContent = String(basket.length);
+    $('basketBody').innerHTML = basket.map((c, i) => {
+      const img = c.image ? '<img class="card-thumb" src="' + escapeHtml(c.image) + '" alt="" width="32" height="44" loading="lazy" decoding="async" />' : '';
+      const name = c.url ? '<a href="' + escapeHtml(c.url) + '" target="_blank" rel="noopener">' + escapeHtml(c.name || '') + '</a>' : escapeHtml(c.name || '');
+      const usd = c.price == null ? '—' : ('$' + Number(c.price).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+      return '<tr><td class="num">' + (i + 1) + '</td><td>' + img + '</td><td class="name-cell">' + name +
+        '<div class="tiny">' + escapeHtml(c.number || '') + ' · ' + escapeHtml(c.rarity || '') + '</div></td>' +
+        '<td class="num">' + usd + '</td><td class="num chg ' + chgClass(c.changePct) + '">' +
+        fmtPct(c.changePct, true) + '</td></tr>';
+    }).join('') || '<tr><td colspan="5" class="tiny">籃子尚未建立</td></tr>';
+    document.querySelectorAll('.movers thead th.num').forEach((th, i) => {
+      if (i % 2 === 0) th.textContent = 'USD';
+    });
+    document.querySelectorAll('.movers h2 .pill').forEach((el) => { el.textContent = '1M'; });
+    const fresh = $('dataFreshness');
+    if (fresh) {
+      fresh.className = 'data-freshness';
+      fresh.textContent = 'EN Base · PriceCharting 月圖 ' + (row.asOfDate || '') +
+        ' · ungraded used · 2023-01-01＝1000 · 日版六條仍是 SNK，沒有被換掉';
+    }
+    const hint = $('enBaseHint');
+    if (hint) {
+      const slug = row.hash || '1st';
+      hint.innerHTML = '正在看 <b>EN Base · PriceCharting</b>（' + escapeHtml(row.nameZh || enKey) +
+        '）。日版六條仍在上面；點回去即回到 SNK 基準。完整頁：<a href="./market-vintage.html#pc/' +
+        escapeHtml(slug) + '">Base 復古 · PC 月線</a>。';
+    }
+  }
+  function restoreJpChrome() {
+    document.body.classList.remove('is-en-base');
+    ['1D', '5D'].forEach((p) => {
+      const btn = document.querySelector('.period-btns [data-period="' + p + '"]');
+      if (!btn) return;
+      btn.disabled = false;
+      btn.removeAttribute('title');
+    });
+    if (basketTable && basketHeadHtml) basketTable.tHead.innerHTML = basketHeadHtml;
+    if (basketBlurb) basketBlurb.innerHTML = basketBlurbHtml;
+    const fx = $('basketFxNote');
+    if (fx) fx.textContent = 'PSA10 刊價以港元顯示。資料仍為 SNKRDUNK 日圓成交圖價；換算 HK$＝¥÷20.3（與開盒 EV 同一固定顯示匯率，非正式即時牌價）。';
+    const mBtn = document.querySelector('.period-btns [data-period="30D"]');
+    if (mBtn) mBtn.textContent = '30D';
+    document.querySelectorAll('.movers thead th.num').forEach((th, i) => {
+      if (i % 2 === 0) th.textContent = '¥';
+    });
+    document.querySelectorAll('.movers h2 .pill').forEach((el) => { el.textContent = '1D'; });
+    const heading = $('levelHeading');
+    if (heading) heading.textContent = '四條水平 + 廣度';
+    renderFreshness();
+  }
+
   function paint() {
+    renderEnTabs();
+    if (mode === 'en') {
+      renderTabs();
+      syncPeriodBtns();
+      renderEn();
+      return;
+    }
+    restoreJpChrome();
     renderTabs();
     enablePeriods();
     syncPeriodBtns();
@@ -1077,6 +1320,12 @@
   }
 
   function paintTenor() {
+    if (mode === 'en') {
+      renderEnTabs();
+      syncPeriodBtns();
+      renderEn();
+      return;
+    }
     syncPeriodBtns();
     renderTabs();
     renderHero();
@@ -1085,6 +1334,7 @@
 
   function setActive(key) {
     if (!seriesBlob(key)) return;
+    mode = 'jp';
     activeKey = key;
     if (history.replaceState) history.replaceState(null, '', '#' + key);
     else location.hash = key;
@@ -1096,6 +1346,21 @@
     if (!btn) return;
     setActive(btn.getAttribute('data-key'));
   });
+  const enTabs = $('enBaseTabs');
+  if (enTabs) {
+    enTabs.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-en]');
+      if (!btn || !PC || !PC.indexes) return;
+      const id = btn.getAttribute('data-en');
+      if (!PC.indexes[id]) return;
+      mode = 'en';
+      enKey = id;
+      const next = '#' + (EN_TO_HASH[id] || 'en-1st');
+      if (history.replaceState) history.replaceState(null, '', next);
+      else location.hash = next;
+      paint();
+    });
+  }
   document.querySelectorAll('.period-btns .period-btn[data-period]').forEach((btn) => {
     btn.addEventListener('click', () => {
       if (btn.disabled) return;
@@ -1129,6 +1394,12 @@
   });
   window.addEventListener('hashchange', () => {
     const h = (location.hash || '').replace('#', '');
+    if (EN_FROM_HASH[h] && PC && PC.indexes && PC.indexes[EN_FROM_HASH[h]]) {
+      mode = 'en';
+      enKey = EN_FROM_HASH[h];
+      paint();
+      return;
+    }
     if (ORDER.indexOf(h) >= 0) setActive(h);
   });
   if (window.JpPsa10Ui && JpPsa10Ui.syncLegendButtons) JpPsa10Ui.syncLegendButtons(document, visible);

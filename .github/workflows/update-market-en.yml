@@ -43,6 +43,7 @@ jobs:
           python3 tools/backfill_tickermint.py --self-test
           python3 tools/backfill_tickermint_vintage.py --self-test
           python3 tools/refresh_market_vintage.py --self-test
+          python3 tools/refresh_market_vintage_pc.py --self-test
           python3 tools/refresh_market_midera.py --self-test
           python3 tools/backfill_tickermint_midera.py --self-test
           python3 tools/export_chase_fit.py --self-test
@@ -76,6 +77,7 @@ jobs:
           python3 tools/backfill_tickermint.py --self-test
           python3 tools/backfill_tickermint_vintage.py --self-test
           python3 tools/refresh_market_vintage.py --self-test
+          python3 tools/refresh_market_vintage_pc.py --self-test
           python3 tools/refresh_market_midera.py --self-test
           python3 tools/backfill_tickermint_midera.py --self-test
           python3 tools/export_chase_fit.py --self-test

@@ -14,6 +14,8 @@ Preview: `python3 -m http.server 8765` then open `http://127.0.0.1:8765/` (or th
 
 Market pages: EN / vintage / mid-era via `.github/workflows/update-market-en.yml`; JP PSA10 chase 60 via `update-market-jp-psa10.yml`; JP PSA10 **broad benchmark** (`market-jp-psa10-bench.html`) via `update-market-jp-psa10-bench.yml` (daily weights, quarterly membership). Do not replace the chase-60 page with the benchmark.
 
+English Base **PriceCharting** indexes (1st Edition, Shadowless, Unlimited, Base Set 2) live in `data/market-vintage-pc/` and refresh via `update-market-vintage-pc.yml`. They are ungraded `used` prices, monthly, rebased so 2023-01-01 = 1000. Open them at `market-vintage.html#pc/1st` or from the bench page’s **EN Base · PriceCharting** row (`#en-1st`, `#en-shadowless`, `#en-unlimited`, `#en-base2`). Do not source them from SNKRDUNK, and do not replace the JP PSA10 series with them. The TCGPlayer vintage tape in `data/market-vintage/` stays on its own 2024-02-08 chain.
+
 ## Weekly Chase_Fit snapshot
 
 Public page `chase-fit.html` is a **static** JSON snapshot. Market pages auto-update via `.github/workflows/update-market-en.yml`; **Chase 公允值 and Box EV do not.**
