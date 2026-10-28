@@ -1,0 +1,1339 @@
+{
+  "version": 1,
+  "source": "PriceCharting public console JSON + game-page VGPC.chart_data",
+  "priceColumn": "used",
+  "priceColumnMeaning": "Ungraded / loose raw guide price. Not PSA 10, not SNKRDUNK.",
+  "rule": "Fixed chase baskets: English Base Set and Base Set 2, Holo Rare + Rare (catalog numbers 1–22 and 70–79, the same cut as market-vintage). Machamp #8 is included only when that printing has a catalog slug. Energy (including Double Colorless #96), commons, uncommons, sealed, and error variants are omitted. Slugs are copied from data/base-psa-pop/catalog.json. Product ids are copied from console JSON.",
+  "history": "Monthly points from PriceCharting VGPC.chart_data.used (cents → USD). A month needs at least 15 positive prints. Rebase: 2023-01-01 (or the first later thick month) = 1000. No weekly interpolation. No SNKRDUNK.",
+  "gaps": [
+    {
+      "index": "base-unlimited",
+      "name": "Machamp",
+      "number": "008/102",
+      "reason": "No PriceCharting slug for Unlimited in base-psa-pop catalog"
+    },
+    {
+      "index": "base-set-2",
+      "name": "Machamp",
+      "number": "008/102",
+      "reason": "No PriceCharting slug for Base Set 2 in base-psa-pop catalog"
+    },
+    {
+      "index": "base-set-2",
+      "name": "Clefairy Doll",
+      "number": "070/102",
+      "reason": "No PriceCharting slug for Base Set 2 in base-psa-pop catalog"
+    },
+    {
+      "index": "base-set-2",
+      "name": "Devolution Spray",
+      "number": "072/102",
+      "reason": "No PriceCharting slug for Base Set 2 in base-psa-pop catalog"
+    }
+  ],
+  "indexOrder": [
+    "base-1st",
+    "base-shadowless",
+    "base-unlimited",
+    "base-set-2"
+  ],
+  "indexes": {
+    "base-1st": {
+      "id": "base-1st",
+      "name": "Base 1st Edition",
+      "nameZh": "Base 第一版",
+      "printing": "1st Edition",
+      "setName": "Base Set",
+      "hash": "1st",
+      "print": "1st",
+      "universe": "English Base Set 1st Edition raw / ungraded (PriceCharting used column)",
+      "pcColumn": "used",
+      "constituentCount": 32,
+      "constituents": [
+        {
+          "cardId": "alakazam",
+          "name": "Alakazam",
+          "number": "001/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/alakazam-1st-edition-1",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/alakazam-1st-edition-1",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/duqotgi7c37yfwcq/60.jpg",
+          "id": "715590"
+        },
+        {
+          "cardId": "blastoise",
+          "name": "Blastoise",
+          "number": "002/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/blastoise-1st-edition-2",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/blastoise-1st-edition-2",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/d6b3d8aa2831f1e34e9480af1358692508e1d3070050e728bda8d5edbca95f9e/60.jpg",
+          "id": "715591"
+        },
+        {
+          "cardId": "chansey",
+          "name": "Chansey",
+          "number": "003/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/chansey-1st-edition-3",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/chansey-1st-edition-3",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/a602c8cbd84ed4a7b505f5a7841c1644687ff59f30293c5150125c2a132de762/60.jpg",
+          "id": "715592"
+        },
+        {
+          "cardId": "charizard",
+          "name": "Charizard",
+          "number": "004/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/charizard-1st-edition-4",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/charizard-1st-edition-4",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/gmkd37jg7haprczl/60.jpg",
+          "id": "715593"
+        },
+        {
+          "cardId": "clefairy",
+          "name": "Clefairy",
+          "number": "005/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/clefairy-1st-edition-5",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/clefairy-1st-edition-5",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/f534a660ab57c928a7a373b45ee38eae31748dc6c4001a117c6b20f64968cb81/60.jpg",
+          "id": "715594"
+        },
+        {
+          "cardId": "gyarados",
+          "name": "Gyarados",
+          "number": "006/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/gyarados-1st-edition-6",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/gyarados-1st-edition-6",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/3cdea58f46b3cb01300307b708c1028673aba685dee3baa36dab1a1aea81561a/60.jpg",
+          "id": "715595"
+        },
+        {
+          "cardId": "hitmonchan",
+          "name": "Hitmonchan",
+          "number": "007/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/hitmonchan-1st-edition-7",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/hitmonchan-1st-edition-7",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/79440b678687a2f1c50360ededa191b9c2d394e24d409ba63b0455defb851cce/60.jpg",
+          "id": "715596"
+        },
+        {
+          "cardId": "machamp",
+          "name": "Machamp",
+          "number": "008/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/machamp-1st-edition-8",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/machamp-1st-edition-8",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/91aa3156232af474ab31532da48755643508b4ba4039ddb1989a3f933b70e118/60.jpg",
+          "id": "715597"
+        },
+        {
+          "cardId": "magneton",
+          "name": "Magneton",
+          "number": "009/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/magneton-1st-edition-9",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/magneton-1st-edition-9",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/4d5a7b84f4805866c3f406c6197f39c68bc9e88833f6b4c502bf6405fbb51e54/60.jpg",
+          "id": "715598"
+        },
+        {
+          "cardId": "mewtwo",
+          "name": "Mewtwo",
+          "number": "010/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/mewtwo-1st-edition-10",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/mewtwo-1st-edition-10",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/03c624cc81ad08565897666463df4fa337def12262431f6e447924f3977b4856/60.jpg",
+          "id": "715599"
+        },
+        {
+          "cardId": "nidoking",
+          "name": "Nidoking",
+          "number": "011/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/nidoking-1st-edition-11",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/nidoking-1st-edition-11",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/48f97527ae032172820c9aa9e6c856abf0e562118c0b3de0555b1a93b37352f9/60.jpg",
+          "id": "715600"
+        },
+        {
+          "cardId": "ninetales",
+          "name": "Ninetales",
+          "number": "012/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/ninetales-1st-edition-12",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/ninetales-1st-edition-12",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/10891af5278dd550f77ee86ecd8cc6310a031ed460d7272147599ad88bf0c8af/60.jpg",
+          "id": "715601"
+        },
+        {
+          "cardId": "poliwrath",
+          "name": "Poliwrath",
+          "number": "013/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/poliwrath-1st-edition-13",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/poliwrath-1st-edition-13",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/53ec02019771b71a598c2a35ae0cf7ecc6a63e28efdcb206f054a183f2d73a5a/60.jpg",
+          "id": "715602"
+        },
+        {
+          "cardId": "raichu",
+          "name": "Raichu",
+          "number": "014/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/raichu-1st-edition-14",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/raichu-1st-edition-14",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/b0e07eb343b230084d6af842739bfcb05de842f771722e5a9442c559f69f0ef6/60.jpg",
+          "id": "715603"
+        },
+        {
+          "cardId": "venusaur",
+          "name": "Venusaur",
+          "number": "015/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/venusaur-1st-edition-15",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/venusaur-1st-edition-15",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/qcyg7xxwfqtqqkhj/60.jpg",
+          "id": "715604"
+        },
+        {
+          "cardId": "zapdos",
+          "name": "Zapdos",
+          "number": "016/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/zapdos-1st-edition-16",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/zapdos-1st-edition-16",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/feb46c3da5c5ef2f05514e85060bf7865f4d288f0b5b90a443282dc71ddc0363/60.jpg",
+          "id": "715605"
+        },
+        {
+          "cardId": "beedrill",
+          "name": "Beedrill",
+          "number": "017/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/beedrill-1st-edition-17",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/beedrill-1st-edition-17",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/4b70a5f78f5ff90feb4925f1160591dd2c66bd80c2dc2e38713ef634b5543bfc/60.jpg",
+          "id": "715606"
+        },
+        {
+          "cardId": "dragonair",
+          "name": "Dragonair",
+          "number": "018/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/dragonair-1st-edition-18",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/dragonair-1st-edition-18",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/924b30adb179420d119dea4e5285198fa3e892af339e72b500d39dced4bce05c/60.jpg",
+          "id": "715607"
+        },
+        {
+          "cardId": "dugtrio",
+          "name": "Dugtrio",
+          "number": "019/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/dugtrio-1st-edition-19",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/dugtrio-1st-edition-19",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/71c56d0ca8501f88453948bc49b83c867cdce113c801d8d925f5b5a6a8ea72c9/60.jpg",
+          "id": "715608"
+        },
+        {
+          "cardId": "electabuzz",
+          "name": "Electabuzz",
+          "number": "020/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/electabuzz-1st-edition-20",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/electabuzz-1st-edition-20",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/8c27dcb906eac46dfee60c7c6b777d52e98155b26d19b033be5d181c64190c7d/60.jpg",
+          "id": "715609"
+        },
+        {
+          "cardId": "electrode",
+          "name": "Electrode",
+          "number": "021/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/electrode-1st-edition-21",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/electrode-1st-edition-21",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/82fd23a715fee42ab8433b6b82a08ddaea88f391a016a9df40b94bdcbe02f93e/60.jpg",
+          "id": "715610"
+        },
+        {
+          "cardId": "pidgeotto",
+          "name": "Pidgeotto",
+          "number": "022/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/pidgeotto-1st-edition-22",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/pidgeotto-1st-edition-22",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/d6c9e23d64ee9e0dc75ead478f004841f039694a22c1b926fd7174153d53916d/60.jpg",
+          "id": "715611"
+        },
+        {
+          "cardId": "clefairy-doll",
+          "name": "Clefairy Doll",
+          "number": "070/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/clefairy-doll-1st-edition-70",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/clefairy-doll-1st-edition-70",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/97e8089da5034497e6b40a0bc15523042c756a6e97cb66df82062bf812e44491/60.jpg",
+          "id": "715659"
+        },
+        {
+          "cardId": "computer-search",
+          "name": "Computer Search",
+          "number": "071/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/computer-search-1st-edition-71",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/computer-search-1st-edition-71",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/b9b166ba84fd72f9267d0378c67787bae5aa544bdb5fd55391ebf004707adef9/60.jpg",
+          "id": "715660"
+        },
+        {
+          "cardId": "devolution-spray",
+          "name": "Devolution Spray",
+          "number": "072/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/devolution-spray-1st-edition-72",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/devolution-spray-1st-edition-72",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/f7c199352a3f6caa9ec4c2c1a1138b9f315487e9566a3546250312f09efbc991/60.jpg",
+          "id": "715661"
+        },
+        {
+          "cardId": "imposter-professor-oak",
+          "name": "Imposter Professor Oak",
+          "number": "073/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/imposter-professor-oak-1st-edition-73",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/imposter-professor-oak-1st-edition-73",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/46a5566a56ca272edf9969422440584aefa88ee749fd1d21593150052710718c/60.jpg",
+          "id": "715662"
+        },
+        {
+          "cardId": "item-finder",
+          "name": "Item Finder",
+          "number": "074/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/item-finder-1st-edition-74",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/item-finder-1st-edition-74",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/92c3886e77b962895ece008d71a94a6f698accefee5135cc0819224cec789b6a/60.jpg",
+          "id": "715663"
+        },
+        {
+          "cardId": "lass",
+          "name": "Lass",
+          "number": "075/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/lass-1st-edition-75",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/lass-1st-edition-75",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/cc8df2f3140376df7e9bcbe6fec8d273ccbee04f223df8501eab6506883454e1/60.jpg",
+          "id": "715664"
+        },
+        {
+          "cardId": "pokemon-breeder",
+          "name": "Pokemon Breeder",
+          "number": "076/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/pokemon-breeder-1st-edition-76",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/pokemon-breeder-1st-edition-76",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/2bb8509a17bdda7f7e2d3e80e2d7f71d3d69c1acd07c153d0217e17da3d2f6c9/60.jpg",
+          "id": "715665"
+        },
+        {
+          "cardId": "pokemon-trader",
+          "name": "Pokemon Trader",
+          "number": "077/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/pokemon-trader-1st-edition-77",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/pokemon-trader-1st-edition-77",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/f776f71cca4fd4c2df043572ed902f2afb781d0907b37058c1c7c60fd838feaf/60.jpg",
+          "id": "715666"
+        },
+        {
+          "cardId": "scoop-up",
+          "name": "Scoop Up",
+          "number": "078/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/scoop-up-1st-edition-78",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/scoop-up-1st-edition-78",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/d2d5a458405520a3bb11b53c865660822035796852c766cd06513b85d96b56fa/60.jpg",
+          "id": "715667"
+        },
+        {
+          "cardId": "super-energy-removal",
+          "name": "Super Energy Removal",
+          "number": "079/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/super-energy-removal-1st-edition-79",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/super-energy-removal-1st-edition-79",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/065e910b5f67f9a081b9f650f621adf755d0772508dbaf219899cbb011b7988e/60.jpg",
+          "id": "715668"
+        }
+      ]
+    },
+    "base-shadowless": {
+      "id": "base-shadowless",
+      "name": "Base Shadowless",
+      "nameZh": "Base 無陰影",
+      "printing": "Shadowless",
+      "setName": "Base Set",
+      "hash": "shadowless",
+      "print": "shadowless",
+      "universe": "English Base Set Shadowless raw / ungraded (PriceCharting used column)",
+      "pcColumn": "used",
+      "constituentCount": 32,
+      "constituents": [
+        {
+          "cardId": "alakazam",
+          "name": "Alakazam",
+          "number": "001/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/alakazam-shadowless-1",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/alakazam-shadowless-1",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/4a4dd909296ebe526062a59ead421dde7db916f8f333d89e5798e20bff365b57/60.jpg",
+          "id": "715692"
+        },
+        {
+          "cardId": "blastoise",
+          "name": "Blastoise",
+          "number": "002/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/blastoise-shadowless-2",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/blastoise-shadowless-2",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/0f6ceabe0130339374548abe87c18eb15bdb5b5b4dd3fb3fce8f3b72798ea32a/60.jpg",
+          "id": "715693"
+        },
+        {
+          "cardId": "chansey",
+          "name": "Chansey",
+          "number": "003/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/chansey-shadowless-3",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/chansey-shadowless-3",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/74d5ee8e52cf40e89fdf524505d545de25ac7b766a2a880901462f278e703385/60.jpg",
+          "id": "715694"
+        },
+        {
+          "cardId": "charizard",
+          "name": "Charizard",
+          "number": "004/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/charizard-shadowless-4",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/charizard-shadowless-4",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/ym4hvnapxhl5iuny/60.jpg",
+          "id": "715695"
+        },
+        {
+          "cardId": "clefairy",
+          "name": "Clefairy",
+          "number": "005/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/clefairy-shadowless-5",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/clefairy-shadowless-5",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/7eee34634299fb9005a159567877a1efc5fc8c4008550bc3aa517095d6e48201/60.jpg",
+          "id": "715696"
+        },
+        {
+          "cardId": "gyarados",
+          "name": "Gyarados",
+          "number": "006/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/gyarados-shadowless-6",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/gyarados-shadowless-6",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/1098e89e3e172f6782b1763555e2605e57ea09b788c90a9cd537a997534d0fd4/60.jpg",
+          "id": "715697"
+        },
+        {
+          "cardId": "hitmonchan",
+          "name": "Hitmonchan",
+          "number": "007/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/hitmonchan-shadowless-7",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/hitmonchan-shadowless-7",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/ce9fdddf2c6de0d8e167460c15f19eaa553b7169a2685e729a4d6710a7feafaf/60.jpg",
+          "id": "715698"
+        },
+        {
+          "cardId": "machamp",
+          "name": "Machamp",
+          "number": "008/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/machamp-shadowless-8",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/machamp-shadowless-8",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/4e7c695819cd3a5feeb1a057fea59966a56026d083bc212896aecea47cd2c457/60.jpg",
+          "id": "715699"
+        },
+        {
+          "cardId": "magneton",
+          "name": "Magneton",
+          "number": "009/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/magneton-shadowless-9",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/magneton-shadowless-9",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/358fb8b1ad90279f6a531ff1b7a13e8d51c5153149a537f998b2c18e16fb6851/60.jpg",
+          "id": "715700"
+        },
+        {
+          "cardId": "mewtwo",
+          "name": "Mewtwo",
+          "number": "010/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/mewtwo-shadowless-10",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/mewtwo-shadowless-10",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/d46e3999b54fb769440842a1c6340cd86e599aa0d1ca8813431dff68777a08bb/60.jpg",
+          "id": "715701"
+        },
+        {
+          "cardId": "nidoking",
+          "name": "Nidoking",
+          "number": "011/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/nidoking-shadowless-11",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/nidoking-shadowless-11",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/d323690a00fc8da443fb48d5cd563f6a1e6c3ed621924eed993cf4407337a295/60.jpg",
+          "id": "715702"
+        },
+        {
+          "cardId": "ninetales",
+          "name": "Ninetales",
+          "number": "012/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/ninetales-shadowless-12",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/ninetales-shadowless-12",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/a36nolbzuqvqq5pu/60.jpg",
+          "id": "715703"
+        },
+        {
+          "cardId": "poliwrath",
+          "name": "Poliwrath",
+          "number": "013/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/poliwrath-shadowless-13",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/poliwrath-shadowless-13",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/2788408bb5e9743165fee2c12c488a2e3c8245bf297a6344363329675ef58466/60.jpg",
+          "id": "715704"
+        },
+        {
+          "cardId": "raichu",
+          "name": "Raichu",
+          "number": "014/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/raichu-shadowless-14",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/raichu-shadowless-14",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/cb8b872040b9e7d35a5703ae05b6c074779ba51fd8bbcc68e7c156bc4de8c84e/60.jpg",
+          "id": "715705"
+        },
+        {
+          "cardId": "venusaur",
+          "name": "Venusaur",
+          "number": "015/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/venusaur-shadowless-15",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/venusaur-shadowless-15",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/cc4ffb5a1f03ab3a03dd35fdec253f25f6b1a971e71b3fe369e00cfe6d4b4b03/60.jpg",
+          "id": "715706"
+        },
+        {
+          "cardId": "zapdos",
+          "name": "Zapdos",
+          "number": "016/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/zapdos-shadowless-16",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/zapdos-shadowless-16",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/1d38c9ddbbb516c9d546afb39711a3458f375ccaa250cf6e7c76cfc388b3b9b4/60.jpg",
+          "id": "715707"
+        },
+        {
+          "cardId": "beedrill",
+          "name": "Beedrill",
+          "number": "017/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/beedrill-shadowless-17",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/beedrill-shadowless-17",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/62e388d6580fdd25cfe6af48e7669872063af26d977c919e007e97f597bd8a7b/60.jpg",
+          "id": "715708"
+        },
+        {
+          "cardId": "dragonair",
+          "name": "Dragonair",
+          "number": "018/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/dragonair-shadowless-18",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/dragonair-shadowless-18",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/5a18d49166ba53783478eb92c5afa40948c2571da6c6091690edf5e2799d80b5/60.jpg",
+          "id": "715709"
+        },
+        {
+          "cardId": "dugtrio",
+          "name": "Dugtrio",
+          "number": "019/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/dugtrio-shadowless-19",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/dugtrio-shadowless-19",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/79d2e4bc8aef51cb363712595ea3e367299c73a9bbbfea445779541e252303d9/60.jpg",
+          "id": "715710"
+        },
+        {
+          "cardId": "electabuzz",
+          "name": "Electabuzz",
+          "number": "020/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/electabuzz-shadowless-20",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/electabuzz-shadowless-20",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/ec13311546fe6b8eae98ee5c1c1e996cabfb3cccb4d791772217765c1d9a6a3c/60.jpg",
+          "id": "715711"
+        },
+        {
+          "cardId": "electrode",
+          "name": "Electrode",
+          "number": "021/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/electrode-shadowless-21",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/electrode-shadowless-21",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/80f4e98ddef19bcef9ae1065cb8718605d326d1138d0f2e663bd9a8b012743f5/60.jpg",
+          "id": "715712"
+        },
+        {
+          "cardId": "pidgeotto",
+          "name": "Pidgeotto",
+          "number": "022/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/pidgeotto-shadowless-22",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/pidgeotto-shadowless-22",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/f529b2925338dcf6cf7d8958747b71ce3954b6eb27df3a134488b0873d96af16/60.jpg",
+          "id": "715713"
+        },
+        {
+          "cardId": "clefairy-doll",
+          "name": "Clefairy Doll",
+          "number": "070/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/clefairy-doll-shadowless-70",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/clefairy-doll-shadowless-70",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/cb2f43ce056d53dee28321a060f3b7e9538c8be284379c71fd7025c0e83eb4ae/60.jpg",
+          "id": "3839426"
+        },
+        {
+          "cardId": "computer-search",
+          "name": "Computer Search",
+          "number": "071/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/computer-search-shadowless-71",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/computer-search-shadowless-71",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/d07d9f237e3db8c21d813228fe494daeca93f0ccf4f6f4d7d9897ad44d2ef355/60.jpg",
+          "id": "4196417"
+        },
+        {
+          "cardId": "devolution-spray",
+          "name": "Devolution Spray",
+          "number": "072/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/devolution-spray-shadowless-72",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/devolution-spray-shadowless-72",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/048b0c71ca295da5266f466b1687eb935caf9071ea74cf11fc63c9b7954187f4/60.jpg",
+          "id": "3951785"
+        },
+        {
+          "cardId": "imposter-professor-oak",
+          "name": "Imposter Professor Oak",
+          "number": "073/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/imposter-professor-oak-shadowless-73",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/imposter-professor-oak-shadowless-73",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/5d25acb1e82e3198c6d2b7bf79b815dd7798c1ca5f0a21c95ecac8c48c1c454a/60.jpg",
+          "id": "4018040"
+        },
+        {
+          "cardId": "item-finder",
+          "name": "Item Finder",
+          "number": "074/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/item-finder-shadowless-74",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/item-finder-shadowless-74",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/fcf8375d653cb9f53ee332fe63504f1f19cd84ea0587f1a53c84403a1808d7f8/60.jpg",
+          "id": "4175589"
+        },
+        {
+          "cardId": "lass",
+          "name": "Lass",
+          "number": "075/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/lass-shadowless-75",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/lass-shadowless-75",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/e6def44c815fd20c72dd6f35facb487a95ca57c04ea88bd586cabc17a6b79e81/60.jpg",
+          "id": "4602501"
+        },
+        {
+          "cardId": "pokemon-breeder",
+          "name": "Pokemon Breeder",
+          "number": "076/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/pokemon-breeder-shadowless-76",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/pokemon-breeder-shadowless-76",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/cea63b6f0e2ffa6e0841cb9a62d5c1403aed107ee7e7581c950952365c7e2385/60.jpg",
+          "id": "6663726"
+        },
+        {
+          "cardId": "pokemon-trader",
+          "name": "Pokemon Trader",
+          "number": "077/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/pokemon-trader-shadowless-77",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/pokemon-trader-shadowless-77",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/5a91e4469c69bcf05f2c40c946e6e4819575326fe35d7640cd3a036fcbd33286/60.jpg",
+          "id": "3951781"
+        },
+        {
+          "cardId": "scoop-up",
+          "name": "Scoop Up",
+          "number": "078/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/scoop-up-shadowless-78",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/scoop-up-shadowless-78",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/0771f8bc29deb7f58679080d106924dc952e37081549bf9226f2dc944b9335a9/60.jpg",
+          "id": "6663727"
+        },
+        {
+          "cardId": "super-energy-removal",
+          "name": "Super Energy Removal",
+          "number": "079/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/super-energy-removal-shadowless-79",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/super-energy-removal-shadowless-79",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/901281cff2f0d168e6ea41439082286fe693a56da18646ebed04e207a02c10f9/60.jpg",
+          "id": "5962661"
+        }
+      ]
+    },
+    "base-unlimited": {
+      "id": "base-unlimited",
+      "name": "Base Unlimited",
+      "nameZh": "Base 無限版",
+      "printing": "Unlimited",
+      "setName": "Base Set",
+      "hash": "unlimited",
+      "print": "unlimited",
+      "universe": "English Base Set Unlimited raw / ungraded (PriceCharting used column)",
+      "pcColumn": "used",
+      "constituentCount": 31,
+      "constituents": [
+        {
+          "cardId": "alakazam",
+          "name": "Alakazam",
+          "number": "001/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/alakazam-1",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/alakazam-1",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/c377255c9193086af0d715d279d4fda50021ddd332977ac5974dd5bd004e695c/60.jpg",
+          "id": "630414"
+        },
+        {
+          "cardId": "blastoise",
+          "name": "Blastoise",
+          "number": "002/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/blastoise-2",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/blastoise-2",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/fduultrrfpaofkxz/60.jpg",
+          "id": "630415"
+        },
+        {
+          "cardId": "chansey",
+          "name": "Chansey",
+          "number": "003/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/chansey-3",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/chansey-3",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/va2mjhk5v2rtxxe3/60.jpg",
+          "id": "630416"
+        },
+        {
+          "cardId": "charizard",
+          "name": "Charizard",
+          "number": "004/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/charizard-4",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/charizard-4",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/hpgpcpsd42huitud/60.jpg",
+          "id": "630417"
+        },
+        {
+          "cardId": "clefairy",
+          "name": "Clefairy",
+          "number": "005/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/clefairy-5",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/clefairy-5",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/47d59467ece3bf922c56e3d649493160dd86c45252e7895a78693de79d34b72d/60.jpg",
+          "id": "630418"
+        },
+        {
+          "cardId": "gyarados",
+          "name": "Gyarados",
+          "number": "006/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/gyarados-6",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/gyarados-6",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/416dd89a3567bdca9fbccd2a751c54557bd9cf2210351de3e8913949659c6be3/60.jpg",
+          "id": "630419"
+        },
+        {
+          "cardId": "hitmonchan",
+          "name": "Hitmonchan",
+          "number": "007/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/hitmonchan-7",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/hitmonchan-7",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/e31d05739c6a5449f22f91f25332c068c07a768deac903c6df7f70988f42df7b/60.jpg",
+          "id": "630420"
+        },
+        {
+          "cardId": "magneton",
+          "name": "Magneton",
+          "number": "009/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/magneton-9",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/magneton-9",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/90a71879c545bc03fb68e55744b2fb845ef4af2c25360b72410d7f8a6f9c3267/60.jpg",
+          "id": "630422"
+        },
+        {
+          "cardId": "mewtwo",
+          "name": "Mewtwo",
+          "number": "010/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/mewtwo-10",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/mewtwo-10",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/0374cd52bb22be6591b9807241107c22c6f72b2f071869c6e6342a156be99e10/60.jpg",
+          "id": "630423"
+        },
+        {
+          "cardId": "nidoking",
+          "name": "Nidoking",
+          "number": "011/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/nidoking-11",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/nidoking-11",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/ub7hurj6g3mqkl5f/60.jpg",
+          "id": "630424"
+        },
+        {
+          "cardId": "ninetales",
+          "name": "Ninetales",
+          "number": "012/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/ninetales-12",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/ninetales-12",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/ywmwry3xp24ylmc4/60.jpg",
+          "id": "630425"
+        },
+        {
+          "cardId": "poliwrath",
+          "name": "Poliwrath",
+          "number": "013/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/poliwrath-13",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/poliwrath-13",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/548a35b585a2a50ad54d63bc2f5af5582d72f5bb53015b910299d38c50d7f68c/60.jpg",
+          "id": "630426"
+        },
+        {
+          "cardId": "raichu",
+          "name": "Raichu",
+          "number": "014/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/raichu-14",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/raichu-14",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/69fc4a31bea50863341ef21ae87bdb487a377ab96612ddd2ebc39d0641748b8c/60.jpg",
+          "id": "630427"
+        },
+        {
+          "cardId": "venusaur",
+          "name": "Venusaur",
+          "number": "015/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/venusaur-15",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/venusaur-15",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/jw45qdlqbx652hmf/60.jpg",
+          "id": "630428"
+        },
+        {
+          "cardId": "zapdos",
+          "name": "Zapdos",
+          "number": "016/102",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set/zapdos-16",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/zapdos-16",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/c68de3d4f63adc0f7f641ea513dd197356860fc3326d955def5c17c70052bcfc/60.jpg",
+          "id": "630429"
+        },
+        {
+          "cardId": "beedrill",
+          "name": "Beedrill",
+          "number": "017/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/beedrill-17",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/beedrill-17",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/efade3f4100c2a1bf6ec2f4e65d788f6361aae38cc5ffaaf3f51c9b420df95d1/60.jpg",
+          "id": "630430"
+        },
+        {
+          "cardId": "dragonair",
+          "name": "Dragonair",
+          "number": "018/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/dragonair-18",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/dragonair-18",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/e805ef557d66e90720de87fc4d63ccf50f9f297782beea8c34528749a25ad8e3/60.jpg",
+          "id": "630431"
+        },
+        {
+          "cardId": "dugtrio",
+          "name": "Dugtrio",
+          "number": "019/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/dugtrio-19",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/dugtrio-19",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/5a96e2fd169a44955e885eaadad4faa4d130ed6f9c5c57ee838b4bda792f2562/60.jpg",
+          "id": "630432"
+        },
+        {
+          "cardId": "electabuzz",
+          "name": "Electabuzz",
+          "number": "020/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/electabuzz-20",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/electabuzz-20",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/7ec0f0681dfc689a63b1cd5f21fa72fd7b2d4dbab05f13c69fde1a5510d64fbb/60.jpg",
+          "id": "630433"
+        },
+        {
+          "cardId": "electrode",
+          "name": "Electrode",
+          "number": "021/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/electrode-21",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/electrode-21",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/c54cbefe9c00f617cc319af6430f89c91ccd91d7edfb6a1c4020d6272256a3f7/60.jpg",
+          "id": "630434"
+        },
+        {
+          "cardId": "pidgeotto",
+          "name": "Pidgeotto",
+          "number": "022/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/pidgeotto-22",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/pidgeotto-22",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/f7072a74fadb261664ce884fb01b9f8aa44e1cb6c200e9b906673b487dac3c5c/60.jpg",
+          "id": "630435"
+        },
+        {
+          "cardId": "clefairy-doll",
+          "name": "Clefairy Doll",
+          "number": "070/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/clefairy-doll-70",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/clefairy-doll-70",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/9bf04bbc24c63173bfd520dc8a46bca5fbc44b2cb59e13acb8ff4d65eb182c3f/60.jpg",
+          "id": "630483"
+        },
+        {
+          "cardId": "computer-search",
+          "name": "Computer Search",
+          "number": "071/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/computer-search-71",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/computer-search-71",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/39d8fc2134c79f277549e0dcc77fec15de5514911d4b0c9d2077aaf547ef9bdb/60.jpg",
+          "id": "630484"
+        },
+        {
+          "cardId": "devolution-spray",
+          "name": "Devolution Spray",
+          "number": "072/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/devolution-spray-72",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/devolution-spray-72",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/397826871398429aad292675fca029bf24a09ca23e92465843c6197d8e06c3a1/60.jpg",
+          "id": "630485"
+        },
+        {
+          "cardId": "imposter-professor-oak",
+          "name": "Imposter Professor Oak",
+          "number": "073/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/imposter-professor-oak-73",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/imposter-professor-oak-73",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/70280d9dc2082a4f2e4595c5c769e2667cd7692a6fb704572558d620406719a8/60.jpg",
+          "id": "630486"
+        },
+        {
+          "cardId": "item-finder",
+          "name": "Item Finder",
+          "number": "074/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/item-finder-74",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/item-finder-74",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/2487c904fa6542b7674adbe605088bcd1aada54fd95d23db5d5cc0b4ae41bc2d/60.jpg",
+          "id": "630487"
+        },
+        {
+          "cardId": "lass",
+          "name": "Lass",
+          "number": "075/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/lass-75",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/lass-75",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/2573c911f83b9ef8439344588a2e45acf0bdd2df113894da2be6688a74e6d53f/60.jpg",
+          "id": "630488"
+        },
+        {
+          "cardId": "pokemon-breeder",
+          "name": "Pokemon Breeder",
+          "number": "076/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/pokemon-breeder-76",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/pokemon-breeder-76",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/99e6009bbcb365602965f6329e9d663dca4dc8c621ae2abf61577818b9d683d0/60.jpg",
+          "id": "630489"
+        },
+        {
+          "cardId": "pokemon-trader",
+          "name": "Pokemon Trader",
+          "number": "077/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/pokemon-trader-77",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/pokemon-trader-77",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/wtjho332v5gnfesh/60.jpg",
+          "id": "630490"
+        },
+        {
+          "cardId": "scoop-up",
+          "name": "Scoop Up",
+          "number": "078/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/scoop-up-78",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/scoop-up-78",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/7eb879ff293ffefe11051bba578f18ef74152c6d5b36ddf679a8ed0ada59296c/60.jpg",
+          "id": "630491"
+        },
+        {
+          "cardId": "super-energy-removal",
+          "name": "Super Energy Removal",
+          "number": "079/102",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set/super-energy-removal-79",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set/super-energy-removal-79",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/579e3cfd068a1d61abc3138028b30415dc1d1d9f50e82a32a20b89249521d648/60.jpg",
+          "id": "630492"
+        }
+      ]
+    },
+    "base-set-2": {
+      "id": "base-set-2",
+      "name": "Base Set 2",
+      "nameZh": "Base Set 2",
+      "printing": "Base Set 2",
+      "setName": "Base Set 2",
+      "hash": "base2",
+      "print": "base2",
+      "universe": "English Base Set 2 Base Set 2 raw / ungraded (PriceCharting used column)",
+      "pcColumn": "used",
+      "constituentCount": 29,
+      "constituents": [
+        {
+          "cardId": "alakazam",
+          "name": "Alakazam",
+          "number": "001/130",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set-2/alakazam-1",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set-2/alakazam-1",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/e710fb1b098b3bd1d6c567fd928899451859e48b81cb7ccd2cbe19b793d4b3a5/60.jpg",
+          "id": "643564"
+        },
+        {
+          "cardId": "blastoise",
+          "name": "Blastoise",
+          "number": "002/130",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set-2/blastoise-2",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set-2/blastoise-2",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/2593812ba6739d226583fa2dab581a20a953c6a93f281fe2e1a668c23b10e458/60.jpg",
+          "id": "641805"
+        },
+        {
+          "cardId": "chansey",
+          "name": "Chansey",
+          "number": "003/130",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set-2/chansey-3",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set-2/chansey-3",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/f687d30ce393f57b5abfe71dad5bf59ece3111ed9b45b10a146ce293b10cbc25/60.jpg",
+          "id": "641806"
+        },
+        {
+          "cardId": "charizard",
+          "name": "Charizard",
+          "number": "004/130",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set-2/charizard-4",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set-2/charizard-4",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/ho5lggvzrgauqotu/60.jpg",
+          "id": "641807"
+        },
+        {
+          "cardId": "clefairy",
+          "name": "Clefairy",
+          "number": "006/130",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set-2/clefairy-6",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set-2/clefairy-6",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/b1b83a0598760028c6ca15ce233335e7c786cd26d77638616559503d8b1e0e99/60.jpg",
+          "id": "641809"
+        },
+        {
+          "cardId": "gyarados",
+          "name": "Gyarados",
+          "number": "007/130",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set-2/gyarados-7",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set-2/gyarados-7",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/12f865eb764f662e77a99861b2e902885b9876bdc5bce3b565106058618601f3/60.jpg",
+          "id": "641810"
+        },
+        {
+          "cardId": "hitmonchan",
+          "name": "Hitmonchan",
+          "number": "008/130",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set-2/hitmonchan-8",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set-2/hitmonchan-8",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/04b4aa53fb6790bfd441f4584742709fb1655ca71434aae70ff6063b81c22598/60.jpg",
+          "id": "641811"
+        },
+        {
+          "cardId": "magneton",
+          "name": "Magneton",
+          "number": "009/130",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set-2/magneton-9",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set-2/magneton-9",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/ec9d5e99dad9edb39ae7ff8e5eeabee820d9c83519d8c3c38b4e0461d9f55dbf/60.jpg",
+          "id": "641812"
+        },
+        {
+          "cardId": "mewtwo",
+          "name": "Mewtwo",
+          "number": "010/130",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set-2/mewtwo-10",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set-2/mewtwo-10",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/5cabf0475f63a700f98889112fce056c038460ea4907a864b9361781dec223cb/60.jpg",
+          "id": "641813"
+        },
+        {
+          "cardId": "nidoking",
+          "name": "Nidoking",
+          "number": "011/130",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set-2/nidoking-11",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set-2/nidoking-11",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/a9ebd1055aa577510e8fb4922c234be0bb0ebaf320cdbac311002a0ce608eee5/60.jpg",
+          "id": "641814"
+        },
+        {
+          "cardId": "ninetales",
+          "name": "Ninetales",
+          "number": "013/130",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set-2/ninetales-13",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set-2/ninetales-13",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/c33feedbf61046365e31e4ef80d6488553f6c84d7db327936a57bd77a8edae86/60.jpg",
+          "id": "641816"
+        },
+        {
+          "cardId": "poliwrath",
+          "name": "Poliwrath",
+          "number": "015/130",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set-2/poliwrath-15",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set-2/poliwrath-15",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/efe7da3ea90afe984013bbd053d9e1a5bdd728bd46e2d60ecad4417022cb1e17/60.jpg",
+          "id": "641818"
+        },
+        {
+          "cardId": "raichu",
+          "name": "Raichu",
+          "number": "016/130",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set-2/raichu-16",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set-2/raichu-16",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/315de17590ef16311329bf184b8a80e077040c0ba1d19a4856716e0af8e837e2/60.jpg",
+          "id": "641819"
+        },
+        {
+          "cardId": "venusaur",
+          "name": "Venusaur",
+          "number": "018/130",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set-2/venusaur-18",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set-2/venusaur-18",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/8c05a4c38863313592a644913095babf9e246c7f06645dc4772288e6a88888fc/60.jpg",
+          "id": "641821"
+        },
+        {
+          "cardId": "zapdos",
+          "name": "Zapdos",
+          "number": "020/130",
+          "rarity": "Holo Rare",
+          "slug": "pokemon-base-set-2/zapdos-20",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set-2/zapdos-20",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/0e4246f5176056d68a6a3779defbf2af6bfbfc83709215d344e67067b4f87eb8/60.jpg",
+          "id": "641823"
+        },
+        {
+          "cardId": "beedrill",
+          "name": "Beedrill",
+          "number": "021/130",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set-2/beedrill-21",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set-2/beedrill-21",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/e04da3d69677defe66ab996fecd5e985bc3aee32d91dd760ee7c2a8fa412f082/60.jpg",
+          "id": "641824"
+        },
+        {
+          "cardId": "dragonair",
+          "name": "Dragonair",
+          "number": "022/130",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set-2/dragonair-22",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set-2/dragonair-22",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/40d3aa7e500e828de72e4f6582a1f1f2221a059115b3d18b12eb69cddb09b868/60.jpg",
+          "id": "641825"
+        },
+        {
+          "cardId": "dugtrio",
+          "name": "Dugtrio",
+          "number": "023/130",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set-2/dugtrio-23",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set-2/dugtrio-23",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/72faf7cd386150e8e78e10d67a15119c394c5c69f51d2ffd3cf01598e836b6fb/60.jpg",
+          "id": "641826"
+        },
+        {
+          "cardId": "electabuzz",
+          "name": "Electabuzz",
+          "number": "024/130",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set-2/electabuzz-24",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set-2/electabuzz-24",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/42d1f9366522bb02f4c5f0662d5a0edc686bc157ef446604d5ea2b98e6d24de6/60.jpg",
+          "id": "641827"
+        },
+        {
+          "cardId": "electrode",
+          "name": "Electrode",
+          "number": "025/130",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set-2/electrode-25",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set-2/electrode-25",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/5e3041117b287913d38503400c1fed45230f1b0a3518da8da5f240c100b01246/60.jpg",
+          "id": "641828"
+        },
+        {
+          "cardId": "pidgeotto",
+          "name": "Pidgeotto",
+          "number": "028/130",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set-2/pidgeotto-28",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set-2/pidgeotto-28",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/0f6491ca1ebf88ede8871a3730dc3457a0a53c88f5ebeef5f5399a831d40ea63/60.jpg",
+          "id": "641831"
+        },
+        {
+          "cardId": "computer-search",
+          "name": "Computer Search",
+          "number": "101/130",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set-2/computer-search-101",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set-2/computer-search-101",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/b17a57aecd1fc3dc156e89eb523cd26cd1670fe29f618d8da1018ac7ad191f65/60.jpg",
+          "id": "641903"
+        },
+        {
+          "cardId": "imposter-professor-oak",
+          "name": "Imposter Professor Oak",
+          "number": "102/130",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set-2/imposter-professor-oak-102",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set-2/imposter-professor-oak-102",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/37c43f2e017766e25a89b83632c146c7ba81cf872e155dd1dc827c36409f48aa/60.jpg",
+          "id": "641904"
+        },
+        {
+          "cardId": "item-finder",
+          "name": "Item Finder",
+          "number": "103/130",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set-2/item-finder-103",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set-2/item-finder-103",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/9e934a7950a85cd1aa3d0a9a57a9c9da253925228c300c9876e8f707f8c42a69/60.jpg",
+          "id": "641905"
+        },
+        {
+          "cardId": "lass",
+          "name": "Lass",
+          "number": "104/130",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set-2/lass-104",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set-2/lass-104",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/e52648d78b98e6c90f479f8d8d855890744b1d45160abf4e821cfae55f2fdf48/60.jpg",
+          "id": "641906"
+        },
+        {
+          "cardId": "pokemon-breeder",
+          "name": "Pokemon Breeder",
+          "number": "105/130",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set-2/pokemon-breeder-105",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set-2/pokemon-breeder-105",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/f00ab70210364cb032f8a303f64ca9f7c3f9437c0864d976917a22d0f262d0c8/60.jpg",
+          "id": "641907"
+        },
+        {
+          "cardId": "pokemon-trader",
+          "name": "Pokemon Trader",
+          "number": "106/130",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set-2/pokemon-trader-106",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set-2/pokemon-trader-106",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/55b94246754ebe27aff555b0ad8859e876f2cc905ffb9e3f419cdd02c45b711c/60.jpg",
+          "id": "641908"
+        },
+        {
+          "cardId": "scoop-up",
+          "name": "Scoop Up",
+          "number": "107/130",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set-2/scoop-up-107",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set-2/scoop-up-107",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/dd136bbdf38d440cd2aa4b1ffcb1ff941d2dc9bdc6caf355a780564bf29e9e7e/60.jpg",
+          "id": "641909"
+        },
+        {
+          "cardId": "super-energy-removal",
+          "name": "Super Energy Removal",
+          "number": "108/130",
+          "rarity": "Rare",
+          "slug": "pokemon-base-set-2/super-energy-removal-108",
+          "url": "https://www.pricecharting.com/game/pokemon-base-set-2/super-energy-removal-108",
+          "image": "https://storage.googleapis.com/images.pricecharting.com/62dfff2d2b2c68414d8cb974a3c02b4f768652dd1f3cd59ad20cb95e623f1f07/60.jpg",
+          "id": "641910"
+        }
+      ]
+    }
+  },
+  "generated": "2026-10-28T06:22:28.710315+00:00"
+}

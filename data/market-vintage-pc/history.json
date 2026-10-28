@@ -1,0 +1,2303 @@
+{
+  "generated": "2026-10-28T06:24:14.678308+00:00",
+  "baseValue": 1000.0,
+  "anchorRule": "2023-01-01 or the first later month with >= 15 priced cards = 1000",
+  "cadence": "monthly",
+  "cadenceNote": "PriceCharting public VGPC.chart_data is one ungraded (used) point per month. Weekly points are not published on that chart and are not interpolated.",
+  "priceSource": "pricecharting",
+  "pcColumn": "used",
+  "backfill": {
+    "source": "pricecharting",
+    "script": "tools/refresh_market_vintage_pc.py",
+    "column": "used",
+    "anchor": "2023-01-01",
+    "minPriced": 15,
+    "minOverlap": 12
+  },
+  "indexOrder": [
+    "base-1st",
+    "base-shadowless",
+    "base-unlimited",
+    "base-set-2"
+  ],
+  "indexes": {
+    "base-1st": {
+      "generated": "2026-10-28T06:24:14.678308+00:00",
+      "baseValue": 1000.0,
+      "baseDate": "2023-01-01",
+      "firstDate": "2021-01-01",
+      "lastDate": "2026-10-01",
+      "source": "pricecharting",
+      "pcColumn": "used",
+      "points": [
+        {
+          "date": "2021-01-01",
+          "index": 933.96,
+          "totalValue": 6605.34,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2021-02-01",
+          "index": 719.77,
+          "totalValue": 5090.48,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2021-03-01",
+          "index": 1523.7,
+          "totalValue": 10776.19,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2021-04-01",
+          "index": 1319.77,
+          "totalValue": 9333.91,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2021-05-01",
+          "index": 1300.69,
+          "totalValue": 9198.99,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2021-06-01",
+          "index": 1258.26,
+          "totalValue": 8898.91,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2021-07-01",
+          "index": 1319.79,
+          "totalValue": 9334.09,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2021-08-01",
+          "index": 1314.07,
+          "totalValue": 9293.62,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2021-09-01",
+          "index": 1161.39,
+          "totalValue": 8213.78,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2021-10-01",
+          "index": 1179.95,
+          "totalValue": 8345.09,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2021-11-01",
+          "index": 1010.59,
+          "totalValue": 7147.32,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2021-12-01",
+          "index": 961.05,
+          "totalValue": 6796.91,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2022-01-01",
+          "index": 1028.81,
+          "totalValue": 7276.16,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2022-02-01",
+          "index": 1151.4,
+          "totalValue": 8143.15,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2022-03-01",
+          "index": 1172.03,
+          "totalValue": 8289.04,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2022-04-01",
+          "index": 1167.02,
+          "totalValue": 8253.65,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2022-05-01",
+          "index": 1182.97,
+          "totalValue": 8366.41,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2022-06-01",
+          "index": 1186.11,
+          "totalValue": 8388.61,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2022-07-01",
+          "index": 1203.6,
+          "totalValue": 8512.34,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2022-08-01",
+          "index": 1206.07,
+          "totalValue": 8529.8,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2022-09-01",
+          "index": 1115.77,
+          "totalValue": 7891.17,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2022-10-01",
+          "index": 1161.19,
+          "totalValue": 8212.37,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2022-11-01",
+          "index": 1173.57,
+          "totalValue": 8299.97,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2022-12-01",
+          "index": 937.3,
+          "totalValue": 6628.97,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2023-01-01",
+          "index": 1000.0,
+          "totalValue": 7072.4,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2023-02-01",
+          "index": 1013.14,
+          "totalValue": 7165.32,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2023-03-01",
+          "index": 963.47,
+          "totalValue": 6814.07,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2023-04-01",
+          "index": 870.43,
+          "totalValue": 6156.02,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2023-05-01",
+          "index": 823.48,
+          "totalValue": 5823.97,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2023-06-01",
+          "index": 834.33,
+          "totalValue": 5900.71,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2023-07-01",
+          "index": 880.41,
+          "totalValue": 6226.58,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2023-08-01",
+          "index": 931.77,
+          "totalValue": 6589.85,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2023-09-01",
+          "index": 890.65,
+          "totalValue": 6299.0,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2023-10-01",
+          "index": 926.89,
+          "totalValue": 6555.36,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2023-11-01",
+          "index": 789.37,
+          "totalValue": 5582.76,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2023-12-01",
+          "index": 839.14,
+          "totalValue": 5934.71,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2024-01-01",
+          "index": 905.72,
+          "totalValue": 6405.64,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2024-02-01",
+          "index": 808.5,
+          "totalValue": 5718.06,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2024-03-01",
+          "index": 777.65,
+          "totalValue": 5499.83,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2024-04-01",
+          "index": 793.96,
+          "totalValue": 5615.22,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2024-05-01",
+          "index": 861.06,
+          "totalValue": 6089.73,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2024-06-01",
+          "index": 909.02,
+          "totalValue": 6428.96,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2024-07-01",
+          "index": 992.66,
+          "totalValue": 7020.52,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2024-08-01",
+          "index": 1103.99,
+          "totalValue": 7807.88,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2024-09-01",
+          "index": 1085.95,
+          "totalValue": 7680.28,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2024-10-01",
+          "index": 1276.74,
+          "totalValue": 9029.62,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2024-11-01",
+          "index": 1281.48,
+          "totalValue": 9063.16,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2024-12-01",
+          "index": 1311.49,
+          "totalValue": 9275.36,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2025-01-01",
+          "index": 1244.94,
+          "totalValue": 8804.69,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2025-02-01",
+          "index": 1393.55,
+          "totalValue": 9855.73,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2025-03-01",
+          "index": 1375.38,
+          "totalValue": 9727.24,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2025-04-01",
+          "index": 1516.31,
+          "totalValue": 10723.97,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2025-05-01",
+          "index": 1535.26,
+          "totalValue": 10857.97,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2025-06-01",
+          "index": 1605.59,
+          "totalValue": 11355.37,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2025-07-01",
+          "index": 1520.52,
+          "totalValue": 10753.7,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2025-08-01",
+          "index": 1581.81,
+          "totalValue": 11187.19,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2025-09-01",
+          "index": 1590.03,
+          "totalValue": 11245.36,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2025-10-01",
+          "index": 1522.21,
+          "totalValue": 10765.68,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2025-11-01",
+          "index": 1361.12,
+          "totalValue": 9626.38,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2025-12-01",
+          "index": 1377.72,
+          "totalValue": 9743.81,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2026-01-01",
+          "index": 1671.17,
+          "totalValue": 11819.15,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2026-02-01",
+          "index": 1811.06,
+          "totalValue": 12808.54,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2026-03-01",
+          "index": 1811.83,
+          "totalValue": 12814.01,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2026-04-01",
+          "index": 1757.83,
+          "totalValue": 12432.06,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2026-05-01",
+          "index": 2203.12,
+          "totalValue": 15581.37,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2026-06-01",
+          "index": 2199.02,
+          "totalValue": 15552.35,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2026-07-01",
+          "index": 1646.94,
+          "totalValue": 11647.84,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2026-08-01",
+          "index": 2151.44,
+          "totalValue": 15215.85,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2026-09-01",
+          "index": 2512.91,
+          "totalValue": 17772.33,
+          "count": 32,
+          "divisor": 7.0724
+        },
+        {
+          "date": "2026-10-01",
+          "index": 2097.72,
+          "totalValue": 14835.9,
+          "count": 32,
+          "divisor": 7.0724
+        }
+      ],
+      "skippedMonths": [
+        "2020-12-01"
+      ],
+      "returns": {
+        "asOf": "2026-10-01",
+        "1D": {
+          "available": false,
+          "pct": null,
+          "from": null,
+          "to": "2026-10-01",
+          "reason": "monthly series has no 1-day point"
+        },
+        "5D": {
+          "available": false,
+          "pct": null,
+          "from": null,
+          "to": "2026-10-01",
+          "reason": "monthly series has no 5-day point"
+        },
+        "30D": {
+          "available": true,
+          "pct": -16.52,
+          "from": "2026-09-01",
+          "to": "2026-10-01",
+          "fromIndex": 2512.91,
+          "toIndex": 2097.72,
+          "reason": null
+        },
+        "1Y": {
+          "available": true,
+          "pct": 37.81,
+          "from": "2025-10-01",
+          "to": "2026-10-01",
+          "fromIndex": 1522.21,
+          "toIndex": 2097.72,
+          "reason": null
+        },
+        "YTD": {
+          "available": true,
+          "pct": 25.52,
+          "from": "2026-01-01",
+          "to": "2026-10-01",
+          "fromIndex": 1671.17,
+          "toIndex": 2097.72,
+          "reason": null
+        },
+        "ALL": {
+          "available": true,
+          "pct": 124.6,
+          "from": "2021-01-01",
+          "to": "2026-10-01",
+          "fromIndex": 933.96,
+          "toIndex": 2097.72,
+          "reason": null
+        }
+      }
+    },
+    "base-shadowless": {
+      "generated": "2026-10-28T06:24:14.678308+00:00",
+      "baseValue": 1000.0,
+      "baseDate": "2023-01-01",
+      "firstDate": "2021-01-01",
+      "lastDate": "2026-10-01",
+      "source": "pricecharting",
+      "pcColumn": "used",
+      "points": [
+        {
+          "date": "2021-01-01",
+          "index": 1359.55,
+          "totalValue": 1582.19,
+          "count": 22,
+          "divisor": 1.16376222
+        },
+        {
+          "date": "2021-02-01",
+          "index": 1576.49,
+          "totalValue": 1834.66,
+          "count": 22,
+          "divisor": 1.16376222
+        },
+        {
+          "date": "2021-03-01",
+          "index": 1659.24,
+          "totalValue": 1930.96,
+          "count": 22,
+          "divisor": 1.16376222
+        },
+        {
+          "date": "2021-04-01",
+          "index": 1465.99,
+          "totalValue": 1706.06,
+          "count": 22,
+          "divisor": 1.16376222
+        },
+        {
+          "date": "2021-05-01",
+          "index": 1291.04,
+          "totalValue": 1502.46,
+          "count": 22,
+          "divisor": 1.16376222
+        },
+        {
+          "date": "2021-06-01",
+          "index": 1342.4,
+          "totalValue": 1562.24,
+          "count": 22,
+          "divisor": 1.16376222
+        },
+        {
+          "date": "2021-07-01",
+          "index": 1201.47,
+          "totalValue": 1398.23,
+          "count": 22,
+          "divisor": 1.16376222
+        },
+        {
+          "date": "2021-08-01",
+          "index": 1127.15,
+          "totalValue": 1311.74,
+          "count": 22,
+          "divisor": 1.16376222
+        },
+        {
+          "date": "2021-09-01",
+          "index": 1141.4,
+          "totalValue": 1328.32,
+          "count": 22,
+          "divisor": 1.16376222
+        },
+        {
+          "date": "2021-10-01",
+          "index": 1376.02,
+          "totalValue": 1601.36,
+          "count": 22,
+          "divisor": 1.16376222
+        },
+        {
+          "date": "2021-11-01",
+          "index": 981.01,
+          "totalValue": 1141.66,
+          "count": 22,
+          "divisor": 1.16376222
+        },
+        {
+          "date": "2021-12-01",
+          "index": 1043.09,
+          "totalValue": 1213.91,
+          "count": 22,
+          "divisor": 1.16376222
+        },
+        {
+          "date": "2022-01-01",
+          "index": 961.82,
+          "totalValue": 1119.33,
+          "count": 22,
+          "divisor": 1.16376222
+        },
+        {
+          "date": "2022-02-01",
+          "index": 947.94,
+          "totalValue": 1103.18,
+          "count": 22,
+          "divisor": 1.16376222
+        },
+        {
+          "date": "2022-03-01",
+          "index": 927.22,
+          "totalValue": 1079.06,
+          "count": 22,
+          "divisor": 1.16376222
+        },
+        {
+          "date": "2022-04-01",
+          "index": 1397.02,
+          "totalValue": 1625.8,
+          "count": 22,
+          "divisor": 1.16376222
+        },
+        {
+          "date": "2022-05-01",
+          "index": 914.1,
+          "totalValue": 1063.8,
+          "count": 22,
+          "divisor": 1.16376222
+        },
+        {
+          "date": "2022-06-01",
+          "index": 1018.14,
+          "totalValue": 1184.87,
+          "count": 22,
+          "divisor": 1.16376222
+        },
+        {
+          "date": "2022-07-01",
+          "index": 947.78,
+          "totalValue": 1102.99,
+          "count": 22,
+          "divisor": 1.16376222
+        },
+        {
+          "date": "2022-08-01",
+          "index": 846.36,
+          "totalValue": 1002.78,
+          "count": 25,
+          "divisor": 1.18481713
+        },
+        {
+          "date": "2022-09-01",
+          "index": 1038.62,
+          "totalValue": 1237.57,
+          "count": 26,
+          "divisor": 1.19154718
+        },
+        {
+          "date": "2022-10-01",
+          "index": 1009.54,
+          "totalValue": 1210.92,
+          "count": 27,
+          "divisor": 1.19947155
+        },
+        {
+          "date": "2022-11-01",
+          "index": 1031.42,
+          "totalValue": 1241.15,
+          "count": 28,
+          "divisor": 1.20334
+        },
+        {
+          "date": "2022-12-01",
+          "index": 831.24,
+          "totalValue": 1000.27,
+          "count": 28,
+          "divisor": 1.20334
+        },
+        {
+          "date": "2023-01-01",
+          "index": 1000.0,
+          "totalValue": 1215.34,
+          "count": 29,
+          "divisor": 1.21534
+        },
+        {
+          "date": "2023-02-01",
+          "index": 1000.72,
+          "totalValue": 1216.22,
+          "count": 29,
+          "divisor": 1.21534
+        },
+        {
+          "date": "2023-03-01",
+          "index": 1064.9,
+          "totalValue": 1294.21,
+          "count": 29,
+          "divisor": 1.21534
+        },
+        {
+          "date": "2023-04-01",
+          "index": 849.64,
+          "totalValue": 1032.6,
+          "count": 29,
+          "divisor": 1.21534
+        },
+        {
+          "date": "2023-05-01",
+          "index": 995.32,
+          "totalValue": 1209.65,
+          "count": 29,
+          "divisor": 1.21534
+        },
+        {
+          "date": "2023-06-01",
+          "index": 1214.56,
+          "totalValue": 1476.1,
+          "count": 29,
+          "divisor": 1.21534
+        },
+        {
+          "date": "2023-07-01",
+          "index": 938.68,
+          "totalValue": 1140.82,
+          "count": 29,
+          "divisor": 1.21534
+        },
+        {
+          "date": "2023-08-01",
+          "index": 962.45,
+          "totalValue": 1169.7,
+          "count": 29,
+          "divisor": 1.21534
+        },
+        {
+          "date": "2023-09-01",
+          "index": 950.0,
+          "totalValue": 1154.57,
+          "count": 29,
+          "divisor": 1.21534
+        },
+        {
+          "date": "2023-10-01",
+          "index": 985.33,
+          "totalValue": 1197.51,
+          "count": 29,
+          "divisor": 1.21534
+        },
+        {
+          "date": "2023-11-01",
+          "index": 946.25,
+          "totalValue": 1155.21,
+          "count": 30,
+          "divisor": 1.22082479
+        },
+        {
+          "date": "2023-12-01",
+          "index": 919.04,
+          "totalValue": 1121.99,
+          "count": 30,
+          "divisor": 1.22082479
+        },
+        {
+          "date": "2024-01-01",
+          "index": 962.39,
+          "totalValue": 1174.91,
+          "count": 30,
+          "divisor": 1.22082479
+        },
+        {
+          "date": "2024-02-01",
+          "index": 1006.82,
+          "totalValue": 1229.15,
+          "count": 30,
+          "divisor": 1.22082479
+        },
+        {
+          "date": "2024-03-01",
+          "index": 1031.81,
+          "totalValue": 1259.66,
+          "count": 30,
+          "divisor": 1.22082479
+        },
+        {
+          "date": "2024-04-01",
+          "index": 1114.89,
+          "totalValue": 1385.64,
+          "count": 32,
+          "divisor": 1.24285395
+        },
+        {
+          "date": "2024-05-01",
+          "index": 1018.02,
+          "totalValue": 1265.25,
+          "count": 32,
+          "divisor": 1.24285395
+        },
+        {
+          "date": "2024-06-01",
+          "index": 1056.34,
+          "totalValue": 1312.88,
+          "count": 32,
+          "divisor": 1.24285395
+        },
+        {
+          "date": "2024-07-01",
+          "index": 1065.86,
+          "totalValue": 1324.71,
+          "count": 32,
+          "divisor": 1.24285395
+        },
+        {
+          "date": "2024-08-01",
+          "index": 1009.52,
+          "totalValue": 1254.68,
+          "count": 32,
+          "divisor": 1.24285395
+        },
+        {
+          "date": "2024-09-01",
+          "index": 935.51,
+          "totalValue": 1162.7,
+          "count": 32,
+          "divisor": 1.24285395
+        },
+        {
+          "date": "2024-10-01",
+          "index": 976.63,
+          "totalValue": 1213.81,
+          "count": 32,
+          "divisor": 1.24285395
+        },
+        {
+          "date": "2024-11-01",
+          "index": 962.75,
+          "totalValue": 1196.56,
+          "count": 32,
+          "divisor": 1.24285395
+        },
+        {
+          "date": "2024-12-01",
+          "index": 999.04,
+          "totalValue": 1241.66,
+          "count": 32,
+          "divisor": 1.24285395
+        },
+        {
+          "date": "2025-01-01",
+          "index": 1171.42,
+          "totalValue": 1455.9,
+          "count": 32,
+          "divisor": 1.24285395
+        },
+        {
+          "date": "2025-02-01",
+          "index": 1121.35,
+          "totalValue": 1393.68,
+          "count": 32,
+          "divisor": 1.24285395
+        },
+        {
+          "date": "2025-03-01",
+          "index": 1182.63,
+          "totalValue": 1469.84,
+          "count": 32,
+          "divisor": 1.24285395
+        },
+        {
+          "date": "2025-04-01",
+          "index": 1240.04,
+          "totalValue": 1541.19,
+          "count": 32,
+          "divisor": 1.24285395
+        },
+        {
+          "date": "2025-05-01",
+          "index": 1371.84,
+          "totalValue": 1705.0,
+          "count": 32,
+          "divisor": 1.24285395
+        },
+        {
+          "date": "2025-06-01",
+          "index": 1210.25,
+          "totalValue": 1504.17,
+          "count": 32,
+          "divisor": 1.24285395
+        },
+        {
+          "date": "2025-07-01",
+          "index": 1205.41,
+          "totalValue": 1498.15,
+          "count": 32,
+          "divisor": 1.24285395
+        },
+        {
+          "date": "2025-08-01",
+          "index": 1129.72,
+          "totalValue": 1404.08,
+          "count": 32,
+          "divisor": 1.24285395
+        },
+        {
+          "date": "2025-09-01",
+          "index": 1222.44,
+          "totalValue": 1519.32,
+          "count": 32,
+          "divisor": 1.24285395
+        },
+        {
+          "date": "2025-10-01",
+          "index": 1107.76,
+          "totalValue": 1376.79,
+          "count": 32,
+          "divisor": 1.24285395
+        },
+        {
+          "date": "2025-11-01",
+          "index": 1350.27,
+          "totalValue": 1678.19,
+          "count": 32,
+          "divisor": 1.24285395
+        },
+        {
+          "date": "2025-12-01",
+          "index": 1315.54,
+          "totalValue": 1635.03,
+          "count": 32,
+          "divisor": 1.24285395
+        },
+        {
+          "date": "2026-01-01",
+          "index": 1506.7,
+          "totalValue": 1872.61,
+          "count": 32,
+          "divisor": 1.24285395
+        },
+        {
+          "date": "2026-02-01",
+          "index": 1705.04,
+          "totalValue": 2119.12,
+          "count": 32,
+          "divisor": 1.24285395
+        },
+        {
+          "date": "2026-03-01",
+          "index": 1885.27,
+          "totalValue": 2343.12,
+          "count": 32,
+          "divisor": 1.24285395
+        },
+        {
+          "date": "2026-04-01",
+          "index": 1828.32,
+          "totalValue": 2272.33,
+          "count": 32,
+          "divisor": 1.24285395
+        },
+        {
+          "date": "2026-05-01",
+          "index": 1881.11,
+          "totalValue": 2337.94,
+          "count": 32,
+          "divisor": 1.24285395
+        },
+        {
+          "date": "2026-06-01",
+          "index": 1843.02,
+          "totalValue": 2290.61,
+          "count": 32,
+          "divisor": 1.24285395
+        },
+        {
+          "date": "2026-07-01",
+          "index": 2061.75,
+          "totalValue": 2562.46,
+          "count": 32,
+          "divisor": 1.24285395
+        },
+        {
+          "date": "2026-08-01",
+          "index": 1937.98,
+          "totalValue": 2408.62,
+          "count": 32,
+          "divisor": 1.24285395
+        },
+        {
+          "date": "2026-09-01",
+          "index": 2054.68,
+          "totalValue": 2553.67,
+          "count": 32,
+          "divisor": 1.24285395
+        },
+        {
+          "date": "2026-10-01",
+          "index": 2012.99,
+          "totalValue": 2501.85,
+          "count": 32,
+          "divisor": 1.24285395
+        }
+      ],
+      "skippedMonths": [],
+      "returns": {
+        "asOf": "2026-10-01",
+        "1D": {
+          "available": false,
+          "pct": null,
+          "from": null,
+          "to": "2026-10-01",
+          "reason": "monthly series has no 1-day point"
+        },
+        "5D": {
+          "available": false,
+          "pct": null,
+          "from": null,
+          "to": "2026-10-01",
+          "reason": "monthly series has no 5-day point"
+        },
+        "30D": {
+          "available": true,
+          "pct": -2.03,
+          "from": "2026-09-01",
+          "to": "2026-10-01",
+          "fromIndex": 2054.68,
+          "toIndex": 2012.99,
+          "reason": null
+        },
+        "1Y": {
+          "available": true,
+          "pct": 81.72,
+          "from": "2025-10-01",
+          "to": "2026-10-01",
+          "fromIndex": 1107.76,
+          "toIndex": 2012.99,
+          "reason": null
+        },
+        "YTD": {
+          "available": true,
+          "pct": 33.6,
+          "from": "2026-01-01",
+          "to": "2026-10-01",
+          "fromIndex": 1506.7,
+          "toIndex": 2012.99,
+          "reason": null
+        },
+        "ALL": {
+          "available": true,
+          "pct": 48.06,
+          "from": "2021-01-01",
+          "to": "2026-10-01",
+          "fromIndex": 1359.55,
+          "toIndex": 2012.99,
+          "reason": null
+        }
+      }
+    },
+    "base-unlimited": {
+      "generated": "2026-10-28T06:24:14.678308+00:00",
+      "baseValue": 1000.0,
+      "baseDate": "2023-01-01",
+      "firstDate": "2020-12-01",
+      "lastDate": "2026-10-01",
+      "source": "pricecharting",
+      "pcColumn": "used",
+      "points": [
+        {
+          "date": "2020-12-01",
+          "index": 1256.99,
+          "totalValue": 549.1,
+          "count": 27,
+          "divisor": 0.43683574
+        },
+        {
+          "date": "2021-01-01",
+          "index": 1297.06,
+          "totalValue": 643.91,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2021-02-01",
+          "index": 1307.93,
+          "totalValue": 649.31,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2021-03-01",
+          "index": 1535.05,
+          "totalValue": 762.06,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2021-04-01",
+          "index": 1249.27,
+          "totalValue": 620.19,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2021-05-01",
+          "index": 1058.66,
+          "totalValue": 525.56,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2021-06-01",
+          "index": 1224.1,
+          "totalValue": 607.69,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2021-07-01",
+          "index": 945.03,
+          "totalValue": 469.15,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2021-08-01",
+          "index": 1174.8,
+          "totalValue": 583.22,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2021-09-01",
+          "index": 931.59,
+          "totalValue": 462.48,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2021-10-01",
+          "index": 866.29,
+          "totalValue": 430.06,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2021-11-01",
+          "index": 765.31,
+          "totalValue": 379.93,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2021-12-01",
+          "index": 771.94,
+          "totalValue": 383.22,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2022-01-01",
+          "index": 775.82,
+          "totalValue": 385.15,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2022-02-01",
+          "index": 847.76,
+          "totalValue": 420.86,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2022-03-01",
+          "index": 857.0,
+          "totalValue": 425.45,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2022-04-01",
+          "index": 848.98,
+          "totalValue": 421.47,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2022-05-01",
+          "index": 842.12,
+          "totalValue": 418.06,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2022-06-01",
+          "index": 925.03,
+          "totalValue": 459.22,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2022-07-01",
+          "index": 861.74,
+          "totalValue": 427.8,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2022-08-01",
+          "index": 898.96,
+          "totalValue": 446.28,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2022-09-01",
+          "index": 817.08,
+          "totalValue": 405.63,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2022-10-01",
+          "index": 910.97,
+          "totalValue": 452.24,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2022-11-01",
+          "index": 897.59,
+          "totalValue": 445.6,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2022-12-01",
+          "index": 972.32,
+          "totalValue": 482.7,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2023-01-01",
+          "index": 1000.0,
+          "totalValue": 496.44,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2023-02-01",
+          "index": 917.86,
+          "totalValue": 455.66,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2023-03-01",
+          "index": 899.59,
+          "totalValue": 446.59,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2023-04-01",
+          "index": 861.55,
+          "totalValue": 427.71,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2023-05-01",
+          "index": 932.62,
+          "totalValue": 462.99,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2023-06-01",
+          "index": 887.26,
+          "totalValue": 440.47,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2023-07-01",
+          "index": 834.56,
+          "totalValue": 414.31,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2023-08-01",
+          "index": 926.17,
+          "totalValue": 459.79,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2023-09-01",
+          "index": 874.24,
+          "totalValue": 434.01,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2023-10-01",
+          "index": 890.9,
+          "totalValue": 442.28,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2023-11-01",
+          "index": 889.39,
+          "totalValue": 441.53,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2023-12-01",
+          "index": 934.98,
+          "totalValue": 464.16,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2024-01-01",
+          "index": 1031.58,
+          "totalValue": 512.12,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2024-02-01",
+          "index": 1038.03,
+          "totalValue": 515.32,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2024-03-01",
+          "index": 977.84,
+          "totalValue": 485.44,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2024-04-01",
+          "index": 1105.21,
+          "totalValue": 548.67,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2024-05-01",
+          "index": 1045.26,
+          "totalValue": 518.91,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2024-06-01",
+          "index": 1022.72,
+          "totalValue": 507.72,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2024-07-01",
+          "index": 1012.79,
+          "totalValue": 502.79,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2024-08-01",
+          "index": 934.96,
+          "totalValue": 464.15,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2024-09-01",
+          "index": 1150.33,
+          "totalValue": 571.07,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2024-10-01",
+          "index": 1116.59,
+          "totalValue": 554.32,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2024-11-01",
+          "index": 1203.07,
+          "totalValue": 597.25,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2024-12-01",
+          "index": 1285.75,
+          "totalValue": 638.3,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2025-01-01",
+          "index": 1166.08,
+          "totalValue": 578.89,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2025-02-01",
+          "index": 1195.71,
+          "totalValue": 593.6,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2025-03-01",
+          "index": 1305.31,
+          "totalValue": 648.01,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2025-04-01",
+          "index": 1307.31,
+          "totalValue": 649.0,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2025-05-01",
+          "index": 1317.5,
+          "totalValue": 654.06,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2025-06-01",
+          "index": 1247.93,
+          "totalValue": 619.52,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2025-07-01",
+          "index": 1203.53,
+          "totalValue": 597.48,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2025-08-01",
+          "index": 1260.41,
+          "totalValue": 625.72,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2025-09-01",
+          "index": 1293.03,
+          "totalValue": 641.91,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2025-10-01",
+          "index": 1188.0,
+          "totalValue": 589.77,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2025-11-01",
+          "index": 1275.02,
+          "totalValue": 632.97,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2025-12-01",
+          "index": 1460.64,
+          "totalValue": 725.12,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2026-01-01",
+          "index": 1436.97,
+          "totalValue": 713.37,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2026-02-01",
+          "index": 1580.43,
+          "totalValue": 784.59,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2026-03-01",
+          "index": 1619.47,
+          "totalValue": 803.97,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2026-04-01",
+          "index": 1706.53,
+          "totalValue": 847.19,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2026-05-01",
+          "index": 1531.08,
+          "totalValue": 760.09,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2026-06-01",
+          "index": 1759.21,
+          "totalValue": 873.34,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2026-07-01",
+          "index": 1831.44,
+          "totalValue": 909.2,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2026-08-01",
+          "index": 1835.81,
+          "totalValue": 911.37,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2026-09-01",
+          "index": 1716.34,
+          "totalValue": 852.06,
+          "count": 31,
+          "divisor": 0.49644
+        },
+        {
+          "date": "2026-10-01",
+          "index": 1812.59,
+          "totalValue": 899.84,
+          "count": 31,
+          "divisor": 0.49644
+        }
+      ],
+      "skippedMonths": [],
+      "returns": {
+        "asOf": "2026-10-01",
+        "1D": {
+          "available": false,
+          "pct": null,
+          "from": null,
+          "to": "2026-10-01",
+          "reason": "monthly series has no 1-day point"
+        },
+        "5D": {
+          "available": false,
+          "pct": null,
+          "from": null,
+          "to": "2026-10-01",
+          "reason": "monthly series has no 5-day point"
+        },
+        "30D": {
+          "available": true,
+          "pct": 5.61,
+          "from": "2026-09-01",
+          "to": "2026-10-01",
+          "fromIndex": 1716.34,
+          "toIndex": 1812.59,
+          "reason": null
+        },
+        "1Y": {
+          "available": true,
+          "pct": 52.57,
+          "from": "2025-10-01",
+          "to": "2026-10-01",
+          "fromIndex": 1188.0,
+          "toIndex": 1812.59,
+          "reason": null
+        },
+        "YTD": {
+          "available": true,
+          "pct": 26.14,
+          "from": "2026-01-01",
+          "to": "2026-10-01",
+          "fromIndex": 1436.97,
+          "toIndex": 1812.59,
+          "reason": null
+        },
+        "ALL": {
+          "available": true,
+          "pct": 44.2,
+          "from": "2020-12-01",
+          "to": "2026-10-01",
+          "fromIndex": 1256.99,
+          "toIndex": 1812.59,
+          "reason": null
+        }
+      }
+    },
+    "base-set-2": {
+      "generated": "2026-10-28T06:24:14.678308+00:00",
+      "baseValue": 1000.0,
+      "baseDate": "2023-01-01",
+      "firstDate": "2020-12-01",
+      "lastDate": "2026-10-01",
+      "source": "pricecharting",
+      "pcColumn": "used",
+      "points": [
+        {
+          "date": "2020-12-01",
+          "index": 1800.37,
+          "totalValue": 624.81,
+          "count": 20,
+          "divisor": 0.34704567
+        },
+        {
+          "date": "2021-01-01",
+          "index": 1351.46,
+          "totalValue": 518.53,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2021-02-01",
+          "index": 1361.73,
+          "totalValue": 522.47,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2021-03-01",
+          "index": 1389.02,
+          "totalValue": 532.94,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2021-04-01",
+          "index": 1322.46,
+          "totalValue": 507.4,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2021-05-01",
+          "index": 1260.69,
+          "totalValue": 483.7,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2021-06-01",
+          "index": 1087.89,
+          "totalValue": 417.4,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2021-07-01",
+          "index": 1113.06,
+          "totalValue": 427.06,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2021-08-01",
+          "index": 1015.4,
+          "totalValue": 389.59,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2021-09-01",
+          "index": 1026.53,
+          "totalValue": 393.86,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2021-10-01",
+          "index": 937.84,
+          "totalValue": 359.83,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2021-11-01",
+          "index": 845.65,
+          "totalValue": 324.46,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2021-12-01",
+          "index": 920.53,
+          "totalValue": 353.19,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2022-01-01",
+          "index": 925.88,
+          "totalValue": 355.24,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2022-02-01",
+          "index": 948.16,
+          "totalValue": 363.79,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2022-03-01",
+          "index": 938.67,
+          "totalValue": 360.15,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2022-04-01",
+          "index": 997.71,
+          "totalValue": 382.8,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2022-05-01",
+          "index": 1006.12,
+          "totalValue": 386.03,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2022-06-01",
+          "index": 1045.64,
+          "totalValue": 401.19,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2022-07-01",
+          "index": 958.61,
+          "totalValue": 367.8,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2022-08-01",
+          "index": 968.18,
+          "totalValue": 371.47,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2022-09-01",
+          "index": 990.15,
+          "totalValue": 379.9,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2022-10-01",
+          "index": 871.25,
+          "totalValue": 334.28,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2022-11-01",
+          "index": 952.75,
+          "totalValue": 365.55,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2022-12-01",
+          "index": 996.06,
+          "totalValue": 382.17,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2023-01-01",
+          "index": 1000.0,
+          "totalValue": 383.68,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2023-02-01",
+          "index": 993.88,
+          "totalValue": 381.33,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2023-03-01",
+          "index": 1010.22,
+          "totalValue": 387.6,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2023-04-01",
+          "index": 1033.78,
+          "totalValue": 396.64,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2023-05-01",
+          "index": 1050.17,
+          "totalValue": 402.93,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2023-06-01",
+          "index": 1064.09,
+          "totalValue": 408.27,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2023-07-01",
+          "index": 980.95,
+          "totalValue": 376.37,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2023-08-01",
+          "index": 922.44,
+          "totalValue": 353.92,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2023-09-01",
+          "index": 979.62,
+          "totalValue": 375.86,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2023-10-01",
+          "index": 1007.35,
+          "totalValue": 386.5,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2023-11-01",
+          "index": 907.58,
+          "totalValue": 348.22,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2023-12-01",
+          "index": 920.04,
+          "totalValue": 353.0,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2024-01-01",
+          "index": 955.87,
+          "totalValue": 366.75,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2024-02-01",
+          "index": 943.36,
+          "totalValue": 361.95,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2024-03-01",
+          "index": 1033.26,
+          "totalValue": 396.44,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2024-04-01",
+          "index": 1032.03,
+          "totalValue": 395.97,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2024-05-01",
+          "index": 1174.39,
+          "totalValue": 450.59,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2024-06-01",
+          "index": 1137.56,
+          "totalValue": 436.46,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2024-07-01",
+          "index": 1023.38,
+          "totalValue": 392.65,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2024-08-01",
+          "index": 1064.14,
+          "totalValue": 408.29,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2024-09-01",
+          "index": 1236.21,
+          "totalValue": 474.31,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2024-10-01",
+          "index": 1137.61,
+          "totalValue": 436.48,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2024-11-01",
+          "index": 1196.99,
+          "totalValue": 459.26,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2024-12-01",
+          "index": 1239.21,
+          "totalValue": 475.46,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2025-01-01",
+          "index": 1308.69,
+          "totalValue": 502.12,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2025-02-01",
+          "index": 1240.85,
+          "totalValue": 476.09,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2025-03-01",
+          "index": 1402.63,
+          "totalValue": 538.16,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2025-04-01",
+          "index": 1395.98,
+          "totalValue": 535.61,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2025-05-01",
+          "index": 1493.9,
+          "totalValue": 573.18,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2025-06-01",
+          "index": 1340.91,
+          "totalValue": 514.48,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2025-07-01",
+          "index": 1354.38,
+          "totalValue": 519.65,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2025-08-01",
+          "index": 1397.94,
+          "totalValue": 536.36,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2025-09-01",
+          "index": 1354.28,
+          "totalValue": 519.61,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2025-10-01",
+          "index": 1275.31,
+          "totalValue": 489.31,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2025-11-01",
+          "index": 1374.53,
+          "totalValue": 527.38,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2025-12-01",
+          "index": 1509.9,
+          "totalValue": 579.32,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2026-01-01",
+          "index": 1546.52,
+          "totalValue": 593.37,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2026-02-01",
+          "index": 1659.09,
+          "totalValue": 636.56,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2026-03-01",
+          "index": 1878.83,
+          "totalValue": 720.87,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2026-04-01",
+          "index": 1886.65,
+          "totalValue": 723.87,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2026-05-01",
+          "index": 1949.1,
+          "totalValue": 747.83,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2026-06-01",
+          "index": 1832.36,
+          "totalValue": 703.04,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2026-07-01",
+          "index": 1828.32,
+          "totalValue": 701.49,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2026-08-01",
+          "index": 1881.49,
+          "totalValue": 721.89,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2026-09-01",
+          "index": 2004.64,
+          "totalValue": 769.14,
+          "count": 29,
+          "divisor": 0.38368
+        },
+        {
+          "date": "2026-10-01",
+          "index": 1978.29,
+          "totalValue": 759.03,
+          "count": 29,
+          "divisor": 0.38368
+        }
+      ],
+      "skippedMonths": [],
+      "returns": {
+        "asOf": "2026-10-01",
+        "1D": {
+          "available": false,
+          "pct": null,
+          "from": null,
+          "to": "2026-10-01",
+          "reason": "monthly series has no 1-day point"
+        },
+        "5D": {
+          "available": false,
+          "pct": null,
+          "from": null,
+          "to": "2026-10-01",
+          "reason": "monthly series has no 5-day point"
+        },
+        "30D": {
+          "available": true,
+          "pct": -1.31,
+          "from": "2026-09-01",
+          "to": "2026-10-01",
+          "fromIndex": 2004.64,
+          "toIndex": 1978.29,
+          "reason": null
+        },
+        "1Y": {
+          "available": true,
+          "pct": 55.12,
+          "from": "2025-10-01",
+          "to": "2026-10-01",
+          "fromIndex": 1275.31,
+          "toIndex": 1978.29,
+          "reason": null
+        },
+        "YTD": {
+          "available": true,
+          "pct": 27.92,
+          "from": "2026-01-01",
+          "to": "2026-10-01",
+          "fromIndex": 1546.52,
+          "toIndex": 1978.29,
+          "reason": null
+        },
+        "ALL": {
+          "available": true,
+          "pct": 9.88,
+          "from": "2020-12-01",
+          "to": "2026-10-01",
+          "fromIndex": 1800.37,
+          "toIndex": 1978.29,
+          "reason": null
+        }
+      }
+    }
+  },
+  "coverage": {
+    "base-1st": {
+      "cards": 32,
+      "withSeries": 32,
+      "missing": [],
+      "firstDate": "2021-01-01",
+      "anchorDate": "2023-01-01",
+      "lastDate": "2026-10-01",
+      "points": 70,
+      "reaches2023": true
+    },
+    "base-shadowless": {
+      "cards": 32,
+      "withSeries": 32,
+      "missing": [],
+      "firstDate": "2021-01-01",
+      "anchorDate": "2023-01-01",
+      "lastDate": "2026-10-01",
+      "points": 70,
+      "reaches2023": true
+    },
+    "base-unlimited": {
+      "cards": 31,
+      "withSeries": 31,
+      "missing": [],
+      "firstDate": "2020-12-01",
+      "anchorDate": "2023-01-01",
+      "lastDate": "2026-10-01",
+      "points": 71,
+      "reaches2023": true
+    },
+    "base-set-2": {
+      "cards": 29,
+      "withSeries": 29,
+      "missing": [],
+      "firstDate": "2020-12-01",
+      "anchorDate": "2023-01-01",
+      "lastDate": "2026-10-01",
+      "points": 71,
+      "reaches2023": true
+    }
+  }
+}

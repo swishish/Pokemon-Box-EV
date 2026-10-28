@@ -1,0 +1,65 @@
+name: Update EN Base PriceCharting indexes
+
+# Rebuilds the four English Base indexes (1st Edition, Shadowless,
+# Unlimited, Base Set 2) from public PriceCharting game-page charts.
+# Ungraded `used` column only. Does not touch SNKRDUNK, the JP PSA10
+# benchmark, or the TCGPlayer vintage tape in data/market-vintage/.
+#
+# The public chart is monthly. This job refetches it and rebases so
+# 2023-01-01 = 1000. It refuses to write if the Charizard 1st scale
+# looks wrong or most charts fail.
+on:
+  schedule:
+    - cron: "17 6 * * 1"   # Mondays 06:17 UTC
+  workflow_dispatch: {}
+  pull_request:
+
+concurrency:
+  group: update-market-vintage-pc-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  selftest:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Self-test
+        run: python3 tools/refresh_market_vintage_pc.py --self-test
+
+  build:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Self-test
+        run: python3 tools/refresh_market_vintage_pc.py --self-test
+      - name: Refresh PriceCharting indexes
+        run: python3 tools/refresh_market_vintage_pc.py --root . --sleep 0.25 -v
+      - name: Commit snapshot
+        run: |
+          git config user.name "box-ev-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/market-vintage-pc/baskets.json \
+                  data/market-vintage-pc/latest.json data/market-vintage-pc/latest.js \
+                  data/market-vintage-pc/history.json data/market-vintage-pc/history.js \
+                  data/market-vintage-pc/price-history.json
+          if git diff --cached --quiet; then
+            echo "No data changes to commit."
+          else
+            git commit -m "chore: refresh EN Base PriceCharting indexes"
+            git push
+          fi

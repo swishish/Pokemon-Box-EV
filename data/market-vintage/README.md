@@ -1,5 +1,7 @@
 # Base Set vintage indexes (EN raw)
 
+The TCGPlayer / TickerMint tape on this page is separate from the **PriceCharting** monthly indexes (1st, Shadowless, Unlimited, **Base Set 2**, 2023-01-01 = 1000). Those live in `data/market-vintage-pc/` and on `market-vintage.html#pc/1st`. Do not mix the two chains or source the PC baskets from SNKRDUNK.
+
 Three **fixed** chase baskets of English Base Set raw / ungraded singles:
 
 | id | Printing | TCGCSV group | Subtype filter |
