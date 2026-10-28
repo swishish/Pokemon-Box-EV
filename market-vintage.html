@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>Base 復古指數 · Box EV v1.32.0</title>
+<title>Base 復古指數 · Box EV v1.32.1</title>
 <meta name="description" content="Base Set 1st / Shadowless / Unlimited 英文裸卡指數與卡冊，另有 PriceCharting 月線（含 Base Set 2，2023-01-01＝1000）。靜態快照，非正式投資建議。" />
 <meta property="og:site_name" content="日盒開盒值不值？" />
 <meta property="og:title" content="Base 復古指數 · 1st / Shadowless / Unlimited" />
@@ -487,6 +487,17 @@
     background: var(--card);
     box-shadow: -6px 0 8px -6px rgba(20, 20, 20, .28);
   }
+  /* PC basket has USD and 1M. Sticky right:0 on every .num stacks both
+     on the same edge. Leave this table in normal flow. */
+  #pcView .table-wrap th.num,
+  #pcView .table-wrap td.num {
+    position: static;
+    right: auto;
+    z-index: auto;
+    box-shadow: none;
+    background: transparent;
+  }
+  .pc-sub { display: none; }
   .spark-wrap {
     position: relative;
     margin-top: 8px;
@@ -808,6 +819,84 @@
       grid-column: 1 / -1;
       justify-content: space-between;
     }
+    /* Stack the PC basket so USD and 1M each get a full row. */
+    #pcView .pc-basket-wrap {
+      overflow: visible;
+    }
+    #pcView .pc-basket,
+    #pcView .pc-basket tbody {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+    }
+    #pcView .pc-basket thead {
+      display: none;
+    }
+    #pcView .pc-basket tr {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+    }
+    #pcView .pc-basket tr.pc-row {
+      display: grid;
+      grid-template-columns: 40px minmax(0, 1fr);
+      column-gap: 8px;
+      row-gap: 2px;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    #pcView .pc-basket td {
+      display: block;
+      border: 0;
+      padding: 0;
+      min-width: 0;
+      width: auto;
+      max-width: 100%;
+      text-align: left;
+      white-space: normal;
+      overflow-wrap: break-word;
+      word-break: normal;
+    }
+    #pcView .pc-basket td.pc-art { grid-column: 1; grid-row: 1; }
+    #pcView .pc-basket td.pc-name {
+      grid-column: 2;
+      grid-row: 1;
+      font-weight: 750;
+      line-height: 1.25;
+    }
+    #pcView .pc-basket td.pc-id,
+    #pcView .pc-basket td.pc-rarity { display: none; }
+    #pcView .pc-basket .pc-sub {
+      display: block;
+      margin-top: 2px;
+      font-weight: 500;
+    }
+    #pcView .pc-basket td.pc-usd,
+    #pcView .pc-basket td.pc-chg {
+      grid-column: 1 / -1;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      min-width: 0;
+      font-variant-numeric: tabular-nums;
+    }
+    #pcView .pc-basket td.pc-usd::before,
+    #pcView .pc-basket td.pc-chg::before {
+      color: var(--muted);
+      font-weight: 650;
+      font-size: .72rem;
+      flex: 0 0 auto;
+    }
+    #pcView .pc-basket td.pc-usd::before { content: "USD"; }
+    #pcView .pc-basket td.pc-chg::before { content: "1M"; }
+    #pcView .pc-basket .pc-val {
+      white-space: nowrap;
+      margin-left: auto;
+      flex: 0 0 auto;
+    }
   }
 </style>
 </head>
@@ -815,7 +904,7 @@
 <header>
   <div class="header-inner">
     <div class="header-top">
-      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.32.0</span></h1>
+      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.32.1</span></h1>
       <nav class="header-nav" aria-label="站內導覽">
         <a class="nav-btn" href="./calc.html">開盒 EV</a>
         <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
@@ -1033,8 +1122,8 @@
     <div class="card">
       <h2>成分 Basket <span class="pill" id="pcCount"></span></h2>
       <p class="tiny" style="margin:0 0 8px">價格加權。當月 used 價 &gt; 0 才進指數；缺月不記 0。點名稱打開 PriceCharting（只瀏覽）。</p>
-      <div class="table-wrap">
-        <table>
+      <div class="table-wrap pc-basket-wrap">
+        <table class="pc-basket">
           <thead>
             <tr>
               <th>編號</th>
@@ -1076,15 +1165,15 @@
 </main>
 <footer>日盒 EV 小算盤 · Base vintage pulse · Snapshot 靜態資料 · 非正式投資建議 · 歷史價 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a> · <a href="./index.html">首頁</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10.html">JP PSA10</a> · <a href="./market-jp-psa10-bench.html">JP 基準</a> · <a href="./market-base-psa-pop.html">Base POP</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/">Base Unlimited</a></footer>
 
-<script src="./js/spark-tip.js?v=1.32.0"></script>
-<script src="./js/movers-range.js?v=1.32.0"></script>
-<script src="./data/market-vintage/latest.js?v=1.32.0"></script>
-<script src="./data/market-vintage/history.js?v=1.32.0"></script>
-<script src="./data/market-vintage-pc/latest.js?v=1.32.0"></script>
-<script src="./data/market-vintage-pc/history.js?v=1.32.0"></script>
+<script src="./js/spark-tip.js?v=1.32.1"></script>
+<script src="./js/movers-range.js?v=1.32.1"></script>
+<script src="./data/market-vintage/latest.js?v=1.32.1"></script>
+<script src="./data/market-vintage/history.js?v=1.32.1"></script>
+<script src="./data/market-vintage-pc/latest.js?v=1.32.1"></script>
+<script src="./data/market-vintage-pc/history.js?v=1.32.1"></script>
 <script>
 (async function () {
-  const VERSION = '1.32.0';
+  const VERSION = '1.32.1';
   const PERIODS = ['1D', '5D', '30D', '1Y', 'YTD'];
   const INDEX_PERIODS = ['1D', '5D', '30D', '1Y', 'YTD', 'ALL'];
   const LAG_PERIODS = ['30D', 'YTD'];
@@ -2054,9 +2143,13 @@
         ? '<a href="' + escapeHtml(c.url) + '" target="_blank" rel="noopener">' + escapeHtml(c.name || '') + '</a>'
         : escapeHtml(c.name || '');
       const priceCell = c.price == null ? '<span class="tiny">無市價</span>' : fmtUsd(c.price);
-      return '<tr><td class="tiny">' + escapeHtml(c.number || '') + '</td><td>' + img + '</td><td>' + name +
-        '</td><td class="tiny">' + escapeHtml(c.rarity || '') + '</td><td class="num">' + priceCell +
-        '</td><td class="num chg ' + chgClass(c.changePct) + '">' + fmtPct(c.changePct, true) + '</td></tr>';
+      const sub = [c.number, c.rarity].filter(Boolean).join(' · ');
+      return '<tr class="pc-row"><td class="tiny pc-id">' + escapeHtml(c.number || '') + '</td><td class="pc-art">' + img +
+        '</td><td class="pc-name">' + name + '<div class="pc-sub tiny">' + escapeHtml(sub) +
+        '</div></td><td class="tiny pc-rarity">' + escapeHtml(c.rarity || '') +
+        '</td><td class="num pc-usd"><span class="pc-val">' + priceCell +
+        '</span></td><td class="num pc-chg chg ' + chgClass(c.changePct) + '"><span class="pc-val">' +
+        fmtPct(c.changePct, true) + '</span></td></tr>';
     }).join('') : '<tr><td colspan="6" class="tiny">沒有籃子</td></tr>';
     const gaps = (PC.gaps || []).filter((g) => !g.index || g.index === state.pcId);
     $('pcGaps').textContent = gaps.length
