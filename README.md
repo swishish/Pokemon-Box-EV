@@ -1,6 +1,6 @@
 # Pokemon Box EV
 
-日盒 EV 小算盤（朋友向）· **v1.33.3**
+日盒 EV 小算盤（朋友向）· **v1.33.4**
 
 給「不太懂金融／AI」的買卡朋友看的工具：首頁三個入口（開盒計算／市場觀察／研究工具）→ 開盒算盤選系列 → 看 **Grade A（打折）四件套**（實付盒價、預期回收額、差額、預期回收比例；100% 先係打和）→ 有膜／無膜切換 → 看主力 chase 卡與「買單卡 vs 開盒」粗略提示。圖文教學在首頁預設收起。
 
@@ -49,7 +49,7 @@ Chase 公允值（PSA10 回歸散點）：**https://swishish.github.io/Pokemon-B
 1. GitHub Action **Update EN market pulse**（`.github/workflows/update-market-en.yml`）
    - **排程**：每天 21:23 UTC（TCGCSV 約 20:05 UTC 刷新之後）
    - **手動**：Actions 頁按 **Run workflow**
-   - **PR**：只跑 self-test（`refresh_market_en` + `fetch_tcgcsv_archive` + `backfill_tickermint` + `backfill_tickermint_vintage` + `refresh_market_vintage` + `refresh_market_midera` + `backfill_tickermint_midera` + `refresh_sealed_boxes` + `refresh_market_jp_psa10` + `refresh_market_jp_psa10_bench`），不抓 dump、不 commit
+   - **PR**：只跑 self-test（`refresh_market_en` + `fetch_tcgcsv_archive` + `backfill_tickermint` + `backfill_tickermint_vintage` + `refresh_market_vintage` + `refresh_market_midera` + `backfill_tickermint_midera` + `refresh_sealed_boxes` + `refresh_market_jp_psa10_bench`），不抓 dump、不 commit
 2. 腳本 `python3 tools/refresh_market_en.py` 先讀 `https://tcgcsv.com/last-updated.txt`；stamp 沒變就結束（零流量）。
 3. 有新 dump 才抓 `Groups.csv` + 各系列 `ProductsAndPrices.csv`，寫入：
    - `data/market-en/latest.json`（指數、廣度、漲跌榜、500 張成分——給下一次對比用）
@@ -251,14 +251,11 @@ python3 tools/refresh_box_ev.py --root . --pc-dir /tmp/pc-sets
 
 舊網址 `market-jp-psa10.html`（約 60 張 SV chase 袖）只做轉址到 JP 基準。導覽、頁尾、首頁「市場觀察」不再指向該袖。
 
-### 舊 60 張資料（公開頁已不用）
+### 舊 60 張資料（已凍結）
 
-`data/market-jp-psa10/` 同 GitHub Action **Update JP PSA10 index** 仍然每晚寫凍結約 60 張的三條線。公開頁不再讀呢份 JSON。之後可以再清腳本；而家未刪，避免順便改基準數學。
+`data/market-jp-psa10/` 係約 60 張 SV chase 袖嘅歷史 JSON，最後一份快照日期 **2026-10-29**。公開頁唔讀。GitHub Action **Update JP PSA10 index** 同 `tools/refresh_market_jp_psa10.py` 已刪，唔會再每晚抓 SNK 或 commit 呢個資料夾。
 
-```bash
-python3 tools/refresh_market_jp_psa10.py --self-test
-python3 tools/refresh_market_jp_psa10.py --from-cache
-```
+呢 60 張唔會併入 JP 基準（名單規則唔同）。JP 基準仍然每日由 **Update JP PSA10 broad benchmark** 更新。`baskets.json` 只係已知 SNK 產品編號嘅凍結名單：基準發現宇宙同 Chase 縮圖可以讀，唔會寫返去。
 
 詳見 `data/market-jp-psa10/README.md`。
 
@@ -287,6 +284,7 @@ GitHub Action **Update JP PSA10 broad benchmark** 每晚重算權重、季度重
 
 ## Changelog（摘要）
 
+- **v1.33.4**：約 60 張 SV chase 袖的夜間刷新已刪（`update-market-jp-psa10.yml`、`tools/refresh_market_jp_psa10.py`）。`data/market-jp-psa10/` 停在 2026-10-29，不再有新 commit。JP 基準、EN／復古／中世代、EN Base PriceCharting 的 Actions 排程不變。60 張唔併入 JP 基準。Chase_Fit、開盒 EV、shop +8% 不變
 - **v1.33.3**：日版 PSA10 約 60 張 SV chase 袖不再是產品頁。`market-jp-psa10.html` 轉到 JP 基準。導覽、頁尾、首頁「市場觀察」不再指向該袖。JP 基準仍是復古／中世代／現行＋特典／Tag Team；EN Base 留在同一頁，標成監察／旁路。Chase_Fit、開盒 EV、shop +8%、SWSH 單卡 EV 不變。60 張袖的夜間刷新仍寫 `data/market-jp-psa10/`，公開頁不再使用。公開說明拿掉維護者姓名；基準頁「這是什麼 · 方法」寫「四條權重（權重順序）」。Chase_Fit 仍是模型／工作表名。
 - **v1.33.2**：算盤預設實付盒價寫明係落地／買入價（HK$＝該側 SNKR 落地日圓 ÷ 20.3，四捨五入；唔加 shop +8%）。系列清單有膜／無膜 % 係回收比例（Raw A／買入價）＝ Grade A（打折）÷ 該側落地／買入價，與頂欄紅綠燈同一條；缺該側落地價仍顯示 —。全系列四欄的「Grade A（打折）」沿用同一分母。抽出率、haircut、JP PSA10 60 張袖、Chase／市況籃子不變
 - **v1.33.1**：朋友向用字。「預期回報 %」改為「預期回收比例」，唔再讀成賺幅。紅綠燈綠色改為「回收比例較高（娛樂開盒參考）」，門檻仍係 ≥55%／40–55%／&lt;40%。算盤頂欄主結果改為 Grade A（打折）四件套：實付盒價、預期回收額、差額（回收−盒價）、回收比例；100% 先係呢個估價定義下打和（55% ≠ 賺 55%，未計其他成本淨額約 −45%）。100% Grade A／A+PSA／A+CGC 收進「其他路徑」。首頁短免責：模型估計 ≠ 保證現金，靜態 snapshot。EV 算法、盒價、抽出率、JP PSA10 60 張袖不變

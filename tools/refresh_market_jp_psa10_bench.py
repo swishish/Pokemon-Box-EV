@@ -2,7 +2,7 @@
 """Broad JP PSA10 market benchmark (Pokeca-style sectors) from public SNKRDUNK.
 
 Public JP PSA10 benchmark. `market-jp-psa10.html` redirects here.
-This pipeline does **not** replace that page.
+The retired ~60-card SV chase sleeve is frozen history, not this basket.
 
 Headline COMPOSITE = union of VINTAGE + MODERN + CURRENT after liquidity /
 price screens. N floats — no per-sector floor, no pad-to-N, no truncate-to-N.
