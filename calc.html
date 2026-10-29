@@ -6,11 +6,11 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>日盒 EV 小算盤 v1.33.0 · JP Mega Sealed</title>
-<meta name="description" content="日盒開盒 EV 小算盤：選系列睇四個預期回報 %、有膜／無膜落地、chase 單卡。靜態快照，非正式投資建議。" />
+<title>日盒 EV 小算盤 v1.33.1 · JP Mega Sealed</title>
+<meta name="description" content="日盒開盒 EV 小算盤：選系列睇實付盒價、預期回收額、差額同預期回收比例。靜態快照，模型估計≠保證現金，非正式投資建議。" />
 <meta property="og:site_name" content="日盒開盒值不值？" />
 <meta property="og:title" content="日盒 EV 小算盤 · JP Mega Sealed" />
-<meta property="og:description" content="選系列睇四個預期回報 %、有膜／無膜落地、chase 單卡。靜態快照，非正式投資建議。" />
+<meta property="og:description" content="選系列睇實付盒價、預期回收額、差額同預期回收比例。靜態快照，模型估計≠保證現金，非正式投資建議。" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://swishish.github.io/Pokemon-Box-EV/calc.html" />
 <meta property="og:image" content="https://swishish.github.io/Pokemon-Box-EV/og.png" />
@@ -19,11 +19,11 @@
 <meta property="og:locale" content="zh_HK" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="日盒 EV 小算盤 · JP Mega Sealed" />
-<meta name="twitter:description" content="選系列睇四個預期回報 %。靜態快照，非正式投資建議。" />
+<meta name="twitter:description" content="選系列睇預期回收比例。100% 先係打和。靜態快照，非正式投資建議。" />
 <meta name="twitter:image" content="https://swishish.github.io/Pokemon-Box-EV/og.png" />
 <link rel="canonical" href="https://swishish.github.io/Pokemon-Box-EV/calc.html" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-<link rel="stylesheet" href="./css/freshness-badge.css?v=1.33.0" />
+<link rel="stylesheet" href="./css/freshness-badge.css?v=1.33.1" />
 <style>
   :root {
     --bg: #faf6ef;
@@ -376,7 +376,7 @@
     min-width: 0;
   }
 
-  /* Sticky strip: box art + 4 % metrics */
+  /* Sticky strip: box art + Grade A（打折）四件套 */
   .sticky-ev {
     position: sticky;
     top: 0;
@@ -409,7 +409,11 @@
     margin-left: auto;
     flex-shrink: 0;
   }
-  .sticky-kicker { margin-right: 2px; }
+  .sticky-kicker {
+    margin-right: 2px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
   .sticky-actions {
     display: inline-flex;
     align-items: center;
@@ -535,12 +539,16 @@
     font-size: .82rem;
     display: flex;
     align-items: center;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     gap: 4px;
     min-width: 0;
-    overflow: hidden;
   }
-  .sticky-ev .set-name { font-weight: 700; font-size: .88rem; color: var(--text); }
+  .sticky-ev .set-name {
+    font-weight: 700;
+    font-size: .88rem;
+    color: var(--text);
+    white-space: nowrap;
+  }
   .denom-toggle {
     display: inline-flex;
     border: var(--bw) solid var(--ink);
@@ -675,6 +683,44 @@
   .sticky-metric .v.bad { color: var(--bad); }
   .sticky-metric .v.na { color: var(--muted); font-weight: 650; }
   .sticky-metric .yen { font-size: .68rem; color: var(--muted); margin-top: 2px; }
+  .sticky-metric .v.neg { color: var(--bad); }
+  .sticky-metric .v.pos { color: var(--good); }
+  .sticky-primary {
+    flex: 1;
+    min-width: 0;
+  }
+  .sticky-path {
+    margin: 0 0 6px;
+    font-size: .68rem;
+    font-weight: 800;
+    letter-spacing: .02em;
+    color: var(--muted);
+  }
+  .break-even {
+    margin: 8px 0 0;
+    font-size: .72rem;
+    line-height: 1.45;
+    font-weight: 650;
+    color: var(--text);
+    overflow-wrap: break-word;
+  }
+  .sticky-alt {
+    margin-top: 8px;
+    border: var(--bw) solid var(--ink);
+    border-radius: 10px;
+    background: var(--bg-2);
+  }
+  .sticky-alt > summary {
+    cursor: pointer;
+    font-size: .75rem;
+    font-weight: 800;
+    padding: 8px 10px;
+    list-style: none;
+  }
+  .sticky-alt > summary::-webkit-details-marker { display: none; }
+  .sticky-alt-body { padding: 0 10px 10px; }
+  .sticky-metrics-alt { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .sticky-alt .tiny { margin: 8px 0 0; }
 
   /* Lightbox for chase / box thumbs (above sticky z-index:20) */
   .lightbox {
@@ -1571,7 +1617,9 @@
     .sticky-drawer .advanced > summary { padding: 10px 12px; }
     .sticky-drawer .advanced .adv-body { padding: 0 12px 12px; }
     .sticky-row { flex-wrap: wrap; }
-    .sticky-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .sticky-metrics,
+    .sticky-metrics-alt { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .break-even { font-size: .68rem; }
     .sticky-box { width: 52px; height: 52px; }
     .sticky-metric .v { font-size: 1.05rem; }
     .sticky-metric .k { font-size: .62rem; min-height: 2.4em; overflow-wrap: anywhere; }
@@ -1625,7 +1673,7 @@
 <header>
   <div class="header-inner">
     <div class="header-top">
-      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.33.0</span></h1>
+      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.33.1</span></h1>
       <nav class="header-nav" aria-label="站內導覽">
         <a class="nav-btn" href="./calc.html">開盒 EV</a>
         <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
@@ -1671,12 +1719,12 @@
       <div class="card sticky-card">
         <div class="sticky-head" id="stickyBar">
           <h2>
-            <span class="sticky-kicker">預期回報 %</span>
+            <span class="sticky-kicker">預期回收比例</span>
             <span class="set-name" id="stickySetName"></span>
             <span class="src-links" id="stickySrcLinks" aria-label="系列來源連結"></span>
           </h2>
           <div class="sticky-head-right">
-            <span class="price-override" id="stickyPriceOverride" title="盒價覆寫（HK$）· 預設＝目前分母（有膜／無膜）SNKR 落地 · 改動更新該分母 EV÷L">
+            <span class="price-override" id="stickyPriceOverride" title="盒價覆寫（HK$）· 預設＝目前分母（有膜／無膜）SNKR 落地 · 改動會重算預期回收比例">
               <span class="po-label">盒價</span>
               <input type="range" id="pcBoxSlider" min="0" max="2000" step="1" aria-label="盒價覆寫滑桿 HK$ 0–2000" />
               <input type="number" id="pcBoxOverride" min="0" step="1" inputmode="decimal" aria-label="盒價覆寫 HK$" />
@@ -1686,7 +1734,7 @@
               <button type="button" class="tog active" id="togShrink" data-denom="shrink">有膜</button>
               <button type="button" class="tog" id="togNS" data-denom="ns">無膜</button>
             </div>
-            <div class="sticky-hc" id="stickyHcLive" title="Grade A（打折）">
+            <div class="sticky-hc" id="stickyHcLive" title="Grade A（打折）預期回收比例。100%＝打和；55% 唔等於賺 55%（未計其他成本，淨額約 −45%）。">
               <span class="sticky-hc-v" id="stickyHcVal">—</span>
             </div>
             <div class="sticky-actions" id="stickyActions">
@@ -1700,8 +1748,19 @@
         <div class="sticky-drawer" id="stickyDrawer">
           <div class="sticky-row">
             <img class="sticky-box" id="stickyBox" alt="" width="64" height="64" loading="lazy" decoding="async" />
-            <div class="sticky-metrics" id="stickyMetrics"></div>
+            <div class="sticky-primary">
+              <p class="sticky-path">主結果 · Grade A（打折）</p>
+              <div class="sticky-metrics" id="stickyMetrics" aria-label="實付盒價、預期回收額、差額、回收比例"></div>
+              <p class="break-even" id="breakEvenNote">100% 先係呢個估價定義下打和。回收比例 55% 唔等於賺 55%（未計其他成本，淨額約 −45%）。</p>
+            </div>
           </div>
+          <details class="sticky-alt" id="stickyAlt">
+            <summary>其他路徑（次要）· 100% Grade A／A+PSA／A+CGC</summary>
+            <div class="sticky-alt-body">
+              <div class="sticky-metrics sticky-metrics-alt" id="stickyAltMetrics"></div>
+              <p class="tiny" id="stickyGradeNote" hidden></p>
+            </div>
+          </details>
         </div>
       </div>
     </div>
@@ -1756,25 +1815,26 @@
     <details class="advanced method-card" id="method">
       <summary>
         <img class="mon" src="./img/accents/eevee.svg" alt="" width="28" height="28" aria-hidden="true" />
-        方法論 · 四個 % 與資料來源
+        方法論 · 回收比例與資料來源
         <span class="open-hint closed">點擊展開</span>
         <span class="open-hint opened">點擊收起</span>
       </summary>
       <div class="adv-body">
       <ul class="tiny">
         <li><b>100% Grade A（買入價）</b>＝ 各稀有度池 Grade A 均價 × 抽出率加總 ÷ 落地盒價（<b>不做</b>稀有度折扣）。</li>
-        <li><b>Grade A（打折）</b>＝ 同上，但先把每張 Grade A 打一個稀有度折扣再平均。TOC／主判斷／紅綠燈用這個。頂欄會跟滑桿一齊更新。</li>
+        <li><b>Grade A（打折）</b>＝ 同上，但先把每張 Grade A 打一個稀有度折扣再平均。TOC／主判斷／紅綠燈／頂欄四件套（實付盒價、預期回收額、差額、回收比例）用這個。頂欄會跟滑桿一齊更新。</li>
         <li><b>A+PSA（打折）</b>＝ 可送評嘅 SAR／MUR／SR：用 PSA10／9 掛牌＋gem 率估「送評期望」；<b>只有送評期望高過打折 Grade A 先當送評，否則當賣裸卡</b>。其餘稀有度仍用打折 Grade A。資料太少（少過 3 張有 PSA10+gem）就顯示「—」，唔會假装等於打折分數。</li>
         <li><b>A+CGC（打折）</b>＝ 結構同 PSA；CGC10 價來自 <a href="https://www.pricecharting.com/" target="_blank" rel="noopener">PriceCharting</a>（USD），費用用 USD 再換算。缺資料同樣「—」。</li>
         <li><b>有膜／無膜</b>只改分母（落地盒價），分子不變。</li>
-        <li><b>紅綠燈</b>：值得考慮 ≥ 55% · 普通 40%–55% · 偏貴 &lt; 40%（睇打折分數）。</li>
+        <li><b>紅綠燈</b>：回收比例較高（娛樂開盒參考）≥ 55% · 普通 40%–55% · 偏貴 &lt; 40%（睇 Grade A 打折）。綠色唔係正數賺幅。</li>
+        <li><b>打和</b>：回收比例 <b>100%</b> 先係呢個估價定義下打和（預期回收額＝實付盒價）。<b>55% 唔等於賺 55%</b>；未計其他成本，淨額約 −45%。模型估計，唔等於保證可以換成現金。</li>
         <li><b>匯率</b>：日圓 → <b>HK$ = ¥ ÷ 20.3</b>；美元 → <b>HK$ = USD × 7.80</b>。頁面以 HK$ 為主；PSA／CGC 費用用 USD 編輯。</li>
         <li><b>落地分母</b>：各系列依 <a href="https://snkrdunk.com/en" target="_blank" rel="noopener">SNKRDUNK</a> 公開掛牌快照，分別計算有膜／無膜 1–4 盒各檔的落地單盒成本＝單盒價 × 1.035 +（運費 HK$173 × 20.3）÷ 該次購買盒數。運費按該筆訂單盒數攤提（買 1 盒時，單盒運費約為買 4 盒的四倍），再取該側最低落地單盒作為 EV 分母。頂欄「落地最優」顯示此快照下最便宜的購買盒數，並非即時行情。未含稅／關稅。可用頂部「盒價」改為你實際入手的 HK$。</li>
         <li><b>來源連結</b>：系列名旁可開 <a href="https://www.pricecharting.com/category/pokemon-cards" target="_blank" rel="noopener">PriceCharting</a> 盒頁同 <a href="https://snkrdunk.com/en" target="_blank" rel="noopener">SNKRDUNK</a> 有膜產品頁。「回到默認」還原折扣、費用同盒價。</li>
         <li><b>Gem 折扣</b>（進階，預設 <b>20%</b>）：送評路徑嘅有效 gem = 公佈 gem × (1 − 折扣)，留少少挑選偏差。</li>
         <li><b>抽出率</b>（社群估計，非正式）：每盒先計保底張數，再加「多一格 chase」（額外 SR <i>或</i> SAR，唔加兩次）。MEGA 盒大致 AR×3 + 道具 SR×1 + 1 格 chase；SV 盒大致 AR×3 + 1 格 SR／SAR／UR。同一稀有度用均價（好貴嘅一張會拉高）。來源：<a href="https://pokemon-infomation.com/" target="_blank" rel="noopener">Pokegto</a>、<a href="https://pokeka-atari.jp/" target="_blank" rel="noopener">pokeka-atari</a>、<a href="https://axstex01.com/" target="_blank" rel="noopener">axstex</a>。</li>
         <li><b>SR／AR 單卡價</b>：兩邊都有就取較低者——<a href="https://www.pricecharting.com/category/pokemon-cards" target="_blank" rel="noopener">PriceCharting</a> 未評成交（換成日圓）同 <a href="https://snkrdunk.com/en" target="_blank" rel="noopener">SNKRDUNK</a> Grade A；缺一邊就用另一邊，唔虛構。更高稀有度仍用 SNKRDUNK Grade A。</li>
-        <li><b>未入單卡嘅系列</b>：有膜／無膜落地價可以先選，但冇 Grade A 卡列時四個回報 % 顯示 —，唔會當成 0%。抽出率可以先記低，待 PriceCharting 卡表同 SNKRDUNK Grade A 補上先計數。</li>
+        <li><b>未入單卡嘅系列</b>：有膜／無膜落地價可以先選，但冇 Grade A 卡列時回收比例同其他路徑顯示 —，唔會當成 0%。抽出率可以先記低，待 PriceCharting 卡表同 SNKRDUNK Grade A 補上先計數。</li>
         <li><b>稀有度折扣（Haircut）</b>：滑桿係「打幾多 % 折」，10%＝×0.9。預設：MUR／SAR／支援 SAR <b>10%</b>；寶可夢／道具 SR <b>25%</b>；SSR／復刻 S <b>20%</b>；AR／UR／ACE <b>50%</b>；MA <b>25%</b>；BWR <b>0%</b>。可喺進階假設改。</li>
         <li><b>行情／抽出率來源</b>：日版裸卡同盒價 → <a href="https://snkrdunk.com/en" target="_blank" rel="noopener">SNKRDUNK</a> Grade A；美元成交同 CGC10 → <a href="https://www.pricecharting.com/category/pokemon-cards" target="_blank" rel="noopener">PriceCharting</a>；抽出率 → <a href="https://pokemon-infomation.com/" target="_blank" rel="noopener">Pokegto</a>／<a href="https://pokeka-atari.jp/" target="_blank" rel="noopener">pokeka-atari</a>／<a href="https://axstex01.com/" target="_blank" rel="noopener">axstex</a>。日版ポケカ相場參考 → <a href="https://xn--pok500-dva.com/" target="_blank" rel="noopener">SC / Rarebox</a>。冇可靠 Grade A 價嘅卡（例如部分 Master Ball 鏡）唔會發明價格。</li>
       </ul>
@@ -1796,8 +1856,8 @@
   <div class="all-ev-sheet" role="document">
     <div class="all-ev-head">
       <div class="all-ev-head-text">
-        <h2 id="allEvTitle">全系列預期回報</h2>
-        <p class="tiny" id="allEvNote">分母與頂欄相同。點選列可切換系列。</p>
+        <h2 id="allEvTitle">全系列預期回收比例</h2>
+        <p class="tiny" id="allEvNote">分母與頂欄相同。欄位係回收比例，100% 先係打和。點選列可切換系列。</p>
       </div>
       <div class="all-ev-head-actions">
         <button type="button" class="all-ev-back" id="allEvBack">返回系列</button>
@@ -1820,14 +1880,14 @@
     </div>
   </div>
 </div>
-<footer><img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" /><span>日盒 EV 小算盤 <b>v1.33.0</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期 · <a href="./index.html">首頁</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10.html">JP PSA10</a> · <a href="./market-jp-psa10-bench.html">JP 基準</a> · <a href="./market-base-psa-pop.html">Base POP</a></span></footer>
+<footer><img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" /><span>日盒 EV 小算盤 <b>v1.33.1</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期 · <a href="./index.html">首頁</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10.html">JP PSA10</a> · <a href="./market-jp-psa10-bench.html">JP 基準</a> · <a href="./market-base-psa-pop.html">Base POP</a></span></footer>
 
-<script src="./js/freshness-badge.js?v=1.33.0"></script>
-<script src="./data.js?v=1.33.0"></script>
+<script src="./js/freshness-badge.js?v=1.33.1"></script>
+<script src="./data.js?v=1.33.1"></script>
 <script>
 (async function () {
   // Keep in sync with the data.js?v= query above.
-  const VERSION = '1.33.0';
+  const VERSION = '1.33.1';
   async function loadJson(rel) {
     const url = new URL(rel, document.baseURI || window.location.href);
     url.searchParams.set('v', VERSION);
@@ -2162,7 +2222,7 @@
   }
   function band(r) {
     if (r == null || Number.isNaN(r)) return { cls: 'ok', label: '無資料' };
-    if (r >= traffic.good) return { cls: 'good', label: '值得考慮' };
+    if (r >= traffic.good) return { cls: 'good', label: '回收比例較高（娛樂開盒參考）' };
     if (r >= traffic.ok) return { cls: 'ok', label: '普通' };
     return { cls: 'bad', label: '偏貴' };
   }
@@ -2367,11 +2427,11 @@
     const bestName = escapeHtml(best.name);
     let body;
     if (b.cls === 'good') {
-      body = `${code} ${bestName} 的 Grade A（打折）分數 ${fmtPct(best.r)}（${b.label}）——相對落地成本看起來比較划算，開盒娛樂＋回收都說得過去。`;
+      body = `${code} ${bestName} 的 Grade A（打折）回收比例 ${fmtPct(best.r)}（${b.label}）。100% 先係呢個估價定義下打和，呢個比例唔係賺到嘅金額。開盒當娛樂參考，唔係保證可以換成現金。`;
     } else if (b.cls === 'ok') {
-      body = `${code} ${bestName} 的 Grade A（打折）分數 ${fmtPct(best.r)}（${b.label}）——可以當興趣開，但別期待穩賺；chase 熱門卡也值得對照單卡價。`;
+      body = `${code} ${bestName} 的 Grade A（打折）回收比例 ${fmtPct(best.r)}（${b.label}）。可以當興趣開；回收仍然低過盒價，chase 熱門卡也值得對照單卡價。`;
     } else {
-      body = `${code} ${bestName} 的 Grade A（打折）分數 ${fmtPct(best.r)}（${b.label}）——盒價相對回收偏高；若只追一兩張大卡，買單卡通常更單純。`;
+      body = `${code} ${bestName} 的 Grade A（打折）回收比例 ${fmtPct(best.r)}（${b.label}）。盒價相對回收偏高；若只追一兩張大卡，買單卡通常更單純。`;
     }
     return `<p>根據預設假設，${body}</p>${line2}`;
   }
@@ -2463,7 +2523,7 @@
     const denomLabel = landDenom === 'ns' ? '無膜' : '有膜';
     if (note) {
       note.textContent = '分母與頂欄相同，目前為「' + denomLabel +
-        '」。此分母無落地價的系列顯示 —。點選列可切換系列。';
+        '」。欄位係回收比例（100%＝打和），唔係賺到嘅百分比。此分母無落地價的系列顯示 —。點選列可切換系列。';
     }
     const rows = setList.map((s) => {
       const r = calcSet(s.code, true);
@@ -2588,52 +2648,93 @@
       return `<div class="sticky-metric ${b.cls}">
         <div class="k">${label}</div>
         <div class="v ${b.cls}">${fmtPct(ratio)}</div>
-        <div class="yen">${fmtHkdFromYen(yen)} EV</div>
+        <div class="yen">${fmtHkdFromYen(yen)} 回收額</div>
       </div>`;
     }
 
     const hcLive = $('stickyHcVal');
+    const hcWrap = $('stickyHcLive');
     if (hcLive) {
       const hcRatio = ratioSticky.HC;
       if (hcRatio == null || Number.isNaN(hcRatio)) {
         hcLive.textContent = '—';
         hcLive.className = 'sticky-hc-v na';
+        if (hcWrap) hcWrap.title = '尚未有 Grade A（打折）回收比例。';
       } else {
         const hb = band(hcRatio);
         hcLive.textContent = fmtPct(hcRatio);
         hcLive.className = 'sticky-hc-v ' + hb.cls;
+        if (hcWrap) {
+          hcWrap.title = 'Grade A（打折）預期回收比例 ' + fmtPct(hcRatio) +
+            '（' + hb.label + '）。100%＝打和；55% 唔等於賺 55%（未計其他成本，淨額約 −45%）。';
+        }
       }
     }
 
+    function hkdIntFromYen(n) {
+      if (n == null || Number.isNaN(n)) return null;
+      const hkd = n / FX_JPY_PER_HKD;
+      return (hkd < 0 ? -1 : 1) * Math.round(Math.abs(hkd));
+    }
+    function fmtHkdInt(hkd) {
+      if (hkd == null || Number.isNaN(hkd)) return '—';
+      const sign = hkd < 0 ? '-' : '';
+      return sign + 'HK$' + Math.abs(hkd).toLocaleString('en-US');
+    }
+    function quartetCell(label, value, sub, valueCls) {
+      const cls = valueCls ? (' ' + valueCls) : '';
+      return `<div class="sticky-metric">
+        <div class="k">${label}</div>
+        <div class="v${cls}">${value}</div>
+        <div class="yen">${sub || ''}</div>
+      </div>`;
+    }
+
+    const landYen = active.land;
+    const evYen = r.EV.HC;
+    const hcRatio = ratioSticky.HC;
+    const missingEv = evYen == null || Number.isNaN(evYen) || hcRatio == null || Number.isNaN(hcRatio);
+    const missingLand = landYen == null || Number.isNaN(landYen) || landYen <= 0;
+    const boxHkd = missingLand ? null : hkdIntFromYen(landYen);
+    const recHkd = missingEv ? null : hkdIntFromYen(evYen);
+    const gapHkd = (boxHkd != null && recHkd != null) ? (recHkd - boxHkd) : null;
+    const gapCls = gapHkd == null ? 'na' : (gapHkd < 0 ? 'neg' : (gapHkd > 0 ? 'pos' : ''));
+    const ratioBand = missingEv ? { cls: 'na', label: '無資料' } : band(hcRatio);
+    const ratioCell = `<div class="sticky-metric ${ratioBand.cls === 'na' ? '' : ratioBand.cls}">
+        <div class="k">回收比例</div>
+        <div class="v ${ratioBand.cls}">${missingEv ? '—' : fmtPct(hcRatio)}</div>
+        <div class="yen">${missingEv ? '缺單卡或盒價' : '100%＝打和'}</div>
+      </div>`;
+    // Headline quartet uses Grade A（打折）only. Displayed HKD are rounded so 回收 − 盒價 = 差額.
+    $('stickyMetrics').innerHTML =
+      quartetCell('實付盒價', fmtHkdInt(boxHkd), active.label + '落地') +
+      quartetCell('預期回收額', fmtHkdInt(recHkd), missingEv ? '缺單卡' : 'Grade A（打折）') +
+      quartetCell('差額（回收−盒價）', fmtHkdInt(gapHkd), gapHkd == null ? '' : (gapHkd < 0 ? '回收低過盒價' : (gapHkd > 0 ? '回收高過盒價' : '剛好打和')), gapCls) +
+      ratioCell;
+
     const psaMissing = !r.hasPsa;
     const cgcMissing = !r.hasCgc;
-    const cardMissing = r.noCards ? '缺單卡 EV' : null;
-    // Four % only — selected denom (live-calc)
-    $('stickyMetrics').innerHTML =
-      metricHTML('100% Grade A（買入價）', ratioSticky.GA, r.EV.GA, cardMissing) +
-      metricHTML('Grade A（打折）', ratioSticky.HC, r.EV.HC, cardMissing) +
-      metricHTML('A+PSA（打折）', ratioSticky.PSA, r.EV.PSA, cardMissing || (psaMissing ? '缺 PSA 資料' : null)) +
-      metricHTML('A+CGC（打折）', ratioSticky.CGC, r.EV.CGC, cardMissing || (cgcMissing ? '缺 CGC 資料' : null));
+    const cardMissing = r.noCards ? '缺單卡' : null;
+    const altEl = $('stickyAltMetrics');
+    if (altEl) {
+      altEl.innerHTML =
+        metricHTML('100% Grade A（買入價）', ratioSticky.GA, r.EV.GA, cardMissing) +
+        metricHTML('A+PSA（打折）', ratioSticky.PSA, r.EV.PSA, cardMissing || (psaMissing ? '缺 PSA 資料' : null)) +
+        metricHTML('A+CGC（打折）', ratioSticky.CGC, r.EV.CGC, cardMissing || (cgcMissing ? '缺 CGC 資料' : null));
+    }
 
-    // Gem/ask N/A note when grading paths missing
     const gemAskNote = r.noCards
-      ? '此系列有有膜／無膜落地價，但尚未入單卡 Grade A，四個回報 % 顯示 —。'
+      ? '此系列有有膜／無膜落地價，但尚未入單卡 Grade A，回收比例同其他路徑顯示 —。'
       : (psaMissing && cgcMissing)
       ? '此系列尚無足夠 PSA／CGC 掛牌＋gem 資料（grade 池 &lt;3 張），A+PSA／A+CGC 顯示 —；Gem 折扣／Ask 乘數目前無作用。'
       : (psaMissing
         ? '此系列缺 PSA 資料，A+PSA 顯示 —；Gem 折扣對 PSA 路徑無作用。'
         : (cgcMissing ? '此系列缺 CGC 資料，A+CGC 顯示 —。' : ''));
-    let stickyNote = $('stickyGradeNote');
-    if (!stickyNote) {
-      stickyNote = document.createElement('p');
-      stickyNote.id = 'stickyGradeNote';
-      stickyNote.className = 'tiny';
-      stickyNote.style.margin = '6px 0 0';
-      const row = document.querySelector('.sticky-row');
-      if (row && row.parentNode) row.parentNode.insertBefore(stickyNote, row.nextSibling);
+    const stickyNote = $('stickyGradeNote');
+    if (stickyNote) {
+      stickyNote.innerHTML = gemAskNote;
+      stickyNote.hidden = !gemAskNote;
     }
-    stickyNote.innerHTML = gemAskNote;
-    stickyNote.hidden = !gemAskNote;
 
     $('verdict').innerHTML = conclusion(r);
 
@@ -2675,7 +2776,7 @@
       const topYen = evRawYen(top);
       const ripBetter = (r.ratiosS && r.ratiosS.HC >= traffic.good) || (r.ratiosNS && r.ratiosNS.HC >= traffic.good);
       if (ripBetter) {
-        hint = `粗略建議：開盒回收分數不錯；若你喜歡開包體驗，開盒合理。若只鎖定「${topName}」一張，仍可先比單卡 ${fmtHkdFromYen(topYen)} vs 落地盒 ${fmtHkdFromYen(landRef)}。`;
+        hint = `粗略參考：Grade A（打折）回收比例到綠色帶（≥55%），仍然低過打和嘅 100%。喜歡開包可以當娛樂開。若只鎖定「${topName}」一張，仍可先比單卡 ${fmtHkdFromYen(topYen)} vs 落地盒 ${fmtHkdFromYen(landRef)}。`;
       } else if (topYen != null && topYen / landRef >= 0.4) {
         hint = `粗略建議：大頭卡「${topName}」單卡已約落地盒的 ${((topYen / landRef) * 100).toFixed(0)}%。只追該卡 → 優先考慮買單卡；想開一盒碰運氣再開盒。`;
       } else {
@@ -2790,11 +2891,26 @@
     const ga = active.ratios ? fmtPct(active.ratios.GA) : '—';
     const psa = (r.hasPsa && active.ratios && active.ratios.PSA != null) ? fmtPct(active.ratios.PSA) : '—';
     const cgc = (r.hasCgc && active.ratios && active.ratios.CGC != null) ? fmtPct(active.ratios.CGC) : '—';
+    const landYen = active.land;
+    const evYen = r.EV.HC;
+    const hcRatio = active.ratios ? active.ratios.HC : null;
+    const boxHkd = (landYen != null && !Number.isNaN(landYen) && landYen > 0) ? Math.round(landYen / FX_JPY_PER_HKD) : null;
+    const recHkd = (evYen != null && !Number.isNaN(evYen) && hcRatio != null) ? Math.round(evYen / FX_JPY_PER_HKD) : null;
+    const gapHkd = (boxHkd != null && recHkd != null) ? (recHkd - boxHkd) : null;
+    function fmtShareHkd(hkd) {
+      if (hkd == null || Number.isNaN(hkd)) return '—';
+      const sign = hkd < 0 ? '-' : '';
+      return sign + 'HK$' + Math.abs(hkd).toLocaleString('en-US');
+    }
     const lines = [
-      displaySetName(r.set),
-      '有膜 HC ' + hcS + ' · 無膜 HC ' + hcNS,
-      '落地（' + active.label + '）' + fmtHkdFromYen(active.land),
-      '100% Grade A ' + ga + ' · A+PSA ' + psa + ' · A+CGC ' + cgc,
+      displaySetName(r.set) + ' · Grade A（打折）',
+      '實付盒價 ' + fmtShareHkd(boxHkd) + '（' + active.label + '）',
+      '預期回收額 ' + fmtShareHkd(recHkd),
+      '差額（回收−盒價） ' + fmtShareHkd(gapHkd),
+      '預期回收比例 ' + fmtPct(hcRatio),
+      '100%＝打和；55% 唔等於賺 55%（未計其他成本，淨額約 −45%）',
+      '有膜 ' + hcS + ' · 無膜 ' + hcNS,
+      '次要回收比例：100% Grade A ' + ga + ' · A+PSA ' + psa + ' · A+CGC ' + cgc,
     ];
     const ymd = asOfYmd();
     if (ymd) lines.push('資料 ' + ymd);

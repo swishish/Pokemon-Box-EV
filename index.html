@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>日盒開盒值不值？ v1.33.0 · 首頁</title>
+<title>日盒開盒值不值？ v1.33.1 · 首頁</title>
 <meta name="description" content="給朋友看的簡易日盒 EV 小算盤：開盒值不值、Chase 公允值、Base 復古指數。靜態快照，非正式投資建議。" />
 <meta property="og:site_name" content="日盒開盒值不值？" />
 <meta property="og:title" content="日盒開盒值不值？ · 開盒 EV" />
@@ -23,7 +23,7 @@
 <meta name="twitter:image" content="https://swishish.github.io/Pokemon-Box-EV/og.png" />
 <link rel="canonical" href="https://swishish.github.io/Pokemon-Box-EV/" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-<link rel="stylesheet" href="./css/freshness-badge.css?v=1.33.0" />
+<link rel="stylesheet" href="./css/freshness-badge.css?v=1.33.1" />
 <style>
   :root {
     --bg: #faf6ef;
@@ -296,17 +296,36 @@
     font-size: .88rem;
     padding: 10px 14px;
   }
-  .lights { display: flex; flex-wrap: wrap; gap: 6px; }
+  .lights-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    min-width: 0;
+    max-width: 100%;
+    flex: 1 1 18rem;
+  }
+  .lights { display: flex; flex-wrap: wrap; gap: 6px; max-width: 100%; }
   .light {
     display: inline-flex;
     align-items: center;
     gap: 6px;
+    max-width: 100%;
     font-size: .72rem;
     font-weight: 800;
     padding: 5px 9px;
     border-radius: 999px;
     border: 1.5px solid var(--ink);
     background: var(--card);
+    white-space: normal;
+  }
+  .break-even {
+    margin: 0;
+    max-width: 42em;
+    font-size: .75rem;
+    line-height: 1.45;
+    font-weight: 650;
+    color: var(--text);
   }
   .dot {
     width: 9px; height: 9px;
@@ -634,7 +653,7 @@
 <header>
   <div class="header-inner">
     <div class="header-top">
-      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.33.0</span></h1>
+      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.33.1</span></h1>
       <nav class="header-nav" aria-label="站內導覽">
         <a class="nav-btn" href="./calc.html">開盒 EV</a>
         <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
@@ -662,10 +681,13 @@
     <p class="hero-pitch">三個入口：開盒計算、市場觀察、研究工具。頂欄日期是靜態快照，不是即時行情。</p>
     <div class="cta-row">
       <a class="cta" href="./calc.html">開盒計算 →</a>
-      <div class="lights" aria-label="紅綠燈說明">
-        <span class="light"><span class="dot good" aria-hidden="true"></span>≥55% 值得考慮</span>
-        <span class="light"><span class="dot ok" aria-hidden="true"></span>40–55% 普通</span>
-        <span class="light"><span class="dot bad" aria-hidden="true"></span>&lt;40% 偏貴</span>
+      <div class="lights-wrap">
+        <div class="lights" aria-label="紅綠燈說明">
+          <span class="light" title="綠色只係回收比例較高，當娛樂開盒參考。100% 先係打和。"><span class="dot good" aria-hidden="true"></span>≥55% 回收比例較高（娛樂開盒參考）</span>
+          <span class="light"><span class="dot ok" aria-hidden="true"></span>40–55% 普通</span>
+          <span class="light"><span class="dot bad" aria-hidden="true"></span>&lt;40% 偏貴</span>
+        </div>
+        <p class="break-even">100% 先係呢個估價定義下打和。回收比例 55% 唔等於賺 55%（未計其他成本，淨額約 −45%）。</p>
       </div>
     </div>
     <img class="hero-deco" src="./img/accents/eevee.svg" alt="" width="110" height="110" aria-hidden="true" />
@@ -675,7 +697,7 @@
     <article class="task">
       <p class="task-kicker">開盒計算</p>
       <h2 class="task-title">開盒 EV</h2>
-      <p class="task-desc">選系列，睇四個預期回報 %（同一個盒價分母）。有膜／無膜只改分母。主判斷用 Grade A（打折）：綠 ≥55% 值得考慮、黃 40–55% 普通、紅 &lt;40% 偏貴。</p>
+      <p class="task-desc">選系列，一次過睇實付盒價、預期回收額、差額（回收−盒價）、預期回收比例。主判斷用 Grade A（打折）。有膜／無膜只改分母。綠 ≥55% 回收比例較高（娛樂開盒參考）、黃 40–55% 普通、紅 &lt;40% 偏貴。100% 先係打和。</p>
       <a class="task-go" href="./calc.html">開始計算 →</a>
     </article>
     <article class="task task-market">
@@ -736,32 +758,35 @@
     
           <article class="how-card">
             <div class="how-copy">
-              <div class="how-kicker"><span class="step-n">2</span> 睇 sticky EV %／紅綠燈</div>
+              <div class="how-kicker"><span class="step-n">2</span> 睇四件套／紅綠燈</div>
               <h3>主判斷用「Grade A（打折）」</h3>
-              <p>頂欄四個 % 同一個盒價分母。綠 ≥55% 值得考慮、黃 40–55% 普通、紅 &lt;40% 偏貴。有膜／無膜只改分母，唔改抽出率。</p>
+              <p>頂欄一次過睇實付盒價、預期回收額、差額（回收−盒價）、預期回收比例。100% 先係打和；綠 ≥55% 係回收比例較高（娛樂開盒參考），唔係賺到 55%。黃 40–55% 普通、紅 &lt;40% 偏貴。有膜／無膜只改分母，唔改抽出率。PSA／CGC 收在「其他路徑」。</p>
             </div>
             <figure class="how-fig">
-              <svg viewBox="0 0 320 160" role="img" aria-label="sticky EV 示意">
+              <svg viewBox="0 0 320 160" role="img" aria-label="sticky 四件套示意：實付盒價、預期回收額、差額、回收比例">
                 <rect x="8" y="8" width="304" height="144" rx="12" fill="#fff" stroke="#141414" stroke-width="2"/>
-                <text x="24" y="32" font-size="10" font-weight="800" fill="#5f5a51">預期回報 %</text>
-                <rect x="20" y="44" width="66" height="64" rx="8" fill="#fff3c4" stroke="#141414" stroke-width="1.6"/>
-                <text x="53" y="68" text-anchor="middle" font-size="8" fill="#5f5a51">100% A</text>
-                <text x="53" y="90" text-anchor="middle" font-size="16" font-weight="800" fill="#141414">41%</text>
-                <rect x="92" y="44" width="66" height="64" rx="8" fill="#fbdfe1" stroke="#141414" stroke-width="2"/>
-                <text x="125" y="68" text-anchor="middle" font-size="8" fill="#5f5a51">A 打折</text>
-                <text x="125" y="90" text-anchor="middle" font-size="16" font-weight="800" fill="#c93540">28%</text>
-                <rect x="164" y="44" width="66" height="64" rx="8" fill="#f3ede1" stroke="#141414" stroke-width="1.6"/>
-                <text x="197" y="68" text-anchor="middle" font-size="8" fill="#5f5a51">A+PSA</text>
-                <text x="197" y="90" text-anchor="middle" font-size="16" font-weight="800" fill="#5f5a51">—</text>
-                <rect x="236" y="44" width="66" height="64" rx="8" fill="#fbdfe1" stroke="#141414" stroke-width="1.6"/>
-                <text x="269" y="68" text-anchor="middle" font-size="8" fill="#5f5a51">A+CGC</text>
-                <text x="269" y="90" text-anchor="middle" font-size="16" font-weight="800" fill="#c93540">36%</text>
-                <circle cx="48" cy="132" r="6" fill="#2fbf71" stroke="#141414" stroke-width="1.4"/>
-                <circle cx="68" cy="132" r="6" fill="#ffd23f" stroke="#141414" stroke-width="1.4"/>
-                <circle cx="88" cy="132" r="6" fill="#e4434f" stroke="#141414" stroke-width="1.4"/>
-                <text x="104" y="136" font-size="9" font-weight="700" fill="#5f5a51">紅綠燈跟「A 打折」</text>
+                <text x="16" y="28" font-size="10" font-weight="800" fill="#5f5a51">預期回收比例 · Grade A（打折）</text>
+                <rect x="16" y="38" width="70" height="58" rx="8" fill="#f3ede1" stroke="#141414" stroke-width="1.6"/>
+                <text x="51" y="56" text-anchor="middle" font-size="7" fill="#5f5a51">實付盒價</text>
+                <text x="51" y="78" text-anchor="middle" font-size="10" font-weight="800" fill="#141414">HK$585</text>
+                <rect x="90" y="38" width="70" height="58" rx="8" fill="#f3ede1" stroke="#141414" stroke-width="1.6"/>
+                <text x="125" y="56" text-anchor="middle" font-size="7" fill="#5f5a51">預期回收額</text>
+                <text x="125" y="78" text-anchor="middle" font-size="10" font-weight="800" fill="#141414">HK$164</text>
+                <rect x="164" y="38" width="70" height="58" rx="8" fill="#f3ede1" stroke="#141414" stroke-width="1.6"/>
+                <text x="199" y="56" text-anchor="middle" font-size="7" fill="#5f5a51">差額</text>
+                <text x="199" y="78" text-anchor="middle" font-size="10" font-weight="800" fill="#c93540">−HK$421</text>
+                <rect x="238" y="38" width="70" height="58" rx="8" fill="#fbdfe1" stroke="#141414" stroke-width="2"/>
+                <text x="273" y="56" text-anchor="middle" font-size="7" fill="#5f5a51">回收比例</text>
+                <text x="273" y="78" text-anchor="middle" font-size="13" font-weight="800" fill="#c93540">28%</text>
+                <text x="16" y="116" font-size="8" font-weight="700" fill="#5f5a51">100%＝打和 · 55% ≠ 賺 55%</text>
+                <circle cx="22" cy="138" r="5" fill="#2fbf71" stroke="#141414" stroke-width="1.2"/>
+                <text x="32" y="141" font-size="8" fill="#5f5a51">≥55% 娛樂參考</text>
+                <circle cx="128" cy="138" r="5" fill="#ffd23f" stroke="#141414" stroke-width="1.2"/>
+                <text x="138" y="141" font-size="8" fill="#5f5a51">40–55%</text>
+                <circle cx="196" cy="138" r="5" fill="#e4434f" stroke="#141414" stroke-width="1.2"/>
+                <text x="206" y="141" font-size="8" fill="#5f5a51">&lt;40%</text>
               </svg>
-              <figcaption>Sticky 四格 % 示意</figcaption>
+              <figcaption>Sticky 四件套示意（Grade A 打折）</figcaption>
             </figure>
           </article>
     
@@ -819,7 +844,7 @@
             <div class="how-copy">
               <div class="how-kicker"><span class="step-n">5</span> 買單卡 vs 開盒</div>
               <h3>只想要一張大卡時，先估單卡再決定 rip</h3>
-              <p>若 Chase 一張已經接近或貴過盒 EV，好多時直接買單卡更穩。開盒適合你鍾意「成盒體驗」或者多張中價卡加埋都划算。數字係模型估計，<strong>非正式投資建議</strong>。</p>
+              <p>若 Chase 一張已經接近或貴過盒價，好多時直接買單卡更單純。開盒適合你鍾意「成盒體驗」。數字係模型估計，<strong>唔等於保證可以換成現金</strong>。</p>
             </div>
             <figure class="how-fig">
               <svg viewBox="0 0 320 160" role="img" aria-label="買單卡對開盒示意">
@@ -830,7 +855,7 @@
                 <text x="86" y="100" text-anchor="middle" font-size="10" font-weight="800">已知價錢</text>
                 <rect x="170" y="28" width="128" height="104" rx="10" fill="#fff3c4" stroke="#141414" stroke-width="2"/>
                 <text x="234" y="56" text-anchor="middle" font-size="12" font-weight="800">開盒</text>
-                <text x="234" y="78" text-anchor="middle" font-size="9" fill="#5f5a51">期望回報 %</text>
+                <text x="234" y="78" text-anchor="middle" font-size="9" fill="#5f5a51">預期回收比例</text>
                 <text x="234" y="100" text-anchor="middle" font-size="10" font-weight="800">平均、有方差</text>
               </svg>
               <figcaption>兩條路對照示意</figcaption>
@@ -855,16 +880,16 @@
   </section>
 
   <section class="card-note" aria-label="注意">
-    <p class="note">數字為模型估計，<b>非正式投資建議</b>；市價會變。資料係靜態 snapshot，分享時請連同資料日期。首頁唔會自動跳去算盤。</p>
+    <p class="note">模型估計 ≠ 保證可以換成現金，亦<b>非正式投資建議</b>。市價會變。資料係靜態 snapshot，分享時請連同頂欄快照日期。首頁唔會自動跳去算盤。</p>
   </section>
 </main>
 
 <footer>
   <img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" />
-  <span>日盒 EV 小算盤 <b>v1.33.0</b> · Snapshot 靜態資料 · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10.html">JP PSA10</a> · <a href="./market-jp-psa10-bench.html">JP 基準</a> · <a href="./market-base-psa-pop.html">Base POP</a></span>
+  <span>日盒 EV 小算盤 <b>v1.33.1</b> · Snapshot 靜態資料 · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10.html">JP PSA10</a> · <a href="./market-jp-psa10-bench.html">JP 基準</a> · <a href="./market-base-psa-pop.html">Base POP</a></span>
 </footer>
 <!-- Cloudflare Web Analytics -->
-<script src="./js/freshness-badge.js?v=1.33.0"></script>
+<script src="./js/freshness-badge.js?v=1.33.1"></script>
 <script>
 FreshBadge.mountHome();
 </script>
