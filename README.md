@@ -1,8 +1,8 @@
 # Pokemon Box EV
 
-日盒 EV 小算盤（朋友向）· **v1.33.5**
+日盒 EV 小算盤（朋友向）· **v1.33.6**
 
-給「不太懂金融／AI」的買卡朋友看的工具：首頁三個入口（開盒計算／市場觀察／研究工具）→ 開盒算盤選系列 → 看 **Grade A（打折）四件套**（實付盒價、預期回收額、差額、預期回收比例；100% 先係打和）→ 有膜／無膜切換 → 看主力 chase 卡與「買單卡 vs 開盒」粗略提示。圖文教學在首頁預設收起。
+給「不太懂金融／AI」的買卡朋友看的工具：首頁三個入口（開盒計算／市場觀察／研究工具）→ 開盒算盤選系列 → 看 **100% Grade A（買入價）四件套**（實付盒價、預期回收額、差額、預期回收比例；100% 先係打和）→ 有膜／無膜切換 → 看主力 chase 卡與「買單卡 vs 開盒」粗略提示。圖文教學在首頁預設收起。
 
 資料來自靜態 snapshot（`ev_live`），**無登入、無即時行情**。盒價可用公開頁手動／Actions 刷新；單卡仍然要人手。
 
@@ -284,6 +284,7 @@ GitHub Action **Update JP PSA10 broad benchmark** 每晚重算權重、季度重
 
 ## Changelog（摘要）
 
+- **v1.33.6**：算盤主結果、頂欄回收比例、系列清單紅綠燈改為 **100% Grade A（買入價）**（不做稀有度折扣）。Grade A（打折）、A+PSA、A+CGC 一直顯示在「其他假设方法」。朋友向用字仍是預期回收比例，100%＝打和。原先 A+ 顯示 — 的系列，用公開 SNKRDUNK PSA10 掛牌（有掛牌先用，否則 PriceCharting PSA 10 換成日圓）、PriceCharting CGC 10（USD），同 PriceCharting POP（PSA 10／總數，PSA 人口不足 5 就用同一張表的 CGC 人口）補上 gem。補唔到的卡維持空白，唔發明叫價、apparel ID 或 gem。今次來源夠的系列，A+PSA／A+CGC 都不再是 —。盒價、抽出率、haircut 滑桿預設不變。v1.33.5 的 13 張 SV 盒圖保留
 - **v1.33.5**：開盒左欄系列目錄補上 13 個原本只有代碼占位的日版 SV 盒圖（SV9、SV7、SV6a、SV6、SV5a、SV5M、SV5K、SV4M、SV4K、SV3a、SV2P、SV2D、SV1V）。圖是公開 SNKRDUNK 有膜產品主圖（`upload_bg_removed` webp），對到既有 `snkrdunk_shrink_id`／`pkmn-tcg-<code>`，存成本機 `img/{code}.webp`，寫入 `img_map.json` 的 `boxes`。Mega（M6a、M6、M5 等）同其餘已有盒圖未改。EV、抽出率、Chase_Fit 不變
 - **v1.33.4**：約 60 張 SV chase 袖的夜間刷新已刪（`update-market-jp-psa10.yml`、`tools/refresh_market_jp_psa10.py`）。`data/market-jp-psa10/` 停在 2026-10-29，不再有新 commit。JP 基準、EN／復古／中世代、EN Base PriceCharting 的 Actions 排程不變。60 張唔併入 JP 基準。Chase_Fit、開盒 EV、shop +8% 不變
 - **v1.33.3**：日版 PSA10 約 60 張 SV chase 袖不再是產品頁。`market-jp-psa10.html` 轉到 JP 基準。導覽、頁尾、首頁「市場觀察」不再指向該袖。JP 基準仍是復古／中世代／現行＋特典／Tag Team；EN Base 留在同一頁，標成監察／旁路。Chase_Fit、開盒 EV、shop +8%、SWSH 單卡 EV 不變。60 張袖的夜間刷新仍寫 `data/market-jp-psa10/`，公開頁不再使用。公開說明拿掉維護者姓名；基準頁「這是什麼 · 方法」寫「四條權重（權重順序）」。Chase_Fit 仍是模型／工作表名。
