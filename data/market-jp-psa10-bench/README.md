@@ -6,7 +6,7 @@ Pokeca intent (not a code clone): era sectors + √(sales×price) rank for displ
 
 | File | Role |
 | --- | --- |
-| `universe.json` | Discovered SNK apparel IDs (search + `data.json` / chase 60). Never invented. |
+| `universe.json` | Discovered SNK apparel IDs (search + `data.json` / frozen chase-sleeve IDs in `data/market-jp-psa10/baskets.json`). Never invented. |
 | `baskets.json` | Frozen membership per series (source of truth between reconstitutions) |
 | `latest.json` / `latest.js` | Today: six series, four weight lines, breadth, movers, constituents |
 | `history.json` / `history.js` | Daily points: `equal`, `liquidity`, `price`, `priceNoCap`, `volume` |
@@ -24,7 +24,7 @@ Pokeca intent (not a code clone): era sectors + √(sales×price) rank for displ
 | `promo` | 特典 PROMO | Sibling: Grey Felt Hat class, Munch/Picasso, Mario/Luigi/poncho Pikachu, Extra Battle Day, other liquid JP promos |
 | `midera` | Tag Team / MID | Sibling thermometer: Tag Team GX window (SM8b–SM12a / SMM). Overlaps MODERN on purpose so mid-era is visible |
 
-The old ~60-card SV chase sleeve is no longer a public page. `market-jp-psa10.html` redirects here. `data/market-jp-psa10/` may still refresh on its own nightly job until that pipeline is removed.
+The old ~60-card SV chase sleeve is no longer a public page. `market-jp-psa10.html` redirects here. `data/market-jp-psa10/` is frozen history (last snapshot 2026-10-29). Its nightly job is removed. Those 60 cards are not members of this benchmark; the frozen `baskets.json` is only a known-ID seed for discovery.
 
 ## Cadence
 

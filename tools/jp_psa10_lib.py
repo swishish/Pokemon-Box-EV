@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Shared JP PSA10 index math + SNK helpers.
 
-Used by the broad-benchmark pipeline. The 60-card SV chase sleeve
-(`refresh_market_jp_psa10.py`) keeps its own copy so PR #45 can land
-without a merge fight. Do not invent apparel IDs or Chinese names.
+Used by the broad-benchmark pipeline (`refresh_market_jp_psa10_bench.py`).
+The ~60-card chase sleeve script is retired; do not revive it here.
+Do not invent apparel IDs or Chinese names.
 """
 from __future__ import annotations
 

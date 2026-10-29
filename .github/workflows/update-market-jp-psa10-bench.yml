@@ -6,7 +6,7 @@ name: Update JP PSA10 broad benchmark
 # Quarterly (1 Jan/Apr/Jul/Oct) = membership reconstitution.
 on:
   schedule:
-    - cron: "50 22 * * *"          # daily, after the chase-60 job
+    - cron: "50 22 * * *"          # daily weight rebalance (22:50 UTC)
     - cron: "20 23 1 1,4,7,10 *"   # quarterly reconstitution 23:20 UTC on quarter-start
   workflow_dispatch:
     inputs:
@@ -34,8 +34,6 @@ jobs:
           python-version: "3.12"
       - name: Self-test broad JP PSA10 benchmark math
         run: python3 tools/refresh_market_jp_psa10_bench.py --self-test
-      - name: Chase 60 sleeve still self-tests
-        run: python3 tools/refresh_market_jp_psa10.py --self-test
       - name: PSA10 share cards stay off the Box EV OG image
         run: python3 tools/render_og.py --self-test
 
@@ -55,7 +53,6 @@ jobs:
       - name: Self-test
         run: |
           python3 tools/refresh_market_jp_psa10_bench.py --self-test
-          python3 tools/refresh_market_jp_psa10.py --self-test
           python3 tools/render_og.py --self-test
       - name: Reconstitute or refresh
         env:
