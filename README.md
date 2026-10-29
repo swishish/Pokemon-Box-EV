@@ -1,6 +1,6 @@
 # Pokemon Box EV
 
-日盒 EV 小算盤（朋友向）· **v1.33.4**
+日盒 EV 小算盤（朋友向）· **v1.33.5**
 
 給「不太懂金融／AI」的買卡朋友看的工具：首頁三個入口（開盒計算／市場觀察／研究工具）→ 開盒算盤選系列 → 看 **Grade A（打折）四件套**（實付盒價、預期回收額、差額、預期回收比例；100% 先係打和）→ 有膜／無膜切換 → 看主力 chase 卡與「買單卡 vs 開盒」粗略提示。圖文教學在首頁預設收起。
 
@@ -239,7 +239,7 @@ python3 tools/refresh_sealed_boxes.py --root .
 
 ## Box EV 週更（單卡 · 仍然手動 — 無 GitHub cron）
 
-開盒算盤 `calc.html` 用 `data.json`／`data.js`。`tools/refresh_box_ev.py` 要先有手存的 PriceCharting **單卡** console HTML（`/tmp/pc-sets/{SET}.html`，例如 `M6.html`）。**沒有這些檔就唔好跑**——腳本會拒絕寫入，避免虛構價格或把 `as_of` 推到今天。**不要**為此加 Actions scrape（會寫壞／虛構）。SNKRDUNK Grade A **單卡**亦唔會自動爬。市場頁先由 `update-market-en.yml` 每日更新；Chase 同單卡 Box EV 仍然係人手／Grok Bot 週一檢查 `as_of`（過 **8 日**橙色橫幅）後再救。`calc.html` 資料超過 **8 日**會用橙色過期橫幅。
+開盒算盤 `calc.html` 用 `data.json`／`data.js`。左欄系列縮圖讀 `img_map.json` 的 `boxes`（本機 `img/{code}.webp`）；沒有對應檔才顯示代碼占位。`tools/refresh_box_ev.py` 要先有手存的 PriceCharting **單卡** console HTML（`/tmp/pc-sets/{SET}.html`，例如 `M6.html`）。**沒有這些檔就唔好跑**——腳本會拒絕寫入，避免虛構價格或把 `as_of` 推到今天。**不要**為此加 Actions scrape（會寫壞／虛構）。SNKRDUNK Grade A **單卡**亦唔會自動爬。市場頁先由 `update-market-en.yml` 每日更新；Chase 同單卡 Box EV 仍然係人手／Grok Bot 週一檢查 `as_of`（過 **8 日**橙色橫幅）後再救。`calc.html` 資料超過 **8 日**會用橙色過期橫幅。
 
 ```bash
 python3 tools/refresh_box_ev.py --root . --pc-dir /tmp/pc-sets
@@ -284,6 +284,7 @@ GitHub Action **Update JP PSA10 broad benchmark** 每晚重算權重、季度重
 
 ## Changelog（摘要）
 
+- **v1.33.5**：開盒左欄系列目錄補上 13 個原本只有代碼占位的日版 SV 盒圖（SV9、SV7、SV6a、SV6、SV5a、SV5M、SV5K、SV4M、SV4K、SV3a、SV2P、SV2D、SV1V）。圖是公開 SNKRDUNK 有膜產品主圖（`upload_bg_removed` webp），對到既有 `snkrdunk_shrink_id`／`pkmn-tcg-<code>`，存成本機 `img/{code}.webp`，寫入 `img_map.json` 的 `boxes`。Mega（M6a、M6、M5 等）同其餘已有盒圖未改。EV、抽出率、Chase_Fit 不變
 - **v1.33.4**：約 60 張 SV chase 袖的夜間刷新已刪（`update-market-jp-psa10.yml`、`tools/refresh_market_jp_psa10.py`）。`data/market-jp-psa10/` 停在 2026-10-29，不再有新 commit。JP 基準、EN／復古／中世代、EN Base PriceCharting 的 Actions 排程不變。60 張唔併入 JP 基準。Chase_Fit、開盒 EV、shop +8% 不變
 - **v1.33.3**：日版 PSA10 約 60 張 SV chase 袖不再是產品頁。`market-jp-psa10.html` 轉到 JP 基準。導覽、頁尾、首頁「市場觀察」不再指向該袖。JP 基準仍是復古／中世代／現行＋特典／Tag Team；EN Base 留在同一頁，標成監察／旁路。Chase_Fit、開盒 EV、shop +8%、SWSH 單卡 EV 不變。60 張袖的夜間刷新仍寫 `data/market-jp-psa10/`，公開頁不再使用。公開說明拿掉維護者姓名；基準頁「這是什麼 · 方法」寫「四條權重（權重順序）」。Chase_Fit 仍是模型／工作表名。
 - **v1.33.2**：算盤預設實付盒價寫明係落地／買入價（HK$＝該側 SNKR 落地日圓 ÷ 20.3，四捨五入；唔加 shop +8%）。系列清單有膜／無膜 % 係回收比例（Raw A／買入價）＝ Grade A（打折）÷ 該側落地／買入價，與頂欄紅綠燈同一條；缺該側落地價仍顯示 —。全系列四欄的「Grade A（打折）」沿用同一分母。抽出率、haircut、JP PSA10 60 張袖、Chase／市況籃子不變
