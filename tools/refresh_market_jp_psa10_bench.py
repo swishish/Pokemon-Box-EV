@@ -8,7 +8,7 @@ Headline COMPOSITE = union of VINTAGE + MODERN + CURRENT after liquidity /
 price screens. N floats — no per-sector floor, no pad-to-N, no truncate-to-N.
 Parallel sibling series: PROMO and MID/Tag Team (same screen rule).
 
-Four daily-rebalanced weight lines (Gary's order):
+Four daily-rebalanced weight lines (site order):
   1. equal
   2. liquidity-weighted, 3% per-card cap
   3. price-weighted, 3% per-card cap
@@ -846,7 +846,7 @@ def publish_all(
                 f"Chained daily returns from LOCF prices; first day with "
                 f"≥{MIN_CONSTITUENTS} names = {int(BASE_INDEX_VALUE):,}"
             ),
-            "equal": "Arithmetic mean of available card returns (Gary headline; not Pokeca Jevons)",
+            "equal": "Arithmetic mean of available card returns (site headline; not Pokeca Jevons)",
             "liquidity": (
                 f"Weight ∝ SNK last-20 PSA10 sold yen in the prior {LIQUIDITY_WINDOW_DAYS}d "
                 "as of the previous JST day; if none, sum of PSA10 chart-print yen. 3% cap."

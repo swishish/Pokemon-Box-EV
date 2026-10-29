@@ -38,7 +38,7 @@ GitHub Action **Update JP PSA10 index** (`.github/workflows/update-market-jp-psa
 
 - **Equal**: 1/n of names with a return that day (breadth).
 - **Liquidity**: last-20 PSA10 sold yen in the prior 30 days; if none, sum of chart-print yen in that window. **3% cap**, then renormalize.
-- **Price**: lagged yen / sum of lagged yen (Gary’s market weight). **Same 3% cap** so a Moonbreon-class slab cannot become the whole index. If the basket is so small that 1/n ≥ 3%, the cap is infeasible and raw weights stay.
+- **Price**: lagged yen / sum of lagged yen (market weight). **Same 3% cap** so a Moonbreon-class slab cannot become the whole index. If the basket is so small that 1/n ≥ 3%, the cap is infeasible and raw weights stay.
 
 Volume bars = count of basket cards with a PSA10 **chart print that JST day**. SNK does not publish a full sold-count history (only ~20 recent trades), so bars are a lower-bound activity count, not pokeca lot volume.
 

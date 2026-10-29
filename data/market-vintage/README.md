@@ -50,7 +50,7 @@ Writes:
 
 First retained snapshot of each index is rebased to **1,000**. When a listed ID later gets (or loses) a TCGPlayer Market Price, an S&P-style divisor keeps the level continuous — same as `market-en`.
 
-## TickerMint history backfill (Gary self-run)
+## TickerMint history backfill (maintainer self-run)
 
 Free, non-commercial, 120 req/min, no key. ToS requires [linkback](https://tickermint.cards/developers/pokemon). **Do not** reuse `tools/backfill_tickermint.py` — that script picks a “main” printing and skips 1st Edition.
 

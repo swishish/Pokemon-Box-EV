@@ -45232,7 +45232,7 @@
     "price": "SNKRDUNK completed-sales chart print for PSA10 (not Grade A ask)",
     "missingDays": "Per-card last observation carried forward; never fill ¥0",
     "index": "Chained daily returns from LOCF prices; first day with ≥40 names = 1,000",
-    "equal": "Arithmetic mean of available card returns (Gary headline; not Pokeca Jevons)",
+    "equal": "Arithmetic mean of available card returns (site headline; not Pokeca Jevons)",
     "liquidity": "Weight ∝ SNK last-20 PSA10 sold yen in the prior 30d as of the previous JST day; if none, sum of PSA10 chart-print yen. 3% cap.",
     "priceWeight": "Lagged yen price / sum of lagged yen prices, then 3% cap",
     "priceNoCap": "Same lagged yen share, no 3% cap — overlay only",

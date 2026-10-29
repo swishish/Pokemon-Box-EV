@@ -80,7 +80,7 @@ Live reconstitution (`--reselect`, 2026-10-20) after this rule change:
 
 **JP Pokémon singles only.** EN / CN / KR / ID / TH print tags (`[SVP EN]`, `[CN]`, …) are dropped. Sealed SKUs (`Complete Set` / `全種セット` / booster boxes) are dropped. Other TCGs that leak through SNK search (e.g. Dragon Ball 孫悟空) are dropped. Grey Felt Hat’s liquid SNK listing is typically **SVP EN**, so it does not enter PROMO; JP-P equivalents would if they clear the tape floor. Van Gogh / Luigi poncho were not in the first SNK PSA10 scan (no inventing IDs). Mario / Extra Battle Day / Munch / Nagaba **singles** rank into PROMO by √(yen×price) — they are not force-inserted.
 
-## Weights (Gary’s order)
+## Weights (site order)
 
 1. **Equal** — 1/n of names with a return that day (arithmetic; not Pokeca Jevons).
 2. **Liquidity** — prior-day 30d SNK sold yen (last-20 PSA10 trades, else chart-print yen). **3% cap**.

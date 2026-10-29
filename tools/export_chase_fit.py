@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Export Gary's weekly PSA10 regression workbook to the Chase 公允值 page.
+"""Export the weekly PSA10 regression workbook to the Chase 公允值 page.
 
 Reads sheet Chase_Fit (live Strong Buy model — not Chase_Fit_Large) plus
 Raw_Data URLs, then writes:
@@ -11,7 +11,7 @@ Raw_Data URLs, then writes:
 
 Stdlib only (zipfile + xml) — no openpyxl / pandas. GitHub Actions can
 `--self-test` without the workbook. Publishing still needs the dated xlsx
-from Gary (Google Drive); there is no public dump to fetch.
+from the maintainer (Google Drive); there is no public dump to fetch.
 
 Refuse to publish if required meta / coefficient / card columns are missing.
 Never invent prices or Strong Buy labels.

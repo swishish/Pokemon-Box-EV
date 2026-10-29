@@ -22,7 +22,7 @@ English Base **PriceCharting** indexes stay in `data/market-vintage-pc/` and ref
 
 Public page `chase-fit.html` is a **static** JSON snapshot. Market pages auto-update via `.github/workflows/update-market-en.yml`; **Chase 公允值 and Box EV do not.**
 
-After Gary drops the dated workbook (`pokemon_psa10_regression_YYYY-MM-DD.xlsx`):
+After the maintainer drops the dated workbook (`pokemon_psa10_regression_YYYY-MM-DD.xlsx`):
 
 ```bash
 python3 tools/export_chase_fit.py --self-test
