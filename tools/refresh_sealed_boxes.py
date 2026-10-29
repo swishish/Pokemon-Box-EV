@@ -485,7 +485,7 @@ def self_test() -> None:
     )
     _assert([x["qty"] for x in thin_lots] == [1], thin_lots)
 
-    # Gary's case: 1-box 無膜 unit looks cheap; 3-box 有膜 wins after qty-aware freight.
+    # Case: 1-box 無膜 unit looks cheap; 3-box 有膜 wins after qty-aware freight.
     shrink_book = [
         {"size": {"localizedName": "1個"}, "minNewListingPrice": 10000, "listingItemCount": 12},
         {"size": {"localizedName": "3個"}, "minNewListingPrice": 27000, "listingItemCount": 5},

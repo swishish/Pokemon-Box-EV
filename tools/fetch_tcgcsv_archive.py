@@ -13,7 +13,7 @@ Full backfill (rebases the index to 1,000 on the first archived day):
   python3 tools/fetch_tcgcsv_archive.py --backfill --confirm BACKFILL
   python3 tools/fetch_tcgcsv_archive.py --backfill --start 2024-02-28 --confirm BACKFILL
 
-Start date: default 2024-02-08 (TCGCSV FAQ archive begin). Gary's 2024-02-28 is
+Start date: default 2024-02-08 (TCGCSV FAQ archive begin). 2024-02-28 is
 an optional later cut, not the archive's real start — pass --start 2024-02-28.
 
 Archives: https://tcgcsv.com/archive/tcgplayer/prices-YYYY-MM-DD.ppmd.7z
@@ -23,7 +23,7 @@ Extractor: 7z / 7zz / 7za (PPMd). py7zr is an optional fallback.
 Does not invent prices: HTTP 404 / empty / unreadable days are skipped.
 As of 2026-10-12 TCGCSV still returns HTTP 403 ("temporarily removed") on
 /archive/ — --probe / --sample / --backfill then exit 2 without writing JSON.
-Prefer tools/backfill_tickermint.py for EN history (Gary, 2026-10-12).
+Prefer tools/backfill_tickermint.py for EN history (as of 2026-10-12).
 """
 from __future__ import annotations
 

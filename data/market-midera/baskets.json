@@ -13,7 +13,7 @@
     "setCount": 28
   },
   "sizeNote": "50 frozen TCGPlayer product IDs. Commons / bulk holos omitted so breadth is not dominated by $1 cards. Adding/removing an ID later uses the same divisor math as market-en / vintage (no $0 fill; card enters on first priced day).",
-  "backfill": "TickerMint free API via tools/backfill_tickermint_midera.py (EN representative printing; 1st Edition skipped unless it is the only priced print). Daily job appends on the rebased divisor after --backfill --confirm BACKFILL. Intended rebase is 1,000 at 2024-02-08. Until Gary runs that, the first daily snap is a temporary 1,000 (same follow-up as vintage #28).",
+  "backfill": "TickerMint free API via tools/backfill_tickermint_midera.py (EN representative printing; 1st Edition skipped unless it is the only priced print). Daily job appends on the rebased divisor after --backfill --confirm BACKFILL. Intended rebase is 1,000 at 2024-02-08. Until the maintainer runs that, the first daily snap is a temporary 1,000 (same follow-up as vintage #28).",
   "index": {
     "id": "mid-era-50",
     "name": "Mid-era Top 50",

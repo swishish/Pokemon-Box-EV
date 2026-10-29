@@ -3,7 +3,7 @@
 
 Daily "today" snaps still come from TCGCSV *current* dumps
 (tools/refresh_market_en.py). TCGCSV's dated archive is still HTTP 403;
-this script is the history source Gary chose.
+this script is the chosen history source.
 
   python3 tools/backfill_tickermint.py --self-test
   python3 tools/backfill_tickermint.py --sample

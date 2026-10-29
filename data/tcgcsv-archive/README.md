@@ -30,7 +30,7 @@ python3 tools/fetch_tcgcsv_archive.py --sample
 # Chosen window (default start = 2024-02-08, TCGCSV archive begin)
 python3 tools/fetch_tcgcsv_archive.py --download --start 2024-02-08 --end 2024-03-01 --step-days 7
 
-# Gary's optional later cut (not the archive default)
+# Optional later cut (not the archive default)
 python3 tools/fetch_tcgcsv_archive.py --download --start 2024-02-28 --end 2024-03-15
 ```
 

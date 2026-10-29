@@ -6,7 +6,7 @@ Three series, one frozen basket of liquid Japanese Pokémon TCG PSA10 slabs:
   equal      — equal-weight daily returns (breadth)
   liquidity  — weight ∝ recent SNK sold yen (last-20 PSA10 trades in 30d,
                else 30d chart-print yen). 3% cap after renormalization
-  price      — weight = lagged card price / sum (Gary market-weight). Same 3% cap
+  price      — weight = lagged card price / sum (market-weight). Same 3% cap
 
 Volume bars = count of basket cards with a SNK PSA10 chart print that JST day
 (lower bound on sold lots; SNK does not publish a full sold-count history).

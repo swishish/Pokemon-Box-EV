@@ -58,7 +58,7 @@ TARGET_SIZE = 500
 STALE_DAYS = 70
 SLEEP_S = 0.1
 TOP_MOVERS = 10
-# TCGCSV FAQ: public price archive begins 2024-02-08. Gary's 2024-02-28 is an
+# TCGCSV FAQ: public price archive begins 2024-02-08. 2024-02-28 is an
 # optional later cut (--start 2024-02-28), not the archive's real start.
 ARCHIVE_START = "2024-02-08"
 OPTIONAL_START = "2024-02-28"
