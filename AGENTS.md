@@ -12,7 +12,7 @@ Before marking **UI Ready** or merging any UI change:
 
 Preview: `python3 -m http.server 8765` then open `http://127.0.0.1:8765/` (or the GitHub Pages URL).
 
-Market pages: EN / vintage / mid-era via `.github/workflows/update-market-en.yml`; JP PSA10 chase 60 via `update-market-jp-psa10.yml`; JP PSA10 **broad benchmark** (`market-jp-psa10-bench.html`) via `update-market-jp-psa10-bench.yml` (daily weights, quarterly membership). Do not replace the chase-60 page with the benchmark.
+Market pages: EN / vintage / mid-era via `.github/workflows/update-market-en.yml`. JP PSA10 **broad benchmark** (`market-jp-psa10-bench.html`) via `update-market-jp-psa10-bench.yml` (daily weights, quarterly membership) is the JP PSA10 product: 復古／中世代／現行 plus sibling baskets. EN Base daily indexes stay on that same page as 監察／旁路 (`#en-1st` and siblings), not a second product page. `market-jp-psa10.html` is a bookmark redirect to the benchmark. Do not bring back the ~60-card SV chase sleeve as a parallel thermometer. `update-market-jp-psa10.yml` may still write `data/market-jp-psa10/` until a later cleanup; that data is not a public page.
 
 English Base **daily** indexes (1st Edition, Shadowless, Unlimited, Base Set 2) live in `data/market-vintage/` (TCGPlayer market via TickerMint + TCGCSV). Anchor is the first retained day, **2024-02-08 = 1000** when that day is kept. That chain is not the PriceCharting monthly chain. The bench page’s EN Base row (`#en-1st`, `#en-shadowless`, `#en-unlimited`, `#en-base2`) draws this daily tape as the primary series and may overlay PriceCharting. Do not source them from SNKRDUNK, and do not replace the JP PSA10 series with them.
 

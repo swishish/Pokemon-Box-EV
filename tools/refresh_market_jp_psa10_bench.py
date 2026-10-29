@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Broad JP PSA10 market benchmark (Pokeca-style sectors) from public SNKRDUNK.
 
-Sibling of the frozen 60-card SV chase sleeve (`market-jp-psa10.html`).
+Public JP PSA10 benchmark. `market-jp-psa10.html` redirects here.
 This pipeline does **not** replace that page.
 
 Headline COMPOSITE = union of VINTAGE + MODERN + CURRENT after liquidity /
@@ -136,8 +136,8 @@ PEER_SIZE_NOTES = {
         "not a broad-market peer."
     ),
     "chaseSleeve": (
-        "This repo's market-jp-psa10.html remains the frozen ~60 SV chase sleeve. "
-        "Out of scope for this benchmark."
+        "market-jp-psa10.html redirects to this benchmark. The old ~60 SV chase "
+        "sleeve is not a public page and is out of scope for this basket."
     ),
     "compositeRule": (
         "Composite is the union of screened VINTAGE+MODERN+CURRENT. Soft peer "
@@ -669,7 +669,7 @@ def baskets_doc(picks: dict, generated: str, scanned: int, reconstituted_on: str
             "No per-sector floor, no pad-to-N, no truncate-to-N. "
             "Composite is the union of the three screened sectors. "
             "PROMO and MID/Tag Team are parallel sibling series, same screen rule and weight math. "
-            "The live 60-card market-jp-psa10 page remains the SV chase sleeve."
+            "market-jp-psa10.html redirects to this benchmark; it is not a live sleeve."
         ),
         "selection": {
             "sectorFloor": None,
@@ -815,8 +815,8 @@ def publish_all(
             "universe (search + data.json), not the Box EV chase-only 60"
         ),
         "vsChase": (
-            "market-jp-psa10.html remains the frozen ~60-card SV chase sleeve. "
-            "This page is the representable JP PSA10 benchmark."
+            "market-jp-psa10.html redirects here. This page is the representable "
+            "JP PSA10 benchmark."
         ),
         "staleDays": STALE_DAYS,
         "divisorCap": WEIGHT_CAP,

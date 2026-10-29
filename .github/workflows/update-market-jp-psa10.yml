@@ -1,7 +1,9 @@
 name: Update JP PSA10 index
 
-# Public SNKRDUNK trading-history for the frozen JP PSA10 basket.
-# View-only. No login. PR runs self-test only (no network fetch).
+# Retained data job for the retired ~60-card SV chase sleeve.
+# market-jp-psa10.html now redirects to the benchmark; do not treat this
+# basket as a public thermometer. View-only. No login.
+# PR runs self-test only (no network fetch).
 on:
   schedule:
     - cron: "40 22 * * *"   # 22:40 UTC — after the EN TCGCSV job

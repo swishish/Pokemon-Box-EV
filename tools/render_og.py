@@ -41,17 +41,6 @@ CARDS = (
         "badge": "swishish.github.io",
         "forbidden": ("日盒開盒值不值", "開盒 EV", "Box EV", "Chase 公允值"),
     },
-    {
-        "key": "psa10",
-        "png": "og-psa10.png",
-        "pages": ("market-jp-psa10.html",),
-        "site_name": "日版 PSA10 指數",
-        "title": "日版 PSA10 指數",
-        "sub": "等權 · 流動性 · 市值",
-        "fine": "靜態快照 · 非正式投資建議",
-        "badge": "swishish.github.io",
-        "forbidden": ("日盒開盒值不值", "開盒 EV", "Box EV"),
-    },
 )
 
 HOME_PAGES = ("index.html", "calc.html", "chase-fit.html")
