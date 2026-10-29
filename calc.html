@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>日盒 EV 小算盤 v1.31.11 · JP Mega Sealed</title>
+<title>日盒 EV 小算盤 v1.33.0 · JP Mega Sealed</title>
 <meta name="description" content="日盒開盒 EV 小算盤：選系列睇四個預期回報 %、有膜／無膜落地、chase 單卡。靜態快照，非正式投資建議。" />
 <meta property="og:site_name" content="日盒開盒值不值？" />
 <meta property="og:title" content="日盒 EV 小算盤 · JP Mega Sealed" />
@@ -23,6 +23,7 @@
 <meta name="twitter:image" content="https://swishish.github.io/Pokemon-Box-EV/og.png" />
 <link rel="canonical" href="https://swishish.github.io/Pokemon-Box-EV/calc.html" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="./css/freshness-badge.css?v=1.33.0" />
 <style>
   :root {
     --bg: #faf6ef;
@@ -1624,7 +1625,7 @@
 <header>
   <div class="header-inner">
     <div class="header-top">
-      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.31.11</span></h1>
+      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.33.0</span></h1>
       <nav class="header-nav" aria-label="站內導覽">
         <a class="nav-btn" href="./calc.html">開盒 EV</a>
         <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
@@ -1638,6 +1639,10 @@
       </nav>
     </div>
     <p><img class="mon mon-sm" src="./img/accents/eevee.svg" alt="" width="20" height="20" aria-hidden="true" />給朋友看的簡易 EV 小算盤 · 無登入、非即時行情</p>
+    <div class="fresh-badge" id="freshBadge" role="status" aria-live="polite">
+      <span class="fresh-kicker">靜態快照</span>
+      <span class="fresh-body">快照日期未載入</span>
+    </div>
   </div>
 </header>
 
@@ -1815,13 +1820,14 @@
     </div>
   </div>
 </div>
-<footer><img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" /><span>日盒 EV 小算盤 <b>v1.31.11</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期 · <a href="./index.html">首頁</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10.html">JP PSA10</a> · <a href="./market-jp-psa10-bench.html">JP 基準</a> · <a href="./market-base-psa-pop.html">Base POP</a></span></footer>
+<footer><img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" /><span>日盒 EV 小算盤 <b>v1.33.0</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期 · <a href="./index.html">首頁</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10.html">JP PSA10</a> · <a href="./market-jp-psa10-bench.html">JP 基準</a> · <a href="./market-base-psa-pop.html">Base POP</a></span></footer>
 
-<script src="./data.js?v=1.31.11"></script>
+<script src="./js/freshness-badge.js?v=1.33.0"></script>
+<script src="./data.js?v=1.33.0"></script>
 <script>
 (async function () {
   // Keep in sync with the data.js?v= query above.
-  const VERSION = '1.31.11';
+  const VERSION = '1.33.0';
   async function loadJson(rel) {
     const url = new URL(rel, document.baseURI || window.location.href);
     url.searchParams.set('v', VERSION);
@@ -1912,6 +1918,9 @@
     return Math.floor((b - a) / 86400000);
   }
   function renderDataFreshness() {
+    if (window.FreshBadge) {
+      FreshBadge.show({ label: '開盒快照', raw: DATA && DATA.as_of, staleAfter: 8, cmp: 'gte' });
+    }
     const el = $('dataFreshness');
     if (!el) return;
     const raw = DATA.as_of;
