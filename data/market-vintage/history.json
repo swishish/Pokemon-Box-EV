@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-28T14:58:40.338475+00:00",
+  "generated": "2026-10-29T01:04:01.412680+00:00",
   "baseValue": 1000.0,
   "backfill": {
     "source": "tickermint",
@@ -7,17 +7,6 @@
     "start": "2024-02-08",
     "uniqueProducts": 91,
     "docs": "https://tickermint.cards/developers/pokemon"
-  },
-  "archiveStart": "2024-02-08",
-  "optionalStart": "2024-02-28",
-  "source": "tickermint",
-  "sourceDocs": "https://tickermint.cards/developers/pokemon",
-  "anchorNote": "1000 on each index's first retained day (2024-02-08 when that day is kept). Not the PriceCharting monthly chain (2023-01-01 = 1000).",
-  "sampling": {
-    "stepDays": 1,
-    "start": "2024-02-08",
-    "end": "2026-10-27",
-    "uniqueProducts": 91
   },
   "indexOrder": [
     "base-1st",
@@ -27,7 +16,7 @@
   ],
   "indexes": {
     "base-1st": {
-      "generated": "2026-10-28T14:58:38.252456+00:00",
+      "generated": "2026-10-29T01:04:01.412680+00:00",
       "points": [
         {
           "date": "2024-02-08",
@@ -5980,6 +5969,12 @@
           "index": 2140.72,
           "totalValue": 18213.5,
           "count": 31
+        },
+        {
+          "date": "2026-10-28",
+          "index": 2141.16,
+          "totalValue": 18217.25,
+          "count": 31
         }
       ],
       "baseValue": 1000.0,
@@ -5997,56 +5992,56 @@
         "products": 31
       },
       "returns": {
-        "asOf": "2026-10-27",
+        "asOf": "2026-10-28",
         "1D": {
           "available": true,
-          "pct": -0.07,
-          "from": "2026-10-26",
-          "to": "2026-10-27",
-          "fromIndex": 2142.16,
-          "toIndex": 2140.72,
+          "pct": 0.02,
+          "from": "2026-10-27",
+          "to": "2026-10-28",
+          "fromIndex": 2140.72,
+          "toIndex": 2141.16,
           "reason": null
         },
         "5D": {
           "available": true,
-          "pct": -0.09,
-          "from": "2026-10-22",
-          "to": "2026-10-27",
-          "fromIndex": 2142.74,
-          "toIndex": 2140.72,
+          "pct": -0.07,
+          "from": "2026-10-23",
+          "to": "2026-10-28",
+          "fromIndex": 2142.64,
+          "toIndex": 2141.16,
           "reason": null
         },
         "30D": {
           "available": true,
-          "pct": -3.42,
-          "from": "2026-09-27",
-          "to": "2026-10-27",
-          "fromIndex": 2216.55,
-          "toIndex": 2140.72,
+          "pct": -3.49,
+          "from": "2026-09-28",
+          "to": "2026-10-28",
+          "fromIndex": 2218.49,
+          "toIndex": 2141.16,
           "reason": null
         },
         "1Y": {
           "available": true,
-          "pct": 160.46,
-          "from": "2025-10-27",
-          "to": "2026-10-27",
+          "pct": 160.52,
+          "from": "2025-10-28",
+          "to": "2026-10-28",
           "fromIndex": 821.89,
-          "toIndex": 2140.72,
+          "toIndex": 2141.16,
           "reason": null
         },
         "YTD": {
           "available": true,
-          "pct": 62.12,
+          "pct": 62.16,
           "from": "2026-01-01",
-          "to": "2026-10-27",
+          "to": "2026-10-28",
           "fromIndex": 1320.44,
-          "toIndex": 2140.72,
+          "toIndex": 2141.16,
           "reason": null
         }
       }
     },
     "base-shadowless": {
-      "generated": "2026-10-28T14:58:39.235293+00:00",
+      "generated": "2026-10-29T01:04:01.412680+00:00",
       "points": [
         {
           "date": "2024-02-08",
@@ -11999,6 +11994,12 @@
           "index": 2181.13,
           "totalValue": 6160.29,
           "count": 31
+        },
+        {
+          "date": "2026-10-28",
+          "index": 2182.83,
+          "totalValue": 6165.09,
+          "count": 31
         }
       ],
       "baseValue": 1000.0,
@@ -12016,56 +12017,56 @@
         "products": 31
       },
       "returns": {
-        "asOf": "2026-10-27",
+        "asOf": "2026-10-28",
         "1D": {
           "available": true,
-          "pct": -0.02,
-          "from": "2026-10-26",
-          "to": "2026-10-27",
-          "fromIndex": 2181.65,
-          "toIndex": 2181.13,
+          "pct": 0.08,
+          "from": "2026-10-27",
+          "to": "2026-10-28",
+          "fromIndex": 2181.13,
+          "toIndex": 2182.83,
           "reason": null
         },
         "5D": {
           "available": true,
-          "pct": 0.19,
-          "from": "2026-10-22",
-          "to": "2026-10-27",
+          "pct": 0.26,
+          "from": "2026-10-23",
+          "to": "2026-10-28",
           "fromIndex": 2177.08,
-          "toIndex": 2181.13,
+          "toIndex": 2182.83,
           "reason": null
         },
         "30D": {
           "available": true,
-          "pct": 2.61,
-          "from": "2026-09-27",
-          "to": "2026-10-27",
-          "fromIndex": 2125.66,
-          "toIndex": 2181.13,
+          "pct": 1.88,
+          "from": "2026-09-28",
+          "to": "2026-10-28",
+          "fromIndex": 2142.45,
+          "toIndex": 2182.83,
           "reason": null
         },
         "1Y": {
           "available": true,
-          "pct": 13.41,
-          "from": "2025-10-27",
-          "to": "2026-10-27",
-          "fromIndex": 1923.23,
-          "toIndex": 2181.13,
+          "pct": 13.38,
+          "from": "2025-10-28",
+          "to": "2026-10-28",
+          "fromIndex": 1925.3,
+          "toIndex": 2182.83,
           "reason": null
         },
         "YTD": {
           "available": true,
-          "pct": 11.16,
+          "pct": 11.24,
           "from": "2026-01-01",
-          "to": "2026-10-27",
+          "to": "2026-10-28",
           "fromIndex": 1962.2,
-          "toIndex": 2181.13,
+          "toIndex": 2182.83,
           "reason": null
         }
       }
     },
     "base-unlimited": {
-      "generated": "2026-10-28T14:58:39.808025+00:00",
+      "generated": "2026-10-29T01:04:01.412680+00:00",
       "points": [
         {
           "date": "2024-02-08",
@@ -18018,6 +18019,12 @@
           "index": 2131.56,
           "totalValue": 2059.02,
           "count": 31
+        },
+        {
+          "date": "2026-10-28",
+          "index": 2128.38,
+          "totalValue": 2055.95,
+          "count": 31
         }
       ],
       "baseValue": 1000.0,
@@ -18035,56 +18042,56 @@
         "products": 31
       },
       "returns": {
-        "asOf": "2026-10-27",
+        "asOf": "2026-10-28",
         "1D": {
           "available": true,
-          "pct": 0.09,
-          "from": "2026-10-26",
-          "to": "2026-10-27",
-          "fromIndex": 2129.65,
-          "toIndex": 2131.56,
+          "pct": -0.15,
+          "from": "2026-10-27",
+          "to": "2026-10-28",
+          "fromIndex": 2131.56,
+          "toIndex": 2128.38,
           "reason": null
         },
         "5D": {
           "available": true,
-          "pct": -0.21,
-          "from": "2026-10-22",
-          "to": "2026-10-27",
-          "fromIndex": 2136.09,
-          "toIndex": 2131.56,
+          "pct": -0.23,
+          "from": "2026-10-23",
+          "to": "2026-10-28",
+          "fromIndex": 2133.35,
+          "toIndex": 2128.38,
           "reason": null
         },
         "30D": {
           "available": true,
-          "pct": -0.66,
-          "from": "2026-09-27",
-          "to": "2026-10-27",
-          "fromIndex": 2145.82,
-          "toIndex": 2131.56,
+          "pct": -0.85,
+          "from": "2026-09-28",
+          "to": "2026-10-28",
+          "fromIndex": 2146.57,
+          "toIndex": 2128.38,
           "reason": null
         },
         "1Y": {
           "available": true,
-          "pct": 69.58,
-          "from": "2025-10-27",
-          "to": "2026-10-27",
-          "fromIndex": 1256.97,
-          "toIndex": 2131.56,
+          "pct": 69.16,
+          "from": "2025-10-28",
+          "to": "2026-10-28",
+          "fromIndex": 1258.19,
+          "toIndex": 2128.38,
           "reason": null
         },
         "YTD": {
           "available": true,
-          "pct": 63.84,
+          "pct": 63.6,
           "from": "2026-01-01",
-          "to": "2026-10-27",
+          "to": "2026-10-28",
           "fromIndex": 1300.99,
-          "toIndex": 2131.56,
+          "toIndex": 2128.38,
           "reason": null
         }
       }
     },
     "base-set-2": {
-      "generated": "2026-10-28T14:58:40.308458+00:00",
+      "generated": "2026-10-29T01:04:01.412680+00:00",
       "points": [
         {
           "date": "2024-02-08",
@@ -24037,6 +24044,12 @@
           "index": 2213.01,
           "totalValue": 1357.13,
           "count": 29
+        },
+        {
+          "date": "2026-10-28",
+          "index": 2262.86,
+          "totalValue": 1387.7,
+          "count": 29
         }
       ],
       "baseValue": 1000.0,
@@ -24054,53 +24067,63 @@
         "products": 29
       },
       "returns": {
-        "asOf": "2026-10-27",
+        "asOf": "2026-10-28",
         "1D": {
           "available": true,
-          "pct": 0.01,
-          "from": "2026-10-26",
-          "to": "2026-10-27",
-          "fromIndex": 2212.7,
-          "toIndex": 2213.01,
+          "pct": 2.25,
+          "from": "2026-10-27",
+          "to": "2026-10-28",
+          "fromIndex": 2213.01,
+          "toIndex": 2262.86,
           "reason": null
         },
         "5D": {
           "available": true,
-          "pct": 1.75,
-          "from": "2026-10-22",
-          "to": "2026-10-27",
-          "fromIndex": 2174.94,
-          "toIndex": 2213.01,
+          "pct": 2.52,
+          "from": "2026-10-23",
+          "to": "2026-10-28",
+          "fromIndex": 2207.19,
+          "toIndex": 2262.86,
           "reason": null
         },
         "30D": {
           "available": true,
-          "pct": 4.55,
-          "from": "2026-09-27",
-          "to": "2026-10-27",
-          "fromIndex": 2116.64,
-          "toIndex": 2213.01,
+          "pct": 5.94,
+          "from": "2026-09-28",
+          "to": "2026-10-28",
+          "fromIndex": 2135.95,
+          "toIndex": 2262.86,
           "reason": null
         },
         "1Y": {
           "available": true,
-          "pct": 63.56,
-          "from": "2025-10-27",
-          "to": "2026-10-27",
-          "fromIndex": 1352.99,
-          "toIndex": 2213.01,
+          "pct": 67.26,
+          "from": "2025-10-28",
+          "to": "2026-10-28",
+          "fromIndex": 1352.91,
+          "toIndex": 2262.86,
           "reason": null
         },
         "YTD": {
           "available": true,
-          "pct": 58.42,
+          "pct": 61.99,
           "from": "2026-01-01",
-          "to": "2026-10-27",
+          "to": "2026-10-28",
           "fromIndex": 1396.95,
-          "toIndex": 2213.01,
+          "toIndex": 2262.86,
           "reason": null
         }
       }
     }
+  },
+  "archiveStart": "2024-02-08",
+  "optionalStart": "2024-02-28",
+  "source": "tickermint",
+  "sourceDocs": "https://tickermint.cards/developers/pokemon",
+  "sampling": {
+    "stepDays": 1,
+    "start": "2024-02-08",
+    "end": "2026-10-27",
+    "uniqueProducts": 91
   }
 }
