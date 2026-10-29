@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>Base Set PSA POP · 1st / Shadowless / Unlimited / Base Set 2 · Box EV v1.31.7</title>
+<title>Base Set PSA POP · 1st / Shadowless / Unlimited / Base Set 2 · Box EV v1.33.0</title>
 <meta name="description" content="英文 Base Set #1–102：比較 1st Edition、Shadowless、Unlimited、Base Set 2 的 PSA＋CGC POP。預設合計；可分開兩家公司。靜態快照，非正式投資建議。" />
 <meta property="og:site_name" content="日盒開盒值不值？" />
 <meta property="og:title" content="Base Set PSA POP · 1st / Shadowless / Unlimited / Base Set 2" />
@@ -23,6 +23,7 @@
 <meta name="twitter:image" content="https://swishish.github.io/Pokemon-Box-EV/og.png" />
 <link rel="canonical" href="https://swishish.github.io/Pokemon-Box-EV/market-base-psa-pop.html" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="./css/freshness-badge.css?v=1.33.0" />
 <style>
   :root {
     --bg: #faf6ef;
@@ -446,7 +447,7 @@
 <header>
   <div class="header-inner">
     <div class="header-top">
-      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.31.7</span></h1>
+      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.33.0</span></h1>
       <nav class="header-nav" aria-label="站內導覽">
         <a class="nav-btn" href="./calc.html">開盒 EV</a>
         <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
@@ -460,6 +461,10 @@
       </nav>
     </div>
     <p>英文 Base Set #1–102 PSA＋CGC POP · 1st Edition／Shadowless／Unlimited／Base Set 2 · 靜態快照</p>
+    <div class="fresh-badge" id="freshBadge" role="status" aria-live="polite">
+      <span class="fresh-kicker">靜態快照</span>
+      <span class="fresh-body">快照日期未載入</span>
+    </div>
   </div>
 </header>
 
@@ -532,11 +537,12 @@
 </main>
 <footer>日盒 EV 小算盤 · Base Set PSA POP · Snapshot 靜態資料 · 非正式投資建議 · 來源 <a href="https://www.pricecharting.com/" target="_blank" rel="noopener">PriceCharting</a> · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10.html">JP PSA10</a> · <a href="./market-jp-psa10-bench.html">JP 基準</a></footer>
 
-<script src="./js/jp-psa10-ui.js?v=1.31.7"></script>
-<script src="./data/base-psa-pop/latest.js?v=1.31.7"></script>
+<script src="./js/freshness-badge.js?v=1.33.0"></script>
+<script src="./js/jp-psa10-ui.js?v=1.33.0"></script>
+<script src="./data/base-psa-pop/latest.js?v=1.33.0"></script>
 <script>
 (async function () {
-  const VERSION = '1.31.7';
+  const VERSION = '1.33.0';
   const FX_USD_HKD = 7.8;
   const PRINTS = [
     { id: '1st', label: '1st Edition' },
@@ -612,6 +618,13 @@
     return Math.floor((b - a) / 86400000);
   }
   function renderFreshness() {
+    if (window.FreshBadge) {
+      FreshBadge.show({
+        label: 'POP 快照',
+        raw: DATA && DATA.asOfDate,
+        staleAfter: (DATA && DATA.staleDays) || 14
+      });
+    }
     const el = $('dataFreshness');
     const asOfDate = parseAsOfDate(DATA.asOfDate);
     const src = (DATA.source && DATA.source.name) ? DATA.source.name : 'PriceCharting';

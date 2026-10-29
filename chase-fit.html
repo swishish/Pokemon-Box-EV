@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>Chase 公允值 v1.31.3 · PSA10 回歸</title>
+<title>Chase 公允值 v1.33.0 · PSA10 回歸</title>
 <meta name="description" content="Chase PSA10 公允值：便宜過模型買入清單、殘差散點、Strong Buy 四關。靜態快照，非正式投資建議。" />
 <meta property="og:site_name" content="日盒開盒值不值？" />
 <meta property="og:title" content="Chase 公允值 · 便宜過模型" />
@@ -23,6 +23,7 @@
 <meta name="twitter:image" content="https://swishish.github.io/Pokemon-Box-EV/og.png" />
 <link rel="canonical" href="https://swishish.github.io/Pokemon-Box-EV/chase-fit.html" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="./css/freshness-badge.css?v=1.33.0" />
 <style>
   :root {
     --bg: #faf6ef;
@@ -1166,7 +1167,7 @@
         <a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？">
           <span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？
         </a>
-        <span class="pill">v1.31.3</span>
+        <span class="pill">v1.33.0</span>
       </h1>
       <nav class="header-nav" aria-label="站內導覽">
         <a class="nav-btn" href="./calc.html">開盒 EV</a>
@@ -1181,6 +1182,10 @@
       </nav>
     </div>
     <p><img class="mon mon-sm" src="./img/accents/eevee.svg" alt="" width="20" height="20" aria-hidden="true" />PSA10 回歸散點 · 預測 vs 實際 · 點擊看卡片</p>
+    <div class="fresh-badge" id="freshBadge" role="status" aria-live="polite">
+      <span class="fresh-kicker">靜態快照</span>
+      <span class="fresh-body">快照日期未載入</span>
+    </div>
   </div>
 </header>
 
@@ -1340,14 +1345,15 @@
 
 <footer>
   <img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" />
-  <span>日盒 EV 小算盤 <b>v1.31.3</b> · Chase_Fit 靜態快照 · 非正式投資建議 · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10.html">JP PSA10</a> · <a href="./market-jp-psa10-bench.html">JP 基準</a> · <a href="./market-base-psa-pop.html">Base POP</a></span>
+  <span>日盒 EV 小算盤 <b>v1.33.0</b> · Chase_Fit 靜態快照 · 非正式投資建議 · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10.html">JP PSA10</a> · <a href="./market-jp-psa10-bench.html">JP 基準</a> · <a href="./market-base-psa-pop.html">Base POP</a></span>
 </footer>
 
-<script src="./js/movers-range.js?v=1.28.10"></script>
-<script src="./data/chase-fit/latest.js?v=1.28.10"></script>
+<script src="./js/freshness-badge.js?v=1.33.0"></script>
+<script src="./js/movers-range.js?v=1.33.0"></script>
+<script src="./data/chase-fit/latest.js?v=1.33.0"></script>
 <script>
 (async function () {
-  const VERSION = '1.31.3';
+  const VERSION = '1.33.0';
   const $ = (id) => document.getElementById(id);
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, (ch) => ({
@@ -1642,6 +1648,9 @@
   }
 
   function renderFreshness() {
+    if (window.FreshBadge) {
+      FreshBadge.show({ label: 'Chase 模型', raw: META && META.data_date, staleAfter: 7 });
+    }
     const el = $('dataFreshness');
     const asOfDate = parseAsOfDate(META.data_date);
     const r2 = META.r2 == null ? '—' : Number(META.r2).toFixed(3);

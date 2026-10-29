@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>Base 復古指數 · Box EV v1.32.2</title>
+<title>Base 復古指數 · Box EV v1.33.0</title>
 <meta name="description" content="Base Set 1st / Shadowless / Unlimited / Base Set 2 英文裸卡日線（TCGPlayer / TickerMint，2024-02-08＝1000）與卡冊，另有 PriceCharting 月線（2023-01-01＝1000）。靜態快照，非正式投資建議。" />
 <meta property="og:site_name" content="日盒開盒值不值？" />
 <meta property="og:title" content="Base 復古指數 · 1st / Shadowless / Unlimited / Base Set 2" />
@@ -23,6 +23,7 @@
 <meta name="twitter:image" content="https://swishish.github.io/Pokemon-Box-EV/og.png" />
 <link rel="canonical" href="https://swishish.github.io/Pokemon-Box-EV/market-vintage.html" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="./css/freshness-badge.css?v=1.33.0" />
 <style>
   :root {
     --bg: #faf6ef;
@@ -910,7 +911,7 @@
 <header>
   <div class="header-inner">
     <div class="header-top">
-      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.32.2</span></h1>
+      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.33.0</span></h1>
       <nav class="header-nav" aria-label="站內導覽">
         <a class="nav-btn" href="./calc.html">開盒 EV</a>
         <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
@@ -924,6 +925,10 @@
       </nav>
     </div>
     <p>Base 復古指數 · TCGPlayer 日線（1st / Shadowless / Unlimited / Base Set 2，2024-02-08＝1000）· PriceCharting 月線是另一條鏈</p>
+    <div class="fresh-badge" id="freshBadge" role="status" aria-live="polite">
+      <span class="fresh-kicker">靜態快照</span>
+      <span class="fresh-body">快照日期未載入</span>
+    </div>
   </div>
 </header>
 
@@ -1171,15 +1176,16 @@
 </main>
 <footer>日盒 EV 小算盤 · Base vintage pulse · Snapshot 靜態資料 · 非正式投資建議 · 歷史價 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a> · <a href="./index.html">首頁</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10.html">JP PSA10</a> · <a href="./market-jp-psa10-bench.html">JP 基準</a> · <a href="./market-base-psa-pop.html">Base POP</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/">Base Unlimited</a></footer>
 
-<script src="./js/spark-tip.js?v=1.32.2"></script>
-<script src="./js/movers-range.js?v=1.32.2"></script>
-<script src="./data/market-vintage/latest.js?v=1.32.2"></script>
-<script src="./data/market-vintage/history.js?v=1.32.2"></script>
-<script src="./data/market-vintage-pc/latest.js?v=1.32.2"></script>
-<script src="./data/market-vintage-pc/history.js?v=1.32.2"></script>
+<script src="./js/freshness-badge.js?v=1.33.0"></script>
+<script src="./js/spark-tip.js?v=1.33.0"></script>
+<script src="./js/movers-range.js?v=1.33.0"></script>
+<script src="./data/market-vintage/latest.js?v=1.33.0"></script>
+<script src="./data/market-vintage/history.js?v=1.33.0"></script>
+<script src="./data/market-vintage-pc/latest.js?v=1.33.0"></script>
+<script src="./data/market-vintage-pc/history.js?v=1.33.0"></script>
 <script>
 (async function () {
-  const VERSION = '1.32.2';
+  const VERSION = '1.33.0';
   const PERIODS = ['1D', '5D', '30D', '1Y', 'YTD'];
   const INDEX_PERIODS = ['1D', '5D', '30D', '1Y', 'YTD', 'ALL'];
   const LAG_PERIODS = ['30D', 'YTD'];
@@ -1271,6 +1277,9 @@
     return Math.floor((b - a) / 86400000);
   }
   function renderFreshness() {
+    if (window.FreshBadge) {
+      FreshBadge.show({ label: 'TCGCSV 快照', raw: DATA && DATA.asOfDate, staleAfter: 7 });
+    }
     const el = $('dataFreshness');
     const asOfDate = parseAsOfDate(DATA.asOfDate);
     if (!asOfDate) {
@@ -2047,6 +2056,9 @@
     return pts;
   }
   function renderPcFreshness() {
+    if (window.FreshBadge) {
+      FreshBadge.show({ label: 'PriceCharting 月線', raw: PC && PC.asOfDate, staleAfter: 45 });
+    }
     const el = $('dataFreshness');
     if (!el) return;
     const asOf = PC && PC.asOfDate;
@@ -2175,6 +2187,7 @@
       renderPc();
       return;
     }
+    renderFreshness();
     const DATA_ONE = DATA.indexes[state.id];
     if (!DATA_ONE) return;
     renderTabs();
