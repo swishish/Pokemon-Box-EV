@@ -1,6 +1,6 @@
 # JP PSA10 broad benchmark
 
-Static JSON for `market-jp-psa10-bench.html`. A **representable** Japanese Pokémon TCG **PSA10** market, alongside (not instead of) the frozen ~60-card SV chase sleeve on `market-jp-psa10.html`.
+Static JSON for `market-jp-psa10-bench.html`. This is the public Japanese Pokémon TCG **PSA10** benchmark (復古／中世代／現行 + sibling baskets). EN Base daily indexes are a monitor on the same page, not a second product. `market-jp-psa10.html` only redirects here.
 
 Pokeca intent (not a code clone): era sectors + √(sales×price) rank for display, equal-weight headline + liquidity/price with a 3% cap, quarterly membership. **Sector N is not a Pokeca floor of 80.** Membership is whatever clears the liquidity/price screens; composite is the union of the three era sectors.
 
@@ -24,7 +24,7 @@ Pokeca intent (not a code clone): era sectors + √(sales×price) rank for displ
 | `promo` | 特典 PROMO | Sibling: Grey Felt Hat class, Munch/Picasso, Mario/Luigi/poncho Pikachu, Extra Battle Day, other liquid JP promos |
 | `midera` | Tag Team / MID | Sibling thermometer: Tag Team GX window (SM8b–SM12a / SMM). Overlaps MODERN on purpose so mid-era is visible |
 
-The old 60 on `market-jp-psa10.html` is the **SV chase sleeve**. It still builds on the nightly chase job.
+The old ~60-card SV chase sleeve is no longer a public page. `market-jp-psa10.html` redirects here. `data/market-jp-psa10/` may still refresh on its own nightly job until that pipeline is removed.
 
 ## Cadence
 
@@ -63,7 +63,7 @@ JP Pokémon singles only. EN / CN / KR / ID / TH print tags, sealed SKUs, and ot
 | POKECA PSA INDEX | ~80+ per Vintage/Modern/Current historically; live TOTAL **~489** (target 500, Jevons) | Closest JP PSA10 sector model. They **floor 80** then fill leftover to 500. We keep the sector cut and screens, not the forced N. |
 | Grade10 PTCG100 / PTCG500 | **100** / **500** | Broad PSA10 benchmarks, fixed top-N by 90d volume (EN+JP). Soft composite peer band. |
 | Renaiss Pokémon | **~50** | Chase-scale Top 50, monthly. Not a broad-market size. |
-| This repo chase sleeve | **~60** | `market-jp-psa10.html` SV chase thermometer. Stays separate. |
+| Former chase sleeve | **~60** | Retired public page. `market-jp-psa10.html` redirects to this benchmark. |
 
 Soft composite band ~300–500 is a peer reference only. After these screens the live union is larger than 500 because Modern/Current SNK tape is deep; we refuse to cut liquid names to fake Pokeca’s 500.
 
