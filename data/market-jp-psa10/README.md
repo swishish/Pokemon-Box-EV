@@ -1,6 +1,8 @@
-# JP PSA10 index
+# JP PSA10 index (retired public page)
 
-Static JSON for `market-jp-psa10.html`. Three chained-return series from **one frozen basket** of liquid Japanese Pokémon TCG **PSA10** slabs on SNKRDUNK.
+`market-jp-psa10.html` is a bookmark redirect to `market-jp-psa10-bench.html`. This folder is **not** a second thermometer. The nightly job may still refresh the frozen ~60-card SV chase basket; a later cleanup can remove the workflow. Do not point nav or the homepage at this sleeve.
+
+Static JSON below: three chained-return series from **one frozen basket** of liquid Japanese Pokémon TCG **PSA10** slabs on SNKRDUNK.
 
 | File | Role |
 | --- | --- |

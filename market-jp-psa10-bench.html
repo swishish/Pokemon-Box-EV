@@ -10,7 +10,7 @@
 <meta name="description" content="日版寶可夢 TCG PSA10 廣度基準：復古／中世代／現行 N 隨流動性篩選浮動，另加特典與 Tag Team 姊妹籃子。等權／流動性／價格／無 cap 疊加。靜態快照，非正式投資建議。" />
 <meta property="og:site_name" content="日版 PSA10 基準" />
 <meta property="og:title" content="日版 PSA10 基準 · 復古／中世代／現行" />
-<meta property="og:description" content="Pokeca-style JP PSA10 廣度基準。舊 60 張是 SV chase 袖。靜態快照，非正式投資建議。" />
+<meta property="og:description" content="日版 PSA10 廣度基準：復古／中世代／現行。EN Base 是同頁監察／旁路。靜態快照，非正式投資建議。" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://swishish.github.io/Pokemon-Box-EV/market-jp-psa10-bench.html" />
 <meta property="og:image" content="https://swishish.github.io/Pokemon-Box-EV/og-psa10-bench-v2.png?v=1.32.2" />
@@ -20,12 +20,12 @@
 <meta property="og:locale" content="zh_HK" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="日版 PSA10 基準 · 復古／中世代／現行" />
-<meta name="twitter:description" content="復古／中世代／現行廣度基準 + 特典／Tag Team。非正式投資建議。" />
+<meta name="twitter:description" content="日版 PSA10 基準：復古／中世代／現行。EN Base 是同頁監察／旁路。非正式投資建議。" />
 <meta name="twitter:image" content="https://swishish.github.io/Pokemon-Box-EV/og-psa10-bench-v2.png?v=1.32.2" />
 <meta name="twitter:image:alt" content="日版 PSA10 基準 · 復古／中世代／現行" />
 <link rel="canonical" href="https://swishish.github.io/Pokemon-Box-EV/market-jp-psa10-bench.html" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-<link rel="stylesheet" href="./css/freshness-badge.css?v=1.33.0" />
+<link rel="stylesheet" href="./css/freshness-badge.css?v=1.33.3" />
 <style>
   :root {
     --bg: #faf6ef;
@@ -323,10 +323,35 @@
     margin: 0 0 12px;
     min-width: 0;
   }
+  .jp-kicker {
+    font-size: .72rem;
+    font-weight: 800;
+    margin: 0 0 6px;
+  }
+  .jp-kicker .tiny { font-weight: 650; margin-left: 4px; }
   .en-base-wrap .en-kicker {
     font-size: .72rem;
     font-weight: 800;
     margin: 0 0 6px;
+    line-height: 1.35;
+  }
+  .en-role {
+    display: inline-block;
+    font-size: .68rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    border: 1.5px solid var(--ink);
+    border-radius: 999px;
+    padding: 0 7px;
+    margin-right: 6px;
+    background: var(--card);
+    vertical-align: 1px;
+  }
+  body.is-en-base #seriesTabs .series-tab { opacity: .62; }
+  body.is-en-base .jp-kicker { opacity: .72; }
+  body.is-en-base .en-base-wrap {
+    background: #fff3c4;
+    box-shadow: var(--shadow-xs);
   }
   .en-base-wrap .series-tabs {
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -553,12 +578,15 @@
       flex: 0 0 auto;
     }
     .series-tabs { grid-template-columns: 1fr 1fr; gap: 4px; margin-bottom: 8px; }
-    .en-base-wrap .series-tabs { grid-template-columns: 1fr 1fr; }
     .series-tab { padding: 7px 8px; }
-    .series-tab .kicker { font-size: .68rem; }
-    .series-tab .lvl { font-size: 1rem; }
-    .series-tab .tab-chg { font-size: .72rem; }
-    .series-tab .sub { font-size: .65rem; margin-top: 1px; }
+    .series-tab .kicker,
+    .series-tab .sub { overflow-wrap: anywhere; }
+    .series-tab .kicker { font-size: .72rem; }
+    .series-tab .lvl { font-size: 1.05rem; }
+    .series-tab .tab-chg { font-size: .75rem; }
+    .series-tab .sub { font-size: .68rem; margin-top: 1px; }
+    .en-base-wrap { padding: 6px 8px 4px; }
+    .en-base-wrap .series-tabs { grid-template-columns: 1fr 1fr; }
   }
 </style>
 </head>
@@ -573,13 +601,12 @@
         <a class="nav-btn" href="./market-en.html" title="English raw singles market pulse">EN 市況</a>
         <a class="nav-btn" href="./market-vintage.html" title="Base Set 1st / Shadowless / Unlimited raw indexes">Base 復古</a>
         <a class="nav-btn" href="./market-midera.html" title="DP → SM chase Top 50 raw index">中世代</a>
-        <a class="nav-btn" href="./market-jp-psa10.html" title="Japanese PSA10 SNKRDUNK index">JP PSA10</a>
         <a class="nav-btn" href="./market-jp-psa10-bench.html" title="日版 PSA10 廣度基準（復古／中世代／現行）">JP 基準</a>
         <a class="nav-btn" href="./market-base-psa-pop.html" title="英文 Base Set 1st / Shadowless / Unlimited / Base Set 2 PSA POP">Base POP</a>
         <a class="nav-btn" href="https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/" title="Base Set Unlimited cheat sheet">Base Unlimited</a>
       </nav>
     </div>
-    <p>日版 PSA10 廣度基準 · 復古／中世代／現行 · 特典＋Tag Team 姊妹籃子 · 靜態快照</p>
+    <p>日版 PSA10 基準（主）· 復古／中世代／現行 · 靜態快照</p>
     <div class="fresh-badge" id="freshBadge" role="status" aria-live="polite">
       <span class="fresh-kicker">靜態快照</span>
       <span class="fresh-body">快照日期未載入</span>
@@ -589,12 +616,13 @@
 
 <main class="wrap" id="app">
   <div id="dataFreshness" class="data-freshness" role="status" aria-live="polite"></div>
-  <p class="kind-note">舊 <a href="./market-jp-psa10.html">JP PSA10</a> 60 張是 SV chase 袖，這頁不取代該頁。綜合＝復古＋中世代＋現行的流動性篩選聯集（N 隨篩選浮動，不再每區鎖定 80）；特典／Tag Team 是平行姊妹籃子。</p>
-  <div class="series-tabs" id="seriesTabs" role="tablist" aria-label="Benchmark series"></div>
+  <p class="kind-note">這頁是日版 PSA10 基準。綜合＝復古＋中世代＋現行的流動性篩選聯集（N 隨篩選浮動）；特典／Tag Team 是平行姊妹籃子。下方 EN Base 是監察／旁路，不是另一條日版溫度計。</p>
+  <p class="jp-kicker">JP 基準 · 主指數 <span class="tiny">日版 PSA10 · 復古／中世代／現行</span></p>
+  <div class="series-tabs" id="seriesTabs" role="tablist" aria-label="日版 PSA10 基準"></div>
   <div class="en-base-wrap" id="enBaseWrap">
-    <p class="en-kicker">EN Base · TCGPlayer <span class="tiny">英文裸卡 ungraded · TickerMint 日線 · 2024-02-08＝1000 · 非日版 · 非 SNKRDUNK</span></p>
-    <div class="series-tabs" id="enBaseTabs" role="tablist" aria-label="English Base TCGPlayer daily indexes"></div>
-    <p class="tiny" id="enBaseHint" style="margin:4px 0 0">與上面日版 PSA10 基準分開。主圖是 TCGPlayer Market／TickerMint 日線（2024-02-08＝1000）。PriceCharting 月線（2023-01-01＝1000）可疊上去，兩條鏈不能相減。完整籃子在 <a href="./market-vintage.html#unlimited">Base 復古 · 日線</a>。</p>
+    <p class="en-kicker"><span class="en-role">監察／旁路</span> EN Base <span class="tiny">英文裸卡 · 不是日版 PSA10 · TickerMint 日線 · 2024-02-08＝1000</span></p>
+    <div class="series-tabs" id="enBaseTabs" role="tablist" aria-label="EN Base 監察旁路"></div>
+    <p class="tiny" id="enBaseHint" style="margin:4px 0 0">監察／旁路，與上面日版基準分開。主圖是 TCGPlayer Market／TickerMint 日線（2024-02-08＝1000）。PriceCharting 月線（2023-01-01＝1000）可疊上，兩條不能相減。完整籃子在 <a href="./market-vintage.html#unlimited">Base 復古 · 日線</a>。</p>
   </div>
 
   <div class="hero">
@@ -705,8 +733,8 @@
   <div class="card method-card">
     <h2>這是什麼 · 方法</h2>
     <ul class="tiny">
-      <li><b>EN Base · TCGPlayer 日線</b>：上方第二排是四條<b>英文</b>籃子（Base 1st Edition、Shadowless、Unlimited、Base Set 2）。主圖是 TCGPlayer <b>Market</b>（裸卡 NM），歷史來自 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a>，<b>每日一點</b>，<b>2024-02-08＝1,000</b>（那天夠厚就當錨）。這不是 PriceCharting 的 <b>2023-01-01＝1,000</b> 月線，兩條水平不能相減。圖上的「PC 月線」是同一張卡的長期對照，預設關掉。1st Edition 最薄（Charizard／Mewtwo／Blastoise 有些日子沒有市價，沿用既有 70 日 carry，不補 $0）。不是這頁的日版 SNK PSA10，也不改上面六條基準。深連結 <code>#en-1st</code>／<code>#en-shadowless</code>／<code>#en-unlimited</code>／<code>#en-base2</code>。月線原頁仍在 <a href="./market-vintage.html#pc/1st">復古頁 PC 月線</a>。</li>
-      <li><b>與 chase 60 並存</b>：<a href="./market-jp-psa10.html">JP PSA10</a> 仍然是凍結約 60 張 SV chase 袖（<code>data.json</code> apparel ID、¥3,000／90 日 12 刊價）。這頁是廣度基準，宇宙來自 SNK 公開搜尋＋本站已有 ID，<b>不發明</b>產品編號。</li>
+      <li><b>這頁就是 JP 基準</b>：日版 PSA10 主指數在這裡（復古／中世代／現行，加特典與 Tag Team 姊妹籃子）。舊的約 60 張 SV chase 袖已從導覽收起；舊網址 <code>market-jp-psa10.html</code> 會轉到這頁。宇宙來自 SNK 公開搜尋＋本站已有 ID，<b>不發明</b>產品編號。</li>
+      <li><b>EN Base · 監察／旁路</b>：同一頁下方是四條<b>英文裸卡</b>籃子（Base 1st Edition、Shadowless、Unlimited、Base Set 2），不是日版 PSA10，也不是另一個產品頁。主圖是 TCGPlayer <b>Market</b>（裸卡 NM），歷史來自 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a>，<b>每日一點</b>，<b>2024-02-08＝1,000</b>（那天夠厚就當錨）。這不是 PriceCharting 的 <b>2023-01-01＝1,000</b> 月線，兩條水平不能相減。圖上的「PC 月線」是同一張卡的長期對照，預設關掉。1st Edition 最薄（Charizard／Mewtwo／Blastoise 有些日子沒有市價，沿用既有 70 日 carry，不補 $0）。不改上面六條日版基準。深連結 <code>#en-1st</code>／<code>#en-shadowless</code>／<code>#en-unlimited</code>／<code>#en-base2</code>。月線原頁仍在 <a href="./market-vintage.html#pc/1st">復古頁 PC 月線</a>。</li>
       <li><b>三個時代扇區，N 隨篩選浮動</b>：<b>復古 VINTAGE</b>＝SM 之前（約 1996–2016，XY／BW／DP…，依 Pokeca Vintage）；<b>中世代 MODERN</b>＝SM＋劍盾 S（Tag Team 亦計入此區）；<b>現行 CURRENT</b>＝SV＋MEGA，不限 Box EV chase 657 個 ID。通過篩選即入選——<b>不再</b>設地板 80／補到 80／截到 80。綜合＝三區聯集。篩選：最近 PSA10 刊價 ≥ ¥2,000；90 日刊價日復古 ≥5、中世代／現行 ≥6。某區通過少於 20 張才放寬到 ¥1,500／3 日（仍然收取全部通過者，不是地板）。</li>
       <li><b>平行姊妹籃子</b>：<b>特典 PROMO</b>（Grey Felt Hat／灰氈帽、Munch／Picasso／長場、Mario／Luigi／poncho 皮卡丘、Extra Battle Day 等流動日版特典；篩選 ¥2,500／90 日 5 刊價日）；<b>Tag Team / MID</b>＝SM8b–SM12a／SMM 溫度計（篩選與復古相同：¥2,000／5 日），即使 MODERN 已覆蓋 SM／S 仍單獨顯示，避免中世代被隱藏。兩條皆為篩選全收，不截 80。</li>
       <li><b>四條權重（權重順序）</b>：1 等權 1/n（算術，不是 Pokeca Jevons）；2 流動性（前一日 30 日 SNK 成交日圓，3% cap）；3 價格（滯後市值，3% cap）；4 價格無 cap 只作疊加，<b>不改</b>前三條。籃子小到 1/n ≥ 3% 時 cap 無法施行。圖預設只開等權＋流動性；價格／無 cap 可手動打開。</li>
@@ -719,24 +747,24 @@
   </div>
 
   <div class="disclaimer" id="disclaimer">
-    <p><b>資料來源：</b>日版六條是 SNKRDUNK 日站公開 PSA10 成交圖價。EN Base 四條是 TCGPlayer Market（每日 TCGCSV，歷史 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a>），可另疊 PriceCharting 月線。這頁是 GitHub Pages 靜態 JSON，瀏覽器<b>不會</b>替你下單／出價。數字可能延遲或不準；<b>不是</b>投資建議。</p>
+    <p><b>資料來源：</b>日版六條（主指數）是 SNKRDUNK 日站公開 PSA10 成交圖價。EN Base 四條是同頁監察／旁路：TCGPlayer Market（每日 TCGCSV，歷史 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a>），可另疊 PriceCharting 月線。這頁是 GitHub Pages 靜態 JSON，瀏覽器<b>不會</b>替你下單／出價。數字可能延遲或不準；<b>不是</b>投資建議。</p>
     <p>Pokémon 與相關名稱為其權利人商標。本頁為獨立粉絲工具，與 Nintendo／The Pokémon Company／SNKRDUNK／PSA 無關。請只瀏覽行情，不要用自動化去買／Bid／留言。</p>
   </div>
 </main>
-<footer>日盒 EV 小算盤 · JP PSA10 基準 · Snapshot 靜態資料 · 非正式投資建議 · 來源 <a href="https://snkrdunk.com/" target="_blank" rel="noopener">SNKRDUNK</a> · EN Base 歷史 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a> · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10.html">JP PSA10</a> · <a href="./market-base-psa-pop.html">Base POP</a></footer>
+<footer>日盒 EV 小算盤 · JP PSA10 基準 · Snapshot 靜態資料 · 非正式投資建議 · 來源 <a href="https://snkrdunk.com/" target="_blank" rel="noopener">SNKRDUNK</a> · EN Base 歷史 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a> · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-base-psa-pop.html">Base POP</a></footer>
 
-<script src="./js/freshness-badge.js?v=1.33.0"></script>
-<script src="./js/spark-tip.js?v=1.33.0"></script>
-<script src="./js/jp-psa10-ui.js?v=1.33.0"></script>
-<script src="./data/market-jp-psa10-bench/latest.js?v=1.33.0"></script>
-<script src="./data/market-jp-psa10-bench/history.js?v=1.33.0"></script>
-<script src="./data/market-vintage/latest.js?v=1.33.0"></script>
-<script src="./data/market-vintage/history.js?v=1.33.0"></script>
-<script src="./data/market-vintage-pc/latest.js?v=1.33.0"></script>
-<script src="./data/market-vintage-pc/history.js?v=1.33.0"></script>
+<script src="./js/freshness-badge.js?v=1.33.3"></script>
+<script src="./js/spark-tip.js?v=1.33.3"></script>
+<script src="./js/jp-psa10-ui.js?v=1.33.3"></script>
+<script src="./data/market-jp-psa10-bench/latest.js?v=1.33.3"></script>
+<script src="./data/market-jp-psa10-bench/history.js?v=1.33.3"></script>
+<script src="./data/market-vintage/latest.js?v=1.33.3"></script>
+<script src="./data/market-vintage/history.js?v=1.33.3"></script>
+<script src="./data/market-vintage-pc/latest.js?v=1.33.3"></script>
+<script src="./data/market-vintage-pc/history.js?v=1.33.3"></script>
 <script>
 (async function () {
-  const VERSION = '1.33.0';
+  const VERSION = '1.33.3';
   const ORDER = ['composite', 'vintage', 'modern', 'current', 'promo', 'midera'];
   const SERIES = {
     equal: { id: 'equal', name: '等權', color: '#141414' },
@@ -1316,7 +1344,7 @@
     const period = periodState.period;
     const ret = seriesRet(VIN_HIST, enKey, period);
     const label = period === 'CUSTOM' ? '自訂' : period;
-    $('heroKicker').textContent = 'EN Base · TCGPlayer · TickerMint 日線 · ' + (row.nameZh || enKey);
+    $('heroKicker').textContent = '監察／旁路 · EN Base · ' + (row.nameZh || enKey) + ' · 不是日版 PSA10';
     $('indexLevel').textContent = fmtIdx(row.index);
     const el = $('indexChg');
     if (ret.available) {
@@ -1426,20 +1454,20 @@
     });
     document.querySelectorAll('.movers h2 .pill').forEach((pill) => { pill.textContent = '1D'; });
     if (window.FreshBadge) {
-      FreshBadge.show({ label: 'EN Base 日線', raw: row && row.asOfDate, staleAfter: 7 });
+      FreshBadge.show({ label: 'EN Base 旁路', raw: row && row.asOfDate, staleAfter: 7 });
     }
     const fresh = $('dataFreshness');
     if (fresh) {
       fresh.className = 'data-freshness';
-      fresh.textContent = 'EN Base · TCGPlayer / TickerMint 日線 ' + (row.asOfDate || '') +
-        ' · ' + (row.baseDate || '2024-02-08') + '＝1000 · PC 月線是另一條鏈（2023-01-01＝1000）· 日版六條仍是 SNK';
+      fresh.textContent = '監察／旁路 · EN Base · TCGPlayer / TickerMint 日線 ' + (row.asOfDate || '') +
+        ' · ' + (row.baseDate || '2024-02-08') + '＝1000 · 不是日版 PSA10 · PC 月線是另一條鏈（2023-01-01＝1000）';
     }
     const hint = $('enBaseHint');
     if (hint) {
       const slug = EN_TO_HASH[enKey] === 'en-base2' ? 'base2' : (EN_TO_HASH[enKey] || '1st').replace(/^en-/, '');
       const dailyHash = slug === '1st' || slug === 'shadowless' || slug === 'unlimited' || slug === 'base2' ? slug : 'unlimited';
-      hint.innerHTML = '正在看 <b>EN Base · TCGPlayer 日線</b>（' + escapeHtml(row.nameZh || enKey) +
-        '）。日版六條仍在上面。' + (showPc && pcRetNow.available ? '虛線是 PriceCharting 月線。' : 'PC 月線按鈕可疊上長期對照。') +
+      hint.innerHTML = '正在看 <b>監察／旁路 · EN Base</b>（' + escapeHtml(row.nameZh || enKey) +
+        '），不是日版 PSA10。日版六條仍在上面。' + (showPc && pcRetNow.available ? '虛線是 PriceCharting 月線。' : 'PC 月線按鈕可疊上長期對照。') +
         ' 完整日線：<a href="./market-vintage.html#' + escapeHtml(dailyHash) +
         '">Base 復古</a> · 月線：<a href="./market-vintage.html#pc/' + escapeHtml(dailyHash) + '">PC</a>。';
     }
@@ -1464,6 +1492,10 @@
     document.querySelectorAll('.movers h2 .pill').forEach((el) => { el.textContent = '1D'; });
     const heading = $('levelHeading');
     if (heading) heading.textContent = '四條水平 + 廣度';
+    const hint = $('enBaseHint');
+    if (hint) {
+      hint.innerHTML = '監察／旁路，與上面日版基準分開。主圖是 TCGPlayer Market／TickerMint 日線（2024-02-08＝1000）。PriceCharting 月線（2023-01-01＝1000）可疊上，兩條不能相減。完整籃子在 <a href="./market-vintage.html#unlimited">Base 復古 · 日線</a>。';
+    }
     renderFreshness();
   }
 

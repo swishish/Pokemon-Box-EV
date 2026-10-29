@@ -22,9 +22,9 @@ Base Set PSA POP（1st / Shadowless / Unlimited / Base Set 2）：**https://swis
 
 Chase 公允值（PSA10 回歸散點）：**https://swishish.github.io/Pokemon-Box-EV/chase-fit.html**
 
-日版 PSA10 指數（SV chase 60 · 等權／流動性／價格加權）：**https://swishish.github.io/Pokemon-Box-EV/market-jp-psa10.html**
+日版 PSA10 基準（復古／中世代／現行，N 跟篩選浮動；同頁 EN Base 是監察／旁路）：**https://swishish.github.io/Pokemon-Box-EV/market-jp-psa10-bench.html**
 
-日版 PSA10 廣度基準（復古／中世代／現行，N 跟篩選浮動）：**https://swishish.github.io/Pokemon-Box-EV/market-jp-psa10-bench.html**
+舊網址 `market-jp-psa10.html`（約 60 張 SV chase 袖）會轉到上面的 JP 基準，不再是另一條溫度計。
 
 姊妹站 Base Unlimited（Base Set Unlimited 速查）：**https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/**（頂欄外連，唔喺本 repo）
 
@@ -196,7 +196,7 @@ python3 tools/backfill_tickermint_midera.py --rebuild-movers
 python3 -m http.server 8765
 ```
 
-瀏覽器開：`http://127.0.0.1:8765/`（首頁）、`http://127.0.0.1:8765/calc.html`（算盤）、`http://127.0.0.1:8765/market-en.html`（EN 市況）、`http://127.0.0.1:8765/market-vintage.html`（Base 復古）、`http://127.0.0.1:8765/market-midera.html`（中世代）、`http://127.0.0.1:8765/market-jp-psa10.html`（日版 PSA10 chase 60）、`http://127.0.0.1:8765/market-jp-psa10-bench.html`（日版 PSA10 廣度基準）或 `http://127.0.0.1:8765/chase-fit.html`（Chase 公允值）
+瀏覽器開：`http://127.0.0.1:8765/`（首頁）、`http://127.0.0.1:8765/calc.html`（算盤）、`http://127.0.0.1:8765/market-en.html`（EN 市況）、`http://127.0.0.1:8765/market-vintage.html`（Base 復古）、`http://127.0.0.1:8765/market-midera.html`（中世代）、`http://127.0.0.1:8765/market-jp-psa10-bench.html`（日版 PSA10 基準；舊 `market-jp-psa10.html` 會轉過來）或 `http://127.0.0.1:8765/chase-fit.html`（Chase 公允值）
 
 ## Chase 公允值（PSA10 回歸）
 
@@ -245,32 +245,24 @@ python3 tools/refresh_sealed_boxes.py --root .
 python3 tools/refresh_box_ev.py --root . --pc-dir /tmp/pc-sets
 ```
 
-## 日版 PSA10 指數
+## 日版 PSA10 基準
 
-獨立頁 `market-jp-psa10.html`：同一個凍結籃子畫 **三條** 鏈結報酬指數（基準 1,000）＋下方成交量柱。
+公開頁 `market-jp-psa10-bench.html` 是日版 PSA10 廣度基準（Pokeca 意圖：時代扇區、√(sales×price) 排名、等權頭條＋3% cap 流動／價格、季度重組名單）。**唔再**每區鎖 80／補到 80／截到 80——N 跟流動性／刊價篩選浮動；綜合＝三區聯集。同頁 EN Base 四條（`#en-1st`／`#en-shadowless`／`#en-unlimited`／`#en-base2`）是監察／旁路，不是另一個產品頁。
 
-| 線 | 權重 |
-| --- | --- |
-| 等權（實線） | 每張 1/n（廣度） |
-| 流動性（虛線） | 近 30 日 SNK PSA10 成交日圓（先用最近 20 筆；冇就用刊價日×價），**每張最多 3%** |
-| 價格（點虛線） | 滯後市價／籃子總價（market weight），**同一個 3% 上限** |
+舊網址 `market-jp-psa10.html`（約 60 張 SV chase 袖）只做轉址到 JP 基準。導覽、頁尾、首頁「市場觀察」不再指向該袖。
 
-價＝SNKRDUNK 公開 `trading-history` PSA10 圖價（JP 站、只讀）。缺日用上一次刊價延續，**唔補 ¥0**。量柱＝當日有刊價的成分張數（SNK 唔公開完整成交筆數；不是 pokeca 乘數）。刊價缺口 **> 14 日**當重入（當日報酬 0）；其餘單卡日報酬 **±25%** 封頂。基準 1,000＝第一日有 ≥40 張有價。
+### 舊 60 張資料（公開頁已不用）
 
-籃子來自本站 `data.json` 已有嘅 apparel ID，再篩最低價 ¥3,000 ＋ 90 日 ≥12 個刊價日，凍結約 60 張。每日 job **唔重排**。
+`data/market-jp-psa10/` 同 GitHub Action **Update JP PSA10 index** 仍然每晚寫凍結約 60 張的三條線。公開頁不再讀呢份 JSON。之後可以再清腳本；而家未刪，避免順便改基準數學。
 
 ```bash
 python3 tools/refresh_market_jp_psa10.py --self-test
-python3 tools/refresh_market_jp_psa10.py --rebuild-baskets --confirm REBUILD -v
 python3 tools/refresh_market_jp_psa10.py --from-cache
-python3 tools/refresh_market_jp_psa10.py -v
 ```
 
-GitHub Action **Update JP PSA10 index** 每晚跑刷新；PR 只跑 self-test。詳見 `data/market-jp-psa10/README.md`。
+詳見 `data/market-jp-psa10/README.md`。
 
-## 日版 PSA10 廣度基準
-
-獨立頁 `market-jp-psa10-bench.html`：**唔取代**上面嗰條 60 張 SV chase 袖。呢頁係 representable 日版 PSA10 市場（Pokeca 意圖：時代扇區、√(sales×price) 排名、等權頭條＋3% cap 流動／價格、季度重組名單）。**唔再**每區鎖 80／補到 80／截到 80——N 跟流動性／刊價篩選浮動；綜合＝三區聯集。
+### 籃子
 
 | 籃子 | 說明 |
 | --- | --- |
@@ -295,7 +287,7 @@ GitHub Action **Update JP PSA10 broad benchmark** 每晚重算權重、季度重
 
 ## Changelog（摘要）
 
-- **v1.33.3**：公開說明拿掉維護者姓名。基準頁「這是什麼 · 方法」改為「四條權重（權重順序）」。Chase_Fit 仍是模型／工作表名。指數、EV、籃子、盒價算法不變
+- **v1.33.3**：日版 PSA10 約 60 張 SV chase 袖不再是產品頁。`market-jp-psa10.html` 轉到 JP 基準。導覽、頁尾、首頁「市場觀察」不再指向該袖。JP 基準仍是復古／中世代／現行＋特典／Tag Team；EN Base 留在同一頁，標成監察／旁路。Chase_Fit、開盒 EV、shop +8%、SWSH 單卡 EV 不變。60 張袖的夜間刷新仍寫 `data/market-jp-psa10/`，公開頁不再使用。公開說明拿掉維護者姓名；基準頁「這是什麼 · 方法」寫「四條權重（權重順序）」。Chase_Fit 仍是模型／工作表名。
 - **v1.33.2**：算盤預設實付盒價寫明係落地／買入價（HK$＝該側 SNKR 落地日圓 ÷ 20.3，四捨五入；唔加 shop +8%）。系列清單有膜／無膜 % 係回收比例（Raw A／買入價）＝ Grade A（打折）÷ 該側落地／買入價，與頂欄紅綠燈同一條；缺該側落地價仍顯示 —。全系列四欄的「Grade A（打折）」沿用同一分母。抽出率、haircut、JP PSA10 60 張袖、Chase／市況籃子不變
 - **v1.33.1**：朋友向用字。「預期回報 %」改為「預期回收比例」，唔再讀成賺幅。紅綠燈綠色改為「回收比例較高（娛樂開盒參考）」，門檻仍係 ≥55%／40–55%／&lt;40%。算盤頂欄主結果改為 Grade A（打折）四件套：實付盒價、預期回收額、差額（回收−盒價）、回收比例；100% 先係呢個估價定義下打和（55% ≠ 賺 55%，未計其他成本淨額約 −45%）。100% Grade A／A+PSA／A+CGC 收進「其他路徑」。首頁短免責：模型估計 ≠ 保證現金，靜態 snapshot。EV 算法、盒價、抽出率、JP PSA10 60 張袖不變
 - **v1.33.0**：首頁改成三個入口（開盒計算、市場觀察以 JP 基準為主、研究工具 Chase 公允值／方法論）。圖文教學預設收起。外部參考連結放到本站工作下面。主要頁頂欄加「靜態快照」日期徽章，日期讀既有 JSON（開盒 `as_of`、市況 `asOfDate`、Chase `data_date`）；讀不到就顯示「沒有記錄快照日期」，不估一個日子。EV 算法、紅綠燈門檻、盒價落地、JP PSA10 60 張袖不變
