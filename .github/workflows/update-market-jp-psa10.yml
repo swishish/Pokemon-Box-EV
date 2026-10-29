@@ -60,5 +60,26 @@ jobs:
             echo "No data changes to commit."
           else
             git commit -m "chore: update JP PSA10 index ($(date -u +%Y-%m-%d))"
-            git push
+            # Another job can push to main during this refresh. Rebase
+            # onto that tip and retry a non-fast-forward. Never force-push.
+            # --autostash keeps unstaged rewrites from blocking the rebase.
+            attempt=1
+            while [ "$attempt" -le 3 ]; do
+              if ! git pull --rebase --autostash origin main; then
+                echo "Rebase onto origin/main failed."
+                git rebase --abort 2>/dev/null || true
+                exit 1
+              fi
+              if git push; then
+                echo "Pushed (attempt ${attempt})."
+                break
+              fi
+              echo "Push rejected (attempt ${attempt}/3); retrying."
+              if [ "$attempt" -eq 3 ]; then
+                echo "Push failed after 3 attempts."
+                exit 1
+              fi
+              sleep $((attempt * 2))
+              attempt=$((attempt + 1))
+            done
           fi
