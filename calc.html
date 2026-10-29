@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>日盒 EV 小算盤 v1.33.1 · JP Mega Sealed</title>
+<title>日盒 EV 小算盤 v1.33.2 · JP Mega Sealed</title>
 <meta name="description" content="日盒開盒 EV 小算盤：選系列睇實付盒價、預期回收額、差額同預期回收比例。靜態快照，模型估計≠保證現金，非正式投資建議。" />
 <meta property="og:site_name" content="日盒開盒值不值？" />
 <meta property="og:title" content="日盒 EV 小算盤 · JP Mega Sealed" />
@@ -23,7 +23,7 @@
 <meta name="twitter:image" content="https://swishish.github.io/Pokemon-Box-EV/og.png" />
 <link rel="canonical" href="https://swishish.github.io/Pokemon-Box-EV/calc.html" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-<link rel="stylesheet" href="./css/freshness-badge.css?v=1.33.1" />
+<link rel="stylesheet" href="./css/freshness-badge.css?v=1.33.2" />
 <style>
   :root {
     --bg: #faf6ef;
@@ -1673,7 +1673,7 @@
 <header>
   <div class="header-inner">
     <div class="header-top">
-      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.33.1</span></h1>
+      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.33.2</span></h1>
       <nav class="header-nav" aria-label="站內導覽">
         <a class="nav-btn" href="./calc.html">開盒 EV</a>
         <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
@@ -1697,7 +1697,7 @@
 <div class="layout" id="app">
   <aside class="toc-col" id="tocCol">
     <div class="toc-tools">
-      <button type="button" class="all-ev-toggle" id="allEvToggle" aria-expanded="false" aria-controls="allEvPanel" aria-haspopup="dialog">
+      <button type="button" class="all-ev-toggle" id="allEvToggle" aria-expanded="false" aria-controls="allEvPanel" aria-haspopup="dialog" title="「Grade A（打折）」欄＝系列清單的回收比例（Raw A／買入價）">
         <img class="mon" src="./img/accents/ditto.svg" alt="" width="22" height="22" aria-hidden="true" />
         <span class="all-ev-copy">
           <span class="all-ev-kicker">全系列</span>
@@ -1724,10 +1724,10 @@
             <span class="src-links" id="stickySrcLinks" aria-label="系列來源連結"></span>
           </h2>
           <div class="sticky-head-right">
-            <span class="price-override" id="stickyPriceOverride" title="盒價覆寫（HK$）· 預設＝目前分母（有膜／無膜）SNKR 落地 · 改動會重算預期回收比例">
-              <span class="po-label">盒價</span>
-              <input type="range" id="pcBoxSlider" min="0" max="2000" step="1" aria-label="盒價覆寫滑桿 HK$ 0–2000" />
-              <input type="number" id="pcBoxOverride" min="0" step="1" inputmode="decimal" aria-label="盒價覆寫 HK$" />
+            <span class="price-override" id="stickyPriceOverride" title="落地／買入價（HK$）· 預設＝目前有膜／無膜的 SNKR 落地 · 改動會一齊更新四件套同紅綠燈">
+              <span class="po-label">落地／買入價</span>
+              <input type="range" id="pcBoxSlider" min="0" max="2000" step="1" aria-label="落地／買入價滑桿 HK$ 0–2000" />
+              <input type="number" id="pcBoxOverride" min="0" step="1" inputmode="decimal" aria-label="落地／買入價 HK$" />
               <span class="hk-unit">HK$</span>
             </span>
             <div class="denom-toggle" role="group" aria-label="落地分母">
@@ -1739,7 +1739,7 @@
             </div>
             <div class="sticky-actions" id="stickyActions">
               <button type="button" class="copy-friend-btn" id="copyFriend" title="複製短訊給朋友（WhatsApp 可貼上）">複製給朋友</button>
-              <button type="button" class="reset-btn js-reset-defaults" id="resetDefaults" title="回到默認：haircut、Gem／Ask 折扣、費用、盒價（有膜落地）">回到默認</button>
+              <button type="button" class="reset-btn js-reset-defaults" id="resetDefaults" title="回到默認：haircut、Gem／Ask 折扣、費用、落地／買入價（有膜）">回到默認</button>
             </div>
             <button type="button" class="sticky-more" id="stickyMore" aria-expanded="false" aria-controls="stickyDrawer">設定</button>
           </div>
@@ -1750,7 +1750,7 @@
             <img class="sticky-box" id="stickyBox" alt="" width="64" height="64" loading="lazy" decoding="async" />
             <div class="sticky-primary">
               <p class="sticky-path">主結果 · Grade A（打折）</p>
-              <div class="sticky-metrics" id="stickyMetrics" aria-label="實付盒價、預期回收額、差額、回收比例"></div>
+              <div class="sticky-metrics" id="stickyMetrics" aria-label="實付盒價（落地／買入價）、預期回收額、差額、回收比例"></div>
               <p class="break-even" id="breakEvenNote">100% 先係呢個估價定義下打和。回收比例 55% 唔等於賺 55%（未計其他成本，淨額約 −45%）。</p>
             </div>
           </div>
@@ -1778,8 +1778,8 @@
       </summary>
       <div class="adv-body">
         <div class="adv-reset-wrap">
-          <button type="button" class="reset-btn adv-reset js-reset-defaults" title="回到默認：haircut、Gem／Ask 折扣、費用、盒價（有膜落地）">回到默認</button>
-          <p class="tiny">一鍵還原 Gem 折扣、PSA Ask 折扣、稀有度 haircut（含 FUR／SSR／S 等）、PSA／CGC 費用，以及盒價覆寫＝該分母 SNKR 落地（並切回有膜）。</p>
+          <button type="button" class="reset-btn adv-reset js-reset-defaults" title="回到默認：haircut、Gem／Ask 折扣、費用、落地／買入價（有膜）">回到默認</button>
+          <p class="tiny">一鍵還原 Gem 折扣、PSA Ask 折扣、稀有度 haircut（含 FUR／SSR／S 等）、PSA／CGC 費用，以及落地／買入價＝該側 SNKR 落地（並切回有膜）。</p>
         </div>
         <div class="slider-row">
           <label for="gemDisc">Gem 折扣（有效 gem = 公佈 gem × (1−折扣)；預設 20%）</label>
@@ -1822,14 +1822,14 @@
       <div class="adv-body">
       <ul class="tiny">
         <li><b>100% Grade A（買入價）</b>＝ 各稀有度池 Grade A 均價 × 抽出率加總 ÷ 落地盒價（<b>不做</b>稀有度折扣）。</li>
-        <li><b>Grade A（打折）</b>＝ 同上，但先把每張 Grade A 打一個稀有度折扣再平均。TOC／主判斷／紅綠燈／頂欄四件套（實付盒價、預期回收額、差額、回收比例）用這個。頂欄會跟滑桿一齊更新。</li>
+        <li><b>Grade A（打折）</b>＝ 同上，但先把每張 Grade A 打一個稀有度折扣再平均。主判斷／紅綠燈／頂欄四件套（實付盒價、預期回收額、差額、回收比例）用這個。系列清單有膜／無膜 % 係 <b>回收比例（Raw A／買入價）</b>：分子用呢條，分母用該側落地／買入價，同頂欄同一條。頂欄會跟滑桿一齊更新。</li>
         <li><b>A+PSA（打折）</b>＝ 可送評嘅 SAR／MUR／SR：用 PSA10／9 掛牌＋gem 率估「送評期望」；<b>只有送評期望高過打折 Grade A 先當送評，否則當賣裸卡</b>。其餘稀有度仍用打折 Grade A。資料太少（少過 3 張有 PSA10+gem）就顯示「—」，唔會假装等於打折分數。</li>
         <li><b>A+CGC（打折）</b>＝ 結構同 PSA；CGC10 價來自 <a href="https://www.pricecharting.com/" target="_blank" rel="noopener">PriceCharting</a>（USD），費用用 USD 再換算。缺資料同樣「—」。</li>
         <li><b>有膜／無膜</b>只改分母（落地盒價），分子不變。</li>
         <li><b>紅綠燈</b>：回收比例較高（娛樂開盒參考）≥ 55% · 普通 40%–55% · 偏貴 &lt; 40%（睇 Grade A 打折）。綠色唔係正數賺幅。</li>
         <li><b>打和</b>：回收比例 <b>100%</b> 先係呢個估價定義下打和（預期回收額＝實付盒價）。<b>55% 唔等於賺 55%</b>；未計其他成本，淨額約 −45%。模型估計，唔等於保證可以換成現金。</li>
         <li><b>匯率</b>：日圓 → <b>HK$ = ¥ ÷ 20.3</b>；美元 → <b>HK$ = USD × 7.80</b>。頁面以 HK$ 為主；PSA／CGC 費用用 USD 編輯。</li>
-        <li><b>落地分母</b>：各系列依 <a href="https://snkrdunk.com/en" target="_blank" rel="noopener">SNKRDUNK</a> 公開掛牌快照，分別計算有膜／無膜 1–4 盒各檔的落地單盒成本＝單盒價 × 1.035 +（運費 HK$173 × 20.3）÷ 該次購買盒數。運費按該筆訂單盒數攤提（買 1 盒時，單盒運費約為買 4 盒的四倍），再取該側最低落地單盒作為 EV 分母。頂欄「落地最優」顯示此快照下最便宜的購買盒數，並非即時行情。未含稅／關稅。可用頂部「盒價」改為你實際入手的 HK$。</li>
+        <li><b>落地／買入價</b>：各系列依 <a href="https://snkrdunk.com/en" target="_blank" rel="noopener">SNKRDUNK</a> 公開掛牌快照，分別計算有膜／無膜 1–4 盒各檔的落地單盒成本＝單盒價 × 1.035 +（運費 HK$173 × 20.3）÷ 該次購買盒數。運費按該筆訂單盒數攤提（買 1 盒時，單盒運費約為買 4 盒的四倍），再取該側最低落地單盒，換成 HK$（¥ ÷ 20.3，四捨五入）作為實付盒價同回收比例分母。頂欄「落地最優」顯示此快照下最便宜的購買盒數，並非即時行情。未含稅／關稅。頂部「落地／買入價」可以改成你實際入手的 HK$，四件套同紅綠燈會一齊更新。</li>
         <li><b>來源連結</b>：系列名旁可開 <a href="https://www.pricecharting.com/category/pokemon-cards" target="_blank" rel="noopener">PriceCharting</a> 盒頁同 <a href="https://snkrdunk.com/en" target="_blank" rel="noopener">SNKRDUNK</a> 有膜產品頁。「回到默認」還原折扣、費用同盒價。</li>
         <li><b>Gem 折扣</b>（進階，預設 <b>20%</b>）：送評路徑嘅有效 gem = 公佈 gem × (1 − 折扣)，留少少挑選偏差。</li>
         <li><b>抽出率</b>（社群估計，非正式）：每盒先計保底張數，再加「多一格 chase」（額外 SR <i>或</i> SAR，唔加兩次）。MEGA 盒大致 AR×3 + 道具 SR×1 + 1 格 chase；SV 盒大致 AR×3 + 1 格 SR／SAR／UR。同一稀有度用均價（好貴嘅一張會拉高）。來源：<a href="https://pokemon-infomation.com/" target="_blank" rel="noopener">Pokegto</a>、<a href="https://pokeka-atari.jp/" target="_blank" rel="noopener">pokeka-atari</a>、<a href="https://axstex01.com/" target="_blank" rel="noopener">axstex</a>。</li>
@@ -1857,7 +1857,7 @@
     <div class="all-ev-head">
       <div class="all-ev-head-text">
         <h2 id="allEvTitle">全系列預期回收比例</h2>
-        <p class="tiny" id="allEvNote">分母與頂欄相同。欄位係回收比例，100% 先係打和。點選列可切換系列。</p>
+        <p class="tiny" id="allEvNote">「Grade A（打折）」欄＝系列清單的回收比例（Raw A／買入價）。100% 先係打和。點選列可切換系列。</p>
       </div>
       <div class="all-ev-head-actions">
         <button type="button" class="all-ev-back" id="allEvBack">返回系列</button>
@@ -1870,7 +1870,7 @@
           <tr>
             <th scope="col">系列</th>
             <th scope="col">100% Grade A（買入價）</th>
-            <th scope="col">Grade A（打折）</th>
+            <th scope="col" title="回收比例（Raw A／買入價）。系列清單的有膜／無膜 % 用這一欄。">Grade A（打折）</th>
             <th scope="col">A+PSA（打折）</th>
             <th scope="col">A+CGC（打折）</th>
           </tr>
@@ -1880,14 +1880,14 @@
     </div>
   </div>
 </div>
-<footer><img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" /><span>日盒 EV 小算盤 <b>v1.33.1</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期 · <a href="./index.html">首頁</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10.html">JP PSA10</a> · <a href="./market-jp-psa10-bench.html">JP 基準</a> · <a href="./market-base-psa-pop.html">Base POP</a></span></footer>
+<footer><img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" /><span>日盒 EV 小算盤 <b>v1.33.2</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期 · <a href="./index.html">首頁</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10.html">JP PSA10</a> · <a href="./market-jp-psa10-bench.html">JP 基準</a> · <a href="./market-base-psa-pop.html">Base POP</a></span></footer>
 
-<script src="./js/freshness-badge.js?v=1.33.1"></script>
-<script src="./data.js?v=1.33.1"></script>
+<script src="./js/freshness-badge.js?v=1.33.2"></script>
+<script src="./data.js?v=1.33.2"></script>
 <script>
 (async function () {
   // Keep in sync with the data.js?v= query above.
-  const VERSION = '1.33.1';
+  const VERSION = '1.33.2';
   async function loadJson(rel) {
     const url = new URL(rel, document.baseURI || window.location.href);
     url.searchParams.set('v', VERSION);
@@ -2111,40 +2111,34 @@
   const FX_JPY_PER_HKD = (DATA.fx && DATA.fx.jpy_per_hkd) || 20.3;
   const FX_USD_HKD = (DATA.fx && DATA.fx.usd_hkd) || 7.80;
 
-  /** PC ungraded avg → HKD (null if missing). */
-  function pcAvgHkd(set) {
-    if (!set) return null;
-    if (set.pc_avg_hkd != null && set.pc_avg_hkd !== '') return Number(set.pc_avg_hkd);
-    if (set.pc_avg_usd != null && set.pc_avg_usd !== '') return Number(set.pc_avg_usd) * FX_USD_HKD;
-    return null;
+  /** Landed yen for one side. No cross-side fill-in and no shop +8%. */
+  function landedYenOf(set, denom) {
+    if (!set || !set.landed) return null;
+    const side = denom === 'ns' ? set.landed.ns : set.landed.shrink;
+    if (!side || side.landed_yen == null) return null;
+    const yen = Number(side.landed_yen);
+    return yen > 0 ? yen : null;
   }
-  /** Default box-cost HKD for override field: SNKR landed for active denom (shrink/ns). */
+  /** HK$ buy-in from a landed yen quote (¥ ÷ 20.3, rounded). Missing → null. */
+  function buyInHkdFromLandedYen(yen) {
+    if (yen == null || !(Number(yen) > 0)) return null;
+    const hkd = Math.round(Number(yen) / FX_JPY_PER_HKD);
+    return hkd > 0 ? hkd : null;
+  }
+  function buyInYenFromHkd(hkd) {
+    const n = Number(hkd);
+    if (!(n > 0) || Number.isNaN(n)) return null;
+    return n * FX_JPY_PER_HKD;
+  }
+  /** Default 落地／買入價 HK$ for the active side. SNKR landed only — not PC, not shop unit. */
   function defaultBoxCostHkd(set, denom) {
-    const d = denom || landDenom;
-    let yen = null;
-    if (d === 'ns' && set && set.landed && set.landed.ns) {
-      yen = set.landed.ns.landed_yen;
-    } else if (set && set.landed && set.landed.shrink) {
-      yen = set.landed.shrink.landed_yen;
-    }
-    if (yen != null && yen > 0) return Math.round(yen / FX_JPY_PER_HKD);
-    // fallback only if SNKR missing
-    const pc = pcAvgHkd(set);
-    if (pc != null && pc > 0) return Math.round(pc);
-    return null;
+    return buyInHkdFromLandedYen(landedYenOf(set, denom || landDenom));
   }
   function clampOverrideSlider(hkd) {
     const n = Math.round(Number(hkd));
     if (Number.isNaN(n)) return 0;
     return Math.max(0, Math.min(2000, n));
   }
-  /** Yen shrink denom from PC avg (null if no PC). */
-  function pcLandSYen(set) {
-    const hkd = pcAvgHkd(set);
-    if (hkd == null || hkd <= 0) return null;
-    return hkd * FX_JPY_PER_HKD;
-  }
-
   function fmtYen(n) {
     if (n == null || Number.isNaN(n)) return '—';
     const sign = n < 0 ? '-' : '';
@@ -2365,10 +2359,11 @@
       Otachu: set.otachu_ev,
     };
 
-    // Denom: SNKR landed by default; sticky HKD override (selected set) replaces active denom.
-    // PC avg is display/link only — never auto-applied as denom.
-    let landS = (set.landed && set.landed.shrink) ? set.landed.shrink.landed_yen : null;
-    let landNS = (set.landed && set.landed.ns) ? set.landed.ns.landed_yen : null;
+    // Denom is the HK landed buy-in (round ¥→HK$ × FX), same number as 實付盒價.
+    // Sticky override on the open set replaces the active side only.
+    // PC avg stays a link — never the denominator. No shop +8% path.
+    let landS = buyInYenFromHkd(buyInHkdFromLandedYen(landedYenOf(set, 'shrink')));
+    let landNS = buyInYenFromHkd(buyInHkdFromLandedYen(landedYenOf(set, 'ns')));
     if (landOverride && setc === currentSet) {
       const pcBox = $('pcBoxOverride');
       if (pcBox && pcBox.value !== '') {
@@ -2472,12 +2467,15 @@
       const nsTxt = hcNS == null ? '—' : fmtPct(hcNS);
       const active = s.code === currentSet ? ' active' : '';
       const art = boxThumb(s.code);
+      const tip = '回收比例（Raw A／買入價）。有膜 ' + fmtPct(hcS) + '，無膜 ' + nsTxt +
+        '。分母係該側落地／買入價。100%＝打和。';
+      const aria = s.code + ' ' + (s.zh || s.ja || '') + '。' + tip;
       parts.push(
-        `<button type="button" class="toc-item${active}" data-set="${s.code}">` +
+        `<button type="button" class="toc-item${active}" data-set="${s.code}" title="${escapeHtml(tip)}" aria-label="${escapeHtml(aria)}">` +
         `<img class="toc-art" src="${art}" alt="" width="40" height="40" loading="lazy" decoding="async" />` +
         `<span class="toc-meta">` +
         `<span class="toc-title"><span class="code">${escapeHtml(s.code)}</span><span class="ja">${escapeHtml(s.zh || s.ja)}</span></span>` +
-        `<span class="ev-line">有膜 <span class="ev ${bS.cls}">${fmtPct(hcS)}</span> · 無膜 <span class="ev ${bNS.cls}">${nsTxt}</span></span>` +
+        `<span class="ev-line" title="${escapeHtml(tip)}">有膜 <span class="ev ${bS.cls}">${fmtPct(hcS)}</span> · 無膜 <span class="ev ${bNS.cls}">${nsTxt}</span></span>` +
         `</span></button>`
       );
     });
@@ -2522,8 +2520,8 @@
     if (!body) return;
     const denomLabel = landDenom === 'ns' ? '無膜' : '有膜';
     if (note) {
-      note.textContent = '分母與頂欄相同，目前為「' + denomLabel +
-        '」。欄位係回收比例（100%＝打和），唔係賺到嘅百分比。此分母無落地價的系列顯示 —。點選列可切換系列。';
+      note.textContent = '系列清單的有膜／無膜 % 係回收比例（Raw A／買入價），同「Grade A（打折）」欄、同頂欄紅綠燈。分母係該側落地／買入價，目前對照「' +
+        denomLabel + '」。100%＝打和。此側無落地價顯示 —。其餘三欄係次要路徑。';
     }
     const rows = setList.map((s) => {
       const r = calcSet(s.code, true);
@@ -2707,7 +2705,7 @@
       </div>`;
     // Headline quartet uses Grade A（打折）only. Displayed HKD are rounded so 回收 − 盒價 = 差額.
     $('stickyMetrics').innerHTML =
-      quartetCell('實付盒價', fmtHkdInt(boxHkd), active.label + '落地') +
+      quartetCell('實付盒價', fmtHkdInt(boxHkd), active.label + ' · 落地／買入價') +
       quartetCell('預期回收額', fmtHkdInt(recHkd), missingEv ? '缺單卡' : 'Grade A（打折）') +
       quartetCell('差額（回收−盒價）', fmtHkdInt(gapHkd), gapHkd == null ? '' : (gapHkd < 0 ? '回收低過盒價' : (gapHkd > 0 ? '回收高過盒價' : '剛好打和')), gapCls) +
       ratioCell;
@@ -2904,7 +2902,7 @@
     }
     const lines = [
       displaySetName(r.set) + ' · Grade A（打折）',
-      '實付盒價 ' + fmtShareHkd(boxHkd) + '（' + active.label + '）',
+      '實付盒價 ' + fmtShareHkd(boxHkd) + '（' + active.label + ' · 落地／買入價）',
       '預期回收額 ' + fmtShareHkd(recHkd),
       '差額（回收−盒價） ' + fmtShareHkd(gapHkd),
       '預期回收比例 ' + fmtPct(hcRatio),
