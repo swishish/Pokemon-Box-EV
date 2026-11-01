@@ -54,7 +54,7 @@
     "pc_sr_ar_fx": "PC USD → ¥ via HKD: ×7.8×20.3 = ×158.34",
     "sar_pc_gap": "SAR/MUR/MA/FUR not auto-minned. Large PC vs SNKR Grade A (ratio >2 or <0.5) count=12; see tools output / PR. Policy remains SNKR Grade A.",
     "pc_sr_ar_coverage": "SR/AR min applied on 571 cards; PC-only 10; SNKR-only (no PC) 12; rejected SNKR typos [].",
-    "sealed_box_as_of": "2026-10-28 14:15 Asia/Shanghai",
+    "sealed_box_as_of": "2026-11-02 04:01 Asia/Shanghai",
     "method_sealed_box": "HK-landed shrink / no-shrink from public SNKRDUNK new-listing lot asks (keep usable 1/2/3/4-box tiers after unit bounds, multi-listing depth, and vs-single band). unit_yen = lot ÷ qty. landed_yen = unit×1.035 + (HK$173 × 20.3) / qty (shipping amortized over that order's box count). EV denom = min landed_yen per side; winning qty stored on landed.*. View-only public JSON; no login / buy / bid. Missing fetch keeps the previous snapshot; never invent IDs or prices. PriceCharting booster-box ungraded avg is display-only.",
     "sv_sealed_scaffold": "2026-10-28 added JP SV booster boxes missing from the curated list: SV1V SV2D SV2P SV3a SV4K SV4M SV5K SV5M SV5a SV6 SV6a SV7 SV9. Sealed shrink/no-shrink apparel IDs are public SNKRDUNK product numbers (pkmn-tcg-<code>). Pokegto pull rates are stored. Card Grade A rows were not added and data.as_of (card snapshot) was not bumped: tools/refresh_box_ev.py exits without writing when /tmp/pc-sets is empty, and SAR/UR stay SNKR Grade A (PC ungraded is not used for those pools). Deck Build Box / starter products are not modeled. Mega M* sets were already present.",
     "sv13_card_ev": "2026-10-28 15:18 Asia/Shanghai card rows for SV1V, SV2D, SV2P, SV3a, SV4K, SV4M, SV5K, SV5M, SV5a, SV6, SV6a, SV7, SV9. Grade A ask = SNKRDUNK size-chip A (trading_card_single_nearly_unused) usedMinPrice when hasListing. PC ungraded from the set console page. SR/AR min(PC, SNKR); SAR/UR/ACE SNKR only. SV1V: priced 30/30 pools {'AR': 12, 'poke_sr': 6, 'goods_sr': 4, 'SAR': 5, 'UR': 3} missing_ask 0 | SV2D: priced 27/28 pools {'AR': 12, 'poke_sr': 6, 'goods_sr': 2, 'SAR': 5, 'UR': 2} missing_ask 1 | SV2P: priced 27/28 pools {'AR': 12, 'poke_sr': 6, 'goods_sr': 2, 'SAR': 5, 'UR': 2} missing_ask 1 | SV3a: priced 30/30 pools {'AR': 12, 'poke_sr': 6, 'goods_sr': 4, 'SAR': 5, 'UR': 3} missing_ask 0 | SV4K: priced 28/29 pools {'AR': 12, 'poke_sr': 6, 'goods_sr': 3, 'SAR': 5, 'UR': 2} missing_ask 1 | SV4M: priced 28/29 pools {'AR': 12, 'poke_sr': 6, 'goods_sr': 3, 'SAR': 5, 'UR': 2} missing_ask 1 | SV5K: priced 32/32 pools {'ACE': 3, 'AR': 12, 'poke_sr': 6, 'goods_sr': 3, 'SAR': 5, 'UR': 3} missing_ask 0 | SV5M: priced 30/32 pools {'ACE': 3, 'AR': 12, 'poke_sr': 6, 'goods_sr': 3, 'SAR': 4, 'UR': 2} missing_ask 2 | SV5a: priced 32/33 pools {'ACE': 3, 'AR': 12, 'poke_sr': 6, 'goods_sr': 4, 'SAR': 4, 'UR': 3} missing_ask 1 | SV6: priced 33/35 pools {'ACE': 2, 'AR': 12, 'poke_sr': 8, 'goods_sr': 3, 'SAR': 5, 'UR': 3} missing_ask 2 | SV6a: priced 33/33 pools {'ACE': 3, 'AR': 12, 'poke_sr': 6, 'goods_sr': 4, 'SAR': 5, 'UR': 3} missing_ask 0 | SV7: priced 35/36 pools {'ACE': 3, 'AR': 12, 'poke_sr': 8, 'goods_sr': 4, 'SAR': 6, 'UR': 2} missing_ask 1 | SV9: priced 32/32 pools {'AR': 12, 'poke_sr': 8, 'goods_sr': 3, 'SAR': 6, 'UR': 3} missing_ask 0",
@@ -76,14 +76,14 @@
       },
       "landed": {
         "shrink": {
-          "landed_yen": 10759.93,
-          "unit_yen": 8699.5,
-          "qty": 2,
-          "qty_label": "2個"
+          "landed_yen": 9588.63,
+          "unit_yen": 8133.33,
+          "qty": 3,
+          "qty_label": "3個"
         },
         "ns": {
-          "landed_yen": 9766.85,
-          "unit_yen": 7740.0,
+          "landed_yen": 8768.07,
+          "unit_yen": 6775.0,
           "qty": 2,
           "qty_label": "2個"
         }
@@ -99,9 +99,9 @@
       "pc_url": "https://www.pricecharting.com/game/pokemon-japanese-mega-brave/booster-box",
       "release_date": "2025-08-01",
       "pricecharting_box_url": "https://www.pricecharting.com/game/pokemon-japanese-mega-brave/booster-box",
-      "pc_avg_usd": 76.86,
-      "pc_avg_hkd": 599.51,
-      "pc_avg_as_of": "2026-10-26 06:11 Asia/Shanghai",
+      "pc_avg_usd": 89.78,
+      "pc_avg_hkd": 700.28,
+      "pc_avg_as_of": "2026-11-02 04:01 Asia/Shanghai",
       "pc_avg_source": "pricecharting_ungraded_loose",
       "snkrdunk_shrink_id": 628146,
       "snkrdunk_shrink_url": "https://snkrdunk.com/en/trading-cards/628146",
@@ -124,88 +124,88 @@
       "pc_sr_ar_as_of": "2026-10-23 13:57 Asia/Shanghai",
       "sealed_box": {
         "shrink": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 628146,
-          "lot_yen": 17399.0,
-          "qty": 2,
-          "qty_label": "2個",
-          "unit_yen": 8699.5,
-          "listing_count": 74,
+          "lot_yen": 24400.0,
+          "qty": 3,
+          "qty_label": "3個",
+          "unit_yen": 8133.33,
+          "listing_count": 38,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 8799.0,
-              "unit_yen": 8799.0,
+              "lot_yen": 7900.0,
+              "unit_yen": 7900.0,
               "listing_count": 100,
-              "landed_yen": 12618.86
+              "landed_yen": 11688.4
             },
             {
               "qty": 2,
               "qty_label": "2個",
-              "lot_yen": 17399.0,
-              "unit_yen": 8699.5,
-              "listing_count": 74,
-              "landed_yen": 10759.93
+              "lot_yen": 16200.0,
+              "unit_yen": 8100.0,
+              "listing_count": 81,
+              "landed_yen": 10139.45
             },
             {
               "qty": 3,
               "qty_label": "3個",
-              "lot_yen": 28998.0,
-              "unit_yen": 9666.0,
-              "listing_count": 27,
-              "landed_yen": 11174.94
+              "lot_yen": 24400.0,
+              "unit_yen": 8133.33,
+              "listing_count": 38,
+              "landed_yen": 9588.63
             },
             {
               "qty": 4,
               "qty_label": "4個",
-              "lot_yen": 40000.0,
-              "unit_yen": 10000.0,
-              "listing_count": 18,
-              "landed_yen": 11227.98
+              "lot_yen": 34000.0,
+              "unit_yen": 8500.0,
+              "listing_count": 17,
+              "landed_yen": 9675.48
             }
           ]
         },
         "ns": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 658648,
-          "lot_yen": 15480.0,
+          "lot_yen": 13550.0,
           "qty": 2,
           "qty_label": "2個",
-          "unit_yen": 7740.0,
-          "listing_count": 18,
+          "unit_yen": 6775.0,
+          "listing_count": 21,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 7489.0,
-              "unit_yen": 7489.0,
-              "listing_count": 74,
-              "landed_yen": 11263.01
+              "lot_yen": 6850.0,
+              "unit_yen": 6850.0,
+              "listing_count": 76,
+              "landed_yen": 10601.65
             },
             {
               "qty": 2,
               "qty_label": "2個",
-              "lot_yen": 15480.0,
-              "unit_yen": 7740.0,
-              "listing_count": 18,
-              "landed_yen": 9766.85
+              "lot_yen": 13550.0,
+              "unit_yen": 6775.0,
+              "listing_count": 21,
+              "landed_yen": 8768.07
             },
             {
               "qty": 3,
               "qty_label": "3個",
               "lot_yen": 28000.0,
               "unit_yen": 9333.33,
-              "listing_count": 6,
+              "listing_count": 7,
               "landed_yen": 10830.63
             }
           ]
         },
         "pc": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
-          "usd": 76.86,
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
+          "usd": 89.78,
           "source": "pricecharting_public_html"
         }
       },
@@ -227,16 +227,16 @@
       },
       "landed": {
         "shrink": {
-          "landed_yen": 9761.13,
-          "unit_yen": 8300.0,
-          "qty": 3,
-          "qty_label": "3個"
-        },
-        "ns": {
-          "landed_yen": 8110.04,
-          "unit_yen": 6987.5,
+          "landed_yen": 9028.6,
+          "unit_yen": 7875.0,
           "qty": 4,
           "qty_label": "4個"
+        },
+        "ns": {
+          "landed_yen": 8243.13,
+          "unit_yen": 6833.33,
+          "qty": 3,
+          "qty_label": "3個"
         }
       },
       "otachu_ev": 1704,
@@ -250,9 +250,9 @@
       "pc_url": "https://www.pricecharting.com/game/pokemon-japanese-mega-symphonia/booster-box",
       "release_date": "2025-08-01",
       "pricecharting_box_url": "https://www.pricecharting.com/game/pokemon-japanese-mega-symphonia/booster-box",
-      "pc_avg_usd": 76.0,
-      "pc_avg_hkd": 592.8,
-      "pc_avg_as_of": "2026-10-26 06:11 Asia/Shanghai",
+      "pc_avg_usd": 76.65,
+      "pc_avg_hkd": 597.87,
+      "pc_avg_as_of": "2026-11-02 04:01 Asia/Shanghai",
       "pc_avg_source": "pricecharting_ungraded_loose",
       "snkrdunk_shrink_id": 628148,
       "snkrdunk_shrink_url": "https://snkrdunk.com/en/trading-cards/628148",
@@ -275,96 +275,96 @@
       "pc_sr_ar_as_of": "2026-10-23 13:57 Asia/Shanghai",
       "sealed_box": {
         "shrink": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 628148,
-          "lot_yen": 24900.0,
-          "qty": 3,
-          "qty_label": "3個",
-          "unit_yen": 8300.0,
-          "listing_count": 26,
+          "lot_yen": 31500.0,
+          "qty": 4,
+          "qty_label": "4個",
+          "unit_yen": 7875.0,
+          "listing_count": 11,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 8000.0,
-              "unit_yen": 8000.0,
+              "lot_yen": 7770.0,
+              "unit_yen": 7770.0,
               "listing_count": 100,
-              "landed_yen": 11791.9
+              "landed_yen": 11553.85
             },
             {
               "qty": 2,
               "qty_label": "2個",
-              "lot_yen": 16000.0,
-              "unit_yen": 8000.0,
-              "listing_count": 60,
-              "landed_yen": 10035.95
+              "lot_yen": 14900.0,
+              "unit_yen": 7450.0,
+              "listing_count": 63,
+              "landed_yen": 9466.7
             },
             {
               "qty": 3,
               "qty_label": "3個",
-              "lot_yen": 24900.0,
-              "unit_yen": 8300.0,
-              "listing_count": 26,
-              "landed_yen": 9761.13
+              "lot_yen": 22839.0,
+              "unit_yen": 7613.0,
+              "listing_count": 32,
+              "landed_yen": 9050.09
             },
             {
               "qty": 4,
               "qty_label": "4個",
-              "lot_yen": 34990.0,
-              "unit_yen": 8747.5,
-              "listing_count": 14,
-              "landed_yen": 9931.64
+              "lot_yen": 31500.0,
+              "unit_yen": 7875.0,
+              "listing_count": 11,
+              "landed_yen": 9028.6
             }
           ]
         },
         "ns": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 658649,
-          "lot_yen": 27950.0,
-          "qty": 4,
-          "qty_label": "4個",
-          "unit_yen": 6987.5,
-          "listing_count": 6,
+          "lot_yen": 20500.0,
+          "qty": 3,
+          "qty_label": "3個",
+          "unit_yen": 6833.33,
+          "listing_count": 17,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 6398.0,
-              "unit_yen": 6398.0,
-              "listing_count": 86,
-              "landed_yen": 10133.83
+              "lot_yen": 6997.0,
+              "unit_yen": 6997.0,
+              "listing_count": 78,
+              "landed_yen": 10753.8
             },
             {
               "qty": 2,
               "qty_label": "2個",
-              "lot_yen": 13428.0,
-              "unit_yen": 6714.0,
-              "listing_count": 31,
-              "landed_yen": 8704.94
+              "lot_yen": 12999.0,
+              "unit_yen": 6499.5,
+              "listing_count": 29,
+              "landed_yen": 8482.93
             },
             {
               "qty": 3,
               "qty_label": "3個",
-              "lot_yen": 20750.0,
-              "unit_yen": 6916.67,
-              "listing_count": 15,
-              "landed_yen": 8329.39
+              "lot_yen": 20500.0,
+              "unit_yen": 6833.33,
+              "listing_count": 17,
+              "landed_yen": 8243.13
             },
             {
               "qty": 4,
               "qty_label": "4個",
-              "lot_yen": 27950.0,
-              "unit_yen": 6987.5,
-              "listing_count": 6,
-              "landed_yen": 8110.04
+              "lot_yen": 40000.0,
+              "unit_yen": 10000.0,
+              "listing_count": 3,
+              "landed_yen": 11227.98
             }
           ]
         },
         "pc": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
-          "usd": 76.0,
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
+          "usd": 76.65,
           "source": "pricecharting_public_html"
         }
       },
@@ -386,16 +386,16 @@
       },
       "landed": {
         "shrink": {
-          "landed_yen": 10451.73,
-          "unit_yen": 9250.0,
-          "qty": 4,
-          "qty_label": "4個"
+          "landed_yen": 10294.7,
+          "unit_yen": 8250.0,
+          "qty": 2,
+          "qty_label": "2個"
         },
         "ns": {
-          "landed_yen": 8640.47,
-          "unit_yen": 7500.0,
-          "qty": 4,
-          "qty_label": "4個"
+          "landed_yen": 8932.79,
+          "unit_yen": 7499.67,
+          "qty": 3,
+          "qty_label": "3個"
         }
       },
       "otachu_ev": 3124,
@@ -409,9 +409,9 @@
       "pc_url": "https://www.pricecharting.com/game/pokemon-japanese-nihil-zero/booster-box",
       "release_date": "2026-01-23",
       "pricecharting_box_url": "https://www.pricecharting.com/game/pokemon-japanese-nihil-zero/booster-box",
-      "pc_avg_usd": 76.1,
-      "pc_avg_hkd": 593.58,
-      "pc_avg_as_of": "2026-10-26 06:11 Asia/Shanghai",
+      "pc_avg_usd": 74.1,
+      "pc_avg_hkd": 577.98,
+      "pc_avg_as_of": "2026-11-02 04:01 Asia/Shanghai",
       "pc_avg_source": "pricecharting_ungraded_loose",
       "snkrdunk_shrink_id": 743533,
       "snkrdunk_shrink_url": "https://snkrdunk.com/en/trading-cards/743533",
@@ -433,96 +433,96 @@
       "pc_sr_ar_as_of": "2026-10-23 13:57 Asia/Shanghai",
       "sealed_box": {
         "shrink": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 743533,
-          "lot_yen": 37000.0,
-          "qty": 4,
-          "qty_label": "4個",
-          "unit_yen": 9250.0,
-          "listing_count": 10,
+          "lot_yen": 16500.0,
+          "qty": 2,
+          "qty_label": "2個",
+          "unit_yen": 8250.0,
+          "listing_count": 62,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 8199.0,
-              "unit_yen": 8199.0,
+              "lot_yen": 7799.0,
+              "unit_yen": 7799.0,
               "listing_count": 100,
-              "landed_yen": 11997.86
+              "landed_yen": 11583.86
             },
             {
               "qty": 2,
               "qty_label": "2個",
-              "lot_yen": 17498.0,
-              "unit_yen": 8749.0,
-              "listing_count": 64,
-              "landed_yen": 10811.17
+              "lot_yen": 16500.0,
+              "unit_yen": 8250.0,
+              "listing_count": 62,
+              "landed_yen": 10294.7
             },
             {
               "qty": 3,
               "qty_label": "3個",
-              "lot_yen": 27900.0,
-              "unit_yen": 9300.0,
-              "listing_count": 31,
-              "landed_yen": 10796.13
+              "lot_yen": 27300.0,
+              "unit_yen": 9100.0,
+              "listing_count": 33,
+              "landed_yen": 10589.13
             },
             {
               "qty": 4,
               "qty_label": "4個",
               "lot_yen": 37000.0,
               "unit_yen": 9250.0,
-              "listing_count": 10,
+              "listing_count": 11,
               "landed_yen": 10451.73
             }
           ]
         },
         "ns": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 743535,
-          "lot_yen": 30000.0,
-          "qty": 4,
-          "qty_label": "4個",
-          "unit_yen": 7500.0,
-          "listing_count": 6,
+          "lot_yen": 22499.0,
+          "qty": 3,
+          "qty_label": "3個",
+          "unit_yen": 7499.67,
+          "listing_count": 14,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 7250.0,
-              "unit_yen": 7250.0,
-              "listing_count": 64,
-              "landed_yen": 11015.65
+              "lot_yen": 7699.0,
+              "unit_yen": 7699.0,
+              "listing_count": 66,
+              "landed_yen": 11480.36
             },
             {
               "qty": 2,
               "qty_label": "2個",
-              "lot_yen": 14900.0,
-              "unit_yen": 7450.0,
-              "listing_count": 24,
-              "landed_yen": 9466.7
+              "lot_yen": 14800.0,
+              "unit_yen": 7400.0,
+              "listing_count": 26,
+              "landed_yen": 9414.95
             },
             {
               "qty": 3,
               "qty_label": "3個",
-              "lot_yen": 22500.0,
-              "unit_yen": 7500.0,
-              "listing_count": 12,
-              "landed_yen": 8933.13
+              "lot_yen": 22499.0,
+              "unit_yen": 7499.67,
+              "listing_count": 14,
+              "landed_yen": 8932.79
             },
             {
               "qty": 4,
               "qty_label": "4個",
-              "lot_yen": 30000.0,
-              "unit_yen": 7500.0,
+              "lot_yen": 33000.0,
+              "unit_yen": 8250.0,
               "listing_count": 6,
-              "landed_yen": 8640.47
+              "landed_yen": 9416.73
             }
           ]
         },
         "pc": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
-          "usd": 76.1,
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
+          "usd": 74.1,
           "source": "pricecharting_public_html"
         }
       },
@@ -544,16 +544,16 @@
       },
       "landed": {
         "shrink": {
-          "landed_yen": 9968.13,
+          "landed_yen": 9675.48,
           "unit_yen": 8500.0,
-          "qty": 3,
-          "qty_label": "3個"
+          "qty": 4,
+          "qty_label": "4個"
         },
         "ns": {
-          "landed_yen": 8588.14,
-          "unit_yen": 7166.67,
-          "qty": 3,
-          "qty_label": "3個"
+          "landed_yen": 8639.96,
+          "unit_yen": 7499.5,
+          "qty": 4,
+          "qty_label": "4個"
         }
       },
       "otachu_ev": 2007,
@@ -567,9 +567,9 @@
       "pc_url": "https://www.pricecharting.com/game/pokemon-japanese-abyss-eye/booster-box",
       "release_date": "2026-05-22",
       "pricecharting_box_url": "https://www.pricecharting.com/game/pokemon-japanese-abyss-eye/booster-box",
-      "pc_avg_usd": 74.5,
-      "pc_avg_hkd": 581.1,
-      "pc_avg_as_of": "2026-10-26 06:11 Asia/Shanghai",
+      "pc_avg_usd": 75.92,
+      "pc_avg_hkd": 592.18,
+      "pc_avg_as_of": "2026-11-02 04:01 Asia/Shanghai",
       "pc_avg_source": "pricecharting_ungraded_loose",
       "snkrdunk_shrink_id": 806644,
       "snkrdunk_shrink_url": "https://snkrdunk.com/en/trading-cards/806644",
@@ -591,96 +591,96 @@
       "pc_sr_ar_as_of": "2026-10-23 13:57 Asia/Shanghai",
       "sealed_box": {
         "shrink": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 806644,
-          "lot_yen": 25500.0,
-          "qty": 3,
-          "qty_label": "3個",
+          "lot_yen": 34000.0,
+          "qty": 4,
+          "qty_label": "4個",
           "unit_yen": 8500.0,
-          "listing_count": 54,
+          "listing_count": 39,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 8500.0,
-              "unit_yen": 8500.0,
+              "lot_yen": 7880.0,
+              "unit_yen": 7880.0,
               "listing_count": 100,
-              "landed_yen": 12309.4
+              "landed_yen": 11667.7
             },
             {
               "qty": 2,
               "qty_label": "2個",
-              "lot_yen": 17800.0,
-              "unit_yen": 8900.0,
+              "lot_yen": 16000.0,
+              "unit_yen": 8000.0,
               "listing_count": 100,
-              "landed_yen": 10967.45
+              "landed_yen": 10035.95
             },
             {
               "qty": 3,
               "qty_label": "3個",
-              "lot_yen": 25500.0,
-              "unit_yen": 8500.0,
-              "listing_count": 54,
-              "landed_yen": 9968.13
+              "lot_yen": 25200.0,
+              "unit_yen": 8400.0,
+              "listing_count": 51,
+              "landed_yen": 9864.63
             },
             {
               "qty": 4,
               "qty_label": "4個",
-              "lot_yen": 38797.0,
-              "unit_yen": 9699.25,
-              "listing_count": 35,
-              "landed_yen": 10916.7
+              "lot_yen": 34000.0,
+              "unit_yen": 8500.0,
+              "listing_count": 39,
+              "landed_yen": 9675.48
             }
           ]
         },
         "ns": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 806646,
-          "lot_yen": 21500.0,
-          "qty": 3,
-          "qty_label": "3個",
-          "unit_yen": 7166.67,
-          "listing_count": 32,
+          "lot_yen": 29998.0,
+          "qty": 4,
+          "qty_label": "4個",
+          "unit_yen": 7499.5,
+          "listing_count": 18,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 6999.0,
-              "unit_yen": 6999.0,
+              "lot_yen": 6950.0,
+              "unit_yen": 6950.0,
               "listing_count": 100,
-              "landed_yen": 10755.86
+              "landed_yen": 10705.15
             },
             {
               "qty": 2,
               "qty_label": "2個",
-              "lot_yen": 13800.0,
-              "unit_yen": 6900.0,
-              "listing_count": 57,
-              "landed_yen": 8897.45
+              "lot_yen": 14000.0,
+              "unit_yen": 7000.0,
+              "listing_count": 55,
+              "landed_yen": 9000.95
             },
             {
               "qty": 3,
               "qty_label": "3個",
-              "lot_yen": 21500.0,
-              "unit_yen": 7166.67,
-              "listing_count": 32,
-              "landed_yen": 8588.14
+              "lot_yen": 22000.0,
+              "unit_yen": 7333.33,
+              "listing_count": 33,
+              "landed_yen": 8760.63
             },
             {
               "qty": 4,
               "qty_label": "4個",
-              "lot_yen": 29999.0,
-              "unit_yen": 7499.75,
-              "listing_count": 19,
-              "landed_yen": 8640.22
+              "lot_yen": 29998.0,
+              "unit_yen": 7499.5,
+              "listing_count": 18,
+              "landed_yen": 8639.96
             }
           ]
         },
         "pc": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
-          "usd": 74.5,
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
+          "usd": 75.92,
           "source": "pricecharting_public_html"
         }
       },
@@ -702,14 +702,14 @@
       },
       "landed": {
         "shrink": {
-          "landed_yen": 11070.95,
-          "unit_yen": 9000.0,
-          "qty": 2,
-          "qty_label": "2個"
+          "landed_yen": 11141.13,
+          "unit_yen": 9633.33,
+          "qty": 3,
+          "qty_label": "3個"
         },
         "ns": {
-          "landed_yen": 9777.2,
-          "unit_yen": 7750.0,
+          "landed_yen": 10035.95,
+          "unit_yen": 8000.0,
           "qty": 2,
           "qty_label": "2個"
         }
@@ -725,9 +725,9 @@
       "pc_url": "https://www.pricecharting.com/game/pokemon-japanese-ninja-spinner/booster-box",
       "release_date": "2026-03-13",
       "pricecharting_box_url": "https://www.pricecharting.com/game/pokemon-japanese-ninja-spinner/booster-box",
-      "pc_avg_usd": 73.88,
-      "pc_avg_hkd": 576.26,
-      "pc_avg_as_of": "2026-10-26 06:11 Asia/Shanghai",
+      "pc_avg_usd": 71.34,
+      "pc_avg_hkd": 556.45,
+      "pc_avg_as_of": "2026-11-02 04:01 Asia/Shanghai",
       "pc_avg_source": "pricecharting_ungraded_loose",
       "snkrdunk_shrink_id": 762693,
       "snkrdunk_shrink_url": "https://snkrdunk.com/en/trading-cards/762693",
@@ -749,96 +749,96 @@
       "pc_sr_ar_as_of": "2026-10-23 13:57 Asia/Shanghai",
       "sealed_box": {
         "shrink": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 762693,
-          "lot_yen": 18000.0,
-          "qty": 2,
-          "qty_label": "2個",
-          "unit_yen": 9000.0,
-          "listing_count": 78,
+          "lot_yen": 28900.0,
+          "qty": 3,
+          "qty_label": "3個",
+          "unit_yen": 9633.33,
+          "listing_count": 41,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 9300.0,
-              "unit_yen": 9300.0,
+              "lot_yen": 8600.0,
+              "unit_yen": 8600.0,
               "listing_count": 100,
-              "landed_yen": 13137.4
+              "landed_yen": 12412.9
             },
             {
               "qty": 2,
               "qty_label": "2個",
-              "lot_yen": 18000.0,
-              "unit_yen": 9000.0,
-              "listing_count": 78,
-              "landed_yen": 11070.95
+              "lot_yen": 18400.0,
+              "unit_yen": 9200.0,
+              "listing_count": 83,
+              "landed_yen": 11277.95
             },
             {
               "qty": 3,
               "qty_label": "3個",
-              "lot_yen": 30100.0,
-              "unit_yen": 10033.33,
-              "listing_count": 35,
-              "landed_yen": 11555.13
+              "lot_yen": 28900.0,
+              "unit_yen": 9633.33,
+              "listing_count": 41,
+              "landed_yen": 11141.13
             },
             {
               "qty": 4,
               "qty_label": "4個",
-              "lot_yen": 42700.0,
-              "unit_yen": 10675.0,
-              "listing_count": 18,
-              "landed_yen": 11926.6
+              "lot_yen": 41500.0,
+              "unit_yen": 10375.0,
+              "listing_count": 19,
+              "landed_yen": 11616.1
             }
           ]
         },
         "ns": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 762695,
-          "lot_yen": 15500.0,
+          "lot_yen": 16000.0,
           "qty": 2,
           "qty_label": "2個",
-          "unit_yen": 7750.0,
-          "listing_count": 30,
+          "unit_yen": 8000.0,
+          "listing_count": 31,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 7999.0,
-              "unit_yen": 7999.0,
+              "lot_yen": 7800.0,
+              "unit_yen": 7800.0,
               "listing_count": 100,
-              "landed_yen": 11790.86
+              "landed_yen": 11584.9
             },
             {
               "qty": 2,
               "qty_label": "2個",
-              "lot_yen": 15500.0,
-              "unit_yen": 7750.0,
-              "listing_count": 30,
-              "landed_yen": 9777.2
+              "lot_yen": 16000.0,
+              "unit_yen": 8000.0,
+              "listing_count": 31,
+              "landed_yen": 10035.95
             },
             {
               "qty": 3,
               "qty_label": "3個",
-              "lot_yen": 29000.0,
-              "unit_yen": 9666.67,
-              "listing_count": 13,
-              "landed_yen": 11175.64
+              "lot_yen": 28500.0,
+              "unit_yen": 9500.0,
+              "listing_count": 14,
+              "landed_yen": 11003.13
             },
             {
               "qty": 4,
               "qty_label": "4個",
               "lot_yen": 35887.0,
               "unit_yen": 8971.75,
-              "listing_count": 8,
+              "listing_count": 6,
               "landed_yen": 10163.74
             }
           ]
         },
         "pc": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
-          "usd": 73.88,
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
+          "usd": 71.34,
           "source": "pricecharting_public_html"
         }
       },
@@ -861,14 +861,14 @@
       },
       "landed": {
         "shrink": {
-          "landed_yen": 14970.29,
-          "unit_yen": 13333.0,
-          "qty": 3,
-          "qty_label": "3個"
+          "landed_yen": 14073.97,
+          "unit_yen": 12749.75,
+          "qty": 4,
+          "qty_label": "4個"
         },
         "ns": {
-          "landed_yen": 13142.14,
-          "unit_yen": 11566.67,
+          "landed_yen": 13141.78,
+          "unit_yen": 11566.33,
           "qty": 3,
           "qty_label": "3個"
         }
@@ -884,9 +884,9 @@
       "pc_url": "https://www.pricecharting.com/game/pokemon-japanese-mega-dream-ex/booster-box",
       "release_date": "2025-11-28",
       "pricecharting_box_url": "https://www.pricecharting.com/game/pokemon-japanese-mega-dream-ex/booster-box",
-      "pc_avg_usd": 84.14,
-      "pc_avg_hkd": 656.29,
-      "pc_avg_as_of": "2026-10-26 06:11 Asia/Shanghai",
+      "pc_avg_usd": 74.22,
+      "pc_avg_hkd": 578.92,
+      "pc_avg_as_of": "2026-11-02 04:01 Asia/Shanghai",
       "pc_avg_source": "pricecharting_ungraded_loose",
       "snkrdunk_shrink_id": 721913,
       "snkrdunk_shrink_url": "https://snkrdunk.com/en/trading-cards/721913",
@@ -910,96 +910,96 @@
       "pc_sr_ar_as_of": "2026-10-23 13:57 Asia/Shanghai",
       "sealed_box": {
         "shrink": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 721913,
-          "lot_yen": 39999.0,
-          "qty": 3,
-          "qty_label": "3個",
-          "unit_yen": 13333.0,
-          "listing_count": 94,
+          "lot_yen": 50999.0,
+          "qty": 4,
+          "qty_label": "4個",
+          "unit_yen": 12749.75,
+          "listing_count": 45,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 12999.0,
-              "unit_yen": 12999.0,
+              "lot_yen": 11900.0,
+              "unit_yen": 11900.0,
               "listing_count": 100,
-              "landed_yen": 16965.86
+              "landed_yen": 15828.4
             },
             {
               "qty": 2,
               "qty_label": "2個",
-              "lot_yen": 27000.0,
-              "unit_yen": 13500.0,
+              "lot_yen": 24499.0,
+              "unit_yen": 12249.5,
               "listing_count": 100,
-              "landed_yen": 15728.45
+              "landed_yen": 14434.18
             },
             {
               "qty": 3,
               "qty_label": "3個",
-              "lot_yen": 39999.0,
-              "unit_yen": 13333.0,
-              "listing_count": 94,
-              "landed_yen": 14970.29
+              "lot_yen": 37500.0,
+              "unit_yen": 12500.0,
+              "listing_count": 100,
+              "landed_yen": 14108.13
             },
             {
               "qty": 4,
               "qty_label": "4個",
-              "lot_yen": 55000.0,
-              "unit_yen": 13750.0,
-              "listing_count": 41,
-              "landed_yen": 15109.22
+              "lot_yen": 50999.0,
+              "unit_yen": 12749.75,
+              "listing_count": 45,
+              "landed_yen": 14073.97
             }
           ]
         },
         "ns": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 721915,
-          "lot_yen": 34700.0,
+          "lot_yen": 34699.0,
           "qty": 3,
           "qty_label": "3個",
-          "unit_yen": 11566.67,
+          "unit_yen": 11566.33,
           "listing_count": 19,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 11000.0,
-              "unit_yen": 11000.0,
-              "listing_count": 86,
-              "landed_yen": 14896.9
+              "lot_yen": 10999.0,
+              "unit_yen": 10999.0,
+              "listing_count": 76,
+              "landed_yen": 14895.86
             },
             {
               "qty": 2,
               "qty_label": "2個",
-              "lot_yen": 22400.0,
-              "unit_yen": 11200.0,
-              "listing_count": 36,
-              "landed_yen": 13347.95
+              "lot_yen": 23000.0,
+              "unit_yen": 11500.0,
+              "listing_count": 35,
+              "landed_yen": 13658.45
             },
             {
               "qty": 3,
               "qty_label": "3個",
-              "lot_yen": 34700.0,
-              "unit_yen": 11566.67,
+              "lot_yen": 34699.0,
+              "unit_yen": 11566.33,
               "listing_count": 19,
-              "landed_yen": 13142.14
+              "landed_yen": 13141.78
             },
             {
               "qty": 4,
               "qty_label": "4個",
-              "lot_yen": 49499.0,
-              "unit_yen": 12374.75,
-              "listing_count": 10,
-              "landed_yen": 13685.84
+              "lot_yen": 48780.0,
+              "unit_yen": 12195.0,
+              "listing_count": 13,
+              "landed_yen": 13499.8
             }
           ]
         },
         "pc": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
-          "usd": 84.14,
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
+          "usd": 74.22,
           "source": "pricecharting_public_html"
         }
       },
@@ -1021,14 +1021,14 @@
       },
       "landed": {
         "shrink": {
-          "landed_yen": 11434.98,
-          "unit_yen": 10200.0,
+          "landed_yen": 11227.72,
+          "unit_yen": 9999.75,
           "qty": 4,
           "qty_label": "4個"
         },
         "ns": {
-          "landed_yen": 10313.13,
-          "unit_yen": 8833.33,
+          "landed_yen": 9347.13,
+          "unit_yen": 7900.0,
           "qty": 3,
           "qty_label": "3個"
         }
@@ -1044,9 +1044,9 @@
       "pc_url": "https://www.pricecharting.com/game/pokemon-japanese-storm-emeralda/booster-box",
       "release_date": "2026-07-31",
       "pricecharting_box_url": "https://www.pricecharting.com/game/pokemon-japanese-storm-emeralda/booster-box",
-      "pc_avg_usd": 100.0,
-      "pc_avg_hkd": 780.0,
-      "pc_avg_as_of": "2026-10-26 06:11 Asia/Shanghai",
+      "pc_avg_usd": 93.98,
+      "pc_avg_hkd": 733.04,
+      "pc_avg_as_of": "2026-11-02 04:01 Asia/Shanghai",
       "pc_avg_source": "pricecharting_ungraded_loose",
       "snkrdunk_shrink_id": 846048,
       "snkrdunk_shrink_url": "https://snkrdunk.com/en/trading-cards/846048",
@@ -1069,96 +1069,96 @@
       "pc_sr_ar_as_of": "2026-10-23 13:57 Asia/Shanghai",
       "sealed_box": {
         "shrink": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 846048,
-          "lot_yen": 40800.0,
+          "lot_yen": 39999.0,
           "qty": 4,
           "qty_label": "4個",
-          "unit_yen": 10200.0,
-          "listing_count": 35,
+          "unit_yen": 9999.75,
+          "listing_count": 38,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 9499.0,
-              "unit_yen": 9499.0,
+              "lot_yen": 9380.0,
+              "unit_yen": 9380.0,
               "listing_count": 100,
-              "landed_yen": 13343.36
+              "landed_yen": 13220.2
             },
             {
               "qty": 2,
               "qty_label": "2個",
-              "lot_yen": 19899.0,
-              "unit_yen": 9949.5,
+              "lot_yen": 19800.0,
+              "unit_yen": 9900.0,
               "listing_count": 100,
-              "landed_yen": 12053.68
+              "landed_yen": 12002.45
             },
             {
               "qty": 3,
               "qty_label": "3個",
-              "lot_yen": 30500.0,
-              "unit_yen": 10166.67,
-              "listing_count": 60,
-              "landed_yen": 11693.14
+              "lot_yen": 29700.0,
+              "unit_yen": 9900.0,
+              "listing_count": 59,
+              "landed_yen": 11417.13
             },
             {
               "qty": 4,
               "qty_label": "4個",
-              "lot_yen": 40800.0,
-              "unit_yen": 10200.0,
-              "listing_count": 35,
-              "landed_yen": 11434.98
+              "lot_yen": 39999.0,
+              "unit_yen": 9999.75,
+              "listing_count": 38,
+              "landed_yen": 11227.72
             }
           ]
         },
         "ns": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 846050,
-          "lot_yen": 26500.0,
+          "lot_yen": 23700.0,
           "qty": 3,
           "qty_label": "3個",
-          "unit_yen": 8833.33,
-          "listing_count": 19,
+          "unit_yen": 7900.0,
+          "listing_count": 21,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 8290.0,
-              "unit_yen": 8290.0,
+              "lot_yen": 7650.0,
+              "unit_yen": 7650.0,
               "listing_count": 100,
-              "landed_yen": 12092.05
+              "landed_yen": 11429.65
             },
             {
               "qty": 2,
               "qty_label": "2個",
-              "lot_yen": 16950.0,
-              "unit_yen": 8475.0,
-              "listing_count": 72,
-              "landed_yen": 10527.58
+              "lot_yen": 15799.0,
+              "unit_yen": 7899.5,
+              "listing_count": 71,
+              "landed_yen": 9931.93
             },
             {
               "qty": 3,
               "qty_label": "3個",
-              "lot_yen": 26500.0,
-              "unit_yen": 8833.33,
-              "listing_count": 19,
-              "landed_yen": 10313.13
+              "lot_yen": 23700.0,
+              "unit_yen": 7900.0,
+              "listing_count": 21,
+              "landed_yen": 9347.13
             },
             {
               "qty": 4,
               "qty_label": "4個",
-              "lot_yen": 36500.0,
-              "unit_yen": 9125.0,
-              "listing_count": 8,
-              "landed_yen": 10322.35
+              "lot_yen": 35000.0,
+              "unit_yen": 8750.0,
+              "listing_count": 10,
+              "landed_yen": 9934.23
             }
           ]
         },
         "pc": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
-          "usd": 100.0,
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
+          "usd": 93.98,
           "source": "pricecharting_public_html"
         }
       },
@@ -1179,8 +1179,8 @@
       },
       "landed": {
         "shrink": {
-          "landed_yen": 22560.64,
-          "unit_yen": 20666.67,
+          "landed_yen": 21870.63,
+          "unit_yen": 20000.0,
           "qty": 3,
           "qty_label": "3個"
         }
@@ -1196,9 +1196,9 @@
       "pc_url": "https://www.pricecharting.com/game/pokemon-japanese-terastal-festival/booster-box",
       "release_date": "2024-12-06",
       "pricecharting_box_url": "https://www.pricecharting.com/game/pokemon-japanese-terastal-festival/booster-box",
-      "pc_avg_usd": 98.29,
-      "pc_avg_hkd": 766.66,
-      "pc_avg_as_of": "2026-10-26 06:11 Asia/Shanghai",
+      "pc_avg_usd": 99.99,
+      "pc_avg_hkd": 779.92,
+      "pc_avg_as_of": "2026-11-02 04:01 Asia/Shanghai",
       "pc_avg_source": "pricecharting_ungraded_loose",
       "snkrdunk_shrink_id": 424297,
       "snkrdunk_shrink_url": "https://snkrdunk.com/en/trading-cards/424297",
@@ -1219,52 +1219,52 @@
       "pc_sr_ar_as_of": "2026-10-23 13:57 Asia/Shanghai",
       "sealed_box": {
         "shrink": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 424297,
-          "lot_yen": 62000.0,
+          "lot_yen": 60000.0,
           "qty": 3,
           "qty_label": "3個",
-          "unit_yen": 20666.67,
-          "listing_count": 46,
+          "unit_yen": 20000.0,
+          "listing_count": 49,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 20500.0,
-              "unit_yen": 20500.0,
+              "lot_yen": 18480.0,
+              "unit_yen": 18480.0,
               "listing_count": 100,
-              "landed_yen": 24729.4
+              "landed_yen": 22638.7
             },
             {
               "qty": 2,
               "qty_label": "2個",
-              "lot_yen": 41500.0,
-              "unit_yen": 20750.0,
-              "listing_count": 95,
-              "landed_yen": 23232.2
+              "lot_yen": 39799.0,
+              "unit_yen": 19899.5,
+              "listing_count": 97,
+              "landed_yen": 22351.93
             },
             {
               "qty": 3,
               "qty_label": "3個",
-              "lot_yen": 62000.0,
-              "unit_yen": 20666.67,
-              "listing_count": 46,
-              "landed_yen": 22560.64
+              "lot_yen": 60000.0,
+              "unit_yen": 20000.0,
+              "listing_count": 49,
+              "landed_yen": 21870.63
             },
             {
               "qty": 4,
               "qty_label": "4個",
-              "lot_yen": 84000.0,
-              "unit_yen": 21000.0,
+              "lot_yen": 81990.0,
+              "unit_yen": 20497.5,
               "listing_count": 22,
-              "landed_yen": 22612.97
+              "landed_yen": 22092.89
             }
           ]
         },
         "pc": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
-          "usd": 98.29,
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
+          "usd": 99.99,
           "source": "pricecharting_public_html"
         }
       }
@@ -1284,16 +1284,16 @@
       },
       "landed": {
         "shrink": {
-          "landed_yen": 29552.5,
-          "unit_yen": 25160.0,
-          "qty": 1,
-          "qty_label": "1個"
+          "landed_yen": 26494.22,
+          "unit_yen": 24750.0,
+          "qty": 4,
+          "qty_label": "4個"
         },
         "ns": {
-          "landed_yen": 22973.45,
-          "unit_yen": 20500.0,
-          "qty": 2,
-          "qty_label": "2個"
+          "landed_yen": 23059.94,
+          "unit_yen": 18887.0,
+          "qty": 1,
+          "qty_label": "1個"
         }
       },
       "otachu_ev": null,
@@ -1308,9 +1308,9 @@
       "release_date": "2025-06-06",
       "method_note": "SV hot-batch haircuts: SAR/BWR×1.0 (UI default SAR×0.9 may understate HC vs snapshot); AR×0.50×4.0 included.",
       "pricecharting_box_url": "https://www.pricecharting.com/game/pokemon-japanese-black-bolt/booster-box",
-      "pc_avg_usd": 108.49,
-      "pc_avg_hkd": 846.22,
-      "pc_avg_as_of": "2026-10-26 06:11 Asia/Shanghai",
+      "pc_avg_usd": 119.68,
+      "pc_avg_hkd": 933.5,
+      "pc_avg_as_of": "2026-11-02 04:01 Asia/Shanghai",
       "pc_avg_source": "pricecharting_ungraded_loose",
       "snkrdunk_shrink_id": 584770,
       "snkrdunk_shrink_url": "https://snkrdunk.com/en/trading-cards/584770",
@@ -1333,22 +1333,22 @@
       "pc_sr_ar_as_of": "2026-10-23 13:57 Asia/Shanghai",
       "sealed_box": {
         "shrink": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 584770,
-          "lot_yen": 25160.0,
-          "qty": 1,
-          "qty_label": "1個",
-          "unit_yen": 25160.0,
-          "listing_count": 100,
+          "lot_yen": 99000.0,
+          "qty": 4,
+          "qty_label": "4個",
+          "unit_yen": 24750.0,
+          "listing_count": 7,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 25160.0,
-              "unit_yen": 25160.0,
+              "lot_yen": 24300.0,
+              "unit_yen": 24300.0,
               "listing_count": 100,
-              "landed_yen": 29552.5
+              "landed_yen": 28662.4
             },
             {
               "qty": 2,
@@ -1361,46 +1361,46 @@
             {
               "qty": 3,
               "qty_label": "3個",
-              "lot_yen": 87000.0,
-              "unit_yen": 29000.0,
-              "listing_count": 9,
-              "landed_yen": 31185.63
+              "lot_yen": 86500.0,
+              "unit_yen": 28833.33,
+              "listing_count": 10,
+              "landed_yen": 31013.13
             },
             {
               "qty": 4,
               "qty_label": "4個",
-              "lot_yen": 119000.0,
-              "unit_yen": 29750.0,
-              "listing_count": 4,
-              "landed_yen": 31669.22
+              "lot_yen": 99000.0,
+              "unit_yen": 24750.0,
+              "listing_count": 7,
+              "landed_yen": 26494.22
             }
           ]
         },
         "ns": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 586840,
-          "lot_yen": 41000.0,
-          "qty": 2,
-          "qty_label": "2個",
-          "unit_yen": 20500.0,
-          "listing_count": 7,
+          "lot_yen": 18887.0,
+          "qty": 1,
+          "qty_label": "1個",
+          "unit_yen": 18887.0,
+          "listing_count": 22,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 18888.0,
-              "unit_yen": 18888.0,
-              "listing_count": 23,
-              "landed_yen": 23060.98
+              "lot_yen": 18887.0,
+              "unit_yen": 18887.0,
+              "listing_count": 22,
+              "landed_yen": 23059.94
             },
             {
               "qty": 2,
               "qty_label": "2個",
-              "lot_yen": 41000.0,
-              "unit_yen": 20500.0,
-              "listing_count": 7,
-              "landed_yen": 22973.45
+              "lot_yen": 45000.0,
+              "unit_yen": 22500.0,
+              "listing_count": 5,
+              "landed_yen": 25043.45
             },
             {
               "qty": 3,
@@ -1413,8 +1413,8 @@
           ]
         },
         "pc": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
-          "usd": 108.49,
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
+          "usd": 119.68,
           "source": "pricecharting_public_html"
         }
       },
@@ -1436,8 +1436,8 @@
       },
       "landed": {
         "shrink": {
-          "landed_yen": 26797.33,
-          "unit_yen": 22498.0,
+          "landed_yen": 26074.9,
+          "unit_yen": 21800.0,
           "qty": 1,
           "qty_label": "1個"
         },
@@ -1460,9 +1460,9 @@
       "release_date": "2025-06-06",
       "method_note": "SV hot-batch haircuts: SAR/BWR×1.0 (UI default SAR×0.9 may understate HC vs snapshot); AR×0.50×4.0 included.",
       "pricecharting_box_url": "https://www.pricecharting.com/game/pokemon-japanese-white-flare/booster-box",
-      "pc_avg_usd": 112.99,
-      "pc_avg_hkd": 881.32,
-      "pc_avg_as_of": "2026-10-26 06:11 Asia/Shanghai",
+      "pc_avg_usd": 119.99,
+      "pc_avg_hkd": 935.92,
+      "pc_avg_as_of": "2026-11-02 04:01 Asia/Shanghai",
       "pc_avg_source": "pricecharting_ungraded_loose",
       "snkrdunk_shrink_id": 584772,
       "snkrdunk_shrink_url": "https://snkrdunk.com/en/trading-cards/584772",
@@ -1484,38 +1484,38 @@
       "pc_sr_ar_as_of": "2026-10-23 13:57 Asia/Shanghai",
       "sealed_box": {
         "shrink": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 584772,
-          "lot_yen": 22498.0,
+          "lot_yen": 21800.0,
           "qty": 1,
           "qty_label": "1個",
-          "unit_yen": 22498.0,
+          "unit_yen": 21800.0,
           "listing_count": 100,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 22498.0,
-              "unit_yen": 22498.0,
+              "lot_yen": 21800.0,
+              "unit_yen": 21800.0,
               "listing_count": 100,
-              "landed_yen": 26797.33
+              "landed_yen": 26074.9
             },
             {
               "qty": 2,
               "qty_label": "2個",
               "lot_yen": 51666.0,
               "unit_yen": 25833.0,
-              "listing_count": 20,
+              "listing_count": 21,
               "landed_yen": 28493.1
             },
             {
               "qty": 3,
               "qty_label": "3個",
-              "lot_yen": 78000.0,
-              "unit_yen": 26000.0,
-              "listing_count": 12,
-              "landed_yen": 28080.63
+              "lot_yen": 81999.0,
+              "unit_yen": 27333.0,
+              "listing_count": 10,
+              "landed_yen": 29460.29
             },
             {
               "qty": 4,
@@ -1528,7 +1528,7 @@
           ]
         },
         "ns": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 586841,
           "lot_yen": 38999.0,
@@ -1540,10 +1540,10 @@
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 18888.0,
-              "unit_yen": 18888.0,
-              "listing_count": 27,
-              "landed_yen": 23060.98
+              "lot_yen": 18000.0,
+              "unit_yen": 18000.0,
+              "listing_count": 28,
+              "landed_yen": 22141.9
             },
             {
               "qty": 2,
@@ -1556,8 +1556,8 @@
           ]
         },
         "pc": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
-          "usd": 112.99,
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
+          "usd": 119.99,
           "source": "pricecharting_public_html"
         }
       },
@@ -1580,10 +1580,10 @@
       },
       "landed": {
         "shrink": {
-          "landed_yen": 20931.1,
-          "unit_yen": 19375.0,
-          "qty": 4,
-          "qty_label": "4個"
+          "landed_yen": 20835.63,
+          "unit_yen": 19000.0,
+          "qty": 3,
+          "qty_label": "3個"
         },
         "ns": {
           "landed_yen": 18420.64,
@@ -1604,9 +1604,9 @@
       "release_date": "2023-12-01",
       "method_note": "SV batch3: SAR/BWR×1.0 (hot-batch); Pokegto rates. UI default SAR×0.9 may differ slightly.",
       "pricecharting_box_url": "https://www.pricecharting.com/game/pokemon-japanese-shiny-treasure-ex/booster-box",
-      "pc_avg_usd": 114.67,
-      "pc_avg_hkd": 894.43,
-      "pc_avg_as_of": "2026-10-26 06:11 Asia/Shanghai",
+      "pc_avg_usd": 109.17,
+      "pc_avg_hkd": 851.53,
+      "pc_avg_as_of": "2026-11-02 04:01 Asia/Shanghai",
       "pc_avg_source": "pricecharting_ungraded_loose",
       "snkrdunk_shrink_id": 151755,
       "snkrdunk_shrink_url": "https://snkrdunk.com/en/trading-cards/151755",
@@ -1629,51 +1629,51 @@
       "pc_sr_ar_as_of": "2026-10-23 13:57 Asia/Shanghai",
       "sealed_box": {
         "shrink": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 151755,
-          "lot_yen": 77500.0,
-          "qty": 4,
-          "qty_label": "4個",
-          "unit_yen": 19375.0,
-          "listing_count": 15,
+          "lot_yen": 57000.0,
+          "qty": 3,
+          "qty_label": "3個",
+          "unit_yen": 19000.0,
+          "listing_count": 44,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 17500.0,
-              "unit_yen": 17500.0,
+              "lot_yen": 17895.0,
+              "unit_yen": 17895.0,
               "listing_count": 100,
-              "landed_yen": 21624.4
+              "landed_yen": 22033.22
             },
             {
               "qty": 2,
               "qty_label": "2個",
-              "lot_yen": 37777.0,
-              "unit_yen": 18888.5,
-              "listing_count": 47,
-              "landed_yen": 21305.55
+              "lot_yen": 36980.0,
+              "unit_yen": 18490.0,
+              "listing_count": 48,
+              "landed_yen": 20893.1
             },
             {
               "qty": 3,
               "qty_label": "3個",
-              "lot_yen": 57800.0,
-              "unit_yen": 19266.67,
-              "listing_count": 43,
-              "landed_yen": 21111.64
+              "lot_yen": 57000.0,
+              "unit_yen": 19000.0,
+              "listing_count": 44,
+              "landed_yen": 20835.63
             },
             {
               "qty": 4,
               "qty_label": "4個",
-              "lot_yen": 77500.0,
-              "unit_yen": 19375.0,
-              "listing_count": 15,
-              "landed_yen": 20931.1
+              "lot_yen": 77580.0,
+              "unit_yen": 19395.0,
+              "listing_count": 14,
+              "landed_yen": 20951.8
             }
           ]
         },
         "ns": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 567438,
           "lot_yen": 50000.0,
@@ -1685,10 +1685,10 @@
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 16600.0,
-              "unit_yen": 16600.0,
-              "listing_count": 22,
-              "landed_yen": 20692.9
+              "lot_yen": 16000.0,
+              "unit_yen": 16000.0,
+              "listing_count": 24,
+              "landed_yen": 20071.9
             },
             {
               "qty": 2,
@@ -1717,8 +1717,8 @@
           ]
         },
         "pc": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
-          "usd": 114.67,
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
+          "usd": 109.17,
           "source": "pricecharting_public_html"
         }
       },
@@ -1740,10 +1740,10 @@
       },
       "landed": {
         "shrink": {
-          "landed_yen": 22245.4,
-          "unit_yen": 18100.0,
-          "qty": 1,
-          "qty_label": "1個"
+          "landed_yen": 22455.95,
+          "unit_yen": 20000.0,
+          "qty": 2,
+          "qty_label": "2個"
         },
         "ns": {
           "landed_yen": 15212.724999999999,
@@ -1763,9 +1763,9 @@
       "release_date": "2023-07-28",
       "method_note": "SV batch3: SAR/BWR×1.0 (hot-batch); Pokegto rates. UI default SAR×0.9 may differ slightly.",
       "pricecharting_box_url": "https://www.pricecharting.com/game/pokemon-japanese-ruler-of-the-black-flame/booster-box",
-      "pc_avg_usd": 141.75,
-      "pc_avg_hkd": 1105.65,
-      "pc_avg_as_of": "2026-10-26 06:11 Asia/Shanghai",
+      "pc_avg_usd": 139.64,
+      "pc_avg_hkd": 1089.19,
+      "pc_avg_as_of": "2026-11-02 04:01 Asia/Shanghai",
       "pc_avg_source": "pricecharting_ungraded_loose",
       "snkrdunk_shrink_id": 127743,
       "snkrdunk_shrink_url": "https://snkrdunk.com/en/trading-cards/127743",
@@ -1788,52 +1788,52 @@
       "pc_sr_ar_as_of": "2026-10-23 13:57 Asia/Shanghai",
       "sealed_box": {
         "shrink": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 127743,
-          "lot_yen": 18100.0,
-          "qty": 1,
-          "qty_label": "1個",
-          "unit_yen": 18100.0,
-          "listing_count": 100,
+          "lot_yen": 40000.0,
+          "qty": 2,
+          "qty_label": "2個",
+          "unit_yen": 20000.0,
+          "listing_count": 51,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 18100.0,
-              "unit_yen": 18100.0,
+              "lot_yen": 18500.0,
+              "unit_yen": 18500.0,
               "listing_count": 100,
-              "landed_yen": 22245.4
+              "landed_yen": 22659.4
             },
             {
               "qty": 2,
               "qty_label": "2個",
               "lot_yen": 40000.0,
               "unit_yen": 20000.0,
-              "listing_count": 47,
+              "listing_count": 51,
               "landed_yen": 22455.95
             },
             {
               "qty": 3,
               "qty_label": "3個",
-              "lot_yen": 63000.0,
-              "unit_yen": 21000.0,
-              "listing_count": 21,
-              "landed_yen": 22905.63
+              "lot_yen": 65000.0,
+              "unit_yen": 21666.67,
+              "listing_count": 17,
+              "landed_yen": 23595.64
             },
             {
               "qty": 4,
               "qty_label": "4個",
-              "lot_yen": 87000.0,
-              "unit_yen": 21750.0,
-              "listing_count": 8,
-              "landed_yen": 23389.22
+              "lot_yen": 86500.0,
+              "unit_yen": 21625.0,
+              "listing_count": 7,
+              "landed_yen": 23259.85
             }
           ]
         },
         "pc": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
-          "usd": 141.75,
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
+          "usd": 139.64,
           "source": "pricecharting_public_html"
         }
       }
@@ -1854,10 +1854,10 @@
       },
       "landed": {
         "shrink": {
-          "landed_yen": 18420.64,
-          "unit_yen": 16666.67,
-          "qty": 3,
-          "qty_label": "3個"
+          "landed_yen": 18833.45,
+          "unit_yen": 16500.0,
+          "qty": 2,
+          "qty_label": "2個"
         },
         "ns": {
           "landed_yen": 17280.43,
@@ -1878,9 +1878,9 @@
       "release_date": "2024-09-13",
       "method_note": "SV batch3: SAR/BWR×1.0 (hot-batch); Pokegto rates. UI default SAR×0.9 may differ slightly.",
       "pricecharting_box_url": "https://www.pricecharting.com/game/pokemon-japanese-paradise-dragona/booster-box",
-      "pc_avg_usd": 107.0,
-      "pc_avg_hkd": 834.6,
-      "pc_avg_as_of": "2026-10-26 06:11 Asia/Shanghai",
+      "pc_avg_usd": 110.43,
+      "pc_avg_hkd": 861.35,
+      "pc_avg_as_of": "2026-11-02 04:01 Asia/Shanghai",
       "pc_avg_source": "pricecharting_ungraded_loose",
       "snkrdunk_shrink_id": 342761,
       "snkrdunk_shrink_url": "https://snkrdunk.com/en/trading-cards/342761",
@@ -1903,38 +1903,38 @@
       "pc_sr_ar_as_of": "2026-10-23 13:57 Asia/Shanghai",
       "sealed_box": {
         "shrink": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 342761,
-          "lot_yen": 50000.0,
-          "qty": 3,
-          "qty_label": "3個",
-          "unit_yen": 16666.67,
-          "listing_count": 5,
+          "lot_yen": 33000.0,
+          "qty": 2,
+          "qty_label": "2個",
+          "unit_yen": 16500.0,
+          "listing_count": 19,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 17000.0,
-              "unit_yen": 17000.0,
-              "listing_count": 55,
-              "landed_yen": 21106.9
+              "lot_yen": 15500.0,
+              "unit_yen": 15500.0,
+              "listing_count": 67,
+              "landed_yen": 19554.4
             },
             {
               "qty": 2,
               "qty_label": "2個",
-              "lot_yen": 35000.0,
-              "unit_yen": 17500.0,
-              "listing_count": 18,
-              "landed_yen": 19868.45
+              "lot_yen": 33000.0,
+              "unit_yen": 16500.0,
+              "listing_count": 19,
+              "landed_yen": 18833.45
             },
             {
               "qty": 3,
               "qty_label": "3個",
-              "lot_yen": 50000.0,
-              "unit_yen": 16666.67,
+              "lot_yen": 53000.0,
+              "unit_yen": 17666.67,
               "listing_count": 5,
-              "landed_yen": 18420.64
+              "landed_yen": 19455.64
             },
             {
               "qty": 4,
@@ -1947,7 +1947,7 @@
           ]
         },
         "ns": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 567445,
           "lot_yen": 29999.0,
@@ -1959,10 +1959,10 @@
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 15899.0,
-              "unit_yen": 15899.0,
+              "lot_yen": 15700.0,
+              "unit_yen": 15700.0,
               "listing_count": 2,
-              "landed_yen": 19967.37
+              "landed_yen": 19761.4
             },
             {
               "qty": 2,
@@ -1975,8 +1975,8 @@
           ]
         },
         "pc": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
-          "usd": 107.0,
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
+          "usd": 110.43,
           "source": "pricecharting_public_html"
         }
       },
@@ -1998,8 +1998,8 @@
       },
       "landed": {
         "shrink": {
-          "landed_yen": 21369.2,
-          "unit_yen": 18950.0,
+          "landed_yen": 20903.45,
+          "unit_yen": 18500.0,
           "qty": 2,
           "qty_label": "2個"
         }
@@ -2018,7 +2018,7 @@
       "pricecharting_box_url": "https://www.pricecharting.com/game/pokemon-japanese-triplet-beat/booster-box",
       "pc_avg_usd": 144.99,
       "pc_avg_hkd": 1130.92,
-      "pc_avg_as_of": "2026-10-26 06:11 Asia/Shanghai",
+      "pc_avg_as_of": "2026-11-02 04:01 Asia/Shanghai",
       "pc_avg_source": "pricecharting_ungraded_loose",
       "snkrdunk_shrink_id": 111467,
       "snkrdunk_shrink_url": "https://snkrdunk.com/en/trading-cards/111467",
@@ -2040,30 +2040,30 @@
       "pc_sr_ar_as_of": "2026-10-23 13:57 Asia/Shanghai",
       "sealed_box": {
         "shrink": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 111467,
-          "lot_yen": 37900.0,
+          "lot_yen": 37000.0,
           "qty": 2,
           "qty_label": "2個",
-          "unit_yen": 18950.0,
-          "listing_count": 19,
+          "unit_yen": 18500.0,
+          "listing_count": 20,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 18999.0,
-              "unit_yen": 18999.0,
-              "listing_count": 88,
-              "landed_yen": 23175.87
+              "lot_yen": 18400.0,
+              "unit_yen": 18400.0,
+              "listing_count": 89,
+              "landed_yen": 22555.9
             },
             {
               "qty": 2,
               "qty_label": "2個",
-              "lot_yen": 37900.0,
-              "unit_yen": 18950.0,
-              "listing_count": 19,
-              "landed_yen": 21369.2
+              "lot_yen": 37000.0,
+              "unit_yen": 18500.0,
+              "listing_count": 20,
+              "landed_yen": 20903.45
             },
             {
               "qty": 3,
@@ -2084,7 +2084,7 @@
           ]
         },
         "pc": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "usd": 144.99,
           "source": "pricecharting_public_html"
         }
@@ -2105,10 +2105,10 @@
       },
       "landed": {
         "shrink": {
-          "landed_yen": 16965.86,
-          "unit_yen": 12999.0,
-          "qty": 1,
-          "qty_label": "1個"
+          "landed_yen": 15162.1,
+          "unit_yen": 13518.33,
+          "qty": 3,
+          "qty_label": "3個"
         }
       },
       "otachu_ev": null,
@@ -2123,9 +2123,9 @@
       "release_date": "2023-01-20",
       "method_note": "SV batch3: SAR/BWR×1.0 (hot-batch); Pokegto rates. UI default SAR×0.9 may differ slightly.",
       "pricecharting_box_url": "https://www.pricecharting.com/game/pokemon-japanese-scarlet-ex/booster-box",
-      "pc_avg_usd": 133.95,
-      "pc_avg_hkd": 1044.81,
-      "pc_avg_as_of": "2026-10-26 06:11 Asia/Shanghai",
+      "pc_avg_usd": 134.07,
+      "pc_avg_hkd": 1045.75,
+      "pc_avg_as_of": "2026-11-02 04:01 Asia/Shanghai",
       "pc_avg_source": "pricecharting_ungraded_loose",
       "snkrdunk_shrink_id": 106863,
       "snkrdunk_shrink_url": "https://snkrdunk.com/en/trading-cards/106863",
@@ -2147,22 +2147,22 @@
       "pc_sr_ar_as_of": "2026-10-23 13:57 Asia/Shanghai",
       "sealed_box": {
         "shrink": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 106863,
-          "lot_yen": 12999.0,
-          "qty": 1,
-          "qty_label": "1個",
-          "unit_yen": 12999.0,
-          "listing_count": 64,
+          "lot_yen": 40555.0,
+          "qty": 3,
+          "qty_label": "3個",
+          "unit_yen": 13518.33,
+          "listing_count": 6,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 12999.0,
-              "unit_yen": 12999.0,
-              "listing_count": 64,
-              "landed_yen": 16965.86
+              "lot_yen": 13000.0,
+              "unit_yen": 13000.0,
+              "listing_count": 66,
+              "landed_yen": 16966.9
             },
             {
               "qty": 2,
@@ -2171,6 +2171,14 @@
               "unit_yen": 16000.0,
               "listing_count": 10,
               "landed_yen": 18315.95
+            },
+            {
+              "qty": 3,
+              "qty_label": "3個",
+              "lot_yen": 40555.0,
+              "unit_yen": 13518.33,
+              "listing_count": 6,
+              "landed_yen": 15162.1
             },
             {
               "qty": 4,
@@ -2183,8 +2191,8 @@
           ]
         },
         "pc": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
-          "usd": 133.95,
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
+          "usd": 134.07,
           "source": "pricecharting_public_html"
         }
       }
@@ -2204,14 +2212,14 @@
       },
       "landed": {
         "shrink": {
-          "landed_yen": 27503.35,
-          "unit_yen": 25725.0,
+          "landed_yen": 23647.97,
+          "unit_yen": 22000.0,
           "qty": 4,
           "qty_label": "4個"
         },
         "ns": {
-          "landed_yen": 25560.95,
-          "unit_yen": 23000.0,
+          "landed_yen": 21627.43,
+          "unit_yen": 19199.5,
           "qty": 2,
           "qty_label": "2個"
         }
@@ -2227,9 +2235,9 @@
       "release_date": "2026-09-16",
       "method_note": "Pokegto ~720BOX rates; FUR≈1/6. No PSA/CGC (too new). Haircuts: FUR/SAR 10%, AR/S 50%.",
       "pricecharting_box_url": "https://www.pricecharting.com/game/pokemon-japanese-30th-celebration/booster-box",
-      "pc_avg_usd": 184.99,
-      "pc_avg_hkd": 1442.92,
-      "pc_avg_as_of": "2026-10-26 06:11 Asia/Shanghai",
+      "pc_avg_usd": 191.4,
+      "pc_avg_hkd": 1492.92,
+      "pc_avg_as_of": "2026-11-02 04:01 Asia/Shanghai",
       "pc_avg_source": "pricecharting_ungraded_loose",
       "snkrdunk_shrink_id": 881421,
       "snkrdunk_shrink_url": "https://snkrdunk.com/en/trading-cards/881421",
@@ -2250,96 +2258,96 @@
       "pc_sr_ar_as_of": "2026-10-23 13:57 Asia/Shanghai",
       "sealed_box": {
         "shrink": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 881421,
-          "lot_yen": 102900.0,
+          "lot_yen": 88000.0,
           "qty": 4,
           "qty_label": "4個",
-          "unit_yen": 25725.0,
-          "listing_count": 36,
+          "unit_yen": 22000.0,
+          "listing_count": 41,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 25200.0,
-              "unit_yen": 25200.0,
+              "lot_yen": 21500.0,
+              "unit_yen": 21500.0,
               "listing_count": 100,
-              "landed_yen": 29593.9
+              "landed_yen": 25764.4
             },
             {
               "qty": 2,
               "qty_label": "2個",
-              "lot_yen": 52400.0,
-              "unit_yen": 26200.0,
+              "lot_yen": 43400.0,
+              "unit_yen": 21700.0,
               "listing_count": 100,
-              "landed_yen": 28872.95
+              "landed_yen": 24215.45
             },
             {
               "qty": 3,
               "qty_label": "3個",
-              "lot_yen": 77900.0,
-              "unit_yen": 25966.67,
-              "listing_count": 81,
-              "landed_yen": 28046.14
+              "lot_yen": 66000.0,
+              "unit_yen": 22000.0,
+              "listing_count": 95,
+              "landed_yen": 23940.63
             },
             {
               "qty": 4,
               "qty_label": "4個",
-              "lot_yen": 102900.0,
-              "unit_yen": 25725.0,
-              "listing_count": 36,
-              "landed_yen": 27503.35
+              "lot_yen": 88000.0,
+              "unit_yen": 22000.0,
+              "listing_count": 41,
+              "landed_yen": 23647.97
             }
           ]
         },
         "ns": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 881427,
-          "lot_yen": 46000.0,
+          "lot_yen": 38399.0,
           "qty": 2,
           "qty_label": "2個",
-          "unit_yen": 23000.0,
-          "listing_count": 44,
+          "unit_yen": 19199.5,
+          "listing_count": 56,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 22480.0,
-              "unit_yen": 22480.0,
+              "lot_yen": 17800.0,
+              "unit_yen": 17800.0,
               "listing_count": 100,
-              "landed_yen": 26778.7
+              "landed_yen": 21934.9
             },
             {
               "qty": 2,
               "qty_label": "2個",
-              "lot_yen": 46000.0,
-              "unit_yen": 23000.0,
-              "listing_count": 44,
-              "landed_yen": 25560.95
+              "lot_yen": 38399.0,
+              "unit_yen": 19199.5,
+              "listing_count": 56,
+              "landed_yen": 21627.43
             },
             {
               "qty": 3,
               "qty_label": "3個",
-              "lot_yen": 75000.0,
-              "unit_yen": 25000.0,
-              "listing_count": 13,
-              "landed_yen": 27045.63
+              "lot_yen": 59499.0,
+              "unit_yen": 19833.0,
+              "listing_count": 18,
+              "landed_yen": 21697.79
             },
             {
               "qty": 4,
               "qty_label": "4個",
-              "lot_yen": 102000.0,
-              "unit_yen": 25500.0,
-              "listing_count": 3,
-              "landed_yen": 27270.47
+              "lot_yen": 100000.0,
+              "unit_yen": 25000.0,
+              "listing_count": 4,
+              "landed_yen": 26752.97
             }
           ]
         },
         "pc": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
-          "usd": 184.99,
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
+          "usd": 191.4,
           "source": "pricecharting_public_html"
         }
       },
@@ -2362,10 +2370,10 @@
       },
       "landed": {
         "shrink": {
-          "landed_yen": 56352.2,
-          "unit_yen": 52750.0,
-          "qty": 2,
-          "qty_label": "2個"
+          "landed_yen": 51851.14,
+          "unit_yen": 48966.67,
+          "qty": 3,
+          "qty_label": "3個"
         },
         "ns": {
           "landed_yen": 42174.475,
@@ -2386,7 +2394,7 @@
       "pricecharting_box_url": "https://www.pricecharting.com/game/pokemon-japanese-scarlet-&-violet-151/booster-box",
       "pc_avg_usd": 244.0,
       "pc_avg_hkd": 1903.2,
-      "pc_avg_as_of": "2026-10-26 06:11 Asia/Shanghai",
+      "pc_avg_as_of": "2026-11-02 04:01 Asia/Shanghai",
       "pc_avg_source": "pricecharting_ungraded_loose",
       "snkrdunk_shrink_id": 118914,
       "snkrdunk_shrink_url": "https://snkrdunk.com/en/trading-cards/118914",
@@ -2408,51 +2416,51 @@
       "pc_sr_ar_as_of": "2026-10-23 13:57 Asia/Shanghai",
       "sealed_box": {
         "shrink": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 118914,
-          "lot_yen": 105500.0,
-          "qty": 2,
-          "qty_label": "2個",
-          "unit_yen": 52750.0,
-          "listing_count": 86,
+          "lot_yen": 146900.0,
+          "qty": 3,
+          "qty_label": "3個",
+          "unit_yen": 48966.67,
+          "listing_count": 40,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 51489.0,
-              "unit_yen": 51489.0,
+              "lot_yen": 49111.0,
+              "unit_yen": 49111.0,
               "listing_count": 100,
-              "landed_yen": 56803.01
+              "landed_yen": 54341.78
             },
             {
               "qty": 2,
               "qty_label": "2個",
-              "lot_yen": 105500.0,
-              "unit_yen": 52750.0,
-              "listing_count": 86,
-              "landed_yen": 56352.2
+              "lot_yen": 100000.0,
+              "unit_yen": 50000.0,
+              "listing_count": 91,
+              "landed_yen": 53505.95
             },
             {
               "qty": 3,
               "qty_label": "3個",
-              "lot_yen": 163500.0,
-              "unit_yen": 54500.0,
-              "listing_count": 38,
-              "landed_yen": 57578.13
+              "lot_yen": 146900.0,
+              "unit_yen": 48966.67,
+              "listing_count": 40,
+              "landed_yen": 51851.14
             },
             {
               "qty": 4,
               "qty_label": "4個",
-              "lot_yen": 220500.0,
-              "unit_yen": 55125.0,
-              "listing_count": 20,
-              "landed_yen": 57932.35
+              "lot_yen": 208000.0,
+              "unit_yen": 52000.0,
+              "listing_count": 24,
+              "landed_yen": 54697.97
             }
           ]
         },
         "pc": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "usd": 244.0,
           "source": "pricecharting_public_html"
         }
@@ -2474,10 +2482,10 @@
       },
       "landed": {
         "shrink": {
-          "landed_yen": 32738.13,
-          "unit_yen": 30500.0,
-          "qty": 3,
-          "qty_label": "3個"
+          "landed_yen": 32181.4,
+          "unit_yen": 27700.0,
+          "qty": 1,
+          "qty_label": "1個"
         }
       },
       "otachu_ev": null,
@@ -2493,7 +2501,7 @@
       "pricecharting_box_url": "https://www.pricecharting.com/game/pokemon-japanese-super-electric-breaker/booster-box",
       "pc_avg_usd": 110.94,
       "pc_avg_hkd": 865.33,
-      "pc_avg_as_of": "2026-10-26 06:11 Asia/Shanghai",
+      "pc_avg_as_of": "2026-11-02 04:01 Asia/Shanghai",
       "pc_avg_source": "pricecharting_ungraded_loose",
       "snkrdunk_shrink_id": 395189,
       "snkrdunk_shrink_url": "https://snkrdunk.com/en/trading-cards/395189",
@@ -2516,51 +2524,51 @@
       "pc_sr_ar_as_of": "2026-10-23 13:57 Asia/Shanghai",
       "sealed_box": {
         "shrink": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 395189,
-          "lot_yen": 91500.0,
-          "qty": 3,
-          "qty_label": "3個",
-          "unit_yen": 30500.0,
-          "listing_count": 6,
+          "lot_yen": 27700.0,
+          "qty": 1,
+          "qty_label": "1個",
+          "unit_yen": 27700.0,
+          "listing_count": 100,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 30500.0,
-              "unit_yen": 30500.0,
+              "lot_yen": 27700.0,
+              "unit_yen": 27700.0,
               "listing_count": 100,
-              "landed_yen": 35079.4
+              "landed_yen": 32181.4
             },
             {
               "qty": 2,
               "qty_label": "2個",
-              "lot_yen": 65500.0,
-              "unit_yen": 32750.0,
+              "lot_yen": 64000.0,
+              "unit_yen": 32000.0,
               "listing_count": 22,
-              "landed_yen": 35652.2
+              "landed_yen": 34875.95
             },
             {
               "qty": 3,
               "qty_label": "3個",
-              "lot_yen": 91500.0,
-              "unit_yen": 30500.0,
-              "listing_count": 6,
-              "landed_yen": 32738.13
+              "lot_yen": 99000.0,
+              "unit_yen": 33000.0,
+              "listing_count": 5,
+              "landed_yen": 35325.63
             },
             {
               "qty": 4,
               "qty_label": "4個",
-              "lot_yen": 150000.0,
-              "unit_yen": 37500.0,
-              "listing_count": 2,
-              "landed_yen": 39690.47
+              "lot_yen": 139000.0,
+              "unit_yen": 34750.0,
+              "listing_count": 3,
+              "landed_yen": 36844.22
             }
           ]
         },
         "pc": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "usd": 110.94,
           "source": "pricecharting_public_html"
         }
@@ -2582,16 +2590,16 @@
       },
       "landed": {
         "shrink": {
-          "landed_yen": 28770.28,
-          "unit_yen": 26666.33,
-          "qty": 3,
-          "qty_label": "3個"
-        },
-        "ns": {
-          "landed_yen": 26595.95,
-          "unit_yen": 24000.0,
+          "landed_yen": 28148.45,
+          "unit_yen": 25500.0,
           "qty": 2,
           "qty_label": "2個"
+        },
+        "ns": {
+          "landed_yen": 23647.97,
+          "unit_yen": 22000.0,
+          "qty": 4,
+          "qty_label": "4個"
         }
       },
       "otachu_ev": null,
@@ -2607,7 +2615,7 @@
       "pricecharting_box_url": "https://www.pricecharting.com/game/pokemon-japanese-glory-of-team-rocket/booster-box",
       "pc_avg_usd": 144.5,
       "pc_avg_hkd": 1127.1,
-      "pc_avg_as_of": "2026-10-26 06:11 Asia/Shanghai",
+      "pc_avg_as_of": "2026-11-02 04:01 Asia/Shanghai",
       "pc_avg_source": "pricecharting_ungraded_loose",
       "snkrdunk_shrink_id": 550896,
       "snkrdunk_shrink_url": "https://snkrdunk.com/en/trading-cards/550896",
@@ -2629,87 +2637,95 @@
       "pc_sr_ar_as_of": "2026-10-23 13:57 Asia/Shanghai",
       "sealed_box": {
         "shrink": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 550896,
-          "lot_yen": 79999.0,
-          "qty": 3,
-          "qty_label": "3個",
-          "unit_yen": 26666.33,
-          "listing_count": 15,
-          "lots": [
-            {
-              "qty": 1,
-              "qty_label": "1個",
-              "lot_yen": 26000.0,
-              "unit_yen": 26000.0,
-              "listing_count": 100,
-              "landed_yen": 30421.9
-            },
-            {
-              "qty": 2,
-              "qty_label": "2個",
-              "lot_yen": 54000.0,
-              "unit_yen": 27000.0,
-              "listing_count": 41,
-              "landed_yen": 29700.95
-            },
-            {
-              "qty": 3,
-              "qty_label": "3個",
-              "lot_yen": 79999.0,
-              "unit_yen": 26666.33,
-              "listing_count": 15,
-              "landed_yen": 28770.28
-            },
-            {
-              "qty": 4,
-              "qty_label": "4個",
-              "lot_yen": 108000.0,
-              "unit_yen": 27000.0,
-              "listing_count": 6,
-              "landed_yen": 28822.97
-            }
-          ]
-        },
-        "ns": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
-          "source": "snkrdunk_public_new_listing",
-          "apparel_id": 567450,
-          "lot_yen": 48000.0,
+          "lot_yen": 51000.0,
           "qty": 2,
           "qty_label": "2個",
-          "unit_yen": 24000.0,
-          "listing_count": 6,
+          "unit_yen": 25500.0,
+          "listing_count": 44,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 23588.0,
-              "unit_yen": 23588.0,
-              "listing_count": 21,
-              "landed_yen": 27925.48
+              "lot_yen": 25200.0,
+              "unit_yen": 25200.0,
+              "listing_count": 100,
+              "landed_yen": 29593.9
             },
             {
               "qty": 2,
               "qty_label": "2個",
-              "lot_yen": 48000.0,
-              "unit_yen": 24000.0,
-              "listing_count": 6,
-              "landed_yen": 26595.95
+              "lot_yen": 51000.0,
+              "unit_yen": 25500.0,
+              "listing_count": 44,
+              "landed_yen": 28148.45
             },
             {
               "qty": 3,
               "qty_label": "3個",
               "lot_yen": 80000.0,
               "unit_yen": 26666.67,
-              "listing_count": 3,
+              "listing_count": 16,
               "landed_yen": 28770.64
+            },
+            {
+              "qty": 4,
+              "qty_label": "4個",
+              "lot_yen": 115000.0,
+              "unit_yen": 28750.0,
+              "listing_count": 6,
+              "landed_yen": 30634.22
+            }
+          ]
+        },
+        "ns": {
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
+          "source": "snkrdunk_public_new_listing",
+          "apparel_id": 567450,
+          "lot_yen": 88000.0,
+          "qty": 4,
+          "qty_label": "4個",
+          "unit_yen": 22000.0,
+          "listing_count": 2,
+          "lots": [
+            {
+              "qty": 1,
+              "qty_label": "1個",
+              "lot_yen": 21790.0,
+              "unit_yen": 21790.0,
+              "listing_count": 24,
+              "landed_yen": 26064.55
+            },
+            {
+              "qty": 2,
+              "qty_label": "2個",
+              "lot_yen": 44000.0,
+              "unit_yen": 22000.0,
+              "listing_count": 7,
+              "landed_yen": 24525.95
+            },
+            {
+              "qty": 3,
+              "qty_label": "3個",
+              "lot_yen": 66000.0,
+              "unit_yen": 22000.0,
+              "listing_count": 4,
+              "landed_yen": 23940.63
+            },
+            {
+              "qty": 4,
+              "qty_label": "4個",
+              "lot_yen": 88000.0,
+              "unit_yen": 22000.0,
+              "listing_count": 2,
+              "landed_yen": 23647.97
             }
           ]
         },
         "pc": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "usd": 144.5,
           "source": "pricecharting_public_html"
         }
@@ -2755,9 +2771,9 @@
       "release_date": "2025-03-14",
       "method_note": "SV hot-batch Grade-A filled; PSA not backfilled in this pass (optional later). Live haircut defaults SAR 10%.",
       "pricecharting_box_url": "https://www.pricecharting.com/game/pokemon-japanese-heat-wave-arena/booster-box",
-      "pc_avg_usd": 109.99,
-      "pc_avg_hkd": 857.92,
-      "pc_avg_as_of": "2026-10-26 06:11 Asia/Shanghai",
+      "pc_avg_usd": 107.21,
+      "pc_avg_hkd": 836.24,
+      "pc_avg_as_of": "2026-11-02 04:01 Asia/Shanghai",
       "pc_avg_source": "pricecharting_ungraded_loose",
       "snkrdunk_shrink_id": 518728,
       "snkrdunk_shrink_url": "https://snkrdunk.com/en/trading-cards/518728",
@@ -2779,29 +2795,29 @@
       "pc_sr_ar_as_of": "2026-10-23 13:57 Asia/Shanghai",
       "sealed_box": {
         "shrink": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 518728,
           "lot_yen": 38900.0,
           "qty": 2,
           "qty_label": "2個",
           "unit_yen": 19450.0,
-          "listing_count": 13,
+          "listing_count": 14,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 18250.0,
-              "unit_yen": 18250.0,
+              "lot_yen": 18500.0,
+              "unit_yen": 18500.0,
               "listing_count": 100,
-              "landed_yen": 22400.65
+              "landed_yen": 22659.4
             },
             {
               "qty": 2,
               "qty_label": "2個",
               "lot_yen": 38900.0,
               "unit_yen": 19450.0,
-              "listing_count": 13,
+              "listing_count": 14,
               "landed_yen": 21886.7
             },
             {
@@ -2823,8 +2839,8 @@
           ]
         },
         "pc": {
-          "as_of": "2026-10-26 06:11 Asia/Shanghai",
-          "usd": 109.99,
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
+          "usd": 107.21,
           "source": "pricecharting_public_html"
         }
       }
@@ -2882,15 +2898,15 @@
           "qty_label": "4個"
         },
         "ns": {
-          "landed_yen": 13654.9,
-          "unit_yen": 9800.0,
+          "landed_yen": 14896.9,
+          "unit_yen": 11000.0,
           "qty": 1,
           "qty_label": "1個"
         }
       },
       "sealed_box": {
         "shrink": {
-          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 106864,
           "lot_yen": 44444.0,
@@ -2902,18 +2918,18 @@
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 10499.0,
-              "unit_yen": 10499.0,
+              "lot_yen": 10000.0,
+              "unit_yen": 10000.0,
               "listing_count": 100,
-              "landed_yen": 14378.36
+              "landed_yen": 13861.9
             },
             {
               "qty": 2,
               "qty_label": "2個",
-              "lot_yen": 21599.0,
-              "unit_yen": 10799.5,
-              "listing_count": 23,
-              "landed_yen": 12933.43
+              "lot_yen": 22000.0,
+              "unit_yen": 11000.0,
+              "listing_count": 21,
+              "landed_yen": 13140.95
             },
             {
               "qty": 3,
@@ -2934,34 +2950,34 @@
           ]
         },
         "ns": {
-          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 567429,
-          "lot_yen": 9800.0,
+          "lot_yen": 11000.0,
           "qty": 1,
           "qty_label": "1個",
-          "unit_yen": 9800.0,
-          "listing_count": 7,
+          "unit_yen": 11000.0,
+          "listing_count": 6,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 9800.0,
-              "unit_yen": 9800.0,
-              "listing_count": 7,
-              "landed_yen": 13654.9
+              "lot_yen": 11000.0,
+              "unit_yen": 11000.0,
+              "listing_count": 6,
+              "landed_yen": 14896.9
             }
           ]
         },
         "pc": {
-          "as_of": "2026-10-28 14:15 Asia/Shanghai",
-          "usd": 94.25,
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
+          "usd": 106.58,
           "source": "pricecharting_public_html"
         }
       },
-      "pc_avg_usd": 94.25,
-      "pc_avg_hkd": 735.15,
-      "pc_avg_as_of": "2026-10-28 14:15 Asia/Shanghai",
+      "pc_avg_usd": 106.58,
+      "pc_avg_hkd": 831.32,
+      "pc_avg_as_of": "2026-11-02 04:01 Asia/Shanghai",
       "pc_avg_source": "pricecharting_ungraded_loose",
       "pc_sr_ar_as_of": "2026-10-28 15:18 Asia/Shanghai"
     },
@@ -3012,8 +3028,8 @@
       "rate_notes": "Pokegto 1,000 BOX https://pokemon-infomation.com/pull-rates-clayburst/",
       "landed": {
         "shrink": {
-          "landed_yen": 14108.13,
-          "unit_yen": 12500.0,
+          "landed_yen": 13073.13,
+          "unit_yen": 11500.0,
           "qty": 3,
           "qty_label": "3個"
         },
@@ -3026,38 +3042,38 @@
       },
       "sealed_box": {
         "shrink": {
-          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 116901,
-          "lot_yen": 37500.0,
+          "lot_yen": 34500.0,
           "qty": 3,
           "qty_label": "3個",
-          "unit_yen": 12500.0,
-          "listing_count": 18,
+          "unit_yen": 11500.0,
+          "listing_count": 19,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 11450.0,
-              "unit_yen": 11450.0,
+              "lot_yen": 11480.0,
+              "unit_yen": 11480.0,
               "listing_count": 100,
-              "landed_yen": 15362.65
+              "landed_yen": 15393.7
             },
             {
               "qty": 2,
               "qty_label": "2個",
-              "lot_yen": 23999.0,
-              "unit_yen": 11999.5,
-              "listing_count": 38,
-              "landed_yen": 14175.43
+              "lot_yen": 23800.0,
+              "unit_yen": 11900.0,
+              "listing_count": 39,
+              "landed_yen": 14072.45
             },
             {
               "qty": 3,
               "qty_label": "3個",
-              "lot_yen": 37500.0,
-              "unit_yen": 12500.0,
-              "listing_count": 18,
-              "landed_yen": 14108.13
+              "lot_yen": 34500.0,
+              "unit_yen": 11500.0,
+              "listing_count": 19,
+              "landed_yen": 13073.13
             },
             {
               "qty": 4,
@@ -3070,7 +3086,7 @@
           ]
         },
         "ns": {
-          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 567432,
           "lot_yen": 12999.0,
@@ -3090,14 +3106,14 @@
           ]
         },
         "pc": {
-          "as_of": "2026-10-28 14:15 Asia/Shanghai",
-          "usd": 94.75,
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
+          "usd": 88.45,
           "source": "pricecharting_public_html"
         }
       },
-      "pc_avg_usd": 94.75,
-      "pc_avg_hkd": 739.05,
-      "pc_avg_as_of": "2026-10-28 14:15 Asia/Shanghai",
+      "pc_avg_usd": 88.45,
+      "pc_avg_hkd": 689.91,
+      "pc_avg_as_of": "2026-11-02 04:01 Asia/Shanghai",
       "pc_avg_source": "pricecharting_ungraded_loose",
       "pc_sr_ar_as_of": "2026-10-28 15:18 Asia/Shanghai"
     },
@@ -3148,76 +3164,76 @@
       "rate_notes": "Pokegto 1,000 BOX https://pokemon-infomation.com/pull-rates-snowhazard/",
       "landed": {
         "shrink": {
-          "landed_yen": 15517.9,
-          "unit_yen": 11600.0,
+          "landed_yen": 15307.79,
+          "unit_yen": 11397.0,
           "qty": 1,
           "qty_label": "1個"
         },
         "ns": {
-          "landed_yen": 13861.9,
-          "unit_yen": 10000.0,
+          "landed_yen": 14378.36,
+          "unit_yen": 10499.0,
           "qty": 1,
           "qty_label": "1個"
         }
       },
       "sealed_box": {
         "shrink": {
-          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 116897,
-          "lot_yen": 11600.0,
+          "lot_yen": 11397.0,
           "qty": 1,
           "qty_label": "1個",
-          "unit_yen": 11600.0,
-          "listing_count": 66,
+          "unit_yen": 11397.0,
+          "listing_count": 67,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 11600.0,
-              "unit_yen": 11600.0,
-              "listing_count": 66,
-              "landed_yen": 15517.9
+              "lot_yen": 11397.0,
+              "unit_yen": 11397.0,
+              "listing_count": 67,
+              "landed_yen": 15307.79
             },
             {
               "qty": 3,
               "qty_label": "3個",
-              "lot_yen": 44800.0,
-              "unit_yen": 14933.33,
+              "lot_yen": 44750.0,
+              "unit_yen": 14916.67,
               "listing_count": 6,
-              "landed_yen": 16626.63
+              "landed_yen": 16609.39
             }
           ]
         },
         "ns": {
-          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 567431,
-          "lot_yen": 10000.0,
+          "lot_yen": 10499.0,
           "qty": 1,
           "qty_label": "1個",
-          "unit_yen": 10000.0,
-          "listing_count": 13,
+          "unit_yen": 10499.0,
+          "listing_count": 11,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 10000.0,
-              "unit_yen": 10000.0,
-              "listing_count": 13,
-              "landed_yen": 13861.9
+              "lot_yen": 10499.0,
+              "unit_yen": 10499.0,
+              "listing_count": 11,
+              "landed_yen": 14378.36
             }
           ]
         },
         "pc": {
-          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "usd": 77.9,
           "source": "pricecharting_public_html"
         }
       },
       "pc_avg_usd": 77.9,
       "pc_avg_hkd": 607.62,
-      "pc_avg_as_of": "2026-10-28 14:15 Asia/Shanghai",
+      "pc_avg_as_of": "2026-11-02 04:01 Asia/Shanghai",
       "pc_avg_source": "pricecharting_ungraded_loose",
       "pc_sr_ar_as_of": "2026-10-28 15:18 Asia/Shanghai"
     },
@@ -3268,92 +3284,92 @@
       "rate_notes": "Pokegto 600 BOX https://pokemon-infomation.com/pull-rates-ragingsurf/",
       "landed": {
         "shrink": {
-          "landed_yen": 18315.95,
-          "unit_yen": 16000.0,
+          "landed_yen": 19350.95,
+          "unit_yen": 17000.0,
           "qty": 2,
           "qty_label": "2個"
         },
         "ns": {
-          "landed_yen": 15828.4,
-          "unit_yen": 11900.0,
+          "landed_yen": 15414.4,
+          "unit_yen": 11500.0,
           "qty": 1,
           "qty_label": "1個"
         }
       },
       "sealed_box": {
         "shrink": {
-          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 134104,
-          "lot_yen": 32000.0,
+          "lot_yen": 34000.0,
           "qty": 2,
           "qty_label": "2個",
-          "unit_yen": 16000.0,
-          "listing_count": 16,
-          "lots": [
-            {
-              "qty": 1,
-              "qty_label": "1個",
-              "lot_yen": 15499.0,
-              "unit_yen": 15499.0,
-              "listing_count": 87,
-              "landed_yen": 19553.36
-            },
-            {
-              "qty": 2,
-              "qty_label": "2個",
-              "lot_yen": 32000.0,
-              "unit_yen": 16000.0,
-              "listing_count": 16,
-              "landed_yen": 18315.95
-            },
-            {
-              "qty": 3,
-              "qty_label": "3個",
-              "lot_yen": 54000.0,
-              "unit_yen": 18000.0,
-              "listing_count": 9,
-              "landed_yen": 19800.63
-            },
-            {
-              "qty": 4,
-              "qty_label": "4個",
-              "lot_yen": 68000.0,
-              "unit_yen": 17000.0,
-              "listing_count": 2,
-              "landed_yen": 18472.97
-            }
-          ]
-        },
-        "ns": {
-          "as_of": "2026-10-28 14:15 Asia/Shanghai",
-          "source": "snkrdunk_public_new_listing",
-          "apparel_id": 567435,
-          "lot_yen": 11900.0,
-          "qty": 1,
-          "qty_label": "1個",
-          "unit_yen": 11900.0,
+          "unit_yen": 17000.0,
           "listing_count": 15,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 11900.0,
-              "unit_yen": 11900.0,
+              "lot_yen": 15500.0,
+              "unit_yen": 15500.0,
+              "listing_count": 86,
+              "landed_yen": 19554.4
+            },
+            {
+              "qty": 2,
+              "qty_label": "2個",
+              "lot_yen": 34000.0,
+              "unit_yen": 17000.0,
               "listing_count": 15,
-              "landed_yen": 15828.4
+              "landed_yen": 19350.95
+            },
+            {
+              "qty": 3,
+              "qty_label": "3個",
+              "lot_yen": 60000.0,
+              "unit_yen": 20000.0,
+              "listing_count": 8,
+              "landed_yen": 21870.63
+            },
+            {
+              "qty": 4,
+              "qty_label": "4個",
+              "lot_yen": 72000.0,
+              "unit_yen": 18000.0,
+              "listing_count": 2,
+              "landed_yen": 19507.97
+            }
+          ]
+        },
+        "ns": {
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
+          "source": "snkrdunk_public_new_listing",
+          "apparel_id": 567435,
+          "lot_yen": 11500.0,
+          "qty": 1,
+          "qty_label": "1個",
+          "unit_yen": 11500.0,
+          "listing_count": 16,
+          "lots": [
+            {
+              "qty": 1,
+              "qty_label": "1個",
+              "lot_yen": 11500.0,
+              "unit_yen": 11500.0,
+              "listing_count": 16,
+              "landed_yen": 15414.4
             }
           ]
         },
         "pc": {
-          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "usd": 95.0,
           "source": "pricecharting_public_html"
         }
       },
       "pc_avg_usd": 95.0,
       "pc_avg_hkd": 741.0,
-      "pc_avg_as_of": "2026-10-28 14:15 Asia/Shanghai",
+      "pc_avg_as_of": "2026-11-02 04:01 Asia/Shanghai",
       "pc_avg_source": "pricecharting_ungraded_loose",
       "pc_sr_ar_as_of": "2026-10-28 15:18 Asia/Shanghai"
     },
@@ -3404,52 +3420,52 @@
       "rate_notes": "Pokegto https://pokemon-infomation.com/pull-rates-kodainohoko/",
       "landed": {
         "shrink": {
-          "landed_yen": 14556.63,
-          "unit_yen": 12933.33,
+          "landed_yen": 12866.13,
+          "unit_yen": 11300.0,
           "qty": 3,
           "qty_label": "3個"
         },
         "ns": {
-          "landed_yen": 14896.9,
-          "unit_yen": 11000.0,
+          "landed_yen": 15723.86,
+          "unit_yen": 11799.0,
           "qty": 1,
           "qty_label": "1個"
         }
       },
       "sealed_box": {
         "shrink": {
-          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 140591,
-          "lot_yen": 38800.0,
+          "lot_yen": 33900.0,
           "qty": 3,
           "qty_label": "3個",
-          "unit_yen": 12933.33,
-          "listing_count": 14,
+          "unit_yen": 11300.0,
+          "listing_count": 13,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 11000.0,
-              "unit_yen": 11000.0,
-              "listing_count": 92,
-              "landed_yen": 14896.9
+              "lot_yen": 11189.0,
+              "unit_yen": 11189.0,
+              "listing_count": 93,
+              "landed_yen": 15092.51
             },
             {
               "qty": 2,
               "qty_label": "2個",
-              "lot_yen": 25600.0,
-              "unit_yen": 12800.0,
-              "listing_count": 12,
-              "landed_yen": 15003.95
+              "lot_yen": 22000.0,
+              "unit_yen": 11000.0,
+              "listing_count": 14,
+              "landed_yen": 13140.95
             },
             {
               "qty": 3,
               "qty_label": "3個",
-              "lot_yen": 38800.0,
-              "unit_yen": 12933.33,
-              "listing_count": 14,
-              "landed_yen": 14556.63
+              "lot_yen": 33900.0,
+              "unit_yen": 11300.0,
+              "listing_count": 13,
+              "landed_yen": 12866.13
             },
             {
               "qty": 4,
@@ -3462,34 +3478,34 @@
           ]
         },
         "ns": {
-          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 567436,
-          "lot_yen": 11000.0,
+          "lot_yen": 11799.0,
           "qty": 1,
           "qty_label": "1個",
-          "unit_yen": 11000.0,
+          "unit_yen": 11799.0,
           "listing_count": 8,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 11000.0,
-              "unit_yen": 11000.0,
+              "lot_yen": 11799.0,
+              "unit_yen": 11799.0,
               "listing_count": 8,
-              "landed_yen": 14896.9
+              "landed_yen": 15723.86
             }
           ]
         },
         "pc": {
-          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "usd": 85.0,
           "source": "pricecharting_public_html"
         }
       },
       "pc_avg_usd": 85.0,
       "pc_avg_hkd": 663.0,
-      "pc_avg_as_of": "2026-10-28 14:15 Asia/Shanghai",
+      "pc_avg_as_of": "2026-11-02 04:01 Asia/Shanghai",
       "pc_avg_source": "pricecharting_ungraded_loose",
       "pc_sr_ar_as_of": "2026-10-28 15:18 Asia/Shanghai"
     },
@@ -3540,92 +3556,84 @@
       "rate_notes": "Pokegto https://pokemon-infomation.com/pull-rates-mirainoissen/",
       "landed": {
         "shrink": {
-          "landed_yen": 13658.45,
-          "unit_yen": 11500.0,
-          "qty": 2,
-          "qty_label": "2個"
+          "landed_yen": 12555.63,
+          "unit_yen": 11000.0,
+          "qty": 3,
+          "qty_label": "3個"
         },
         "ns": {
-          "landed_yen": 13033.9,
-          "unit_yen": 9200.0,
+          "landed_yen": 13032.86,
+          "unit_yen": 9199.0,
           "qty": 1,
           "qty_label": "1個"
         }
       },
       "sealed_box": {
         "shrink": {
-          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 140593,
-          "lot_yen": 23000.0,
-          "qty": 2,
-          "qty_label": "2個",
-          "unit_yen": 11500.0,
-          "listing_count": 12,
+          "lot_yen": 33000.0,
+          "qty": 3,
+          "qty_label": "3個",
+          "unit_yen": 11000.0,
+          "listing_count": 16,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 11000.0,
-              "unit_yen": 11000.0,
-              "listing_count": 90,
-              "landed_yen": 14896.9
+              "lot_yen": 10100.0,
+              "unit_yen": 10100.0,
+              "listing_count": 96,
+              "landed_yen": 13965.4
             },
             {
               "qty": 2,
               "qty_label": "2個",
-              "lot_yen": 23000.0,
-              "unit_yen": 11500.0,
-              "listing_count": 12,
-              "landed_yen": 13658.45
+              "lot_yen": 22999.0,
+              "unit_yen": 11499.5,
+              "listing_count": 13,
+              "landed_yen": 13657.93
             },
             {
               "qty": 3,
               "qty_label": "3個",
-              "lot_yen": 38888.0,
-              "unit_yen": 12962.67,
-              "listing_count": 14,
-              "landed_yen": 14587.0
-            },
-            {
-              "qty": 4,
-              "qty_label": "4個",
-              "lot_yen": 59999.0,
-              "unit_yen": 14999.75,
-              "listing_count": 2,
-              "landed_yen": 16402.72
+              "lot_yen": 33000.0,
+              "unit_yen": 11000.0,
+              "listing_count": 16,
+              "landed_yen": 12555.63
             }
           ]
         },
         "ns": {
-          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 567437,
-          "lot_yen": 9200.0,
+          "lot_yen": 9199.0,
           "qty": 1,
           "qty_label": "1個",
-          "unit_yen": 9200.0,
+          "unit_yen": 9199.0,
           "listing_count": 11,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 9200.0,
-              "unit_yen": 9200.0,
+              "lot_yen": 9199.0,
+              "unit_yen": 9199.0,
               "listing_count": 11,
-              "landed_yen": 13033.9
+              "landed_yen": 13032.86
             }
           ]
         },
         "pc": {
-          "as_of": "2026-10-28 14:15 Asia/Shanghai",
-          "usd": 95.06,
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
+          "usd": 86.01,
           "source": "pricecharting_public_html"
         }
       },
-      "pc_avg_usd": 95.06,
-      "pc_avg_hkd": 741.47,
-      "pc_avg_as_of": "2026-10-28 14:15 Asia/Shanghai",
+      "pc_avg_usd": 86.01,
+      "pc_avg_hkd": 670.88,
+      "pc_avg_as_of": "2026-11-02 04:01 Asia/Shanghai",
       "pc_avg_source": "pricecharting_ungraded_loose",
       "pc_sr_ar_as_of": "2026-10-28 15:18 Asia/Shanghai"
     },
@@ -3678,10 +3686,10 @@
       "rate_notes": "Pokegto 1,000 BOX https://pokemon-infomation.com/pull-rates-wildforce/",
       "landed": {
         "shrink": {
-          "landed_yen": 14175.95,
-          "unit_yen": 12000.0,
-          "qty": 2,
-          "qty_label": "2個"
+          "landed_yen": 12555.63,
+          "unit_yen": 11000.0,
+          "qty": 3,
+          "qty_label": "3個"
         },
         "ns": {
           "landed_yen": 14895.86,
@@ -3692,38 +3700,38 @@
       },
       "sealed_box": {
         "shrink": {
-          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 171882,
-          "lot_yen": 24000.0,
-          "qty": 2,
-          "qty_label": "2個",
-          "unit_yen": 12000.0,
-          "listing_count": 10,
+          "lot_yen": 33000.0,
+          "qty": 3,
+          "qty_label": "3個",
+          "unit_yen": 11000.0,
+          "listing_count": 8,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
               "lot_yen": 11900.0,
               "unit_yen": 11900.0,
-              "listing_count": 71,
+              "listing_count": 77,
               "landed_yen": 15828.4
             },
             {
               "qty": 2,
               "qty_label": "2個",
-              "lot_yen": 24000.0,
-              "unit_yen": 12000.0,
-              "listing_count": 10,
-              "landed_yen": 14175.95
+              "lot_yen": 25000.0,
+              "unit_yen": 12500.0,
+              "listing_count": 9,
+              "landed_yen": 14693.45
             },
             {
               "qty": 3,
               "qty_label": "3個",
-              "lot_yen": 41000.0,
-              "unit_yen": 13666.67,
-              "listing_count": 6,
-              "landed_yen": 15315.64
+              "lot_yen": 33000.0,
+              "unit_yen": 11000.0,
+              "listing_count": 8,
+              "landed_yen": 12555.63
             },
             {
               "qty": 4,
@@ -3736,7 +3744,7 @@
           ]
         },
         "ns": {
-          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 567439,
           "lot_yen": 10999.0,
@@ -3756,14 +3764,14 @@
           ]
         },
         "pc": {
-          "as_of": "2026-10-28 14:15 Asia/Shanghai",
-          "usd": 94.58,
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
+          "usd": 90.0,
           "source": "pricecharting_public_html"
         }
       },
-      "pc_avg_usd": 94.58,
-      "pc_avg_hkd": 737.72,
-      "pc_avg_as_of": "2026-10-28 14:15 Asia/Shanghai",
+      "pc_avg_usd": 90.0,
+      "pc_avg_hkd": 702.0,
+      "pc_avg_as_of": "2026-11-02 04:01 Asia/Shanghai",
       "pc_avg_source": "pricecharting_ungraded_loose",
       "pc_sr_ar_as_of": "2026-10-28 15:18 Asia/Shanghai"
     },
@@ -3816,10 +3824,10 @@
       "rate_notes": "Pokegto 1,000 BOX https://pokemon-infomation.com/pull-rates-cyberjudge/",
       "landed": {
         "shrink": {
-          "landed_yen": 13658.45,
-          "unit_yen": 11500.0,
-          "qty": 2,
-          "qty_label": "2個"
+          "landed_yen": 12555.63,
+          "unit_yen": 11000.0,
+          "qty": 3,
+          "qty_label": "3個"
         },
         "ns": {
           "landed_yen": 12882.2,
@@ -3830,38 +3838,38 @@
       },
       "sealed_box": {
         "shrink": {
-          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 171884,
-          "lot_yen": 23000.0,
-          "qty": 2,
-          "qty_label": "2個",
-          "unit_yen": 11500.0,
+          "lot_yen": 33000.0,
+          "qty": 3,
+          "qty_label": "3個",
+          "unit_yen": 11000.0,
           "listing_count": 16,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 10399.0,
-              "unit_yen": 10399.0,
+              "lot_yen": 10199.0,
+              "unit_yen": 10199.0,
               "listing_count": 86,
-              "landed_yen": 14274.86
+              "landed_yen": 14067.86
             },
             {
               "qty": 2,
               "qty_label": "2個",
-              "lot_yen": 23000.0,
-              "unit_yen": 11500.0,
-              "listing_count": 16,
-              "landed_yen": 13658.45
+              "lot_yen": 22500.0,
+              "unit_yen": 11250.0,
+              "listing_count": 17,
+              "landed_yen": 13399.7
             },
             {
               "qty": 3,
               "qty_label": "3個",
-              "lot_yen": 42888.0,
-              "unit_yen": 14296.0,
-              "listing_count": 14,
-              "landed_yen": 15966.99
+              "lot_yen": 33000.0,
+              "unit_yen": 11000.0,
+              "listing_count": 16,
+              "landed_yen": 12555.63
             },
             {
               "qty": 4,
@@ -3874,7 +3882,7 @@
           ]
         },
         "ns": {
-          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 567440,
           "lot_yen": 21500.0,
@@ -3888,7 +3896,7 @@
               "qty_label": "1個",
               "lot_yen": 10000.0,
               "unit_yen": 10000.0,
-              "listing_count": 14,
+              "listing_count": 15,
               "landed_yen": 13861.9
             },
             {
@@ -3902,14 +3910,14 @@
           ]
         },
         "pc": {
-          "as_of": "2026-10-28 14:15 Asia/Shanghai",
-          "usd": 95.75,
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
+          "usd": 96.29,
           "source": "pricecharting_public_html"
         }
       },
-      "pc_avg_usd": 95.75,
-      "pc_avg_hkd": 746.85,
-      "pc_avg_as_of": "2026-10-28 14:15 Asia/Shanghai",
+      "pc_avg_usd": 96.29,
+      "pc_avg_hkd": 751.06,
+      "pc_avg_as_of": "2026-11-02 04:01 Asia/Shanghai",
       "pc_avg_source": "pricecharting_ungraded_loose",
       "pc_sr_ar_as_of": "2026-10-28 15:18 Asia/Shanghai"
     },
@@ -3962,10 +3970,10 @@
       "rate_notes": "Pokegto 1,000 BOX https://pokemon-infomation.com/pull-rates-crimsonhaze/",
       "landed": {
         "shrink": {
-          "landed_yen": 17421.26,
-          "unit_yen": 13439.0,
-          "qty": 1,
-          "qty_label": "1個"
+          "landed_yen": 14332.97,
+          "unit_yen": 13000.0,
+          "qty": 4,
+          "qty_label": "4個"
         },
         "ns": {
           "landed_yen": 19036.9,
@@ -3976,51 +3984,51 @@
       },
       "sealed_box": {
         "shrink": {
-          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 204134,
-          "lot_yen": 13439.0,
-          "qty": 1,
-          "qty_label": "1個",
-          "unit_yen": 13439.0,
-          "listing_count": 100,
+          "lot_yen": 52000.0,
+          "qty": 4,
+          "qty_label": "4個",
+          "unit_yen": 13000.0,
+          "listing_count": 6,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 13439.0,
-              "unit_yen": 13439.0,
+              "lot_yen": 12890.0,
+              "unit_yen": 12890.0,
               "listing_count": 100,
-              "landed_yen": 17421.26
+              "landed_yen": 16853.05
             },
             {
               "qty": 2,
               "qty_label": "2個",
-              "lot_yen": 31000.0,
-              "unit_yen": 15500.0,
-              "listing_count": 17,
-              "landed_yen": 17798.45
+              "lot_yen": 30800.0,
+              "unit_yen": 15400.0,
+              "listing_count": 19,
+              "landed_yen": 17694.95
             },
             {
               "qty": 3,
               "qty_label": "3個",
-              "lot_yen": 47800.0,
-              "unit_yen": 15933.33,
-              "listing_count": 7,
-              "landed_yen": 17661.63
+              "lot_yen": 55000.0,
+              "unit_yen": 18333.33,
+              "listing_count": 6,
+              "landed_yen": 20145.63
             },
             {
               "qty": 4,
               "qty_label": "4個",
-              "lot_yen": 66000.0,
-              "unit_yen": 16500.0,
-              "listing_count": 5,
-              "landed_yen": 17955.47
+              "lot_yen": 52000.0,
+              "unit_yen": 13000.0,
+              "listing_count": 6,
+              "landed_yen": 14332.97
             }
           ]
         },
         "ns": {
-          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 567441,
           "lot_yen": 15000.0,
@@ -4040,14 +4048,14 @@
           ]
         },
         "pc": {
-          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "usd": 109.95,
           "source": "pricecharting_public_html"
         }
       },
       "pc_avg_usd": 109.95,
       "pc_avg_hkd": 857.61,
-      "pc_avg_as_of": "2026-10-28 14:15 Asia/Shanghai",
+      "pc_avg_as_of": "2026-11-02 04:01 Asia/Shanghai",
       "pc_avg_source": "pricecharting_ungraded_loose",
       "pc_sr_ar_as_of": "2026-10-28 15:18 Asia/Shanghai"
     },
@@ -4100,44 +4108,44 @@
       "rate_notes": "Pokegto https://pokemon-infomation.com/pull-rates-hengennokamen/",
       "landed": {
         "shrink": {
-          "landed_yen": 14462.35,
-          "unit_yen": 13125.0,
+          "landed_yen": 14074.22,
+          "unit_yen": 12750.0,
           "qty": 4,
           "qty_label": "4個"
         },
         "ns": {
-          "landed_yen": 14379.4,
-          "unit_yen": 10500.0,
+          "landed_yen": 14366.98,
+          "unit_yen": 10488.0,
           "qty": 1,
           "qty_label": "1個"
         }
       },
       "sealed_box": {
         "shrink": {
-          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 224649,
-          "lot_yen": 52500.0,
+          "lot_yen": 51000.0,
           "qty": 4,
           "qty_label": "4個",
-          "unit_yen": 13125.0,
+          "unit_yen": 12750.0,
           "listing_count": 2,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 12900.0,
-              "unit_yen": 12900.0,
+              "lot_yen": 12798.0,
+              "unit_yen": 12798.0,
               "listing_count": 75,
-              "landed_yen": 16863.4
+              "landed_yen": 16757.83
             },
             {
               "qty": 2,
               "qty_label": "2個",
-              "lot_yen": 28500.0,
-              "unit_yen": 14250.0,
-              "listing_count": 10,
-              "landed_yen": 16504.7
+              "lot_yen": 25000.0,
+              "unit_yen": 12500.0,
+              "listing_count": 11,
+              "landed_yen": 14693.45
             },
             {
               "qty": 3,
@@ -4150,42 +4158,42 @@
             {
               "qty": 4,
               "qty_label": "4個",
-              "lot_yen": 52500.0,
-              "unit_yen": 13125.0,
+              "lot_yen": 51000.0,
+              "unit_yen": 12750.0,
               "listing_count": 2,
-              "landed_yen": 14462.35
+              "landed_yen": 14074.22
             }
           ]
         },
         "ns": {
-          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 567442,
-          "lot_yen": 10500.0,
+          "lot_yen": 10488.0,
           "qty": 1,
           "qty_label": "1個",
-          "unit_yen": 10500.0,
-          "listing_count": 12,
+          "unit_yen": 10488.0,
+          "listing_count": 11,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 10500.0,
-              "unit_yen": 10500.0,
-              "listing_count": 12,
-              "landed_yen": 14379.4
+              "lot_yen": 10488.0,
+              "unit_yen": 10488.0,
+              "listing_count": 11,
+              "landed_yen": 14366.98
             }
           ]
         },
         "pc": {
-          "as_of": "2026-10-28 14:15 Asia/Shanghai",
-          "usd": 98.2,
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
+          "usd": 94.95,
           "source": "pricecharting_public_html"
         }
       },
-      "pc_avg_usd": 98.2,
-      "pc_avg_hkd": 765.96,
-      "pc_avg_as_of": "2026-10-28 14:15 Asia/Shanghai",
+      "pc_avg_usd": 94.95,
+      "pc_avg_hkd": 740.61,
+      "pc_avg_as_of": "2026-11-02 04:01 Asia/Shanghai",
       "pc_avg_source": "pricecharting_ungraded_loose",
       "pc_sr_ar_as_of": "2026-10-28 15:18 Asia/Shanghai"
     },
@@ -4238,10 +4246,10 @@
       "rate_notes": "Pokegto 1,000 BOX https://pokemon-infomation.com/pull-rates-nightwanderer/",
       "landed": {
         "shrink": {
-          "landed_yen": 16695.63,
-          "unit_yen": 15000.0,
-          "qty": 3,
-          "qty_label": "3個"
+          "landed_yen": 16449.4,
+          "unit_yen": 12500.0,
+          "qty": 1,
+          "qty_label": "1個"
         },
         "ns": {
           "landed_yen": 14896.9,
@@ -4252,22 +4260,30 @@
       },
       "sealed_box": {
         "shrink": {
-          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 261657,
-          "lot_yen": 45000.0,
-          "qty": 3,
-          "qty_label": "3個",
-          "unit_yen": 15000.0,
-          "listing_count": 7,
+          "lot_yen": 12500.0,
+          "qty": 1,
+          "qty_label": "1個",
+          "unit_yen": 12500.0,
+          "listing_count": 50,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 12999.0,
-              "unit_yen": 12999.0,
-              "listing_count": 48,
-              "landed_yen": 16965.86
+              "lot_yen": 12500.0,
+              "unit_yen": 12500.0,
+              "listing_count": 50,
+              "landed_yen": 16449.4
+            },
+            {
+              "qty": 2,
+              "qty_label": "2個",
+              "lot_yen": 30000.0,
+              "unit_yen": 15000.0,
+              "listing_count": 2,
+              "landed_yen": 17280.95
             },
             {
               "qty": 3,
@@ -4280,7 +4296,7 @@
           ]
         },
         "ns": {
-          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 567443,
           "lot_yen": 11000.0,
@@ -4300,14 +4316,14 @@
           ]
         },
         "pc": {
-          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "usd": 87.5,
           "source": "pricecharting_public_html"
         }
       },
       "pc_avg_usd": 87.5,
       "pc_avg_hkd": 682.5,
-      "pc_avg_as_of": "2026-10-28 14:15 Asia/Shanghai",
+      "pc_avg_as_of": "2026-11-02 04:01 Asia/Shanghai",
       "pc_avg_source": "pricecharting_ungraded_loose",
       "pc_sr_ar_as_of": "2026-10-28 15:18 Asia/Shanghai"
     },
@@ -4360,88 +4376,88 @@
       "rate_notes": "Pokegto 1,000 BOX https://pokemon-infomation.com/pull-rates-stellamiracle/",
       "landed": {
         "shrink": {
-          "landed_yen": 12900.29,
-          "unit_yen": 11333.0,
-          "qty": 3,
-          "qty_label": "3個"
-        },
-        "ns": {
-          "landed_yen": 10812.2,
-          "unit_yen": 8750.0,
+          "landed_yen": 14434.7,
+          "unit_yen": 12250.0,
           "qty": 2,
           "qty_label": "2個"
+        },
+        "ns": {
+          "landed_yen": 11865.63,
+          "unit_yen": 10333.33,
+          "qty": 3,
+          "qty_label": "3個"
         }
       },
       "sealed_box": {
         "shrink": {
-          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 283206,
-          "lot_yen": 33999.0,
-          "qty": 3,
-          "qty_label": "3個",
-          "unit_yen": 11333.0,
-          "listing_count": 10,
+          "lot_yen": 24500.0,
+          "qty": 2,
+          "qty_label": "2個",
+          "unit_yen": 12250.0,
+          "listing_count": 6,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 11500.0,
-              "unit_yen": 11500.0,
-              "listing_count": 58,
-              "landed_yen": 15414.4
+              "lot_yen": 12400.0,
+              "unit_yen": 12400.0,
+              "listing_count": 55,
+              "landed_yen": 16345.9
             },
             {
               "qty": 2,
               "qty_label": "2個",
-              "lot_yen": 24999.0,
-              "unit_yen": 12499.5,
-              "listing_count": 7,
-              "landed_yen": 14692.93
+              "lot_yen": 24500.0,
+              "unit_yen": 12250.0,
+              "listing_count": 6,
+              "landed_yen": 14434.7
             },
             {
               "qty": 3,
               "qty_label": "3個",
-              "lot_yen": 33999.0,
-              "unit_yen": 11333.0,
-              "listing_count": 10,
-              "landed_yen": 12900.29
+              "lot_yen": 39000.0,
+              "unit_yen": 13000.0,
+              "listing_count": 9,
+              "landed_yen": 14625.63
             },
             {
               "qty": 4,
               "qty_label": "4個",
-              "lot_yen": 51999.0,
-              "unit_yen": 12999.75,
-              "listing_count": 5,
-              "landed_yen": 14332.72
+              "lot_yen": 59999.0,
+              "unit_yen": 14999.75,
+              "listing_count": 3,
+              "landed_yen": 16402.72
             }
           ]
         },
         "ns": {
-          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 567444,
-          "lot_yen": 17500.0,
-          "qty": 2,
-          "qty_label": "2個",
-          "unit_yen": 8750.0,
-          "listing_count": 8,
+          "lot_yen": 31000.0,
+          "qty": 3,
+          "qty_label": "3個",
+          "unit_yen": 10333.33,
+          "listing_count": 2,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 9000.0,
-              "unit_yen": 9000.0,
-              "listing_count": 15,
-              "landed_yen": 12826.9
+              "lot_yen": 8500.0,
+              "unit_yen": 8500.0,
+              "listing_count": 20,
+              "landed_yen": 12309.4
             },
             {
               "qty": 2,
               "qty_label": "2個",
-              "lot_yen": 17500.0,
-              "unit_yen": 8750.0,
-              "listing_count": 8,
-              "landed_yen": 10812.2
+              "lot_yen": 19999.0,
+              "unit_yen": 9999.5,
+              "listing_count": 5,
+              "landed_yen": 12105.43
             },
             {
               "qty": 3,
@@ -4454,14 +4470,14 @@
           ]
         },
         "pc": {
-          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "usd": 89.81,
           "source": "pricecharting_public_html"
         }
       },
       "pc_avg_usd": 89.81,
       "pc_avg_hkd": 700.52,
-      "pc_avg_as_of": "2026-10-28 14:15 Asia/Shanghai",
+      "pc_avg_as_of": "2026-11-02 04:01 Asia/Shanghai",
       "pc_avg_source": "pricecharting_ungraded_loose",
       "pc_sr_ar_as_of": "2026-10-28 15:18 Asia/Shanghai"
     },
@@ -4512,88 +4528,88 @@
       "rate_notes": "Pokegto ~1,000 BOX https://pokemon-infomation.com/pull-rates-battlepartner/",
       "landed": {
         "shrink": {
-          "landed_yen": 11865.63,
-          "unit_yen": 10333.33,
+          "landed_yen": 12013.99,
+          "unit_yen": 10476.67,
           "qty": 3,
           "qty_label": "3個"
         },
         "ns": {
-          "landed_yen": 12882.2,
-          "unit_yen": 10750.0,
+          "landed_yen": 12830.45,
+          "unit_yen": 10700.0,
           "qty": 2,
           "qty_label": "2個"
         }
       },
       "sealed_box": {
         "shrink": {
-          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 484952,
-          "lot_yen": 31000.0,
+          "lot_yen": 31430.0,
           "qty": 3,
           "qty_label": "3個",
-          "unit_yen": 10333.33,
-          "listing_count": 24,
+          "unit_yen": 10476.67,
+          "listing_count": 25,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 9990.0,
-              "unit_yen": 9990.0,
+              "lot_yen": 9798.0,
+              "unit_yen": 9798.0,
               "listing_count": 100,
-              "landed_yen": 13851.55
+              "landed_yen": 13652.83
             },
             {
               "qty": 2,
               "qty_label": "2個",
-              "lot_yen": 20999.0,
-              "unit_yen": 10499.5,
-              "listing_count": 43,
-              "landed_yen": 12622.93
+              "lot_yen": 20000.0,
+              "unit_yen": 10000.0,
+              "listing_count": 47,
+              "landed_yen": 12105.95
             },
             {
               "qty": 3,
               "qty_label": "3個",
-              "lot_yen": 31000.0,
-              "unit_yen": 10333.33,
-              "listing_count": 24,
-              "landed_yen": 11865.63
+              "lot_yen": 31430.0,
+              "unit_yen": 10476.67,
+              "listing_count": 25,
+              "landed_yen": 12013.99
             },
             {
               "qty": 4,
               "qty_label": "4個",
-              "lot_yen": 46666.0,
-              "unit_yen": 11666.5,
-              "listing_count": 16,
-              "landed_yen": 12952.8
+              "lot_yen": 44444.0,
+              "unit_yen": 11111.0,
+              "listing_count": 17,
+              "landed_yen": 12377.86
             }
           ]
         },
         "ns": {
-          "as_of": "2026-10-28 14:15 Asia/Shanghai",
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
           "source": "snkrdunk_public_new_listing",
           "apparel_id": 567448,
-          "lot_yen": 21500.0,
+          "lot_yen": 21400.0,
           "qty": 2,
           "qty_label": "2個",
-          "unit_yen": 10750.0,
+          "unit_yen": 10700.0,
           "listing_count": 5,
           "lots": [
             {
               "qty": 1,
               "qty_label": "1個",
-              "lot_yen": 10500.0,
-              "unit_yen": 10500.0,
-              "listing_count": 16,
-              "landed_yen": 14379.4
+              "lot_yen": 10000.0,
+              "unit_yen": 10000.0,
+              "listing_count": 17,
+              "landed_yen": 13861.9
             },
             {
               "qty": 2,
               "qty_label": "2個",
-              "lot_yen": 21500.0,
-              "unit_yen": 10750.0,
+              "lot_yen": 21400.0,
+              "unit_yen": 10700.0,
               "listing_count": 5,
-              "landed_yen": 12882.2
+              "landed_yen": 12830.45
             },
             {
               "qty": 3,
@@ -4606,14 +4622,14 @@
           ]
         },
         "pc": {
-          "as_of": "2026-10-28 14:15 Asia/Shanghai",
-          "usd": 85.66,
+          "as_of": "2026-11-02 04:01 Asia/Shanghai",
+          "usd": 85.48,
           "source": "pricecharting_public_html"
         }
       },
-      "pc_avg_usd": 85.66,
-      "pc_avg_hkd": 668.15,
-      "pc_avg_as_of": "2026-10-28 14:15 Asia/Shanghai",
+      "pc_avg_usd": 85.48,
+      "pc_avg_hkd": 666.74,
+      "pc_avg_as_of": "2026-11-02 04:01 Asia/Shanghai",
       "pc_avg_source": "pricecharting_ungraded_loose",
       "pc_sr_ar_as_of": "2026-10-28 15:18 Asia/Shanghai"
     }
