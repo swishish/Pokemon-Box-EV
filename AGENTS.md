@@ -42,14 +42,16 @@ Vintage_Fit Strong Buys (e.g. 臭泥 Grimer #88) live on the Shortlist **vintage
 
 ## Weekly Box EV snapshot (manual)
 
-Sealed **box denoms** (有膜／無膜 landed yen) can be refreshed from public SNKRDUNK apparel JSON + PriceCharting booster-box HTML — view-only, no login:
+Sealed **box denoms** (有膜／無膜 landed yen) can be refreshed from public SNKRDUNK apparel JSON + PriceCharting booster-box HTML — view-only, no login. The job writes **only** `data/sealed-boxes/latest.json` and `latest.js` (`sealed_box_as_of`, shrink/no-shrink landed prices, apparel ids). It must not rewrite root `data.json` / `data.js`. `calc.html` overlays the shard at read time (`js/compose-ev.js`).
 
 ```bash
 python3 tools/refresh_sealed_boxes.py --self-test
 python3 tools/refresh_sealed_boxes.py --root .
 ```
 
-Or GitHub → Actions → **Refresh sealed box prices** → Run workflow. Missing fetches keep the previous snapshot (will not invent apparel IDs or prices). This does **not** refresh card Grade A / pity rates.
+Or GitHub → Actions → **Refresh sealed box prices** → Run workflow. Commit `data/sealed-boxes/latest.json` and `latest.js` only. Missing fetches keep the previous shard (will not invent apparel IDs or prices). This does **not** refresh card Grade A / pity rates.
+
+Open PR #81 still rewrites the card bundle. Do not merge or close it from a shard split. Later sealed hygiene targets `data/sealed-boxes/`.
 
 `tools/refresh_box_ev.py` **cannot** run without hand-saved PriceCharting console HTML:
 

@@ -3,7 +3,8 @@ name: Update EN Base PriceCharting indexes
 # Rebuilds the four English Base indexes (1st Edition, Shadowless,
 # Unlimited, Base Set 2) from public PriceCharting game-page charts.
 # Ungraded `used` column only. Does not touch SNKRDUNK, the JP PSA10
-# benchmark, or the TCGPlayer vintage tape in data/market-vintage/.
+# benchmark, the sealed-box shard, root data.json / data.js, or the
+# TCGPlayer vintage tape in data/market-vintage/.
 #
 # The public chart is monthly. This job refetches it and rebases so
 # 2023-01-01 = 1000. It refuses to write if the Charizard 1st scale
@@ -49,6 +50,14 @@ jobs:
         run: python3 tools/refresh_market_vintage_pc.py --self-test
       - name: Refresh PriceCharting indexes
         run: python3 tools/refresh_market_vintage_pc.py --root . --sleep 0.25 -v
+      - name: Refuse card-bundle edits
+        run: |
+          forbidden="$(git status --porcelain -- data.json data.js data/sealed-boxes data/market-jp-psa10-bench data/market-vintage)"
+          if [ -n "$forbidden" ]; then
+            echo "PriceCharting vintage must not rewrite the card bundle, sealed shard, JP PSA10 benchmark, or TCGPlayer vintage tape."
+            printf '%s\n' "$forbidden"
+            exit 1
+          fi
       - name: Commit snapshot
         run: |
           git config user.name "box-ev-bot"

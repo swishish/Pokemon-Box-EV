@@ -3,7 +3,8 @@ name: Update EN market pulse
 # Rebuilds the English raw-singles Top 500 index, the three Base Set
 # vintage indexes, and the mid-era DP→SM Top 50 from TCGCSV daily Pokemon
 # dumps, then commits data/market-en/*, data/market-vintage/*, and
-# data/market-midera/*. GitHub Pages stays static — the Action is the
+# data/market-midera/*. Does not rewrite root data.json / data.js.
+# GitHub Pages stays static — the Action is the
 # only network fetch. No TCGPlayer API key.
 #
 # Vintage / mid-era daily jobs append *today only*. TickerMint rebase is
@@ -94,6 +95,15 @@ jobs:
 
       - name: Fetch mid-era groups and append DP–SM snapshot
         run: python3 tools/refresh_market_midera.py -v
+
+      - name: Refuse card-bundle edits
+        run: |
+          forbidden="$(git status --porcelain -- data.json data.js data/sealed-boxes data/market-jp-psa10-bench)"
+          if [ -n "$forbidden" ]; then
+            echo "EN pulse must not rewrite the card bundle, sealed shard, or JP PSA10 benchmark."
+            printf '%s\n' "$forbidden"
+            exit 1
+          fi
 
       - name: Commit updated data
         run: |
