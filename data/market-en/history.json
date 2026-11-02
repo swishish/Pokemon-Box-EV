@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-01T00:14:08.017204+00:00",
+  "generated": "2026-11-02T00:53:39.985649+00:00",
   "baseDate": "2024-02-08",
   "baseValue": 1000.0,
   "archiveStart": "2024-02-08",
@@ -980,53 +980,59 @@
       "index": 2924.54,
       "totalValue": 310019.47,
       "count": 500
+    },
+    {
+      "date": "2026-11-01",
+      "index": 2919.61,
+      "totalValue": 309954.4,
+      "count": 500
     }
   ],
   "returns": {
-    "asOf": "2026-10-31",
+    "asOf": "2026-11-01",
     "1D": {
       "available": true,
-      "pct": -0.56,
-      "from": "2026-10-30",
-      "to": "2026-10-31",
-      "fromIndex": 2940.9,
-      "toIndex": 2924.54,
+      "pct": -0.17,
+      "from": "2026-10-31",
+      "to": "2026-11-01",
+      "fromIndex": 2924.54,
+      "toIndex": 2919.61,
       "reason": null
     },
     "5D": {
       "available": true,
-      "pct": -0.35,
-      "from": "2026-10-26",
-      "to": "2026-10-31",
-      "fromIndex": 2934.76,
-      "toIndex": 2924.54,
+      "pct": -0.84,
+      "from": "2026-10-27",
+      "to": "2026-11-01",
+      "fromIndex": 2944.44,
+      "toIndex": 2919.61,
       "reason": null
     },
     "30D": {
       "available": true,
-      "pct": 3.7,
+      "pct": 3.53,
       "from": "2026-10-01",
-      "to": "2026-10-31",
+      "to": "2026-11-01",
       "fromIndex": 2820.14,
-      "toIndex": 2924.54,
+      "toIndex": 2919.61,
       "reason": null
     },
     "1Y": {
       "available": true,
-      "pct": 63.27,
+      "pct": 62.99,
       "from": "2025-10-30",
-      "to": "2026-10-31",
+      "to": "2026-11-01",
       "fromIndex": 1791.27,
-      "toIndex": 2924.54,
+      "toIndex": 2919.61,
       "reason": null
     },
     "YTD": {
       "available": true,
-      "pct": 60.16,
+      "pct": 59.89,
       "from": "2026-01-01",
-      "to": "2026-10-31",
+      "to": "2026-11-01",
       "fromIndex": 1825.96,
-      "toIndex": 2924.54,
+      "toIndex": 2919.61,
       "reason": null
     }
   }
