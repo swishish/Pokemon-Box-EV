@@ -6,10 +6,10 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>社交天氣 · Poke Social Weather</title>
+<title>Sentiment Index · Poke Social Weather</title>
 <meta name="description" content="Poke Social Weather 綜合情緒指數（−100…+100）。軟性參考，靜態快照，非正式投資建議。" />
 <meta property="og:site_name" content="日盒開盒值不值？" />
-<meta property="og:title" content="社交天氣 · Poke Social Weather" />
+<meta property="og:title" content="Sentiment Index · Poke Social Weather" />
 <meta property="og:description" content="綜合情緒 −100…+100。X／Reddit／YouTube／日店，另列 TCGCharts F&amp;G。靜態快照，不是買賣訊號。" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://swishish.github.io/Pokemon-Box-EV/social-weather.html" />
@@ -18,7 +18,7 @@
 <meta property="og:image:height" content="630" />
 <meta property="og:locale" content="zh_HK" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="社交天氣 · Poke Social Weather" />
+<meta name="twitter:title" content="Sentiment Index · Poke Social Weather" />
 <meta name="twitter:description" content="綜合情緒 −100…+100。靜態快照，非正式投資建議。" />
 <meta name="twitter:image" content="https://swishish.github.io/Pokemon-Box-EV/og.png" />
 <link rel="canonical" href="https://swishish.github.io/Pokemon-Box-EV/social-weather.html" />
@@ -212,6 +212,7 @@
     display: grid;
     grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
     gap: 10px;
+    align-items: start;
   }
   .hero .card { margin-bottom: 0; }
   .kicker { font-size: .72rem; color: var(--muted); font-weight: 650; }
@@ -222,23 +223,23 @@
     gap: 6px 8px;
   }
   .index-level {
-    font-size: 2.4rem;
+    font-size: 1.65rem;
     font-weight: 800;
     font-variant-numeric: tabular-nums;
     letter-spacing: -0.03em;
     line-height: 1.1;
-    margin-top: 4px;
-  }
-  .score-label {
-    font-size: 1.05rem;
-    font-weight: 800;
     margin-top: 2px;
   }
+  .score-label {
+    font-size: .88rem;
+    font-weight: 800;
+    margin-top: 1px;
+  }
   .index-chg {
-    font-size: 1.15rem;
+    font-size: .88rem;
     font-weight: 750;
     font-variant-numeric: tabular-nums;
-    margin-top: 4px;
+    margin-top: 2px;
   }
   .index-chg.good { color: var(--good); }
   .index-chg.bad { color: var(--bad); }
@@ -247,13 +248,13 @@
     display: flex;
     flex-wrap: wrap;
     gap: 4px;
-    margin-top: 8px;
+    margin-top: 6px;
   }
   .period-btn {
     font: inherit;
-    font-size: .72rem;
+    font-size: .66rem;
     font-weight: 800;
-    padding: 5px 9px;
+    padding: 3px 8px;
     border-radius: 999px;
     border: var(--bw) solid var(--ink);
     background: var(--card);
@@ -285,11 +286,13 @@
   }
   .spark {
     width: 100%;
-    height: 148px;
+    height: 260px;
     display: block;
     cursor: crosshair;
     touch-action: none;
   }
+  /* spark-tip.js injects .spark-wrap .spark { height: 100px } after load. */
+  .chart-card .spark-wrap .spark { height: 260px; }
   .spark-tip {
     position: absolute;
     z-index: 5;
@@ -316,33 +319,40 @@
     margin-top: 2px;
   }
   .metrics {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 4px;
   }
   .metric {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
+    width: auto;
+    max-width: 100%;
     background: var(--bg-2);
     border: var(--bw) solid var(--ink);
-    border-radius: 8px;
-    padding: 8px 10px;
-    min-width: 0;
+    border-radius: 999px;
+    padding: 4px 10px;
+    white-space: nowrap;
+    text-decoration: none;
+    color: inherit;
   }
-  .metric .k { font-size: .72rem; color: var(--muted); }
+  a.metric:hover { background: var(--accent-fill); }
+  .metric .k {
+    font-size: .78rem;
+    font-weight: 800;
+    color: var(--text);
+  }
   .metric .v {
-    font-size: 1.05rem;
+    font-size: .95rem;
     font-weight: 800;
     font-variant-numeric: tabular-nums;
+    line-height: 1.2;
   }
   .metric .v.good { color: var(--good); }
   .metric .v.bad { color: var(--bad); }
   .metric .v.muted { color: var(--muted); }
-  .metric .sub {
-    font-size: .72rem;
-    color: var(--muted);
-    font-weight: 650;
-  }
-  .metric a { color: var(--ink); font-weight: 800; text-decoration: underline; text-underline-offset: 2px; }
-  .metric-wide { grid-column: 1 / -1; }
   .tiny { font-size: .75rem; color: var(--muted); }
   .tiny a, .method-card a, .chip { color: var(--ink); font-weight: 700; }
   .seg {
@@ -461,11 +471,13 @@
     .header-nav { justify-content: flex-start; }
     .nav-btn { font-size: .68rem; padding: 5px 9px; }
     .wrap { padding: 10px 12px 48px; }
-    .index-level { font-size: 2rem; }
-    .period-btn { padding: 6px 9px; }
+    .index-level { font-size: 1.45rem; }
+    .score-label, .index-chg { font-size: .82rem; }
+    #heroMeta, #chartNote { font-size: .68rem; }
+    .period-btn { font-size: .64rem; padding: 3px 7px; }
+    .chart-card .spark-wrap .spark { height: 300px; }
     .seg { grid-template-columns: 1fr; }
     .tag { justify-self: start; }
-    .metrics { grid-template-columns: 1fr 1fr; }
   }
 </style>
 </head>
@@ -479,14 +491,14 @@
         <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
         <a class="nav-btn" href="./market-jp-psa10-bench.html" title="日版 PSA10 廣度基準（復古／中世代／現行）">JP 基準</a>
         <a class="nav-btn" href="./market-en.html" title="English raw singles market pulse">EN 市況</a>
-        <a class="nav-btn" href="./social-weather.html" aria-current="page" title="Poke Social Weather composite">社交天氣</a>
+        <a class="nav-btn" href="./social-weather.html" aria-current="page" title="Poke Social Weather composite">Sentiment Index</a>
         <a class="nav-btn" href="./market-vintage.html" title="Base Set 1st / Shadowless / Unlimited，另有 PriceCharting 月線含 Base Set 2">Base 復古</a>
         <a class="nav-btn" href="./market-midera.html" title="DP → SM chase Top 50 raw index">中世代</a>
         <a class="nav-btn" href="./market-base-psa-pop.html" title="英文 Base Set 1st / Shadowless / Unlimited / Base Set 2 PSA POP">Base POP</a>
         <a class="nav-btn" href="https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/" title="Base Set Unlimited cheat sheet">Base Unlimited</a>
       </nav>
     </div>
-    <p>社交天氣 · Poke Social Weather · 綜合情緒 −100…+100 · 靜態快照</p>
+    <p>Poke Social Weather · Sentiment Index · 綜合情緒 −100…+100 · 靜態快照</p>
     <div class="fresh-badge" id="freshBadge" role="status" aria-live="polite">
       <span class="fresh-kicker">靜態快照</span>
       <span class="fresh-body">快照日期未載入</span>
@@ -496,7 +508,7 @@
 
 <main class="wrap" id="app">
   <div class="hero">
-    <div class="card">
+    <div class="card chart-card">
       <div class="kicker-row">
         <div class="kicker" id="heroKicker">Poke Social Weather · 綜合</div>
         <span class="pill is-prelim" id="prelimPill" hidden>初步 Preliminary</span>
@@ -504,7 +516,7 @@
       <div class="index-level" id="indexLevel">—</div>
       <div class="score-label" id="scoreLabel"></div>
       <div class="index-chg muted" id="indexChg">載入中…</div>
-      <p class="tiny" id="heroMeta" style="margin:6px 0 0"></p>
+      <p class="tiny" id="heroMeta" style="margin:4px 0 0;font-size:.68rem"></p>
       <div class="period-btns" id="periodBtns" role="tablist" aria-label="圖表期間">
         <button type="button" class="period-btn" data-period="5D" aria-selected="false">5D</button>
         <button type="button" class="period-btn" data-period="10D" aria-selected="false">10D</button>
@@ -651,7 +663,7 @@
     const status = res && res.status ? ('HTTP ' + res.status) : ((res && res.err) || '沒有回應');
     const where = res && res.url ? res.url : './data/social-weather/daily.json';
     app.innerHTML =
-      '<p class="err"><b>載入失敗：找不到社交天氣資料。</b>' +
+      '<p class="err"><b>載入失敗：找不到 Sentiment Index 資料。</b>' +
       '<span class="err-hint">抓取 ' + escapeHtml(where) + ' → ' + escapeHtml(status) + '。</span></p>';
   }
 
@@ -688,7 +700,7 @@
   });
 
   if (window.FreshBadge) {
-    FreshBadge.show({ label: '社交天氣', raw: latest && latest.date, staleAfter: 8, cmp: 'gt' });
+    FreshBadge.show({ label: 'Sentiment Index', raw: latest && latest.date, staleAfter: 8, cmp: 'gt' });
   }
 
   const state = { period: 'ALL', selected: latest ? latest.date : null };
@@ -762,7 +774,7 @@
     const lastScore = pts.length ? pts[pts.length - 1].index : 0;
     SparkTip.draw(spark, pts, {
       color: lastScore < 0 ? '#c93540' : (lastScore > 0 ? '#1e9e5a' : '#5f5a51'),
-      ariaLabel: '社交天氣綜合分走勢，可懸停或點選看日期與分數',
+      ariaLabel: 'Sentiment Index 走勢，可懸停或點選看日期與分數',
       yMin: 0,
       yMax: 0,
       guides: [0],
@@ -790,13 +802,12 @@
     const fgHref = (meta.links && meta.links.tcgcharts_fg) || 'https://tcgcharts.com/charts/fear-and-greed-index';
     const fgText = row.ext_fg == null ? '—' : String(row.ext_fg);
     host.innerHTML = cells.map((c) => (
-      '<div class="metric"><div class="k">' + escapeHtml(c.k) + '</div>' +
-      '<div class="v ' + c.cls + '">' + escapeHtml(c.text) + '</div></div>'
+      '<div class="metric"><span class="k">' + escapeHtml(c.k) + '</span>' +
+      '<span class="v ' + c.cls + '">' + escapeHtml(c.text) + '</span></div>'
     )).join('') +
-      '<div class="metric metric-wide"><div class="k">TCGCharts F&amp;G · 0–100</div>' +
-      '<div class="v"><a href="' + escapeHtml(fgHref) + '" target="_blank" rel="noopener">' +
-      escapeHtml(fgText) + '</a></div>' +
-      '<div class="sub">外部參考</div></div>';
+      '<a class="metric" href="' + escapeHtml(fgHref) + '" target="_blank" rel="noopener" title="TCGCharts Fear &amp; Greed, 0–100, external reference">' +
+      '<span class="k">TCGCharts F&amp;G</span>' +
+      '<span class="v">' + escapeHtml(fgText) + '</span></a>';
   }
 
   function renderSegments(date) {
