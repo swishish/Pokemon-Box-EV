@@ -60,6 +60,17 @@
     });
   }
 
+  function escTip(s) {
+    return String(s).replace(/[&<>"']/g, function (ch) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[ch];
+    });
+  }
+
+  function tipValue(n, opts) {
+    if (opts && typeof opts.formatValue === 'function') return opts.formatValue(n);
+    return fmtIndex(n);
+  }
+
   function ymdToNum(ymd) {
     var m = String(ymd || '').match(/^(\d{4})-(\d{2})-(\d{2})/);
     if (!m) return NaN;
@@ -525,16 +536,38 @@
     var vals = pts.map(function (p) { return Number(p.index); });
     var min = Math.min.apply(null, vals);
     var max = Math.max.apply(null, vals);
+    if (opts.yMin != null && !Number.isNaN(Number(opts.yMin))) min = Math.min(min, Number(opts.yMin));
+    if (opts.yMax != null && !Number.isNaN(Number(opts.yMax))) max = Math.max(max, Number(opts.yMax));
     var span = (max - min) || 1;
+    function yOf(v) {
+      return PAD + (1 - (Number(v) - min) / span) * (H - PAD * 2);
+    }
     var laid = pts.map(function (p, i) {
       return {
         date: String(p.date),
         index: Number(p.index),
         x: PAD + (i / (pts.length - 1)) * (W - PAD * 2),
-        y: PAD + (1 - (Number(p.index) - min) / span) * (H - PAD * 2)
+        y: yOf(p.index)
       };
     });
     state.laid = laid;
+
+    (opts.guides || []).forEach(function (g) {
+      var gy = Number(g);
+      if (Number.isNaN(gy) || gy < min || gy > max) return;
+      var y = yOf(gy);
+      svg.appendChild(mk('line', {
+        x1: String(PAD),
+        x2: String(W - PAD),
+        y1: y.toFixed(1),
+        y2: y.toFixed(1),
+        stroke: '#5f5a51',
+        'stroke-width': '1',
+        'stroke-dasharray': '3 3',
+        'vector-effect': 'non-scaling-stroke',
+        opacity: '0.75'
+      }));
+    });
 
     svg.appendChild(mk('polyline', {
       fill: 'none',
@@ -597,11 +630,12 @@
       dot.setAttribute('cy', p.y.toFixed(1));
       dot.setAttribute('opacity', '1');
       tip.innerHTML =
-        '<div class="tt-value">' + fmtIndex(p.index) + '</div>' +
-        '<div class="tt-date">' + p.date + '</div>';
+        '<div class="tt-value">' + escTip(tipValue(p.index, opts)) + '</div>' +
+        '<div class="tt-date">' + escTip(p.date) + '</div>';
       tip.hidden = false;
       var pos = viewBoxToWrap(svg, wrap, p.x, p.y);
       placeTip(tip, wrap, pos.x, pos.y);
+      if (typeof opts.onPoint === 'function') opts.onPoint(p);
     }
 
     function clientToIndex(clientX) {

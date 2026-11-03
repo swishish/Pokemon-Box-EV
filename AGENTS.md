@@ -18,6 +18,20 @@ English Base **daily** indexes (1st Edition, Shadowless, Unlimited, Base Set 2) 
 
 English Base **PriceCharting** indexes stay in `data/market-vintage-pc/` and refresh via `update-market-vintage-pc.yml`. They are ungraded `used` prices, monthly, rebased so 2023-01-01 = 1000. Open them at `market-vintage.html#pc/1st` (also shadowless / unlimited / base2). Keep that data and workflow. Do not mix the two anchors.
 
+## Poke Social Weather
+
+Public page `social-weather.html` is a **static** snapshot. Shards stay in `data/social-weather/daily.json` and `data/social-weather/segments.json`. Do not merge them into `data.json`, and do not fold this tape into JP PSA10 or the EN pulse.
+
+Tue / Thu / Sat (**Asia/Shanghai**): append workbook sheets **Daily** and **SegmentDaily**, then overwrite those two JSON files in a follow-up commit. There is no GitHub Action yet.
+
+```bash
+python3 tools/export_social_weather.py --self-test
+```
+
+`--xlsx` refuses to write until a Sheet→JSON exporter is wired. Column mapping, Excel serial → ISO (`46326` = `2026-10-31`), weights (X40 / Reddit25 / YT15 / TCGCharts F&G10 / JP shop10), and the short-tape period rule (with four days, **5D** and **All** only) are in `tools/export_social_weather.py` and `data/social-weather/README.md`.
+
+The page shows the published `score`. It does not render KeywordsDaily, notable comments, buy CTAs, `read_zh` / `sources`, or private digest Target-hit language. Mark **初步** while `meta.preliminary` is true or `n_days` &lt; 10.
+
 ## Weekly Chase_Fit snapshot
 
 Public page `chase-fit.html` is a **static** JSON snapshot. Market pages auto-update via `.github/workflows/update-market-en.yml`; **Chase 公允值 and Box EV do not.**

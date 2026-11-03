@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<title>社交天氣 · Poke Social Weather</title>
+<meta name="description" content="Poke Social Weather 綜合情緒指數（−100…+100）。軟性參考，靜態快照，非正式投資建議。" />
+<meta property="og:site_name" content="日盒開盒值不值？" />
+<meta property="og:title" content="社交天氣 · Poke Social Weather" />
+<meta property="og:description" content="綜合情緒 −100…+100。X／Reddit／YouTube／日店，另列 TCGCharts F&amp;G。靜態快照，不是買賣訊號。" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://swishish.github.io/Pokemon-Box-EV/social-weather.html" />
+<meta property="og:image" content="https://swishish.github.io/Pokemon-Box-EV/og.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content="zh_HK" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="社交天氣 · Poke Social Weather" />
+<meta name="twitter:description" content="綜合情緒 −100…+100。靜態快照，非正式投資建議。" />
+<meta name="twitter:image" content="https://swishish.github.io/Pokemon-Box-EV/og.png" />
+<link rel="canonical" href="https://swishish.github.io/Pokemon-Box-EV/social-weather.html" />
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="./css/freshness-badge.css?v=1.33.6" />
+<style>
+  :root {
+    --bg: #faf6ef;
+    --bg-2: #f3ede1;
+    --card: #fff;
+    --text: #141414;
+    --muted: #5f5a51;
+    --line: #e7dfd0;
+    --ink: #141414;
+    --bw: 2px;
+    --good: #1e9e5a;
+    --good-bg: #d9f3e5;
+    --ok: #b8860b;
+    --ok-bg: #fff3c4;
+    --bad: #c93540;
+    --bad-bg: #fbdfe1;
+    --accent: #3d6fd9;
+    --accent-fill: #ffd23f;
+    --accent-hover: #ffc907;
+    --radius: 12px;
+    --shadow: 4px 4px 0 var(--ink);
+    --shadow-sm: 3px 3px 0 var(--ink);
+    --shadow-xs: 2px 2px 0 var(--ink);
+    --shadow-pressed: 1px 1px 0 var(--ink);
+  }
+  * { box-sizing: border-box; }
+  html { overflow-x: clip; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    background-color: var(--bg);
+    background-image:
+      radial-gradient(1200px 420px at 12% -8%, rgba(255, 210, 63, .22), transparent 55%),
+      radial-gradient(900px 380px at 110% 0%, rgba(79, 134, 247, .12), transparent 50%),
+      repeating-linear-gradient(0deg, transparent, transparent 11px, rgba(20,20,20,.015) 12px);
+    color: var(--text);
+    line-height: 1.5;
+    font-size: 15px;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
+  }
+  body::before {
+    content: "";
+    display: block;
+    height: 4px;
+    background: linear-gradient(90deg, #e4434f 0 34%, #ffd23f 34% 66%, #4f86f7 66%);
+  }
+  header {
+    background: var(--card);
+    border-bottom: var(--bw) solid var(--ink);
+    padding: 10px 16px 10px;
+  }
+  .header-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-width: 1100px;
+    margin: 0 auto;
+    min-width: 0;
+    width: 100%;
+  }
+  .header-top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px 12px;
+    min-width: 0;
+    width: 100%;
+  }
+  header h1 {
+    margin: 0;
+    font-size: 1.08rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    min-width: 0;
+  }
+  .home-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    max-width: 100%;
+    flex-wrap: wrap;
+    color: inherit;
+    text-decoration: none;
+    border-radius: 8px;
+    outline-offset: 3px;
+  }
+  .home-title:hover { color: var(--ink); }
+  .home-title:hover .poke-mark { transform: rotate(-14deg); }
+  .home-title:focus-visible {
+    outline: 2px solid var(--ink);
+    background: var(--accent-fill);
+    box-shadow: var(--shadow-xs);
+  }
+  header p { margin: 3px 0 0; color: var(--muted); font-size: .78rem; }
+  .poke-mark {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid var(--ink);
+    background: linear-gradient(180deg, #e4434f 49%, #fff 51%);
+    position: relative;
+    flex-shrink: 0;
+    box-shadow: 1px 1px 0 var(--ink);
+    transition: transform .12s ease;
+  }
+  .poke-mark::after {
+    content: "";
+    position: absolute;
+    left: 4px; top: 4px;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid var(--ink);
+  }
+  .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: var(--bw) solid var(--ink);
+    background: var(--accent-fill);
+    color: var(--ink);
+    font: inherit;
+    font-size: .75rem;
+    font-weight: 800;
+    padding: 7px 12px;
+    border-radius: 999px;
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+    box-shadow: var(--shadow-xs);
+    transition: box-shadow .1s ease, transform .1s ease, background .1s ease;
+  }
+  .nav-btn:hover { background: var(--accent-hover); }
+  .nav-btn:active { box-shadow: var(--shadow-pressed); transform: translate(1px, 1px); }
+  .nav-btn[aria-current="page"] { background: var(--card); box-shadow: var(--shadow-pressed); }
+  .header-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 6px;
+    max-width: 100%;
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+  .pill {
+    display: inline-block;
+    font-size: .7rem;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: var(--accent-fill);
+    color: var(--ink);
+    border: 1.5px solid var(--ink);
+    font-weight: 800;
+    margin-left: 4px;
+  }
+  .pill.is-prelim {
+    background: var(--ok-bg);
+    margin-left: 0;
+  }
+  .wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 12px 14px 48px;
+  }
+  .card {
+    background: var(--card);
+    border: var(--bw) solid var(--ink);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    min-width: 0;
+  }
+  h2 { margin: 0 0 8px; font-size: .95rem; }
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: 10px;
+  }
+  .hero .card { margin-bottom: 0; }
+  .kicker { font-size: .72rem; color: var(--muted); font-weight: 650; }
+  .kicker-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 8px;
+  }
+  .index-level {
+    font-size: 2.4rem;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-top: 4px;
+  }
+  .score-label {
+    font-size: 1.05rem;
+    font-weight: 800;
+    margin-top: 2px;
+  }
+  .index-chg {
+    font-size: 1.15rem;
+    font-weight: 750;
+    font-variant-numeric: tabular-nums;
+    margin-top: 4px;
+  }
+  .index-chg.good { color: var(--good); }
+  .index-chg.bad { color: var(--bad); }
+  .index-chg.muted { color: var(--muted); }
+  .period-btns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 8px;
+  }
+  .period-btn {
+    font: inherit;
+    font-size: .72rem;
+    font-weight: 800;
+    padding: 5px 9px;
+    border-radius: 999px;
+    border: var(--bw) solid var(--ink);
+    background: var(--card);
+    color: var(--ink);
+    cursor: pointer;
+    box-shadow: var(--shadow-xs);
+  }
+  .period-btn.is-active {
+    background: var(--accent-fill);
+    border-color: var(--ink);
+    color: var(--ink);
+  }
+  .period-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    box-shadow: none;
+    background: var(--bg-2);
+    color: var(--muted);
+  }
+  .period-btn:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+  .spark-wrap {
+    position: relative;
+    margin-top: 8px;
+    min-width: 0;
+    overflow: visible;
+  }
+  .spark {
+    width: 100%;
+    height: 148px;
+    display: block;
+    cursor: crosshair;
+    touch-action: none;
+  }
+  .spark-tip {
+    position: absolute;
+    z-index: 5;
+    pointer-events: none;
+    left: 0;
+    top: 0;
+    background: var(--card);
+    border: var(--bw) solid var(--ink);
+    border-radius: 8px;
+    padding: 6px 10px;
+    box-shadow: var(--shadow-xs);
+    white-space: nowrap;
+  }
+  .spark-tip[hidden] { display: none !important; }
+  .spark-tip .tt-value {
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    font-size: .95rem;
+    line-height: 1.2;
+  }
+  .spark-tip .tt-date {
+    color: var(--muted);
+    font-size: .72rem;
+    margin-top: 2px;
+  }
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .metric {
+    background: var(--bg-2);
+    border: var(--bw) solid var(--ink);
+    border-radius: 8px;
+    padding: 8px 10px;
+    min-width: 0;
+  }
+  .metric .k { font-size: .72rem; color: var(--muted); }
+  .metric .v {
+    font-size: 1.05rem;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+  }
+  .metric .v.good { color: var(--good); }
+  .metric .v.bad { color: var(--bad); }
+  .metric .v.muted { color: var(--muted); }
+  .metric .sub {
+    font-size: .72rem;
+    color: var(--muted);
+    font-weight: 650;
+  }
+  .metric a { color: var(--ink); font-weight: 800; text-decoration: underline; text-underline-offset: 2px; }
+  .metric-wide { grid-column: 1 / -1; }
+  .tiny { font-size: .75rem; color: var(--muted); }
+  .tiny a, .method-card a, .chip { color: var(--ink); font-weight: 700; }
+  .seg {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(8rem, 1.4fr) auto;
+    gap: 6px 12px;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+    min-width: 0;
+  }
+  .seg:last-child { border-bottom: 0; padding-bottom: 0; }
+  .seg-name { font-weight: 800; min-width: 0; }
+  .seg-en {
+    display: block;
+    font-weight: 650;
+    color: var(--muted);
+    font-size: .72rem;
+  }
+  .bar {
+    display: flex;
+    height: 12px;
+    border-radius: 999px;
+    overflow: hidden;
+    background: var(--bg-2);
+    border: 1.5px solid var(--ink);
+    min-width: 0;
+  }
+  .bar .sell { background: var(--bad); }
+  .bar .buy { background: var(--good); }
+  .seg-nums {
+    font-size: .75rem;
+    font-variant-numeric: tabular-nums;
+    margin-top: 4px;
+  }
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .72rem;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 999px;
+    border: 1.5px solid var(--ink);
+    background: var(--bg-2);
+    white-space: nowrap;
+    justify-self: end;
+  }
+  .tag.bad { background: var(--bad-bg); }
+  .tag.good { background: var(--good-bg); }
+  .tag.ok { background: var(--ok-bg); }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 14px;
+    margin: 0 0 4px;
+  }
+  .swatch {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border: 1.5px solid var(--ink);
+    border-radius: 2px;
+    margin-right: 4px;
+    vertical-align: -1px;
+  }
+  .swatch.sell { background: var(--bad); }
+  .swatch.buy { background: var(--good); }
+  .chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 32px;
+    font-size: .78rem;
+    text-decoration: none;
+    border: var(--bw) solid var(--ink);
+    border-radius: 999px;
+    padding: 4px 12px;
+    background: var(--card);
+    box-shadow: var(--shadow-xs);
+  }
+  .chip:hover { background: var(--accent-fill); }
+  .method-card summary {
+    cursor: pointer;
+    font-weight: 800;
+    list-style: none;
+  }
+  .method-card summary::-webkit-details-marker { display: none; }
+  .method-card summary::before { content: "▸ "; }
+  .method-card[open] summary::before { content: "▾ "; }
+  .method-card ul { margin: 8px 0 0; padding-left: 1.1rem; color: var(--muted); }
+  .method-card li { margin: 0.35em 0; }
+  .disclaimer {
+    font-size: .8rem;
+    color: var(--muted);
+    background: var(--bg-2);
+    border: var(--bw) solid var(--ink);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+  .disclaimer p { margin: 0; }
+  .disclaimer p + p { margin-top: 0.55em; }
+  .stack-gap { margin-top: 12px; }
+  footer { text-align: center; color: var(--muted); font-size: .75rem; padding: 8px 16px 24px; }
+  footer a { color: var(--ink); font-weight: 700; }
+  .err { color: var(--bad); padding: 20px; line-height: 1.55; }
+  .err .err-hint { color: var(--text); font-size: .92rem; margin-top: 8px; display: block; }
+  @media (max-width: 720px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero .card { margin-bottom: 0; }
+    header { padding: 8px 12px 8px; }
+    .header-nav { justify-content: flex-start; }
+    .nav-btn { font-size: .68rem; padding: 5px 9px; }
+    .wrap { padding: 10px 12px 48px; }
+    .index-level { font-size: 2rem; }
+    .period-btn { padding: 6px 9px; }
+    .seg { grid-template-columns: 1fr; }
+    .tag { justify-self: start; }
+    .metrics { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <div class="header-top">
+      <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.33.6</span></h1>
+      <nav class="header-nav" aria-label="站內導覽">
+        <a class="nav-btn" href="./calc.html">開盒 EV</a>
+        <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
+        <a class="nav-btn" href="./market-jp-psa10-bench.html" title="日版 PSA10 廣度基準（復古／中世代／現行）">JP 基準</a>
+        <a class="nav-btn" href="./market-en.html" title="English raw singles market pulse">EN 市況</a>
+        <a class="nav-btn" href="./social-weather.html" aria-current="page" title="Poke Social Weather composite">社交天氣</a>
+        <a class="nav-btn" href="./market-vintage.html" title="Base Set 1st / Shadowless / Unlimited，另有 PriceCharting 月線含 Base Set 2">Base 復古</a>
+        <a class="nav-btn" href="./market-midera.html" title="DP → SM chase Top 50 raw index">中世代</a>
+        <a class="nav-btn" href="./market-base-psa-pop.html" title="英文 Base Set 1st / Shadowless / Unlimited / Base Set 2 PSA POP">Base POP</a>
+        <a class="nav-btn" href="https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/" title="Base Set Unlimited cheat sheet">Base Unlimited</a>
+      </nav>
+    </div>
+    <p>社交天氣 · Poke Social Weather · 綜合情緒 −100…+100 · 靜態快照</p>
+    <div class="fresh-badge" id="freshBadge" role="status" aria-live="polite">
+      <span class="fresh-kicker">靜態快照</span>
+      <span class="fresh-body">快照日期未載入</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap" id="app">
+  <div class="hero">
+    <div class="card">
+      <div class="kicker-row">
+        <div class="kicker" id="heroKicker">Poke Social Weather · 綜合</div>
+        <span class="pill is-prelim" id="prelimPill" hidden>初步 Preliminary</span>
+      </div>
+      <div class="index-level" id="indexLevel">—</div>
+      <div class="score-label" id="scoreLabel"></div>
+      <div class="index-chg muted" id="indexChg">載入中…</div>
+      <p class="tiny" id="heroMeta" style="margin:6px 0 0"></p>
+      <div class="period-btns" id="periodBtns" role="tablist" aria-label="圖表期間">
+        <button type="button" class="period-btn" data-period="5D" aria-selected="false">5D</button>
+        <button type="button" class="period-btn" data-period="10D" aria-selected="false">10D</button>
+        <button type="button" class="period-btn" data-period="30D" aria-selected="false">30D</button>
+        <button type="button" class="period-btn" data-period="YTD" aria-selected="false">YTD</button>
+        <button type="button" class="period-btn" data-period="ALL" aria-selected="false">All</button>
+      </div>
+      <div class="spark-wrap" id="sparkWrap">
+        <svg class="spark" id="spark" viewBox="0 0 320 100" hidden aria-hidden="true"></svg>
+        <div class="spark-tip" id="sparkTip" hidden role="status"></div>
+      </div>
+      <p class="tiny" id="chartNote" style="margin:8px 0 0"></p>
+    </div>
+    <div class="card">
+      <h2>四軸 <span class="tiny" id="axisDate"></span></h2>
+      <div class="metrics" id="axisMetrics"></div>
+      <p class="tiny" id="axisNote" style="margin:8px 0 0">X／Reddit／YT／日店是 −100…+100。TCGCharts F&amp;G 是外部 0–100 原值。</p>
+    </div>
+  </div>
+
+  <div class="card stack-gap" id="segmentsCard">
+    <h2>板塊 <span class="tiny" id="segDate"></span></h2>
+    <p class="legend tiny">
+      <span><i class="swatch sell" aria-hidden="true"></i>賣方 seller%</span>
+      <span><i class="swatch buy" aria-hidden="true"></i>買方 buyer%</span>
+    </p>
+    <div id="segList"></div>
+  </div>
+
+  <div class="card" id="bookmarks">
+    <h2>外部書籤</h2>
+    <nav class="chip-row" id="bookmarkRow" aria-label="外部書籤"></nav>
+  </div>
+
+  <details class="card method-card" id="method">
+    <summary>方法論 Methodology</summary>
+    <ul class="tiny" id="methodList"></ul>
+  </details>
+
+  <div class="disclaimer" id="disclaimer">
+    <p id="disclaimerText">載入中…</p>
+    <p>數字是第三方社交與店頭情緒的靜態整理，可能延遲或不準。Pokémon 與相關名稱為其權利人商標。本頁為獨立粉絲工具。</p>
+  </div>
+</main>
+<footer>日盒 EV 小算盤 · Poke Social Weather · Snapshot 靜態資料 · 非正式投資建議 · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10-bench.html">JP 基準</a> · <a href="./market-base-psa-pop.html">Base POP</a></footer>
+
+<script src="./js/freshness-badge.js?v=1.33.6"></script>
+<script src="./js/spark-tip.js?v=sw1"></script>
+<script>
+(async function () {
+  const VERSION = 'sw1';
+  const PERIODS = ['5D', '10D', '30D', 'YTD', 'ALL'];
+  const SEGMENTS = [
+    { id: '30th_modern_sealed', zh: '30th 現行密封', en: '30th modern sealed' },
+    { id: 'mid_era_scarce_promo', zh: '中世代稀缺特典', en: 'Mid-era scarce promo' },
+    { id: 'vintage_lowpop', zh: '復古低人口', en: 'Vintage low-pop' },
+    { id: 'graded_chase_psa10', zh: '評級 Chase PSA10', en: 'Graded chase PSA10' },
+    { id: 'jp_shop_tape', zh: '日店買取', en: 'JP shop tape' }
+  ];
+  const BALANCE = {
+    seller_heavy: { zh: '賣方偏重', en: 'Seller-heavy', cls: 'bad' },
+    seller_soft: { zh: '賣方略軟', en: 'Seller-soft', cls: 'ok' },
+    balanced: { zh: '均衡', en: 'Balanced', cls: '' },
+    buyer_heavy: { zh: '買方偏重', en: 'Buyer-heavy', cls: 'good' }
+  };
+  const $ = (id) => document.getElementById(id);
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, (ch) => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    })[ch]);
+  }
+  function addDaysYmd(ymd, delta) {
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(ymd || '');
+    if (!m) return null;
+    const dt = new Date(Date.UTC(Number(m[1]), Number(m[2]) - 1, Number(m[3])));
+    dt.setUTCDate(dt.getUTCDate() + delta);
+    const y = dt.getUTCFullYear();
+    const mo = String(dt.getUTCMonth() + 1).padStart(2, '0');
+    const d = String(dt.getUTCDate()).padStart(2, '0');
+    return y + '-' + mo + '-' + d;
+  }
+  function daysBetween(a, b) {
+    const am = /^(\d{4})-(\d{2})-(\d{2})$/.exec(a || '');
+    const bm = /^(\d{4})-(\d{2})-(\d{2})$/.exec(b || '');
+    if (!am || !bm) return NaN;
+    const au = Date.UTC(Number(am[1]), Number(am[2]) - 1, Number(am[3]));
+    const bu = Date.UTC(Number(bm[1]), Number(bm[2]) - 1, Number(bm[3]));
+    return Math.round((bu - au) / 86400000);
+  }
+  function fmtScore(n) {
+    if (n == null || Number.isNaN(Number(n))) return '—';
+    const v = Number(n);
+    const body = Number.isInteger(v) ? String(Math.abs(v)) : Math.abs(v).toFixed(1);
+    if (v > 0) return '+' + body;
+    if (v < 0) return '−' + body;
+    return '0';
+  }
+  function scoreClass(n) {
+    if (n == null || Number.isNaN(Number(n)) || Number(n) === 0) return 'muted';
+    return Number(n) > 0 ? 'good' : 'bad';
+  }
+  function periodWindow(period, dates) {
+    if (!dates.length || dates.length < 2) {
+      return { available: false, start: null, end: dates[0] || null, reason: '至少需要兩個點' };
+    }
+    const first = dates[0];
+    const last = dates[dates.length - 1];
+    if (period === 'ALL') {
+      return { available: true, start: first, end: last, reason: '' };
+    }
+    let start = null;
+    if (period === 'YTD') start = last.slice(0, 4) + '-01-01';
+    else if (period === '5D' || period === '10D' || period === '30D') {
+      const n = { '5D': 5, '10D': 10, '30D': 30 }[period];
+      start = addDaysYmd(last, -(n - 1));
+    }
+    if (!start) return { available: false, start: null, end: last, reason: '未知期間' };
+    const span = daysBetween(first, last) + 1;
+    const inWin = dates.filter((d) => d >= start && d <= last);
+    const reaches = first <= start;
+    const short5 = period === '5D' && span <= 5;
+    const available = inWin.length >= 2 && (reaches || short5);
+    const reason = available
+      ? ''
+      : ('歷史由 ' + first + ' 起，這個視窗要 ' + start + ' 或更早');
+    return { available: available, start: start, end: last, reason: reason };
+  }
+
+  async function loadJson(rel) {
+    const url = new URL(rel, document.baseURI || window.location.href);
+    url.searchParams.set('v', VERSION);
+    try {
+      const res = await fetch(url.href, { cache: 'no-store' });
+      if (!res.ok) return { ok: false, status: res.status, url: url.href, data: null };
+      return { ok: true, status: res.status, url: url.href, data: await res.json() };
+    } catch (e) {
+      return { ok: false, status: 0, url: url.href, data: null, err: e && e.message };
+    }
+  }
+  function showLoadError(res) {
+    const app = $('app');
+    if (!app) return;
+    const status = res && res.status ? ('HTTP ' + res.status) : ((res && res.err) || '沒有回應');
+    const where = res && res.url ? res.url : './data/social-weather/daily.json';
+    app.innerHTML =
+      '<p class="err"><b>載入失敗：找不到社交天氣資料。</b>' +
+      '<span class="err-hint">抓取 ' + escapeHtml(where) + ' → ' + escapeHtml(status) + '。</span></p>';
+  }
+
+  const dailyRes = await loadJson('./data/social-weather/daily.json');
+  const segRes = await loadJson('./data/social-weather/segments.json');
+  if (!dailyRes.ok || !dailyRes.data || !Array.isArray(dailyRes.data.daily)) {
+    showLoadError(dailyRes);
+    return;
+  }
+  if (!segRes.ok || !segRes.data || !Array.isArray(segRes.data.segments)) {
+    showLoadError(segRes);
+    return;
+  }
+
+  const meta = dailyRes.data.meta || {};
+  const rows = dailyRes.data.daily.slice().filter((r) => r && r.date).sort((a, b) => (
+    String(a.date) < String(b.date) ? -1 : String(a.date) > String(b.date) ? 1 : 0
+  ));
+  const byDate = {};
+  rows.forEach((r) => { byDate[r.date] = r; });
+  const dates = rows.map((r) => r.date);
+  const latest = (meta.as_of && byDate[meta.as_of]) || rows[rows.length - 1];
+  const latestIdx = rows.indexOf(latest);
+  const prior = latestIdx > 0 ? rows[latestIdx - 1] : null;
+  const tz = meta.timezone || 'Asia/Shanghai';
+  const nDays = rows.length;
+  const preliminary = meta.preliminary === true || nDays < 10;
+  const segRows = segRes.data.segments;
+  const segByDate = {};
+  segRows.forEach((r) => {
+    if (!r || !r.date || !r.segment) return;
+    if (!segByDate[r.date]) segByDate[r.date] = {};
+    segByDate[r.date][r.segment] = r;
+  });
+
+  if (window.FreshBadge) {
+    FreshBadge.show({ label: '社交天氣', raw: latest && latest.date, staleAfter: 8, cmp: 'gt' });
+  }
+
+  const state = { period: 'ALL', selected: latest ? latest.date : null };
+
+  function renderHero() {
+    if (!latest) return;
+    $('indexLevel').textContent = fmtScore(latest.score);
+    $('scoreLabel').textContent = latest.label || '—';
+    const chg = $('indexChg');
+    if (!prior || prior.score == null || latest.score == null) {
+      chg.className = 'index-chg muted';
+      chg.textContent = '尚無前一日';
+    } else {
+      const delta = Number(latest.score) - Number(prior.score);
+      chg.className = 'index-chg ' + scoreClass(delta);
+      chg.textContent = fmtScore(delta) + ' 較 ' + prior.date;
+    }
+    const posts = latest.n_posts == null ? '帖數 —' : (latest.n_posts + ' 則');
+    $('heroMeta').textContent = (latest.date || '—') + ' · ' + tz + ' · ' + posts + ' · ' + nDays + ' 日';
+    const pill = $('prelimPill');
+    if (preliminary) {
+      pill.hidden = false;
+      pill.title = '目前 ' + nDays + ' 日，區間按鈕會在歷史夠長後解鎖';
+    } else {
+      pill.hidden = true;
+    }
+  }
+
+  function pointsFor(period) {
+    const win = periodWindow(period, dates);
+    if (!win.available) return [];
+    return rows.filter((r) => r.date >= win.start && r.date <= win.end && r.score != null).map((r) => ({
+      date: r.date,
+      index: Number(r.score)
+    }));
+  }
+
+  function paintPeriods() {
+    document.querySelectorAll('#periodBtns .period-btn').forEach((btn) => {
+      const p = btn.getAttribute('data-period');
+      const win = periodWindow(p, dates);
+      const on = state.period === p && win.available;
+      btn.disabled = !win.available;
+      btn.classList.toggle('is-active', on);
+      btn.setAttribute('aria-selected', on ? 'true' : 'false');
+      btn.title = win.available
+        ? (win.start + ' → ' + win.end)
+        : (win.reason || '需要更長的歷史');
+    });
+  }
+
+  function chartNote(period) {
+    const win = periodWindow(period, dates);
+    const n = pointsFor(period).length;
+    const picked = state.selected && byDate[state.selected]
+      ? ('選中 ' + state.selected + ' · ' + fmtScore(byDate[state.selected].score))
+      : '';
+    if (!win.available) {
+      $('chartNote').textContent = win.reason || '';
+      return;
+    }
+    $('chartNote').textContent =
+      win.start + ' → ' + win.end + ' · ' + n + ' 點 · 虛線是 0 · 懸停或點選看當日分數'
+      + (picked ? ' · ' + picked : '');
+  }
+
+  function draw() {
+    const spark = $('spark');
+    const pts = pointsFor(state.period);
+    if (typeof SparkTip === 'undefined') return;
+    const lastScore = pts.length ? pts[pts.length - 1].index : 0;
+    SparkTip.draw(spark, pts, {
+      color: lastScore < 0 ? '#c93540' : (lastScore > 0 ? '#1e9e5a' : '#5f5a51'),
+      ariaLabel: '社交天氣綜合分走勢，可懸停或點選看日期與分數',
+      yMin: 0,
+      yMax: 0,
+      guides: [0],
+      formatValue: fmtScore,
+      onPoint: (p) => selectDate(p.date)
+    });
+    chartNote(state.period);
+  }
+
+  function renderAxes(row) {
+    const host = $('axisMetrics');
+    if (!row) {
+      host.innerHTML = '';
+      $('axisDate').textContent = '';
+      return;
+    }
+    $('axisDate').textContent = row.date || '';
+    const axes = row.axes || {};
+    const cells = [
+      { k: 'X', v: axes.x, cls: scoreClass(axes.x), text: fmtScore(axes.x) },
+      { k: 'Reddit', v: axes.reddit, cls: scoreClass(axes.reddit), text: fmtScore(axes.reddit) },
+      { k: 'YT', v: axes.yt, cls: scoreClass(axes.yt), text: fmtScore(axes.yt) },
+      { k: 'JP shop', v: axes.jp_shop, cls: scoreClass(axes.jp_shop), text: fmtScore(axes.jp_shop) }
+    ];
+    const fgHref = (meta.links && meta.links.tcgcharts_fg) || 'https://tcgcharts.com/charts/fear-and-greed-index';
+    const fgText = row.ext_fg == null ? '—' : String(row.ext_fg);
+    host.innerHTML = cells.map((c) => (
+      '<div class="metric"><div class="k">' + escapeHtml(c.k) + '</div>' +
+      '<div class="v ' + c.cls + '">' + escapeHtml(c.text) + '</div></div>'
+    )).join('') +
+      '<div class="metric metric-wide"><div class="k">TCGCharts F&amp;G · 0–100</div>' +
+      '<div class="v"><a href="' + escapeHtml(fgHref) + '" target="_blank" rel="noopener">' +
+      escapeHtml(fgText) + '</a></div>' +
+      '<div class="sub">外部參考</div></div>';
+  }
+
+  function renderSegments(date) {
+    $('segDate').textContent = date || '';
+    const day = segByDate[date] || {};
+    $('segList').innerHTML = SEGMENTS.map((seg) => {
+      const row = day[seg.id];
+      if (!row) {
+        return '<div class="seg"><div class="seg-name">' + escapeHtml(seg.zh) +
+          '<span class="seg-en">' + escapeHtml(seg.en) + '</span></div>' +
+          '<div class="tiny">這日沒有這條板塊</div><span class="tag">—</span></div>';
+      }
+      const seller = Number(row.seller_pct);
+      const buyer = Number(row.buyer_pct);
+      const tot = (Number.isFinite(seller) ? seller : 0) + (Number.isFinite(buyer) ? buyer : 0);
+      const sw = tot > 0 ? (seller / tot) * 100 : 0;
+      const bw = tot > 0 ? (buyer / tot) * 100 : 0;
+      const bal = BALANCE[row.balance] || { zh: String(row.balance || '—'), en: '', cls: '' };
+      const tag = bal.en ? (bal.zh + '／' + bal.en) : bal.zh;
+      return '<div class="seg">' +
+        '<div class="seg-name">' + escapeHtml(seg.zh) +
+        '<span class="seg-en">' + escapeHtml(seg.en) + '</span></div>' +
+        '<div><div class="bar" role="img" aria-label="賣方 ' + seller + '%，買方 ' + buyer + '%">' +
+        '<div class="sell" style="width:' + sw.toFixed(1) + '%"></div>' +
+        '<div class="buy" style="width:' + bw.toFixed(1) + '%"></div></div>' +
+        '<div class="seg-nums tiny">賣 ' + escapeHtml(String(row.seller_pct)) + '% · 買 ' +
+        escapeHtml(String(row.buyer_pct)) + '%</div></div>' +
+        '<span class="tag ' + bal.cls + '">' + escapeHtml(tag) + '</span></div>';
+    }).join('');
+  }
+
+  function selectDate(date) {
+    if (!date || !byDate[date] || state.selected === date) {
+      if (date && state.selected === date) chartNote(state.period);
+      return;
+    }
+    state.selected = date;
+    renderAxes(byDate[date]);
+    renderSegments(date);
+    chartNote(state.period);
+  }
+
+  function applyPeriod(period) {
+    const win = periodWindow(period, dates);
+    if (win.available) state.period = period;
+    paintPeriods();
+    if (!win.available) {
+      chartNote(period);
+      return;
+    }
+    const shown = pointsFor(period).map((p) => p.date);
+    if (!shown.includes(state.selected)) selectDate(shown[shown.length - 1]);
+    draw();
+  }
+
+  function renderBookmarks() {
+    const links = meta.links || {};
+    const items = [
+      { href: links.tcgcharts_fg, label: 'TCGCharts F&G' },
+      { href: links.oplog, label: 'OP.LOG Pokémon' },
+      { href: links.toregyara_fg, label: 'Toregyara Fear & Greed (EN)' }
+    ].filter((item) => item.href);
+    $('bookmarkRow').innerHTML = items.map((item) => (
+      '<a class="chip" href="' + escapeHtml(item.href) + '" target="_blank" rel="noopener">' +
+      escapeHtml(item.label) + '</a>'
+    )).join('');
+  }
+
+  function renderMethod() {
+    const w = meta.weights || {};
+    const pct = (k) => Math.round(Number(w[k] || 0) * 100);
+    $('methodList').innerHTML = [
+      '<b>刻度</b>：綜合分 −100…+100。頁面顯示 <code>daily.json</code> 已發布的 <b>score</b>，不在瀏覽器重算。',
+      '<b>權重</b>：X ' + pct('x') + '／Reddit ' + pct('reddit') + '／YouTube ' + pct('yt') +
+        '／TCGCharts F&amp;G ' + pct('tcgcharts_fg') + '／日店 ' + pct('jp_shop') + '。',
+      '<b>F&amp;G</b>：外部指數是 0–100。加進綜合分之前先換成 (F&amp;G − 50) × 2，再乘 10% 權重，最後四捨五入到整數。軸上另顯示 0–100 原值，並連到 TCGCharts。',
+      '<b>日期</b>：' + escapeHtml(tz) + ' 日曆日。更新節奏是週二／四／六。本頁是靜態檔，不會自己抓帖。',
+      '<b>圖表期間</b>：5D／10D／30D 是含最新一日的日曆窗。視窗起點之前沒有點就停用。整段歷史仍短於 5 日時，5D 與 All 可以一齊用。YTD 要有該年 1 月 1 日或更早的點。All 畫出已有的點（至少兩點才成線）。缺日不補、不發明分數。',
+      '<b>板塊</b>：選中那一日的五條 seller%／buyer% 與 balance 標籤，讀 <code>segments.json</code>。',
+      '<b>不收錄</b>：關鍵字明細、留言摘錄、購買按鈕、私人 digest 的 Target-hit 用語。'
+    ].map((li) => '<li>' + li + '</li>').join('');
+  }
+
+  function renderDisclaimer() {
+    const published = meta.disclaimer
+      || 'Soft social/market-mood input only — not a buy/sell signal. Snapshot data, not live.';
+    const lead = '軟性社交／市況情緒，只供參考，不是買賣訊號。靜態快照，不是即時行情。';
+    const extra = preliminary ? ('目前 ' + nDays + ' 日，標為初步。') : '';
+    $('disclaimerText').textContent = [lead, extra, published].filter(Boolean).join(' ');
+  }
+
+  $('periodBtns').addEventListener('click', (e) => {
+    const btn = e.target.closest('.period-btn');
+    if (!btn || btn.disabled) return;
+    const p = btn.getAttribute('data-period');
+    if (!PERIODS.includes(p)) return;
+    applyPeriod(p);
+  });
+
+  renderHero();
+  renderBookmarks();
+  renderMethod();
+  renderDisclaimer();
+  paintPeriods();
+  if (latest) {
+    renderAxes(latest);
+    renderSegments(latest.date);
+  }
+  const initial = periodWindow('ALL', dates).available ? 'ALL' : (periodWindow('5D', dates).available ? '5D' : 'ALL');
+  applyPeriod(initial);
+})();
+</script>
+<!-- Cloudflare Web Analytics -->
+<script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "fbc85129b2ed406389d1b0f23dcbda78"}'></script>
+<!-- End Cloudflare Web Analytics -->
+</body>
+</html>
