@@ -552,27 +552,66 @@
     });
     state.laid = laid;
 
+    (opts.bands || []).forEach(function (b) {
+      if (!b) return;
+      var a = Number(b.from);
+      var c = Number(b.to);
+      if (Number.isNaN(a) || Number.isNaN(c)) return;
+      var lo = Math.max(min, Math.min(a, c));
+      var hi = Math.min(max, Math.max(a, c));
+      if (!(hi > lo)) return;
+      var yHi = yOf(hi);
+      var yLo = yOf(lo);
+      svg.appendChild(mk('rect', {
+        x: String(PAD),
+        y: Math.min(yHi, yLo).toFixed(2),
+        width: String(W - PAD * 2),
+        height: Math.abs(yLo - yHi).toFixed(2),
+        fill: b.fill || 'rgba(201,53,64,0.12)'
+      }));
+    });
+
+    if (opts.fillTo != null && !Number.isNaN(Number(opts.fillTo))) {
+      var base = Number(opts.fillTo);
+      if (base >= min && base <= max && laid.length) {
+        var by = yOf(base);
+        var poly = laid.map(function (p) {
+          return p.x.toFixed(1) + ',' + p.y.toFixed(1);
+        });
+        poly.push(laid[laid.length - 1].x.toFixed(1) + ',' + by.toFixed(1));
+        poly.push(laid[0].x.toFixed(1) + ',' + by.toFixed(1));
+        svg.appendChild(mk('polygon', {
+          points: poly.join(' '),
+          fill: opts.fill || color,
+          opacity: opts.fillOpacity != null ? String(opts.fillOpacity) : '0.22',
+          stroke: 'none'
+        }));
+      }
+    }
+
     (opts.guides || []).forEach(function (g) {
       var gy = Number(g);
       if (Number.isNaN(gy) || gy < min || gy > max) return;
       var y = yOf(gy);
-      svg.appendChild(mk('line', {
+      var emphasize = opts.emphasizeZero === true && gy === 0;
+      var attrs = {
         x1: String(PAD),
         x2: String(W - PAD),
         y1: y.toFixed(1),
         y2: y.toFixed(1),
-        stroke: '#5f5a51',
-        'stroke-width': '1',
-        'stroke-dasharray': '3 3',
+        stroke: emphasize ? '#141414' : '#5f5a51',
+        'stroke-width': emphasize ? '1.75' : '1',
         'vector-effect': 'non-scaling-stroke',
-        opacity: '0.75'
-      }));
+        opacity: emphasize ? '1' : '0.75'
+      };
+      if (!emphasize) attrs['stroke-dasharray'] = '3 3';
+      svg.appendChild(mk('line', attrs));
     });
 
     svg.appendChild(mk('polyline', {
       fill: 'none',
       stroke: color,
-      'stroke-width': '2',
+      'stroke-width': opts.strokeWidth != null ? String(opts.strokeWidth) : '2',
       'stroke-linejoin': 'round',
       'stroke-linecap': 'round',
       'vector-effect': 'non-scaling-stroke',

@@ -278,6 +278,32 @@
     outline: 2px solid var(--ink);
     outline-offset: 2px;
   }
+  .plot {
+    display: flex;
+    align-items: stretch;
+    gap: 4px;
+    margin-top: 8px;
+    min-width: 0;
+  }
+  .y-scale {
+    position: relative;
+    flex: 0 0 2.35rem;
+    font-size: .62rem;
+    font-weight: 750;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .y-scale span {
+    position: absolute;
+    right: 0;
+    transform: translateY(-50%);
+    line-height: 1;
+  }
+  .y-scale .is-zero {
+    color: var(--ink);
+    font-weight: 800;
+  }
+  .plot .spark-wrap { flex: 1 1 auto; margin-top: 0; }
   .spark-wrap {
     position: relative;
     margin-top: 8px;
@@ -404,6 +430,19 @@
   .tag.bad { background: var(--bad-bg); }
   .tag.good { background: var(--good-bg); }
   .tag.ok { background: var(--ok-bg); }
+  .band-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 10px;
+    margin: 6px 0 0;
+    font-size: .68rem;
+    font-weight: 700;
+    color: var(--muted);
+  }
+  .band-legend .swatch.deep-bear { background: rgba(201, 53, 64, .42); }
+  .band-legend .swatch.mild-bear { background: rgba(201, 53, 64, .16); }
+  .band-legend .swatch.mild-bull { background: rgba(30, 158, 90, .18); }
+  .band-legend .swatch.deep-bull { background: rgba(30, 158, 90, .42); }
   .legend {
     display: flex;
     flex-wrap: wrap;
@@ -476,6 +515,7 @@
     #heroMeta, #chartNote { font-size: .68rem; }
     .period-btn { font-size: .64rem; padding: 3px 7px; }
     .chart-card .spark-wrap .spark { height: 300px; }
+    .y-scale { flex-basis: 2.05rem; font-size: .58rem; }
     .seg { grid-template-columns: 1fr; }
     .tag { justify-self: start; }
   }
@@ -524,11 +564,26 @@
         <button type="button" class="period-btn" data-period="YTD" aria-selected="false">YTD</button>
         <button type="button" class="period-btn" data-period="ALL" aria-selected="false">All</button>
       </div>
-      <div class="spark-wrap" id="sparkWrap">
-        <svg class="spark" id="spark" viewBox="0 0 320 100" hidden aria-hidden="true"></svg>
-        <div class="spark-tip" id="sparkTip" hidden role="status"></div>
+      <div class="plot">
+        <div class="y-scale" aria-hidden="true">
+          <span style="top:8%">+100</span>
+          <span style="top:33.2%">+40</span>
+          <span class="is-zero" style="top:50%">0</span>
+          <span style="top:66.8%">−40</span>
+          <span style="top:92%">−100</span>
+        </div>
+        <div class="spark-wrap" id="sparkWrap">
+          <svg class="spark" id="spark" viewBox="0 0 320 100" hidden aria-hidden="true"></svg>
+          <div class="spark-tip" id="sparkTip" hidden role="status"></div>
+        </div>
       </div>
-      <p class="tiny" id="chartNote" style="margin:8px 0 0"></p>
+      <p class="band-legend" aria-label="色帶">
+        <span><i class="swatch deep-bear" aria-hidden="true"></i>深熊 ≤ −40</span>
+        <span><i class="swatch mild-bear" aria-hidden="true"></i>偏陰 −40…0</span>
+        <span><i class="swatch mild-bull" aria-hidden="true"></i>偏陽 0…+40</span>
+        <span><i class="swatch deep-bull" aria-hidden="true"></i>深牛 ≥ +40</span>
+      </p>
+      <p class="tiny" id="chartNote" style="margin:6px 0 0"></p>
     </div>
     <div class="card">
       <h2>四軸 <span class="tiny" id="axisDate"></span></h2>
@@ -564,7 +619,7 @@
 <footer>日盒 EV 小算盤 · Poke Social Weather · Snapshot 靜態資料 · 非正式投資建議 · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10-bench.html">JP 基準</a> · <a href="./market-base-psa-pop.html">Base POP</a></footer>
 
 <script src="./js/freshness-badge.js?v=1.33.6"></script>
-<script src="./js/spark-tip.js?v=sw1"></script>
+<script src="./js/spark-tip.js?v=sw2"></script>
 <script>
 (async function () {
   const VERSION = 'sw1';
@@ -763,7 +818,7 @@
       return;
     }
     $('chartNote').textContent =
-      win.start + ' → ' + win.end + ' · ' + n + ' 點 · 虛線是 0 · 懸停或點選看當日分數'
+      win.start + ' → ' + win.end + ' · ' + n + ' 點 · 實線是 0 · 刻度 −100…+100 · 懸停或點選看當日分數'
       + (picked ? ' · ' + picked : '');
   }
 
@@ -774,10 +829,20 @@
     const lastScore = pts.length ? pts[pts.length - 1].index : 0;
     SparkTip.draw(spark, pts, {
       color: lastScore < 0 ? '#c93540' : (lastScore > 0 ? '#1e9e5a' : '#5f5a51'),
-      ariaLabel: 'Sentiment Index 走勢，可懸停或點選看日期與分數',
-      yMin: 0,
-      yMax: 0,
+      ariaLabel: 'Sentiment Index 走勢，固定刻度 −100 到 +100，實線是 0。可懸停或點選看日期與分數',
+      yMin: -100,
+      yMax: 100,
+      bands: [
+        { from: -100, to: -40, fill: 'rgba(201,53,64,0.20)' },
+        { from: -40, to: 0, fill: 'rgba(201,53,64,0.07)' },
+        { from: 0, to: 40, fill: 'rgba(30,158,90,0.08)' },
+        { from: 40, to: 100, fill: 'rgba(30,158,90,0.20)' }
+      ],
       guides: [0],
+      emphasizeZero: true,
+      fillTo: 0,
+      fillOpacity: 0.28,
+      strokeWidth: 2.25,
       formatValue: fmtScore,
       onPoint: (p) => selectDate(p.date)
     });
@@ -880,7 +945,7 @@
     const w = meta.weights || {};
     const pct = (k) => Math.round(Number(w[k] || 0) * 100);
     $('methodList').innerHTML = [
-      '<b>刻度</b>：綜合分 −100…+100。頁面顯示 <code>daily.json</code> 已發布的 <b>score</b>，不在瀏覽器重算。',
+      '<b>刻度</b>：綜合分 −100…+100，圖表用滿這個刻度。實線是 0。色帶：≤ −40 深熊、−40…0 偏陰、0…+40 偏陽、≥ +40 深牛。頁面顯示 <code>daily.json</code> 已發布的 <b>score</b>，不在瀏覽器重算。',
       '<b>權重</b>：X ' + pct('x') + '／Reddit ' + pct('reddit') + '／YouTube ' + pct('yt') +
         '／TCGCharts F&amp;G ' + pct('tcgcharts_fg') + '／日店 ' + pct('jp_shop') + '。',
       '<b>F&amp;G</b>：外部指數是 0–100。加進綜合分之前先換成 (F&amp;G − 50) × 2，再乘 10% 權重，最後四捨五入到整數。軸上另顯示 0–100 原值，並連到 TCGCharts。',
