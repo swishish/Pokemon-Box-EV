@@ -24,6 +24,8 @@ Chase 公允值（PSA10 回歸散點）：**https://swishish.github.io/Pokemon-B
 
 日版 PSA10 基準（復古／中世代／現行，N 跟篩選浮動；同頁 EN Base 是監察／旁路）：**https://swishish.github.io/Pokemon-Box-EV/market-jp-psa10-bench.html**
 
+社交天氣（Poke Social Weather，綜合情緒 −100…+100，靜態快照）：**https://swishish.github.io/Pokemon-Box-EV/social-weather.html**
+
 舊網址 `market-jp-psa10.html`（約 60 張 SV chase 袖）會轉到上面的 JP 基準，不再是另一條溫度計。
 
 姊妹站 Base Unlimited（Base Set Unlimited 速查）：**https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/**（頂欄外連，唔喺本 repo）
@@ -282,7 +284,23 @@ python3 tools/refresh_market_jp_psa10_bench.py -v
 
 GitHub Action **Update JP PSA10 broad benchmark** 每晚重算權重、季度重組名單；PR 只跑 self-test。詳見 `data/market-jp-psa10-bench/README.md`。
 
+## 社交天氣 Poke Social Weather
+
+公開頁 `social-weather.html`。資料在 `data/social-weather/daily.json` 與 `segments.json`，不寫進 `data.json`，也不併入 JP 基準或 EN 市況。
+
+綜合分 −100…+100，權重 X 40／Reddit 25／YouTube 15／TCGCharts F&G 10／日店 10。頁面顯示已發布的 `score`。F&G 在軸上另以 0–100 原值連到 TCGCharts。板塊是當日五條 seller%／buyer%。
+
+更新節奏是週二／四／六（Asia/Shanghai）：在工作表 Daily、SegmentDaily 追加後，覆寫這兩個 JSON。匯出管線尚未接上；欄位對照與 `--self-test` 見 `tools/export_social_weather.py` 與 `data/social-weather/README.md`。
+
+```bash
+python3 tools/export_social_weather.py --self-test
+```
+
+這是軟性情緒輸入，不是買賣訊號。日數少的時候頁面標 **初步**。
+
 ## Changelog（摘要）
+
+- **社交天氣**：新增 `social-weather.html`（綜合分、5D／10D／30D／YTD／All、四軸與 TCGCharts F&G、五條板塊）。種子是 2026-10-31…11-03（−15／−14／−15／−25）。首頁「市場觀察」加入口。開盒 EV、Chase、各市況指數的算法與排程不變
 
 - **v1.33.6**：算盤主結果、頂欄回收比例、系列清單紅綠燈改為 **100% Grade A（買入價）**（不做稀有度折扣）。Grade A（打折）、A+PSA、A+CGC 一直顯示在「其他假设方法」。朋友向用字仍是預期回收比例，100%＝打和。原先 A+ 顯示 — 的系列，用公開 SNKRDUNK PSA10 掛牌（有掛牌先用，否則 PriceCharting PSA 10 換成日圓）、PriceCharting CGC 10（USD），同 PriceCharting POP（PSA 10／總數，PSA 人口不足 5 就用同一張表的 CGC 人口）補上 gem。補唔到的卡維持空白，唔發明叫價、apparel ID 或 gem。今次來源夠的系列，A+PSA／A+CGC 都不再是 —。盒價、抽出率、haircut 滑桿預設不變。v1.33.5 的 13 張 SV 盒圖保留
 - **v1.33.5**：開盒左欄系列目錄補上 13 個原本只有代碼占位的日版 SV 盒圖（SV9、SV7、SV6a、SV6、SV5a、SV5M、SV5K、SV4M、SV4K、SV3a、SV2P、SV2D、SV1V）。圖是公開 SNKRDUNK 有膜產品主圖（`upload_bg_removed` webp），對到既有 `snkrdunk_shrink_id`／`pkmn-tcg-<code>`，存成本機 `img/{code}.webp`，寫入 `img_map.json` 的 `boxes`。Mega（M6a、M6、M5 等）同其餘已有盒圖未改。EV、抽出率、Chase_Fit 不變
