@@ -1,13 +1,17 @@
 #!/usr/bin/env python3
-"""Refresh JP sealed-box market prices into data.json / data.js.
+"""Refresh JP sealed-box market prices into data/sealed-boxes/.
 
 View-only public fetches only:
   * SNKRDUNK JP apparel JSON (known snkrdunk_shrink_id, optional discovered
     "[No shrink]" sibling). No login, buy, bid, or messages.
   * PriceCharting booster-box HTML already linked from each set (ungraded avg).
 
-Writes landed.shrink / landed.ns (EV denom = cheapest qty-aware landed
-per side) and sealed_box.*.lots[] for every usable 1/2/3/4-box tier:
+Writes data/sealed-boxes/latest.json and latest.js only. Does not rewrite
+root data.json / data.js (the card EV bundle). calc.html overlays this shard
+onto that bundle at read time.
+
+The shard holds landed.shrink / landed.ns (EV denom = cheapest qty-aware
+landed per side) and sealed_box.*.lots[] for every usable 1/2/3/4-box tier:
 
     landed_yen = unit_yen × 1.035 + (HK$173 × 20.3) / qty
     unit_yen   = lot ask ÷ qty
@@ -22,6 +26,7 @@ Does not bump data.as_of (that date is the card snapshot).
 from __future__ import annotations
 
 import argparse
+import copy
 import json
 import re
 import sys
@@ -29,12 +34,32 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
-ROOT_DEFAULT = Path(__file__).resolve().parents[1]
-TESTDATA = Path(__file__).resolve().parent / "testdata" / "sealed-boxes"
+HERE = Path(__file__).resolve().parent
+if str(HERE) not in sys.path:
+    sys.path.insert(0, str(HERE))
+
+from bundle_guard import assert_not_card_bundle, self_test as bundle_guard_self_test  # noqa: E402
+
+ROOT_DEFAULT = HERE.parents[0]
+TESTDATA = HERE / "testdata" / "sealed-boxes"
+SEALED_DIR = Path("data") / "sealed-boxes"
+OWNED_SET_KEYS = (
+    "landed",
+    "sealed_box",
+    "snkrdunk_shrink_id",
+    "snkrdunk_shrink_url",
+    "snkrdunk_ns_id",
+    "snkrdunk_ns_url",
+    "pc_avg_usd",
+    "pc_avg_hkd",
+    "pc_avg_as_of",
+    "pc_avg_source",
+)
+SHARD_NOTE_KEYS = ("denominator", "method_denom", "method_sealed_box")
 
 USER_AGENT = "Pokemon-Box-EV/1.31.8 (+https://github.com/swishish/Pokemon-Box-EV)"
 PC_USER_AGENT = (
@@ -391,12 +416,98 @@ def apply_pc(set_obj: dict, usd: float, as_of: str) -> None:
 
 
 def write_data_files(root: Path, data: dict) -> None:
+    """Write the card EV bundle. Card tools only — sealed refresh must not call this."""
     (root / "data.json").write_text(
         json.dumps(data, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
     js_json = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
     (root / "data.js").write_text("window.EV_DATA = " + js_json + ";\n", encoding="utf-8")
+
+
+def sealed_dir(root: Path) -> Path:
+    return root / SEALED_DIR
+
+
+def sealed_output_paths() -> set[str]:
+    """Repo-relative files this job is allowed to write."""
+    return {
+        "data/sealed-boxes/latest.json",
+        "data/sealed-boxes/latest.js",
+    }
+
+
+def extract_owned_set(set_obj: dict | None) -> dict:
+    out: dict = {}
+    if not set_obj:
+        return out
+    for key in OWNED_SET_KEYS:
+        if key in set_obj and set_obj[key] is not None:
+            out[key] = copy.deepcopy(set_obj[key])
+    return out
+
+
+def shard_from_card_bundle(data: dict) -> dict:
+    """Copy sealed-owned fields out of a card bundle. Does not drop card fields."""
+    notes = data.get("notes") or {}
+    fx = data.get("fx") or {}
+    sets: dict = {}
+    for code, set_obj in (data.get("sets") or {}).items():
+        owned = extract_owned_set(set_obj)
+        if owned:
+            sets[code] = owned
+    return {
+        "sealed_box_as_of": notes.get("sealed_box_as_of"),
+        "fx": {
+            "jpy_per_hkd": fx.get("jpy_per_hkd", JPY_PER_HKD),
+            "usd_hkd": fx.get("usd_hkd", USD_HKD),
+        },
+        "notes": {key: notes[key] for key in SHARD_NOTE_KEYS if notes.get(key)},
+        "sets": sets,
+    }
+
+
+def load_sealed_shard(root: Path) -> dict | None:
+    path = sealed_dir(root) / "latest.json"
+    if not path.is_file():
+        return None
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def merge_catalog_view(catalog: dict, owned: dict) -> dict:
+    """Read catalog URLs plus the sealed snapshot. Mutations stay on this copy."""
+    view = {
+        "pricecharting_box_url": catalog.get("pricecharting_box_url"),
+        "pc_url": catalog.get("pc_url"),
+    }
+    view.update(copy.deepcopy(owned))
+    return view
+
+
+def owned_from_view(view: dict) -> dict:
+    return extract_owned_set(view)
+
+
+def write_sealed_shard(root: Path, shard: dict, *, generated: str | None = None) -> None:
+    dest = sealed_dir(root)
+    dest.mkdir(parents=True, exist_ok=True)
+    payload = {
+        "generated": generated or datetime.now(timezone.utc).isoformat(),
+        "sealed_box_as_of": shard.get("sealed_box_as_of"),
+        "fx": shard.get("fx") or {},
+        "notes": {key: (shard.get("notes") or {})[key] for key in SHARD_NOTE_KEYS if (shard.get("notes") or {}).get(key)},
+        "sets": shard.get("sets") or {},
+    }
+    json_path = dest / "latest.json"
+    js_path = dest / "latest.js"
+    assert_not_card_bundle(json_path)
+    assert_not_card_bundle(js_path)
+    json_path.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    js_json = json.dumps(payload, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+    js_path.write_text("window.SEALED_BOXES = " + js_json + ";\n", encoding="utf-8")
 
 
 def _assert(cond: bool, msg: str) -> None:
@@ -566,6 +677,104 @@ def self_test() -> None:
     stray_json.unlink()
     stray_js.unlink()
 
+    bundle_guard_self_test()
+    other_jobs = {
+        "data.json",
+        "data.js",
+        "data/market-jp-psa10-bench/latest.json",
+        "data/market-jp-psa10-bench/latest.js",
+        "data/market-jp-psa10-bench/history.json",
+        "data/market-jp-psa10-bench/history.js",
+        "data/market-jp-psa10-bench/baskets.json",
+        "data/market-jp-psa10-bench/universe.json",
+        "data/market-jp-psa10-bench/series-cache.json",
+        "data/market-jp-psa10-bench/scan-cache.json",
+        "data/market-en/latest.json",
+        "data/market-en/latest.js",
+        "data/market-en/history.json",
+        "data/market-en/history.js",
+        "data/market-en/price-history.json",
+        "data/market-vintage/latest.json",
+        "data/market-vintage/latest.js",
+        "data/market-vintage/history.json",
+        "data/market-vintage/history.js",
+        "data/market-vintage/price-history.json",
+        "data/market-vintage/baskets.json",
+        "data/market-midera/latest.json",
+        "data/market-midera/latest.js",
+        "data/market-midera/history.json",
+        "data/market-midera/history.js",
+        "data/market-midera/price-history.json",
+        "data/market-midera/baskets.json",
+    }
+    _assert(sealed_output_paths().isdisjoint(other_jobs), "sealed shard overlaps another job")
+
+    import tempfile
+
+    apparel = json.loads((TESTDATA / "apparel-846048.json").read_text(encoding="utf-8"))
+    sizes = json.loads((TESTDATA / "sizes-846048.json").read_text(encoding="utf-8"))
+    ns_app = json.loads((TESTDATA / "apparel-846050.json").read_text(encoding="utf-8"))
+    ns_sizes = json.loads((TESTDATA / "sizes-846050.json").read_text(encoding="utf-8"))
+    search = json.loads((TESTDATA / "search-storm-emeralda.json").read_text(encoding="utf-8"))
+
+    def fetch_apparel(aid: int) -> dict:
+        if int(aid) == 846048:
+            return apparel
+        if int(aid) == 846050:
+            return ns_app
+        raise FetchError(str(aid))
+
+    def fetch_sizes(aid: int) -> dict:
+        if int(aid) == 846048:
+            return sizes
+        if int(aid) == 846050:
+            return ns_sizes
+        raise FetchError(str(aid))
+
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        bundle = {
+            "as_of": "2026-10-07 18:54 Asia/Shanghai",
+            "notes": {"tax": "keep-me", "sealed_box_as_of": "old"},
+            "fx": {"jpy_per_hkd": 1, "usd_hkd": 1, "note": "stay"},
+            "sets": {
+                "M6": {
+                    "code": "M6",
+                    "landed": {"shrink": {"landed_yen": 1, "unit_yen": 1, "qty_label": "1個"}},
+                    "snkrdunk_shrink_id": 846048,
+                    "pricecharting_box_url": "https://example.invalid/m6",
+                }
+            },
+        }
+        (root / "data.json").write_text(json.dumps(bundle), encoding="utf-8")
+        (root / "data.js").write_text("window.EV_DATA = {};\n", encoding="utf-8")
+        before_json = (root / "data.json").read_bytes()
+        before_js = (root / "data.js").read_bytes()
+        stats = refresh(
+            root,
+            set_codes=["M6"],
+            skip_pc=True,
+            dry_run=False,
+            fetch_apparel=fetch_apparel,
+            fetch_sizes=fetch_sizes,
+            fetch_search=lambda _q: search,
+            fetch_pc_html=lambda _url: (_ for _ in ()).throw(FetchError("no pc")),
+            sleeper=None,
+        )
+        _assert(stats["wrote"] is True, stats)
+        _assert((root / "data.json").read_bytes() == before_json, "data.json bytes changed")
+        _assert((root / "data.js").read_bytes() == before_js, "data.js bytes changed")
+        written = {p.relative_to(root).as_posix() for p in root.rglob("*") if p.is_file() and p.name != "data.json" and p.name != "data.js"}
+        _assert(written == sealed_output_paths(), written)
+        shard = json.loads((root / "data" / "sealed-boxes" / "latest.json").read_text(encoding="utf-8"))
+        _assert(shard["sets"]["M6"]["landed"]["shrink"]["qty"] == 4, shard["sets"]["M6"])
+        _assert(shard["sets"]["M6"]["snkrdunk_ns_id"] == 846050, shard["sets"]["M6"])
+        _assert("tax" not in (shard.get("notes") or {}), shard.get("notes"))
+        _assert(json.loads((root / "data.json").read_text(encoding="utf-8"))["notes"]["tax"] == "keep-me", "card note")
+        js = (root / "data" / "sealed-boxes" / "latest.js").read_text(encoding="utf-8")
+        _assert(js.startswith("window.SEALED_BOXES = "), js[:32])
+        _assert(js.endswith(";\n"), js[-4:])
+
     print("refresh_sealed_boxes self-test ok")
 
 
@@ -581,10 +790,22 @@ def refresh(
     fetch_pc_html,
     sleeper=None,
 ) -> dict:
-    data = json.loads((root / "data.json").read_text(encoding="utf-8"))
+    bundle_path = root / "data.json"
+    bundle_bytes = bundle_path.read_bytes()
+    js_path = root / "data.js"
+    js_bytes = js_path.read_bytes() if js_path.is_file() else None
+    data = json.loads(bundle_bytes)
     sets = data.get("sets") or {}
     codes = set_codes or list(sets)
     as_of = now_shanghai()
+    existing = load_sealed_shard(root) or shard_from_card_bundle(data)
+    shard_sets = existing.get("sets") or {}
+    sets_out: dict = {}
+    for code, catalog in sets.items():
+        if code in shard_sets:
+            sets_out[code] = copy.deepcopy(shard_sets[code])
+        else:
+            sets_out[code] = extract_owned_set(catalog)
     stats = {
         "as_of": as_of,
         "ok_shrink": 0,
@@ -598,10 +819,11 @@ def refresh(
     }
 
     for code in codes:
-        set_obj = sets.get(code)
-        if not set_obj:
+        catalog = sets.get(code)
+        if not catalog:
             stats["skipped"].append((code, "unknown set"))
             continue
+        set_obj = merge_catalog_view(catalog, sets_out.get(code) or {})
         sid = set_obj.get("snkrdunk_shrink_id")
         try:
             apparel_id = int(sid)
@@ -684,6 +906,7 @@ def refresh(
         else:
             stats["kept_pc"] += 1
 
+        sets_out[code] = owned_from_view(set_obj)
         stats["rows"].append(
             {
                 "code": code,
@@ -693,38 +916,44 @@ def refresh(
             }
         )
 
-    notes = data.setdefault("notes", {})
-    notes["sealed_box_as_of"] = as_of
-    notes["denominator"] = "landed_yen = unit_yen×1.035 + (HK$173 × 20.3) / qty"
-    notes["method_denom"] = (
-        "HK-landed sealed box = SNKR unit ×1.035 + ship (HK$173 × ¥20.3 / qty of that order). "
-        "EV denom is the cheapest landed_yen among usable 1–4 box lots on each side "
-        "(shrink / no-shrink). Not SNKR single-pack floor. Duties/taxes excluded. "
-        "UI HKD override still beats denom. Calc tip shows snapshot cheapest lot size, not live."
-    )
-    notes["method_sealed_box"] = (
-        "HK-landed shrink / no-shrink from public SNKRDUNK new-listing lot asks "
-        "(keep usable 1/2/3/4-box tiers after unit bounds, multi-listing depth, "
-        "and vs-single band). unit_yen = lot ÷ qty. "
-        "landed_yen = unit×1.035 + (HK$173 × 20.3) / qty "
-        "(shipping amortized over that order's box count). "
-        "EV denom = min landed_yen per side; winning qty stored on landed.*. "
-        "View-only public JSON; no login / buy / bid. Missing fetch keeps the previous "
-        "snapshot; never invent IDs or prices. PriceCharting booster-box ungraded avg is display-only."
-    )
-    data.setdefault("fx", {})
-    data["fx"]["jpy_per_hkd"] = JPY_PER_HKD
-    data["fx"]["usd_hkd"] = USD_HKD
+    shard = {
+        "sealed_box_as_of": as_of,
+        "fx": {"jpy_per_hkd": JPY_PER_HKD, "usd_hkd": USD_HKD},
+        "notes": {
+            "denominator": "landed_yen = unit_yen×1.035 + (HK$173 × 20.3) / qty",
+            "method_denom": (
+                "HK-landed sealed box = SNKR unit ×1.035 + ship (HK$173 × ¥20.3 / qty of that order). "
+                "EV denom is the cheapest landed_yen among usable 1–4 box lots on each side "
+                "(shrink / no-shrink). Not SNKR single-pack floor. Duties/taxes excluded. "
+                "UI HKD override still beats denom. Calc tip shows snapshot cheapest lot size, not live."
+            ),
+            "method_sealed_box": (
+                "HK-landed shrink / no-shrink from public SNKRDUNK new-listing lot asks "
+                "(keep usable 1/2/3/4-box tiers after unit bounds, multi-listing depth, "
+                "and vs-single band). unit_yen = lot ÷ qty. "
+                "landed_yen = unit×1.035 + (HK$173 × 20.3) / qty "
+                "(shipping amortized over that order's box count). "
+                "EV denom = min landed_yen per side; winning qty stored on landed.*. "
+                "View-only public JSON; no login / buy / bid. Missing fetch keeps the previous "
+                "snapshot; never invent IDs or prices. PriceCharting booster-box ungraded avg is display-only."
+            ),
+        },
+        "sets": sets_out,
+    }
 
     if stats["ok_shrink"] == 0 and stats["ok_ns"] == 0 and stats["ok_pc"] == 0:
         raise SystemExit(
             "ERROR: no sealed-box prices were fetched. "
-            "Keeping data.json unchanged (will not invent prices)."
+            "Keeping the sealed shard unchanged (will not invent prices)."
         )
 
+    if bundle_path.read_bytes() != bundle_bytes or (js_bytes is not None and js_path.read_bytes() != js_bytes):
+        raise SystemExit("ERROR: sealed refresh mutated data.json / data.js; refusing to write.")
+
     if not dry_run:
-        write_data_files(root, data)
+        write_sealed_shard(root, shard)
     stats["wrote"] = not dry_run
+    stats["paths"] = sorted(sealed_output_paths())
     return stats
 
 
@@ -793,7 +1022,7 @@ def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--root", default=str(ROOT_DEFAULT))
     ap.add_argument("--self-test", action="store_true", help="No network. Fixture checks only.")
-    ap.add_argument("--dry-run", action="store_true", help="Fetch and print; do not write data.json")
+    ap.add_argument("--dry-run", action="store_true", help="Fetch and print; do not write the sealed shard")
     ap.add_argument("--skip-pc", action="store_true", help="Skip PriceCharting HTML (SNKR only)")
     ap.add_argument(
         "--sets",

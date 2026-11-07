@@ -8,7 +8,8 @@ Data source: TCGCSV daily Pokemon category dumps
   https://tcgcsv.com/tcgplayer/3/Groups.csv
   https://tcgcsv.com/tcgplayer/3/{groupId}/ProductsAndPrices.csv
 
-Writes (stdlib only — GitHub Actions needs no pip install):
+Writes (stdlib only — GitHub Actions needs no pip install).
+Does not rewrite root data.json / data.js or data/sealed-boxes/:
   data/market-en/latest.json         index + breadth + movers + basket (for next run)
   data/market-en/history.json        one point per snapshot date (append/upsert; never wipes)
   data/market-en/price-history.json  per-card basket prices by date (mover 1D/5D/30D/1Y/YTD)
@@ -41,6 +42,11 @@ import time
 import urllib.error
 import urllib.request
 from datetime import date, datetime, timedelta, timezone
+
+_TOOLS = os.path.dirname(os.path.abspath(__file__))
+if _TOOLS not in sys.path:
+    sys.path.insert(0, _TOOLS)
+from bundle_guard import assert_not_card_bundle, self_test as bundle_guard_self_test  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(ROOT, "data", "market-en")
@@ -538,6 +544,7 @@ def load_json(path: str, default):
 
 
 def write_json(path: str, obj) -> None:
+    assert_not_card_bundle(path)
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="utf-8") as handle:
         json.dump(obj, handle, indent=2, ensure_ascii=False)
@@ -545,6 +552,7 @@ def write_json(path: str, obj) -> None:
 
 
 def _write_js(path: str, global_name: str, obj) -> None:
+    assert_not_card_bundle(path)
     payload = json.dumps(obj, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
     with open(path, "w", encoding="utf-8") as handle:
         handle.write(f"window.{global_name} = " + payload + ";\n")
@@ -1354,6 +1362,7 @@ def self_test() -> None:
     assert "2025-12-31" in pruned_dates
     assert "2026-10-11" in pruned_dates
 
+    bundle_guard_self_test()
     print("self-test ok")
 
 

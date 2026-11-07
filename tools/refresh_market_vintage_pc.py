@@ -838,7 +838,9 @@ def write_outputs(root: Path, baskets: dict, latest: dict, history: dict, price_
         "price-history.json": price_history,
     }
     for name, obj in blobs.items():
-        (data / name).write_text(json.dumps(obj, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        dest = data / name
+        en.assert_not_card_bundle(dest)
+        dest.write_text(json.dumps(obj, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     en._write_js(str(data / "latest.js"), "MARKET_VINTAGE_PC", latest)
     en._write_js(str(data / "history.js"), "MARKET_VINTAGE_PC_HISTORY", history)
 

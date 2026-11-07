@@ -2,6 +2,9 @@ name: Refresh sealed box prices
 
 # View-only public fetches for JP sealed-box denoms (SNKRDUNK apparel JSON +
 # PriceCharting booster-box HTML). No login / buy / bid.
+# Writes only data/sealed-boxes/latest.json and latest.js.
+# Does not rewrite root data.json / data.js (card EV bundle). calc.html overlays
+# the shard at read time.
 # Weekly cron + manual trigger. SNKRDUNK may block datacenter IPs; if this job
 # cannot fetch, run the same script on a laptop (or Grok Bot) and commit.
 # JP PSA10 nightly already hits SNK successfully often - sealed cron is the
@@ -52,11 +55,19 @@ jobs:
         run: python3 tools/refresh_sealed_boxes.py --self-test
       - name: Fetch public SNKRDUNK / PriceCharting box prices
         run: python3 tools/refresh_sealed_boxes.py --root .
+      - name: Refuse card-bundle edits
+        run: |
+          forbidden="$(git status --porcelain -- data.json data.js data/market-en data/market-vintage data/market-midera data/market-jp-psa10-bench data/market-vintage-pc)"
+          if [ -n "$forbidden" ]; then
+            echo "Sealed refresh must only write data/sealed-boxes/."
+            printf '%s\n' "$forbidden"
+            exit 1
+          fi
       - name: Commit updated box prices
         run: |
           git config user.name "box-ev-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data.json data.js
+          git add data/sealed-boxes/latest.json data/sealed-boxes/latest.js
           if git diff --cached --quiet; then
             echo "No sealed-box data changes to commit."
           else

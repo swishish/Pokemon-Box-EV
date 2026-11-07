@@ -19,6 +19,8 @@ manual `--rebuild-baskets --confirm REBUILD`. Daily job only refreshes
 prints and rebalances weights.
 
 Public JSON only (view-only). No login, no buy/bid/list.
+Writes data/market-jp-psa10-bench/ only. Does not rewrite root data.json /
+data.js or data/sealed-boxes/. data.json is read for known card apparel ids.
 
   python3 tools/refresh_market_jp_psa10_bench.py --self-test
   python3 tools/refresh_market_jp_psa10_bench.py --rebuild-baskets --confirm REBUILD -v
@@ -1098,6 +1100,9 @@ def self_test() -> None:
     assert "priceNoCap" in latest["series"]["composite"]["indexes"]
     # Overlay must be allowed to diverge from capped price (fixture has a fat name).
     assert latest["series"]["composite"]["indexes"]["priceNoCap"]["index"] > 0
+    from bundle_guard import self_test as bundle_guard_self_test
+
+    bundle_guard_self_test()
     print("refresh_market_jp_psa10_bench self-test ok")
 
 

@@ -2,6 +2,8 @@ name: Update JP PSA10 broad benchmark
 
 # Public SNKRDUNK trading-history for the broad JP PSA10 baskets.
 # View-only. No login. PR runs self-test only (no network fetch).
+# Commits data/market-jp-psa10-bench/ only. Does not rewrite root data.json / data.js
+# or the sealed-box shard.
 # Daily = weight rebalance from frozen membership.
 # Quarterly (1 Jan/Apr/Jul/Oct) = membership reconstitution.
 on:
@@ -66,6 +68,14 @@ jobs:
           else
             echo "Daily weight rebalance (frozen membership)"
             python3 tools/refresh_market_jp_psa10_bench.py -v
+          fi
+      - name: Refuse card-bundle edits
+        run: |
+          forbidden="$(git status --porcelain -- data.json data.js data/sealed-boxes)"
+          if [ -n "$forbidden" ]; then
+            echo "JP PSA10 benchmark must not rewrite the card bundle or the sealed shard."
+            printf '%s\n' "$forbidden"
+            exit 1
           fi
       - name: Commit updated data
         run: |
