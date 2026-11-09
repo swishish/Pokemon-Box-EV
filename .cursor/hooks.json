@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "hooks": {
+    "preToolUse": [
+      {
+        "command": "python3 .cursor/hooks/block-secret-env-writes.py",
+        "matcher": "Write|StrReplace|ApplyPatch|EditNotebook|Edit|search_replace|MultiEdit|NotebookEdit|Shell",
+        "failClosed": true,
+        "timeout": 10
+      }
+    ],
+    "beforeShellExecution": [
+      {
+        "command": "python3 .cursor/hooks/block-secret-env-writes.py",
+        "failClosed": true,
+        "timeout": 10
+      }
+    ]
+  }
+}
