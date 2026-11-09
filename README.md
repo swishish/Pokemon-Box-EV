@@ -1,6 +1,6 @@
 # Pokemon Box EV
 
-日盒 EV 小算盤（朋友向）· **v1.33.6**
+日盒 EV 小算盤（朋友向）· **v1.33.7**
 
 給「不太懂金融／AI」的買卡朋友看的工具：首頁三個入口（開盒計算／市場觀察／研究工具）→ 開盒算盤選系列 → 看 **100% Grade A（買入價）四件套**（實付盒價、預期回收額、差額、預期回收比例；100% 先係打和）→ 有膜／無膜切換 → 看主力 chase 卡與「買單卡 vs 開盒」粗略提示。圖文教學在首頁預設收起。
 
@@ -188,7 +188,7 @@ python3 tools/backfill_tickermint_midera.py --rebuild-movers
 
 1. 下載本 repo
 2. 雙擊 **`index.html`**（首頁）或 **`calc.html`**（算盤）；或用瀏覽器 File → Open
-3. 用本機 HTTP 開（見下）：算盤 **`fetch('./data.json')`**，失敗則讀同資料夾 **`data.js`**。不要再把整份 JSON 內嵌進 `calc.html` 的 `<script>`（`</script>`／相鄰 `<script>` 會令 `EV_DATA` 派唔到）
+3. 用本機 HTTP 開（見下）：算盤 **`fetch('./data.json')`**，失敗則讀同資料夾 **`data.js`**，再疊上 **`data/sealed-boxes/latest.json`**（失敗則 `latest.js` 的 `SEALED_BOXES`）。不要再把整份 JSON 內嵌進 `calc.html` 的 `<script>`（`</script>`／相鄰 `<script>` 會令 `EV_DATA` 派唔到）
 
 或：
 
@@ -221,7 +221,7 @@ python3 tools/export_chase_fit.py /path/to/pokemon_psa10_regression_YYYY-MM-DD.x
 **每週一自動刷新**（GitHub Action cron：週日 20:00 UTC ≈ 香港時間週一 ~04:00；亦可 Actions 頁手動 **Run workflow**）。盒價唔使日日睇。
 
 1. 預設等週一 cron；或打開 GitHub → **Actions** → **Refresh sealed box prices** → **Run workflow**
-2. 等佢跑完。成功就會自動把新盒價 commit 回 `data.json`／`data.js`。
+2. 等佢跑完。成功就會自動把新盒價 commit 回 **`data/sealed-boxes/latest.json`** 同 **`latest.js`**。唔會再改根目錄 `data.json`／`data.js`（嗰對係單卡 EV）。
 3. 若 Actions 失敗（有時 SNKRDUNK 會擋伺服器 IP），用本機／Grok Bot（只要有 Python，唔使安裝套件）：
 
 ```bash
@@ -229,7 +229,9 @@ python3 tools/refresh_sealed_boxes.py --self-test
 python3 tools/refresh_sealed_boxes.py --root .
 ```
 
-然後照常 commit／push `data.json` 同 `data.js`。
+然後只 commit／push `data/sealed-boxes/latest.json` 同 `data/sealed-boxes/latest.js`。
+
+開住嘅 [PR #81](https://github.com/swishish/Pokemon-Box-EV/pull/81) 仍然改緊成份 `data.json`／`data.js`，所以同 `main` 衝突。唔好為咗盒價再 rebase 去嗰兩個檔。盒價衛生之後只寫密封盒分片；#81 留低等 Gary 睇價，呢次分片唔合併、唔關閉佢。
 
 **而家自動得到：** 各系列有膜盒價（通常取 2–4 盒一組嘅公開掛牌，再加原本嗰條落地運費）、搵到就一齊更新無膜、以及 PriceCharting 盒均價（只係參考連結，唔會改成盒價分母）。
 
@@ -239,7 +241,7 @@ python3 tools/refresh_sealed_boxes.py --root .
 
 ## Box EV 週更（單卡 · 仍然手動 — 無 GitHub cron）
 
-開盒算盤 `calc.html` 用 `data.json`／`data.js`。左欄系列縮圖讀 `img_map.json` 的 `boxes`（本機 `img/{code}.webp`）；沒有對應檔才顯示代碼占位。`tools/refresh_box_ev.py` 要先有手存的 PriceCharting **單卡** console HTML（`/tmp/pc-sets/{SET}.html`，例如 `M6.html`）。**沒有這些檔就唔好跑**——腳本會拒絕寫入，避免虛構價格或把 `as_of` 推到今天。**不要**為此加 Actions scrape（會寫壞／虛構）。SNKRDUNK Grade A **單卡**亦唔會自動爬。市場頁先由 `update-market-en.yml` 每日更新；Chase 同單卡 Box EV 仍然係人手／Grok Bot 週一檢查 `as_of`（過 **8 日**橙色橫幅）後再救。`calc.html` 資料超過 **8 日**會用橙色過期橫幅。
+開盒算盤 `calc.html` 用 `data.json`／`data.js`（單卡）再疊上 `data/sealed-boxes/`（盒價）。左欄系列縮圖讀 `img_map.json` 的 `boxes`（本機 `img/{code}.webp`）；沒有對應檔才顯示代碼占位。`tools/refresh_box_ev.py` 要先有手存的 PriceCharting **單卡** console HTML（`/tmp/pc-sets/{SET}.html`，例如 `M6.html`）。**沒有這些檔就唔好跑**——腳本會拒絕寫入，避免虛構價格或把 `as_of` 推到今天。**不要**為此加 Actions scrape（會寫壞／虛構）。SNKRDUNK Grade A **單卡**亦唔會自動爬。市場頁先由 `update-market-en.yml` 每日更新；Chase 同單卡 Box EV 仍然係人手／Grok Bot 週一檢查 `as_of`（過 **8 日**橙色橫幅）後再救。`calc.html` 資料超過 **8 日**會用橙色過期橫幅。
 
 ```bash
 python3 tools/refresh_box_ev.py --root . --pc-dir /tmp/pc-sets
@@ -282,8 +284,23 @@ python3 tools/refresh_market_jp_psa10_bench.py -v
 
 GitHub Action **Update JP PSA10 broad benchmark** 每晚重算權重、季度重組名單；PR 只跑 self-test。詳見 `data/market-jp-psa10-bench/README.md`。
 
+## 資料分片（邊個 job 寫邊個檔）
+
+排程 job 各自寫自己嘅檔。算盤讀取時先載入單卡 bundle，再把密封盒分片疊上去。CI **唔會**再為咗盒價或市況重寫成份 `data.json`／`data.js`。
+
+| 更新 | GitHub Action | 腳本 | 只寫這些檔 |
+| --- | --- | --- | --- |
+| 日盒密封盒落地價（有膜／無膜、`sealed_box_as_of`、apparel id） | **Refresh sealed box prices** `.github/workflows/refresh-sealed-boxes.yml` | `tools/refresh_sealed_boxes.py` | `data/sealed-boxes/latest.json`、`latest.js` |
+| 日版 PSA10 廣度基準 | **Update JP PSA10 broad benchmark** `.github/workflows/update-market-jp-psa10-bench.yml` | `tools/refresh_market_jp_psa10_bench.py` | `data/market-jp-psa10-bench/`（讀 `data.json` 嘅已知單卡 apparel id，唔寫返去） |
+| EN 市況＋Base 每日＋中世代 | **Update EN market pulse** `.github/workflows/update-market-en.yml` | `tools/refresh_market_en.py`、`refresh_market_vintage.py`、`refresh_market_midera.py` | `data/market-en/`、`data/market-vintage/`、`data/market-midera/` |
+| EN Base PriceCharting 月線 | **Update EN Base PriceCharting indexes** `.github/workflows/update-market-vintage-pc.yml` | `tools/refresh_market_vintage_pc.py` | `data/market-vintage-pc/` |
+| 單卡 Grade A／抽出率（手動，無 cron） | 無 | `tools/refresh_box_ev.py`、`fill_sv_card_ev.py`、`fill_grade_paths.py` | 根目錄 `data.json`、`data.js` |
+
+`calc.html`：`fetch('./data.json')`（失敗用 `data.js` 的 `EV_DATA`），再 `fetch('./data/sealed-boxes/latest.json')`（失敗用 `latest.js` 的 `SEALED_BOXES`），`js/compose-ev.js` 只覆蓋密封盒欄位。根目錄 bundle 裡面嘅盒價留作分片載入失敗時嘅後備，排程唔再更新佢。市場頁繼續直接讀各自嘅 `data/market-*/latest.json`。
+
 ## Changelog（摘要）
 
+- **v1.33.7**：密封盒價、JP PSA10 基準、EN 市況分片寫入，避免同時開住嘅衛生 PR 同每晚自動更新搶同一份 `data.json`／`data.js`。盒價 job 只寫 `data/sealed-boxes/`。算盤讀取時疊上該分片。單卡 bundle 仍係 `data.json`／`data.js`。#81 唔合併、唔關閉；之後盒價衛生改寫密封盒分片
 - **v1.33.6**：算盤主結果、頂欄回收比例、系列清單紅綠燈改為 **100% Grade A（買入價）**（不做稀有度折扣）。Grade A（打折）、A+PSA、A+CGC 一直顯示在「其他假设方法」。朋友向用字仍是預期回收比例，100%＝打和。原先 A+ 顯示 — 的系列，用公開 SNKRDUNK PSA10 掛牌（有掛牌先用，否則 PriceCharting PSA 10 換成日圓）、PriceCharting CGC 10（USD），同 PriceCharting POP（PSA 10／總數，PSA 人口不足 5 就用同一張表的 CGC 人口）補上 gem。補唔到的卡維持空白，唔發明叫價、apparel ID 或 gem。今次來源夠的系列，A+PSA／A+CGC 都不再是 —。盒價、抽出率、haircut 滑桿預設不變。v1.33.5 的 13 張 SV 盒圖保留
 - **v1.33.5**：開盒左欄系列目錄補上 13 個原本只有代碼占位的日版 SV 盒圖（SV9、SV7、SV6a、SV6、SV5a、SV5M、SV5K、SV4M、SV4K、SV3a、SV2P、SV2D、SV1V）。圖是公開 SNKRDUNK 有膜產品主圖（`upload_bg_removed` webp），對到既有 `snkrdunk_shrink_id`／`pkmn-tcg-<code>`，存成本機 `img/{code}.webp`，寫入 `img_map.json` 的 `boxes`。Mega（M6a、M6、M5 等）同其餘已有盒圖未改。EV、抽出率、Chase_Fit 不變
 - **v1.33.4**：約 60 張 SV chase 袖的夜間刷新已刪（`update-market-jp-psa10.yml`、`tools/refresh_market_jp_psa10.py`）。`data/market-jp-psa10/` 停在 2026-10-29，不再有新 commit。JP 基準、EN／復古／中世代、EN Base PriceCharting 的 Actions 排程不變。60 張唔併入 JP 基準。Chase_Fit、開盒 EV、shop +8% 不變

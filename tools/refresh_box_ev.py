@@ -616,6 +616,8 @@ def main():
         f"SNKR-only (no PC) {stats['snkr_only']}; rejected SNKR typos {stats['garbage']}."
     )
 
+    # Card snapshot only. Sealed landed prices live in data/sealed-boxes/
+    # and are overlaid at read time. Do not write that shard from here.
     (root / "data.json").write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n")
     # External data.js only — never inline into calc.html <script>
     # (a missing </script> or literal </script> in JSON breaks EV_DATA assign).

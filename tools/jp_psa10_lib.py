@@ -11,9 +11,15 @@ import json
 import math
 import os
 import re
+import sys
 import time
 import urllib.parse
 import urllib.request
+
+_TOOLS = os.path.dirname(os.path.abspath(__file__))
+if _TOOLS not in sys.path:
+    sys.path.insert(0, _TOOLS)
+from bundle_guard import assert_not_card_bundle  # noqa: E402
 from datetime import date, datetime, timedelta, timezone
 from typing import Any
 
@@ -160,6 +166,7 @@ def load_json(path: str, default):
 
 
 def write_json(path: str, obj) -> None:
+    assert_not_card_bundle(path)
     os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
     with open(path, "w", encoding="utf-8") as handle:
         json.dump(obj, handle, indent=2, ensure_ascii=False)
@@ -167,6 +174,7 @@ def write_json(path: str, obj) -> None:
 
 
 def write_js(path: str, global_name: str, obj) -> None:
+    assert_not_card_bundle(path)
     payload = json.dumps(obj, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
     with open(path, "w", encoding="utf-8") as handle:
         handle.write(f"window.{global_name} = " + payload + ";\n")
