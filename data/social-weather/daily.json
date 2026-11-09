@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "name": "Poke Social Weather",
+    "scale": [
+      -100,
+      100
+    ],
+    "timezone": "Asia/Shanghai",
+    "as_of": "2026-11-03",
+    "preliminary": true,
+    "weights": {
+      "x": 0.4,
+      "reddit": 0.25,
+      "yt": 0.15,
+      "tcgcharts_fg": 0.1,
+      "jp_shop": 0.1
+    },
+    "disclaimer": "Soft social/market-mood input only — not a buy/sell signal. Snapshot data, not live.",
+    "links": {
+      "tcgcharts_fg": "https://tcgcharts.com/charts/fear-and-greed-index",
+      "oplog": "https://op-log.gg/market/pokemon",
+      "toregyara_fg": "https://toregyara.com/en/toregyara-index/fear-greed"
+    }
+  },
+  "daily": [
+    {
+      "date": "2026-10-31",
+      "score": -15,
+      "label": "陰／Mild bear",
+      "axes": {
+        "x": -20,
+        "reddit": -10,
+        "yt": -15,
+        "jp_shop": -20
+      },
+      "ext_fg": 47,
+      "buy_pct": 28,
+      "sell_pct": 35,
+      "bull_pct": 30,
+      "bear_pct": 42,
+      "n_posts": null,
+      "read_zh": "店頭買取偏軟（Felt Hat／30th BOX）；Reddit 投資帖多數 remove；YouTube 週報 30th 繼續跌＋稀缺 promo FOMO；TCGCharts F&G≈47 Neutral。總分偏陰，唔係恐慌。",
+      "sources": "social digest 10/31; YT weekly 10/24–31; TCGCharts F&G; OP.LOG ~50"
+    },
+    {
+      "date": "2026-11-01",
+      "score": -14,
+      "label": "陰／Mild bear",
+      "axes": {
+        "x": -18,
+        "reddit": -10,
+        "yt": -15,
+        "jp_shop": -18
+      },
+      "ext_fg": 48,
+      "buy_pct": 30,
+      "sell_pct": 34,
+      "bull_pct": 32,
+      "bear_pct": 40,
+      "n_posts": 40,
+      "read_zh": "社交 digest 安靜；30th BOX 買取仍軟；Felt Hat PSA10 買取橫行；FUTURISTIC 輕微企穩；TCGCharts F&G≈48 Neutral；OP.LOG ~47。",
+      "sources": "social digest 11/1; TCGCharts F&G 48; OP.LOG 47"
+    },
+    {
+      "date": "2026-11-02",
+      "score": -15,
+      "label": "陰／Mild bear",
+      "axes": {
+        "x": -20,
+        "reddit": -8,
+        "yt": -15,
+        "jp_shop": -20
+      },
+      "ext_fg": 48,
+      "buy_pct": 29,
+      "sell_pct": 36,
+      "bull_pct": 31,
+      "bear_pct": 42,
+      "n_posts": 98,
+      "read_zh": "綜合仍偏陰：30th／FUTURISTIC 買取續軟、冷卻敘事升溫；Munch 高位持平。總分 −15。",
+      "sources": "X n≈98; OP.LOG 51 proxy; TCGCharts F&G 48"
+    },
+    {
+      "date": "2026-11-03",
+      "score": -25,
+      "label": "陰／Mild bear",
+      "axes": {
+        "x": -22,
+        "reddit": -30,
+        "yt": -35,
+        "jp_shop": -28
+      },
+      "ext_fg": 48,
+      "buy_pct": 34,
+      "sell_pct": 42,
+      "bull_pct": 30,
+      "bear_pct": 50,
+      "n_posts": 158,
+      "read_zh": "綜合偏陰加深：30th 買取峰¥18k；Reddit／YT 30th 熊帖；F&G 48、OP.LOG 52。總分 −25。",
+      "sources": "X n=125; Reddit n=25; YT n=8; TCGCharts F&G 48; OP.LOG 52"
+    }
+  ]
+}

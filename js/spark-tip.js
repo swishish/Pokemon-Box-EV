@@ -60,6 +60,17 @@
     });
   }
 
+  function escTip(s) {
+    return String(s).replace(/[&<>"']/g, function (ch) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[ch];
+    });
+  }
+
+  function tipValue(n, opts) {
+    if (opts && typeof opts.formatValue === 'function') return opts.formatValue(n);
+    return fmtIndex(n);
+  }
+
   function ymdToNum(ymd) {
     var m = String(ymd || '').match(/^(\d{4})-(\d{2})-(\d{2})/);
     if (!m) return NaN;
@@ -525,21 +536,82 @@
     var vals = pts.map(function (p) { return Number(p.index); });
     var min = Math.min.apply(null, vals);
     var max = Math.max.apply(null, vals);
+    if (opts.yMin != null && !Number.isNaN(Number(opts.yMin))) min = Math.min(min, Number(opts.yMin));
+    if (opts.yMax != null && !Number.isNaN(Number(opts.yMax))) max = Math.max(max, Number(opts.yMax));
     var span = (max - min) || 1;
+    function yOf(v) {
+      return PAD + (1 - (Number(v) - min) / span) * (H - PAD * 2);
+    }
     var laid = pts.map(function (p, i) {
       return {
         date: String(p.date),
         index: Number(p.index),
         x: PAD + (i / (pts.length - 1)) * (W - PAD * 2),
-        y: PAD + (1 - (Number(p.index) - min) / span) * (H - PAD * 2)
+        y: yOf(p.index)
       };
     });
     state.laid = laid;
 
+    (opts.bands || []).forEach(function (b) {
+      if (!b) return;
+      var a = Number(b.from);
+      var c = Number(b.to);
+      if (Number.isNaN(a) || Number.isNaN(c)) return;
+      var lo = Math.max(min, Math.min(a, c));
+      var hi = Math.min(max, Math.max(a, c));
+      if (!(hi > lo)) return;
+      var yHi = yOf(hi);
+      var yLo = yOf(lo);
+      svg.appendChild(mk('rect', {
+        x: String(PAD),
+        y: Math.min(yHi, yLo).toFixed(2),
+        width: String(W - PAD * 2),
+        height: Math.abs(yLo - yHi).toFixed(2),
+        fill: b.fill || 'rgba(201,53,64,0.12)'
+      }));
+    });
+
+    if (opts.fillTo != null && !Number.isNaN(Number(opts.fillTo))) {
+      var base = Number(opts.fillTo);
+      if (base >= min && base <= max && laid.length) {
+        var by = yOf(base);
+        var poly = laid.map(function (p) {
+          return p.x.toFixed(1) + ',' + p.y.toFixed(1);
+        });
+        poly.push(laid[laid.length - 1].x.toFixed(1) + ',' + by.toFixed(1));
+        poly.push(laid[0].x.toFixed(1) + ',' + by.toFixed(1));
+        svg.appendChild(mk('polygon', {
+          points: poly.join(' '),
+          fill: opts.fill || color,
+          opacity: opts.fillOpacity != null ? String(opts.fillOpacity) : '0.22',
+          stroke: 'none'
+        }));
+      }
+    }
+
+    (opts.guides || []).forEach(function (g) {
+      var gy = Number(g);
+      if (Number.isNaN(gy) || gy < min || gy > max) return;
+      var y = yOf(gy);
+      var emphasize = opts.emphasizeZero === true && gy === 0;
+      var attrs = {
+        x1: String(PAD),
+        x2: String(W - PAD),
+        y1: y.toFixed(1),
+        y2: y.toFixed(1),
+        stroke: emphasize ? '#141414' : '#5f5a51',
+        'stroke-width': emphasize ? '1.75' : '1',
+        'vector-effect': 'non-scaling-stroke',
+        opacity: emphasize ? '1' : '0.75'
+      };
+      if (!emphasize) attrs['stroke-dasharray'] = '3 3';
+      svg.appendChild(mk('line', attrs));
+    });
+
     svg.appendChild(mk('polyline', {
       fill: 'none',
       stroke: color,
-      'stroke-width': '2',
+      'stroke-width': opts.strokeWidth != null ? String(opts.strokeWidth) : '2',
       'stroke-linejoin': 'round',
       'stroke-linecap': 'round',
       'vector-effect': 'non-scaling-stroke',
@@ -597,11 +669,12 @@
       dot.setAttribute('cy', p.y.toFixed(1));
       dot.setAttribute('opacity', '1');
       tip.innerHTML =
-        '<div class="tt-value">' + fmtIndex(p.index) + '</div>' +
-        '<div class="tt-date">' + p.date + '</div>';
+        '<div class="tt-value">' + escTip(tipValue(p.index, opts)) + '</div>' +
+        '<div class="tt-date">' + escTip(p.date) + '</div>';
       tip.hidden = false;
       var pos = viewBoxToWrap(svg, wrap, p.x, p.y);
       placeTip(tip, wrap, pos.x, pos.y);
+      if (typeof opts.onPoint === 'function') opts.onPoint(p);
     }
 
     function clientToIndex(clientX) {
