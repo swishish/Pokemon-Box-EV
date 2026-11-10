@@ -18,6 +18,17 @@ English Base **daily** indexes (1st Edition, Shadowless, Unlimited, Base Set 2) 
 
 English Base **PriceCharting** indexes stay in `data/market-vintage-pc/` and refresh via `update-market-vintage-pc.yml`. They are ungraded `used` prices, monthly, rebased so 2023-01-01 = 1000. Open them at `market-vintage.html#pc/1st` (also shadowless / unlimited / base2). Keep that data and workflow. Do not mix the two anchors.
 
+## Base Set PSA population
+
+`market-base-psa-pop.html` reads `data/base-psa-pop/latest.json`. Two schedules in `.github/workflows/update-base-psa-pop.yml` (pull requests run `--self-test` only; no network write):
+
+- **Monthly POP census** — cron `17 11 3 * *` (3rd of the month, 11:17 UTC = 19:17 HKT). Runs `python3 tools/refresh_base_psa_pop.py --root .` (POP HTML, then game-page prices). PSA population lags, so this is a monthly cross-check, not a weekly scrape.
+- **Weekly prices** — cron `17 11 * * 1` (Monday 11:17 UTC = 19:17 HKT). Runs `python3 tools/refresh_base_psa_pop.py --root . --prices-only`. Patches `pc_prices` onto the existing snapshot and does not re-fetch POP.
+
+Manual: Actions → **Update Base PSA pop** → Run workflow → `full` (default) or `prices`. When the 3rd is a Monday, both crons start as separate runs and the workflow concurrency group runs them one at a time.
+
+Parse or fetch failures on a required card exit non-zero and do not write pops. HTTP 429 backs off (exponential, and `Retry-After` when PriceCharting sends it) and then still fails closed if the card does not recover. A failed price fetch keeps the previous `pc_prices`. Base Set 2 misses on cards that are not required are skipped. Do not put the census back on a weekly scrape.
+
 ## Weekly Chase_Fit snapshot
 
 Public page `chase-fit.html` is a **static** JSON snapshot. Market pages auto-update via `.github/workflows/update-market-en.yml`; **Chase 公允值 and Box EV do not.**

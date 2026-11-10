@@ -16,7 +16,7 @@
 
 Base Set 復古指數（1st / Shadowless / Unlimited）：**https://swishish.github.io/Pokemon-Box-EV/market-vintage.html**
 
-Base Set PSA POP（1st / Shadowless / Unlimited / Base Set 2）：**https://swishish.github.io/Pokemon-Box-EV/market-base-psa-pop.html**
+Base Set PSA POP（1st / Shadowless / Unlimited / Base Set 2）：**https://swishish.github.io/Pokemon-Box-EV/market-base-psa-pop.html**（POP 普查每月 3 號香港時間 19:17；game 頁指示價每週一同一時間。PR 只跑 self-test）
 
 中世代指數（DP → SM chase Top 50）：**https://swishish.github.io/Pokemon-Box-EV/market-midera.html**
 
