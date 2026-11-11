@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-10T03:40:21.539968+00:00",
+  "generated": "2026-11-11T01:19:38.097517+00:00",
   "baseDate": "2024-02-08",
   "baseValue": 1000.0,
   "archiveStart": "2024-02-08",
@@ -1034,53 +1034,59 @@
       "index": 2934.1,
       "totalValue": 321435.12,
       "count": 500
+    },
+    {
+      "date": "2026-11-10",
+      "index": 2928.07,
+      "totalValue": 321191.33,
+      "count": 500
     }
   ],
   "returns": {
-    "asOf": "2026-11-09",
+    "asOf": "2026-11-10",
     "1D": {
       "available": true,
-      "pct": -0.06,
-      "from": "2026-11-08",
-      "to": "2026-11-09",
-      "fromIndex": 2935.85,
-      "toIndex": 2934.1,
+      "pct": -0.21,
+      "from": "2026-11-09",
+      "to": "2026-11-10",
+      "fromIndex": 2934.1,
+      "toIndex": 2928.07,
       "reason": null
     },
     "5D": {
       "available": true,
-      "pct": 1.86,
-      "from": "2026-11-04",
-      "to": "2026-11-09",
-      "fromIndex": 2880.65,
-      "toIndex": 2934.1,
+      "pct": 1.87,
+      "from": "2026-11-05",
+      "to": "2026-11-10",
+      "fromIndex": 2874.44,
+      "toIndex": 2928.07,
       "reason": null
     },
     "30D": {
       "available": true,
-      "pct": 2.05,
-      "from": "2026-10-08",
-      "to": "2026-11-09",
-      "fromIndex": 2875.11,
-      "toIndex": 2934.1,
+      "pct": -0.73,
+      "from": "2026-10-11",
+      "to": "2026-11-10",
+      "fromIndex": 2949.53,
+      "toIndex": 2928.07,
       "reason": null
     },
     "1Y": {
       "available": true,
-      "pct": 65.69,
+      "pct": 65.35,
       "from": "2025-11-06",
-      "to": "2026-11-09",
+      "to": "2026-11-10",
       "fromIndex": 1770.84,
-      "toIndex": 2934.1,
+      "toIndex": 2928.07,
       "reason": null
     },
     "YTD": {
       "available": true,
-      "pct": 60.69,
+      "pct": 60.36,
       "from": "2026-01-01",
-      "to": "2026-11-09",
+      "to": "2026-11-10",
       "fromIndex": 1825.96,
-      "toIndex": 2934.1,
+      "toIndex": 2928.07,
       "reason": null
     }
   }

@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-10T03:40:21.820100+00:00",
+  "generated": "2026-11-11T01:19:38.462797+00:00",
   "baseValue": 1000.0,
   "backfill": {
     "source": "tickermint",
@@ -16,7 +16,7 @@
   ],
   "indexes": {
     "base-1st": {
-      "generated": "2026-11-10T03:40:21.820100+00:00",
+      "generated": "2026-11-11T01:19:38.462797+00:00",
       "points": [
         {
           "date": "2024-02-08",
@@ -6047,6 +6047,12 @@
           "index": 1112.86,
           "totalValue": 9468.33,
           "count": 31
+        },
+        {
+          "date": "2026-11-10",
+          "index": 1078.38,
+          "totalValue": 9174.94,
+          "count": 31
         }
       ],
       "baseValue": 1000.0,
@@ -6064,56 +6070,56 @@
         "products": 31
       },
       "returns": {
-        "asOf": "2026-11-09",
+        "asOf": "2026-11-10",
         "1D": {
           "available": true,
-          "pct": 0.23,
-          "from": "2026-11-08",
-          "to": "2026-11-09",
-          "fromIndex": 1110.34,
-          "toIndex": 1112.86,
+          "pct": -3.1,
+          "from": "2026-11-09",
+          "to": "2026-11-10",
+          "fromIndex": 1112.86,
+          "toIndex": 1078.38,
           "reason": null
         },
         "5D": {
           "available": true,
-          "pct": -48.64,
-          "from": "2026-11-04",
-          "to": "2026-11-09",
-          "fromIndex": 2166.66,
-          "toIndex": 1112.86,
+          "pct": -2.65,
+          "from": "2026-11-05",
+          "to": "2026-11-10",
+          "fromIndex": 1107.76,
+          "toIndex": 1078.38,
           "reason": null
         },
         "30D": {
           "available": true,
-          "pct": -48.5,
-          "from": "2026-10-10",
-          "to": "2026-11-09",
+          "pct": -50.1,
+          "from": "2026-10-11",
+          "to": "2026-11-10",
           "fromIndex": 2160.89,
-          "toIndex": 1112.86,
+          "toIndex": 1078.38,
           "reason": null
         },
         "1Y": {
           "available": true,
-          "pct": 29.56,
-          "from": "2025-11-09",
-          "to": "2026-11-09",
-          "fromIndex": 858.94,
-          "toIndex": 1112.86,
+          "pct": 25.94,
+          "from": "2025-11-10",
+          "to": "2026-11-10",
+          "fromIndex": 856.28,
+          "toIndex": 1078.38,
           "reason": null
         },
         "YTD": {
           "available": true,
-          "pct": -15.72,
+          "pct": -18.33,
           "from": "2026-01-01",
-          "to": "2026-11-09",
+          "to": "2026-11-10",
           "fromIndex": 1320.44,
-          "toIndex": 1112.86,
+          "toIndex": 1078.38,
           "reason": null
         }
       }
     },
     "base-shadowless": {
-      "generated": "2026-11-10T03:40:21.820100+00:00",
+      "generated": "2026-11-11T01:19:38.462797+00:00",
       "points": [
         {
           "date": "2024-02-08",
@@ -12144,6 +12150,12 @@
           "index": 2201.22,
           "totalValue": 6217.05,
           "count": 31
+        },
+        {
+          "date": "2026-11-10",
+          "index": 2201.22,
+          "totalValue": 6217.05,
+          "count": 31
         }
       ],
       "baseValue": 1000.0,
@@ -12161,40 +12173,40 @@
         "products": 31
       },
       "returns": {
-        "asOf": "2026-11-09",
+        "asOf": "2026-11-10",
         "1D": {
           "available": true,
-          "pct": 0.01,
-          "from": "2026-11-08",
-          "to": "2026-11-09",
-          "fromIndex": 2201.03,
+          "pct": 0.0,
+          "from": "2026-11-09",
+          "to": "2026-11-10",
+          "fromIndex": 2201.22,
           "toIndex": 2201.22,
           "reason": null
         },
         "5D": {
           "available": true,
           "pct": 0.75,
-          "from": "2026-11-04",
-          "to": "2026-11-09",
-          "fromIndex": 2184.87,
+          "from": "2026-11-05",
+          "to": "2026-11-10",
+          "fromIndex": 2184.88,
           "toIndex": 2201.22,
           "reason": null
         },
         "30D": {
           "available": true,
-          "pct": 1.21,
-          "from": "2026-10-10",
-          "to": "2026-11-09",
-          "fromIndex": 2174.95,
+          "pct": 1.11,
+          "from": "2026-10-11",
+          "to": "2026-11-10",
+          "fromIndex": 2176.97,
           "toIndex": 2201.22,
           "reason": null
         },
         "1Y": {
           "available": true,
-          "pct": 10.28,
-          "from": "2025-11-09",
-          "to": "2026-11-09",
-          "fromIndex": 1995.94,
+          "pct": 10.27,
+          "from": "2025-11-10",
+          "to": "2026-11-10",
+          "fromIndex": 1996.16,
           "toIndex": 2201.22,
           "reason": null
         },
@@ -12202,7 +12214,7 @@
           "available": true,
           "pct": 12.18,
           "from": "2026-01-01",
-          "to": "2026-11-09",
+          "to": "2026-11-10",
           "fromIndex": 1962.2,
           "toIndex": 2201.22,
           "reason": null
@@ -12210,7 +12222,7 @@
       }
     },
     "base-unlimited": {
-      "generated": "2026-11-10T03:40:21.820100+00:00",
+      "generated": "2026-11-11T01:19:38.462797+00:00",
       "points": [
         {
           "date": "2024-02-08",
@@ -18241,6 +18253,12 @@
           "index": 2176.19,
           "totalValue": 2102.13,
           "count": 31
+        },
+        {
+          "date": "2026-11-10",
+          "index": 2094.7,
+          "totalValue": 2023.42,
+          "count": 31
         }
       ],
       "baseValue": 1000.0,
@@ -18258,56 +18276,56 @@
         "products": 31
       },
       "returns": {
-        "asOf": "2026-11-09",
+        "asOf": "2026-11-10",
         "1D": {
           "available": true,
-          "pct": 0.34,
-          "from": "2026-11-08",
-          "to": "2026-11-09",
-          "fromIndex": 2168.85,
-          "toIndex": 2176.19,
+          "pct": -3.74,
+          "from": "2026-11-09",
+          "to": "2026-11-10",
+          "fromIndex": 2176.19,
+          "toIndex": 2094.7,
           "reason": null
         },
         "5D": {
           "available": true,
-          "pct": 0.82,
-          "from": "2026-11-04",
-          "to": "2026-11-09",
-          "fromIndex": 2158.4,
-          "toIndex": 2176.19,
+          "pct": -3.06,
+          "from": "2026-11-05",
+          "to": "2026-11-10",
+          "fromIndex": 2160.92,
+          "toIndex": 2094.7,
           "reason": null
         },
         "30D": {
           "available": true,
-          "pct": 3.1,
-          "from": "2026-10-10",
-          "to": "2026-11-09",
-          "fromIndex": 2110.82,
-          "toIndex": 2176.19,
+          "pct": -0.72,
+          "from": "2026-10-11",
+          "to": "2026-11-10",
+          "fromIndex": 2109.92,
+          "toIndex": 2094.7,
           "reason": null
         },
         "1Y": {
           "available": true,
-          "pct": 74.31,
-          "from": "2025-11-09",
-          "to": "2026-11-09",
-          "fromIndex": 1248.47,
-          "toIndex": 2176.19,
+          "pct": 67.77,
+          "from": "2025-11-10",
+          "to": "2026-11-10",
+          "fromIndex": 1248.58,
+          "toIndex": 2094.7,
           "reason": null
         },
         "YTD": {
           "available": true,
-          "pct": 67.27,
+          "pct": 61.01,
           "from": "2026-01-01",
-          "to": "2026-11-09",
+          "to": "2026-11-10",
           "fromIndex": 1300.99,
-          "toIndex": 2176.19,
+          "toIndex": 2094.7,
           "reason": null
         }
       }
     },
     "base-set-2": {
-      "generated": "2026-11-10T03:40:21.820100+00:00",
+      "generated": "2026-11-11T01:19:38.462797+00:00",
       "points": [
         {
           "date": "2024-02-08",
@@ -24338,6 +24356,12 @@
           "index": 2333.22,
           "totalValue": 1430.85,
           "count": 29
+        },
+        {
+          "date": "2026-11-10",
+          "index": 2354.85,
+          "totalValue": 1444.11,
+          "count": 29
         }
       ],
       "baseValue": 1000.0,
@@ -24355,50 +24379,50 @@
         "products": 29
       },
       "returns": {
-        "asOf": "2026-11-09",
+        "asOf": "2026-11-10",
         "1D": {
           "available": true,
-          "pct": 0.08,
-          "from": "2026-11-08",
-          "to": "2026-11-09",
-          "fromIndex": 2331.41,
-          "toIndex": 2333.22,
+          "pct": 0.93,
+          "from": "2026-11-09",
+          "to": "2026-11-10",
+          "fromIndex": 2333.22,
+          "toIndex": 2354.85,
           "reason": null
         },
         "5D": {
           "available": true,
-          "pct": 1.28,
-          "from": "2026-11-04",
-          "to": "2026-11-09",
-          "fromIndex": 2303.74,
-          "toIndex": 2333.22,
+          "pct": 2.25,
+          "from": "2026-11-05",
+          "to": "2026-11-10",
+          "fromIndex": 2302.96,
+          "toIndex": 2354.85,
           "reason": null
         },
         "30D": {
           "available": true,
-          "pct": 10.49,
-          "from": "2026-10-10",
-          "to": "2026-11-09",
-          "fromIndex": 2111.62,
-          "toIndex": 2333.22,
+          "pct": 11.74,
+          "from": "2026-10-11",
+          "to": "2026-11-10",
+          "fromIndex": 2107.41,
+          "toIndex": 2354.85,
           "reason": null
         },
         "1Y": {
           "available": true,
-          "pct": 70.25,
-          "from": "2025-11-09",
-          "to": "2026-11-09",
-          "fromIndex": 1370.5,
-          "toIndex": 2333.22,
+          "pct": 71.81,
+          "from": "2025-11-10",
+          "to": "2026-11-10",
+          "fromIndex": 1370.58,
+          "toIndex": 2354.85,
           "reason": null
         },
         "YTD": {
           "available": true,
-          "pct": 67.02,
+          "pct": 68.57,
           "from": "2026-01-01",
-          "to": "2026-11-09",
+          "to": "2026-11-10",
           "fromIndex": 1396.95,
-          "toIndex": 2333.22,
+          "toIndex": 2354.85,
           "reason": null
         }
       }
