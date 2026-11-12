@@ -1,6 +1,6 @@
 # JP PSA10 broad benchmark
 
-Static JSON for `market-jp-psa10-bench.html`. This is the public Japanese Pokémon TCG **PSA10** benchmark (復古／中世代／現行 + sibling baskets). EN Base daily indexes are a monitor on the same page, not a second product. `market-jp-psa10.html` only redirects here.
+Static JSON for `market-jp-psa10-bench.html` (page title **日版 PSA10**). Six series: 綜合 (default)／復古／日版 SM＋劍盾 (`modern`)／現行, plus quieter 特典 and 日版 Tag Team (`midera`). The page may overlay an English Base daily line; it does not host that index desk. `market-jp-psa10.html` only redirects here. JSON `labelZh` can still say the older strings; the page overrides the display names.
 
 Pokeca intent (not a code clone): era sectors + √(sales×price) rank for display, equal-weight headline + liquidity/price with a 3% cap, quarterly membership. **Sector N is not a Pokeca floor of 80.** Membership is whatever clears the liquidity/price screens; composite is the union of the three era sectors.
 
@@ -19,10 +19,10 @@ Pokeca intent (not a code clone): era sectors + √(sales×price) rank for displ
 | --- | --- | --- |
 | `composite` | 綜合 | Headline: union of screened VINTAGE + MODERN + CURRENT (N floats; no pad / no truncate) |
 | `vintage` | 復古 | Pre-SM, ~1996–2016 (XY / BW / DP / … as Pokeca Vintage) |
-| `modern` | 中世代 SM/S | Sun & Moon + Sword/Shield, including Tag Team in-sector |
+| `modern` | 日版 SM＋劍盾 | Sun & Moon + Sword/Shield, including Tag Team in-sector. Page label; key stays `modern`. |
 | `current` | 現行 SV/M | Scarlet & Violet + MEGA — **not** limited to Box EV `data.json` chase IDs |
 | `promo` | 特典 PROMO | Sibling: Grey Felt Hat class, Munch/Picasso, Mario/Luigi/poncho Pikachu, Extra Battle Day, other liquid JP promos |
-| `midera` | Tag Team / MID | Sibling thermometer: Tag Team GX window (SM8b–SM12a / SMM). Overlaps MODERN on purpose so mid-era is visible |
+| `midera` | 日版 Tag Team | Sibling thermometer: Tag Team GX window (SM8b–SM12a / SMM). Overlaps the SM＋劍盾 sector on purpose. Shown quieter than the four main baskets. |
 
 The old ~60-card SV chase sleeve is no longer a public page. `market-jp-psa10.html` redirects here. `data/market-jp-psa10/` is frozen history (last snapshot 2026-10-29). Its nightly job is removed. Those 60 cards are not members of this benchmark; the frozen `baskets.json` is only a known-ID seed for discovery.
 

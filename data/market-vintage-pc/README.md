@@ -32,7 +32,7 @@ Slugs are copied from `data/base-psa-pop/catalog.json` (PriceCharting console UR
 ## Where it shows
 
 - `market-vintage.html#pc/1st` (also `#pc/shadowless`, `#pc/unlimited`, `#pc/base2`, `#pc/overlay`) — view **PC 月線**
-- `market-jp-psa10-bench.html#en-1st` (and `#en-shadowless`, `#en-unlimited`, `#en-base2`) — the EN row’s **primary** line is the daily TCG/TickerMint tape in `data/market-vintage/` (2024-02-08 = 1000). This monthly series is the optional **PC 月線** overlay on that chart, and the long history on `market-vintage.html#pc/…`. The six JP SNK series are unchanged. `#current` still opens the JP current sector.
+- `market-jp-psa10-bench.html#en-1st` (and `#en-shadowless`, `#en-unlimited`, `#en-base2`) — optional same-chart overlay on 日版 PSA10. The daily TCG/TickerMint tape in `data/market-vintage/` (2024-02-08 = 1000) is the overlay line; this monthly series can be added as the **PC 月線** dash. It does not replace the Japanese basket. The long history stays on `market-vintage.html#pc/…`. The six JP series are unchanged. `#current` still opens the JP current sector.
 
 ## Refresh
 

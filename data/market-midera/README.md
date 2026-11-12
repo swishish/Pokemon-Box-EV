@@ -23,7 +23,7 @@ Same philosophy as `market-en` / Base vintage:
 - A listed ID enters the index on its first priced day. S&P-style divisor keeps the level continuous.
 - Rebase: **1,000 at 2024-02-08** after TickerMint `--backfill --confirm BACKFILL`. Period views only zoom the chart; they do not re-rebase to 1,000. Top 10 / Bottom 10 use the last two priced weekly snaps (`--rebuild-movers`).
 
-`market-midera.html` has Pulse (1D / 5D / 30D / 1Y / YTD / **All** / custom sparkline — All = full available history, no rebase; hover/tap shows index + date), **lag vs index** (30D / YTD, most-lagging first), and a Binder grid on the same snapshot. Binder and the full-basket table share DP · BW · XY · SM filter chips (display only; the frozen 50 does not change).
+The public view is `market-en.html#mid` (英文市況 · 英文中世代). `market-midera.html` only redirects there, with the binder hash preserved as `#mid/binder`. The view still has Pulse (1D / 5D / 30D / 1Y / YTD / **All** / custom sparkline — All = full available history, no rebase; hover/tap shows index + date), **lag vs index** (30D / YTD, most-lagging first), and a Binder grid on the same snapshot. Binder and the full-basket table share DP · BW · XY · SM filter chips (display only; the frozen 50 does not change). This is English DP–SM raw, not the Japanese SM＋劍盾 basket.
 
 ## Daily log
 

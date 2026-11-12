@@ -7,10 +7,10 @@
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
 <title>日盒開盒值不值？ v1.33.6 · 首頁</title>
-<meta name="description" content="給朋友看的簡易日盒 EV 小算盤：開盒值不值、Chase 公允值、Base 復古指數。靜態快照，非正式投資建議。" />
+<meta name="description" content="五道門：開盒 EV、Chase 公允值、日版 PSA10、英文市況、英文 Base。靜態快照，非正式投資建議。" />
 <meta property="og:site_name" content="日盒開盒值不值？" />
 <meta property="og:title" content="日盒開盒值不值？ · 開盒 EV" />
-<meta property="og:description" content="給朋友看的簡易日盒 EV 小算盤：開盒值不值、Chase 公允值、Base 復古指數。靜態快照，非正式投資建議。" />
+<meta property="og:description" content="五道門：開盒 EV、Chase 公允值、日版 PSA10、英文市況、英文 Base。靜態快照，非正式投資建議。" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://swishish.github.io/Pokemon-Box-EV/" />
 <meta property="og:image" content="https://swishish.github.io/Pokemon-Box-EV/og.png" />
@@ -627,8 +627,15 @@
     }
     .how-card:nth-child(even) .how-fig { order: -1; }
   }
-  @media (min-width: 900px) {
-    .task-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; }
+  @media (min-width: 720px) {
+    .task-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; }
+  }
+  @media (min-width: 1100px) {
+    .task-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+    .task { padding: 12px 12px 10px; }
+    .task-title { font-size: 1.02rem; }
+    .task-desc { font-size: .78rem; }
+    .task-go { font-size: .78rem; padding: 8px 10px; }
   }
   @media (min-width: 900px) {
     .sec, .links-band, .how-list, .link-grid { display: grid; }
@@ -648,22 +655,15 @@
     .chip { font-size: .78rem; }
   }
 </style>
+<link rel="stylesheet" href="./css/site-nav.css?v=1.34.0" />
 </head>
 <body>
 <header>
   <div class="header-inner">
     <div class="header-top">
       <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.33.6</span></h1>
-      <nav class="header-nav" aria-label="站內導覽">
-        <a class="nav-btn" href="./calc.html">開盒 EV</a>
-        <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
-        <a class="nav-btn" href="./market-jp-psa10-bench.html" title="日版 PSA10 廣度基準（復古／中世代／現行）">JP 基準</a>
-        <a class="nav-btn" href="./market-en.html" title="English raw singles market pulse">EN 市況</a>
-        <a class="nav-btn" href="./market-vintage.html" title="Base Set 1st / Shadowless / Unlimited，另有 PriceCharting 月線含 Base Set 2">Base 復古</a>
-        <a class="nav-btn" href="./market-midera.html" title="DP → SM chase Top 50 raw index">中世代</a>
-        <a class="nav-btn" href="./market-base-psa-pop.html" title="英文 Base Set 1st / Shadowless / Unlimited / Base Set 2 PSA POP">Base POP</a>
-        <a class="nav-btn" href="https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/" title="Base Set Unlimited cheat sheet">Base Unlimited</a>
-      </nav>
+      <nav class="header-nav" data-site-nav aria-label="站內導覽"></nav>
+<script src="./js/site-nav.js?v=1.34.0"></script>
     </div>
     <p><img class="mon mon-sm" src="./img/accents/eevee.svg" alt="" width="20" height="20" aria-hidden="true" />給朋友看的簡易日盒 EV 小算盤 · 無登入 · 非即時行情</p>
     <div class="fresh-badge" id="freshBadge" role="status" aria-live="polite">
@@ -677,9 +677,8 @@
   <section class="hero" aria-labelledby="hero-title">
     <p class="hero-kicker"><span class="poke-mark" aria-hidden="true"></span> 日盒 EV 小算盤</p>
     <h2 id="hero-title">開盒值不值，一眼睇到。</h2>
-    <p class="hero-pitch">三個入口：開盒計算、市場觀察、研究工具。頂欄日期是靜態快照，不是即時行情。</p>
+    <p class="hero-pitch">五道門，同頂欄一樣。每道門只答一件事。頂欄日期係靜態快照，唔係即時行情。</p>
     <div class="cta-row">
-      <a class="cta" href="./calc.html">開盒計算 →</a>
       <div class="lights-wrap">
         <div class="lights" aria-label="紅綠燈說明">
           <span class="light" title="綠色只係回收比例較高，當娛樂開盒參考。100% 先係打和。"><span class="dot good" aria-hidden="true"></span>≥55% 回收比例較高（娛樂開盒參考）</span>
@@ -692,33 +691,36 @@
     <img class="hero-deco" src="./img/accents/eevee.svg" alt="" width="110" height="110" aria-hidden="true" />
   </section>
 
-  <section class="task-grid" id="tasks" aria-label="本站三項工作">
+  <section class="task-grid" id="tasks" aria-label="五道門">
     <article class="task">
-      <p class="task-kicker">開盒計算</p>
+      <p class="task-kicker">問哪件事</p>
       <h2 class="task-title">開盒 EV</h2>
-      <p class="task-desc">選系列，一次過睇實付盒價、預期回收額、差額（回收−盒價）、預期回收比例。實付盒價預設係落地／買入價。主判斷用 100% Grade A（買入價）。有膜／無膜只改分母。綠 ≥55% 回收比例較高（娛樂開盒參考）、黃 40–55% 普通、紅 &lt;40% 偏貴。100% 先係打和。</p>
-      <a class="task-go" href="./calc.html">開始計算 →</a>
-    </article>
-    <article class="task task-market">
-      <p class="task-kicker">市場觀察</p>
-      <h2 class="task-title">JP 基準</h2>
-      <p class="task-desc">日版 PSA10 廣度基準：復古／中世代／現行，N 跟篩選浮動。同頁的 EN Base 是監察／旁路（英文裸卡），不是另一條日版指數。靜態快照，不是即時行情。</p>
-      <nav class="task-sub" aria-label="其他市況">
-        <a href="./market-en.html">EN 市況</a>
-        <a href="./market-vintage.html">Base 復古</a>
-        <a href="./market-midera.html">中世代</a>
-        <a href="./market-base-psa-pop.html">Base POP</a>
-      </nav>
-      <a class="task-go" href="./market-jp-psa10-bench.html">先看 JP 基準 →</a>
+      <p class="task-desc">呢盒落地價，開出嚟大概回幾多？</p>
+      <a class="task-go" href="./calc.html">打開開盒 EV →</a>
     </article>
     <article class="task">
-      <p class="task-kicker">研究工具</p>
+      <p class="task-kicker">問哪件事</p>
       <h2 class="task-title">Chase 公允值</h2>
-      <p class="task-desc">PSA10 回歸散點：預測 vs 實際，點擊睇殘差。抽出率、haircut、資料來源寫在方法論。</p>
-      <nav class="task-sub" aria-label="研究方法">
-        <a href="./calc.html#method">方法論</a>
-      </nav>
+      <p class="task-desc">呢張 PSA10，相對模型貴定平？</p>
       <a class="task-go" href="./chase-fit.html">打開 Chase 公允值 →</a>
+    </article>
+    <article class="task">
+      <p class="task-kicker">問哪件事</p>
+      <h2 class="task-title">日版 PSA10</h2>
+      <p class="task-desc">日版評級卡呢段時期，熱定冷？</p>
+      <a class="task-go" href="./market-jp-psa10-bench.html">打開日版 PSA10 →</a>
+    </article>
+    <article class="task">
+      <p class="task-kicker">問哪件事</p>
+      <h2 class="task-title">英文市況</h2>
+      <p class="task-desc">英文裸卡 Top 500，同英文 DP–SM，而家幾熱？</p>
+      <a class="task-go" href="./market-en.html">打開英文市況 →</a>
+    </article>
+    <article class="task">
+      <p class="task-kicker">問哪件事</p>
+      <h2 class="task-title">英文 Base</h2>
+      <p class="task-desc">英文 Base 四種印刷，指數同人口點樣？</p>
+      <a class="task-go" href="./market-vintage.html">打開英文 Base →</a>
     </article>
   </section>
 
@@ -884,7 +886,7 @@
 
 <footer>
   <img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" />
-  <span>日盒 EV 小算盤 <b>v1.33.6</b> · Snapshot 靜態資料 · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10-bench.html">JP 基準</a> · <a href="./market-base-psa-pop.html">Base POP</a></span>
+  <span>日盒 EV 小算盤 <b>v1.33.6</b> · Snapshot 靜態資料 · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">英文市況</a> · <a href="./market-vintage.html">英文 Base</a> · <a href="./market-jp-psa10-bench.html">日版 PSA10</a></span>
 </footer>
 <!-- Cloudflare Web Analytics -->
 <script src="./js/freshness-badge.js?v=1.33.6"></script>

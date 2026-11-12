@@ -1,0 +1,10 @@
+/* Current-page mark for the shared top bar. Layout of .nav-btn stays on each page. */
+.header-nav a.nav-btn.is-current,
+.header-nav a.nav-btn.is-current:hover {
+  background: var(--ink, #141414);
+  color: #fff8d6;
+  box-shadow: none;
+}
+.header-nav a.nav-btn.is-current:active {
+  transform: none;
+}

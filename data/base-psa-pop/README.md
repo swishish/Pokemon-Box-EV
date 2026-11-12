@@ -1,6 +1,6 @@
 # Base Set PSA / CGC population
 
-Static JSON for `market-base-psa-pop.html`. Compares English **1st Edition**, **Shadowless**, **Unlimited**, and **Base Set 2** populations for Base Set **#1–102**. The page defaults to **PSA＋CGC combined** per grade and can split the two companies. Beckett/BGS is not collected. Half grades are always bucketed into the lower whole grade (no toggle).
+Static JSON for the 英文 Base **人口** view (`market-vintage.html#pop`). `market-base-psa-pop.html` only redirects there and keeps the query string. Compares English **1st Edition**, **Shadowless**, **Unlimited**, and **Base Set 2** populations for Base Set **#1–102**. Display FX is USD × 7.80. The page defaults to **PSA＋CGC combined** per grade and can split the two companies. Beckett/BGS is not collected. Half grades are always bucketed into the lower whole grade (no toggle).
 
 | File | Role |
 | --- | --- |

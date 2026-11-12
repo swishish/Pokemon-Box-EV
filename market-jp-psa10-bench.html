@@ -6,23 +6,23 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>日版 PSA10 基準 · v1.33.3</title>
+<title>日版 PSA10</title>
 <meta name="description" content="日版寶可夢 TCG PSA10 廣度基準：復古／中世代／現行 N 隨流動性篩選浮動，另加特典與 Tag Team 姊妹籃子。等權／流動性／價格／無 cap 疊加。靜態快照，非正式投資建議。" />
 <meta property="og:site_name" content="日版 PSA10 基準" />
-<meta property="og:title" content="日版 PSA10 基準 · 復古／中世代／現行" />
+<meta property="og:title" content="日版 PSA10" />
 <meta property="og:description" content="日版 PSA10 廣度基準：復古／中世代／現行。EN Base 是同頁監察／旁路。靜態快照，非正式投資建議。" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://swishish.github.io/Pokemon-Box-EV/market-jp-psa10-bench.html" />
 <meta property="og:image" content="https://swishish.github.io/Pokemon-Box-EV/og-psa10-bench-v2.png?v=1.32.2" />
-<meta property="og:image:alt" content="日版 PSA10 基準 · 復古／中世代／現行" />
+<meta property="og:image:alt" content="日版 PSA10" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:locale" content="zh_HK" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="日版 PSA10 基準 · 復古／中世代／現行" />
-<meta name="twitter:description" content="日版 PSA10 基準：復古／中世代／現行。EN Base 是同頁監察／旁路。非正式投資建議。" />
+<meta name="twitter:title" content="日版 PSA10" />
+<meta name="twitter:description" content="日版 PSA10。英文 Base 只作同圖對照，完整四條在英文 Base。" />
 <meta name="twitter:image" content="https://swishish.github.io/Pokemon-Box-EV/og-psa10-bench-v2.png?v=1.32.2" />
-<meta name="twitter:image:alt" content="日版 PSA10 基準 · 復古／中世代／現行" />
+<meta name="twitter:image:alt" content="日版 PSA10" />
 <link rel="canonical" href="https://swishish.github.io/Pokemon-Box-EV/market-jp-psa10-bench.html" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <link rel="stylesheet" href="./css/freshness-badge.css?v=1.33.3" />
@@ -311,7 +311,7 @@
   .metric .v.pxn { color: var(--pxn); }
   .series-tabs {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 6px;
     margin-bottom: 12px;
   }
@@ -378,6 +378,18 @@
     min-height: 44px;
   }
   .series-tab:hover { background: var(--bg-2); }
+  .series-tab.is-side { background: var(--bg-2); box-shadow: none; }
+  .series-tab.is-side .kicker { color: var(--muted); font-weight: 700; }
+  .series-tab.is-side .lvl { font-size: 1rem; }
+  .series-tab.is-active.is-side { background: var(--card); box-shadow: var(--shadow-xs); }
+  .en-overlay-wrap {
+    border: 1px dashed var(--line, #d4c9b4);
+    border-radius: var(--radius);
+    padding: 8px 8px 6px;
+    margin: 0 0 12px;
+  }
+  .en-overlay-wrap .legend-row { display: flex; flex-wrap: wrap; gap: 4px; }
+  .en-overlay-wrap .legend-btn { font-size: .72rem; }
   .series-tab.is-active {
     background: var(--accent-fill);
     box-shadow: var(--shadow-sm);
@@ -589,24 +601,17 @@
     .en-base-wrap .series-tabs { grid-template-columns: 1fr 1fr; }
   }
 </style>
+<link rel="stylesheet" href="./css/site-nav.css?v=1.34.0" />
 </head>
 <body>
 <header>
   <div class="header-inner">
     <div class="header-top">
       <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.33.3</span></h1>
-      <nav class="header-nav" aria-label="站內導覽">
-        <a class="nav-btn" href="./calc.html">開盒 EV</a>
-        <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
-        <a class="nav-btn" href="./market-en.html" title="English raw singles market pulse">EN 市況</a>
-        <a class="nav-btn" href="./market-vintage.html" title="Base Set 1st / Shadowless / Unlimited raw indexes">Base 復古</a>
-        <a class="nav-btn" href="./market-midera.html" title="DP → SM chase Top 50 raw index">中世代</a>
-        <a class="nav-btn" href="./market-jp-psa10-bench.html" title="日版 PSA10 廣度基準（復古／中世代／現行）">JP 基準</a>
-        <a class="nav-btn" href="./market-base-psa-pop.html" title="英文 Base Set 1st / Shadowless / Unlimited / Base Set 2 PSA POP">Base POP</a>
-        <a class="nav-btn" href="https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/" title="Base Set Unlimited cheat sheet">Base Unlimited</a>
-      </nav>
+      <nav class="header-nav" data-site-nav aria-label="站內導覽"></nav>
+<script src="./js/site-nav.js?v=1.34.0"></script>
     </div>
-    <p>日版 PSA10 基準（主）· 復古／中世代／現行 · 靜態快照</p>
+    <p>日版 PSA10 · 綜合／復古／日版 SM＋劍盾／現行 · 靜態快照</p>
     <div class="fresh-badge" id="freshBadge" role="status" aria-live="polite">
       <span class="fresh-kicker">靜態快照</span>
       <span class="fresh-body">快照日期未載入</span>
@@ -616,13 +621,20 @@
 
 <main class="wrap" id="app">
   <div id="dataFreshness" class="data-freshness" role="status" aria-live="polite"></div>
-  <p class="kind-note">這頁是日版 PSA10 基準。綜合＝復古＋中世代＋現行的流動性篩選聯集（N 隨篩選浮動）；特典／Tag Team 是平行姊妹籃子。下方 EN Base 是監察／旁路，不是另一條日版溫度計。</p>
-  <p class="jp-kicker">JP 基準 · 主指數 <span class="tiny">日版 PSA10 · 復古／中世代／現行</span></p>
+  <p class="kind-note">這頁是日版 PSA10。預設綜合＝復古＋日版 SM＋劍盾＋現行（N 隨篩選浮動）。特典／日版 Tag Team 是姊妹籃子，先收細。英文 Base 只可選疊在同一張圖；完整四條在英文 Base。</p>
+  <p class="jp-kicker">日版 PSA10 <span class="tiny">預設綜合 · 六條都在</span></p>
   <div class="series-tabs" id="seriesTabs" role="tablist" aria-label="日版 PSA10 基準"></div>
-  <div class="en-base-wrap" id="enBaseWrap">
-    <p class="en-kicker"><span class="en-role">監察／旁路</span> EN Base <span class="tiny">英文裸卡 · 不是日版 PSA10 · TickerMint 日線 · 2024-02-08＝1000</span></p>
-    <div class="series-tabs" id="enBaseTabs" role="tablist" aria-label="EN Base 監察旁路"></div>
-    <p class="tiny" id="enBaseHint" style="margin:4px 0 0">監察／旁路，與上面日版基準分開。主圖是 TCGPlayer Market／TickerMint 日線（2024-02-08＝1000）。PriceCharting 月線（2023-01-01＝1000）可疊上，兩條不能相減。完整籃子在 <a href="./market-vintage.html#unlimited">Base 復古 · 日線</a>。</p>
+  <div class="en-overlay-wrap" id="enOverlayWrap">
+    <p class="en-kicker"><span class="en-role">可選對照</span> 英文 Base <span class="tiny">疊在同一張圖 · 不是第二個指數台 · 完整四條在 <a href="./market-vintage.html">英文 Base</a></span></p>
+    <div class="legend-row" id="enOverlayToggles" role="group" aria-label="英文 Base 同圖對照">
+      <button type="button" class="legend-btn is-on" data-en-overlay="">關閉</button>
+      <button type="button" class="legend-btn is-off" data-en-overlay="base-1st">1st Edition</button>
+      <button type="button" class="legend-btn is-off" data-en-overlay="base-shadowless">Shadowless</button>
+      <button type="button" class="legend-btn is-off" data-en-overlay="base-unlimited">Unlimited</button>
+      <button type="button" class="legend-btn is-off" data-en-overlay="base-set-2">Base Set 2</button>
+      <button type="button" class="legend-btn is-off" id="enPcToggle" aria-pressed="false">PC 月線</button>
+    </div>
+    <p class="tiny" id="enBaseHint" style="margin:4px 0 0">預設只看日版。打開一條英文 Base 只係同圖對照（各自 1000 錨，不能相減）。籃子同漲跌榜仍是日版。四條印刷的完整指數、月線同人口在 <a href="./market-vintage.html">英文 Base</a>。</p>
   </div>
 
   <div class="hero">
@@ -635,10 +647,6 @@
         <button type="button" class="legend-btn is-on" data-series="liquidity" aria-pressed="true"><span class="swatch dash" style="color:var(--liq)"></span>流動性 Liq</button>
         <button type="button" class="legend-btn is-off" data-series="price" aria-pressed="false"><span class="swatch dash" style="color:var(--px)"></span>價格 Price</button>
         <button type="button" class="legend-btn is-off" data-series="priceNoCap" aria-pressed="false"><span class="swatch long" style="color:var(--pxn)"></span>價格·無 cap</button>
-      </div>
-      <div class="en-overlay-row" id="enOverlayRow" role="group" aria-label="English Base chart series">
-        <button type="button" class="legend-btn is-on" id="enDailyLegend" aria-pressed="true" disabled><span class="swatch" id="enDailySwatch"></span>TCG 日線</button>
-        <button type="button" class="legend-btn is-off" id="enPcToggle" aria-pressed="false"><span class="swatch dash" style="color:#8a6914"></span>PC 月線</button>
       </div>
       <div class="period-btns" role="tablist" aria-label="Return period">
         <button type="button" class="period-btn" data-period="1D" aria-selected="false">1D</button>
@@ -733,10 +741,10 @@
   <div class="card method-card">
     <h2>這是什麼 · 方法</h2>
     <ul class="tiny">
-      <li><b>這頁就是 JP 基準</b>：日版 PSA10 主指數在這裡（復古／中世代／現行，加特典與 Tag Team 姊妹籃子）。舊的約 60 張 SV chase 袖已從導覽收起；舊網址 <code>market-jp-psa10.html</code> 會轉到這頁。宇宙來自 SNK 公開搜尋＋本站已有 ID，<b>不發明</b>產品編號。</li>
-      <li><b>EN Base · 監察／旁路</b>：同一頁下方是四條<b>英文裸卡</b>籃子（Base 1st Edition、Shadowless、Unlimited、Base Set 2），不是日版 PSA10，也不是另一個產品頁。主圖是 TCGPlayer <b>Market</b>（裸卡 NM），歷史來自 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a>，<b>每日一點</b>，<b>2024-02-08＝1,000</b>（那天夠厚就當錨）。這不是 PriceCharting 的 <b>2023-01-01＝1,000</b> 月線，兩條水平不能相減。圖上的「PC 月線」是同一張卡的長期對照，預設關掉。1st Edition 最薄（Charizard／Mewtwo／Blastoise 有些日子沒有市價，沿用既有 70 日 carry，不補 $0）。不改上面六條日版基準。深連結 <code>#en-1st</code>／<code>#en-shadowless</code>／<code>#en-unlimited</code>／<code>#en-base2</code>。月線原頁仍在 <a href="./market-vintage.html#pc/1st">復古頁 PC 月線</a>。</li>
-      <li><b>三個時代扇區，N 隨篩選浮動</b>：<b>復古 VINTAGE</b>＝SM 之前（約 1996–2016，XY／BW／DP…，依 Pokeca Vintage）；<b>中世代 MODERN</b>＝SM＋劍盾 S（Tag Team 亦計入此區）；<b>現行 CURRENT</b>＝SV＋MEGA，不限 Box EV chase 657 個 ID。通過篩選即入選——<b>不再</b>設地板 80／補到 80／截到 80。綜合＝三區聯集。篩選：最近 PSA10 刊價 ≥ ¥2,000；90 日刊價日復古 ≥5、中世代／現行 ≥6。某區通過少於 20 張才放寬到 ¥1,500／3 日（仍然收取全部通過者，不是地板）。</li>
-      <li><b>平行姊妹籃子</b>：<b>特典 PROMO</b>（Grey Felt Hat／灰氈帽、Munch／Picasso／長場、Mario／Luigi／poncho 皮卡丘、Extra Battle Day 等流動日版特典；篩選 ¥2,500／90 日 5 刊價日）；<b>Tag Team / MID</b>＝SM8b–SM12a／SMM 溫度計（篩選與復古相同：¥2,000／5 日），即使 MODERN 已覆蓋 SM／S 仍單獨顯示，避免中世代被隱藏。兩條皆為篩選全收，不截 80。</li>
+      <li><b>這頁就是日版 PSA10</b>：六條都在（綜合／復古／日版 SM＋劍盾／現行，加收細的特典與日版 Tag Team）。預設打開綜合。舊的約 60 張 SV chase 袖仍然收起；舊網址 <code>market-jp-psa10.html</code> 會轉到這頁。宇宙來自 SNK 公開搜尋＋本站已有 ID，<b>不發明</b>產品編號。</li>
+      <li><b>英文 Base 只作同圖對照</b>：1st Edition、Shadowless、Unlimited、Base Set 2 可以選擇疊上日版圖，方便比形狀。它們不是第二個指數台：這頁不換上英文籃子、漲跌榜或人口。主圖仍是日版 PSA10。英文日線是 TCGPlayer <b>Market</b>（<a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a>，<b>2024-02-08＝1,000</b>），同日版各自的 1,000 錨<b>不能相減</b>。PC 月線（<b>2023-01-01＝1,000</b>）可再疊，預設關掉。深連結 <code>#en-1st</code>／<code>#en-shadowless</code>／<code>#en-unlimited</code>／<code>#en-base2</code> 會打開該條對照，日版仍停在綜合。完整四條印刷在 <a href="./market-vintage.html">英文 Base</a>（月線 <a href="./market-vintage.html#pc/1st">#pc/1st</a>，人口 <a href="./market-vintage.html#pop">#pop</a>）。</li>
+      <li><b>三個時代扇區，N 隨篩選浮動</b>：<b>復古</b>＝SM 之前（約 1996–2016，XY／BW／DP…）；<b>日版 SM＋劍盾</b>＝Sun &amp; Moon＋劍盾（Tag Team 亦計入此區）；<b>現行</b>＝SV＋MEGA，不限開盒 EV chase 名單。通過篩選即入選——<b>不再</b>設地板 80／補到 80／截到 80。綜合＝三區聯集。篩選：最近 PSA10 刊價 ≥ ¥2,000；90 日刊價日復古 ≥5、日版 SM＋劍盾／現行 ≥6。某區通過少於 20 張才放寬到 ¥1,500／3 日（仍然收取全部通過者，不是地板）。</li>
+      <li><b>姊妹籃子（先收細）</b>：<b>特典</b>（Grey Felt Hat／灰氈帽、Munch／Picasso／長場、Mario／Luigi／poncho 皮卡丘、Extra Battle Day 等流動日版特典；篩選 ¥2,500／90 日 5 刊價日）；<b>日版 Tag Team</b>＝SM8b–SM12a／SMM 溫度計（篩選與復古相同：¥2,000／5 日）。兩條仍可點開，只是不如四條主籃那麼大聲。皆為篩選全收，不截 80。</li>
       <li><b>四條權重（權重順序）</b>：1 等權 1/n（算術，不是 Pokeca Jevons）；2 流動性（前一日 30 日 SNK 成交日圓，3% cap）；3 價格（滯後市值，3% cap）；4 價格無 cap 只作疊加，<b>不改</b>前三條。籃子小到 1/n ≥ 3% 時 cap 無法施行。圖預設只開等權＋流動性；價格／無 cap 可手動打開。</li>
       <li><b>廣度</b>：跟隨圖表期間（1D／5D／30D／1Y／YTD／All／自訂）。各成分用同一條 LOCF 刊價，比較該段第一個指數日與最後一日（上漲／持平／下跌）。成交量柱仍只計當日有刊價張數。</li>
       <li><b>英文卡名</b>：籃子／漲跌榜顯示 SNKRDUNK EN 產品名（資料裡的 <code>name</code>）。日文 <code>localizedName</code> 與繁中名只作後備。SNK 把寫入訓練家空白顯示成 <code>_’s</code> 時，畫面改成 PSA 寫法 <code>___'s Pikachu</code>，不發明其他譯名。</li>
@@ -747,11 +755,11 @@
   </div>
 
   <div class="disclaimer" id="disclaimer">
-    <p><b>資料來源：</b>日版六條（主指數）是 SNKRDUNK 日站公開 PSA10 成交圖價。EN Base 四條是同頁監察／旁路：TCGPlayer Market（每日 TCGCSV，歷史 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a>），可另疊 PriceCharting 月線。這頁是 GitHub Pages 靜態 JSON，瀏覽器<b>不會</b>替你下單／出價。數字可能延遲或不準；<b>不是</b>投資建議。</p>
+    <p><b>資料來源：</b>日版六條（主指數）是 SNKRDUNK 日站公開 PSA10 成交圖價。英文 Base 四條只可選疊在同一張圖（完整指數在英文 Base）：TCGPlayer Market（每日 TCGCSV，歷史 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a>），可另疊 PriceCharting 月線。這頁是 GitHub Pages 靜態 JSON，瀏覽器<b>不會</b>替你下單／出價。數字可能延遲或不準；<b>不是</b>投資建議。</p>
     <p>Pokémon 與相關名稱為其權利人商標。本頁為獨立粉絲工具，與 Nintendo／The Pokémon Company／SNKRDUNK／PSA 無關。請只瀏覽行情，不要用自動化去買／Bid／留言。</p>
   </div>
 </main>
-<footer>日盒 EV 小算盤 · JP PSA10 基準 · Snapshot 靜態資料 · 非正式投資建議 · 來源 <a href="https://snkrdunk.com/" target="_blank" rel="noopener">SNKRDUNK</a> · EN Base 歷史 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a> · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-base-psa-pop.html">Base POP</a></footer>
+<footer>日盒 EV 小算盤 · JP PSA10 基準 · Snapshot 靜態資料 · 非正式投資建議 · 來源 <a href="https://snkrdunk.com/" target="_blank" rel="noopener">SNKRDUNK</a> · EN Base 歷史 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a> · <a href="./index.html">首頁</a> · <a href="./calc.html">開盒 EV</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">英文市況</a> · <a href="./market-vintage.html">英文 Base</a></footer>
 
 <script src="./js/freshness-badge.js?v=1.33.3"></script>
 <script src="./js/spark-tip.js?v=1.33.3"></script>
@@ -932,15 +940,71 @@
   let printsById = null;
   let printsLoading = false;
   let printsFailed = false;
+  const LABEL_ZH = {
+    composite: '綜合', vintage: '復古', modern: '日版 SM＋劍盾',
+    current: '現行 SV/M', promo: '特典', midera: '日版 Tag Team'
+  };
+  function seriesLabel(key, blob) {
+    return LABEL_ZH[key] || (blob && blob.labelZh) || key;
+  }
   let activeKey = 'composite';
   let mode = 'jp';
   let enKey = 'base-1st';
+  let enOverlay = null;
   let showPc = false;
-  const hash = (location.hash || '').replace('#', '');
-  if (EN_FROM_HASH[hash] && VIN && VIN.indexes && VIN.indexes[EN_FROM_HASH[hash]]) {
-    mode = 'en';
-    enKey = EN_FROM_HASH[hash];
-  } else if (ORDER.indexOf(hash) >= 0 && seriesBlob(hash)) activeKey = hash;
+  function parseBenchHash(raw) {
+    const h = String(raw || '').replace(/^#/, '');
+    if (EN_FROM_HASH[h]) return { jp: null, en: EN_FROM_HASH[h] };
+    if (ORDER.indexOf(h) >= 0) return { jp: h, en: null };
+    const m = h.match(/^([a-z]+)[+/](en-[a-z0-9]+)$/);
+    if (m && ORDER.indexOf(m[1]) >= 0 && EN_FROM_HASH[m[2]]) return { jp: m[1], en: EN_FROM_HASH[m[2]] };
+    return { jp: null, en: null };
+  }
+  function writeBenchHash() {
+    let next;
+    if (enOverlay && activeKey === 'composite') next = '#' + (EN_TO_HASH[enOverlay] || 'en-1st');
+    else if (enOverlay) next = '#' + activeKey + '+' + (EN_TO_HASH[enOverlay] || 'en-1st');
+    else next = '#' + activeKey;
+    if ((location.hash || '') === next) return;
+    if (history.replaceState) history.replaceState(null, '', next);
+    else location.hash = next.replace(/^#/, '');
+  }
+  function syncOverlay() {
+    document.querySelectorAll('#enOverlayToggles [data-en-overlay]').forEach((btn) => {
+      const id = btn.getAttribute('data-en-overlay') || '';
+      const on = id === (enOverlay || '');
+      btn.classList.toggle('is-on', on);
+      btn.classList.toggle('is-off', !on);
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    const pc = $('enPcToggle');
+    if (pc) {
+      pc.disabled = !enOverlay;
+      const on = !!(enOverlay && showPc);
+      pc.classList.toggle('is-on', on);
+      pc.classList.toggle('is-off', !on);
+      pc.setAttribute('aria-pressed', on ? 'true' : 'false');
+    }
+    const hint = $('enBaseHint');
+    if (!hint) return;
+    if (!enOverlay) {
+      hint.innerHTML = '預設只看日版。打開一條英文 Base 只係同圖對照（各自 1000 錨，不能相減）。籃子同漲跌榜仍是日版。四條印刷的完整指數、月線同人口在 <a href="./market-vintage.html">英文 Base</a>。';
+      return;
+    }
+    const row = (VIN && VIN.indexes && VIN.indexes[enOverlay]) || {};
+    const slug = (EN_TO_HASH[enOverlay] || 'en-1st').replace(/^en-/, '');
+    const daily = slug === 'base2' ? 'base2' : slug;
+    hint.innerHTML = '同圖對照 <b>' + escapeHtml(row.nameZh || enOverlay) +
+      '</b>（英文裸卡日線，2024-02-08＝1000）。日版籃子不會換成英文。' +
+      (showPc ? '虛線另疊 PC 月線（2023-01-01＝1000），兩條不能相減。' : 'PC 月線可再疊，預設關掉。') +
+      ' 完整四條：<a href="./market-vintage.html#' + daily + '">英文 Base</a>。';
+  }
+  const parsedHash = parseBenchHash((location.hash || '').replace(/^#/, ''));
+  if (parsedHash.jp && seriesBlob(parsedHash.jp)) activeKey = parsedHash.jp;
+  if (parsedHash.en && VIN && VIN.indexes && VIN.indexes[parsedHash.en]) {
+    enOverlay = parsedHash.en;
+    enKey = parsedHash.en;
+  }
 
   function packReturn(baseline, last, field) {
     if (!baseline || !last || last[field] == null || baseline[field] == null) {
@@ -1092,7 +1156,6 @@
   }
 
   function drawChart() {
-    if (mode === 'en') return;
     const wpts = windowPoints(periodState.period);
     const series = [];
     WEIGHT_IDS.forEach((id) => {
@@ -1106,6 +1169,25 @@
         points: wpts.filter((p) => p[id] != null).map((p) => ({ date: p.date, index: p[id] }))
       });
     });
+    if (enOverlay && VIN_HIST) {
+      const from = wpts.length ? wpts[0].date : '';
+      const to = wpts.length ? wpts[wpts.length - 1].date : '';
+      const inWindow = (p) => p && p.index != null && (!from || p.date >= from) && (!to || p.date <= to);
+      const row = (VIN && VIN.indexes && VIN.indexes[enOverlay]) || {};
+      series.push({
+        id: 'en-overlay',
+        name: 'EN ' + (row.nameZh || enOverlay),
+        color: EN_COLOR[enOverlay] || '#3d6fd9',
+        dash: '6 4',
+        points: seriesPts(VIN_HIST, enOverlay).filter(inWindow).map((p) => ({ date: p.date, index: p.index }))
+      });
+      if (showPc && PC_HIST) {
+        const pcPts = seriesPts(PC_HIST, enOverlay).filter(inWindow).map((p) => ({ date: p.date, index: p.index }));
+        if (pcPts.length >= 2) {
+          series.push({ id: 'pc-overlay', name: 'PC 月線', color: '#8a6914', dash: '2 3', points: pcPts });
+        }
+      }
+    }
     const volume = wpts.map((p) => ({ date: p.date, volume: Number(p.volume) || 0 }));
     if (window.SparkTip && typeof SparkTip.draw === 'function') {
       SparkTip.draw($('spark'), [], {
@@ -1121,11 +1203,10 @@
   function cur() { return seriesBlob(activeKey) || {}; }
 
   function renderHero() {
-    if (mode === 'en') return;
     const blob = cur();
     const eq = (blob.indexes && blob.indexes.equal) || {};
     $('indexLevel').textContent = fmtIdx(eq.index);
-    $('heroKicker').textContent = (blob.labelZh || activeKey) + (blob.labelEn ? ' · ' + blob.labelEn : '') + ' · 四條權重';
+    $('heroKicker').textContent = seriesLabel(activeKey, blob) + ' · 四條權重';
     const field = 'equal';
     const ret = returnFor(field, periodState.period);
     const el = $('indexChg');
@@ -1211,7 +1292,7 @@
         : '';
       const name = escapeHtml(cardLabel(row));
       const href = row.url ? '<a href="' + escapeHtml(row.url) + '" target="_blank" rel="noopener">' + name + '</a>' : name;
-      const setBits = [row.setName || row.setCode, row.era, row.promo ? 'PROMO' : '', row.midera ? 'Tag Team' : '']
+      const setBits = [row.setName || row.setCode, row.era, row.promo ? 'PROMO' : '', row.midera ? '日版 Tag Team' : '']
         .filter(Boolean).join(' · ');
       return '<tr><td class="num">' + (i + 1) + '</td><td>' + img + '</td><td class="name-cell">' + href +
         (setBits ? '<div class="tiny">' + escapeHtml(setBits) + '</div>' : '') +
@@ -1230,18 +1311,19 @@
     host.innerHTML = ORDER.filter((k) => seriesBlob(k)).map((k) => {
       const b = seriesBlob(k);
       const eq = (b.indexes && b.indexes.equal) || {};
-      const on = mode === 'jp' && k === activeKey;
+      const on = k === activeKey;
       const ret = returnFor('equal', period, k);
       const pct = (ret && ret.available) ? fmtPct(ret.pct, true) : '—';
       const pctCls = (ret && ret.available) ? chgClass(ret.pct) : 'muted';
-      const name = b.labelZh || k;
-      return '<button type="button" class="series-tab' + (on ? ' is-active' : '') +
+      const name = seriesLabel(k, b);
+      const side = k === 'promo' || k === 'midera';
+      return '<button type="button" class="series-tab' + (side ? ' is-side' : '') + (on ? ' is-active' : '') +
         '" data-key="' + k + '" role="tab" aria-selected="' + (on ? 'true' : 'false') +
         '" aria-label="' + escapeHtml(name) + ' ' + fmtIdx(eq.index) + ' ' + pct + '">' +
         '<div class="kicker">' + escapeHtml(name) + '</div>' +
         '<div class="lvl-row"><span class="lvl">' + fmtIdx(eq.index) + '</span>' +
         '<span class="tab-chg ' + pctCls + '">' + pct + '</span></div>' +
-        '<div class="sub">' + (b.constituentCount || 0) + ' 張 · ' + escapeHtml(b.labelEn || k) + '</div></button>';
+        '<div class="sub">' + (side ? '姊妹籃子 · ' : '') + (b.constituentCount || 0) + ' 張</div></button>';
     }).join('');
   }
 
@@ -1469,7 +1551,7 @@
       hint.innerHTML = '正在看 <b>監察／旁路 · EN Base</b>（' + escapeHtml(row.nameZh || enKey) +
         '），不是日版 PSA10。日版六條仍在上面。' + (showPc && pcRetNow.available ? '虛線是 PriceCharting 月線。' : 'PC 月線按鈕可疊上長期對照。') +
         ' 完整日線：<a href="./market-vintage.html#' + escapeHtml(dailyHash) +
-        '">Base 復古</a> · 月線：<a href="./market-vintage.html#pc/' + escapeHtml(dailyHash) + '">PC</a>。';
+        '">英文 Base</a> · 月線：<a href="./market-vintage.html#pc/' + escapeHtml(dailyHash) + '">PC</a>。';
     }
   }
   function restoreJpChrome() {
@@ -1500,32 +1582,20 @@
   }
 
   function paint() {
-    renderEnTabs();
-    if (mode === 'en') {
-      renderTabs();
-      syncPeriodBtns();
-      renderEn();
-      return;
-    }
-    restoreJpChrome();
     renderTabs();
     enablePeriods();
     syncPeriodBtns();
     renderHero();
     renderBasket();
+    syncOverlay();
     drawChart();
   }
 
   function paintTenor() {
-    if (mode === 'en') {
-      renderEnTabs();
-      syncPeriodBtns();
-      renderEn();
-      return;
-    }
     syncPeriodBtns();
     renderTabs();
     renderHero();
+    syncOverlay();
     drawChart();
   }
 
@@ -1533,8 +1603,7 @@
     if (!seriesBlob(key)) return;
     mode = 'jp';
     activeKey = key;
-    if (history.replaceState) history.replaceState(null, '', '#' + key);
-    else location.hash = key;
+    writeBenchHash();
     paint();
   }
 
@@ -1561,9 +1630,10 @@
   const enPcToggle = $('enPcToggle');
   if (enPcToggle) {
     enPcToggle.addEventListener('click', () => {
+      if (!enOverlay) return;
       showPc = !showPc;
-      syncEnOverlay();
-      if (mode === 'en') paintTenor();
+      syncOverlay();
+      drawChart();
     });
   }
   document.querySelectorAll('.period-btns .period-btn[data-period]').forEach((btn) => {
@@ -1598,15 +1668,30 @@
       drawChart();
     });
   });
-  window.addEventListener('hashchange', () => {
-    const h = (location.hash || '').replace('#', '');
-    if (EN_FROM_HASH[h] && VIN && VIN.indexes && VIN.indexes[EN_FROM_HASH[h]]) {
-      mode = 'en';
-      enKey = EN_FROM_HASH[h];
+  const overlayToggles = $('enOverlayToggles');
+  if (overlayToggles) {
+    overlayToggles.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-en-overlay]');
+      if (!btn) return;
+      const id = btn.getAttribute('data-en-overlay') || '';
+      enOverlay = id && VIN && VIN.indexes && VIN.indexes[id] ? id : null;
+      enKey = enOverlay || enKey;
+      if (!enOverlay) showPc = false;
+      mode = 'jp';
+      writeBenchHash();
       paint();
-      return;
-    }
-    if (ORDER.indexOf(h) >= 0) setActive(h);
+    });
+  }
+  window.addEventListener('hashchange', () => {
+    const parsed = parseBenchHash(location.hash || '');
+    if (parsed.en && (!VIN || !VIN.indexes || !VIN.indexes[parsed.en])) return;
+    if (parsed.jp && seriesBlob(parsed.jp)) activeKey = parsed.jp;
+    else if (parsed.en && !parsed.jp) activeKey = 'composite';
+    enOverlay = parsed.en || null;
+    if (enOverlay) enKey = enOverlay;
+    if (!enOverlay) showPc = false;
+    mode = 'jp';
+    paint();
   });
   if (window.JpPsa10Ui && JpPsa10Ui.syncLegendButtons) JpPsa10Ui.syncLegendButtons(document, visible);
   paint();
