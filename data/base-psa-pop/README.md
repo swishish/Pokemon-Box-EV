@@ -5,7 +5,7 @@ Static JSON for `market-base-psa-pop.html`. Compares English **1st Edition**, **
 | File | Role |
 | --- | --- |
 | `catalog.json` | Card identity + PriceCharting `pop/item` slugs (source of truth; do not invent slugs) |
-| `latest.json` / `latest.js` | Weekly snapshot the page reads (`window.BASE_PSA_POP` fallback) |
+| `latest.json` / `latest.js` | Snapshot the page reads (`window.BASE_PSA_POP` fallback). POP census is monthly; `pc_prices` refresh weekly |
 | `thumbs.json` | URL pointers only (pokemontcg.io `base1/{n}.png`, HTTP 200). The page fetches this file and one image after the user picks a card. |
 
 ## Refresh
@@ -36,4 +36,11 @@ Rebuild the slug catalog from PriceCharting console listings (does not invent UR
 python3 tools/build_base_psa_pop_catalog.py
 ```
 
-GitHub Action **Update Base PSA pop** (`.github/workflows/update-base-psa-pop.yml`): weekly + manual. PR CI only runs `--self-test`.
+GitHub Action **Update Base PSA pop** (`.github/workflows/update-base-psa-pop.yml`):
+
+- **POP census, monthly:** `17 11 1 * *` (11:17 UTC on the 1st, 19:17 HKT). Runs `python3 tools/refresh_base_psa_pop.py --root .` (POP HTML and game-page prices). PSA population lags, so a monthly cross-check is enough.
+- **Prices, weekly:** `17 11 * * 1` (Monday 11:17 UTC, 19:17 HKT). Runs `--prices-only`, which patches `pc_prices` onto the existing snapshot and does not re-fetch POP.
+- **Manual:** workflow_dispatch `mode=full` (default) or `mode=prices-only`.
+- **Pull requests:** `--self-test` only. No network write.
+
+A required card that still fails after 429 retries (Retry-After, else exponential backoff) fails the job with no write. Base Set 2 stays skippable unless that card is marked `required`.

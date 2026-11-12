@@ -1,13 +1,13 @@
 {
   "asOfDate": "2026-11-03",
   "asOf": "2026-11-03 05:00 Asia/Shanghai",
-  "staleDays": 14,
+  "staleDays": 40,
   "defaultCardId": "charizard",
   "source": {
     "name": "PriceCharting public POP report",
     "kind": "pricecharting_pop_html",
     "home": "https://www.pricecharting.com/",
-    "cadence": "PriceCharting updates monthly; this site refreshes weekly.",
+    "cadence": "PriceCharting publishes POP monthly. This site refetches the POP census monthly and PriceCharting game-page prices weekly.",
     "graders": "PSA and CGC columns as published. The page displays PSA+CGC combined per grade. Beckett/BGS is not collected.",
     "half_grades": "PriceCharting already buckets *.5 into the lower whole grade (8.5→8, 9.5→9). Raw half-grade rows are stored only when the HTML lists them.",
     "prices": "Indicative USD from the PriceCharting game page (not the POP table). used=raw, complete=Grade 7, new=Grade 8, graded=Grade 9, manual_only=PSA 10. Missing cells omitted, never invented. UI converts USD→HKD ×7.80."

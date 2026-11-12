@@ -525,7 +525,7 @@
       <li><b>編號對照</b>：Base Set 2 重編部分卡號（例如 Venusaur Base #15 → Base Set 2 #18）。Machamp #8 無 Unlimited／Base Set 2 頁（1st／Shadowless 有則照列）。變體（error、Red Cheeks 等）不列入。</li>
       <li><b>來源厚薄不一</b>：部分 Unlimited 頁在 PriceCharting 上 POP 極少，本站照實顯示、不補數。請以各欄連到的 POP 頁為準。</li>
       <li><b>PriceCharting 指示價</b>：同一印刷版的公開 game 頁欄位，不是 POP 表、也不是即時成交。對照：Ungraded（used）＝raw；Grade 7（complete）；Grade 8（new）；Grade 9（graded）；PSA 10（manual_only）。缺欄顯示「—」，不臆造。畫面以港元顯示（USD × 7.80，與開盒 EV／Chase 同一固定匯率）。</li>
-      <li><b>來源</b>：公開 <a href="https://www.pricecharting.com/" target="_blank" rel="noopener">PriceCharting</a> POP 頁（PSA、CGC；對方約每月更新）與同一 slug 的 game 頁指示價。本站以 GitHub Actions 每週抓取並寫入靜態 JSON。解析失敗會讓週更作業失敗，<b>不會</b>填入臆造 POP；指示價缺漏則保留上次或留空。</li>
+      <li><b>來源</b>：公開 <a href="https://www.pricecharting.com/" target="_blank" rel="noopener">PriceCharting</a> POP 頁（PSA、CGC；對方約每月更新）與同一 slug 的 game 頁指示價。本站 POP 普查每月抓一次，指示價每週另抓，都寫入靜態 JSON。POP 解析失敗會讓該次作業失敗，<b>不會</b>填入臆造 POP；指示價缺漏則保留上次或留空。</li>
     </ul>
   </section>
 
@@ -621,7 +621,7 @@
       FreshBadge.show({
         label: 'POP 快照',
         raw: DATA && DATA.asOfDate,
-        staleAfter: (DATA && DATA.staleDays) || 14
+        staleAfter: (DATA && DATA.staleDays) || 40
       });
     }
     const el = $('dataFreshness');
@@ -634,12 +634,12 @@
     }
     const age = ageDays(asOfDate, new Date());
     const ymd = ymdLocal(asOfDate);
-    if (age > (DATA.staleDays || 14)) {
+    if (age > (DATA.staleDays || 40)) {
       el.className = 'data-freshness stale';
       el.textContent = '數字可能過期（POP 快照：' + ymd + ' · 已過 ' + age + ' 日）— 引用前請核對現況';
     } else {
       el.className = 'data-freshness';
-      el.textContent = src + ' 快照 ' + ymd + ' · 週更 JSON · 預設 PSA＋CGC 合計 POP';
+      el.textContent = src + ' 快照 ' + ymd + ' · POP 月更 · 指示價週更 · 預設 PSA＋CGC 合計 POP';
     }
   }
 

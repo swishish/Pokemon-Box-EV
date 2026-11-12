@@ -18,6 +18,25 @@ English Base **daily** indexes (1st Edition, Shadowless, Unlimited, Base Set 2) 
 
 English Base **PriceCharting** indexes stay in `data/market-vintage-pc/` and refresh via `update-market-vintage-pc.yml`. They are ungraded `used` prices, monthly, rebased so 2023-01-01 = 1000. Open them at `market-vintage.html#pc/1st` (also shadowless / unlimited / base2). Keep that data and workflow. Do not mix the two anchors.
 
+## Base Set PSA POP
+
+`market-base-psa-pop.html` reads `data/base-psa-pop/latest.json`. Population counts and indicative prices both come from public PriceCharting HTML (no API key). A parse or POP fetch error exits non-zero and does not write. A failed price fetch keeps the previous `pc_prices` (it does not invent a price).
+
+GitHub Action **Update Base PSA pop** (`.github/workflows/update-base-psa-pop.yml`):
+
+- **POP census, monthly:** `17 11 1 * *` (11:17 UTC on the 1st, 19:17 HKT). Runs `python3 tools/refresh_base_psa_pop.py --root .` (POP pages and game-page prices). PSA population lags, so a monthly cross-check is enough. Do not put this census back on a weekly cron.
+- **Prices, weekly:** `17 11 * * 1` (Monday 11:17 UTC, 19:17 HKT). Runs `python3 tools/refresh_base_psa_pop.py --root . --prices-only`. That patches `pc_prices` onto the existing snapshot, does not re-fetch POP, and does not move `asOfDate`.
+- **Manual:** workflow_dispatch `mode=full` (default) or `mode=prices-only`.
+- **Pull requests:** `--self-test` only. No network write.
+
+Stay on PriceCharting HTML. Do not add GemRate or PokeInvest in this job. Base Set 2 remains skippable unless the catalog marks that card `required` (a required card's Base Set 2 miss still fails the job, with no invented pops).
+
+```bash
+python3 tools/refresh_base_psa_pop.py --self-test
+python3 tools/refresh_base_psa_pop.py --root .                 # monthly POP + prices
+python3 tools/refresh_base_psa_pop.py --root . --prices-only   # weekly prices
+```
+
 ## Weekly Chase_Fit snapshot
 
 Public page `chase-fit.html` is a **static** JSON snapshot. Market pages auto-update via `.github/workflows/update-market-en.yml`; **Chase 公允值 and Box EV do not.**
