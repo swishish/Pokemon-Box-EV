@@ -196,6 +196,67 @@
     };
   }
 
+  /* Gainers/losers from the same LOCF window as breadthFromPrints.
+     No interpolation. A window with no two positive prices is unavailable. */
+  function moversFromPrints(constituents, printsById, from, to, topN) {
+    var limit = topN || 10;
+    if (!from || !to || from >= to) {
+      return {
+        available: false,
+        gainers: [],
+        losers: [],
+        reason: '須有兩個日期才有漲跌'
+      };
+    }
+    var rows = [];
+    (constituents || []).forEach(function (row) {
+      if (!row) return;
+      var id = String(row.id || '');
+      if (!id) return;
+      var prints = printsById && printsById[id];
+      var p0 = locfAt(prints, from);
+      var p1 = locfAt(prints, to);
+      if (!(p0 > 0) || !(p1 > 0)) return;
+      var changePct = Math.round((p1 / p0 - 1) * 10000) / 100;
+      rows.push({
+        id: id,
+        name: row.name,
+        nameZh: row.nameZh,
+        localizedName: row.localizedName,
+        setName: row.setName,
+        image: row.image || '',
+        price: p1,
+        prevPrice: p0,
+        changePct: changePct,
+        url: row.url
+      });
+    });
+    if (!rows.length) {
+      return {
+        available: false,
+        gainers: [],
+        losers: [],
+        reason: '此區間沒有兩筆 LOCF 刊價'
+      };
+    }
+    function byMove(a, b) {
+      if (a.changePct !== b.changePct) return a.changePct - b.changePct;
+      return (b.price || 0) - (a.price || 0);
+    }
+    var gainers = rows.filter(function (r) { return r.changePct > 0; }).sort(function (a, b) {
+      return byMove(b, a);
+    }).slice(0, limit);
+    var losers = rows.filter(function (r) { return r.changePct < 0; }).sort(byMove).slice(0, limit);
+    return {
+      available: true,
+      gainers: gainers,
+      losers: losers,
+      from: from,
+      to: to,
+      reason: null
+    };
+  }
+
   function periodBreadthLabel(period, from, to) {
     if (period === 'CUSTOM') {
       return from && to ? (from + ' → ' + to) : '自訂';
@@ -284,6 +345,7 @@
     printsFromCache: printsFromCache,
     locfAt: locfAt,
     breadthFromPrints: breadthFromPrints,
+    moversFromPrints: moversFromPrints,
     periodBreadthLabel: periodBreadthLabel,
     breadthNote: breadthNote,
     yenToHkd: yenToHkd,
