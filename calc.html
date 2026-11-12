@@ -1669,22 +1669,15 @@
     box-shadow: var(--shadow-xs);
   }
 </style>
+<link rel="stylesheet" href="./css/site-nav.css?v=1.34.0" />
 </head>
 <body>
 <header>
   <div class="header-inner">
     <div class="header-top">
       <h1><a class="home-title" href="./index.html" title="返回首頁" aria-label="返回首頁 日盒開盒值不值？"><span class="poke-mark" aria-hidden="true"></span> 日盒開盒值不值？</a> <span class="pill">v1.33.6</span></h1>
-      <nav class="header-nav" aria-label="站內導覽">
-        <a class="nav-btn" href="./calc.html">開盒 EV</a>
-        <a class="nav-btn" href="./chase-fit.html">Chase 公允值</a>
-        <a class="nav-btn" href="./market-en.html" title="English raw singles market pulse">EN 市況</a>
-        <a class="nav-btn" href="./market-vintage.html" title="Base Set 1st / Shadowless / Unlimited raw indexes">Base 復古</a>
-        <a class="nav-btn" href="./market-midera.html" title="DP → SM chase Top 50 raw index">中世代</a>
-        <a class="nav-btn" href="./market-jp-psa10-bench.html" title="日版 PSA10 廣度基準（復古／中世代／現行）">JP 基準</a>
-        <a class="nav-btn" href="./market-base-psa-pop.html" title="英文 Base Set 1st / Shadowless / Unlimited / Base Set 2 PSA POP">Base POP</a>
-        <a class="nav-btn" href="https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/" title="Base Set Unlimited cheat sheet">Base Unlimited</a>
-      </nav>
+      <nav class="header-nav" data-site-nav aria-label="站內導覽"></nav>
+<script src="./js/site-nav.js?v=1.34.0"></script>
     </div>
     <p><img class="mon mon-sm" src="./img/accents/eevee.svg" alt="" width="20" height="20" aria-hidden="true" />給朋友看的簡易 EV 小算盤 · 無登入、非即時行情</p>
     <div class="fresh-badge" id="freshBadge" role="status" aria-live="polite">
@@ -1880,7 +1873,7 @@
     </div>
   </div>
 </div>
-<footer><img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" /><span>日盒 EV 小算盤 <b>v1.33.6</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期 · <a href="./index.html">首頁</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">EN 市況</a> · <a href="./market-vintage.html">Base 復古</a> · <a href="./market-midera.html">中世代</a> · <a href="./market-jp-psa10-bench.html">JP 基準</a> · <a href="./market-base-psa-pop.html">Base POP</a></span></footer>
+<footer><img class="mon" src="./img/accents/sobble.svg" alt="" width="36" height="36" title="Sobble" aria-hidden="true" /><span>日盒 EV 小算盤 <b>v1.33.6</b> · Snapshot 靜態資料 · 非正式投資建議 · 分享時請連同資料日期 · <a href="./index.html">首頁</a> · <a href="./chase-fit.html">Chase 公允值</a> · <a href="./market-en.html">英文市況</a> · <a href="./market-vintage.html">英文 Base</a> · <a href="./market-jp-psa10-bench.html">日版 PSA10</a></span></footer>
 
 <script src="./js/freshness-badge.js?v=1.33.6"></script>
 <script src="./data.js?v=1.33.6"></script>

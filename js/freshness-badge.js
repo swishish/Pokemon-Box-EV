@@ -7,7 +7,7 @@
 })(typeof window !== 'undefined' ? window : null, function () {
   var HOME_SOURCES = [
     { url: './data.json', field: 'as_of', label: '開盒', staleAfter: 8, cmp: 'gte' },
-    { url: './data/market-jp-psa10-bench/latest.json', field: 'asOfDate', label: 'JP 基準', staleAfter: 8, cmp: 'gt' },
+    { url: './data/market-jp-psa10-bench/latest.json', field: 'asOfDate', label: '日版 PSA10', staleAfter: 8, cmp: 'gt' },
     { url: './data/chase-fit/latest.json', field: 'data_date', label: 'Chase', staleAfter: 7, cmp: 'gt' }
   ];
 

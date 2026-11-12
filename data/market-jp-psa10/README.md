@@ -1,10 +1,10 @@
 # JP PSA10 chase sleeve (frozen)
 
-Retired. `market-jp-psa10.html` redirects to `market-jp-psa10-bench.html` (JP 基準). This folder is **not** a live index and **not** a second thermometer.
+Retired. `market-jp-psa10.html` redirects to `market-jp-psa10-bench.html` (日版 PSA10). This folder is **not** a live index and **not** a second thermometer.
 
 The nightly GitHub Action **Update JP PSA10 index** (`.github/workflows/update-market-jp-psa10.yml`) and `tools/refresh_market_jp_psa10.py` are removed. Nothing in Actions fetches SNK or commits into this folder. Last written snapshot: **2026-10-29** (`latest.json` `asOfDate`). Membership in `baskets.json` was last rebuilt **2026-10-19**.
 
-Do not point nav or the homepage at this sleeve. Do not fold these ~60 cards into the JP 基準 baskets — membership rules are different. JP 基準 keeps its own daily job (`update-market-jp-psa10-bench.yml`).
+Do not point nav or the homepage at this sleeve. Do not fold these ~60 cards into the 日版 PSA10 baskets — membership rules are different. 日版 PSA10 keeps its own daily job (`update-market-jp-psa10-bench.yml`).
 
 ## Files (historical)
 

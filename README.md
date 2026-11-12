@@ -2,7 +2,7 @@
 
 日盒 EV 小算盤（朋友向）· **v1.33.6**
 
-給「不太懂金融／AI」的買卡朋友看的工具：首頁三個入口（開盒計算／市場觀察／研究工具）→ 開盒算盤選系列 → 看 **100% Grade A（買入價）四件套**（實付盒價、預期回收額、差額、預期回收比例；100% 先係打和）→ 有膜／無膜切換 → 看主力 chase 卡與「買單卡 vs 開盒」粗略提示。圖文教學在首頁預設收起。
+給「不太懂金融／AI」的買卡朋友看的工具。頂欄五道門（開盒 EV／Chase 公允值／日版 PSA10／英文市況／英文 Base）同首頁封面一樣。開盒算盤選系列 → 看 **100% Grade A（買入價）四件套**（實付盒價、預期回收額、差額、預期回收比例；100% 先係打和）→ 有膜／無膜切換 → 看主力 chase 卡與「買單卡 vs 開盒」粗略提示。圖文教學在首頁預設收起。
 
 資料來自靜態 snapshot（`ev_live`），**無登入、無即時行情**。盒價可用公開頁手動／Actions 刷新；單卡仍然要人手。
 
@@ -12,21 +12,17 @@
 
 開盒 EV 小算盤：**https://swishish.github.io/Pokemon-Box-EV/calc.html**
 
-英文裸卡市況（S&P-style pulse）：**https://swishish.github.io/Pokemon-Box-EV/market-en.html**
+英文市況（全體 Top 500，同頁可切英文中世代 DP–SM Top 50）：**https://swishish.github.io/Pokemon-Box-EV/market-en.html**（中世代：`#mid`）
 
-Base Set 復古指數（1st / Shadowless / Unlimited）：**https://swishish.github.io/Pokemon-Box-EV/market-vintage.html**
-
-Base Set PSA POP（1st / Shadowless / Unlimited / Base Set 2）：**https://swishish.github.io/Pokemon-Box-EV/market-base-psa-pop.html**
-
-中世代指數（DP → SM chase Top 50）：**https://swishish.github.io/Pokemon-Box-EV/market-midera.html**
+英文 Base（1st / Shadowless / Unlimited / Base Set 2，同頁有人口）：**https://swishish.github.io/Pokemon-Box-EV/market-vintage.html**（人口：`#pop`）
 
 Chase 公允值（PSA10 回歸散點）：**https://swishish.github.io/Pokemon-Box-EV/chase-fit.html**
 
-日版 PSA10 基準（復古／中世代／現行，N 跟篩選浮動；同頁 EN Base 是監察／旁路）：**https://swishish.github.io/Pokemon-Box-EV/market-jp-psa10-bench.html**
+日版 PSA10（綜合／復古／日版 SM＋劍盾／現行，特典與日版 Tag Team 收細；英文 Base 只作同圖對照）：**https://swishish.github.io/Pokemon-Box-EV/market-jp-psa10-bench.html**
 
-舊網址 `market-jp-psa10.html`（約 60 張 SV chase 袖）會轉到上面的 JP 基準，不再是另一條溫度計。
+舊網址：`market-jp-psa10.html`（約 60 張 SV chase 袖）轉到日版 PSA10，不再是另一條溫度計。`market-midera.html` 轉到英文市況並且預選英文中世代。`market-base-psa-pop.html` 轉到英文 Base 的人口。
 
-姊妹站 Base Unlimited（Base Set Unlimited 速查）：**https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/**（頂欄外連，唔喺本 repo）
+姊妹站 Base Unlimited（102 張圖鑑）：**https://swishish.github.io/Base-Set-Unlimited-Cheatsheet/**（由英文 Base 連出去，唔喺頂欄，亦唔喺本 repo）
 
 公開 repo 的 GitHub Pages **免費**，無需付費。首頁**唔會**自動跳去算盤。`calc.html?set=M6` 仍然可以深連結指定系列。
 
@@ -122,7 +118,7 @@ Phase 1 **不做**日版熱度頁、eBay、PriceCharting 付費 API、TickerMint
 
 ## Base Set vintage indexes（EN raw）
 
-獨立頁 `market-vintage.html`：四條 **固定** chase 籃子（Holo Rare + Rare），日線各自基準 **1,000 @ 2024-02-08**。同一頁可切 **指數 Pulse**／**卡冊 Binder**（格狀縮圖＋USD；`#1st/binder` 深連結）。`#base2` 是 Base Set 2。JP 基準頁的 EN Base 列（`#en-1st` 等）用這條日線當主圖；PriceCharting 月線（2023-01-01＝1000）留在 `#pc/1st`，也可在基準頁疊成虛線。兩條鏈不能相減。
+英文 Base 頁 `market-vintage.html`：四條 **固定** chase 籃子（Holo Rare + Rare），日線各自基準 **1,000 @ 2024-02-08**。同一頁可切 **指數 Pulse**／**卡冊 Binder**／**PC 月線**／**人口**（格狀縮圖＋USD；`#1st/binder` 深連結；人口是 `#pop`）。`#base2` 是 Base Set 2。日版 PSA10 頁的 `#en-1st` 等只把這條日線疊上日版圖，不是第二個指數台。PriceCharting 月線（2023-01-01＝1000）留在 `#pc/1st`。兩條鏈不能相減。
 
 | 指數 | 印刷 | TCGCSV |
 | --- | --- | --- |
