@@ -11,4 +11,4 @@ description: >-
 
 Read and follow `docs/runbooks/market-and-snapshots.md` before changing market data, Chase_Fit, or Box EV.
 
-UI Ready checks, the product boundaries, and the fail-closed secret-env write hook stay in `AGENTS.md`. Do not resurrect the retired ~60-card SV chase sleeve, do not commit new files under `data/market-jp-psa10/`, and do not mix the EN Base daily anchor (2024-02-08 = 1000) with the PriceCharting monthly anchor (2023-01-01 = 1000). Commands and the rest of the how-to are in the runbook.
+UI Ready checks, the product boundaries, and the fail-closed secret-env write hook stay in `AGENTS.md`. Do not resurrect the retired ~60-card SV chase sleeve, do not commit new files under `data/market-jp-psa10/`, and do not mix the EN Base daily anchor (2024-02-08 = 1000) with the PriceCharting monthly anchor (2023-01-01 = 1000). Base Set PSA population is a monthly POP census plus a weekly `--prices-only` price pass (`update-base-psa-pop.yml`); do not put that census back on a weekly scrape. Commands and the rest of the how-to are in the runbook.

@@ -5,9 +5,12 @@ Reads data/base-psa-pop/catalog.json (PriceCharting pop/item slugs) and writes
 data/base-psa-pop/latest.json + latest.js for market-base-psa-pop.html.
 
 Public PriceCharting HTML only. No API key. No invented pops or prices.
+The POP census is monthly. Game-page prices refresh on a denser pass
+(`--prices-only`) and do not re-fetch POP.
 
   python3 tools/refresh_base_psa_pop.py --self-test
   python3 tools/refresh_base_psa_pop.py --root .
+  python3 tools/refresh_base_psa_pop.py --root . --prices-only
   python3 tools/refresh_base_psa_pop.py --from-html-dir /tmp/pc-pop
 
 Parse errors exit non-zero and do not write. Only PSA and CGC columns are
@@ -19,13 +22,16 @@ grade (8.5→8, 9.5→9). There is no half-grade toggle.
 from __future__ import annotations
 
 import argparse
+import email.message
+import email.utils
 import json
 import re
 import sys
+import tempfile
 import time
 import urllib.error
 import urllib.request
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import quote
 from zoneinfo import ZoneInfo
@@ -47,7 +53,24 @@ USER_AGENT = (
     "(KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36"
 )
 APP_UA = "Pokemon-Box-EV/1.31 (+https://github.com/swishish/Pokemon-Box-EV)"
-SLEEP_S = 0.45
+# Gap between successful PriceCharting HTML fetches. 0.45s between print
+# pairs (~2 requests back to back) was enough for GitHub-hosted runners to
+# draw HTTP 429 partway through the ~400-variant roster (run #54, Charizard
+# Base Set 2, ~13 minutes in). 1.5s per request stays under one request a
+# second; a 429 widens the gap up to SLEEP_MAX_S for the rest of the run.
+SLEEP_S = 1.5
+SLEEP_MAX_S = 6.0
+FETCH_ATTEMPTS = 6
+BACKOFF_BASE_S = 5.0
+BACKOFF_CAP_S = 120.0
+# Monthly census on the 3rd. Month length is 28–31 days; 40 keeps the badge
+# fresh across that gap plus about a week of slip. Weekly --prices-only does
+# not bump asOf, so this threshold is the POP census, not the price pass.
+STALE_DAYS = 40
+CADENCE_NOTE = (
+    "PriceCharting republishes POP about monthly. "
+    "This site refetches the POP census monthly and refreshes game-page indicative prices weekly."
+)
 WHOLE_GRADES = (10, 9, 8, 7, 6, 5, 4, 3, 2, 1)
 HALF_GRADES = (9.5, 8.5, 7.5, 6.5, 5.5, 4.5, 3.5, 2.5, 1.5)
 PRINT_IDS = ("1st", "shadowless", "unlimited", "base2")
@@ -348,7 +371,87 @@ def parse_pc_prices(html: str) -> dict[str, float]:
     return out
 
 
-def fetch_html(url: str, *, timeout: int = 30) -> str:
+def retry_after_seconds(value: str | None, *, now: float | None = None) -> float | None:
+    """Parse a Retry-After header into seconds. None if the header is unusable."""
+    if value is None:
+        return None
+    text = str(value).strip()
+    if not text:
+        return None
+    if re.fullmatch(r"\d+(?:\.\d+)?", text):
+        secs = float(text)
+        return secs if secs >= 0 else None
+    try:
+        when = email.utils.parsedate_to_datetime(text)
+    except (TypeError, ValueError, OverflowError):
+        return None
+    if when is None:
+        return None
+    if when.tzinfo is None:
+        when = when.replace(tzinfo=timezone.utc)
+    current = time.time() if now is None else now
+    return max(0.0, when.timestamp() - current)
+
+
+def backoff_seconds(attempt: int, *, retry_after: float | None = None) -> float:
+    """Wait after a failed attempt (0-based). Honor Retry-After, capped."""
+    exp = min(BACKOFF_CAP_S, BACKOFF_BASE_S * (2 ** max(0, attempt)))
+    if retry_after is None:
+        return exp
+    try:
+        hinted = float(retry_after)
+    except (TypeError, ValueError):
+        return exp
+    if hinted < 0:
+        return exp
+    return min(BACKOFF_CAP_S, max(exp, hinted))
+
+
+def widen_gap(current: float, *, floor: float = 3.0, cap: float = SLEEP_MAX_S) -> float:
+    """After a 429, slow the steady gap so the next URLs are not another burst."""
+    try:
+        gap = float(current)
+    except (TypeError, ValueError):
+        gap = SLEEP_S
+    return min(cap, max(gap * 2.0, floor))
+
+
+def http_retryable(status: int) -> bool:
+    return status in {408, 429} or 500 <= status <= 599
+
+
+def _header_value(headers, name: str) -> str | None:
+    if headers is None:
+        return None
+    getter = getattr(headers, "get", None)
+    if not callable(getter):
+        return None
+    val = getter(name)
+    if val is None:
+        return None
+    text = str(val).strip()
+    return text or None
+
+
+def fetch_html(
+    url: str,
+    *,
+    timeout: int = 30,
+    attempts: int = FETCH_ATTEMPTS,
+    sleeper=None,
+    opener=None,
+    on_rate_limit=None,
+) -> str:
+    """GET public HTML.
+
+    HTTP 429 and 5xx back off (Retry-After when present). Other 4xx fail
+    immediately. Exhausted retries raise FetchError — callers must not invent
+    a population or a price from that.
+    """
+    if attempts < 1:
+        raise FetchError(f"fetch failed for {url}: no attempts")
+    open_url = opener or urllib.request.urlopen
+    pause = sleeper or time.sleep
     req = urllib.request.Request(
         url,
         headers={
@@ -359,18 +462,90 @@ def fetch_html(url: str, *, timeout: int = 30) -> str:
         },
     )
     last: Exception | None = None
-    for attempt in range(4):
+    for attempt in range(attempts):
         try:
-            with urllib.request.urlopen(req, timeout=timeout) as resp:
-                if resp.status != 200:
-                    raise FetchError(f"HTTP {resp.status} for {url}")
+            with open_url(req, timeout=timeout) as resp:
+                status = int(getattr(resp, "status", None) or getattr(resp, "code", 200) or 200)
+                if status != 200:
+                    retryable = http_retryable(status) and attempt + 1 < attempts
+                    if retryable:
+                        if status == 429 and on_rate_limit:
+                            on_rate_limit()
+                        delay = backoff_seconds(
+                            attempt,
+                            retry_after=retry_after_seconds(
+                                _header_value(getattr(resp, "headers", None), "Retry-After")
+                            ),
+                        )
+                        print(
+                            f"HTTP {status} {url} attempt {attempt + 1}/{attempts}; sleeping {delay:.0f}s",
+                            file=sys.stderr,
+                        )
+                        pause(delay)
+                        continue
+                    raise FetchError(f"HTTP {status} for {url}")
                 raw = resp.read()
             return raw.decode("utf-8", errors="replace")
-        except Exception as err:  # noqa: BLE001 — retry transients, then fail loud
+        except FetchError:
+            raise
+        except urllib.error.HTTPError as err:
             last = err
-            if attempt < 3:
-                time.sleep(2 ** attempt)
+            status = int(getattr(err, "code", 0) or 0)
+            retryable = http_retryable(status) and attempt + 1 < attempts
+            delay = 0.0
+            if retryable:
+                if status == 429 and on_rate_limit:
+                    on_rate_limit()
+                delay = backoff_seconds(
+                    attempt,
+                    retry_after=retry_after_seconds(
+                        _header_value(getattr(err, "headers", None), "Retry-After")
+                    ),
+                )
+                print(
+                    f"HTTP {status} {url} attempt {attempt + 1}/{attempts}; sleeping {delay:.0f}s",
+                    file=sys.stderr,
+                )
+            try:
+                err.close()
+            except Exception:
+                pass
+            if not retryable:
+                raise FetchError(f"HTTP {status} for {url}") from err
+            pause(delay)
+        except (urllib.error.URLError, TimeoutError, OSError) as err:
+            last = err
+            if attempt + 1 >= attempts:
+                break
+            delay = backoff_seconds(attempt)
+            print(
+                f"fetch error {url} attempt {attempt + 1}/{attempts}: {err}; sleeping {delay:.0f}s",
+                file=sys.stderr,
+            )
+            pause(delay)
     raise FetchError(f"fetch failed for {url}: {last}")
+
+
+def make_fetcher(sleep_s: float = SLEEP_S):
+    """Steady inter-request sleep that widens for the rest of the run after a 429."""
+    gap = {"s": sleep_s}
+
+    def sleeper() -> None:
+        time.sleep(gap["s"])
+
+    def on_rate_limit() -> None:
+        nxt = widen_gap(gap["s"])
+        if nxt > gap["s"]:
+            print(
+                f"PriceCharting HTTP 429; inter-request sleep {gap['s']:.1f}s -> {nxt:.1f}s",
+                file=sys.stderr,
+            )
+        gap["s"] = nxt
+
+    def fetch(url: str) -> str:
+        return fetch_html(url, on_rate_limit=on_rate_limit)
+
+    return fetch, sleeper
 
 
 def empty_grader() -> dict:
@@ -532,13 +707,13 @@ def build_payload(catalog: dict, fetched: dict[str, dict], *, names_zh: dict[str
     return {
         "asOfDate": as_of_date,
         "asOf": as_of,
-        "staleDays": 14,
+        "staleDays": STALE_DAYS,
         "defaultCardId": catalog.get("default_card_id") or "charizard",
         "source": {
             "name": "PriceCharting public POP report",
             "kind": "pricecharting_pop_html",
             "home": "https://www.pricecharting.com/",
-            "cadence": "PriceCharting updates monthly; this site refreshes weekly.",
+            "cadence": CADENCE_NOTE,
             "graders": "PSA and CGC columns as published. The page displays PSA+CGC combined per grade. Beckett/BGS is not collected.",
             "half_grades": "PriceCharting already buckets *.5 into the lower whole grade (8.5→8, 9.5→9). Raw half-grade rows are stored only when the HTML lists them.",
             "prices": (
@@ -604,6 +779,9 @@ def refresh(
                     html = local.read_text(encoding="utf-8")
                 else:
                     html = fetch(url)
+                    # One gap after the POP page, before the game-page price fetch.
+                    if sleeper:
+                        sleeper()
                 parsed = parse_pop_table(html, url=url)
                 rec = attach_print(spec, pid, slug, parsed, html)
                 prices = fetch_print_prices(
@@ -695,6 +873,244 @@ def refresh_prices_only(
 def _assert(cond: bool, msg: str) -> None:
     if not cond:
         raise AssertionError(msg)
+
+
+class _FakeResp:
+    def __init__(self, status: int, body: bytes | str, headers: dict | None = None):
+        self.status = status
+        self.headers = headers or {}
+        raw = body.encode() if isinstance(body, str) else body
+        self._body = raw
+
+    def read(self) -> bytes:
+        return self._body
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *args):
+        return False
+
+
+class _ScriptedOpener:
+    def __init__(self, events: list):
+        self.events = list(events)
+        self.calls = 0
+
+    def __call__(self, req, timeout=30):
+        self.calls += 1
+        if not self.events:
+            raise AssertionError("opener ran out of scripted responses")
+        event = self.events.pop(0)
+        if isinstance(event, BaseException):
+            raise event
+        return event
+
+
+def _http_error(status: int, retry_after: str | None = None) -> urllib.error.HTTPError:
+    hdrs = email.message.EmailMessage()
+    if retry_after is not None:
+        hdrs["Retry-After"] = retry_after
+    return urllib.error.HTTPError(
+        "https://www.pricecharting.com/pop/item/example",
+        status,
+        "error",
+        hdrs,
+        None,
+    )
+
+
+def _mini_root(cards: list[dict]) -> tempfile.TemporaryDirectory:
+    tmp = tempfile.TemporaryDirectory()
+    root = Path(tmp.name)
+    data = root / "data" / "base-psa-pop"
+    data.mkdir(parents=True)
+    catalog = {"default_card_id": "charizard", "prints": [], "cards": cards}
+    (data / "catalog.json").write_text(json.dumps(catalog), encoding="utf-8")
+    return tmp
+
+
+def _self_test_rate_limit() -> None:
+    """429 backoff, fail-closed pops, and the optional Base Set 2 skip. No network."""
+    now = 1_700_000_000.0
+    _assert(retry_after_seconds("12") == 12.0, "delta-seconds")
+    _assert(retry_after_seconds("0") == 0.0, "zero")
+    _assert(retry_after_seconds("nope") is None, "garbage")
+    _assert(retry_after_seconds(None) is None, "missing")
+    stamp = email.utils.formatdate(now + 45, usegmt=True)
+    hinted = retry_after_seconds(stamp, now=now)
+    _assert(hinted is not None and abs(hinted - 45) < 1.01, (stamp, hinted))
+    past = email.utils.formatdate(now - 10, usegmt=True)
+    _assert(retry_after_seconds(past, now=now) == 0.0, past)
+    _assert(backoff_seconds(0) == BACKOFF_BASE_S, backoff_seconds(0))
+    _assert(backoff_seconds(1) == BACKOFF_BASE_S * 2, backoff_seconds(1))
+    _assert(backoff_seconds(0, retry_after=12) == 12, "honor Retry-After above the floor")
+    _assert(backoff_seconds(0, retry_after=2) == BACKOFF_BASE_S, "do not under-wait the floor")
+    _assert(backoff_seconds(0, retry_after=10_000) == BACKOFF_CAP_S, "cap Retry-After")
+    _assert(backoff_seconds(8) == BACKOFF_CAP_S, "cap exponential")
+    _assert(widen_gap(SLEEP_S) == 3.0, widen_gap(SLEEP_S))
+    _assert(widen_gap(3.0) == SLEEP_MAX_S, widen_gap(3.0))
+    _assert(widen_gap(SLEEP_MAX_S) == SLEEP_MAX_S, "gap stays capped")
+
+    slept: list[float] = []
+    widened: list[int] = []
+    opener = _ScriptedOpener([
+        _http_error(429, "12"),
+        _FakeResp(200, "<html>ok</html>"),
+    ])
+    html = fetch_html(
+        "https://www.pricecharting.com/pop/item/example",
+        opener=opener,
+        sleeper=slept.append,
+        on_rate_limit=lambda: widened.append(1),
+        attempts=4,
+    )
+    _assert(html == "<html>ok</html>", html)
+    _assert(slept == [12.0], slept)
+    _assert(widened == [1] and opener.calls == 2, (widened, opener.calls))
+
+    slept.clear()
+    status_opener = _ScriptedOpener([
+        _FakeResp(429, "slow", headers={"Retry-After": "9"}),
+        _FakeResp(200, b"<html>via-status</html>"),
+    ])
+    html = fetch_html(
+        "https://www.pricecharting.com/pop/item/example",
+        opener=status_opener,
+        sleeper=slept.append,
+        attempts=3,
+    )
+    _assert(html == "<html>via-status</html>", html)
+    _assert(slept == [9.0], slept)
+
+    slept.clear()
+    blocked = _ScriptedOpener([_http_error(429), _http_error(429), _FakeResp(200, "nope")])
+    try:
+        fetch_html(
+            "https://www.pricecharting.com/pop/item/example",
+            opener=blocked,
+            sleeper=slept.append,
+            attempts=2,
+        )
+        raise AssertionError("exhausted 429 must fail")
+    except FetchError as err:
+        _assert("429" in str(err), err)
+    _assert(slept == [BACKOFF_BASE_S], slept)
+    _assert(blocked.calls == 2, blocked.calls)
+
+    slept.clear()
+    missing = _ScriptedOpener([_http_error(404), _FakeResp(200, "should-not-run")])
+    try:
+        fetch_html(
+            "https://www.pricecharting.com/pop/item/missing",
+            opener=missing,
+            sleeper=slept.append,
+            attempts=4,
+        )
+        raise AssertionError("404 must fail closed without retry")
+    except FetchError as err:
+        _assert("404" in str(err), err)
+    _assert(slept == [] and missing.calls == 1, (slept, missing.calls))
+
+    unlimited_html = (TESTDATA / "charizard-unlimited.html").read_text(encoding="utf-8")
+    cards = [
+        {
+            "id": "charizard",
+            "name": "Charizard",
+            "required": True,
+            "number_base": 4,
+            "prints": {"unlimited": "pokemon-base-set/charizard-unlimited"},
+        },
+        {
+            "id": "clefairy",
+            "name": "Clefairy",
+            "required": False,
+            "number_base": 5,
+            "prints": {
+                "unlimited": "pokemon-base-set/clefairy-unlimited",
+                "base2": "pokemon-base-set-2/clefairy",
+            },
+        },
+    ]
+    held = _mini_root(cards)
+    try:
+        root = Path(held.name)
+        calls: list[str] = []
+        gaps: list[int] = []
+
+        def fetch(url: str) -> str:
+            calls.append(url)
+            if "base-set-2" in url:
+                raise FetchError(f"HTTP 429 for {url}")
+            if "/game/" in url:
+                return "<html>no prices</html>"
+            return unlimited_html
+
+        payload = refresh(root, fetch=fetch, sleeper=lambda: gaps.append(1), dry_run=False)
+        _assert(payload["staleDays"] == STALE_DAYS, payload["staleDays"])
+        _assert(payload["source"]["cadence"] == CADENCE_NOTE, payload["source"]["cadence"])
+        zard = next(c for c in payload["cards"] if c["id"] == "charizard")
+        _assert(zard["prints"]["unlimited"]["graders"]["psa"]["counts"]["10"] == 486, zard)
+        _assert("pc_prices" not in zard["prints"]["unlimited"], zard["prints"]["unlimited"].keys())
+        clef = next(c for c in payload["cards"] if c["id"] == "clefairy")
+        _assert("unlimited" in clef["prints"] and "base2" not in clef["prints"], clef["prints"].keys())
+        _assert(len(calls) == 5 and len(gaps) == 5, (calls, gaps))
+        written = json.loads((root / "data" / "base-psa-pop" / "latest.json").read_text(encoding="utf-8"))
+        _assert(written["cards"][0]["prints"]["unlimited"]["graders"]["psa"]["total"] == 99246, "wrote fixture pop")
+    finally:
+        held.cleanup()
+
+    held = _mini_root(cards[:1])
+    try:
+        root = Path(held.name)
+
+        def boom(url: str) -> str:
+            raise FetchError(f"HTTP 429 for {url}")
+
+        try:
+            refresh(root, fetch=boom, dry_run=False)
+            raise AssertionError("required 429 must not write")
+        except SystemExit as err:
+            text = str(err)
+            _assert("429" in text and "no invented pops" in text, text)
+        _assert(not (root / "data" / "base-psa-pop" / "latest.json").exists(), "fail closed")
+    finally:
+        held.cleanup()
+
+    held = _mini_root(cards[:1])
+    try:
+        root = Path(held.name)
+        previous = {
+            "asOfDate": "2026-11-03",
+            "asOf": "2026-11-03 05:00 Asia/Shanghai",
+            "staleDays": STALE_DAYS,
+            "source": {},
+            "cards": [
+                {
+                    "id": "charizard",
+                    "name": "Charizard",
+                    "prints": {
+                        "unlimited": {
+                            "slug": "pokemon-base-set/charizard-unlimited",
+                            "pc_prices": {"raw": 12.5, "10": 99.0},
+                        }
+                    },
+                }
+            ],
+        }
+        (root / "data" / "base-psa-pop" / "latest.json").write_text(
+            json.dumps(previous), encoding="utf-8"
+        )
+
+        def price_boom(url: str) -> str:
+            raise FetchError(f"HTTP 429 for {url}")
+
+        priced = refresh_prices_only(root, fetch=price_boom, dry_run=False)
+        kept = priced["cards"][0]["prints"]["unlimited"]["pc_prices"]
+        _assert(kept == {"raw": 12.5, "10": 99.0}, kept)
+        _assert(priced["asOfDate"] == "2026-11-03", priced["asOfDate"])
+    finally:
+        held.cleanup()
 
 
 def self_test() -> None:
@@ -827,6 +1243,7 @@ def self_test() -> None:
     _assert(parse_pc_prices("") == {}, "blank")
     _assert(game_url("pokemon-base-set/charizard-4").endswith("/game/pokemon-base-set/charizard-4"), "game url")
 
+    _self_test_rate_limit()
     print("refresh_base_psa_pop self-test OK")
 
 
@@ -855,10 +1272,12 @@ def main(argv: list[str] | None = None) -> int:
         self_test()
         return 0
     print_ids = tuple(p.strip() for p in args.prints.split(",") if p.strip()) or None
+    fetch, sleeper = make_fetcher()
     if args.prices_only:
         payload = refresh_prices_only(
             Path(args.root),
-            sleeper=(lambda: time.sleep(SLEEP_S)),
+            fetch=fetch,
+            sleeper=sleeper,
             dry_run=args.dry_run,
         )
         print("as_of", payload["asOf"], "cards", len(payload["cards"]))
@@ -867,7 +1286,8 @@ def main(argv: list[str] | None = None) -> int:
     payload = refresh(
         Path(args.root),
         html_dir=html_dir,
-        sleeper=(lambda: time.sleep(SLEEP_S)),
+        fetch=fetch,
+        sleeper=sleeper,
         dry_run=args.dry_run,
         print_ids=print_ids,
     )

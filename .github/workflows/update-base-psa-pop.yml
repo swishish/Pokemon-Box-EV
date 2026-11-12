@@ -1,12 +1,38 @@
 name: Update Base PSA pop
 
-# Public PriceCharting POP HTML for English Base Set 1st / Shadowless /
-# Unlimited / Base Set 2. View-only. No API key. PR runs self-test only
-# (no network write). Parse errors fail the job and do not invent pops.
+# Public PriceCharting HTML for English Base Set 1st / Shadowless /
+# Unlimited / Base Set 2. View-only. No API key.
+#
+# Two schedules, one workflow:
+# - Monthly POP census: 3rd of the month, 11:17 UTC = 19:17 HKT.
+#   `python3 tools/refresh_base_psa_pop.py --root .`
+#   PSA population lags, so the census is monthly, not weekly.
+# - Weekly prices: Monday 11:17 UTC = 19:17 HKT.
+#   `python3 tools/refresh_base_psa_pop.py --root . --prices-only`
+#   Patches game-page prices onto the existing snapshot. Does not
+#   re-fetch POP. Denser than the census on purpose.
+# When the 3rd is a Monday, GitHub starts both crons as separate runs.
+# The concurrency group runs them one at a time. The census also
+# refreshes prices; a prices-only pass before or after it only rewrites
+# pc_prices.
+#
+# PR runs self-test only (no network write). Parse errors, and a required
+# card that still fails after HTTP 429 backoff, fail the job and do not
+# invent pops. Optional Base Set 2 misses stay skippable. A failed price
+# fetch keeps the previous pc_prices.
 on:
   schedule:
-    - cron: "17 11 * * 1"   # Monday 11:17 UTC — weekly
-  workflow_dispatch: {}
+    - cron: "17 11 3 * *"   # 3rd of the month, 11:17 UTC = 19:17 HKT — monthly POP census
+    - cron: "17 11 * * 1"   # Monday 11:17 UTC = 19:17 HKT — weekly game-page prices
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "full = POP census + prices; prices = game-page prices only"
+        type: choice
+        default: full
+        options:
+          - full
+          - prices
   pull_request:
 
 concurrency:
@@ -35,7 +61,12 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    timeout-minutes: 20
+    # ~399 variants. Full census is about 800 HTML GETs. At 1.5s that is
+    # ~20 minutes of pacing plus transfer. After HTTP 429 the gap widens
+    # to 6s and each retry can wait up to Retry-After (capped at 120s).
+    # A required card still fails closed; this budget is for recovery,
+    # not for inventing pops.
+    timeout-minutes: 150
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -47,9 +78,41 @@ jobs:
         run: |
           python3 tools/build_base_psa_pop_catalog.py --self-test
           python3 tools/refresh_base_psa_pop.py --self-test
-      - name: Fetch PriceCharting POP pages
-        run: python3 tools/refresh_base_psa_pop.py --root .
+      - name: Choose refresh mode
+        id: mode
+        run: |
+          set -eu
+          event="${{ github.event_name }}"
+          schedule="${{ github.event.schedule }}"
+          choice="${{ github.event.inputs.mode }}"
+          if [ "$event" = "workflow_dispatch" ]; then
+            mode="$choice"
+          elif [ "$schedule" = "17 11 * * 1" ]; then
+            mode="prices"
+          else
+            mode="full"
+          fi
+          case "$mode" in
+            full|prices) ;;
+            *) echo "unexpected mode: ${mode}" >&2; exit 1 ;;
+          esac
+          echo "mode=${mode}" >> "$GITHUB_OUTPUT"
+          echo "Refresh mode: ${mode} (event=${event} schedule=${schedule})"
+      - name: Fetch PriceCharting pages
+        env:
+          REFRESH_MODE: ${{ steps.mode.outputs.mode }}
+        run: |
+          set -eu
+          if [ "$REFRESH_MODE" = "prices" ]; then
+            echo "Weekly prices-only (no POP refetch)"
+            python3 tools/refresh_base_psa_pop.py --root . --prices-only
+          else
+            echo "Monthly POP census + game-page prices"
+            python3 tools/refresh_base_psa_pop.py --root .
+          fi
       - name: Commit updated data
+        env:
+          REFRESH_MODE: ${{ steps.mode.outputs.mode }}
         run: |
           git config user.name "box-ev-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -57,7 +120,11 @@ jobs:
           if git diff --cached --quiet; then
             echo "No data changes to commit."
           else
-            git commit -m "chore: update Base Set PSA pop ($(date -u +%Y-%m-%d))"
+            if [ "$REFRESH_MODE" = "prices" ]; then
+              git commit -m "chore: update Base Set PriceCharting prices ($(date -u +%Y-%m-%d))"
+            else
+              git commit -m "chore: update Base Set PSA pop ($(date -u +%Y-%m-%d))"
+            fi
             # Another job can push to main during this refresh. Rebase
             # onto that tip and retry a non-fast-forward. Never force-push.
             # --autostash keeps unstaged rewrites from blocking the rebase.
