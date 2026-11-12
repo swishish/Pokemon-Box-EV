@@ -916,10 +916,10 @@
       <div class="index-level" id="indexLevel">—</div>
       <div class="index-chg muted" id="indexChg">載入中…</div>
       <div class="period-btns" role="tablist" aria-label="Return period">
-        <button type="button" class="period-btn is-active" data-period="1D" aria-selected="true">1D</button>
+        <button type="button" class="period-btn" data-period="1D" aria-selected="false">1D</button>
         <button type="button" class="period-btn" data-period="5D" disabled aria-selected="false">5D</button>
         <button type="button" class="period-btn" data-period="30D" disabled aria-selected="false">30D</button>
-        <button type="button" class="period-btn" data-period="1Y" disabled aria-selected="false">1Y</button>
+        <button type="button" class="period-btn is-active" data-period="1Y" disabled aria-selected="true">1Y</button>
         <button type="button" class="period-btn" data-period="YTD" disabled aria-selected="false">YTD</button>
       </div>
       <form class="range-form" id="rangeForm">
@@ -1085,10 +1085,10 @@
       <div class="index-level" id="midindexLevel">—</div>
       <div class="index-chg muted" id="midindexChg">載入中…</div>
       <div class="period-btns" role="tablist" aria-label="Return period">
-        <button type="button" class="period-btn is-active" data-period="1D" aria-selected="true">1D</button>
+        <button type="button" class="period-btn" data-period="1D" aria-selected="false">1D</button>
         <button type="button" class="period-btn" data-period="5D" disabled aria-selected="false">5D</button>
         <button type="button" class="period-btn" data-period="30D" disabled aria-selected="false">30D</button>
-        <button type="button" class="period-btn" data-period="1Y" disabled aria-selected="false">1Y</button>
+        <button type="button" class="period-btn is-active" data-period="1Y" disabled aria-selected="true">1Y</button>
         <button type="button" class="period-btn" data-period="YTD" disabled aria-selected="false">YTD</button>
         <button type="button" class="period-btn" data-period="ALL" disabled aria-selected="false" title="全部已有日期 All available dates">All</button>
       </div>
@@ -1493,8 +1493,16 @@
     '1Y': serverReturns['1Y'] || computedReturns['1Y'],
     'YTD': serverReturns['YTD'] || computedReturns['YTD']
   };
-  const periodState = { period: '1D', customFrom: '', customTo: '' };
+  const periodState = { period: '1Y', customFrom: '', customTo: '' };
   const PERIOD_LABEL = { '1D': 'vs 上一快照', '5D': '5D', '30D': '30D', '1Y': '1Y', 'YTD': 'YTD', CUSTOM: '自訂' };
+  const CHART_FALLBACK_PERIODS = ['ALL', 'YTD', '30D', '5D', '1D'];
+  function longestAvailablePeriod() {
+    for (let i = 0; i < CHART_FALLBACK_PERIODS.length; i++) {
+      const p = CHART_FALLBACK_PERIODS[i];
+      if (RETURNS[p] && RETURNS[p].available) return p;
+    }
+    return null;
+  }
 
   function computeCustomReturn(from, to) {
     if (!from || !to) {
@@ -1557,10 +1565,11 @@
         drawSpark(RETURNS['1D'] && RETURNS['1D'].available ? '1D' : period);
         return;
       }
-      // Stay on the last usable period — never blank the % or invent a return.
-      if (period !== '1D' && RETURNS['1D'] && RETURNS['1D'].available) {
-        periodState.period = '1D';
-        renderPeriod('1D');
+      // Missing window: longest real return (ALL, YTD, 30D, 5D, then 1D). Never invent a % or leave it blank.
+      const fallback = longestAvailablePeriod();
+      if (fallback && fallback !== period) {
+        periodState.period = fallback;
+        renderPeriod(fallback);
         return;
       }
       chgEl.className = 'index-chg muted';
@@ -1611,7 +1620,7 @@
       renderPeriod('CUSTOM');
     });
   })();
-  renderPeriod(RETURNS['1D'] && RETURNS['1D'].available ? '1D' : '1D');
+  renderPeriod(periodState.period);
 
   const b = DATA.breadth || {};
   const tot = (b.advancing || 0) + (b.declining || 0) + (b.unchanged || 0);
@@ -1991,8 +2000,16 @@
     'YTD': serverReturns['YTD'] || computedReturns['YTD'],
     ALL: computedReturns.ALL
   };
-  const periodState = { period: '1D', customFrom: '', customTo: '' };
+  const periodState = { period: '1Y', customFrom: '', customTo: '' };
   const PERIOD_LABEL = { '1D': 'vs 上一快照', '5D': '5D', '30D': '30D', '1Y': '1Y', 'YTD': 'YTD', ALL: '全部 All', CUSTOM: '自訂' };
+  const CHART_FALLBACK_PERIODS = ['ALL', 'YTD', '30D', '5D', '1D'];
+  function longestAvailablePeriod() {
+    for (let i = 0; i < CHART_FALLBACK_PERIODS.length; i++) {
+      const p = CHART_FALLBACK_PERIODS[i];
+      if (RETURNS[p] && RETURNS[p].available) return p;
+    }
+    return null;
+  }
 
   function computeCustomReturn(from, to) {
     if (!from || !to) {
@@ -2082,10 +2099,11 @@
         drawSpark('ALL');
         return;
       }
-      // Stay on the last usable period — never blank the % or invent a return.
-      if (period !== '1D' && RETURNS['1D'] && RETURNS['1D'].available) {
-        periodState.period = '1D';
-        renderPeriod('1D');
+      // Missing window: longest real return (ALL, YTD, 30D, 5D, then 1D). Never invent a % or leave it blank.
+      const fallback = longestAvailablePeriod();
+      if (fallback && fallback !== period) {
+        periodState.period = fallback;
+        renderPeriod(fallback);
         return;
       }
       chgEl.className = 'index-chg muted';
@@ -2138,7 +2156,7 @@
       renderPeriod('CUSTOM');
     });
   })();
-  renderPeriod(RETURNS['1D'] && RETURNS['1D'].available ? '1D' : '1D');
+  renderPeriod(periodState.period);
 
   const b = DATA.breadth || {};
   const tot = (b.advancing || 0) + (b.declining || 0) + (b.unchanged || 0);
