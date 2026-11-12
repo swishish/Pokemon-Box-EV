@@ -1157,10 +1157,10 @@
       <div class="index-level" id="indexLevel">—</div>
       <div class="index-chg muted" id="indexChg">載入中…</div>
       <div class="period-btns" role="tablist" aria-label="Return period">
-        <button type="button" class="period-btn is-active" data-period="1D" aria-selected="true">1D</button>
+        <button type="button" class="period-btn" data-period="1D" aria-selected="false">1D</button>
         <button type="button" class="period-btn" data-period="5D" disabled aria-selected="false">5D</button>
         <button type="button" class="period-btn" data-period="30D" disabled aria-selected="false">30D</button>
-        <button type="button" class="period-btn" data-period="1Y" disabled aria-selected="false">1Y</button>
+        <button type="button" class="period-btn is-active" data-period="1Y" disabled aria-selected="true">1Y</button>
         <button type="button" class="period-btn" data-period="YTD" disabled aria-selected="false">YTD</button>
         <button type="button" class="period-btn" data-period="ALL" disabled aria-selected="false" title="全部已有日期 All available dates">All</button>
       </div>
@@ -1466,7 +1466,8 @@
   const PERIODS = ['1D', '5D', '30D', '1Y', 'YTD'];
   const INDEX_PERIODS = ['1D', '5D', '30D', '1Y', 'YTD', 'ALL'];
   const LAG_PERIODS = ['30D', 'YTD'];
-  const LS_INDEX_PERIOD = 'pbev-vintage-index-period';
+  // v2: chart default moved from 1D to 1Y. The old key would keep return visitors on 1D.
+  const LS_INDEX_PERIOD = 'pbev-vintage-index-period-v2';
   const LS_MOVER_PERIOD = 'pbev-vintage-mover-period';
   const LS_TAB = 'pbev-vintage-tab';
   const SERIES_COLOR = {
@@ -1692,7 +1693,7 @@
   };
   const state = {
     id: DATA.indexes['base-unlimited'] ? 'base-unlimited' : ORDER[0],
-    period: '1D', moverPeriod: '1D', lagPeriod: '30D', view: 'pulse', rarity: 'all', q: '',
+    period: '1Y', moverPeriod: '1D', lagPeriod: '30D', view: 'pulse', rarity: 'all', q: '',
     customFrom: '', customTo: '', moverFrom: '', moverTo: '', overlay: false,
     pcId: 'base-1st', pcPeriod: 'ALL', pcOverlay: false, pcFrom: '', pcTo: ''
   };
@@ -1849,6 +1850,14 @@
       return (RETURNS && RETURNS.ALL) || computePeriodReturns(points, (points[points.length - 1] || {}).date).ALL;
     }
     return RETURNS[period] || { available: false, reason: 'no snapshots' };
+  }
+  function longestAvailablePeriod(rets) {
+    const order = ['ALL', 'YTD', '30D', '5D', '1D'];
+    for (let i = 0; i < order.length; i++) {
+      const p = order[i];
+      if (rets && rets[p] && rets[p].available) return p;
+    }
+    return null;
   }
 
   function calendarFrom(period, asOf) {
@@ -2554,11 +2563,15 @@
       });
       const applyBtn = $('rangeApply');
       if (applyBtn) applyBtn.classList.toggle('is-active', period === 'CUSTOM');
-      let chartPeriod = period;
-      if (!ret.available && period !== 'CUSTOM' && period !== 'ALL' && !state.overlay && RETURNS['1D'] && RETURNS['1D'].available) {
-        chartPeriod = '1D';
+      const chartPeriod = period;
+      if (!ret.available && period !== 'CUSTOM' && period !== 'ALL' && !state.overlay) {
+        const fallback = longestAvailablePeriod(RETURNS);
+        if (fallback && fallback !== period) {
+          state.period = fallback;
+          renderPeriod(fallback);
+          return;
+        }
       }
-      if (state.overlay || period === 'ALL') chartPeriod = period;
       if (!ret.available) {
         chgEl.className = 'index-chg muted';
         if (period === 'CUSTOM') {

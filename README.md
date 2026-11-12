@@ -32,7 +32,7 @@ Chase 公允值（PSA10 回歸散點）：**https://swishish.github.io/Pokemon-B
 
 | 顯示 | 說明 |
 | --- | --- |
-| Index + % | 預設 **1D**＝相對上一份已提交快照。第一次建檔只有指數 1,000，沒有每日 % |
+| Index + % | 圖表預設 **1Y**。1D＝相對上一份已提交快照。第一次建檔只有指數 1,000，沒有每日 % |
 | 5D / 30D / 1Y / YTD / 自訂 | 用 `history.json` 真實快照算區間報酬；缺日跳過、**不補價**。沒有 cutoff 當天或更早的點就 disable。自訂日期只放大圖，**不**把指數重設成 1000 |
 | Breadth | 籃子裡上漲 vs 下跌張數（有歷史才有） |
 | Top gainers / losers | 期間可選 1D／5D／30D／YTD（`price-history.json`）；歷史快照不足則 N/A，不虛構報酬 |
