@@ -267,6 +267,13 @@
     min-width: 0;
     max-width: 100%;
   }
+  .range-end {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 6px 8px;
+    min-width: 0;
+  }
   .range-form label {
     display: inline-flex;
     align-items: center;
@@ -282,11 +289,21 @@
     font-weight: 700;
     border: var(--bw) solid var(--ink);
     border-radius: 8px;
-    padding: 4px 6px;
+    padding: 4px 1.6rem 4px 6px;
     background: var(--card);
     color: var(--ink);
     min-width: 0;
+    width: 9.4rem;
     max-width: 11.5rem;
+    position: relative;
+  }
+  .range-form input[type="date"]::-webkit-calendar-picker-indicator {
+    position: absolute;
+    right: 4px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    cursor: pointer;
   }
   .kicker { font-size: .72rem; color: var(--muted); font-weight: 650; }
   .metrics {
@@ -350,14 +367,29 @@
   body.is-en-base #seriesTabs .series-tab { opacity: .62; }
   body.is-en-base .jp-kicker { opacity: .72; }
   body.is-en-base .en-base-wrap {
-    background: #fff3c4;
-    box-shadow: var(--shadow-xs);
+    background: #fff8e8;
+    box-shadow: none;
   }
   .en-base-wrap .series-tabs {
     grid-template-columns: repeat(4, minmax(0, 1fr));
     margin-bottom: 4px;
   }
-  .en-base-wrap .series-tab.is-active { background: #fff3c4; }
+  .en-base-wrap .series-tab.is-active,
+  .en-overlay-wrap .series-tab.is-active {
+    background: var(--accent-fill);
+    box-shadow: var(--shadow-sm);
+  }
+  body:not(.is-en-overlay) #enOverlayToggles .legend-btn.is-on {
+    background: var(--card);
+    box-shadow: var(--shadow-xs);
+  }
+  body.is-en-overlay #enOverlayToggles .legend-btn.is-on[data-en-overlay]:not([data-en-overlay=""]) {
+    background: var(--accent-fill);
+    box-shadow: var(--shadow-sm);
+  }
+  body.is-en-overlay .jp-movers-ui { display: none; }
+  body.is-en-overlay .jp-mover-note { display: none; }
+  body.is-en-overlay .en-mover-note { display: block; }
   body.is-en-base .legend-row { display: none; }
   .en-overlay-row { display: none; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
   body.is-en-base .en-overlay-row { display: flex; }
@@ -377,11 +409,19 @@
     min-width: 0;
     min-height: 44px;
   }
-  .series-tab:hover { background: var(--bg-2); }
+  @media (hover: hover) {
+    .series-tab:hover { background: var(--bg-2); }
+  }
   .series-tab.is-side { background: var(--bg-2); box-shadow: none; }
   .series-tab.is-side .kicker { color: var(--muted); font-weight: 700; }
   .series-tab.is-side .lvl { font-size: 1rem; }
-  .series-tab.is-active.is-side { background: var(--card); box-shadow: var(--shadow-xs); }
+  .series-tab.is-active,
+  .series-tab.is-active.is-side {
+    background: var(--accent-fill);
+    box-shadow: var(--shadow-sm);
+  }
+  .series-tab.is-active:hover,
+  .series-tab.is-active.is-side:hover { background: var(--accent-fill); }
   .en-overlay-wrap {
     border: 1px dashed var(--line, #d4c9b4);
     border-radius: var(--radius);
@@ -390,10 +430,6 @@
   }
   .en-overlay-wrap .legend-row { display: flex; flex-wrap: wrap; gap: 4px; }
   .en-overlay-wrap .legend-btn { font-size: .72rem; }
-  .series-tab.is-active {
-    background: var(--accent-fill);
-    box-shadow: var(--shadow-sm);
-  }
   .series-tab .lvl-row {
     display: flex;
     flex-wrap: wrap;
@@ -433,6 +469,45 @@
   .bar .adv { background: var(--good); }
   .bar .unch { background: #c5cbd3; }
   .bar .dec { background: var(--bad); }
+  .movers-section {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+  }
+  .movers-period { margin: 0 0 12px; min-width: 0; max-width: 100%; }
+  .movers-period-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px 16px;
+    min-width: 0;
+  }
+  .movers-period-main {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 10px;
+    min-width: 0;
+  }
+  .movers-period .range-form {
+    margin: 0 0 0 auto;
+    flex: 0 1 auto;
+    flex-wrap: nowrap;
+  }
+  .period-picker {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    max-width: 100%;
+    min-width: 0;
+  }
+  .period-picker .period-btn[aria-pressed="true"] {
+    background: var(--accent-fill);
+    border-color: var(--ink);
+    color: var(--ink);
+  }
+  .period-picker .period-btn.is-na { opacity: .55; }
   .movers { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   table { width: 100%; border-collapse: collapse; font-size: .86rem; overflow-wrap: break-word; }
   th, td { text-align: left; padding: 7px 6px; border-bottom: 1px solid var(--line); vertical-align: middle; overflow-wrap: break-word; }
@@ -589,6 +664,7 @@
       margin-left: auto;
       flex: 0 0 auto;
     }
+    .movers-period .range-form { margin-left: 0; width: 100%; flex-wrap: wrap; }
     .series-tabs { grid-template-columns: 1fr 1fr; gap: 4px; margin-bottom: 8px; }
     .series-tab { padding: 7px 8px; }
     .series-tab .kicker,
@@ -658,8 +734,10 @@
       </div>
       <form class="range-form" id="rangeForm">
         <label>由 <input type="date" id="rangeFrom" name="from" /></label>
-        <label>至 <input type="date" id="rangeTo" name="to" /></label>
-        <button type="submit" class="period-btn" id="rangeApply">自訂</button>
+        <span class="range-end">
+          <label>至 <input type="date" id="rangeTo" name="to" /></label>
+          <button type="submit" class="period-btn" id="rangeApply">自訂</button>
+        </span>
       </form>
       <div class="spark-wrap" id="sparkWrap">
         <svg class="spark has-vol" id="spark" viewBox="0 0 320 148" hidden aria-hidden="true"></svg>
@@ -677,11 +755,34 @@
     </div>
   </div>
 
-  <p class="tiny jp-mover-note" style="margin:0 0 8px">漲跌榜＝當日有 PSA10 刊價的原價變動（未 clip）；指數本身已對缺口重入與 ±25% 封頂。</p>
-  <p class="tiny en-mover-note" style="margin:0 0 8px" hidden>漲跌榜＝上一筆 TCGPlayer Market 日線（TickerMint）。不是 PSA10，也不是日圓。圖表期間可以更長，榜仍是 1D。</p>
+  <div class="movers-section">
+  <div class="movers-period" id="moversPeriod">
+    <p class="tiny jp-mover-note" id="jpMoverNote" style="margin:0 0 8px">漲跌榜＝當日有 PSA10 刊價的原價變動（未 clip）；指數本身已對缺口重入與 ±25% 封頂。</p>
+    <p class="tiny en-mover-note" id="enMoverNote" style="margin:0 0 8px" hidden>漲跌榜＝上一筆 TCGPlayer Market 日線（TickerMint）。不是 PSA10，也不是日圓。圖表期間可以更長，榜仍是 1D。</p>
+    <div class="movers-period-row jp-movers-ui">
+      <div class="movers-period-main">
+        <span class="kicker">期間 Period</span>
+        <div class="period-picker" id="moverPicker" role="group" aria-label="漲跌榜期間">
+          <button type="button" class="period-btn" data-mover="1D" aria-pressed="true">1D</button>
+          <button type="button" class="period-btn" data-mover="5D" aria-pressed="false">5D</button>
+          <button type="button" class="period-btn" data-mover="30D" aria-pressed="false">30D</button>
+          <button type="button" class="period-btn" data-mover="1Y" aria-pressed="false">1Y</button>
+          <button type="button" class="period-btn" data-mover="YTD" aria-pressed="false">YTD</button>
+        </div>
+      </div>
+      <form class="range-form" id="moversRangeForm">
+        <label>由 <input type="date" id="moversRangeFrom" name="movers-from" /></label>
+        <span class="range-end">
+          <label>至 <input type="date" id="moversRangeTo" name="movers-to" /></label>
+          <button type="submit" class="period-btn" id="moversRangeApply">自訂</button>
+        </span>
+      </form>
+    </div>
+    <p class="tiny jp-movers-ui" id="moversPeriodNote" style="margin:6px 0 0" role="status" aria-live="polite"></p>
+  </div>
   <div class="movers">
     <div class="card">
-      <h2>漲幅榜 Top gainers <span class="pill">1D</span></h2>
+      <h2>漲幅榜 Top gainers</h2>
       <div class="table-wrap">
         <table>
           <thead>
@@ -697,7 +798,7 @@
       </div>
     </div>
     <div class="card">
-      <h2>跌幅榜 Top losers <span class="pill">1D</span></h2>
+      <h2>跌幅榜 Top losers</h2>
       <div class="table-wrap">
         <table>
           <thead>
@@ -712,6 +813,7 @@
         </table>
       </div>
     </div>
+  </div>
   </div>
 
   <div class="card">
@@ -742,11 +844,12 @@
     <h2>這是什麼 · 方法</h2>
     <ul class="tiny">
       <li><b>這頁就是日版 PSA10</b>：六條都在（綜合／復古／日版 SM＋劍盾／現行，加收細的特典與日版 Tag Team）。預設打開綜合。舊的約 60 張 SV chase 袖仍然收起；舊網址 <code>market-jp-psa10.html</code> 會轉到這頁。宇宙來自 SNK 公開搜尋＋本站已有 ID，<b>不發明</b>產品編號。</li>
-      <li><b>英文 Base 只作同圖對照</b>：1st Edition、Shadowless、Unlimited、Base Set 2 可以選擇疊上日版圖，方便比形狀。它們不是第二個指數台：這頁不換上英文籃子、漲跌榜或人口。主圖仍是日版 PSA10。英文日線是 TCGPlayer <b>Market</b>（<a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a>，<b>2024-02-08＝1,000</b>），同日版各自的 1,000 錨<b>不能相減</b>。PC 月線（<b>2023-01-01＝1,000</b>）可再疊，預設關掉。深連結 <code>#en-1st</code>／<code>#en-shadowless</code>／<code>#en-unlimited</code>／<code>#en-base2</code> 會打開該條對照，日版仍停在綜合。完整四條印刷在 <a href="./market-vintage.html">英文 Base</a>（月線 <a href="./market-vintage.html#pc/1st">#pc/1st</a>，人口 <a href="./market-vintage.html#pop">#pop</a>）。</li>
+      <li><b>英文 Base 只作同圖對照</b>：1st Edition、Shadowless、Unlimited、Base Set 2 可以選擇疊上日版圖，方便比形狀。它們不是第二個指數台：這頁不換上英文籃子或人口，主圖仍是日版 PSA10。打開同圖對照時，下方漲跌榜改為該印刷的 <b>1D</b> TCGPlayer 榜（不是日版 PSA10，也不跟圖表期間）；關掉對照就回到日版漲跌榜。英文日線是 TCGPlayer <b>Market</b>（<a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a>，<b>2024-02-08＝1,000</b>），同日版各自的 1,000 錨<b>不能相減</b>。PC 月線（<b>2023-01-01＝1,000</b>）可再疊，預設關掉。深連結 <code>#en-1st</code>／<code>#en-shadowless</code>／<code>#en-unlimited</code>／<code>#en-base2</code> 會打開該條對照，日版仍停在綜合。完整四條印刷在 <a href="./market-vintage.html">英文 Base</a>（月線 <a href="./market-vintage.html#pc/1st">#pc/1st</a>，人口 <a href="./market-vintage.html#pop">#pop</a>）。</li>
       <li><b>三個時代扇區，N 隨篩選浮動</b>：<b>復古</b>＝SM 之前（約 1996–2016，XY／BW／DP…）；<b>日版 SM＋劍盾</b>＝Sun &amp; Moon＋劍盾（Tag Team 亦計入此區）；<b>現行</b>＝SV＋MEGA，不限開盒 EV chase 名單。通過篩選即入選——<b>不再</b>設地板 80／補到 80／截到 80。綜合＝三區聯集。篩選：最近 PSA10 刊價 ≥ ¥2,000；90 日刊價日復古 ≥5、日版 SM＋劍盾／現行 ≥6。某區通過少於 20 張才放寬到 ¥1,500／3 日（仍然收取全部通過者，不是地板）。</li>
       <li><b>姊妹籃子（先收細）</b>：<b>特典</b>（Grey Felt Hat／灰氈帽、Munch／Picasso／長場、Mario／Luigi／poncho 皮卡丘、Extra Battle Day 等流動日版特典；篩選 ¥2,500／90 日 5 刊價日）；<b>日版 Tag Team</b>＝SM8b–SM12a／SMM 溫度計（篩選與復古相同：¥2,000／5 日）。兩條仍可點開，只是不如四條主籃那麼大聲。皆為篩選全收，不截 80。</li>
       <li><b>四條權重（權重順序）</b>：1 等權 1/n（算術，不是 Pokeca Jevons）；2 流動性（前一日 30 日 SNK 成交日圓，3% cap）；3 價格（滯後市值，3% cap）；4 價格無 cap 只作疊加，<b>不改</b>前三條。籃子小到 1/n ≥ 3% 時 cap 無法施行。圖預設只開等權＋流動性；價格／無 cap 可手動打開。</li>
       <li><b>廣度</b>：跟隨圖表期間（1D／5D／30D／1Y／YTD／All／自訂）。各成分用同一條 LOCF 刊價，比較該段第一個指數日與最後一日（上漲／持平／下跌）。成交量柱仍只計當日有刊價張數。</li>
+      <li><b>漲跌榜</b>：預設 1D，用當日有 PSA10 刊價的原價變動（未 clip）。5D／30D／1Y／YTD／自訂用同一窗口起迄的 LOCF 刊價，不補價、不發明；少於兩個日期就顯示 N/A。同圖英文對照打開時榜固定為該印刷的 1D。</li>
       <li><b>英文卡名</b>：籃子／漲跌榜顯示 SNKRDUNK EN 產品名（資料裡的 <code>name</code>）。日文 <code>localizedName</code> 與繁中名只作後備。SNK 把寫入訓練家空白顯示成 <code>_’s</code> 時，畫面改成 PSA 寫法 <code>___'s Pikachu</code>，不發明其他譯名。</li>
       <li><b>每日 vs 季度</b>：權重<b>每日</b>用前一日流動性／滯後價重算。成分<b>季度重組</b>（1 月／4 月／7 月／10 月 1 日 JST；GitHub Action ＋ <code>--rebuild-baskets --confirm REBUILD</code>）。每日 job 不改名單。</li>
       <li><b>基準 1,000</b>：第一個有足夠成分（≥40 張有價，或籃子一半）的東京曆日。期間按鈕只放大圖，不重設 1,000。缺日 LOCF、<b>不補 ¥0</b>。刊價缺口 &gt; 14 日＝重入（當日報酬 0）；其餘 ±25% winsorize。</li>
@@ -763,7 +866,7 @@
 
 <script src="./js/freshness-badge.js?v=1.33.3"></script>
 <script src="./js/spark-tip.js?v=1.33.3"></script>
-<script src="./js/jp-psa10-ui.js?v=1.33.3"></script>
+<script src="./js/jp-psa10-ui.js?v=1.34.1"></script>
 <script src="./data/market-jp-psa10-bench/latest.js?v=1.33.3"></script>
 <script src="./data/market-jp-psa10-bench/history.js?v=1.33.3"></script>
 <script src="./data/market-vintage/latest.js?v=1.33.3"></script>
@@ -970,6 +1073,9 @@
     else location.hash = next.replace(/^#/, '');
   }
   function syncOverlay() {
+    document.body.classList.toggle('is-en-overlay', !!enOverlay);
+    const enNote = $('enMoverNote');
+    if (enNote) enNote.hidden = !enOverlay;
     document.querySelectorAll('#enOverlayToggles [data-en-overlay]').forEach((btn) => {
       const id = btn.getAttribute('data-en-overlay') || '';
       const on = id === (enOverlay || '');
@@ -995,7 +1101,7 @@
     const slug = (EN_TO_HASH[enOverlay] || 'en-1st').replace(/^en-/, '');
     const daily = slug === 'base2' ? 'base2' : slug;
     hint.innerHTML = '同圖對照 <b>' + escapeHtml(row.nameZh || enOverlay) +
-      '</b>（英文裸卡日線，2024-02-08＝1000）。日版籃子不會換成英文。' +
+      '</b>（英文裸卡日線，2024-02-08＝1000）。日版籃子不會換成英文。下方漲跌榜是這條印刷的 1D（不是日版 PSA10）。' +
       (showPc ? '虛線另疊 PC 月線（2023-01-01＝1000），兩條不能相減。' : 'PC 月線可再疊，預設關掉。') +
       ' 完整四條：<a href="./market-vintage.html#' + daily + '">英文 Base</a>。';
   }
@@ -1076,16 +1182,19 @@
       if (!res || !res.ok || !res.data) {
         printsFailed = true;
         renderHero();
+        renderMovers();
         return;
       }
       printsById = (window.JpPsa10Ui && JpPsa10Ui.printsFromCache)
         ? JpPsa10Ui.printsFromCache(res.data)
         : {};
       renderHero();
+      renderMovers();
     }).catch(() => {
       printsLoading = false;
       printsFailed = true;
       renderHero();
+      renderMovers();
     });
   }
 
@@ -1261,6 +1370,14 @@
       $('rangeFrom').max = pts[pts.length - 1].date;
       $('rangeTo').min = pts[0].date;
       $('rangeTo').max = pts[pts.length - 1].date;
+      const mFrom = $('moversRangeFrom');
+      const mTo = $('moversRangeTo');
+      if (mFrom && mTo) {
+        mFrom.min = mTo.min = pts[0].date;
+        mFrom.max = mTo.max = pts[pts.length - 1].date;
+        if (!mTo.value) mTo.value = pts[pts.length - 1].date;
+        if (!mFrom.value) mFrom.value = pts[Math.max(0, pts.length - 8)].date;
+      }
     }
   }
 
@@ -1280,10 +1397,128 @@
     }).join('');
   }
 
+  const MOVER_PERIODS = ['1D', '5D', '30D', '1Y', 'YTD'];
+  const moverState = { period: '1D', customFrom: '', customTo: '' };
+  function setMoverPriceHeader(label) {
+    document.querySelectorAll('.movers thead th.num').forEach((th, i) => {
+      if (i % 2 === 0) th.textContent = label;
+    });
+  }
+  function emptyMoverTable(msg) {
+    return '<tr><td colspan="4" class="tiny">' + escapeHtml(msg) + '</td></tr>';
+  }
+  function moverWindow(period) {
+    if (period === 'CUSTOM') {
+      const from = moverState.customFrom;
+      const to = moverState.customTo;
+      if (!from || !to) return { ok: false, reason: '請輸入起迄日期' };
+      if (from >= to) return { ok: false, reason: '起始日不能晚於結束日' };
+      return { ok: true, from: from, to: to };
+    }
+    const ret = returnFor('equal', period);
+    if (!ret || !ret.available || !ret.from || !ret.to || !(ret.from < ret.to)) {
+      return { ok: false, reason: '此區間少於兩個指數日（缺日不補價）' };
+    }
+    return { ok: true, from: ret.from, to: ret.to };
+  }
+  function syncMoverPicker(period) {
+    const picker = $('moverPicker');
+    if (picker) {
+      picker.querySelectorAll('.period-btn').forEach((btn) => {
+        const p = btn.getAttribute('data-mover');
+        const on = period !== 'CUSTOM' && p === period;
+        btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+        btn.classList.toggle('is-na', p !== '1D' && !moverWindow(p).ok);
+      });
+    }
+    const applyBtn = $('moversRangeApply');
+    if (applyBtn) applyBtn.classList.toggle('is-active', period === 'CUSTOM');
+  }
+  function renderEnMovers() {
+    const row = (VIN && VIN.indexes && VIN.indexes[enOverlay]) || {};
+    setMoverPriceHeader('USD');
+    function moverTable(list, empty) {
+      return (list || []).map((c) => {
+        const price = c.price == null
+          ? '—'
+          : ('$' + Number(c.price).toLocaleString('en-US', { maximumFractionDigits: 0 }));
+        return '<tr><td></td><td class="name-cell">' + enName(c) + '</td><td class="num">' + price +
+          '</td><td class="num chg ' + chgClass(c.changePct) + '">' + fmtPct(c.changePct, true) + '</td></tr>';
+      }).join('') || emptyMoverTable(empty);
+    }
+    $('gainerBody').innerHTML = moverTable(row.gainers, '沒有上一筆日線');
+    $('loserBody').innerHTML = moverTable(row.losers, '沒有上一筆日線');
+    const enNote = $('enMoverNote');
+    if (enNote) enNote.hidden = false;
+  }
+  function renderJpMovers() {
+    setMoverPriceHeader('¥');
+    const enNote = $('enMoverNote');
+    if (enNote) enNote.hidden = true;
+    const period = (MOVER_PERIODS.indexOf(moverState.period) >= 0 || moverState.period === 'CUSTOM')
+      ? moverState.period
+      : '1D';
+    moverState.period = period;
+    const jpNote = $('jpMoverNote');
+    const periodNote = $('moversPeriodNote');
+    syncMoverPicker(period);
+    if (period === '1D') {
+      if (jpNote) jpNote.textContent = '漲跌榜＝當日有 PSA10 刊價的原價變動（未 clip）；指數本身已對缺口重入與 ±25% 封頂。';
+      const blob = cur();
+      $('gainerBody').innerHTML = moverRows(blob.gainers);
+      $('loserBody').innerHTML = moverRows(blob.losers);
+      if (periodNote) periodNote.textContent = '1D · 當日有刊價的原價變動';
+      const applyBtn = $('moversRangeApply');
+      if (applyBtn) applyBtn.classList.remove('is-active');
+      return;
+    }
+    if (jpNote) jpNote.textContent = '漲跌榜＝該窗口第一個與最後一個 LOCF 刊價（未 clip、不補價）。指數本身已對缺口重入與 ±25% 封頂。';
+    const win = moverWindow(period);
+    const label = (period === 'CUSTOM' ? '自訂' : period);
+    if (!win.ok) {
+      $('gainerBody').innerHTML = emptyMoverTable('N/A — ' + win.reason);
+      $('loserBody').innerHTML = emptyMoverTable('N/A — ' + win.reason);
+      if (periodNote) periodNote.textContent = label + ' · ' + win.reason;
+      const applyBtn = $('moversRangeApply');
+      if (applyBtn) applyBtn.classList.remove('is-active');
+      return;
+    }
+    if (!printsById) {
+      const waiting = printsFailed ? '刊價載入失敗' : '載入 LOCF 刊價…';
+      $('gainerBody').innerHTML = emptyMoverTable(printsFailed ? 'N/A — 刊價載入失敗' : '載入刊價…');
+      $('loserBody').innerHTML = emptyMoverTable(printsFailed ? 'N/A — 刊價載入失敗' : '載入刊價…');
+      if (periodNote) periodNote.textContent = label + ' · ' + win.from + ' → ' + win.to + ' · ' + waiting;
+      if (!printsFailed) ensurePrints();
+      return;
+    }
+    const ui = window.JpPsa10Ui;
+    const info = (ui && ui.moversFromPrints)
+      ? ui.moversFromPrints((cur().constituents || []), printsById, win.from, win.to)
+      : { available: false, reason: '漲跌計算未載入', gainers: [], losers: [] };
+    const span = label + ' · ' + win.from + ' → ' + win.to;
+    if (!info.available) {
+      const why = info.reason || '此區間沒有兩筆 LOCF 刊價';
+      $('gainerBody').innerHTML = emptyMoverTable('N/A — ' + why);
+      $('loserBody').innerHTML = emptyMoverTable('N/A — ' + why);
+      if (periodNote) periodNote.textContent = span + ' · ' + why;
+      const applyBtn = $('moversRangeApply');
+      if (applyBtn) applyBtn.classList.remove('is-active');
+      return;
+    }
+    $('gainerBody').innerHTML = info.gainers.length ? moverRows(info.gainers) : emptyMoverTable('此期間沒有上漲成分');
+    $('loserBody').innerHTML = info.losers.length ? moverRows(info.losers) : emptyMoverTable('此期間沒有下跌成分');
+    if (periodNote) periodNote.textContent = span + ' · LOCF 刊價起迄（不補價）';
+    const applyBtn = $('moversRangeApply');
+    if (applyBtn) applyBtn.classList.toggle('is-active', period === 'CUSTOM');
+  }
+  function renderMovers() {
+    document.body.classList.toggle('is-en-overlay', !!enOverlay);
+    if (enOverlay) renderEnMovers();
+    else renderJpMovers();
+  }
+
   function renderBasket() {
     const blob = cur();
-    $('gainerBody').innerHTML = moverRows(blob.gainers);
-    $('loserBody').innerHTML = moverRows(blob.losers);
     const basket = blob.constituents || [];
     $('basketCountPill').textContent = String(basket.length);
     $('basketBody').innerHTML = basket.map((row, i) => {
@@ -1311,7 +1546,7 @@
     host.innerHTML = ORDER.filter((k) => seriesBlob(k)).map((k) => {
       const b = seriesBlob(k);
       const eq = (b.indexes && b.indexes.equal) || {};
-      const on = k === activeKey;
+      const on = k === activeKey && !enOverlay;
       const ret = returnFor('equal', period, k);
       const pct = (ret && ret.available) ? fmtPct(ret.pct, true) : '—';
       const pctCls = (ret && ret.available) ? chgClass(ret.pct) : 'muted';
@@ -1534,7 +1769,6 @@
     document.querySelectorAll('.movers thead th.num').forEach((th, i) => {
       if (i % 2 === 0) th.textContent = 'USD';
     });
-    document.querySelectorAll('.movers h2 .pill').forEach((pill) => { pill.textContent = '1D'; });
     if (window.FreshBadge) {
       FreshBadge.show({ label: 'EN Base 旁路', raw: row && row.asOfDate, staleAfter: 7 });
     }
@@ -1571,7 +1805,6 @@
     document.querySelectorAll('.movers thead th.num').forEach((th, i) => {
       if (i % 2 === 0) th.textContent = '¥';
     });
-    document.querySelectorAll('.movers h2 .pill').forEach((el) => { el.textContent = '1D'; });
     const heading = $('levelHeading');
     if (heading) heading.textContent = '四條水平 + 廣度';
     const hint = $('enBaseHint');
@@ -1582,12 +1815,14 @@
   }
 
   function paint() {
+    document.body.classList.toggle('is-en-overlay', !!enOverlay);
     renderTabs();
     enablePeriods();
     syncPeriodBtns();
     renderHero();
     renderBasket();
     syncOverlay();
+    renderMovers();
     drawChart();
   }
 
@@ -1634,6 +1869,28 @@
       showPc = !showPc;
       syncOverlay();
       drawChart();
+    });
+  }
+  const moverPicker = $('moverPicker');
+  if (moverPicker) {
+    moverPicker.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-mover]');
+      if (!btn || enOverlay) return;
+      const p = btn.getAttribute('data-mover');
+      if (MOVER_PERIODS.indexOf(p) < 0 || p === moverState.period) return;
+      moverState.period = p;
+      renderMovers();
+    });
+  }
+  const moversForm = $('moversRangeForm');
+  if (moversForm) {
+    moversForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (enOverlay) return;
+      moverState.customFrom = ($('moversRangeFrom') && $('moversRangeFrom').value) || '';
+      moverState.customTo = ($('moversRangeTo') && $('moversRangeTo').value) || '';
+      moverState.period = 'CUSTOM';
+      renderMovers();
     });
   }
   document.querySelectorAll('.period-btns .period-btn[data-period]').forEach((btn) => {

@@ -265,7 +265,18 @@
     min-width: 0;
     max-width: 100%;
   }
-  .movers-period .range-form { margin-top: 6px; }
+  .range-end {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 6px 8px;
+    min-width: 0;
+  }
+  .movers-period .range-form {
+    margin: 0 0 0 auto;
+    flex: 0 1 auto;
+    flex-wrap: nowrap;
+  }
   .range-form label {
     display: inline-flex;
     align-items: center;
@@ -281,11 +292,21 @@
     font-weight: 700;
     border: var(--bw) solid var(--ink);
     border-radius: 8px;
-    padding: 4px 6px;
+    padding: 4px 1.6rem 4px 6px;
     background: var(--card);
     color: var(--ink);
     min-width: 0;
+    width: 9.4rem;
     max-width: 11.5rem;
+    position: relative;
+  }
+  .range-form input[type="date"]::-webkit-calendar-picker-indicator {
+    position: absolute;
+    right: 4px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    cursor: pointer;
   }
   .kicker { font-size: .72rem; color: var(--muted); font-weight: 650; }
   .metrics {
@@ -326,11 +347,21 @@
     gap: 12px;
   }
   .movers-period {
-    margin: 0 0 10px;
+    margin: 32px 0 12px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
     min-width: 0;
     max-width: 100%;
   }
   .movers-period-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px 16px;
+    min-width: 0;
+  }
+  .movers-period-main {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -363,7 +394,8 @@
     user-select: none;
     box-shadow: var(--shadow-xs);
   }
-  #periodPicker .period-btn[aria-pressed="true"] {
+  #periodPicker .period-btn[aria-pressed="true"],
+  .period-picker .period-btn[aria-pressed="true"] {
     background: var(--accent-fill);
     border-color: var(--ink);
     color: var(--ink);
@@ -870,6 +902,9 @@
   color: var(--ink); cursor: pointer; box-shadow: var(--shadow-xs);
 }
 .house-btn.is-active { background: var(--accent-fill); }
+@media (max-width: 720px) {
+  .movers-period .range-form { margin-left: 0; width: 100%; flex-wrap: wrap; }
+}
 .house-note, .house-lead { margin: 0 0 10px; }
 @media (max-width: 720px) {
   #houseMid .binder-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
@@ -924,8 +959,10 @@
       </div>
       <form class="range-form" id="rangeForm">
         <label>由 <input type="date" id="rangeFrom" name="from" /></label>
-        <label>至 <input type="date" id="rangeTo" name="to" /></label>
-        <button type="submit" class="period-btn" id="rangeApply">自訂</button>
+        <span class="range-end">
+          <label>至 <input type="date" id="rangeTo" name="to" /></label>
+          <button type="submit" class="period-btn" id="rangeApply">自訂</button>
+        </span>
       </form>
       <div class="spark-wrap" id="sparkWrap">
         <svg class="spark" id="spark" viewBox="0 0 320 100" hidden aria-hidden="true"></svg>
@@ -944,26 +981,30 @@
 
   <div class="movers-period">
     <div class="movers-period-row">
-      <span class="kicker">期間 Period</span>
-      <div class="period-picker" id="periodPicker" role="group" aria-label="Top gainers / losers period">
-        <button type="button" class="period-btn" data-period="1D" aria-pressed="true">1D</button>
-        <button type="button" class="period-btn" data-period="5D" aria-pressed="false">5D</button>
-        <button type="button" class="period-btn" data-period="30D" aria-pressed="false">30D</button>
-        <button type="button" class="period-btn" data-period="1Y" aria-pressed="false">1Y</button>
-        <button type="button" class="period-btn" data-period="YTD" aria-pressed="false">YTD</button>
+      <div class="movers-period-main">
+        <span class="kicker">期間 Period</span>
+        <div class="period-picker" id="periodPicker" role="group" aria-label="Top gainers / losers period">
+          <button type="button" class="period-btn" data-period="1D" aria-pressed="true">1D</button>
+          <button type="button" class="period-btn" data-period="5D" aria-pressed="false">5D</button>
+          <button type="button" class="period-btn" data-period="30D" aria-pressed="false">30D</button>
+          <button type="button" class="period-btn" data-period="1Y" aria-pressed="false">1Y</button>
+          <button type="button" class="period-btn" data-period="YTD" aria-pressed="false">YTD</button>
+        </div>
       </div>
+      <form class="range-form" id="moversRangeForm">
+        <label>由 <input type="date" id="moversRangeFrom" name="movers-from" /></label>
+        <span class="range-end">
+          <label>至 <input type="date" id="moversRangeTo" name="movers-to" /></label>
+          <button type="submit" class="period-btn" id="moversRangeApply">自訂</button>
+        </span>
+      </form>
     </div>
-    <form class="range-form" id="moversRangeForm">
-      <label>由 <input type="date" id="moversRangeFrom" name="movers-from" /></label>
-      <label>至 <input type="date" id="moversRangeTo" name="movers-to" /></label>
-      <button type="submit" class="period-btn" id="moversRangeApply">自訂</button>
-    </form>
     <p class="tiny" id="moversPeriodNote" style="margin:6px 0 0" role="status" aria-live="polite"></p>
   </div>
 
   <div class="movers">
     <div class="card">
-      <h2>漲幅榜 Top gainers <span class="pill" id="gainerPeriodPill">1D</span></h2>
+      <h2>漲幅榜 Top gainers</h2>
       <div class="table-wrap">
         <table>
           <thead>
@@ -979,7 +1020,7 @@
       </div>
     </div>
     <div class="card">
-      <h2>跌幅榜 Top losers <span class="pill" id="loserPeriodPill">1D</span></h2>
+      <h2>跌幅榜 Top losers</h2>
       <div class="table-wrap">
         <table>
           <thead>
@@ -1020,7 +1061,7 @@
     <ul class="tiny">
       <li><b>指數是什麼</b>：這頁的「全體 Top 500」是英文 <a href="https://www.tcgplayer.com/search/pokemon/product?productLineName=pokemon&amp;view=grid" target="_blank" rel="noopener">TCGPlayer</a> 裸卡（raw / ungraded）市價最高的 500 張，<b>價格加權</b>。不是 Chase 公允值那組卡。同頁另一個開關是英文中世代（DP–SM Top 50），不是日版 SM＋劍盾。成分輪替時用 divisor 保持連續（與 S&amp;P 500 同一思路）。基準＝<b>1,000</b>（最早有資料的日子，2024-02-08）。</li>
       <li><b>固定籃子精神</b>：每天重看誰進 Top 500，但指數用 divisor 接起來，不會因為換卡就跳一截。</li>
-      <li><b>每日漲跌</b>：相對上一份已公布的快照。第一份快照只會看到 1,000，% 與廣度要等下一份才有。</li>
+      <li><b>每日漲跌</b>：相對上一份已公布的快照。第一份快照只會看到 1,000，% 要等下一份才有。<b>市場廣度跟隨圖表期間</b>（1D／5D／30D／1Y／YTD／自訂），不是永遠停在每日快照，也不跟漲跌榜的期間按鈕。</li>
       <li><b>5D／30D／1Y／YTD／自訂</b>：用<strong>真實歷史點</strong>放大圖表，<b>缺日就跳過、不補價、不發明點</b>。指數水平維持系列起點的固定基準 1,000，<b>不會</b>在視窗開頭重設。沒有夠早的點就不顯示該期間。每日現況來自 <a href="https://tcgcsv.com" target="_blank" rel="noopener">TCGCSV</a>；往回的歷史來自 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a>。</li>
       <li><b>漲跌榜</b>：1D＝上一份快照；5D／30D／1Y／YTD／自訂＝當日籃子相對該期間基準日（自訂用區間內第一與最後一個真實快照，<b>不重設</b>指數基準）。沒有對應快照就顯示 N/A。</li>
       <li><b>代表價</b>：同一張卡取一般印刷（Holofoil / Reverse 等）裡最高的 TCGPlayer <b>Market Price</b>；1st Edition 預設不計入（成交太薄）。</li>
@@ -1094,8 +1135,10 @@
       </div>
       <form class="range-form" id="midrangeForm">
         <label>由 <input type="date" id="midrangeFrom" name="from" /></label>
-        <label>至 <input type="date" id="midrangeTo" name="to" /></label>
-        <button type="submit" class="period-btn" id="midrangeApply">自訂</button>
+        <span class="range-end">
+          <label>至 <input type="date" id="midrangeTo" name="to" /></label>
+          <button type="submit" class="period-btn" id="midrangeApply">自訂</button>
+        </span>
       </form>
       <div class="spark-wrap" id="midsparkWrap">
         <svg class="spark" id="midspark" viewBox="0 0 320 100" hidden aria-hidden="true"></svg>
@@ -1114,26 +1157,30 @@
 
   <div class="movers-period">
     <div class="movers-period-row">
-      <span class="kicker">期間 Period</span>
-      <div class="period-picker" id="midperiodPicker" role="group" aria-label="Top gainers / losers period">
-        <button type="button" class="period-btn" data-period="1D" aria-pressed="true">1D</button>
-        <button type="button" class="period-btn" data-period="5D" aria-pressed="false">5D</button>
-        <button type="button" class="period-btn" data-period="30D" aria-pressed="false">30D</button>
-        <button type="button" class="period-btn" data-period="1Y" aria-pressed="false">1Y</button>
-        <button type="button" class="period-btn" data-period="YTD" aria-pressed="false">YTD</button>
+      <div class="movers-period-main">
+        <span class="kicker">期間 Period</span>
+        <div class="period-picker" id="midperiodPicker" role="group" aria-label="Top gainers / losers period">
+          <button type="button" class="period-btn" data-period="1D" aria-pressed="true">1D</button>
+          <button type="button" class="period-btn" data-period="5D" aria-pressed="false">5D</button>
+          <button type="button" class="period-btn" data-period="30D" aria-pressed="false">30D</button>
+          <button type="button" class="period-btn" data-period="1Y" aria-pressed="false">1Y</button>
+          <button type="button" class="period-btn" data-period="YTD" aria-pressed="false">YTD</button>
+        </div>
       </div>
+      <form class="range-form" id="midmoversRangeForm">
+        <label>由 <input type="date" id="midmoversRangeFrom" name="movers-from" /></label>
+        <span class="range-end">
+          <label>至 <input type="date" id="midmoversRangeTo" name="movers-to" /></label>
+          <button type="submit" class="period-btn" id="midmoversRangeApply">自訂</button>
+        </span>
+      </form>
     </div>
-    <form class="range-form" id="midmoversRangeForm">
-      <label>由 <input type="date" id="midmoversRangeFrom" name="movers-from" /></label>
-      <label>至 <input type="date" id="midmoversRangeTo" name="movers-to" /></label>
-      <button type="submit" class="period-btn" id="midmoversRangeApply">自訂</button>
-    </form>
     <p class="tiny" id="midmoversPeriodNote" style="margin:6px 0 0" role="status" aria-live="polite"></p>
   </div>
 
   <div class="movers">
     <div class="card">
-      <h2>漲幅榜 Top gainers <span class="pill" id="midgainerPeriodPill">1D</span></h2>
+      <h2>漲幅榜 Top gainers</h2>
       <div class="table-wrap">
         <table>
           <thead>
@@ -1149,7 +1196,7 @@
       </div>
     </div>
     <div class="card">
-      <h2>跌幅榜 Top losers <span class="pill" id="midloserPeriodPill">1D</span></h2>
+      <h2>跌幅榜 Top losers</h2>
       <div class="table-wrap">
         <table>
           <thead>
@@ -1241,6 +1288,7 @@
       <li><b>固定籃子 ~50</b>：英文中世代 chase（holo／EX／GX／FA／SA／Prime／LV.X／Legend／Secret 等）凍結名單，<b>不每週重排</b>。<b>價格加權</b>；有卡加入／退出時用 divisor 保持連續。缺市價<b>不當 $0</b>，有價那天才進籃。基準＝<b>1,000</b>（最早有資料的日子）。</li>
       <li><b>5D／30D／1Y／YTD／All／自訂</b>：用<strong>真實歷史點</strong>放大圖表，<b>缺日就跳過、不補價、不發明點</b>。<b>All</b>＝全部已有日期，只放大、不會重設 1,000。指數水平維持系列起點的固定基準 1,000，<b>不會</b>在視窗開頭重設。沒有夠早的點就不顯示該期間。懸停／點選圖表可見當日指數水平。每日現況來自 <a href="https://tcgcsv.com" target="_blank" rel="noopener">TCGCSV</a>；往回的歷史來自 <a href="https://tickermint.cards/developers/pokemon" target="_blank" rel="noopener">TickerMint</a>。</li>
       <li><b>漲跌榜</b>：1D／5D／30D／1Y／YTD／自訂。自訂用區間內第一與最後一個真實價圖，不重設指數基準。</li>
+      <li><b>市場廣度</b>：跟圖表期間走（預設 1Y），用該段 <code>movers[期間].breadth</code>；自訂圖表日期用同一套歷史價現算。不跟漲跌榜的期間按鈕，也不停在 1D。</li>
       <li><b>落後籃子 Lag vs index</b>：卡片報酬＝該段第一／最後一個真實價；指數報酬＝同一條英文中世代籃子同一期間。差距＝卡 % − 指數 %，負數＝落後，最落後排前面。缺市價跳過。連結同漲跌榜（TCGPlayer／TickerMint）。</li>
       <li><b>卡冊／籃子時代晶片</b>：DP · BW · XY · SM 只篩這一頁（HGSS／Call of Legends 歸 DP），<b>不改</b>指數成分。</li>
       <li><b>代表價</b>：一般印刷裡最高的 <a href="https://www.tcgplayer.com/search/pokemon/product?productLineName=pokemon&amp;view=grid" target="_blank" rel="noopener">TCGPlayer</a> <b>Market Price</b>；1st Edition 預設不計入（成交太薄）。</li>
@@ -1563,6 +1611,7 @@
         chgEl.textContent = '自訂區間未套用';
         note.textContent = ret.reason || '請輸入起迄日期';
         drawSpark(RETURNS['1D'] && RETURNS['1D'].available ? '1D' : period);
+        renderBreadth(period);
         return;
       }
       // Missing window: longest real return (ALL, YTD, 30D, 5D, then 1D). Never invent a % or leave it blank.
@@ -1576,6 +1625,7 @@
       chgEl.textContent = '尚無 ' + (PERIOD_LABEL[period] || period);
       note.textContent = ret.reason || '需要 TickerMint 回填後才有多日報酬';
       drawSpark('1D');
+      renderBreadth(period);
       return;
     }
     chgEl.className = 'index-chg ' + chgClass(ret.pct);
@@ -1586,6 +1636,7 @@
     chgEl.textContent = fmtPct(ret.pct, true) + extra + '（' + (PERIOD_LABEL[period] || period) + '）';
     note.textContent = ret.from + ' → ' + ret.to + ' · ' + pointsForPeriod(period).length + ' 個快照（缺日不補價 · 不重設基準）';
     drawSpark(period);
+    renderBreadth(period);
   }
   houseTop.querySelectorAll('.period-btns .period-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -1620,24 +1671,96 @@
       renderPeriod('CUSTOM');
     });
   })();
-  renderPeriod(periodState.period);
-
-  const b = DATA.breadth || {};
-  const tot = (b.advancing || 0) + (b.declining || 0) + (b.unchanged || 0);
-  $('breadthMetrics').innerHTML =
-    '<div class="metric"><div class="k">上漲 Advancers</div><div class="v' + (b.available ? ' good' : '') + '">' + (b.available ? b.advancing : '—') + '</div></div>' +
-    '<div class="metric"><div class="k">下跌 Decliners</div><div class="v' + (b.available ? ' bad' : '') + '">' + (b.available ? b.declining : '—') + '</div></div>';
-  if (b.available && tot > 0) {
-    $('breadthBar').innerHTML =
-      '<div class="bar">' +
-      '<div class="adv" style="width:' + ((b.advancing / tot) * 100).toFixed(1) + '%"></div>' +
-      '<div class="unch" style="width:' + ((b.unchanged / tot) * 100).toFixed(1) + '%"></div>' +
-      '<div class="dec" style="width:' + ((b.declining / tot) * 100).toFixed(1) + '%"></div>' +
-      '</div>';
-    $('breadthNote').textContent = '有確認漲跌的成分：上漲 ' + b.advancing + ' · 持平 ' + b.unchanged + ' · 下跌 ' + b.declining;
-  } else {
-    $('breadthNote').textContent = '首次快照沒有廣度數字；下一份快照才會出現 advancers / decliners。';
+  let breadthToken = 0;
+  function paintBreadth(b, note) {
+    const metrics = $('breadthMetrics');
+    const bar = $('breadthBar');
+    const noteEl = $('breadthNote');
+    if (!metrics || !bar || !noteEl) return;
+    const adv = (b && b.advancing) || 0;
+    const dec = (b && b.declining) || 0;
+    const unch = (b && b.unchanged) || 0;
+    const tot = adv + dec + unch;
+    if (b && b.available && tot > 0) {
+      metrics.innerHTML =
+        '<div class="metric"><div class="k">上漲 Advancers</div><div class="v good">' + adv + '</div></div>' +
+        '<div class="metric"><div class="k">下跌 Decliners</div><div class="v bad">' + dec + '</div></div>';
+      bar.innerHTML =
+        '<div class="bar">' +
+        '<div class="adv" style="width:' + ((adv / tot) * 100).toFixed(1) + '%"></div>' +
+        '<div class="unch" style="width:' + ((unch / tot) * 100).toFixed(1) + '%"></div>' +
+        '<div class="dec" style="width:' + ((dec / tot) * 100).toFixed(1) + '%"></div>' +
+        '</div>';
+      noteEl.textContent = note;
+    } else {
+      metrics.innerHTML =
+        '<div class="metric"><div class="k">上漲 Advancers</div><div class="v">—</div></div>' +
+        '<div class="metric"><div class="k">下跌 Decliners</div><div class="v">—</div></div>';
+      bar.innerHTML = '';
+      noteEl.textContent = note || '此期間沒有廣度數字。';
+    }
   }
+  function breadthWindowText(period, from, to) {
+    const name = period === 'CUSTOM' ? '自訂' : period;
+    if (from && to) return name + ' · ' + from + ' → ' + to;
+    return name;
+  }
+  function breadthFromMovers(period) {
+    const info = (DATA.movers || {})[period];
+    if (info && info.breadth && typeof info.breadth.available === 'boolean') return info.breadth;
+    if (period === '1D' && DATA.breadth && typeof DATA.breadth.available === 'boolean') return DATA.breadth;
+    return null;
+  }
+  const BREADTH_PRICE_URL = './data/market-en/price-history.json?v=' + VERSION;
+  async function renderBreadth(period) {
+    const token = ++breadthToken;
+    if (period === 'CUSTOM') {
+      const ret = returnFor('CUSTOM');
+      if (!ret || !ret.available) {
+        paintBreadth(null, (ret && ret.reason) || '自訂區間沒有廣度（缺日不補價）');
+        return;
+      }
+      paintBreadth(null, '載入自訂廣度…');
+      if (typeof MoversRange === 'undefined' || !MoversRange.compute) {
+        paintBreadth(null, '自訂廣度未載入');
+        return;
+      }
+      try {
+        const hist = await MoversRange.load(BREADTH_PRICE_URL);
+        if (token !== breadthToken) return;
+        const info = MoversRange.compute(
+          DATA.constituents || [],
+          MoversRange.pointsOf(hist),
+          periodState.customFrom,
+          periodState.customTo
+        );
+        if (token !== breadthToken) return;
+        const label = breadthWindowText('CUSTOM', (info && info.baselineDate) || ret.from, (info && info.endDate) || ret.to);
+        const br = info && info.breadth;
+        if (br && br.available) {
+          paintBreadth(br, label + ' · 有確認漲跌的成分：上漲 ' + br.advancing + ' · 持平 ' + br.unchanged + ' · 下跌 ' + br.declining);
+        } else {
+          paintBreadth(null, label + ' · ' + ((info && info.reason) || '沒有廣度數字'));
+        }
+      } catch (err) {
+        if (token !== breadthToken) return;
+        paintBreadth(null, '載入歷史價失敗，沒有自訂廣度');
+      }
+      return;
+    }
+    const stored = breadthFromMovers(period);
+    const ret = RETURNS[period] || {};
+    const info = (DATA.movers || {})[period] || {};
+    const from = ret.from || info.baselineDate || null;
+    const to = ret.to || (from ? (DATA.asOfDate || null) : null);
+    const label = breadthWindowText(period, from, to);
+    if (stored && stored.available) {
+      paintBreadth(stored, label + ' · 有確認漲跌的成分：上漲 ' + stored.advancing + ' · 持平 ' + stored.unchanged + ' · 下跌 ' + stored.declining);
+    } else {
+      paintBreadth(null, label + ' 沒有廣度數字。');
+    }
+  }
+  renderPeriod(periodState.period);
 
   function emptyRow(msg, cols) {
     return '<tr><td colspan="' + cols + '" class="tiny">' + escapeHtml(msg) + '</td></tr>';
@@ -1720,9 +1843,6 @@
       : unavailableMsg(period, info);
     $('gainerBody').innerHTML = moverRows(info.available ? info.gainers : [], gainerEmpty);
     $('loserBody').innerHTML = moverRows(info.available ? info.losers : [], loserEmpty);
-    const pill = period === 'CUSTOM' ? '自訂' : period;
-    if ($('gainerPeriodPill')) $('gainerPeriodPill').textContent = pill;
-    if ($('loserPeriodPill')) $('loserPeriodPill').textContent = pill;
     if ($('moversPeriodNote')) $('moversPeriodNote').textContent = periodNoteText(period, info);
     const applyBtn = $('moversRangeApply');
     if (applyBtn) applyBtn.classList.toggle('is-active', period === 'CUSTOM' && info.available);
@@ -2088,6 +2208,7 @@
         chgEl.textContent = '自訂區間未套用';
         note.textContent = ret.reason || '請輸入起迄日期';
         drawSpark(RETURNS['1D'] && RETURNS['1D'].available ? '1D' : period);
+        renderBreadth(period);
         return;
       }
       if (period === 'ALL') {
@@ -2097,6 +2218,7 @@
           ? ((points[0].date) + ' · 1 個快照（缺日不補價 · 不重設基準）')
           : '需要快照';
         drawSpark('ALL');
+        renderBreadth(period);
         return;
       }
       // Missing window: longest real return (ALL, YTD, 30D, 5D, then 1D). Never invent a % or leave it blank.
@@ -2110,6 +2232,7 @@
       chgEl.textContent = '尚無 ' + (PERIOD_LABEL[period] || period);
       note.textContent = ret.reason || '需要 TickerMint 回填後才有多日報酬';
       drawSpark('1D');
+      renderBreadth(period);
       return;
     }
     chgEl.className = 'index-chg ' + chgClass(ret.pct);
@@ -2121,6 +2244,7 @@
     note.textContent = ret.from + ' → ' + ret.to + ' · ' + pointsForPeriod(period).length +
       ' 個快照（' + (period === 'ALL' ? '全部已有日期 · ' : '') + '缺日不補價 · 不重設基準）';
     drawSpark(period);
+    renderBreadth(period);
   }
   midRoot.querySelectorAll('.period-btns .period-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -2156,24 +2280,96 @@
       renderPeriod('CUSTOM');
     });
   })();
-  renderPeriod(periodState.period);
-
-  const b = DATA.breadth || {};
-  const tot = (b.advancing || 0) + (b.declining || 0) + (b.unchanged || 0);
-  $('breadthMetrics').innerHTML =
-    '<div class="metric"><div class="k">上漲 Advancers</div><div class="v' + (b.available ? ' good' : '') + '">' + (b.available ? b.advancing : '—') + '</div></div>' +
-    '<div class="metric"><div class="k">下跌 Decliners</div><div class="v' + (b.available ? ' bad' : '') + '">' + (b.available ? b.declining : '—') + '</div></div>';
-  if (b.available && tot > 0) {
-    $('breadthBar').innerHTML =
-      '<div class="bar">' +
-      '<div class="adv" style="width:' + ((b.advancing / tot) * 100).toFixed(1) + '%"></div>' +
-      '<div class="unch" style="width:' + ((b.unchanged / tot) * 100).toFixed(1) + '%"></div>' +
-      '<div class="dec" style="width:' + ((b.declining / tot) * 100).toFixed(1) + '%"></div>' +
-      '</div>';
-    $('breadthNote').textContent = '有確認漲跌的成分：上漲 ' + b.advancing + ' · 持平 ' + b.unchanged + ' · 下跌 ' + b.declining;
-  } else {
-    $('breadthNote').textContent = '首次快照沒有廣度數字；下一份快照才會出現 advancers / decliners。';
+  let breadthToken = 0;
+  function paintBreadth(b, note) {
+    const metrics = $('breadthMetrics');
+    const bar = $('breadthBar');
+    const noteEl = $('breadthNote');
+    if (!metrics || !bar || !noteEl) return;
+    const adv = (b && b.advancing) || 0;
+    const dec = (b && b.declining) || 0;
+    const unch = (b && b.unchanged) || 0;
+    const tot = adv + dec + unch;
+    if (b && b.available && tot > 0) {
+      metrics.innerHTML =
+        '<div class="metric"><div class="k">上漲 Advancers</div><div class="v good">' + adv + '</div></div>' +
+        '<div class="metric"><div class="k">下跌 Decliners</div><div class="v bad">' + dec + '</div></div>';
+      bar.innerHTML =
+        '<div class="bar">' +
+        '<div class="adv" style="width:' + ((adv / tot) * 100).toFixed(1) + '%"></div>' +
+        '<div class="unch" style="width:' + ((unch / tot) * 100).toFixed(1) + '%"></div>' +
+        '<div class="dec" style="width:' + ((dec / tot) * 100).toFixed(1) + '%"></div>' +
+        '</div>';
+      noteEl.textContent = note;
+    } else {
+      metrics.innerHTML =
+        '<div class="metric"><div class="k">上漲 Advancers</div><div class="v">—</div></div>' +
+        '<div class="metric"><div class="k">下跌 Decliners</div><div class="v">—</div></div>';
+      bar.innerHTML = '';
+      noteEl.textContent = note || '此期間沒有廣度數字。';
+    }
   }
+  function breadthWindowText(period, from, to) {
+    const name = period === 'CUSTOM' ? '自訂' : period;
+    if (from && to) return name + ' · ' + from + ' → ' + to;
+    return name;
+  }
+  function breadthFromMovers(period) {
+    const info = (DATA.movers || {})[period];
+    if (info && info.breadth && typeof info.breadth.available === 'boolean') return info.breadth;
+    if (period === '1D' && DATA.breadth && typeof DATA.breadth.available === 'boolean') return DATA.breadth;
+    return null;
+  }
+  const BREADTH_PRICE_URL = './data/market-midera/price-history.json?v=' + VERSION;
+  async function renderBreadth(period) {
+    const token = ++breadthToken;
+    if (period === 'CUSTOM') {
+      const ret = returnFor('CUSTOM');
+      if (!ret || !ret.available) {
+        paintBreadth(null, (ret && ret.reason) || '自訂區間沒有廣度（缺日不補價）');
+        return;
+      }
+      paintBreadth(null, '載入自訂廣度…');
+      if (typeof MoversRange === 'undefined' || !MoversRange.compute) {
+        paintBreadth(null, '自訂廣度未載入');
+        return;
+      }
+      try {
+        const hist = await MoversRange.load(BREADTH_PRICE_URL);
+        if (token !== breadthToken) return;
+        const info = MoversRange.compute(
+          DATA.constituents || [],
+          MoversRange.pointsOf(hist),
+          periodState.customFrom,
+          periodState.customTo
+        );
+        if (token !== breadthToken) return;
+        const label = breadthWindowText('CUSTOM', (info && info.baselineDate) || ret.from, (info && info.endDate) || ret.to);
+        const br = info && info.breadth;
+        if (br && br.available) {
+          paintBreadth(br, label + ' · 有確認漲跌的成分：上漲 ' + br.advancing + ' · 持平 ' + br.unchanged + ' · 下跌 ' + br.declining);
+        } else {
+          paintBreadth(null, label + ' · ' + ((info && info.reason) || '沒有廣度數字'));
+        }
+      } catch (err) {
+        if (token !== breadthToken) return;
+        paintBreadth(null, '載入歷史價失敗，沒有自訂廣度');
+      }
+      return;
+    }
+    const stored = breadthFromMovers(period);
+    const ret = RETURNS[period] || {};
+    const info = (DATA.movers || {})[period] || {};
+    const from = ret.from || info.baselineDate || null;
+    const to = ret.to || (from ? (DATA.asOfDate || null) : null);
+    const label = breadthWindowText(period, from, to);
+    if (stored && stored.available) {
+      paintBreadth(stored, label + ' · 有確認漲跌的成分：上漲 ' + stored.advancing + ' · 持平 ' + stored.unchanged + ' · 下跌 ' + stored.declining);
+    } else {
+      paintBreadth(null, label + ' 沒有廣度數字。');
+    }
+  }
+  renderPeriod(periodState.period);
 
   function emptyRow(msg, cols) {
     return '<tr><td colspan="' + cols + '" class="tiny">' + escapeHtml(msg) + '</td></tr>';
@@ -2261,9 +2457,6 @@
       : unavailableMsg(period, info);
     $('gainerBody').innerHTML = moverRows(info.available ? info.gainers : [], gainerEmpty);
     $('loserBody').innerHTML = moverRows(info.available ? info.losers : [], loserEmpty);
-    const pill = period === 'CUSTOM' ? '自訂' : period;
-    if ($('gainerPeriodPill')) $('gainerPeriodPill').textContent = pill;
-    if ($('loserPeriodPill')) $('loserPeriodPill').textContent = pill;
     if ($('moversPeriodNote')) $('moversPeriodNote').textContent = periodNoteText(period, info);
     const applyBtn = $('moversRangeApply');
     if (applyBtn) applyBtn.classList.toggle('is-active', period === 'CUSTOM' && info.available);

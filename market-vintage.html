@@ -237,12 +237,15 @@
     cursor: pointer;
     min-width: 0;
   }
-  .index-tab:hover { background: var(--bg-2); }
+  @media (hover: hover) {
+    .index-tab:hover { background: var(--bg-2); }
+  }
   .index-tab.is-active {
     border-color: var(--ink);
     background: var(--accent-fill);
     box-shadow: var(--shadow-sm);
   }
+  .index-tab.is-active:hover { background: var(--accent-fill); }
   .index-tab .kicker { margin-bottom: 4px; }
   .index-tab .lvl {
     font-size: 1.45rem;
@@ -318,7 +321,18 @@
     min-width: 0;
     max-width: 100%;
   }
-  .movers-period .range-form { margin-top: 6px; }
+  .range-end {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 6px 8px;
+    min-width: 0;
+  }
+  .movers-period .range-form {
+    margin: 0 0 0 auto;
+    flex: 0 1 auto;
+    flex-wrap: nowrap;
+  }
   .range-form label {
     display: inline-flex;
     align-items: center;
@@ -334,11 +348,21 @@
     font-weight: 700;
     border: var(--bw) solid var(--ink);
     border-radius: 8px;
-    padding: 4px 6px;
+    padding: 4px 1.6rem 4px 6px;
     background: var(--card);
     color: var(--ink);
+    position: relative;
+    width: 9.4rem;
     min-width: 0;
     max-width: 11.5rem;
+  }
+  .range-form input[type="date"]::-webkit-calendar-picker-indicator {
+    position: absolute;
+    right: 4px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    cursor: pointer;
   }
   .kicker { font-size: .72rem; color: var(--muted); font-weight: 650; }
   .metrics {
@@ -379,7 +403,9 @@
     gap: 12px;
   }
   .movers-period {
-    margin: 0 0 10px;
+    margin: 32px 0 12px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
     min-width: 0;
     max-width: 100%;
   }
@@ -387,8 +413,19 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    justify-content: space-between;
+    gap: 8px 16px;
+    min-width: 0;
+  }
+  .movers-period-main {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
     gap: 8px 10px;
     min-width: 0;
+  }
+  @media (max-width: 720px) {
+    .movers-period .range-form { margin-left: 0; width: 100%; flex-wrap: wrap; }
   }
   .period-picker {
     display: inline-flex;
@@ -1166,8 +1203,10 @@
       </div>
       <form class="range-form" id="rangeForm">
         <label>由 <input type="date" id="rangeFrom" name="from" /></label>
-        <label>至 <input type="date" id="rangeTo" name="to" /></label>
-        <button type="submit" class="period-btn" id="rangeApply">自訂</button>
+        <span class="range-end">
+          <label>至 <input type="date" id="rangeTo" name="to" /></label>
+          <button type="submit" class="period-btn" id="rangeApply">自訂</button>
+        </span>
       </form>
       <div class="spark-wrap" id="sparkWrap">
         <svg class="spark" id="spark" viewBox="0 0 320 100" hidden aria-hidden="true"></svg>
@@ -1182,25 +1221,29 @@
 
   <div class="movers-period">
     <div class="movers-period-row">
-      <span class="kicker">期間 Period</span>
-      <div class="period-picker" id="periodPicker" role="group" aria-label="Breadth and top gainers / losers period">
-        <button type="button" class="period-btn" data-period="1D" aria-pressed="true">1D</button>
-        <button type="button" class="period-btn" data-period="5D" aria-pressed="false">5D</button>
-        <button type="button" class="period-btn" data-period="30D" aria-pressed="false">30D</button>
-        <button type="button" class="period-btn" data-period="1Y" aria-pressed="false">1Y</button>
-        <button type="button" class="period-btn" data-period="YTD" aria-pressed="false">YTD</button>
+      <div class="movers-period-main">
+        <span class="kicker">期間 Period</span>
+        <div class="period-picker" id="periodPicker" role="group" aria-label="Breadth and top gainers / losers period">
+          <button type="button" class="period-btn" data-period="1D" aria-pressed="true">1D</button>
+          <button type="button" class="period-btn" data-period="5D" aria-pressed="false">5D</button>
+          <button type="button" class="period-btn" data-period="30D" aria-pressed="false">30D</button>
+          <button type="button" class="period-btn" data-period="1Y" aria-pressed="false">1Y</button>
+          <button type="button" class="period-btn" data-period="YTD" aria-pressed="false">YTD</button>
+        </div>
       </div>
+      <form class="range-form" id="moversRangeForm">
+        <label>由 <input type="date" id="moversRangeFrom" name="movers-from" /></label>
+        <span class="range-end">
+          <label>至 <input type="date" id="moversRangeTo" name="movers-to" /></label>
+          <button type="submit" class="period-btn" id="moversRangeApply">自訂</button>
+        </span>
+      </form>
     </div>
-    <form class="range-form" id="moversRangeForm">
-      <label>由 <input type="date" id="moversRangeFrom" name="movers-from" /></label>
-      <label>至 <input type="date" id="moversRangeTo" name="movers-to" /></label>
-      <button type="submit" class="period-btn" id="moversRangeApply">自訂</button>
-    </form>
     <p class="tiny" id="moversPeriodNote" style="margin:6px 0 0" role="status" aria-live="polite"></p>
   </div>
 
   <div class="card" id="breadthCard">
-    <h2>市場廣度 Breadth <span class="pill" id="breadthPeriodPill">1D</span></h2>
+    <h2>市場廣度 Breadth</h2>
     <div class="metrics" id="breadthMetrics"></div>
     <div class="breadth" id="breadthBar"></div>
     <p class="tiny" id="breadthNote" style="margin:8px 0 0" role="status" aria-live="polite"></p>
@@ -1208,7 +1251,7 @@
 
   <div class="movers">
     <div class="card">
-      <h2>漲幅榜 Top gainers <span class="pill" id="gainerPeriodPill">1D</span></h2>
+      <h2>漲幅榜 Top gainers</h2>
       <div class="table-wrap">
         <table>
           <thead>
@@ -1224,7 +1267,7 @@
       </div>
     </div>
     <div class="card">
-      <h2>跌幅榜 Top losers <span class="pill" id="loserPeriodPill">1D</span></h2>
+      <h2>跌幅榜 Top losers</h2>
       <div class="table-wrap">
         <table>
           <thead>
@@ -1327,8 +1370,10 @@
         </div>
         <form class="range-form" id="pcRangeForm">
           <label>由 <input type="date" id="pcFrom" name="from" /></label>
-          <label>至 <input type="date" id="pcTo" name="to" /></label>
-          <button type="submit" class="period-btn">自訂</button>
+          <span class="range-end">
+            <label>至 <input type="date" id="pcTo" name="to" /></label>
+            <button type="submit" class="period-btn">自訂</button>
+          </span>
         </form>
         <div class="spark-wrap" id="pcSparkWrap">
           <svg class="spark" id="pcSpark" viewBox="0 0 320 100" role="img" aria-label="PriceCharting index"></svg>
@@ -2164,8 +2209,6 @@
     $('gainerBody').innerHTML = moverRows(info.available ? info.gainers : [], gainerEmpty);
     $('loserBody').innerHTML = moverRows(info.available ? info.losers : [], loserEmpty);
     const pill = period === 'CUSTOM' ? '自訂' : period;
-    if ($('gainerPeriodPill')) $('gainerPeriodPill').textContent = pill;
-    if ($('loserPeriodPill')) $('loserPeriodPill').textContent = pill;
     if ($('moversPeriodNote')) {
       $('moversPeriodNote').textContent = info.available
         ? (period === 'CUSTOM'
@@ -2194,7 +2237,6 @@
     const earliestSnap = (DATA_ONE.snapshotRange || {}).earliest || null;
     const b = info.breadth || emptyBreadth();
     const pill = period === 'CUSTOM' ? '自訂' : period;
-    if ($('breadthPeriodPill')) $('breadthPeriodPill').textContent = pill;
     const tot = (b.advancing || 0) + (b.declining || 0) + (b.unchanged || 0);
     if (b.available && tot > 0) {
       $('breadthMetrics').innerHTML =
