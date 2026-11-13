@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-12T02:19:24.724676+00:00",
+  "generated": "2026-11-13T01:57:22.087625+00:00",
   "baseDate": "2024-02-08",
   "baseValue": 1000.0,
   "archiveStart": "2024-02-08",
@@ -1040,53 +1040,59 @@
       "index": 4937.15,
       "totalValue": 43418.48,
       "count": 50
+    },
+    {
+      "date": "2026-11-12",
+      "index": 4931.66,
+      "totalValue": 43370.28,
+      "count": 50
     }
   ],
   "returns": {
-    "asOf": "2026-11-11",
+    "asOf": "2026-11-12",
     "1D": {
       "available": true,
-      "pct": 0.19,
-      "from": "2026-11-10",
-      "to": "2026-11-11",
-      "fromIndex": 4927.95,
-      "toIndex": 4937.15,
+      "pct": -0.11,
+      "from": "2026-11-11",
+      "to": "2026-11-12",
+      "fromIndex": 4937.15,
+      "toIndex": 4931.66,
       "reason": null
     },
     "5D": {
       "available": true,
-      "pct": 1.48,
-      "from": "2026-11-06",
-      "to": "2026-11-11",
-      "fromIndex": 4865.22,
-      "toIndex": 4937.15,
+      "pct": 0.56,
+      "from": "2026-11-07",
+      "to": "2026-11-12",
+      "fromIndex": 4904.4,
+      "toIndex": 4931.66,
       "reason": null
     },
     "30D": {
       "available": true,
-      "pct": 5.92,
-      "from": "2026-10-12",
-      "to": "2026-11-11",
-      "fromIndex": 4661.18,
-      "toIndex": 4937.15,
+      "pct": 5.62,
+      "from": "2026-10-13",
+      "to": "2026-11-12",
+      "fromIndex": 4669.41,
+      "toIndex": 4931.66,
       "reason": null
     },
     "1Y": {
       "available": true,
-      "pct": 103.72,
+      "pct": 103.49,
       "from": "2025-11-06",
-      "to": "2026-11-11",
+      "to": "2026-11-12",
       "fromIndex": 2423.54,
-      "toIndex": 4937.15,
+      "toIndex": 4931.66,
       "reason": null
     },
     "YTD": {
       "available": true,
-      "pct": 83.89,
+      "pct": 83.69,
       "from": "2026-01-01",
-      "to": "2026-11-11",
+      "to": "2026-11-12",
       "fromIndex": 2684.79,
-      "toIndex": 4937.15,
+      "toIndex": 4931.66,
       "reason": null
     }
   },
