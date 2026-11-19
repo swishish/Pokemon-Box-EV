@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-18T02:58:18.091515+00:00",
+  "generated": "2026-11-19T02:40:41.631162+00:00",
   "baseDate": "2024-02-08",
   "baseValue": 1000.0,
   "archiveStart": "2024-02-08",
@@ -1082,53 +1082,59 @@
       "index": 2925.39,
       "totalValue": 325617.83,
       "count": 500
+    },
+    {
+      "date": "2026-11-18",
+      "index": 2928.94,
+      "totalValue": 326077.18,
+      "count": 500
     }
   ],
   "returns": {
-    "asOf": "2026-11-17",
+    "asOf": "2026-11-18",
     "1D": {
       "available": true,
-      "pct": -0.13,
-      "from": "2026-11-16",
-      "to": "2026-11-17",
-      "fromIndex": 2929.11,
-      "toIndex": 2925.39,
+      "pct": 0.12,
+      "from": "2026-11-17",
+      "to": "2026-11-18",
+      "fromIndex": 2925.39,
+      "toIndex": 2928.94,
       "reason": null
     },
     "5D": {
       "available": true,
-      "pct": 0.29,
-      "from": "2026-11-12",
-      "to": "2026-11-17",
-      "fromIndex": 2916.87,
-      "toIndex": 2925.39,
+      "pct": -0.02,
+      "from": "2026-11-13",
+      "to": "2026-11-18",
+      "fromIndex": 2929.42,
+      "toIndex": 2928.94,
       "reason": null
     },
     "30D": {
       "available": true,
-      "pct": -2.32,
-      "from": "2026-10-18",
-      "to": "2026-11-17",
-      "fromIndex": 2994.76,
-      "toIndex": 2925.39,
+      "pct": -1.54,
+      "from": "2026-10-19",
+      "to": "2026-11-18",
+      "fromIndex": 2974.85,
+      "toIndex": 2928.94,
       "reason": null
     },
     "1Y": {
       "available": true,
-      "pct": 64.29,
+      "pct": 64.49,
       "from": "2025-11-13",
-      "to": "2026-11-17",
+      "to": "2026-11-18",
       "fromIndex": 1780.63,
-      "toIndex": 2925.39,
+      "toIndex": 2928.94,
       "reason": null
     },
     "YTD": {
       "available": true,
-      "pct": 60.21,
+      "pct": 60.41,
       "from": "2026-01-01",
-      "to": "2026-11-17",
+      "to": "2026-11-18",
       "fromIndex": 1825.96,
-      "toIndex": 2925.39,
+      "toIndex": 2928.94,
       "reason": null
     }
   }
