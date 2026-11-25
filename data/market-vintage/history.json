@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-24T05:23:15.312624+00:00",
+  "generated": "2026-11-25T04:20:43.285864+00:00",
   "baseValue": 1000.0,
   "backfill": {
     "source": "tickermint",
@@ -16,7 +16,7 @@
   ],
   "indexes": {
     "base-1st": {
-      "generated": "2026-11-24T05:23:15.312624+00:00",
+      "generated": "2026-11-25T04:20:43.285864+00:00",
       "points": [
         {
           "date": "2024-02-08",
@@ -6131,6 +6131,12 @@
           "index": 1135.96,
           "totalValue": 9664.88,
           "count": 31
+        },
+        {
+          "date": "2026-11-24",
+          "index": 1196.99,
+          "totalValue": 10184.09,
+          "count": 31
         }
       ],
       "baseValue": 1000.0,
@@ -6148,56 +6154,56 @@
         "products": 31
       },
       "returns": {
-        "asOf": "2026-11-23",
+        "asOf": "2026-11-24",
         "1D": {
           "available": true,
-          "pct": 6.02,
-          "from": "2026-11-22",
-          "to": "2026-11-23",
-          "fromIndex": 1071.43,
-          "toIndex": 1135.96,
+          "pct": 5.37,
+          "from": "2026-11-23",
+          "to": "2026-11-24",
+          "fromIndex": 1135.96,
+          "toIndex": 1196.99,
           "reason": null
         },
         "5D": {
           "available": true,
-          "pct": 6.05,
-          "from": "2026-11-18",
-          "to": "2026-11-23",
-          "fromIndex": 1071.15,
-          "toIndex": 1135.96,
+          "pct": 11.73,
+          "from": "2026-11-19",
+          "to": "2026-11-24",
+          "fromIndex": 1071.33,
+          "toIndex": 1196.99,
           "reason": null
         },
         "30D": {
           "available": true,
-          "pct": -46.98,
-          "from": "2026-10-24",
-          "to": "2026-11-23",
-          "fromIndex": 2142.64,
-          "toIndex": 1135.96,
+          "pct": -44.1,
+          "from": "2026-10-25",
+          "to": "2026-11-24",
+          "fromIndex": 2141.28,
+          "toIndex": 1196.99,
           "reason": null
         },
         "1Y": {
           "available": true,
-          "pct": 33.99,
-          "from": "2025-11-23",
-          "to": "2026-11-23",
+          "pct": 41.19,
+          "from": "2025-11-24",
+          "to": "2026-11-24",
           "fromIndex": 847.77,
-          "toIndex": 1135.96,
+          "toIndex": 1196.99,
           "reason": null
         },
         "YTD": {
           "available": true,
-          "pct": -13.97,
+          "pct": -9.35,
           "from": "2026-01-01",
-          "to": "2026-11-23",
+          "to": "2026-11-24",
           "fromIndex": 1320.44,
-          "toIndex": 1135.96,
+          "toIndex": 1196.99,
           "reason": null
         }
       }
     },
     "base-shadowless": {
-      "generated": "2026-11-24T05:23:15.312624+00:00",
+      "generated": "2026-11-25T04:20:43.285864+00:00",
       "points": [
         {
           "date": "2024-02-08",
@@ -12312,6 +12318,12 @@
           "index": 2201.33,
           "totalValue": 6217.36,
           "count": 31
+        },
+        {
+          "date": "2026-11-24",
+          "index": 2200.77,
+          "totalValue": 6215.77,
+          "count": 31
         }
       ],
       "baseValue": 1000.0,
@@ -12329,56 +12341,56 @@
         "products": 31
       },
       "returns": {
-        "asOf": "2026-11-23",
+        "asOf": "2026-11-24",
         "1D": {
           "available": true,
-          "pct": 0.09,
-          "from": "2026-11-22",
-          "to": "2026-11-23",
-          "fromIndex": 2199.41,
-          "toIndex": 2201.33,
+          "pct": -0.03,
+          "from": "2026-11-23",
+          "to": "2026-11-24",
+          "fromIndex": 2201.33,
+          "toIndex": 2200.77,
           "reason": null
         },
         "5D": {
           "available": true,
-          "pct": 0.05,
-          "from": "2026-11-18",
-          "to": "2026-11-23",
-          "fromIndex": 2200.14,
-          "toIndex": 2201.33,
+          "pct": 0.03,
+          "from": "2026-11-19",
+          "to": "2026-11-24",
+          "fromIndex": 2200.2,
+          "toIndex": 2200.77,
           "reason": null
         },
         "30D": {
           "available": true,
-          "pct": 1.15,
-          "from": "2026-10-24",
-          "to": "2026-11-23",
-          "fromIndex": 2176.33,
-          "toIndex": 2201.33,
+          "pct": 1.12,
+          "from": "2026-10-25",
+          "to": "2026-11-24",
+          "fromIndex": 2176.45,
+          "toIndex": 2200.77,
           "reason": null
         },
         "1Y": {
           "available": true,
-          "pct": 14.3,
-          "from": "2025-11-23",
-          "to": "2026-11-23",
-          "fromIndex": 1925.91,
-          "toIndex": 2201.33,
+          "pct": 14.27,
+          "from": "2025-11-24",
+          "to": "2026-11-24",
+          "fromIndex": 1925.88,
+          "toIndex": 2200.77,
           "reason": null
         },
         "YTD": {
           "available": true,
-          "pct": 12.19,
+          "pct": 12.16,
           "from": "2026-01-01",
-          "to": "2026-11-23",
+          "to": "2026-11-24",
           "fromIndex": 1962.2,
-          "toIndex": 2201.33,
+          "toIndex": 2200.77,
           "reason": null
         }
       }
     },
     "base-unlimited": {
-      "generated": "2026-11-24T05:23:15.312624+00:00",
+      "generated": "2026-11-25T04:20:43.285864+00:00",
       "points": [
         {
           "date": "2024-02-08",
@@ -18493,6 +18505,12 @@
           "index": 2186.92,
           "totalValue": 2112.5,
           "count": 31
+        },
+        {
+          "date": "2026-11-24",
+          "index": 2184.27,
+          "totalValue": 2109.94,
+          "count": 31
         }
       ],
       "baseValue": 1000.0,
@@ -18510,56 +18528,56 @@
         "products": 31
       },
       "returns": {
-        "asOf": "2026-11-23",
+        "asOf": "2026-11-24",
         "1D": {
           "available": true,
-          "pct": 0.07,
-          "from": "2026-11-22",
-          "to": "2026-11-23",
-          "fromIndex": 2185.39,
-          "toIndex": 2186.92,
+          "pct": -0.12,
+          "from": "2026-11-23",
+          "to": "2026-11-24",
+          "fromIndex": 2186.92,
+          "toIndex": 2184.27,
           "reason": null
         },
         "5D": {
           "available": true,
-          "pct": -0.07,
-          "from": "2026-11-18",
-          "to": "2026-11-23",
-          "fromIndex": 2188.35,
-          "toIndex": 2186.92,
+          "pct": -0.08,
+          "from": "2026-11-19",
+          "to": "2026-11-24",
+          "fromIndex": 2185.94,
+          "toIndex": 2184.27,
           "reason": null
         },
         "30D": {
           "available": true,
-          "pct": 2.46,
-          "from": "2026-10-24",
-          "to": "2026-11-23",
-          "fromIndex": 2134.34,
-          "toIndex": 2186.92,
+          "pct": 2.52,
+          "from": "2026-10-25",
+          "to": "2026-11-24",
+          "fromIndex": 2130.61,
+          "toIndex": 2184.27,
           "reason": null
         },
         "1Y": {
           "available": true,
-          "pct": 76.26,
-          "from": "2025-11-23",
-          "to": "2026-11-23",
-          "fromIndex": 1240.77,
-          "toIndex": 2186.92,
+          "pct": 76.22,
+          "from": "2025-11-24",
+          "to": "2026-11-24",
+          "fromIndex": 1239.5,
+          "toIndex": 2184.27,
           "reason": null
         },
         "YTD": {
           "available": true,
-          "pct": 68.1,
+          "pct": 67.89,
           "from": "2026-01-01",
-          "to": "2026-11-23",
+          "to": "2026-11-24",
           "fromIndex": 1300.99,
-          "toIndex": 2186.92,
+          "toIndex": 2184.27,
           "reason": null
         }
       }
     },
     "base-set-2": {
-      "generated": "2026-11-24T05:23:15.312624+00:00",
+      "generated": "2026-11-25T04:20:43.285864+00:00",
       "points": [
         {
           "date": "2024-02-08",
@@ -24674,6 +24692,12 @@
           "index": 2402.32,
           "totalValue": 1473.22,
           "count": 29
+        },
+        {
+          "date": "2026-11-24",
+          "index": 2408.79,
+          "totalValue": 1477.19,
+          "count": 29
         }
       ],
       "baseValue": 1000.0,
@@ -24691,50 +24715,50 @@
         "products": 29
       },
       "returns": {
-        "asOf": "2026-11-23",
+        "asOf": "2026-11-24",
         "1D": {
           "available": true,
-          "pct": 0.4,
-          "from": "2026-11-22",
-          "to": "2026-11-23",
-          "fromIndex": 2392.86,
-          "toIndex": 2402.32,
+          "pct": 0.27,
+          "from": "2026-11-23",
+          "to": "2026-11-24",
+          "fromIndex": 2402.32,
+          "toIndex": 2408.79,
           "reason": null
         },
         "5D": {
           "available": true,
-          "pct": 0.5,
-          "from": "2026-11-18",
-          "to": "2026-11-23",
-          "fromIndex": 2390.48,
-          "toIndex": 2402.32,
+          "pct": 0.59,
+          "from": "2026-11-19",
+          "to": "2026-11-24",
+          "fromIndex": 2394.77,
+          "toIndex": 2408.79,
           "reason": null
         },
         "30D": {
           "available": true,
-          "pct": 8.83,
-          "from": "2026-10-24",
-          "to": "2026-11-23",
-          "fromIndex": 2207.44,
-          "toIndex": 2402.32,
+          "pct": 9.17,
+          "from": "2026-10-25",
+          "to": "2026-11-24",
+          "fromIndex": 2206.44,
+          "toIndex": 2408.79,
           "reason": null
         },
         "1Y": {
           "available": true,
-          "pct": 74.38,
-          "from": "2025-11-23",
-          "to": "2026-11-23",
-          "fromIndex": 1377.63,
-          "toIndex": 2402.32,
+          "pct": 74.85,
+          "from": "2025-11-24",
+          "to": "2026-11-24",
+          "fromIndex": 1377.64,
+          "toIndex": 2408.79,
           "reason": null
         },
         "YTD": {
           "available": true,
-          "pct": 71.97,
+          "pct": 72.43,
           "from": "2026-01-01",
-          "to": "2026-11-23",
+          "to": "2026-11-24",
           "fromIndex": 1396.95,
-          "toIndex": 2402.32,
+          "toIndex": 2408.79,
           "reason": null
         }
       }
