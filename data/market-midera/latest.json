@@ -1,7 +1,7 @@
 {
-  "generated": "2026-11-25T04:20:44.069167+00:00",
-  "sourceStamp": "2026-11-24T20:05:37+0000",
-  "asOfDate": "2026-11-24",
+  "generated": "2026-11-26T03:39:27.339664+00:00",
+  "sourceStamp": "2026-11-25T20:06:00+0000",
+  "asOfDate": "2026-11-25",
   "priceSource": "TCGplayer Market Price (TickerMint history + TCGCSV daily snap)",
   "universe": "English DP→SM raw / ungraded chase singles (TCGPlayer Market, NM)",
   "staleDays": 70,
@@ -9,92 +9,67 @@
   "name": "Mid-era Top 50",
   "nameZh": "中世代 Top 50",
   "era": "DP-SM",
-  "index": 4883.92,
-  "prevIndex": 4862.82,
-  "change": 21.1,
-  "changePct": 0.43,
+  "index": 4885.36,
+  "prevIndex": 4883.92,
+  "change": 1.44,
+  "changePct": 0.03,
   "changeLabel": "vs previous snapshot",
   "divisor": 8.79424742687378,
   "baseValue": 1000.0,
   "baseDate": "2024-02-08",
   "listedCount": 50,
   "constituentCount": 50,
-  "totalValue": 42950.4,
-  "pricedToday": 48,
-  "listedUnpriced": [
-    {
-      "id": "87423",
-      "name": "Mewtwo",
-      "number": "9",
-      "rarity": "Promo",
-      "setName": "Rumble"
-    },
-    {
-      "id": "87406",
-      "name": "Mew - BW98",
-      "number": "BW98",
-      "rarity": "Promo",
-      "setName": "Black and White Promos"
-    }
-  ],
+  "totalValue": 42963.06,
+  "pricedToday": 50,
+  "listedUnpriced": [],
   "breadth": {
     "available": true,
-    "advancing": 4,
-    "declining": 1,
-    "unchanged": 43
+    "advancing": 2,
+    "declining": 2,
+    "unchanged": 46
   },
   "gainers": [
     {
-      "id": "183830",
-      "name": "Gengar & Mimikyu GX (Alternate Full Art)",
-      "number": "165/181",
-      "image": "https://tcgplayer-cdn.tcgplayer.com/product/183830_200w.jpg",
-      "setName": "SM - Team Up",
-      "price": 2600.92,
-      "prevPrice": 2445.57,
-      "changePct": 6.35
+      "id": "97052",
+      "name": "Team Aqua's Kyogre EX",
+      "number": "6/34",
+      "image": "https://tcgplayer-cdn.tcgplayer.com/product/97052_200w.jpg",
+      "setName": "Double Crisis",
+      "price": 687.4,
+      "prevPrice": 674.39,
+      "changePct": 1.93
     },
+    {
+      "id": "189316",
+      "name": "Gardevoir & Sylveon GX (205) (Alternate Full Art)",
+      "number": "205/214",
+      "image": "https://tcgplayer-cdn.tcgplayer.com/product/189316_200w.jpg",
+      "setName": "SM - Unbroken Bonds",
+      "price": 672.44,
+      "prevPrice": 665.31,
+      "changePct": 1.07
+    }
+  ],
+  "losers": [
     {
       "id": "123436",
       "name": "Pikachu EX - XY124",
       "number": "XY124",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/123436_200w.jpg",
       "setName": "XY Promos",
-      "price": 629.94,
-      "prevPrice": 616.6,
-      "changePct": 2.16
+      "price": 625.74,
+      "prevPrice": 629.94,
+      "changePct": -0.67
     },
     {
-      "id": "94683",
-      "name": "Gengar EX (114 Full Art)",
-      "number": "114/119",
-      "image": "https://tcgplayer-cdn.tcgplayer.com/product/94683_200w.jpg",
-      "setName": "XY - Phantom Forces",
-      "price": 828.92,
-      "prevPrice": 811.81,
-      "changePct": 2.11
-    },
-    {
-      "id": "94688",
-      "name": "M Gengar EX (121 Secret Rare)",
-      "number": "121/119",
-      "image": "https://tcgplayer-cdn.tcgplayer.com/product/94688_200w.jpg",
-      "setName": "XY - Phantom Forces",
-      "price": 514.1,
-      "prevPrice": 513.98,
-      "changePct": 0.02
-    }
-  ],
-  "losers": [
-    {
-      "id": "183964",
-      "name": "Magikarp & Wailord GX (Alternate Full Art)",
-      "number": "161/181",
-      "image": "https://tcgplayer-cdn.tcgplayer.com/product/183964_200w.jpg",
-      "setName": "SM - Team Up",
-      "price": 952.51,
-      "prevPrice": 952.87,
-      "changePct": -0.04
+      "id": "201338",
+      "name": "Arceus & Dialga & Palkia GX (Alternate Full Art)",
+      "number": "221/236",
+      "image": "https://tcgplayer-cdn.tcgplayer.com/product/201338_200w.jpg",
+      "setName": "SM - Cosmic Eclipse",
+      "price": 580.84,
+      "prevPrice": 584.12,
+      "changePct": -0.56
     }
   ],
   "top": [
@@ -206,7 +181,7 @@
       "number": "6/34",
       "rarity": "Ultra Rare",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/97052_200w.jpg",
-      "price": 674.39,
+      "price": 687.4,
       "printing": "Holofoil",
       "carried": false
     },
@@ -228,7 +203,7 @@
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/87423_200w.jpg",
       "price": 650.0,
       "printing": "Holofoil",
-      "carried": true
+      "carried": false
     },
     {
       "id": "87404",
@@ -576,7 +551,7 @@
       "number": "205/214",
       "rarity": "Ultra Rare",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/189316_200w.jpg",
-      "price": 665.31,
+      "price": 672.44,
       "printing": "Holofoil",
       "carried": false
     },
@@ -596,7 +571,7 @@
       "number": "221/236",
       "rarity": "Ultra Rare",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/201338_200w.jpg",
-      "price": 584.12,
+      "price": 580.84,
       "printing": "Holofoil",
       "carried": false
     },
@@ -658,7 +633,7 @@
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/87406_200w.jpg",
       "price": 496.66,
       "printing": "Holofoil",
-      "carried": true
+      "carried": false
     },
     {
       "id": "123436",
@@ -666,7 +641,7 @@
       "number": "XY124",
       "rarity": "Promo",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/123436_200w.jpg",
-      "price": 629.94,
+      "price": 625.74,
       "printing": "Holofoil",
       "carried": false
     },
@@ -715,7 +690,7 @@
       "prevPrice": 3857.8,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -731,7 +706,7 @@
       "prevPrice": 2717.32,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -744,10 +719,10 @@
       "setId": "2377",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/183830_200w.jpg",
       "price": 2600.92,
-      "prevPrice": 2445.57,
-      "changePct": 6.35,
+      "prevPrice": 2600.92,
+      "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -763,7 +738,7 @@
       "prevPrice": 1199.51,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -779,7 +754,7 @@
       "prevPrice": 1117.91,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -795,7 +770,7 @@
       "prevPrice": 1099.98,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -811,7 +786,7 @@
       "prevPrice": 1053.88,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -827,7 +802,7 @@
       "prevPrice": 999.99,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -843,7 +818,7 @@
       "prevPrice": 971.81,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -856,10 +831,10 @@
       "setId": "2377",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/183964_200w.jpg",
       "price": 952.51,
-      "prevPrice": 952.87,
-      "changePct": -0.04,
+      "prevPrice": 952.51,
+      "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -875,7 +850,7 @@
       "prevPrice": 946.33,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -891,7 +866,7 @@
       "prevPrice": 903.82,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -907,7 +882,7 @@
       "prevPrice": 900.96,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -923,7 +898,7 @@
       "prevPrice": 899.99,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -939,7 +914,7 @@
       "prevPrice": 877.96,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -955,7 +930,7 @@
       "prevPrice": 850.0,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -968,10 +943,10 @@
       "setId": "1494",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/94683_200w.jpg",
       "price": 828.92,
-      "prevPrice": 811.81,
-      "changePct": 2.11,
+      "prevPrice": 828.92,
+      "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -987,7 +962,7 @@
       "prevPrice": 822.1,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -1003,7 +978,7 @@
       "prevPrice": 796.23,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -1019,7 +994,7 @@
       "prevPrice": 794.4,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -1035,7 +1010,7 @@
       "prevPrice": 749.98,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -1051,7 +1026,7 @@
       "prevPrice": 743.45,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -1067,7 +1042,7 @@
       "prevPrice": 736.72,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -1083,7 +1058,7 @@
       "prevPrice": 706.25,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -1099,7 +1074,7 @@
       "prevPrice": 700.0,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -1115,7 +1090,7 @@
       "prevPrice": 698.99,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -1131,7 +1106,7 @@
       "prevPrice": 697.99,
       "changePct": 0.0,
       "printing": "Normal",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -1143,11 +1118,11 @@
       "setName": "Double Crisis",
       "setId": "1525",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/97052_200w.jpg",
-      "price": 674.39,
+      "price": 687.4,
       "prevPrice": 674.39,
-      "changePct": 0.0,
+      "changePct": 1.93,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -1159,11 +1134,11 @@
       "setName": "SM - Unbroken Bonds",
       "setId": "2420",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/189316_200w.jpg",
-      "price": 665.31,
+      "price": 672.44,
       "prevPrice": 665.31,
-      "changePct": 0.0,
+      "changePct": 1.07,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -1177,10 +1152,10 @@
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/87423_200w.jpg",
       "price": 650.0,
       "prevPrice": 650.0,
-      "changePct": null,
+      "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-18",
-      "carried": true
+      "pricedAsOf": "2026-11-25",
+      "carried": false
     },
     {
       "rank": 31,
@@ -1195,7 +1170,7 @@
       "prevPrice": 630.0,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -1207,11 +1182,11 @@
       "setName": "XY Promos",
       "setId": "1451",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/123436_200w.jpg",
-      "price": 629.94,
-      "prevPrice": 616.6,
-      "changePct": 2.16,
+      "price": 625.74,
+      "prevPrice": 629.94,
+      "changePct": -0.67,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -1227,7 +1202,7 @@
       "prevPrice": 623.74,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -1243,7 +1218,7 @@
       "prevPrice": 618.98,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -1259,7 +1234,7 @@
       "prevPrice": 599.99,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -1275,7 +1250,7 @@
       "prevPrice": 599.2,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -1287,11 +1262,11 @@
       "setName": "SM - Cosmic Eclipse",
       "setId": "2534",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/201338_200w.jpg",
-      "price": 584.12,
+      "price": 580.84,
       "prevPrice": 584.12,
-      "changePct": 0.0,
+      "changePct": -0.56,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -1307,7 +1282,7 @@
       "prevPrice": 580.83,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -1323,7 +1298,7 @@
       "prevPrice": 564.48,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -1339,7 +1314,7 @@
       "prevPrice": 561.22,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -1355,7 +1330,7 @@
       "prevPrice": 554.53,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -1371,7 +1346,7 @@
       "prevPrice": 532.51,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -1387,7 +1362,7 @@
       "prevPrice": 527.91,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -1400,10 +1375,10 @@
       "setId": "1494",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/94688_200w.jpg",
       "price": 514.1,
-      "prevPrice": 513.98,
-      "changePct": 0.02,
+      "prevPrice": 514.1,
+      "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -1419,7 +1394,7 @@
       "prevPrice": 504.98,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -1435,7 +1410,7 @@
       "prevPrice": 499.99,
       "changePct": 0.0,
       "printing": "Reverse Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -1451,7 +1426,7 @@
       "prevPrice": 499.0,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -1467,7 +1442,7 @@
       "prevPrice": 497.8,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     },
     {
@@ -1481,10 +1456,10 @@
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/87406_200w.jpg",
       "price": 496.66,
       "prevPrice": 496.66,
-      "changePct": null,
+      "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-23",
-      "carried": true
+      "pricedAsOf": "2026-11-25",
+      "carried": false
     },
     {
       "rank": 50,
@@ -1499,16 +1474,72 @@
       "prevPrice": 115.0,
       "changePct": 0.0,
       "printing": "Holofoil",
-      "pricedAsOf": "2026-11-24",
+      "pricedAsOf": "2026-11-25",
       "carried": false
     }
   ],
   "movers": {
     "1D": {
       "available": true,
-      "baselineDate": "2026-11-23",
+      "baselineDate": "2026-11-24",
       "neededBy": null,
       "label": "vs previous snapshot",
+      "gainers": [
+        {
+          "id": "97052",
+          "name": "Team Aqua's Kyogre EX",
+          "number": "6/34",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/97052_200w.jpg",
+          "setName": "Double Crisis",
+          "price": 687.4,
+          "prevPrice": 674.39,
+          "changePct": 1.93
+        },
+        {
+          "id": "189316",
+          "name": "Gardevoir & Sylveon GX (205) (Alternate Full Art)",
+          "number": "205/214",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/189316_200w.jpg",
+          "setName": "SM - Unbroken Bonds",
+          "price": 672.44,
+          "prevPrice": 665.31,
+          "changePct": 1.07
+        }
+      ],
+      "losers": [
+        {
+          "id": "123436",
+          "name": "Pikachu EX - XY124",
+          "number": "XY124",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/123436_200w.jpg",
+          "setName": "XY Promos",
+          "price": 625.74,
+          "prevPrice": 629.94,
+          "changePct": -0.67
+        },
+        {
+          "id": "201338",
+          "name": "Arceus & Dialga & Palkia GX (Alternate Full Art)",
+          "number": "221/236",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/201338_200w.jpg",
+          "setName": "SM - Cosmic Eclipse",
+          "price": 580.84,
+          "prevPrice": 584.12,
+          "changePct": -0.56
+        }
+      ],
+      "breadth": {
+        "available": true,
+        "advancing": 2,
+        "declining": 2,
+        "unchanged": 46
+      }
+    },
+    "5D": {
+      "available": true,
+      "baselineDate": "2026-11-20",
+      "neededBy": "2026-11-20",
+      "label": "vs 2026-11-20",
       "gainers": [
         {
           "id": "183830",
@@ -1526,9 +1557,9 @@
           "number": "XY124",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/123436_200w.jpg",
           "setName": "XY Promos",
-          "price": 629.94,
-          "prevPrice": 616.6,
-          "changePct": 2.16
+          "price": 625.74,
+          "prevPrice": 604.52,
+          "changePct": 3.51
         },
         {
           "id": "94683",
@@ -1539,6 +1570,46 @@
           "price": 828.92,
           "prevPrice": 811.81,
           "changePct": 2.11
+        },
+        {
+          "id": "138497",
+          "name": "Charizard GX (Secret)",
+          "number": "150/147",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/138497_200w.jpg",
+          "setName": "SM - Burning Shadows",
+          "price": 877.96,
+          "prevPrice": 864.26,
+          "changePct": 1.59
+        },
+        {
+          "id": "98141",
+          "name": "M Rayquaza EX (105 Full Art)",
+          "number": "105/108",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/98141_200w.jpg",
+          "setName": "XY - Roaring Skies",
+          "price": 736.72,
+          "prevPrice": 727.01,
+          "changePct": 1.34
+        },
+        {
+          "id": "189316",
+          "name": "Gardevoir & Sylveon GX (205) (Alternate Full Art)",
+          "number": "205/214",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/189316_200w.jpg",
+          "setName": "SM - Unbroken Bonds",
+          "price": 672.44,
+          "prevPrice": 665.31,
+          "changePct": 1.07
+        },
+        {
+          "id": "197780",
+          "name": "Charizard GX",
+          "number": "SV49/SV94",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/197780_200w.jpg",
+          "setName": "Hidden Fates: Shiny Vault",
+          "price": 796.23,
+          "prevPrice": 790.27,
+          "changePct": 0.75
         },
         {
           "id": "94688",
@@ -1553,112 +1624,6 @@
       ],
       "losers": [
         {
-          "id": "183964",
-          "name": "Magikarp & Wailord GX (Alternate Full Art)",
-          "number": "161/181",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/183964_200w.jpg",
-          "setName": "SM - Team Up",
-          "price": 952.51,
-          "prevPrice": 952.87,
-          "changePct": -0.04
-        }
-      ],
-      "breadth": {
-        "available": true,
-        "advancing": 4,
-        "declining": 1,
-        "unchanged": 43
-      }
-    },
-    "5D": {
-      "available": true,
-      "baselineDate": "2026-11-19",
-      "neededBy": "2026-11-19",
-      "label": "vs 2026-11-19",
-      "gainers": [
-        {
-          "id": "183830",
-          "name": "Gengar & Mimikyu GX (Alternate Full Art)",
-          "number": "165/181",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/183830_200w.jpg",
-          "setName": "SM - Team Up",
-          "price": 2600.92,
-          "prevPrice": 2445.57,
-          "changePct": 6.35
-        },
-        {
-          "id": "123436",
-          "name": "Pikachu EX - XY124",
-          "number": "XY124",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/123436_200w.jpg",
-          "setName": "XY Promos",
-          "price": 629.94,
-          "prevPrice": 604.52,
-          "changePct": 4.2
-        },
-        {
-          "id": "138497",
-          "name": "Charizard GX (Secret)",
-          "number": "150/147",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/138497_200w.jpg",
-          "setName": "SM - Burning Shadows",
-          "price": 877.96,
-          "prevPrice": 845.39,
-          "changePct": 3.85
-        },
-        {
-          "id": "94683",
-          "name": "Gengar EX (114 Full Art)",
-          "number": "114/119",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/94683_200w.jpg",
-          "setName": "XY - Phantom Forces",
-          "price": 828.92,
-          "prevPrice": 811.81,
-          "changePct": 2.11
-        },
-        {
-          "id": "94688",
-          "name": "M Gengar EX (121 Secret Rare)",
-          "number": "121/119",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/94688_200w.jpg",
-          "setName": "XY - Phantom Forces",
-          "price": 514.1,
-          "prevPrice": 505.09,
-          "changePct": 1.78
-        },
-        {
-          "id": "98141",
-          "name": "M Rayquaza EX (105 Full Art)",
-          "number": "105/108",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/98141_200w.jpg",
-          "setName": "XY - Roaring Skies",
-          "price": 736.72,
-          "prevPrice": 727.01,
-          "changePct": 1.34
-        },
-        {
-          "id": "197780",
-          "name": "Charizard GX",
-          "number": "SV49/SV94",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/197780_200w.jpg",
-          "setName": "Hidden Fates: Shiny Vault",
-          "price": 796.23,
-          "prevPrice": 790.27,
-          "changePct": 0.75
-        },
-        {
-          "id": "201338",
-          "name": "Arceus & Dialga & Palkia GX (Alternate Full Art)",
-          "number": "221/236",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/201338_200w.jpg",
-          "setName": "SM - Cosmic Eclipse",
-          "price": 584.12,
-          "prevPrice": 582.22,
-          "changePct": 0.33
-        }
-      ],
-      "losers": [
-        {
           "id": "84193",
           "name": "Charizard",
           "number": "136/135",
@@ -1669,24 +1634,34 @@
           "changePct": -23.23
         },
         {
-          "id": "97052",
-          "name": "Team Aqua's Kyogre EX",
-          "number": "6/34",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/97052_200w.jpg",
-          "setName": "Double Crisis",
-          "price": 674.39,
-          "prevPrice": 709.7,
-          "changePct": -4.98
-        },
-        {
           "id": "146698",
           "name": "Mewtwo GX (Secret Shining)",
           "number": "78/73",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/146698_200w.jpg",
           "setName": "Shining Legends",
           "price": 794.4,
-          "prevPrice": 816.65,
-          "changePct": -2.72
+          "prevPrice": 804.59,
+          "changePct": -1.27
+        },
+        {
+          "id": "97052",
+          "name": "Team Aqua's Kyogre EX",
+          "number": "6/34",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/97052_200w.jpg",
+          "setName": "Double Crisis",
+          "price": 687.4,
+          "prevPrice": 692.03,
+          "changePct": -0.67
+        },
+        {
+          "id": "201338",
+          "name": "Arceus & Dialga & Palkia GX (Alternate Full Art)",
+          "number": "221/236",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/201338_200w.jpg",
+          "setName": "SM - Cosmic Eclipse",
+          "price": 580.84,
+          "prevPrice": 582.22,
+          "changePct": -0.24
         },
         {
           "id": "183964",
@@ -1702,15 +1677,15 @@
       "breadth": {
         "available": true,
         "advancing": 8,
-        "declining": 4,
-        "unchanged": 36
+        "declining": 5,
+        "unchanged": 37
       }
     },
     "30D": {
       "available": true,
-      "baselineDate": "2026-10-25",
-      "neededBy": "2026-10-25",
-      "label": "vs 2026-10-25",
+      "baselineDate": "2026-10-26",
+      "neededBy": "2026-10-26",
+      "label": "vs 2026-10-26",
       "gainers": [
         {
           "id": "83897",
@@ -1758,9 +1733,9 @@
           "number": "XY124",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/123436_200w.jpg",
           "setName": "XY Promos",
-          "price": 629.94,
+          "price": 625.74,
           "prevPrice": 499.82,
-          "changePct": 26.03
+          "changePct": 25.19
         },
         {
           "id": "85926",
@@ -1783,6 +1758,16 @@
           "changePct": 18.93
         },
         {
+          "id": "87423",
+          "name": "Mewtwo",
+          "number": "9",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/87423_200w.jpg",
+          "setName": "Rumble",
+          "price": 650.0,
+          "prevPrice": 550.0,
+          "changePct": 18.18
+        },
+        {
           "id": "126022",
           "name": "Charizard - 11/108 (Prerelease)",
           "number": "11/108",
@@ -1791,16 +1776,6 @@
           "price": 564.48,
           "prevPrice": 479.99,
           "changePct": 17.6
-        },
-        {
-          "id": "84777",
-          "name": "Deoxys EX (Team Plasma) (Full Art)",
-          "number": "111/116",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/84777_200w.jpg",
-          "setName": "Plasma Freeze",
-          "price": 903.82,
-          "prevPrice": 791.01,
-          "changePct": 14.26
         },
         {
           "id": "94683",
@@ -1900,24 +1875,24 @@
           "number": "205/214",
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/189316_200w.jpg",
           "setName": "SM - Unbroken Bonds",
-          "price": 665.31,
+          "price": 672.44,
           "prevPrice": 708.55,
-          "changePct": -6.1
+          "changePct": -5.1
         },
         {
-          "id": "101520",
-          "name": "M Rayquaza EX (Shiny Full Art)",
-          "number": "98/98",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/101520_200w.jpg",
-          "setName": "XY - Ancient Origins",
-          "price": 1117.91,
-          "prevPrice": 1172.0,
-          "changePct": -4.62
+          "id": "146698",
+          "name": "Mewtwo GX (Secret Shining)",
+          "number": "78/73",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/146698_200w.jpg",
+          "setName": "Shining Legends",
+          "price": 794.4,
+          "prevPrice": 823.04,
+          "changePct": -3.48
         }
       ],
       "breadth": {
         "available": true,
-        "advancing": 21,
+        "advancing": 23,
         "declining": 13,
         "unchanged": 14
       }
@@ -1925,7 +1900,7 @@
     "1Y": {
       "available": true,
       "baselineDate": "2025-11-20",
-      "neededBy": "2025-11-24",
+      "neededBy": "2025-11-25",
       "label": "vs 2025-11-20",
       "gainers": [
         {
@@ -1937,6 +1912,16 @@
           "price": 971.81,
           "prevPrice": 58.86,
           "changePct": 1551.05
+        },
+        {
+          "id": "87423",
+          "name": "Mewtwo",
+          "number": "9",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/87423_200w.jpg",
+          "setName": "Rumble",
+          "price": 650.0,
+          "prevPrice": 60.48,
+          "changePct": 974.74
         },
         {
           "id": "86916",
@@ -1967,6 +1952,16 @@
           "price": 850.0,
           "prevPrice": 144.17,
           "changePct": 489.58
+        },
+        {
+          "id": "87406",
+          "name": "Mew - BW98",
+          "number": "BW98",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/87406_200w.jpg",
+          "setName": "Black and White Promos",
+          "price": 496.66,
+          "prevPrice": 100.0,
+          "changePct": 396.66
         },
         {
           "id": "88536",
@@ -2007,26 +2002,6 @@
           "price": 580.83,
           "prevPrice": 148.63,
           "changePct": 290.79
-        },
-        {
-          "id": "88638",
-          "name": "Rayquaza & Deoxys Legend (Top)",
-          "number": "89/90",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/88638_200w.jpg",
-          "setName": "Undaunted",
-          "price": 599.2,
-          "prevPrice": 153.61,
-          "changePct": 290.08
-        },
-        {
-          "id": "84777",
-          "name": "Deoxys EX (Team Plasma) (Full Art)",
-          "number": "111/116",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/84777_200w.jpg",
-          "setName": "Plasma Freeze",
-          "price": 903.82,
-          "prevPrice": 253.66,
-          "changePct": 256.31
         }
       ],
       "losers": [
@@ -2063,7 +2038,7 @@
       ],
       "breadth": {
         "available": true,
-        "advancing": 45,
+        "advancing": 47,
         "declining": 3,
         "unchanged": 0
       }
@@ -2103,6 +2078,16 @@
           "price": 850.0,
           "prevPrice": 144.17,
           "changePct": 489.58
+        },
+        {
+          "id": "87406",
+          "name": "Mew - BW98",
+          "number": "BW98",
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/87406_200w.jpg",
+          "setName": "Black and White Promos",
+          "price": 496.66,
+          "prevPrice": 100.0,
+          "changePct": 396.66
         },
         {
           "id": "88536",
@@ -2163,16 +2148,6 @@
           "price": 599.99,
           "prevPrice": 179.32,
           "changePct": 234.59
-        },
-        {
-          "id": "88638",
-          "name": "Rayquaza & Deoxys Legend (Top)",
-          "number": "89/90",
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/88638_200w.jpg",
-          "setName": "Undaunted",
-          "price": 599.2,
-          "prevPrice": 179.89,
-          "changePct": 233.09
         }
       ],
       "losers": [
@@ -2229,7 +2204,7 @@
       ],
       "breadth": {
         "available": true,
-        "advancing": 43,
+        "advancing": 45,
         "declining": 5,
         "unchanged": 0
       }
@@ -2237,8 +2212,8 @@
   },
   "snapshotRange": {
     "earliest": "2024-12-26",
-    "latest": "2026-11-24",
-    "count": 96
+    "latest": "2026-11-25",
+    "count": 97
   },
   "backfill": {
     "source": "tickermint",
