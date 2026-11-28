@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-27T03:41:15.948379+00:00",
+  "generated": "2026-11-28T03:22:24.853078+00:00",
   "baseDate": "2024-02-08",
   "baseValue": 1000.0,
   "archiveStart": "2024-02-08",
@@ -1136,53 +1136,59 @@
       "index": 2910.64,
       "totalValue": 325718.46,
       "count": 500
+    },
+    {
+      "date": "2026-11-27",
+      "index": 2912.12,
+      "totalValue": 326236.81,
+      "count": 500
     }
   ],
   "returns": {
-    "asOf": "2026-11-26",
+    "asOf": "2026-11-27",
     "1D": {
       "available": true,
-      "pct": -0.1,
-      "from": "2026-11-25",
-      "to": "2026-11-26",
-      "fromIndex": 2913.49,
-      "toIndex": 2910.64,
+      "pct": 0.05,
+      "from": "2026-11-26",
+      "to": "2026-11-27",
+      "fromIndex": 2910.64,
+      "toIndex": 2912.12,
       "reason": null
     },
     "5D": {
       "available": true,
-      "pct": -0.76,
-      "from": "2026-11-21",
-      "to": "2026-11-26",
-      "fromIndex": 2933.07,
-      "toIndex": 2910.64,
+      "pct": -0.58,
+      "from": "2026-11-22",
+      "to": "2026-11-27",
+      "fromIndex": 2929.25,
+      "toIndex": 2912.12,
       "reason": null
     },
     "30D": {
       "available": true,
-      "pct": -1.15,
-      "from": "2026-10-27",
-      "to": "2026-11-26",
-      "fromIndex": 2944.44,
-      "toIndex": 2910.64,
+      "pct": -1.66,
+      "from": "2026-10-28",
+      "to": "2026-11-27",
+      "fromIndex": 2961.35,
+      "toIndex": 2912.12,
       "reason": null
     },
     "1Y": {
       "available": true,
-      "pct": 63.73,
-      "from": "2025-11-20",
-      "to": "2026-11-26",
-      "fromIndex": 1777.75,
-      "toIndex": 2910.64,
+      "pct": 62.2,
+      "from": "2025-11-27",
+      "to": "2026-11-27",
+      "fromIndex": 1795.39,
+      "toIndex": 2912.12,
       "reason": null
     },
     "YTD": {
       "available": true,
-      "pct": 59.4,
+      "pct": 59.48,
       "from": "2026-01-01",
-      "to": "2026-11-26",
+      "to": "2026-11-27",
       "fromIndex": 1825.96,
-      "toIndex": 2910.64,
+      "toIndex": 2912.12,
       "reason": null
     }
   }
